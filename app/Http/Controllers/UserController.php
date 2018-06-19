@@ -29,10 +29,6 @@ class UserController extends Controller
     {
         $title = trans('app.users');
 
-        if(env('APP_DEMO') == true){
-            return view('admin.no_data_for_demo', compact('title'));
-        }
-
         return view('admin.users', compact('title'));
     }
 

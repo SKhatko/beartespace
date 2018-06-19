@@ -9,18 +9,18 @@
     left: 25px;
     right: auto;
 }
-.ad-box-premium{
+.rtl .ad-box-premium{
     left: 0;
     right: auto;
     border-right: 1px solid #ddd;
     border-left: none;
 }
 
-.radio input[type="radio"], .radio-inline input[type="radio"], .checkbox input[type="checkbox"], .checkbox-inline input[type="checkbox"]{
+.rtl .radio input[type="radio"], .radio-inline input[type="radio"], .checkbox input[type="checkbox"], .checkbox-inline input[type="checkbox"]{
     margin-left: 0;
     position: relative;
 }
-.home-stats-box i{
+.rtl .home-stats-box i{
     padding-right: 0;
     padding-left: 20px;
 }

@@ -662,7 +662,6 @@ return [
     'enable_twitter_login'              => 'Enable Twitter Login',
     'consumer_key'                      => 'Consumer Key (API Key)',
     'consumer_secret'                   => 'Consumer Key (API Secret)',
-    'settings_disable_in_demo_msg'      => 'Settings will not save in the demo',
     'is_rtl'                            => 'Is RLT',
     'rtl'                               => 'RLT',
     'language'                          => 'Language',

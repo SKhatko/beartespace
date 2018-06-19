@@ -15,17 +15,7 @@ class AppServiceProvider extends ServiceProvider
      * @return void
      */
     public function boot(){
-        //Check if app is demo?
-        if (env('APP_DEMO') == true){
-            //Set default country to US if demo
-            if ( ! session('country')){
-                $country = Country::whereCountryCode('US')->first();
-                if ($country){
-                    //Setting default country
-                    //session(['country' => $country->toArray()]);
-                }
-            }
-        }
+
         /**
          * Set dynamic configuration for third party services
          */

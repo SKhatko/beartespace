@@ -10,26 +10,16 @@
 
     <title>@section('title') {{ get_option('site_title') }} @show</title>
 
+    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
-    <!-- bootstrap css -->
-    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap-theme.min.css') }}">
-    <!-- Font awesome 4.4.0 -->
-    <link rel="stylesheet" href="{{ asset('assets/font-awesome-4.4.0/css/font-awesome.min.css') }}">
-    <!-- load page specific css -->
+    {{--<link rel="stylesheet" href="{{ asset('assets/css/bootstrap-theme.min.css') }}">--}}
 
-    <!-- main select2.css -->
-    <link href="{{ asset('assets/select2-4.0.3/css/select2.css') }}" rel="stylesheet" />
-    <link rel="stylesheet" href="{{ asset('assets/plugins/toastr/toastr.min.css') }}">
 
-    <!-- Conditional page load script -->
+<!-- Conditional page load script -->
     @if(request()->segment(1) === 'dashboard')
         <link rel="stylesheet" href="{{ asset('assets/css/admin.css') }}">
         <link rel="stylesheet" href="{{ asset('assets/plugins/metisMenu/dist/metisMenu.min.css') }}">
     @endif
-
-<!-- main style.css -->
-    <link rel="stylesheet" href="{{ asset("assets/css/style.css") }}">
 
     @if(is_rtl())
         <link rel="stylesheet" href="{{ asset("assets/css/rtl.css") }}">
@@ -51,10 +41,6 @@
 </head>
 <body class="@if(is_rtl()) rtl @endif">
 <div id="app">
-
-    @if(env('APP_DEMO') == true)
-        @include('demobar')
-    @endif
     <div id="sub-header">
         <div class="container">
             <div class="row">
@@ -70,22 +56,22 @@
                         @endphp
                         <ul>
                             @if($facebook_url)
-                                <li><a href="{{$facebook_url}}"><i class="fa fa-facebook"></i> </a> </li>
+                                <li><a href="{{$facebook_url}}"><i class="fa fa-facebook"></i> </a></li>
                             @endif
                             @if($twitter_url)
-                                <li><a href="{{$twitter_url}}"><i class="fa fa-twitter"></i> </a> </li>
+                                <li><a href="{{$twitter_url}}"><i class="fa fa-twitter"></i> </a></li>
                             @endif
                             @if($google_plus_url)
-                                <li><a href="{{$google_plus_url}}"><i class="fa fa-google-plus"></i> </a> </li>
+                                <li><a href="{{$google_plus_url}}"><i class="fa fa-google-plus"></i> </a></li>
                             @endif
                             @if($youtube_url)
-                                <li><a href="{{$youtube_url}}"><i class="fa fa-youtube"></i> </a> </li>
+                                <li><a href="{{$youtube_url}}"><i class="fa fa-youtube"></i> </a></li>
                             @endif
                             @if($linked_in_url)
-                                <li><a href="{{$linked_in_url}}"><i class="fa fa-linkedin"></i> </a> </li>
+                                <li><a href="{{$linked_in_url}}"><i class="fa fa-linkedin"></i> </a></li>
                             @endif
                             @if($dribble_url)
-                                <li><a href="{{$dribble_url}}"><i class="fa fa-dribbble"></i> </a> </li>
+                                <li><a href="{{$dribble_url}}"><i class="fa fa-dribbble"></i> </a></li>
                             @endif
                         </ul>
                     </div>
@@ -96,11 +82,16 @@
                             @if(get_option('enable_language_switcher') == 1)
 
                                 <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> @if($current_lang) {{$current_lang->language_name}} @else @lang('app.language') @endif <span class="caret"></span></a>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                       aria-haspopup="true"
+                                       aria-expanded="false"> @if($current_lang) {{$current_lang->language_name}} @else @lang('app.language') @endif
+                                        <span class="caret"></span></a>
                                     <ul class="dropdown-menu">
                                         <li><a href="{{ route('switch_language', 'en') }}">English</a></li>
                                         @foreach(get_languages() as $lang)
-                                            <li><a href="{{ route('switch_language', $lang->language_code) }}">{{ $lang->language_name }}</a></li>
+                                            <li>
+                                                <a href="{{ route('switch_language', $lang->language_code) }}">{{ $lang->language_name }}</a>
+                                            </li>
                                         @endforeach
                                     </ul>
                                 </li>
@@ -112,12 +103,15 @@
                                 <li><a href="{{ route('register') }}">@lang('app.register')</a></li>
                             @else
                                 <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                        {{ auth()->user()->name }} <span class="headerAvatar"> <img src="{{auth()->user()->get_gravatar()}}" /> </span> <span class="caret"></span>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                       aria-expanded="false">
+                                        {{ auth()->user()->name }} <span class="headerAvatar"> <img
+                                                    src="{{auth()->user()->get_gravatar()}}"/> </span> <span
+                                                class="caret"></span>
                                     </a>
 
                                     <ul class="dropdown-menu" role="menu">
-                                        <li><a href="{{route('dashboard')}}"> @lang('app.dashboard') </a> </li>
+                                        <li><a href="{{route('dashboard')}}"> @lang('app.dashboard') </a></li>
                                         <li>
                                             <a href="{{ route('logout') }}"
                                                onclick="event.preventDefault();
@@ -125,14 +119,14 @@
                                                 @lang('app.logout')
                                             </a>
 
-                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                                  style="display: none;">
                                                 {{ csrf_field() }}
                                             </form>
                                         </li>
                                     </ul>
                                 </li>
                             @endif
-
 
 
                         </ul>
@@ -148,7 +142,8 @@
             <div class="navbar-header">
 
                 <!-- Collapsed Hamburger -->
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#app-navbar-collapse">
                     <span class="sr-only">Toggle Navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -157,20 +152,20 @@
 
                 <!-- Branding Image -->
                 <a class="navbar-brand" href="{{ route('home') }}">
-                    <img src="{{ logo_url() }}" title="{{get_option('site_name')}}" alt="{{get_option('site_name')}}" />
+                    <img src="{{ logo_url() }}" title="{{get_option('site_name')}}" alt="{{get_option('site_name')}}"/>
                 </a>
             </div>
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    &nbsp;<li><a href="{{route('home')}}">@lang('app.home')</a> </li>
+                    &nbsp;<li><a href="{{route('home')}}">@lang('app.home')</a></li>
                     @if($header_menu_pages->count() > 0)
                         @foreach($header_menu_pages as $page)
                             <li><a href="{{ route('single_page', $page->slug) }}">{{ $page->title }} </a></li>
                         @endforeach
                     @endif
-                    &nbsp;<li><a href="{{route('create_ad')}}">@lang('app.post_an_ad')</a> </li>
+                    &nbsp;<li><a href="{{route('create_ad')}}">@lang('app.post_an_ad')</a></li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->
@@ -179,13 +174,16 @@
 
 
                     <li>
-                        <p><a href="#" id="example-show" class="showLink" onclick="showHide('example');return false;" style="display: inline;"><i class="fa fa-search"></i></a></p>
+                        <p><a href="#" id="example-show" class="showLink" onclick="showHide('example');return false;"
+                              style="display: inline;"><i class="fa fa-search"></i></a></p>
                         <div id="example" class="more" style="display: none;">
                             {!! Form::open(['route' => 'search_redirect','method' => 'get', 'class' => 'form-inline']) !!}
-                            <input type="text" class="form-control" id="searchKeyword" name="q" placeholder="@lang('app.what_are_u_looking')">
+                            <input type="text" class="form-control" id="searchKeyword" name="q"
+                                   placeholder="@lang('app.what_are_u_looking')">
 
                             {!! Form::close() !!}
-                            <p><a href="#" id="example-hide" class="hideLink" onclick="showHide('example');return false;"><i class="fa fa-close"></i></a></p>
+                            <p><a href="#" id="example-hide" class="hideLink"
+                                  onclick="showHide('example');return false;"><i class="fa fa-close"></i></a></p>
                         </div>
                     </li>
 
@@ -202,7 +200,7 @@
                 <div class="col-md-12">
 
                     <ul class="footer-menu">
-                        <li> <a href="{{ route('home') }}"><i class="fa fa-home"></i> @lang('app.home')</a></li>
+                        <li><a href="{{ route('home') }}"><i class="fa fa-home"></i> @lang('app.home')</a></li>
 
                         @if($show_in_footer_menu->count() > 0)
                             @foreach($show_in_footer_menu as $page)
@@ -231,22 +229,22 @@
                         @endphp
                         <ul>
                             @if($facebook_url)
-                                <li><a href="{{$facebook_url}}"><i class="fa fa-facebook"></i> </a> </li>
+                                <li><a href="{{$facebook_url}}"><i class="fa fa-facebook"></i> </a></li>
                             @endif
                             @if($twitter_url)
-                                <li><a href="{{$twitter_url}}"><i class="fa fa-twitter"></i> </a> </li>
+                                <li><a href="{{$twitter_url}}"><i class="fa fa-twitter"></i> </a></li>
                             @endif
                             @if($google_plus_url)
-                                <li><a href="{{$google_plus_url}}"><i class="fa fa-google-plus"></i> </a> </li>
+                                <li><a href="{{$google_plus_url}}"><i class="fa fa-google-plus"></i> </a></li>
                             @endif
                             @if($youtube_url)
-                                <li><a href="{{$youtube_url}}"><i class="fa fa-youtube"></i> </a> </li>
+                                <li><a href="{{$youtube_url}}"><i class="fa fa-youtube"></i> </a></li>
                             @endif
                             @if($linked_in_url)
-                                <li><a href="{{$linked_in_url}}"><i class="fa fa-linkedin"></i> </a> </li>
+                                <li><a href="{{$linked_in_url}}"><i class="fa fa-linkedin"></i> </a></li>
                             @endif
                             @if($dribble_url)
-                                <li><a href="{{$dribble_url}}"><i class="fa fa-dribbble"></i> </a> </li>
+                                <li><a href="{{$dribble_url}}"><i class="fa fa-dribbble"></i> </a></li>
                             @endif
                         </ul>
                     </div>
@@ -269,14 +267,17 @@
 @if(request()->segment(1) === 'dashboard')
     <script src="{{ asset('assets/plugins/metisMenu/dist/metisMenu.min.js') }}"></script>
     <script>
-        $(function() {
+        $(function () {
             $('#side-menu').metisMenu();
         });
     </script>
 @endif
 <script src="{{ asset('assets/js/main.js') }}"></script>
+
+<script src="{{ mix('js/app.js') }}"></script>
+
 <script>
-    var toastr_options = {closeButton : true};
+    var toastr_options = {closeButton: true};
 </script>
 
 @if(get_option('additional_js'))
