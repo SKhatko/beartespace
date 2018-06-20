@@ -11,6 +11,9 @@ try {
     window.$ = window.jQuery = require('jquery');
 
     require('bootstrap-sass');
+    require('metismenu');
+    require('select2');
+    require('bootstrap-filestyle')
 } catch (e) {}
 
 /**

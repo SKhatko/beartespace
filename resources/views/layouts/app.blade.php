@@ -10,19 +10,15 @@
 
     <title>@section('title') {{ get_option('site_title') }} @show</title>
 
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
-    {{--<link rel="stylesheet" href="{{ asset('assets/css/bootstrap-theme.min.css') }}">--}}
+{{--<link rel="stylesheet" href="{{ asset('assets/css/bootstrap-theme.min.css') }}">--}}
 
 
 <!-- Conditional page load script -->
     @if(request()->segment(1) === 'dashboard')
-        <link rel="stylesheet" href="{{ asset('assets/css/admin.css') }}">
-        <link rel="stylesheet" href="{{ asset('assets/plugins/metisMenu/dist/metisMenu.min.css') }}">
-    @endif
-
-    @if(is_rtl())
-        <link rel="stylesheet" href="{{ asset("assets/css/rtl.css") }}">
+        <!-- include admin -->
     @endif
 
     @yield('page-css')
@@ -33,7 +29,6 @@
         </style>
     @endif
 
-    <script src="{{ asset('assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js') }}"></script>
     <script type="text/javascript">
         window.jsonData = {!! frontendLocalisedJson() !!};
     </script>
@@ -174,16 +169,15 @@
 
 
                     <li>
-                        <p><a href="#" id="example-show" class="showLink" onclick="showHide('example');return false;"
+                        <p><a href="#" id="example-show" class="showLink" @click="searchInput = !searchInput"
                               style="display: inline;"><i class="fa fa-search"></i></a></p>
-                        <div id="example" class="more" style="display: none;">
-                            {!! Form::open(['route' => 'search_redirect','method' => 'get', 'class' => 'form-inline']) !!}
-                            <input type="text" class="form-control" id="searchKeyword" name="q"
-                                   placeholder="@lang('app.what_are_u_looking')">
+                        <div class="more" v-if="searchInput">
+                            <form action="{{ route('search_redirect') }}" class="form-inline">
+                                <input type="text" class="form-control" id="searchKeyword" name="q"
+                                       placeholder="@lang('app.what_are_u_looking')">
+                            </form>
 
-                            {!! Form::close() !!}
-                            <p><a href="#" id="example-hide" class="hideLink"
-                                  onclick="showHide('example');return false;"><i class="fa fa-close"></i></a></p>
+                            <p><a href="#" class="hideLink" @click="searchInput = false"><i class="fa fa-close"></i></a></p>
                         </div>
                     </li>
 
@@ -258,27 +252,20 @@
 </div>
 
 
-<script src="{{ asset('assets/js/vendor/jquery-1.11.2.min.js') }}"></script>
-<script src="{{ asset('assets/js/vendor/bootstrap.min.js') }}"></script>
-<script src="{{ asset('assets/plugins/toastr/toastr.min.js') }}"></script>
-<script src="{{ asset('assets/select2-4.0.3/js/select2.min.js') }}"></script>
+{{--<script src="{{ asset('assets/js/vendor/jquery-1.11.2.min.js') }}"></script>--}}
+{{--<script src="{{ asset('assets/js/vendor/bootstrap.min.js') }}"></script>--}}
+{{--<script src="{{ asset('assets/plugins/toastr/toastr.min.js') }}"></script>--}}
+{{--<script src="{{ asset('assets/select2-4.0.3/js/select2.min.js') }}"></script>--}}
 
 <!-- Conditional page load script -->
 @if(request()->segment(1) === 'dashboard')
-    <script src="{{ asset('assets/plugins/metisMenu/dist/metisMenu.min.js') }}"></script>
     <script>
-        $(function () {
-            $('#side-menu').metisMenu();
-        });
+
     </script>
 @endif
-<script src="{{ asset('assets/js/main.js') }}"></script>
 
 <script src="{{ mix('js/app.js') }}"></script>
 
-<script>
-    var toastr_options = {closeButton: true};
-</script>
 
 @if(get_option('additional_js'))
     {!! get_option('additional_js') !!}

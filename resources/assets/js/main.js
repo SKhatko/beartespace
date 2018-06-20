@@ -1,20 +1,52 @@
 $(function () {
     $('[data-toggle="tooltip"]').tooltip();
-});
 
-//Select 2 initiate
-$('select.select2').select2();
-$("select.select2NoSearch").select2({
-    minimumResultsForSearch: Infinity
-});
+
+    //Select 2 initiate
+    $('select.select2').select2();
+
+    $("select.select2NoSearch").select2({
+        minimumResultsForSearch: Infinity
+    });
+
+    $('#side-menu').metisMenu();
+
+    $("select.select2icon").select2({
+        formatResult: fa_icon_format
+    });
+
+    var countDownWrap = $('.countdown');
+    var toastr_options = {closeButton: true};
+
+    if (countDownWrap.length) {
+        var i;
+        for (i = 0; i < countDownWrap.length; i++) {
+            var countDownItem = countDownWrap[i];
+
+            var endtime = countDownItem.getAttribute('data-expire-date');
+
+            var timeinterval = setInterval(function(countDownItem, endtime){
+                var t = getTimeRemaining(endtime);
+                var clockHtml = '<b>'+jsonData.time_remaining+'</b> ' + t.days + ' days ' + t.hours + ':' + t.minutes +':' +t.seconds;
+
+                $(countDownItem).html(clockHtml);
+                if(t.total<=0){
+                    clearInterval(timeinterval);
+                    $(countDownItem).html('Bid Time Expired');
+                }
+            },1000, countDownItem, endtime);
+        }
+    }
+
+
+}());
+
+
 
 function fa_icon_format(icon) {
     var originalOption = icon.element;
     return '<i class="fa ' + $(originalOption).data('icon') + '"></i> ' + icon.text;
 }
-$("select.select2icon").select2({
-    formatResult: fa_icon_format
-});
 
 
 //Loads the correct sidebar on window load,
@@ -101,19 +133,6 @@ $(document).bind('scroll', make_sticky_menu);
 
 
 
-function showHide(shID) {
-    if (document.getElementById(shID)) {
-        if (document.getElementById(shID+'-show').style.display != 'none') {
-            document.getElementById(shID+'-show').style.display = 'none';
-            document.getElementById(shID).style.display = 'block';
-        }
-        else {
-            document.getElementById(shID+'-show').style.display = 'inline';
-            document.getElementById(shID).style.display = 'none';
-        }
-    }
-}
-
 function getTimeRemaining(endtime){
     var t = Date.parse(endtime) - Date.parse(new Date());
     var seconds = Math.floor( (t/1000) % 60 );
@@ -128,28 +147,3 @@ function getTimeRemaining(endtime){
         'seconds': seconds
     };
 }
-
-
-$(document).ready(function(){
-    var countDownWrap = $('.countdown');
-
-    if (countDownWrap.length) {
-        var i;
-        for (i = 0; i < countDownWrap.length; i++) {
-            var countDownItem = countDownWrap[i];
-
-            var endtime = countDownItem.getAttribute('data-expire-date');
-
-            var timeinterval = setInterval(function(countDownItem, endtime){
-                var t = getTimeRemaining(endtime);
-                var clockHtml = '<b>'+jsonData.time_remaining+'</b> ' + t.days + ' days ' + t.hours + ':' + t.minutes +':' +t.seconds;
-
-                $(countDownItem).html(clockHtml);
-                if(t.total<=0){
-                    clearInterval(timeinterval);
-                    $(countDownItem).html('Bid Time Expired');
-                }
-            },1000, countDownItem, endtime);
-        }
-    }
-});

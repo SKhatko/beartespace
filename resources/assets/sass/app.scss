@@ -1,7 +1,3 @@
-
-// Fonts
-@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
-
 // Variables
 @import "variables";
 
@@ -10,8 +6,14 @@
 @import "~font-awesome/css/font-awesome";
 @import "~select2/dist/css/select2";
 @import "~toastr/build/toastr";
-
-
+@import "~metismenu/dist/metisMenu";
 
 @import "style";
+@import "admin";
+@import "rtl";
+
+body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+}
 

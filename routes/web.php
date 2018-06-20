@@ -10,15 +10,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-/**
- * @project: oClassifieds
- * @website: https://themeqx.com
- */
 
 Auth::routes();
-
-Route::get('installation', ['as' => 'installation', 'uses'=>'HomeController@installation']);
-Route::post('installation', [ 'uses'=>'HomeController@installationPost']);
 
 Route::get('/', ['as' => 'home', 'uses'=>'HomeController@index']);
 Route::get('LanguageSwitch/{lang}', ['as' => 'switch_language', 'uses'=>'HomeController@switchLang']);
