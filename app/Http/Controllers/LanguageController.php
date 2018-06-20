@@ -46,6 +46,16 @@ class LanguageController extends Controller
         return ['success' => 0, 'msg' => trans('app.error_msg')];
 
     }
+
+
+	/**
+	 * Switch Language
+	 */
+	public function switchLang( $lang ) {
+		session( [ 'lang' => $lang ] );
+
+		return back();
+	}
     
 
 }
