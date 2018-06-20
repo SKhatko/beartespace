@@ -13,7 +13,8 @@ try {
     require('bootstrap-sass');
     require('metismenu');
     require('select2');
-    require('bootstrap-filestyle')
+    require('bootstrap-filestyle');
+    require('toastr')
 } catch (e) {}
 
 /**
