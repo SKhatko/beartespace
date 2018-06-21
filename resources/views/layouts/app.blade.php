@@ -37,62 +37,74 @@
 
             <div class="app-header-languages">
 
-                @if(get_option('enable_language_switcher') == 1)
+                <el-dropdown trigger="hover">
+                      <span class="el-dropdown-link">
+                        @if($current_lang) {{$current_lang->language_name}} @else @lang('app.language') @endif
+                          <i class="el-icon-arrow-down el-icon--right"></i>
+                      </span>
+                    <el-dropdown-menu slot="dropdown">
+                        <el-dropdown-item>
+                            <a href="{{ route('switch_language', 'en') }}">English</a>
+                        </el-dropdown-item>
+                        @foreach(get_languages() as $lang)
+                            <el-dropdown-item>
+                                <a href="{{ route('switch_language', $lang->language_code) }}">{{ $lang->language_name }}</a>
+                            </el-dropdown-item>
 
-                    <div class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                           aria-haspopup="true"
-                           aria-expanded="false"> @if($current_lang) {{$current_lang->language_name}} @else @lang('app.language') @endif
-                            <span class="caret"></span></a>
-                        <div class="dropdown-menu">
-                            <div>
-                                <a href="{{ route('switch_language', 'en') }}">English</a>
-                            </div>
-                            @foreach(get_languages() as $lang)
-                                <div>
-                                    <a href="{{ route('switch_language', $lang->language_code) }}">{{ $lang->language_name }}</a>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                @endif
+                        @endforeach
+                    </el-dropdown-menu>
+                </el-dropdown>
+
+
             </div>
 
             <div class="app-header-auth">
 
                 @if (Auth::guest())
-                   <a href="{{ route('login') }}">@lang('app.login')</a> /
-                    <a href="{{ route('register') }}">@lang('app.register')</a>
+                    <a href="{{ route('login') }}">Login</a> | <a href="{{ route('register') }}">Register</a>
                 @else
-                    <div class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                           aria-expanded="false">
-                            {{ auth()->user()->name }}
-                            {{--<span class="app-header-auth__image"> <img src="{{auth()->user()->get_gravatar()}}"/> </span>--}}
-                        </a>
+                    <el-dropdown trigger="hover">
+                      <span class="el-dropdown-link">
+                         {{ auth()->user()->name }}
+                          {{--<span class="app-header-auth__image"> <img src="{{auth()->user()->get_gravatar()}}"/> </span>--}}
 
-                        <div class="dropdown-menu" role="menu">
-                            <div><a href="{{route('dashboard')}}">Profile</a></div>
-                            <div>
+                          <i class="el-icon-arrow-down el-icon--right"></i>
+                      </span>
+                        <el-dropdown-menu slot="dropdown">
+                            <el-dropdown-item>
+                                <a href="{{route('dashboard')}}" class="el-dropdown-link">Profile</a>
+                            </el-dropdown-item>
+
+                            <el-dropdown-item>
                                 <a href="{{ route('logout') }}"
-                                   onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                   Logout
+                                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                                   class="el-dropdown-link">
+                                    Logout
                                 </a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                       style="display: none;">
                                     {{ csrf_field() }}
                                 </form>
-                            </div>
-                        </div>
-                    </div>
+                            </el-dropdown-item>
+
+                        </el-dropdown-menu>
+                    </el-dropdown>
                 @endif
 
             </div>
 
             <a href="{{ route('checkout') }}" class="app-header-basket">
-                <i class="fa fa-shopping-cart"></i>
+                <el-badge is-dot class="item">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27 21">
+                        <g fill="none" fill-rule="evenodd" transform="translate(0 1)">
+                            <path stroke="#333" stroke-linecap="round"
+                                  d="M0 .478h4.667l3.734 13.077H23.35l2.804-8.635"></path>
+                            <circle cx="21.25" cy="17.669" r="1.635" fill="#333"></circle>
+                            <circle cx="10.232" cy="17.924" r="1.635" fill="#333"></circle>
+                        </g>
+                    </svg>
+                </el-badge>
             </a>
 
         </div>
@@ -105,68 +117,85 @@
             </a>
 
             <div class="app-header-links">
+
+
                 <a href="{{ route('home') }}" class="app-header-links__link">Home</a>
-                <a href="{{ route('artists') }}" class="app-header-links__link">Artists Profiles</a>
-                <a href="{{ route('paintings') }}" class="app-header-links__link">Paintings for Sale</a>
-                <a href="{{ route('sculptures') }}" class="app-header-links__link">Sculptures for Sale</a>
-                <a href="{{ route('auctions') }}" class="app-header-links__link">Auctions</a>
+                <a href="{{ route('artists') }}" class="app-header-links__link">Artists</a>
+                <a href="{{ route('paintings') }}" class="app-header-links__link">Paintings</a>
+                <a href="{{ route('sculptures') }}" class="app-header-links__link">Sculptures</a>
+                <a href="{{ route('auctions') }}" class="app-header-links__link">Auction</a>
                 <a href="{{ route('contacts') }}" class="app-header-links__link">Contacts</a>
-                <a href="{{ route('about') }}" class="app-header-links__link">About</a>
-            </div>
 
-            <div class="app-header-search">
-                <form action="{{ route('search_redirect') }}">
-                    {{ csrf_field() }}
+                <el-dropdown trigger="hover">
+                      <span class="el-dropdown-link">
+                       About
+                      </span>
+                    <el-dropdown-menu slot="dropdown">
+                        <el-dropdown-item><a href="{{ route('rules')}}">The rules</a></el-dropdown-item>
 
-                    <input type="text" class="app-header-search__input" name="q"
-                           placeholder="@lang('app.what_are_u_looking')">
-                </form>
-            </div>
+                        <el-dropdown-item><a href="{{ route('shipping')}}">Shipping / Payments</a></el-dropdown-item>
+                    </el-dropdown-menu>
+                </el-dropdown>
 
 
-            <!-- TODO refactor -->
-            {{--@if($header_menu_pages->count() > 0)--}}
+                <div class="app-header-search">
+                    <form action="{{ route('search_redirect') }}">
+                        {{ csrf_field() }}
+
+                        <el-input
+                                placeholder="Search" name="q"
+                                prefix-icon="el-icon-search">
+                        </el-input>
+
+                    </form>
+                </div>
+
+
+                <!-- TODO refactor -->
+                {{--@if($header_menu_pages->count() > 0)--}}
                 {{--@foreach($header_menu_pages as $page)--}}
-                    {{--<div><a href="{{ route('single_page', $page->slug) }}">{{ $page->title }}</a></div>--}}
+                {{--<div><a href="{{ route('single_page', $page->slug) }}">{{ $page->title }}</a></div>--}}
                 {{--@endforeach--}}
-            {{--@endif--}}
+                {{--@endif--}}
 
-        </div>
-    </div>
-
-    <div class="app-content">
-        @yield('content')
-    </div>
-
-    <div class="app-footer">
-
-        <div class="app-footer-menu">
-            <div><a href="{{ route('home') }}"><i class="fa fa-home"></i> @lang('app.home')</a></div>
-
-            @if($show_in_footer_menu->count() > 0)
-                @foreach($show_in_footer_menu as $page)
-                    <div><a href="{{ route('single_page', $page->slug) }}">{{ $page->title }} </a></div>
-                @endforeach
-            @endif
-            <div><a href="{{ route('contacts') }}">@lang('app.contact_us')</a></div>
+            </div>
         </div>
 
-        <div class="app-footer-heading">
-            {{get_option('site_name')}}
+        <div class="app-content">
+            @yield('content')
         </div>
 
-        <div class="app-footer-copyright">
-            {{get_text_tpl(get_option('footer_copyright_text'))}}
-        </div>
+        <div class="app-footer">
+
+            <div class="app-footer-menu">
+                <div><a href="{{ route('home') }}"><i class="fa fa-home"></i> @lang('app.home')</a></div>
+
+                @if($show_in_footer_menu->count() > 0)
+                    @foreach($show_in_footer_menu as $page)
+                        <div><a href="{{ route('single_page', $page->slug) }}">{{ $page->title }} </a></div>
+                    @endforeach
+                @endif
+                <div><a href="{{ route('contacts') }}">@lang('app.contact_us')</a></div>
+            </div>
+
+            <div class="app-footer-heading">
+                {{get_option('site_name')}}
+            </div>
+
+            <div class="app-footer-copyright">
+                {{get_text_tpl(get_option('footer_copyright_text'))}}
+            </div>
 
 
-        <div class="app-footer-social">
-            <a href="{{ get_option('facebook_url') }}"><i class="fa fa-facebook"></i></a>
-            <a href="{{ get_option('twitter_url') }}"><i class="fa fa-twitter"></i> </a>
-            <a href="{{ get_option('google_plus_url') }}"><i class="fa fa-google-plus"></i> </a>
-            <a href="{{ get_option('youtube_url') }}"><i class="fa fa-youtube"></i> </a>
-            <a href="{{ get_option('linked_in_url') }}"><i class="fa fa-linkedin"></i> </a>
-            <a href="{{ get_option('dribble_url') }}"><i class="fa fa-dribbble"></i> </a>
+            <div class="app-footer-social">
+                <a href="{{ get_option('facebook_url') }}"><i class="fa fa-facebook"></i></a>
+                <a href="{{ get_option('twitter_url') }}"><i class="fa fa-twitter"></i> </a>
+                <a href="{{ get_option('google_plus_url') }}"><i class="fa fa-google-plus"></i> </a>
+                <a href="{{ get_option('youtube_url') }}"><i class="fa fa-youtube"></i> </a>
+                <a href="{{ get_option('linked_in_url') }}"><i class="fa fa-linkedin"></i> </a>
+                <a href="{{ get_option('dribble_url') }}"><i class="fa fa-dribbble"></i> </a>
+            </div>
+
         </div>
 
     </div>
@@ -174,14 +203,14 @@
 </div>
 
 
-<!-- Conditional page load script -->
-@if(request()->segment(1) === 'dashboard')
-    <script>
+    <!-- Conditional page load script -->
+    @if(request()->segment(1) === 'dashboard')
+        <script>
 
-    </script>
-@endif
+        </script>
+    @endif
 
-<script src="{{ mix('js/app.js') }}"></script>
+    <script src="{{ mix('js/app.js') }}"></script>
 
 
 @if(get_option('additional_js'))

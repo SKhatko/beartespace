@@ -95,4 +95,12 @@ class HomeController extends Controller {
 		return view( 'pages.about' );
 	}
 
+	public function rules() {
+		return view( 'pages.rules' );
+	}
+
+	public function shipping() {
+		return view( 'pages.shipping' );
+	}
+
 }

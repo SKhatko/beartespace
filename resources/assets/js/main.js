@@ -1,6 +1,4 @@
 $(function () {
-    $('[data-toggle="tooltip"]').tooltip();
-
 
     //Select 2 initiate
     $('select.select2').select2();
@@ -9,7 +7,6 @@ $(function () {
         minimumResultsForSearch: Infinity
     });
 
-    $('#side-menu').metisMenu();
 
     $("select.select2icon").select2({
         formatResult: fa_icon_format

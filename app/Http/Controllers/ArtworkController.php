@@ -13,7 +13,7 @@ use App\Job;
 use App\JobApplication;
 use App\Media;
 use App\Payment;
-use App\ArtworkReport_;
+use App\ArtworkReport;
 use App\State;
 use App\Sub_Category;
 use App\User;

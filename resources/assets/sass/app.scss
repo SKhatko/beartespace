@@ -2,17 +2,17 @@
 @import "variables";
 
 // Bootstrap
-@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+//@import "~bootstrap-sass/assets/stylesheets/bootstrap";
 @import "~font-awesome/css/font-awesome";
 @import "~select2/dist/css/select2";
 @import "~toastr/build/toastr";
-@import "~metismenu/dist/metisMenu";
 
 //@import "style";
 //@import "admin";
 //@import "rtl";
 
-@import "~element-ui/lib/theme-chalk/index.css";
+
+@import "~element-ui/packages/theme-chalk/src/index";
 
 
 *,
@@ -34,22 +34,18 @@ body {
   color: black;
 }
 
-a {
-  color: #262626;
-}
-
 .app {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 
   &-header {
+    padding: 15px;
 
     &--top {
       display: flex;
       justify-content: flex-end;
       align-items: center;
-      padding: 10px;
     }
 
     &--bottom {
@@ -61,6 +57,26 @@ a {
     &-auth {
       display: flex;
       padding: 5px;
+      cursor: pointer;
+    }
+
+    &-languages {
+      cursor: pointer;
+    }
+
+    &-basket {
+
+      & svg {
+        width: 20px;
+      }
+    }
+
+    &-links {
+      flex: 1;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+
     }
 
   }
@@ -68,6 +84,7 @@ a {
   &-content {
     flex: 1;
     max-width: 900px;
+    width: 100%;
     margin: 0 auto;
   }
 
@@ -108,3 +125,16 @@ a {
   }
 }
 
+// Admin styles
+
+.a {
+  display: flex;
+
+  &-sidebar {
+
+  }
+
+  &-content {
+    flex: 1;
+  }
+}

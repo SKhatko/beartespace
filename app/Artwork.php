@@ -181,7 +181,7 @@ class Artwork extends Model
     public function current_bid(){
         $last_bid = $this->price;
 
-        $get_last_bid = Bid::whereAdId($this->id)->max('bid_amount');
+        $get_last_bid = Bid::whereArtworkId($this->id)->max('bid_amount');
         if ($get_last_bid && $get_last_bid > $last_bid){
             $last_bid = $get_last_bid;
         }

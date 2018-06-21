@@ -27,7 +27,10 @@ Route::get('/checkout', ['as' => 'checkout', 'uses'=>'HomeController@checkout'])
 
 Route::get('/language/{lang}', ['as' => 'switch_language', 'uses'=>'LanguageController@switchLang']);
 
+// Pages
 Route::get('about', 'HomeController@about')->name('about');
+Route::get('rules', 'HomeController@rules')->name('rules');
+Route::get('shipping', 'HomeController@shipping')->name('shipping');
 
 
 // Contact us page

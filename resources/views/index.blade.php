@@ -9,7 +9,6 @@
         <div class="app-index-filters">
             filters
         </div>
-
         <div class="app-index-content">
 
             <div class="app-index-content-artworks">
@@ -64,6 +63,7 @@
                                 </div>
                             @endif
                         </div>
+
 
 
                         <div class="countdown" data-expire-date="{{$artwork->expired_at}}"></div>
