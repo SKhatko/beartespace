@@ -21,78 +21,73 @@
 
 
             <el-row :gutter="10">
-                <el-col :md="8">
-                    <div class="grid-content bg-purple">
-                        something
-                    </div>
+
+                <el-col :span="8">
+                    <el-card shadow="hover">
+                        <div class="huge">{{ $approved_ads }}</div>
+                        <div>@lang('app.approved_ads')</div>
+                    </el-card>
                 </el-col>
-                <el-col :md="8">
-                    <div class="grid-content bg-purple">
-                        something
-                    </div>
+
+                <el-col :span="8">
+                    <el-card shadow="hover">
+                        <div class="huge">{{ $blocked_ads }}</div>
+                        <div>@lang('app.blocked_ads')</div>
+                    </el-card>
+                </el-col>
+
+                <el-col :span="8">
+                    <el-card shadow="hover">
+                        <div class="huge">{{ $pending_ads }}</div>
+                        <div>@lang('app.pending_ads')</div>
+                    </el-card>
                 </el-col>
 
             </el-row>
-
-
-            <el-row :gutter="20">
-                <el-col :span="6">
-                    <div class="grid-content bg-purple">
-                        <el-card shadow="hover">
-                            <div class="huge">{{ $approved_ads }}</div>
-                            <div>@lang('app.approved_ads')</div>
-                        </el-card>
-                    </div>
-                </el-col>
-            </el-row>
-
-
-            <div class="col-xs-12">
-                <div class="huge">{{ $pending_ads }}</div>
-                <div>@lang('app.pending_ads')</div>
-            </div>
-
-
-            <div class="col-xs-12">
-                <div class="huge">{{ $blocked_ads }}</div>
-                <div>@lang('app.blocked_ads')</div>
-            </div>
 
 
             @if($ten_contact_messages)
 
-                <div class="col-xs-12">
-                    <div class="huge">{{ $total_users }}</div>
-                    <div>@lang('app.users')</div>
-                </div>
+
+                <el-row :gutter="10">
+
+                    <el-col :span="8">
+                        <el-card shadow="hover">
+                            <div class="huge">{{ $total_users }}</div>
+                            <div>@lang('app.users')</div>
+                        </el-card>
+                    </el-col>
+
+                    <el-col :span="8">
+                        <el-card shadow="hover">
+                            <div class="huge">{{ $total_reports }}</div>
+                            <div>@lang('app.reports')</div>
+                        </el-card>
+                    </el-col>
+
+                    <el-col :span="8">
+                        <el-card shadow="hover">
+                            <div class="huge">{{ $total_payments }}</div>
+                            <div>@lang('app.success_payments')</div>
+                        </el-card>
+                    </el-col>
 
 
+                    <el-col>
+                        <el-card shadow="hover">
+                            <div class="huge">  {{ $total_payments_amount }}
+                                <sup>{{ get_option('currency_sign') }}</sup></div>
+                            <div>@lang('app.total_payment')</div>
+                        </el-card>
+                    </el-col>
+                </el-row>
 
-                <div class="col-xs-12">
-                    <div class="huge">{{ $total_reports }}</div>
-                    <div>@lang('app.reports')</div>
-                </div>
-
-
-
-                <div class="col-xs-12">
-                    <div class="huge">{{ $total_payments }}</div>
-                    <div>@lang('app.success_payments')</div>
-                </div>
-
-
-
-                <div class="col-xs-12">
-                    <div class="huge">  {{ $total_payments_amount }}
-                        <sup>{{ get_option('currency_sign') }}</sup></div>
-                    <div>@lang('app.total_payment')</div>
-                </div>
             @endif
 
 
 
 
-            @if($lUser->is_admin())
+            @if($lUser->isAdmin())
                 <div class="row">
                     @if($ten_contact_messages)
                         <div class="col-xs-12">

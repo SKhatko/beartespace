@@ -222,6 +222,8 @@ Route::group(['prefix'=>'dashboard', 'middleware' => 'dashboard'], function(){
 
         });
 
+        Route::get('translations', 'TranslationController@index')->name('translations');
+
 
     });
 

@@ -17,7 +17,7 @@ class BidController extends Controller
 
         $title = trans('app.bids_for').' '.$ad->title;
 
-        if (! $user->is_admin()){
+        if (! $user->idAdmin()){
             if ($ad->user_id != $user_id){
                 return view('admin.error.error_404');
             }
@@ -60,7 +60,7 @@ class BidController extends Controller
         $user_id = $user->id;
         $ad = Artwork::find($ad_id);
 
-        if (! $user->is_admin()){
+        if (! $user->isAdmin()){
             if ($ad->user_id != $user_id){
                 return ['success' => 0];
             }
@@ -87,7 +87,7 @@ class BidController extends Controller
         $user_id = $auth_user->id;
         $ad = Artwork::find($bid->ad_id);
 
-        if (! $auth_user->is_admin()){
+        if (! $auth_user->isAdmin()){
             if ($ad->user_id != $user_id){
                 return view('admin.error.error_404');
             }

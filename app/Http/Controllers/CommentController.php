@@ -20,7 +20,7 @@ class CommentController extends Controller
     public function commentData(){
         $user = Auth::user();
 
-        if ($user->is_admin()){
+        if ($user->isAdmin()){
             $comments = Comment::select('id','ad_id','comment_id', 'author_name', 'author_email', 'author_ip', 'comment', 'approved', 'created_at')->orderBy('id', 'desc')->get();
         }else{
             //Get user specific comments
@@ -155,7 +155,7 @@ class CommentController extends Controller
         $comment = Comment::find($request->comment_id);
         $comment_ad = Artwork::find($comment->ad_id);
 
-        if ($user->id != $comment_ad->user_id &&  ! $user->is_admin() ){
+        if ($user->id != $comment_ad->user_id &&  ! $user->isAdmin() ){
             return ['success' => false];
         }
 

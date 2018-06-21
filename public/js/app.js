@@ -26185,6 +26185,7 @@ window.Vue = __webpack_require__(3);
 Vue.use(__WEBPACK_IMPORTED_MODULE_0_element_ui___default.a);
 
 Vue.component('example', __webpack_require__(189));
+Vue.component('translations', __webpack_require__(212));
 // Vue.component('registration-form', require('./components/RegistrationForm.vue'));
 
 var app = new Vue({
@@ -94646,6 +94647,279 @@ module.exports = function(module) {
 __webpack_require__(76);
 module.exports = __webpack_require__(77);
 
+
+/***/ }),
+/* 196 */,
+/* 197 */,
+/* 198 */,
+/* 199 */,
+/* 200 */,
+/* 201 */,
+/* 202 */,
+/* 203 */,
+/* 204 */,
+/* 205 */,
+/* 206 */,
+/* 207 */,
+/* 208 */,
+/* 209 */,
+/* 210 */,
+/* 211 */,
+/* 212 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(75)(
+  /* script */
+  __webpack_require__(213),
+  /* template */
+  __webpack_require__(214),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/skhatko/code/larabid/resources/assets/js/components/Translations.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Translations.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-fba8a6ba", Component.options)
+  } else {
+    hotAPI.reload("data-v-fba8a6ba", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 213 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+
+    props: {
+        translations_: {}
+    },
+
+    data: function data() {
+        return {
+            languages: {
+                en: 'English',
+                da: 'Danish',
+                ru: 'Russian'
+            },
+
+            translations: []
+        };
+    },
+    mounted: function mounted() {
+        console.log(this.languages);
+        console.log(this.translations_);
+        if (this.translations_.length) {
+            this.translations = this.translations_;
+        }
+    },
+
+
+    computed: {},
+
+    methods: {
+        addTranslationField: function addTranslationField() {
+            var _this = this;
+
+            var translation = {
+                id: 0,
+                group: 'portal',
+                key: '',
+                text: {}
+            };
+
+            Object.entries(this.languages).forEach(function (_ref) {
+                var _ref2 = _slicedToArray(_ref, 2),
+                    langCode = _ref2[0],
+                    language = _ref2[1];
+
+                return _this.$set(translation.text, langCode, "");
+            });
+
+            this.translations.push(translation);
+        },
+        removeTranslation: function removeTranslation(idx) {
+            this.translations.splice(idx, 1);
+        },
+        save: function save() {
+
+            axios.post('/api/translations/', { translations: this.translations }).then(function (response) {
+                if (response.data) {
+                    window.location.href = '/dashboard';
+                } else {
+                    console.log(response.data);
+                }
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 214 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return (_vm.translations) ? _c('div', {
+    staticClass: "col-xs-12 app-content portal_form"
+  }, [_c('h2', [_vm._v("Translations")]), _vm._v(" "), _c('el-button', {
+    staticStyle: {
+      "margin-bottom": "20px"
+    },
+    attrs: {
+      "size": "big"
+    },
+    on: {
+      "click": function($event) {
+        _vm.addTranslationField()
+      }
+    }
+  }, [_vm._v("\n        Add translation\n    ")]), _vm._v(" "), _c('el-tabs', {
+    attrs: {
+      "type": "card"
+    }
+  }, [_vm._l((_vm.languages), function(language, langCode) {
+    return [_c('el-tab-pane', {
+      attrs: {
+        "label": language
+      }
+    }, [_vm._l((_vm.translations), function(translation, idx) {
+      return [_c('el-form', {
+        attrs: {
+          "inline": true
+        }
+      }, [_c('el-form-item', [_c('el-input', {
+        attrs: {
+          "placeholder": "key"
+        },
+        model: {
+          value: (translation.key),
+          callback: function($$v) {
+            _vm.$set(translation, "key", $$v)
+          },
+          expression: "translation.key"
+        }
+      })], 1), _vm._v(" "), _c('el-form-item', [_c('el-input', {
+        attrs: {
+          "placeholder": "value"
+        },
+        model: {
+          value: (translation.text[langCode]),
+          callback: function($$v) {
+            _vm.$set(translation.text, langCode, $$v)
+          },
+          expression: "translation.text[langCode]"
+        }
+      })], 1), _vm._v(" "), _c('el-form-item', [_c('el-button', {
+        attrs: {
+          "type": "danger",
+          "icon": "el-icon-delete",
+          "circle": ""
+        },
+        on: {
+          "click": function($event) {
+            _vm.removeTranslation(idx)
+          }
+        }
+      })], 1)], 1)]
+    })], 2)]
+  })], 2), _vm._v(" "), _c('el-button', {
+    staticStyle: {
+      "margin-top": "20px"
+    },
+    attrs: {
+      "size": "big"
+    },
+    on: {
+      "click": function($event) {
+        _vm.save()
+      }
+    }
+  }, [_vm._v("\n        Save\n    ")])], 1) : _vm._e()
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-fba8a6ba", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

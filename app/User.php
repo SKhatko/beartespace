@@ -107,11 +107,16 @@ class User extends Authenticatable
         return $context;
     }
 
-    public function is_admin(){
-        if ($this->user_type == 'admin'){
-            return true;
-        }
-        return false;
+    public function isAdmin(){
+        return $this->user_type == 'admin';
+    }
+
+    public function isGallery() {
+    	return $this->user_type == 'gallery';
+    }
+
+    public function isArtist() {
+    	return $this->user_type == 'artist';
     }
 
 }

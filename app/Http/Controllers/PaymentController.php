@@ -19,7 +19,7 @@ class PaymentController extends Controller
     }
     public function paymentsData(){
         $user = Auth::user();
-        if ($user->is_admin()){
+        if ($user->isAdmin()){
             $payments = Payment::select('id','ad_id', 'user_id', 'amount','payment_method', 'status','local_transaction_id', 'created_at')->with('ad', 'user')->get();
         }else{
             $payments = Payment::select('id','ad_id', 'user_id', 'amount','payment_method', 'status','local_transaction_id', 'created_at')->whereUserId($user->id)->with('ad', 'user')->get();

@@ -336,7 +336,7 @@ class ArtworkController extends Controller
         if (!$ad)
             return view('admin.error.error_404');
 
-        if (! $user->is_admin()){
+        if (! $user->isAdmin()){
             if ($ad->user_id != $user_id){
                 return view('admin.error.error_404');
             }
@@ -363,7 +363,7 @@ class ArtworkController extends Controller
         $user = Auth::user();
         $user_id = $user->id;
 
-        if (! $user->is_admin()){
+        if (! $user->isAdmin()){
             if ($ad->user_id != $user_id){
                 return view('admin.error.error_404');
             }
@@ -995,7 +995,7 @@ class ArtworkController extends Controller
     public function reportsByAds($slug){
         $user = Auth::user();
 
-        if ($user->is_admin()){
+        if ($user->isAdmin()){
             $ad = Artwork::whereSlug($slug)->first();
         }else{
             $ad = Artwork::whereSlug($slug)->whereUserId($user->id)->first();

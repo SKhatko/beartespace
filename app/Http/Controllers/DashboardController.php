@@ -25,7 +25,7 @@ class DashboardController extends Controller
         $reports = 0;
         $total_payments_amount = 0;
 
-        if ($user->is_admin()){
+        if ($user->isAdmin()){
             $approved_ads = Artwork::whereStatus('1')->count();
             $pending_ads = Artwork::whereStatus('0')->count();
             $blocked_ads = Artwork::whereStatus('2')->count();

@@ -4,6 +4,7 @@
             <i class="el-icon-menu"></i>
             <span slot="title"><a href="{{ route('dashboard') }}">Dashboard</a></span>
         </el-menu-item>
+
         <el-submenu index="2">
             <template slot="title">
                 <i class="el-icon-location"></i>
@@ -17,7 +18,18 @@
             </el-menu-item>
         </el-submenu>
 
-        @if($lUser->is_admin())
+        @if($lUser->isGallery())
+
+
+        @endif
+
+        @if($lUser->isAdmin())
+
+
+            <el-menu-item index="">
+                <i class="el-icon-menu"></i>
+                <span slot="title"><a href="{{ route('translations') }}">Translations</a></span>
+            </el-menu-item>
 
 
             <el-menu-item index="3">
