@@ -23,6 +23,7 @@ Vue.use(ElementUI);
 
 
 Vue.component('example', require('./components/Example.vue'));
+// Vue.component('registration-form', require('./components/RegistrationForm.vue'));
 
 const app = new Vue({
     el: '#app',

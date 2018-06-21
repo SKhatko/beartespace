@@ -32,11 +32,8 @@
 
     <div class="app-header">
 
+
         <div class="app-header--top">
-            <div class="app-header-links">
-                <a href="{{ route('home') }}" class="app-header-links__link">BeArteBid Gallery</a>
-                <a href="{{ route('auctions') }}" class="app-header-links__link">Auctions</a>
-            </div>
 
             <div class="app-header-languages">
 
@@ -64,24 +61,23 @@
             <div class="app-header-auth">
 
                 @if (Auth::guest())
-                    <div><a href="{{ route('login') }}">@lang('app.login')</a></div>
-                    <div><a href="{{ route('register') }}">@lang('app.register')</a></div>
+                   <a href="{{ route('login') }}">@lang('app.login')</a> /
+                    <a href="{{ route('register') }}">@lang('app.register')</a>
                 @else
                     <div class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                            aria-expanded="false">
-                            {{ auth()->user()->name }} <span class="headerAvatar"> <img
-                                        src="{{auth()->user()->get_gravatar()}}"/> </span> <span
-                                    class="caret"></span>
+                            {{ auth()->user()->name }}
+                            {{--<span class="app-header-auth__image"> <img src="{{auth()->user()->get_gravatar()}}"/> </span>--}}
                         </a>
 
                         <div class="dropdown-menu" role="menu">
-                            <div><a href="{{route('dashboard')}}"> @lang('app.dashboard') </a></div>
+                            <div><a href="{{route('dashboard')}}">Profile</a></div>
                             <div>
                                 <a href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                    @lang('app.logout')
+                                   Logout
                                 </a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"
@@ -99,17 +95,24 @@
                 <i class="fa fa-shopping-cart"></i>
             </a>
 
-            <a href="{{ route('contact_us_page') }}" class="app-header-contact">
-                Contact
-            </a>
-
         </div>
 
         <div class="app-header--bottom">
 
+
             <a class="app-header-logo" href="{{ route('home') }}">
                 <img src="{{ logo_url() }}" title="{{get_option('site_name')}}" alt="{{get_option('site_name')}}"/>
             </a>
+
+            <div class="app-header-links">
+                <a href="{{ route('home') }}" class="app-header-links__link">Home</a>
+                <a href="{{ route('artists') }}" class="app-header-links__link">Artists Profiles</a>
+                <a href="{{ route('paintings') }}" class="app-header-links__link">Paintings for Sale</a>
+                <a href="{{ route('sculptures') }}" class="app-header-links__link">Sculptures for Sale</a>
+                <a href="{{ route('auctions') }}" class="app-header-links__link">Auctions</a>
+                <a href="{{ route('contacts') }}" class="app-header-links__link">Contacts</a>
+                <a href="{{ route('about') }}" class="app-header-links__link">About</a>
+            </div>
 
             <div class="app-header-search">
                 <form action="{{ route('search_redirect') }}">
@@ -122,13 +125,11 @@
 
 
             <!-- TODO refactor -->
-            &nbsp;<div><a href="{{route('home')}}">@lang('app.home')</a></div>
-            @if($header_menu_pages->count() > 0)
-                @foreach($header_menu_pages as $page)
-                    <div><a href="{{ route('single_page', $page->slug) }}">{{ $page->title }}</a></div>
-                @endforeach
-            @endif
-            &nbsp;<div><a href="{{route('create_ad')}}">@lang('app.post_an_ad')</a></div>
+            {{--@if($header_menu_pages->count() > 0)--}}
+                {{--@foreach($header_menu_pages as $page)--}}
+                    {{--<div><a href="{{ route('single_page', $page->slug) }}">{{ $page->title }}</a></div>--}}
+                {{--@endforeach--}}
+            {{--@endif--}}
 
         </div>
     </div>
@@ -147,7 +148,7 @@
                     <div><a href="{{ route('single_page', $page->slug) }}">{{ $page->title }} </a></div>
                 @endforeach
             @endif
-            <div><a href="{{ route('contact_us_page') }}">@lang('app.contact_us')</a></div>
+            <div><a href="{{ route('contacts') }}">@lang('app.contact_us')</a></div>
         </div>
 
         <div class="app-footer-heading">

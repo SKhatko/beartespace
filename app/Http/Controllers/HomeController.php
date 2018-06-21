@@ -15,20 +15,22 @@ class HomeController extends Controller {
 
 	public function index() {
 
+		// Home page
+
 		$artworks = Artwork::all();
 
 //		return $artworks;
 
-		return view('index', compact('artworks'));
+		return view( 'index', compact( 'artworks' ) );
 	}
 
-	public function contactUs() {
+	public function contacts() {
 		$title = trans( 'app.contact_us' );
 
-		return view( 'pages.contact_us', compact( 'title' ) );
+		return view( 'pages.contacts', compact( 'title' ) );
 	}
 
-	public function contactUsPost( Request $request ) {
+	public function contactsPost( Request $request ) {
 		$rules = [
 			'name'    => 'required',
 			'email'   => 'required|email',
@@ -57,8 +59,7 @@ class HomeController extends Controller {
 	}
 
 
-	public function auctions()
-	{
+	public function auctions() {
 		$top_categories = Category::whereCategoryType( 'auction' )->orderBy( 'category_name', 'asc' )->get();
 
 
@@ -74,24 +75,24 @@ class HomeController extends Controller {
 		return view( 'auctions.index', compact( 'top_categories', 'regular_ads', 'premium_ads', 'total_ads_count', 'user_count' ) );
 	}
 
-	public function artists()
-	{
-		return view('artists.index');
+	public function artists() {
+		return view( 'artists.index' );
 	}
 
-	public function paintings()
-	{
-		return view('paintings.index');
+	public function paintings() {
+		return view( 'paintings.index' );
 	}
 
-	public function sculptures()
-	{
-		return view('sculptures.index');
+	public function sculptures() {
+		return view( 'sculptures.index' );
 	}
 
-	public function checkout()
-	{
-		return view('checkout.index');
+	public function checkout() {
+		return view( 'checkout.index' );
+	}
+
+	public function about() {
+		return view( 'pages.about' );
 	}
 
 }

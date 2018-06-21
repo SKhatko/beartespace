@@ -11,12 +11,6 @@
         </div>
 
         <div class="app-index-content">
-            <div class="app-index-content-links">
-                <a href="{{ route('artists') }}" class="app-index-content-link">Artists Profiles</a>
-                <a href="{{ route('paintings') }}" class="app-index-content-link">Paintings for Sale</a>
-                <a href="{{ route('sculptures') }}" class="app-index-content-link">Sculptures for Sale</a>
-                <a href="{{ route('auctions') }}" class="app-index-content-link">Auctions</a>
-            </div>
 
             <div class="app-index-content-artworks">
                 @foreach($artworks as $artwork)

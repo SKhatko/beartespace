@@ -8,7 +8,7 @@
                     <div class="panel-heading">Login</div>
                     <div class="panel-body">
                         @include('admin.flash_msg')
-                        @include('auth.social_login')
+{{--                        @include('auth.social_login')--}}
 
                         <form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">
                             {{ csrf_field() }}
@@ -81,10 +81,4 @@
             </div>
         </div>
     </div>
-@endsection
-
-@section('page-js')
-    @if(get_option('enable_recaptcha_login') == 1)
-        <script src='https://www.google.com/recaptcha/api.js'></script>
-    @endif
 @endsection

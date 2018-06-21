@@ -47,14 +47,20 @@ a {
 
     &--top {
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-end;
       align-items: center;
+      padding: 10px;
     }
 
     &--bottom {
       display: flex;
       justify-content: space-between;
       align-items: center;
+    }
+
+    &-auth {
+      display: flex;
+      padding: 5px;
     }
 
   }
@@ -73,11 +79,6 @@ a {
     }
 
     &-content {
-
-      &-links {
-        display: flex;
-        margin-bottom: 20px;
-      }
 
       &-artworks {
         display: flex;

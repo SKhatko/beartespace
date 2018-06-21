@@ -35,21 +35,6 @@ class RegisterController extends Controller {
 	public function register( Request $request ) {
 		$this->validator( $request->all() )->validate();
 
-//        if (get_option('enable_recaptcha_registration') == 1){
-//            $this->validate($request, array('g-recaptcha-response' => 'required'));
-//
-//            $secret = get_option('recaptcha_secret_key');
-//            $gRecaptchaResponse = $request->input('g-recaptcha-response');
-//            $remoteIp = $request->ip();
-//
-//            $recaptcha = new \ReCaptcha\ReCaptcha($secret);
-//            $resp = $recaptcha->verify($gRecaptchaResponse, $remoteIp);
-//            if ( ! $resp->isSuccess()) {
-//                return redirect()->back()->with('error', 'reCAPTCHA is not verified');
-//            }
-//
-//        }
-
 		event( new Registered( $user = $this->create( $request->all() ) ) );
 
 		dispatch( new SendVerificationEmail( $user ) );
@@ -63,7 +48,7 @@ class RegisterController extends Controller {
 	public function verify( $token ) {
 		$user = User::where( 'email_token', $token )->first();
 
-		if ( $user ) {
+		if ( $user && !$user->email_verified) {
 			$user->email_verified = true;
 			$user->save();
 
@@ -71,7 +56,7 @@ class RegisterController extends Controller {
 
 			return view( 'auth.confirm', [ 'user' => $user ] );
 		} else {
-			return redirect( '/register' );
+			return redirect( $this->redirectTo );
 		}
 
 	}
@@ -105,7 +90,8 @@ class RegisterController extends Controller {
 	 */
 	protected function validator( array $data ) {
 		return Validator::make( $data, [
-			'name'     => 'required|string|max:255',
+			'first_name'     => 'required|string|max:255',
+			'last_name'     => 'required|string|max:255',
 			'email'    => 'required|string|email|max:255|unique:users',
 			'password' => 'required|string|min:6|confirmed',
 		] );
@@ -120,7 +106,8 @@ class RegisterController extends Controller {
 	 */
 	protected function create( array $data ) {
 		return User::create( [
-			'name'          => $data['name'],
+			'first_name'          => $data['first_name'],
+			'last_name'          => $data['last_name'],
 			'email'         => $data['email'],
 			'email_token'   => base64_encode( $data['email'] ),
 			'password'      => bcrypt( $data['password'] ),
