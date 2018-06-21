@@ -496,7 +496,6 @@ return [
     'no'                            => 'No',
     'activate_email_subject'        => 'Please activate your account by confirming email',
     'activate_email_text'           => 'Please activate your account by clicking below url',
-    'invalid_activation_code'       => 'Invalid or used activation code',
     'account_activated'             => 'Account has been activated, please Log In now',
     'countries_usage'               => 'Country list usage',
     'all_countries'                 => 'Show all of country',

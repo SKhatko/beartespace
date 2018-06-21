@@ -20,15 +20,18 @@ Route::get('/paintings', ['as' => 'paintings', 'uses'=>'HomeController@paintings
 Route::get('/sculptures', ['as' => 'sculptures', 'uses'=>'HomeController@sculptures']);
 Route::get('/artists', ['as' => 'artists', 'uses'=>'HomeController@artists']);
 
+Route::get('/verifyemail/{token}', 'Auth\RegisterController@verify');
+
+
+Route::get('/checkout', ['as' => 'checkout', 'uses'=>'HomeController@checkout']);
+
 Route::get('/language/{lang}', ['as' => 'switch_language', 'uses'=>'LanguageController@switchLang']);
 
-//Account activating
-// TODO check to remove
-Route::get('account/activating/{activation_code}', ['as' => 'email_activation_link', 'uses'=>'UserController@activatingAccount']);
 
 // Contact us page
 Route::get('contact-us', ['as' => 'contact_us_page', 'uses'=>'HomeController@contactUs']);
 Route::post('contact-us', ['uses'=>'HomeController@contactUsPost']);
+
 
 
 Route::get('page/{slug}', ['as' => 'single_page', 'uses'=>'PostController@showPage']);

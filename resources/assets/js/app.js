@@ -16,11 +16,20 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+
+import ElementUI from 'element-ui';
+
+Vue.use(ElementUI);
+
+
 Vue.component('example', require('./components/Example.vue'));
 
 const app = new Vue({
     el: '#app',
+    components: {
+
+    },
     data: {
-        searchInput: false,
+
     }
 });

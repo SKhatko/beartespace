@@ -2,15 +2,18 @@
 @import "variables";
 
 // Bootstrap
-//@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+@import "~bootstrap-sass/assets/stylesheets/bootstrap";
 @import "~font-awesome/css/font-awesome";
 @import "~select2/dist/css/select2";
 @import "~toastr/build/toastr";
 @import "~metismenu/dist/metisMenu";
 
-@import "style";
-@import "admin";
-@import "rtl";
+//@import "style";
+//@import "admin";
+//@import "rtl";
+
+@import "~element-ui/lib/theme-chalk/index.css";
+
 
 *,
 *::before,
@@ -85,6 +88,10 @@ a {
         flex: 1 1 30%;
       }
     }
+  }
+
+  &-register {
+    min-width:900px;
   }
 
   &-footer {

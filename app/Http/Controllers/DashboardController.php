@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Ad;
+use App\Artwork;
 use App\Contact_query;
 use App\Payment;
-use App\ArtworkReport_;
+use App\ArtworkReport;
 use App\User;
 use Illuminate\Http\Request;
 

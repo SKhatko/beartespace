@@ -39,6 +39,7 @@
             </div>
 
             <div class="app-header-languages">
+
                 @if(get_option('enable_language_switcher') == 1)
 
                     <div class="dropdown">
@@ -94,13 +95,13 @@
 
             </div>
 
-            <div class="app-header-basket">
+            <a href="{{ route('checkout') }}" class="app-header-basket">
                 <i class="fa fa-shopping-cart"></i>
-            </div>
+            </a>
 
-            <div class="app-header-contact">
+            <a href="{{ route('contact_us_page') }}" class="app-header-contact">
                 Contact
-            </div>
+            </a>
 
         </div>
 
@@ -113,7 +114,8 @@
             <div class="app-header-search">
                 <form action="{{ route('search_redirect') }}">
                     {{ csrf_field() }}
-                    <input type="text" class="app-header-search__input" id="searchKeyword" name="q"
+
+                    <input type="text" class="app-header-search__input" name="q"
                            placeholder="@lang('app.what_are_u_looking')">
                 </form>
             </div>

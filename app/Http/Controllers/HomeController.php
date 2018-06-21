@@ -89,4 +89,9 @@ class HomeController extends Controller {
 		return view('sculptures.index');
 	}
 
+	public function checkout()
+	{
+		return view('checkout.index');
+	}
+
 }
