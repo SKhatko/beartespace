@@ -2,7 +2,7 @@
 @import "variables";
 
 // Bootstrap
-@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+//@import "~bootstrap-sass/assets/stylesheets/bootstrap";
 @import "~font-awesome/css/font-awesome";
 @import "~select2/dist/css/select2";
 @import "~toastr/build/toastr";
@@ -12,8 +12,91 @@
 @import "admin";
 @import "rtl";
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 100%;
+}
+
 body {
   font-family: 'Roboto', sans-serif;
+  padding: 0;
+  margin: 0;
   font-size: 14px;
+  min-height: 100vh;
+  color: black;
+}
+
+a {
+  color: #262626;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  &-header {
+
+    &--top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    &--bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+  }
+
+  &-content {
+    flex: 1;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  &-index {
+    display: flex;
+
+    &-filters {
+      min-width: 200px;
+    }
+
+    &-content {
+
+      &-links {
+        display: flex;
+        margin-bottom: 20px;
+      }
+
+      &-artworks {
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      &-artwork {
+        flex: 1 1 30%;
+      }
+    }
+  }
+
+  &-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+
+
+    &-social {
+      display: flex;
+    }
+  }
 }
 

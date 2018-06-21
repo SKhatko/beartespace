@@ -13,6 +13,6 @@ class Sub_Category extends Model
     }
 
     public function product_count(){
-        return $this->hasMany(Ad::class,'sub_category_id')->whereStatus('1')->count();
+        return $this->hasMany(Artwork::class,'sub_category_id')->whereStatus('1')->count();
     }
 }

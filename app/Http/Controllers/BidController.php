@@ -13,7 +13,7 @@ class BidController extends Controller
     public function index($ad_id){
         $user = Auth::user();
         $user_id = $user->id;
-        $ad = Ad::find($ad_id);
+        $ad = Artwork::find($ad_id);
 
         $title = trans('app.bids_for').' '.$ad->title;
 
@@ -32,7 +32,7 @@ class BidController extends Controller
         $user = Auth::user();
         $bid_amount = $request->bid_amount;
 
-        $ad = Ad::find($ad_id);
+        $ad = Artwork::find($ad_id);
         $current_max_bid = $ad->current_bid();
 
         if ($bid_amount <= $current_max_bid ){
@@ -58,7 +58,7 @@ class BidController extends Controller
 
         $user = Auth::user();
         $user_id = $user->id;
-        $ad = Ad::find($ad_id);
+        $ad = Artwork::find($ad_id);
 
         if (! $user->is_admin()){
             if ($ad->user_id != $user_id){
@@ -85,7 +85,7 @@ class BidController extends Controller
 
         $auth_user = Auth::user();
         $user_id = $auth_user->id;
-        $ad = Ad::find($bid->ad_id);
+        $ad = Artwork::find($bid->ad_id);
 
         if (! $auth_user->is_admin()){
             if ($ad->user_id != $user_id){

@@ -176,15 +176,6 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
-        //Debugbar
-        Barryvdh\Debugbar\ServiceProvider::class,
-        //Image Processor
-        Intervention\Image\ImageServiceProvider::class,
-        //Form and html builder
-        'Collective\Html\HtmlServiceProvider',
-        Laravel\Socialite\SocialiteServiceProvider::class,
-        Yajra\Datatables\DatatablesServiceProvider::class,
     ],
 
     /*

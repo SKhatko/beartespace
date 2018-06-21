@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Ad;
+use App\Artwork;
 use App\Category;
 use App\Contact_query;
 use App\Slider;
@@ -14,18 +14,12 @@ use Yajra\Datatables\Datatables;
 class HomeController extends Controller {
 
 	public function index() {
-		$top_categories = Category::whereCategoryType( 'auction' )->orderBy( 'category_name', 'asc' )->get();
 
-		$limit_regular_ads = get_option( 'number_of_free_ads_in_home' );
-		$limit_premium_ads = get_option( 'number_of_premium_ads_in_home' );
+		$artworks = Artwork::all();
 
-		$regular_ads = Ad::activeRegular()->with( 'category', 'city' )->limit( $limit_regular_ads )->orderBy( 'id', 'desc' )->get();
-		$premium_ads = Ad::activePremium()->with( 'category', 'city' )->limit( $limit_premium_ads )->orderBy( 'id', 'desc' )->get();
+//		return $artworks;
 
-		$total_ads_count = Ad::active()->count();
-		$user_count      = User::count();
-
-		return view( 'index', compact( 'top_categories', 'regular_ads', 'premium_ads', 'total_ads_count', 'user_count' ) );
+		return view('index', compact('artworks'));
 	}
 
 	public function contactUs() {
@@ -60,6 +54,39 @@ class HomeController extends Controller {
 			                 return $contact_message->created_at_datetime();
 		                 } )
 		                 ->make();
+	}
+
+
+	public function auctions()
+	{
+		$top_categories = Category::whereCategoryType( 'auction' )->orderBy( 'category_name', 'asc' )->get();
+
+
+		$limit_regular_ads = get_option( 'number_of_free_ads_in_home' );
+		$limit_premium_ads = get_option( 'number_of_premium_ads_in_home' );
+
+		$regular_ads = Artwork::activeRegular()->with( 'category', 'city' )->limit( $limit_regular_ads )->orderBy( 'id', 'desc' )->get();
+		$premium_ads = Artwork::activePremium()->with( 'category', 'city' )->limit( $limit_premium_ads )->orderBy( 'id', 'desc' )->get();
+
+		$total_ads_count = Artwork::active()->count();
+		$user_count      = User::count();
+
+		return view( 'auctions.index', compact( 'top_categories', 'regular_ads', 'premium_ads', 'total_ads_count', 'user_count' ) );
+	}
+
+	public function artists()
+	{
+		return view('artists.index');
+	}
+
+	public function paintings()
+	{
+		return view('paintings.index');
+	}
+
+	public function sculptures()
+	{
+		return view('sculptures.index');
 	}
 
 }

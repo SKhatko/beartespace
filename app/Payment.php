@@ -10,7 +10,7 @@ class Payment extends Model
     protected $guarded = [];
     
     public function ad(){
-        return $this->belongsTo(Ad::class);
+        return $this->belongsTo(Artwork::class);
     }
     
     public function user(){

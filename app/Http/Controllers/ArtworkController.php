@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Ad;
+use App\Artwork;
 use App\Brand;
 use App\CarsVehicle;
 use App\Category;
@@ -13,7 +13,7 @@ use App\Job;
 use App\JobApplication;
 use App\Media;
 use App\Payment;
-use App\Report_ad;
+use App\ArtworkReport_;
 use App\State;
 use App\Sub_Category;
 use App\User;
@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
 
-class AdsController extends Controller
+class ArtworkController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -35,7 +35,7 @@ class AdsController extends Controller
     public function index()
     {
         $title = trans('app.all_ads');
-        $ads = Ad::with('city', 'country', 'state')->whereStatus('1')->orderBy('id', 'desc')->paginate(20);
+        $ads = Artwork::with('city', 'country', 'state')->whereStatus('1')->orderBy('id', 'desc')->paginate(20);
 
         return view('admin.all_ads', compact('title', 'ads'));
     }
@@ -43,14 +43,14 @@ class AdsController extends Controller
     public function adminPendingAds()
     {
         $title = trans('app.pending_ads');
-        $ads = Ad::with('city', 'country', 'state')->whereStatus('0')->orderBy('id', 'desc')->paginate(20);
+        $ads = Artwork::with('city', 'country', 'state')->whereStatus('0')->orderBy('id', 'desc')->paginate(20);
 
         return view('admin.all_ads', compact('title', 'ads'));
     }
     public function adminBlockedAds()
     {
         $title = trans('app.blocked_ads');
-        $ads = Ad::with('city', 'country', 'state')->whereStatus('2')->orderBy('id', 'desc')->paginate(20);
+        $ads = Artwork::with('city', 'country', 'state')->whereStatus('2')->orderBy('id', 'desc')->paginate(20);
 
         return view('admin.all_ads', compact('title', 'ads'));
     }
@@ -232,7 +232,7 @@ class AdsController extends Controller
             $data['price_plan'] = 'regular';
         }
 
-        $created_ad = Ad::create($data);
+        $created_ad = Artwork::create($data);
 
         /**
          * iF add created
@@ -331,7 +331,7 @@ class AdsController extends Controller
         $user_id = $user->id;
 
         $title = trans('app.edit_ad');
-        $ad = Ad::find($id);
+        $ad = Artwork::find($id);
 
         if (!$ad)
             return view('admin.error.error_404');
@@ -359,7 +359,7 @@ class AdsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $ad = Ad::find($id);
+        $ad = Artwork::find($id);
         $user = Auth::user();
         $user_id = $user->id;
 
@@ -466,7 +466,7 @@ class AdsController extends Controller
 
     public function adStatusChange(Request $request){
         $slug = $request->slug;
-        $ad = Ad::whereSlug($slug)->first();
+        $ad = Artwork::whereSlug($slug)->first();
         if ($ad){
             $value = $request->value;
 
@@ -495,7 +495,7 @@ class AdsController extends Controller
     public function destroy(Request $request)
     {
         $slug = $request->slug;
-        $ad = Ad::whereSlug($slug)->first();
+        $ad = Artwork::whereSlug($slug)->first();
         if ($ad){
             $media = Media::whereAdId($ad->id)->get();
             if ($media->count() > 0){
@@ -663,7 +663,7 @@ class AdsController extends Controller
         $pagination_output = null;
         $pagination_params = [];
 
-        $ads = Ad::active();
+        $ads = Artwork::active();
 
         //Search Keyword
         $search_terms = request('q');
@@ -916,7 +916,7 @@ class AdsController extends Controller
         }
 
         $title = trans('app.ads_by').' '.$user->name;
-        $ads = Ad::active()->whereUserId($user_id)->paginate(40);
+        $ads = Artwork::active()->whereUserId($user_id)->paginate(40);
 
         return view('ads_by_user', compact('ads', 'title', 'user'));
     }
@@ -927,8 +927,8 @@ class AdsController extends Controller
      */
     public function singleAuction($id, $slug){
         $limit_regular_ads = get_option('number_of_free_ads_in_home');
-        //$ad = Ad::whereSlug($slug)->first();
-        $ad = Ad::find($id);
+        //$ad = Artwork::whereSlug($slug)->first();
+        $ad = Artwork::find($id);
 
         if (! $ad){
             return view('error_404');
@@ -951,7 +951,7 @@ class AdsController extends Controller
         $title = $ad->title;
 
         //Get Related Ads, add [->whereCountryId($ad->country_id)] for more specific results
-        $related_ads = Ad::active()->whereCategoryId($ad->category_id)->where('id', '!=',$ad->id)->with('category', 'city')->limit($limit_regular_ads)->orderByRaw('RAND()')->get();
+        $related_ads = Artwork::active()->whereCategoryId($ad->category_id)->where('id', '!=',$ad->id)->with('category', 'city')->limit($limit_regular_ads)->orderByRaw('RAND()')->get();
 
         return view('single_ad', compact('ad', 'title', 'related_ads'));
     }
@@ -965,7 +965,7 @@ class AdsController extends Controller
      * @return array
      */
     public function reportAds(Request $request){
-        $ad = Ad::whereSlug($request->slug)->first();
+        $ad = Artwork::whereSlug($request->slug)->first();
         if ($ad) {
             $data = [
                 'ad_id' => $ad->id,
@@ -973,7 +973,7 @@ class AdsController extends Controller
                 'email' => $request->email,
                 'message' => $request->message,
             ];
-            Report_ad::create($data);
+	        ArtworkReport::create($data);
             return ['status'=>1, 'msg'=>trans('app.ad_reported_msg')];
         }
         return ['status'=>0, 'msg'=>trans('app.error_msg')];
@@ -981,14 +981,14 @@ class AdsController extends Controller
 
 
     public function reports(){
-        $reports = Report_ad::orderBy('id', 'desc')->with('ad')->paginate(20);
+        $reports = Report_Artwork::orderBy('id', 'desc')->with('ad')->paginate(20);
         $title = trans('app.ad_reports');
 
         return view('admin.ad_reports', compact('title', 'reports'));
     }
 
     public function deleteReports(Request $request){
-        Report_ad::find($request->id)->delete();
+	    ArtworkReport::find($request->id)->delete();
         return ['success'=>1, 'msg' => trans('app.report_deleted_success')];
     }
 
@@ -996,9 +996,9 @@ class AdsController extends Controller
         $user = Auth::user();
 
         if ($user->is_admin()){
-            $ad = Ad::whereSlug($slug)->first();
+            $ad = Artwork::whereSlug($slug)->first();
         }else{
-            $ad = Ad::whereSlug($slug)->whereUserId($user->id)->first();
+            $ad = Artwork::whereSlug($slug)->whereUserId($user->id)->first();
         }
 
         if (! $ad){

@@ -14,6 +14,12 @@
 Auth::routes();
 
 Route::get('/', ['as' => 'home', 'uses'=>'HomeController@index']);
+
+Route::get('/auctions', ['as' => 'auctions', 'uses'=>'HomeController@auctions']);
+Route::get('/paintings', ['as' => 'paintings', 'uses'=>'HomeController@paintings']);
+Route::get('/sculptures', ['as' => 'sculptures', 'uses'=>'HomeController@sculptures']);
+Route::get('/artists', ['as' => 'artists', 'uses'=>'HomeController@artists']);
+
 Route::get('/language/{lang}', ['as' => 'switch_language', 'uses'=>'LanguageController@switchLang']);
 
 //Account activating
@@ -34,16 +40,16 @@ Route::get('set-country/{country_code}', ['uses'=>'LocationController@setCurrent
 Route::get('searchCityJson', ['uses'=>'LocationController@searchCityJson'])->name('searchCityJson');
 
 
-Route::get('search/{country_code?}/{state_id?}/{city_id?}/{category_slug?}/{brand_slug?}', ['as' => 'search', 'uses'=>'AdsController@search']);
-Route::get('search-redirect', ['as' => 'search_redirect', 'uses'=>'AdsController@searchRedirect']);
+Route::get('search/{country_code?}/{state_id?}/{city_id?}/{category_slug?}/{brand_slug?}', ['as' => 'search', 'uses'=>'ArtworkController@search']);
+Route::get('search-redirect', ['as' => 'search_redirect', 'uses'=>'ArtworkController@searchRedirect']);
 
-Route::get('auctions-by-user/{id?}', ['as' => 'ads_by_user', 'uses'=>'AdsController@adsByUser']);
+Route::get('auctions-by-user/{id?}', ['as' => 'ads_by_user', 'uses'=>'ArtworkController@adsByUser']);
 
-Route::get('auction/{id}/{slug?}', ['as' => 'single_ad', 'uses'=>'AdsController@singleAuction']);
-Route::get('embedded/{slug}', ['as' => 'embedded_ad', 'uses'=>'AdsController@embeddedAd']);
+Route::get('auction/{id}/{slug?}', ['as' => 'single_ad', 'uses'=>'ArtworkController@singleAuction']);
+Route::get('embedded/{slug}', ['as' => 'embedded_ad', 'uses'=>'ArtworkController@embeddedAd']);
 
 Route::post('save-ad-as-favorite', ['as' => 'save_ad_as_favorite', 'uses'=>'UserController@saveAdAsFavorite']);
-Route::post('report-post', ['as' => 'report_ads_pos', 'uses'=>'AdsController@reportAds']);
+Route::post('report-post', ['as' => 'report_ads_pos', 'uses'=>'ArtworkController@reportAds']);
 Route::post('reply-by-email', ['as' => 'reply_by_email_post', 'uses'=>'UserController@replyByEmailPost']);
 Route::post('post-comments/{id}', ['as' => 'post_comments', 'uses'=>'CommentController@postComments']);
 
@@ -57,16 +63,16 @@ Route::post('send-password-reset-link', ['as' => 'send_reset_link', 'uses'=>'Aut
 //Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
 //Route::post('password/reset', ['as'=>'password_reset_post', 'uses'=>'Auth\PasswordController@postReset']);
 
-Route::post('get-sub-category-by-category', ['as'=>'get_sub_category_by_category', 'uses' => 'AdsController@getSubCategoryByCategory']);
-Route::post('get-brand-by-category', ['as'=>'get_brand_by_category', 'uses' => 'AdsController@getBrandByCategory']);
-Route::post('get-category-info', ['as'=>'get_category_info', 'uses' => 'AdsController@getParentCategoryInfo']);
-Route::post('get-state-by-country', ['as'=>'get_state_by_country', 'uses' => 'AdsController@getStateByCountry']);
-Route::post('get-city-by-state', ['as'=>'get_city_by_state', 'uses' => 'AdsController@getCityByState']);
-Route::post('switch/product-view', ['as'=>'switch_grid_list_view', 'uses' => 'AdsController@switchGridListView']);
+Route::post('get-sub-category-by-category', ['as'=>'get_sub_category_by_category', 'uses' => 'ArtworkController@getSubCategoryByCategory']);
+Route::post('get-brand-by-category', ['as'=>'get_brand_by_category', 'uses' => 'ArtworkController@getBrandByCategory']);
+Route::post('get-category-info', ['as'=>'get_category_info', 'uses' => 'ArtworkController@getParentCategoryInfo']);
+Route::post('get-state-by-country', ['as'=>'get_state_by_country', 'uses' => 'ArtworkController@getStateByCountry']);
+Route::post('get-city-by-state', ['as'=>'get_city_by_state', 'uses' => 'ArtworkController@getCityByState']);
+Route::post('switch/product-view', ['as'=>'switch_grid_list_view', 'uses' => 'ArtworkController@switchGridListView']);
 
 
-Route::get('post-new', ['as'=>'create_ad', 'uses' => 'AdsController@create']);
-Route::post('post-new', ['uses' => 'AdsController@store']);
+Route::get('post-new', ['as'=>'create_ad', 'uses' => 'ArtworkController@create']);
+Route::post('post-new', ['uses' => 'ArtworkController@store']);
 
 //Post bid
 Route::post('{id}/post-new', ['as' => 'post_bid','uses' => 'BidController@postBid']);
@@ -182,18 +188,18 @@ Route::group(['prefix'=>'dashboard', 'middleware' => 'dashboard'], function(){
             Route::post('action', ['as'=>'comment_action', 'uses' => 'CommentController@commentAction']);
         });
 
-        Route::get('approved', ['as'=>'approved_ads', 'uses' => 'AdsController@index']);
-        Route::get('pending', ['as'=>'admin_pending_ads', 'uses' => 'AdsController@adminPendingAds']);
-        Route::get('blocked', ['as'=>'admin_blocked_ads', 'uses' => 'AdsController@adminBlockedAds']);
-        Route::post('status-change', ['as'=>'ads_status_change', 'uses' => 'AdsController@adStatusChange']);
+        Route::get('approved', ['as'=>'approved_ads', 'uses' => 'ArtworkController@index']);
+        Route::get('pending', ['as'=>'admin_pending_ads', 'uses' => 'ArtworkController@adminPendingAds']);
+        Route::get('blocked', ['as'=>'admin_blocked_ads', 'uses' => 'ArtworkController@adminBlockedAds']);
+        Route::post('status-change', ['as'=>'ads_status_change', 'uses' => 'ArtworkController@adStatusChange']);
 
-        Route::get('ad-reports', ['as'=>'ad_reports', 'uses' => 'AdsController@reports']);
+        Route::get('ad-reports', ['as'=>'ad_reports', 'uses' => 'ArtworkController@reports']);
         Route::get('users', ['as'=>'users', 'uses' => 'UserController@index']);
         Route::get('users-data', ['as'=>'get_users_data', 'uses' => 'UserController@usersData']);
         Route::get('users-info/{id}', ['as'=>'user_info', 'uses' => 'UserController@userInfo']);
         Route::post('change-user-status', ['as'=>'change_user_status', 'uses' => 'UserController@changeStatus']);
         Route::post('change-user-feature', ['as'=>'change_user_feature', 'uses' => 'UserController@changeFeature']);
-        Route::post('delete-reports', ['as'=>'delete_report', 'uses' => 'AdsController@deleteReports']);
+        Route::post('delete-reports', ['as'=>'delete_report', 'uses' => 'ArtworkController@deleteReports']);
 
         Route::get('contact-messages', ['as'=>'contact_messages', 'uses' => 'HomeController@contactMessages']);
         Route::get('contact-messages-data', ['as'=>'contact_messages_data', 'uses' => 'HomeController@contactMessagesData']);
@@ -220,24 +226,24 @@ Route::group(['prefix'=>'dashboard', 'middleware' => 'dashboard'], function(){
 
     Route::group(['prefix'=>'u'], function(){
         Route::group(['prefix'=>'posts'], function(){
-            Route::get('/', ['as'=>'my_ads', 'uses' => 'AdsController@myAds']);
-            Route::post('delete', ['as'=>'delete_ads', 'uses' => 'AdsController@destroy']);
-            Route::get('edit/{id}', ['as'=>'edit_ad', 'uses' => 'AdsController@edit']);
-            Route::post('edit/{id}', ['uses' => 'AdsController@update']);
-            Route::get('my-lists', ['as'=>'my_ads', 'uses' => 'AdsController@myAds']);
-            Route::get('favorite-lists', ['as'=>'favorite_ads', 'uses' => 'AdsController@favoriteAds']);
+            Route::get('/', ['as'=>'my_ads', 'uses' => 'ArtworkController@myAds']);
+            Route::post('delete', ['as'=>'delete_ads', 'uses' => 'ArtworkController@destroy']);
+            Route::get('edit/{id}', ['as'=>'edit_ad', 'uses' => 'ArtworkController@edit']);
+            Route::post('edit/{id}', ['uses' => 'ArtworkController@update']);
+            Route::get('my-lists', ['as'=>'my_ads', 'uses' => 'ArtworkController@myAds']);
+            Route::get('favorite-lists', ['as'=>'favorite_ads', 'uses' => 'ArtworkController@favoriteAds']);
             //Upload ads image
-            Route::post('upload-a-image', ['as'=>'upload_ads_image', 'uses' => 'AdsController@uploadAdsImage']);
+            Route::post('upload-a-image', ['as'=>'upload_ads_image', 'uses' => 'ArtworkController@uploadAdsImage']);
             Route::post('upload-post-image', ['as'=>'upload_post_image', 'uses' => 'PostController@uploadPostImage']);
             //Delete media
-            Route::post('delete-media', ['as'=>'delete_media', 'uses' => 'AdsController@deleteMedia']);
-            Route::post('feature-media-creating', ['as'=>'feature_media_creating_ads', 'uses' => 'AdsController@featureMediaCreatingAds']);
-            Route::get('append-media-image', ['as'=>'append_media_image', 'uses' => 'AdsController@appendMediaImage']);
+            Route::post('delete-media', ['as'=>'delete_media', 'uses' => 'ArtworkController@deleteMedia']);
+            Route::post('feature-media-creating', ['as'=>'feature_media_creating_ads', 'uses' => 'ArtworkController@featureMediaCreatingAds']);
+            Route::get('append-media-image', ['as'=>'append_media_image', 'uses' => 'ArtworkController@appendMediaImage']);
             Route::get('append-post-media-image', ['as'=>'append_post_media_image', 'uses' => 'PostController@appendPostMediaImage']);
-            Route::get('pending-lists', ['as'=>'pending_ads', 'uses' => 'AdsController@pendingAds']);
-            Route::get('archive-lists', ['as'=>'favourite_ad', 'uses' => 'AdsController@create']);
+            Route::get('pending-lists', ['as'=>'pending_ads', 'uses' => 'ArtworkController@pendingAds']);
+            Route::get('archive-lists', ['as'=>'favourite_ad', 'uses' => 'ArtworkController@create']);
 
-            Route::get('reports-by/{slug}', ['as'=>'reports_by_ads', 'uses' => 'AdsController@reportsByAds']);
+            Route::get('reports-by/{slug}', ['as'=>'reports_by_ads', 'uses' => 'ArtworkController@reportsByAds']);
             Route::get('profile', ['as'=>'profile', 'uses' => 'UserController@profile']);
             Route::get('profile/edit', ['as'=>'profile_edit', 'uses' => 'UserController@profileEdit']);
             Route::post('profile/edit', ['uses' => 'UserController@profileEditPost']);

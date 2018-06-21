@@ -11,15 +11,8 @@
     <title>@section('title') {{ get_option('site_title') }} @show</title>
 
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">
+
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
-
-{{--<link rel="stylesheet" href="{{ asset('assets/css/bootstrap-theme.min.css') }}">--}}
-
-
-<!-- Conditional page load script -->
-    @if(request()->segment(1) === 'dashboard')
-        <!-- include admin -->
-    @endif
 
     @yield('page-css')
 
@@ -35,227 +28,148 @@
 
 </head>
 <body class="@if(is_rtl()) rtl @endif">
-<div id="app">
-    <div id="sub-header">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="social-icons">
-                        @php
-                            $facebook_url = get_option('facebook_url');
-                            $twitter_url = get_option('twitter_url');
-                            $linked_in_url = get_option('linked_in_url');
-                            $dribble_url = get_option('dribble_url');
-                            $google_plus_url = get_option('google_plus_url');
-                            $youtube_url = get_option('youtube_url');
-                        @endphp
-                        <ul>
-                            @if($facebook_url)
-                                <li><a href="{{$facebook_url}}"><i class="fa fa-facebook"></i> </a></li>
-                            @endif
-                            @if($twitter_url)
-                                <li><a href="{{$twitter_url}}"><i class="fa fa-twitter"></i> </a></li>
-                            @endif
-                            @if($google_plus_url)
-                                <li><a href="{{$google_plus_url}}"><i class="fa fa-google-plus"></i> </a></li>
-                            @endif
-                            @if($youtube_url)
-                                <li><a href="{{$youtube_url}}"><i class="fa fa-youtube"></i> </a></li>
-                            @endif
-                            @if($linked_in_url)
-                                <li><a href="{{$linked_in_url}}"><i class="fa fa-linkedin"></i> </a></li>
-                            @endif
-                            @if($dribble_url)
-                                <li><a href="{{$dribble_url}}"><i class="fa fa-dribbble"></i> </a></li>
-                            @endif
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="right-info">
-                        <ul>
-                            @if(get_option('enable_language_switcher') == 1)
+<div id="app" class="app">
 
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                       aria-haspopup="true"
-                                       aria-expanded="false"> @if($current_lang) {{$current_lang->language_name}} @else @lang('app.language') @endif
-                                        <span class="caret"></span></a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="{{ route('switch_language', 'en') }}">English</a></li>
-                                        @foreach(get_languages() as $lang)
-                                            <li>
-                                                <a href="{{ route('switch_language', $lang->language_code) }}">{{ $lang->language_name }}</a>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                </li>
-                            @endif
+    <div class="app-header">
 
-
-                            @if (Auth::guest())
-                                <li><a href="{{ route('login') }}">@lang('app.login')</a></li>
-                                <li><a href="{{ route('register') }}">@lang('app.register')</a></li>
-                            @else
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                       aria-expanded="false">
-                                        {{ auth()->user()->name }} <span class="headerAvatar"> <img
-                                                    src="{{auth()->user()->get_gravatar()}}"/> </span> <span
-                                                class="caret"></span>
-                                    </a>
-
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li><a href="{{route('dashboard')}}"> @lang('app.dashboard') </a></li>
-                                        <li>
-                                            <a href="{{ route('logout') }}"
-                                               onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                                @lang('app.logout')
-                                            </a>
-
-                                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                                  style="display: none;">
-                                                {{ csrf_field() }}
-                                            </form>
-                                        </li>
-                                    </ul>
-                                </li>
-                            @endif
-
-
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <nav class="navbar navbar-default navbar-static-top">
-        <div class="container">
-            <div class="navbar-header">
-
-                <!-- Collapsed Hamburger -->
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                        data-target="#app-navbar-collapse">
-                    <span class="sr-only">Toggle Navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-
-                <!-- Branding Image -->
-                <a class="navbar-brand" href="{{ route('home') }}">
-                    <img src="{{ logo_url() }}" title="{{get_option('site_name')}}" alt="{{get_option('site_name')}}"/>
-                </a>
+        <div class="app-header--top">
+            <div class="app-header-links">
+                <a href="{{ route('home') }}" class="app-header-links__link">BeArteBid Gallery</a>
+                <a href="{{ route('auctions') }}" class="app-header-links__link">Auctions</a>
             </div>
 
-            <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                <!-- Left Side Of Navbar -->
-                <ul class="nav navbar-nav">
-                    &nbsp;<li><a href="{{route('home')}}">@lang('app.home')</a></li>
-                    @if($header_menu_pages->count() > 0)
-                        @foreach($header_menu_pages as $page)
-                            <li><a href="{{ route('single_page', $page->slug) }}">{{ $page->title }} </a></li>
-                        @endforeach
-                    @endif
-                    &nbsp;<li><a href="{{route('create_ad')}}">@lang('app.post_an_ad')</a></li>
-                </ul>
+            <div class="app-header-languages">
+                @if(get_option('enable_language_switcher') == 1)
 
-                <!-- Right Side Of Navbar -->
-                <ul class="nav navbar-nav navbar-right nav-sarchbar">
-                    <!-- Authentication Links -->
-
-
-                    <li>
-                        <p><a href="#" id="example-show" class="showLink" @click="searchInput = !searchInput"
-                              style="display: inline;"><i class="fa fa-search"></i></a></p>
-                        <div class="more" v-if="searchInput">
-                            <form action="{{ route('search_redirect') }}" class="form-inline">
-                                <input type="text" class="form-control" id="searchKeyword" name="q"
-                                       placeholder="@lang('app.what_are_u_looking')">
-                            </form>
-
-                            <p><a href="#" class="hideLink" @click="searchInput = false"><i class="fa fa-close"></i></a></p>
-                        </div>
-                    </li>
-
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    @yield('content')
-
-    <div id="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-
-                    <ul class="footer-menu">
-                        <li><a href="{{ route('home') }}"><i class="fa fa-home"></i> @lang('app.home')</a></li>
-
-                        @if($show_in_footer_menu->count() > 0)
-                            @foreach($show_in_footer_menu as $page)
-                                <li><a href="{{ route('single_page', $page->slug) }}">{{ $page->title }} </a></li>
+                    <div class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                           aria-haspopup="true"
+                           aria-expanded="false"> @if($current_lang) {{$current_lang->language_name}} @else @lang('app.language') @endif
+                            <span class="caret"></span></a>
+                        <div class="dropdown-menu">
+                            <div>
+                                <a href="{{ route('switch_language', 'en') }}">English</a>
+                            </div>
+                            @foreach(get_languages() as $lang)
+                                <div>
+                                    <a href="{{ route('switch_language', $lang->language_code) }}">{{ $lang->language_name }}</a>
+                                </div>
                             @endforeach
-                        @endif
-                        <li><a href="{{ route('contact_us_page') }}">@lang('app.contact_us')</a></li>
-                    </ul>
-
-                    <div class="footer-heading">
-                        <h3>{{get_option('site_name')}}</h3>
+                        </div>
                     </div>
-
-                    <div class="footer-copyright">
-                        <p>{{get_text_tpl(get_option('footer_copyright_text'))}}</p>
-                    </div>
-
-                    <div class="footer-social-links">
-                        @php
-                            $facebook_url = get_option('facebook_url');
-                            $twitter_url = get_option('twitter_url');
-                            $linked_in_url = get_option('linked_in_url');
-                            $dribble_url = get_option('dribble_url');
-                            $google_plus_url = get_option('google_plus_url');
-                            $youtube_url = get_option('youtube_url');
-                        @endphp
-                        <ul>
-                            @if($facebook_url)
-                                <li><a href="{{$facebook_url}}"><i class="fa fa-facebook"></i> </a></li>
-                            @endif
-                            @if($twitter_url)
-                                <li><a href="{{$twitter_url}}"><i class="fa fa-twitter"></i> </a></li>
-                            @endif
-                            @if($google_plus_url)
-                                <li><a href="{{$google_plus_url}}"><i class="fa fa-google-plus"></i> </a></li>
-                            @endif
-                            @if($youtube_url)
-                                <li><a href="{{$youtube_url}}"><i class="fa fa-youtube"></i> </a></li>
-                            @endif
-                            @if($linked_in_url)
-                                <li><a href="{{$linked_in_url}}"><i class="fa fa-linkedin"></i> </a></li>
-                            @endif
-                            @if($dribble_url)
-                                <li><a href="{{$dribble_url}}"><i class="fa fa-dribbble"></i> </a></li>
-                            @endif
-                        </ul>
-                    </div>
-
-                </div>
+                @endif
             </div>
+
+            <div class="app-header-auth">
+
+                @if (Auth::guest())
+                    <div><a href="{{ route('login') }}">@lang('app.login')</a></div>
+                    <div><a href="{{ route('register') }}">@lang('app.register')</a></div>
+                @else
+                    <div class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                           aria-expanded="false">
+                            {{ auth()->user()->name }} <span class="headerAvatar"> <img
+                                        src="{{auth()->user()->get_gravatar()}}"/> </span> <span
+                                    class="caret"></span>
+                        </a>
+
+                        <div class="dropdown-menu" role="menu">
+                            <div><a href="{{route('dashboard')}}"> @lang('app.dashboard') </a></div>
+                            <div>
+                                <a href="{{ route('logout') }}"
+                                   onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                    @lang('app.logout')
+                                </a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                      style="display: none;">
+                                    {{ csrf_field() }}
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
+            </div>
+
+            <div class="app-header-basket">
+                <i class="fa fa-shopping-cart"></i>
+            </div>
+
+            <div class="app-header-contact">
+                Contact
+            </div>
+
+        </div>
+
+        <div class="app-header--bottom">
+
+            <a class="app-header-logo" href="{{ route('home') }}">
+                <img src="{{ logo_url() }}" title="{{get_option('site_name')}}" alt="{{get_option('site_name')}}"/>
+            </a>
+
+            <div class="app-header-search">
+                <form action="{{ route('search_redirect') }}">
+                    {{ csrf_field() }}
+                    <input type="text" class="app-header-search__input" id="searchKeyword" name="q"
+                           placeholder="@lang('app.what_are_u_looking')">
+                </form>
+            </div>
+
+
+            <!-- TODO refactor -->
+            &nbsp;<div><a href="{{route('home')}}">@lang('app.home')</a></div>
+            @if($header_menu_pages->count() > 0)
+                @foreach($header_menu_pages as $page)
+                    <div><a href="{{ route('single_page', $page->slug) }}">{{ $page->title }}</a></div>
+                @endforeach
+            @endif
+            &nbsp;<div><a href="{{route('create_ad')}}">@lang('app.post_an_ad')</a></div>
+
         </div>
     </div>
 
+    <div class="app-content">
+        @yield('content')
+    </div>
+
+    <div class="app-footer">
+
+        <div class="app-footer-menu">
+            <div><a href="{{ route('home') }}"><i class="fa fa-home"></i> @lang('app.home')</a></div>
+
+            @if($show_in_footer_menu->count() > 0)
+                @foreach($show_in_footer_menu as $page)
+                    <div><a href="{{ route('single_page', $page->slug) }}">{{ $page->title }} </a></div>
+                @endforeach
+            @endif
+            <div><a href="{{ route('contact_us_page') }}">@lang('app.contact_us')</a></div>
+        </div>
+
+        <div class="app-footer-heading">
+            {{get_option('site_name')}}
+        </div>
+
+        <div class="app-footer-copyright">
+            {{get_text_tpl(get_option('footer_copyright_text'))}}
+        </div>
+
+
+        <div class="app-footer-social">
+            <a href="{{ get_option('facebook_url') }}"><i class="fa fa-facebook"></i></a>
+            <a href="{{ get_option('twitter_url') }}"><i class="fa fa-twitter"></i> </a>
+            <a href="{{ get_option('google_plus_url') }}"><i class="fa fa-google-plus"></i> </a>
+            <a href="{{ get_option('youtube_url') }}"><i class="fa fa-youtube"></i> </a>
+            <a href="{{ get_option('linked_in_url') }}"><i class="fa fa-linkedin"></i> </a>
+            <a href="{{ get_option('dribble_url') }}"><i class="fa fa-dribbble"></i> </a>
+        </div>
+
+    </div>
 
 </div>
 
-
-{{--<script src="{{ asset('assets/js/vendor/jquery-1.11.2.min.js') }}"></script>--}}
-{{--<script src="{{ asset('assets/js/vendor/bootstrap.min.js') }}"></script>--}}
-{{--<script src="{{ asset('assets/plugins/toastr/toastr.min.js') }}"></script>--}}
-{{--<script src="{{ asset('assets/select2-4.0.3/js/select2.min.js') }}"></script>--}}
 
 <!-- Conditional page load script -->
 @if(request()->segment(1) === 'dashboard')

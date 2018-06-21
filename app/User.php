@@ -75,10 +75,10 @@ class User extends Authenticatable
     }
 
     public function ads(){
-        return $this->hasMany(Ad::class);
+        return $this->hasMany(Artwork::class);
     }
     public function favourite_ads(){
-        return $this->belongsToMany(Ad::class, 'favorites');
+        return $this->belongsToMany(Artwork::class, 'favorites');
     }
 
     public function signed_up_datetime(){

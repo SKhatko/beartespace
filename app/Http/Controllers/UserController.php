@@ -353,7 +353,7 @@ class UserController extends Controller
         $user = Auth::user();
 
         $slug = $request->slug;
-        $ad = Ad::whereSlug($slug)->first();
+        $ad = Artwork::whereSlug($slug)->first();
 
         if ($ad){
             $get_previous_favorite = Favorite::whereUserId($user->id)->whereAdId($ad->id)->first();
@@ -372,7 +372,7 @@ class UserController extends Controller
         $data = $request->all();
         $data['email'];
         $ad_id = $request->ad_id;
-        $ad = Ad::find($ad_id);
+        $ad = Artwork::find($ad_id);
         if ($ad){
             $to_email = $ad->user->email;
             if ($to_email){

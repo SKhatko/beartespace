@@ -6,7 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
-class Ad extends Model
+class Artwork extends Model
 {
     protected $guarded = [];
     
@@ -137,7 +137,7 @@ class Ad extends Model
     }
 
     public function reports(){
-        return $this->hasMany(Report_ad::class);
+        return $this->hasMany(ArtworkReport::class);
     }
 
     public function increase_impression(){

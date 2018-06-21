@@ -30,6 +30,6 @@ class Comment extends Model
     }
 
     public function ad(){
-        return $this->belongsTo(Ad::class);
+        return $this->belongsTo(Artwork::class);
     }
 }

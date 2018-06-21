@@ -4,12 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Report_ad extends Model
+class ArtworkReport extends Model
 {
     protected $guarded = [];
 
     public function ad(){
-        return $this->belongsTo(Ad::class);
+        return $this->belongsTo(Artwork::class);
     }
 
     public function posting_datetime(){
