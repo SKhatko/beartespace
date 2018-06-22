@@ -1,52 +1,45 @@
 <template>
 
 
-    <div class="col-xs-12 app-content portal_form" v-if="translations">
+    <div v-if="translations">
 
         <h2>Translations</h2>
 
         <el-button style="margin-bottom: 20px"
                    size="big"
+                   type="success"
                    @click="addTranslationField()">
             Add translation
         </el-button>
 
         <el-tabs type="card">
-            <template v-for="(language, langCode) in languages">
-                <el-tab-pane :label="language">
-
+            <template v-for="language in languages">
+                <el-tab-pane :label="language.name">
 
                     <template v-for="(translation, idx) in translations">
 
-                        <el-form :inline="true">
-                            <el-form-item>
-                                <el-input v-model="translation.key" placeholder="key"></el-input>
-                            </el-form-item>
-                            <el-form-item>
-                                <el-input v-model="translation.text[langCode]" placeholder="value"></el-input>
-                            </el-form-item>
-                            <el-form-item>
-                                <el-button type="danger" icon="el-icon-delete" circle @click="removeTranslation(idx)"></el-button>
-                            </el-form-item>
-                        </el-form>
+                        <el-row :gutter="20" style="margin-bottom: 20px" align="middle">
+                            <el-col :span="4">
+                                <el-input v-model="translation.key" placeholder="Variable"></el-input>
+                            </el-col>
+                            <el-col :span="18">
+                                <el-input v-model="translation.text[language.code]"
+                                          placeholder="Translation"></el-input>
+                            </el-col>
+                            <el-col :span="2">
+                                <el-button size="medium" type="danger" icon="el-icon-delete" circle
+                                           @click="removeTranslation(idx)"></el-button>
+                            </el-col>
+                        </el-row>
 
-                        <!--<el-input placeholder="Please input" v-model="translation.text[langCode]">-->
-                        <!--<template slot="prepend">{{ translation.key }}</template>-->
-                        <!--</el-input>-->
-
-                        <!--<el-input :placeholder="translation.key[key]" v-model="translation.key[key]"></el-input>-->
-
-
-                        <!--{{ translation.key }} - {{ translation.text }}-->
                     </template>
-
 
                 </el-tab-pane>
             </template>
 
         </el-tabs>
 
-        <el-button style="margin-top: 20px"
+        <el-button type="primary" style="margin-top: 20px"
                    size="big"
                    @click="save()">
             Save
@@ -61,24 +54,22 @@
     export default {
 
         props: {
-            translations_: {}
+            translations_: {},
+            languages_: {}
         },
 
         data() {
             return {
-                languages: {
-                    en: 'English',
-                    da: 'Danish',
-                    ru: 'Russian'
-                },
+                languages: [],
 
                 translations: [],
             }
         },
 
         mounted() {
-            console.log(this.languages);
-            console.log(this.translations_);
+            if (this.languages_.length) {
+                this.languages = this.languages_;
+            }
             if (this.translations_.length) {
                 this.translations = this.translations_;
             }

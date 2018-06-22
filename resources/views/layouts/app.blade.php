@@ -39,7 +39,7 @@
 
                 <el-dropdown trigger="hover">
                       <span class="el-dropdown-link">
-                        @if($current_lang) {{$current_lang->language_name}} @else @lang('app.language') @endif
+                        @if($current_lang) {{$current_lang->name}} @else @lang('app.language') @endif
                           <i class="el-icon-arrow-down el-icon--right"></i>
                       </span>
                     <el-dropdown-menu slot="dropdown">
@@ -48,7 +48,7 @@
                         </el-dropdown-item>
                         @foreach(get_languages() as $lang)
                             <el-dropdown-item>
-                                <a href="{{ route('switch_language', $lang->language_code) }}">{{ $lang->language_name }}</a>
+                                <a href="{{ route('switch_language', $lang->code) }}">{{ $lang->name }}</a>
                             </el-dropdown-item>
 
                         @endforeach

@@ -24,6 +24,7 @@ Vue.use(ElementUI);
 
 Vue.component('example', require('./components/Example.vue'));
 Vue.component('translations', require('./components/Translations.vue'));
+Vue.component('languages', require('./components/Languages.vue'));
 // Vue.component('registration-form', require('./components/RegistrationForm.vue'));
 
 const app = new Vue({

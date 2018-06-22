@@ -111,19 +111,20 @@ Route::resource('user', 'UserController');
 
 //Dashboard Route
 Route::group(['prefix'=>'dashboard', 'middleware' => 'dashboard'], function(){
-    Route::get('/', ['as'=>'dashboard', 'uses' => 'DashboardController@dashboard']);
+    Route::get('/', 'DashboardController@dashboard')->name('dashboard');
 
     Route::group(['middleware'=>'only_admin_access'], function(){
         Route::group(['prefix'=>'settings'], function(){
-            Route::get('theme-settings', ['as'=>'theme_settings', 'uses' => 'SettingsController@ThemeSettings']);
+
+	        Route::get('translations', 'TranslationController@index')->name('translations');
+
+	        Route::get('theme-settings', ['as'=>'theme_settings', 'uses' => 'SettingsController@ThemeSettings']);
             Route::get('modern-theme-settings', ['as'=>'modern_theme_settings', 'uses' => 'SettingsController@modernThemeSettings']);
             Route::get('social-url-settings', ['as'=>'social_url_settings', 'uses' => 'SettingsController@SocialUrlSettings']);
             Route::get('general', ['as'=>'general_settings', 'uses' => 'SettingsController@GeneralSettings']);
             Route::get('payments', ['as'=>'payment_settings', 'uses' => 'SettingsController@PaymentSettings']);
             Route::get('ad', ['as'=>'ad_settings', 'uses' => 'SettingsController@AdSettings']);
-            Route::get('languages', ['as'=>'language_settings', 'uses' => 'LanguageController@index']);
-            Route::post('languages', ['uses' => 'LanguageController@store']);
-            Route::post('languages-delete', ['as'=>'delete_language', 'uses' => 'LanguageController@destroy']);
+            Route::get('languages', 'LanguageController@index')->name('languages');
 
             Route::get('storage', ['as'=>'file_storage_settings', 'uses' => 'SettingsController@StorageSettings']);
             Route::get('social', ['as'=>'social_settings', 'uses' => 'SettingsController@SocialSettings']);
@@ -221,9 +222,6 @@ Route::group(['prefix'=>'dashboard', 'middleware' => 'dashboard'], function(){
             Route::post('block-unblock', ['as'=>'administratorBlockUnblock','uses' => 'UserController@administratorBlockUnblock']);
 
         });
-
-        Route::get('translations', 'TranslationController@index')->name('translations');
-
 
     });
 

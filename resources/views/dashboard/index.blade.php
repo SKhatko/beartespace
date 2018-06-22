@@ -4,7 +4,7 @@
 
     <div class="admin a">
 
-        @include('admin.sidebar_menu')
+        @include('dashboard.partials.menu', ['index' => 'dashboard'])
 
         <div class="a-content">
 
@@ -20,7 +20,7 @@
             @endif
 
 
-            <el-row :gutter="10">
+            <el-row :gutter="10" style="margin-bottom:10px;">
 
                 <el-col :span="8">
                     <el-card shadow="hover">
@@ -49,7 +49,7 @@
             @if($ten_contact_messages)
 
 
-                <el-row :gutter="10">
+                <el-row :gutter="10" style="margin-bottom: 10px;">
 
                     <el-col :span="8">
                         <el-card shadow="hover">
@@ -73,6 +73,9 @@
                     </el-col>
 
 
+                </el-row>
+
+
                     <el-col>
                         <el-card shadow="hover">
                             <div class="huge">  {{ $total_payments_amount }}
@@ -80,7 +83,6 @@
                             <div>@lang('app.total_payment')</div>
                         </el-card>
                     </el-col>
-                </el-row>
 
             @endif
 

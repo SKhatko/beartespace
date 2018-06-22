@@ -1,6 +1,7 @@
 <div class="a-sidebar">
-    <el-menu default-active="2" class="el-menu-vertical-demo" :collapse="false">
-        <el-menu-item index="1">
+    <el-menu default-active="{{ $index }}" class="el-menu-vertical-demo" :collapse="false">
+
+        <el-menu-item index="dashboard">
             <i class="el-icon-menu"></i>
             <span slot="title"><a href="{{ route('dashboard') }}">Dashboard</a></span>
         </el-menu-item>
@@ -26,10 +27,7 @@
         @if($lUser->isAdmin())
 
 
-            <el-menu-item index="">
-                <i class="el-icon-menu"></i>
-                <span slot="title"><a href="{{ route('translations') }}">Translations</a></span>
-            </el-menu-item>
+
 
 
             <el-menu-item index="3">
@@ -107,6 +105,29 @@
 
 
 
+
+
+
+            <el-submenu index="settings">
+                <template slot="title">
+                    <i class="el-icon-setting"></i>
+                    <span slot="title">Settings</span>
+                </template>
+
+                <el-menu-item index="translations">
+                    <i class="el-icon-setting"></i>
+                    <span slot="title"><a href="{{ route('translations') }}">Translations</a></span>
+                </el-menu-item>
+
+                <el-menu-item index="languages">
+                    <i class="el-icon-setting"></i>
+                    <a href="{{ route('languages') }}">Languages</a>
+                </el-menu-item>
+                <el-menu-item index="9-2"><a href="{{ route('social_url_settings') }}">@lang('app.social_url')</a>
+                </el-menu-item>
+
+            </el-submenu>
+
             <li>
                 <a href="#"><i class="fa fa-wrench fa-fw"></i> @lang('app.settings')<span class="fa arrow"></span> <span
                             class="label label-default pull-right"><i class="fa fa-user"></i> </span> </a>
@@ -114,7 +135,7 @@
                     <li><a href="{{ route('general_settings') }}">@lang('app.general_settings')</a></li>
                     <li><a href="{{ route('ad_settings') }}">@lang('app.ad_settings_and_pricing')</a></li>
                     <li><a href="{{ route('payment_settings') }}">@lang('app.payment_settings')</a></li>
-                    <li><a href="{{ route('language_settings') }}">@lang('app.language_settings')</a></li>
+                    <li></li>
                     <li><a href="{{ route('file_storage_settings') }}">@lang('app.file_storage_settings')</a></li>
                     <li><a href="{{ route('social_settings') }}">@lang('app.social_settings')</a></li>
                     <li><a href="{{ route('re_captcha_settings') }}">@lang('app.re_captcha_settings')</a></li>
@@ -143,4 +164,3 @@
 
 
 </div>
-
