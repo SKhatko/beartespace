@@ -33,7 +33,7 @@ class UserController extends Controller {
 	public function profile() {
 		$title = trans( 'portal.profile' );
 		$user  = Auth::user();
-		$countries = Country::all();
+		$countries = Country::all('country_name', 'id');
 
 		return view( 'dashboard.user.profile', compact( 'title', 'user', 'countries') );
 	}
@@ -207,10 +207,8 @@ class UserController extends Controller {
 
 			if ( $is_uploaded ) {
 				$previous_photo         = $user->photo;
-				$previous_photo_storage = $user->photo_storage;
 
 				$user->photo         = $image_name;
-				$user->photo_storage = get_option( 'default_storage' );
 				$user->save();
 
 				if ( $previous_photo ) {

@@ -18,21 +18,21 @@ class CountriesTableSeeder extends Seeder
         foreach ($country_statements as $stmt) {
             \Illuminate\Support\Facades\DB::statement($stmt);
         }
-
-        //Insert State
-        $states_sql = file_get_contents(__DIR__ . '/dumps/states.sql');
-        // split the statements, so DB::statement can execute them.
-        $states_statements = array_filter(array_map('trim', explode(';', $states_sql)));
-        foreach ($states_statements as $stmt) {
-            \Illuminate\Support\Facades\DB::statement($stmt);
-        }
-
-        //Insert City
-        $cities_sql = file_get_contents(__DIR__ . '/dumps/cities.sql');
-        // split the statements, so DB::statement can execute them.
-        $cities_statements = array_filter(array_map('trim', explode(';', $cities_sql)));
-        foreach ($cities_statements as $stmt) {
-            \Illuminate\Support\Facades\DB::statement($stmt);
-        }
+//
+//        //Insert State
+//        $states_sql = file_get_contents(__DIR__ . '/dumps/states.sql');
+//        // split the statements, so DB::statement can execute them.
+//        $states_statements = array_filter(array_map('trim', explode(';', $states_sql)));
+//        foreach ($states_statements as $stmt) {
+//            \Illuminate\Support\Facades\DB::statement($stmt);
+//        }
+//
+//        //Insert City
+//        $cities_sql = file_get_contents(__DIR__ . '/dumps/cities.sql');
+//        // split the statements, so DB::statement can execute them.
+//        $cities_statements = array_filter(array_map('trim', explode(';', $cities_sql)));
+//        foreach ($cities_statements as $stmt) {
+//            \Illuminate\Support\Facades\DB::statement($stmt);
+//        }
     }
 }

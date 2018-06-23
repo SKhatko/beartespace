@@ -28,6 +28,7 @@ Vue.component('example', require('./components/Example.vue'));
 Vue.component('translations', require('./components/Translations.vue'));
 Vue.component('languages', require('./components/Languages.vue'));
 Vue.component('users', require('./components/Users.vue'));
+Vue.component('profile', require('./components/Profile.vue'));
 // Vue.component('registration-form', require('./components/RegistrationForm.vue'));
 
 const app = new Vue({

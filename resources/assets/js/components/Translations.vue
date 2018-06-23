@@ -101,7 +101,7 @@
 
             save() {
 
-                axios.post('/api/translations/', {translations: this.translations})
+                axios.post('/api/translations/', this.translations)
                     .then((response) => {
                         if (response.data) {
                             window.location.href = '/dashboard';

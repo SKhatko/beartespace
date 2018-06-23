@@ -10,17 +10,14 @@ class TranslationController extends Controller
 {
     public function store(Request $request)
     {
-
 	    // delete removed translations
-	    $translationIDs = array_pluck($request->translations, 'id');
+	    $translationIDs = array_pluck($request->all(), 'id');
 	    LanguageLine::whereNotIn('id', $translationIDs)->delete();
 
 	    // update or create translations
-	    foreach ($request->translations as $translation) {
+	    foreach ($request->all() as $translation) {
 		    LanguageLine::updateOrCreate(['id' => $translation['id']], $translation);
 	    }
-
-
 
 //
 //		    LanguageLine::create([

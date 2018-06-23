@@ -43,11 +43,7 @@
                                         <i class="fa fa-folder-o"></i> {{ $artwork->sub_category->category_name }}
                                     </a>
                                 @endif
-                                @if($artwork->city)
-                                    <a class="location text-muted"
-                                       href="{{ route('search', [$artwork->country->country_code, 'state' => 'state-'.$artwork->state->id, 'city' => 'city-'.$artwork->city->id]) }}">
-                                        <i class="fa fa-map-marker"></i> {{ $artwork->city->city_name }} </a>
-                                @endif
+
                             </div>
                         </div>
 

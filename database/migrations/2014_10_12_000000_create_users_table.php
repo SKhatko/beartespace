@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration {
 			$table->string( 'email_token' )->nullable();
 			$table->string( 'password' )->nullable();
 
+			$table->date('dob')->nullable();
 			$table->integer( 'country_id' )->nullable();
 			$table->string( 'mobile' )->nullable();
 			$table->enum( 'gender', [ 'male', 'female', 'third_gender' ] )->nullable();
@@ -29,7 +30,6 @@ class CreateUsersTable extends Migration {
 			$table->string( 'website' )->nullable();
 			$table->string( 'phone' )->nullable();
 			$table->string( 'photo' )->nullable();
-			$table->enum( 'photo_storage', [ 's3', 'public' ] )->nullable();
 
 			$table->enum( 'user_type', [ 'user', 'admin', 'artist', 'gallery' ] )->nullable();
 			//active_status 0:pending, 1:active, 2:block;

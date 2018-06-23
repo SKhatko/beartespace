@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "2f75f517ae55a1ba29f475c6215eeaef",
+    "content-hash": "4b9c01e606088ecc47b36c4b17f7e44b",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -960,6 +960,51 @@
                 }
             ],
             "time": "2015-04-20T18:58:01+00:00"
+        },
+        {
+            "name": "laravel/browser-kit-testing",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/browser-kit-testing.git",
+                "reference": "442a9de17b5acc1a140c322f67ea4ee0f1c42688"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/browser-kit-testing/zipball/442a9de17b5acc1a140c322f67ea4ee0f1c42688",
+                "reference": "442a9de17b5acc1a140c322f67ea4ee0f1c42688",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.9"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laravel\\BrowserKitTesting\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                }
+            ],
+            "description": "Provides backwards compatibility for BrowserKit testing in Laravel 5.4.",
+            "keywords": [
+                "laravel",
+                "testing"
+            ],
+            "time": "2017-01-24T13:11:16+00:00"
         },
         {
             "name": "laravel/framework",
@@ -3985,6 +4030,57 @@
                 "laravel"
             ],
             "time": "2018-06-03T01:33:29+00:00"
+        },
+        {
+            "name": "zachleigh/laravel-lang-bundler",
+            "version": "v1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zachleigh/laravel-lang-bundler.git",
+                "reference": "92609ba382dd586d52b578cff3a84810309dd19f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zachleigh/laravel-lang-bundler/zipball/92609ba382dd586d52b578cff3a84810309dd19f",
+                "reference": "92609ba382dd586d52b578cff3a84810309dd19f",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/browser-kit-testing": "^1.0",
+                "php": ">=5.6.0"
+            },
+            "require-dev": {
+                "laravel/laravel": "5.4.*",
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "project",
+            "autoload": {
+                "psr-4": {
+                    "LaravelLangBundler\\": "src/"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Zach Leigh",
+                    "email": "zachleigh@fastmail.jp"
+                }
+            ],
+            "description": "Create Laravel translations bundles.",
+            "keywords": [
+                "lang",
+                "language",
+                "laravel",
+                "localization",
+                "translation"
+            ],
+            "time": "2017-06-01T21:24:45+00:00"
         }
     ],
     "packages-dev": [
