@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Ad;
-use App\Country;
+
 use App\Favorite;
 use App\User;
+use App\Country;
+
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
-use Yajra\Datatables\Datatables;
+use PragmaRX\Countries\Package\Countries;
+
 
 class UserController extends Controller {
 	/**
@@ -57,7 +58,7 @@ class UserController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function create() {
-		$countries = Country::all();
+		$countries = Countries::all();
 
 		return view( 'theme.user_create', compact( 'countries' ) );
 	}
