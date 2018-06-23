@@ -157,45 +157,46 @@
 
             </div>
         </div>
+    </div>
 
-        <div class="app-content">
-            @yield('content')
+    <div class="app-content">
+        @yield('content')
+    </div>
+
+    <div class="app-footer">
+
+        <div class="app-footer-menu">
+            <div><a href="{{ route('home') }}"><i class="fa fa-home"></i> @lang('app.home')</a></div>
+
+            @if($show_in_footer_menu->count() > 0)
+                @foreach($show_in_footer_menu as $page)
+                    <div><a href="{{ route('single_page', $page->slug) }}">{{ $page->title }} </a></div>
+                @endforeach
+            @endif
+            <div><a href="{{ route('contacts') }}">@lang('app.contact_us')</a></div>
         </div>
 
-        <div class="app-footer">
+        <div class="app-footer-heading">
+            {{get_option('site_name')}}
+        </div>
 
-            <div class="app-footer-menu">
-                <div><a href="{{ route('home') }}"><i class="fa fa-home"></i> @lang('app.home')</a></div>
-
-                @if($show_in_footer_menu->count() > 0)
-                    @foreach($show_in_footer_menu as $page)
-                        <div><a href="{{ route('single_page', $page->slug) }}">{{ $page->title }} </a></div>
-                    @endforeach
-                @endif
-                <div><a href="{{ route('contacts') }}">@lang('app.contact_us')</a></div>
-            </div>
-
-            <div class="app-footer-heading">
-                {{get_option('site_name')}}
-            </div>
-
-            <div class="app-footer-copyright">
-                {{get_text_tpl(get_option('footer_copyright_text'))}}
-            </div>
+        <div class="app-footer-copyright">
+            {{get_text_tpl(get_option('footer_copyright_text'))}}
+        </div>
 
 
-            <div class="app-footer-social">
-                <a href="{{ get_option('facebook_url') }}"><i class="fa fa-facebook"></i></a>
-                <a href="{{ get_option('twitter_url') }}"><i class="fa fa-twitter"></i> </a>
-                <a href="{{ get_option('google_plus_url') }}"><i class="fa fa-google-plus"></i> </a>
-                <a href="{{ get_option('youtube_url') }}"><i class="fa fa-youtube"></i> </a>
-                <a href="{{ get_option('linked_in_url') }}"><i class="fa fa-linkedin"></i> </a>
-                <a href="{{ get_option('dribble_url') }}"><i class="fa fa-dribbble"></i> </a>
-            </div>
-
+        <div class="app-footer-social">
+            <a href="{{ get_option('facebook_url') }}"><i class="fa fa-facebook"></i></a>
+            <a href="{{ get_option('twitter_url') }}"><i class="fa fa-twitter"></i> </a>
+            <a href="{{ get_option('google_plus_url') }}"><i class="fa fa-google-plus"></i> </a>
+            <a href="{{ get_option('youtube_url') }}"><i class="fa fa-youtube"></i> </a>
+            <a href="{{ get_option('linked_in_url') }}"><i class="fa fa-linkedin"></i> </a>
+            <a href="{{ get_option('dribble_url') }}"><i class="fa fa-dribbble"></i> </a>
         </div>
 
     </div>
+
+</div>
 
 </div>
 

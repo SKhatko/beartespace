@@ -67,7 +67,7 @@ Route::get('apply_job', function (){
 });
 
 // Password reset routes...
-Route::post('send-password-reset-link', ['as' => 'send_reset_link', 'uses'=>'Auth\PasswordController@postEmail']);
+//Route::post('send-password-reset-link', ['as' => 'send_reset_link', 'uses'=>'Auth\PasswordController@postEmail']);
 //Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
 //Route::post('password/reset', ['as'=>'password_reset_post', 'uses'=>'Auth\PasswordController@postReset']);
 
