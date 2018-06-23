@@ -26162,6 +26162,8 @@ module.exports = function ( delay, noTrailing, callback, debounceMode ) {
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_element_ui__ = __webpack_require__(162);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_element_ui___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_element_ui__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_element_ui_lib_locale_lang_en__ = __webpack_require__(210);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_element_ui_lib_locale_lang_en___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_element_ui_lib_locale_lang_en__);
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -26182,11 +26184,13 @@ window.Vue = __webpack_require__(3);
 
 
 
-Vue.use(__WEBPACK_IMPORTED_MODULE_0_element_ui___default.a);
+
+Vue.use(__WEBPACK_IMPORTED_MODULE_0_element_ui___default.a, { locale: __WEBPACK_IMPORTED_MODULE_1_element_ui_lib_locale_lang_en___default.a });
 
 Vue.component('example', __webpack_require__(188));
 Vue.component('translations', __webpack_require__(190));
 Vue.component('languages', __webpack_require__(189));
+Vue.component('users', __webpack_require__(208));
 // Vue.component('registration-form', require('./components/RegistrationForm.vue'));
 
 var app = new Vue({
@@ -28278,6 +28282,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
 //
 //
 //
@@ -94921,7 +94927,7 @@ module.exports = Component.exports
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return (_vm.languages) ? _c('div', [_c('h2', [_vm._v("Languages")]), _vm._v(" "), _c('el-select', {
+  return (_vm.languages) ? _c('div', [_c('h2', [_vm._v("Languages ( Test all functionality )")]), _vm._v(" "), _c('el-select', {
     staticStyle: {
       "margin-right": "10px"
     },
@@ -95258,6 +95264,411 @@ module.exports = function(module) {
 __webpack_require__(76);
 module.exports = __webpack_require__(77);
 
+
+/***/ }),
+/* 197 */,
+/* 198 */,
+/* 199 */,
+/* 200 */,
+/* 201 */,
+/* 202 */,
+/* 203 */,
+/* 204 */,
+/* 205 */,
+/* 206 */,
+/* 207 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+
+    props: {
+        users_: {}
+    },
+
+    data: function data() {
+        return {
+            users: []
+        };
+    },
+    mounted: function mounted() {
+        if (this.users_) {
+            this.users = this.users_;
+        }
+
+        console.log(this.users_);
+    },
+
+
+    methods: {
+        filterTag: function filterTag(value, row, column) {
+            console.log(value);
+            console.log(row);
+            var property = column['property'];
+            return row[property] === value;
+        },
+        save: function save() {
+
+            axios.post('/api/users/', this.users).then(function (response) {
+                if (response.data) {
+                    console.log(response.data);
+                    window.location.reload();
+                } else {
+                    console.log(response.data);
+                }
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 208 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(48)(
+  /* script */
+  __webpack_require__(207),
+  /* template */
+  __webpack_require__(209),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/skhatko/code/larabid/resources/assets/js/components/Users.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Users.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-1f151cd2", Component.options)
+  } else {
+    hotAPI.reload("data-v-1f151cd2", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 209 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return (_vm.users) ? _c('div', [_c('h2', [_vm._v("Users")]), _vm._v(" "), [_c('el-table', {
+    staticStyle: {
+      "width": "100%"
+    },
+    attrs: {
+      "data": _vm.users
+    }
+  }, [_c('el-table-column', {
+    attrs: {
+      "type": "expand"
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function(props) {
+        return [_vm._v("\n                    " + _vm._s(props.row) + "\n                ")]
+      }
+    }])
+  }), _vm._v(" "), _c('el-table-column', {
+    attrs: {
+      "sortable": "",
+      "label": "id"
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function(scope) {
+        return [_vm._v("\n                    " + _vm._s(scope.row.id) + "\n                ")]
+      }
+    }])
+  }), _vm._v(" "), _c('el-table-column', {
+    attrs: {
+      "sortable": "",
+      "label": "Name",
+      "width": "180"
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function(scope) {
+        return [_vm._v("\n                    " + _vm._s(scope.row.name) + "\n                ")]
+      }
+    }])
+  }), _vm._v(" "), _c('el-table-column', {
+    attrs: {
+      "sortable": "",
+      "label": "Email",
+      "width": "180"
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function(scope) {
+        return [_vm._v("\n                    " + _vm._s(scope.row.email) + "\n                ")]
+      }
+    }])
+  }), _vm._v(" "), _c('el-table-column', {
+    attrs: {
+      "filters": [{
+        text: 'Author',
+        value: 'author'
+      }, {
+        text: 'User',
+        value: 'user'
+      }, {
+        text: 'Gallery',
+        value: 'gallery'
+      }, {
+        text: 'Admin',
+        value: 'admin'
+      }],
+      "filter-method": _vm.filterTag,
+      "label": "Type"
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function(scope) {
+        return [_vm._v("\n                    " + _vm._s(scope.row.user_type) + "\n                    ")]
+      }
+    }])
+  }), _vm._v(" "), _c('el-table-column', {
+    attrs: {
+      "label": "Active"
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function(scope) {
+        return [_vm._v("\n                    " + _vm._s(scope.row.active_status) + "\n                    ")]
+      }
+    }])
+  })], 1)]], 2) : _vm._e()
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-1f151cd2", module.exports)
+  }
+}
+
+/***/ }),
+/* 210 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.default = {
+  el: {
+    colorpicker: {
+      confirm: 'OK',
+      clear: 'Clear'
+    },
+    datepicker: {
+      now: 'Now',
+      today: 'Today',
+      cancel: 'Cancel',
+      clear: 'Clear',
+      confirm: 'OK',
+      selectDate: 'Select date',
+      selectTime: 'Select time',
+      startDate: 'Start Date',
+      startTime: 'Start Time',
+      endDate: 'End Date',
+      endTime: 'End Time',
+      prevYear: 'Previous Year',
+      nextYear: 'Next Year',
+      prevMonth: 'Previous Month',
+      nextMonth: 'Next Month',
+      year: '',
+      month1: 'January',
+      month2: 'February',
+      month3: 'March',
+      month4: 'April',
+      month5: 'May',
+      month6: 'June',
+      month7: 'July',
+      month8: 'August',
+      month9: 'September',
+      month10: 'October',
+      month11: 'November',
+      month12: 'December',
+      // week: 'week',
+      weeks: {
+        sun: 'Sun',
+        mon: 'Mon',
+        tue: 'Tue',
+        wed: 'Wed',
+        thu: 'Thu',
+        fri: 'Fri',
+        sat: 'Sat'
+      },
+      months: {
+        jan: 'Jan',
+        feb: 'Feb',
+        mar: 'Mar',
+        apr: 'Apr',
+        may: 'May',
+        jun: 'Jun',
+        jul: 'Jul',
+        aug: 'Aug',
+        sep: 'Sep',
+        oct: 'Oct',
+        nov: 'Nov',
+        dec: 'Dec'
+      }
+    },
+    select: {
+      loading: 'Loading',
+      noMatch: 'No matching data',
+      noData: 'No data',
+      placeholder: 'Select'
+    },
+    cascader: {
+      noMatch: 'No matching data',
+      loading: 'Loading',
+      placeholder: 'Select'
+    },
+    pagination: {
+      goto: 'Go to',
+      pagesize: '/page',
+      total: 'Total {total}',
+      pageClassifier: ''
+    },
+    messagebox: {
+      title: 'Message',
+      confirm: 'OK',
+      cancel: 'Cancel',
+      error: 'Illegal input'
+    },
+    upload: {
+      deleteTip: 'press delete to remove',
+      delete: 'Delete',
+      preview: 'Preview',
+      continue: 'Continue'
+    },
+    table: {
+      emptyText: 'No Data',
+      confirmFilter: 'Confirm',
+      resetFilter: 'Reset',
+      clearFilter: 'All',
+      sumText: 'Sum'
+    },
+    tree: {
+      emptyText: 'No Data'
+    },
+    transfer: {
+      noMatch: 'No matching data',
+      noData: 'No data',
+      titles: ['List 1', 'List 2'], // to be translated
+      filterPlaceholder: 'Enter keyword', // to be translated
+      noCheckedFormat: '{total} items', // to be translated
+      hasCheckedFormat: '{checked}/{total} checked' // to be translated
+    }
+  }
+};
 
 /***/ })
 /******/ ]);

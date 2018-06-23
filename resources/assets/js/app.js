@@ -18,13 +18,16 @@ window.Vue = require('vue');
 
 
 import ElementUI from 'element-ui';
+import locale from 'element-ui/lib/locale/lang/en'
 
-Vue.use(ElementUI);
+
+Vue.use(ElementUI, {locale});
 
 
 Vue.component('example', require('./components/Example.vue'));
 Vue.component('translations', require('./components/Translations.vue'));
 Vue.component('languages', require('./components/Languages.vue'));
+Vue.component('users', require('./components/Users.vue'));
 // Vue.component('registration-form', require('./components/RegistrationForm.vue'));
 
 const app = new Vue({

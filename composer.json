@@ -20,6 +20,7 @@
     "laravelcollective/html": "^5.6",
     "league/flysystem-aws-s3-v3": "^1.0",
     "petercoles/multilingual-language-list": "^1.1",
+    "pragmarx/countries": "^0.5.8",
     "spatie/laravel-translation-loader": "^2.1",
     "stripe/stripe-php": "^6.8",
     "yajra/laravel-datatables-oracle": "^8.7"

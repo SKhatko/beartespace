@@ -19,4 +19,8 @@ class Language extends Model
 	{
 		return !!$value;
 	}
+
+	public function scopeActive() {
+		return $this->where('active', true);
+	}
 }

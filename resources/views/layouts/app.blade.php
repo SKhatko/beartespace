@@ -32,25 +32,22 @@
 
     <div class="app-header">
 
-
         <div class="app-header--top">
 
             <div class="app-header-languages">
 
                 <el-dropdown trigger="hover">
                       <span class="el-dropdown-link">
-                        @if($current_lang) {{$current_lang->name}} @else @lang('app.language') @endif
+                          {{$current_lang->name}}
                           <i class="el-icon-arrow-down el-icon--right"></i>
                       </span>
                     <el-dropdown-menu slot="dropdown">
-                        <el-dropdown-item>
-                            <a href="{{ route('switch_language', 'en') }}">English</a>
-                        </el-dropdown-item>
                         @foreach(get_languages() as $lang)
-                            <el-dropdown-item>
-                                <a href="{{ route('switch_language', $lang->code) }}">{{ $lang->name }}</a>
-                            </el-dropdown-item>
-
+                            @if($lang->code !== app()->getLocale())
+                                <el-dropdown-item>
+                                    <a href="{{ route('switch_language', $lang->code) }}">{{ $lang->name }}</a>
+                                </el-dropdown-item>
+                            @endif
                         @endforeach
                     </el-dropdown-menu>
                 </el-dropdown>
@@ -203,14 +200,14 @@
 </div>
 
 
-    <!-- Conditional page load script -->
-    @if(request()->segment(1) === 'dashboard')
-        <script>
+<!-- Conditional page load script -->
+@if(request()->segment(1) === 'dashboard')
+    <script>
 
-        </script>
-    @endif
+    </script>
+@endif
 
-    <script src="{{ mix('js/app.js') }}"></script>
+<script src="{{ mix('js/app.js') }}"></script>
 
 
 @if(get_option('additional_js'))

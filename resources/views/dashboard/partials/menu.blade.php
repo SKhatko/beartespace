@@ -19,16 +19,17 @@
             </el-menu-item>
         </el-submenu>
 
+        <el-menu-item index="profile">
+            <i class="el-icon-document"></i>
+            <span slot="title"><a href="{{ route('profile') }}">@lang('portal.profile')</a></span>
+        </el-menu-item>
+
         @if($lUser->isGallery())
 
 
         @endif
 
         @if($lUser->isAdmin())
-
-
-
-
 
             <el-menu-item index="3">
                 <i class="el-icon-document"></i>
@@ -68,10 +69,9 @@
                                 class="label label-default pull-right"><i class="fa fa-user"></i> </span></a></span>
             </el-menu-item>
 
-            <el-menu-item index="8">
-                <i class="el-icon-document"></i>
-                <span slot="title"><a href="{{ route('users') }}"><i
-                                class="fa fa-users"></i> @lang('app.users')</a></span>
+            <el-menu-item index="users">
+                <i class="el-icon-view"></i>
+                <span slot="title"><a href="{{ route('users') }}"></i>@lang('portal.users')</a></span>
             </el-menu-item>
 
             <el-submenu index="9">
@@ -91,7 +91,8 @@
                     <i class="el-icon-location"></i>
                     <span slot="title">Locations</span>
                 </template>
-                <el-menu-item index="10-1"><a href="{{ route('country_list') }}">@lang('app.countries')</a></el-menu-item>
+                <el-menu-item index="10-1"><a href="{{ route('country_list') }}">@lang('app.countries')</a>
+                </el-menu-item>
                 <el-menu-item index="10-2"><a href="{{ route('state_list') }}">@lang('app.states')</a></el-menu-item>
                 <el-menu-item index="10-3"><a href="{{ route('city_list') }}">@lang('app.cities')</a></el-menu-item>
 
@@ -111,17 +112,17 @@
             <el-submenu index="settings">
                 <template slot="title">
                     <i class="el-icon-setting"></i>
-                    <span slot="title">Settings</span>
+                    <span slot="title">@lang('portal.settings')</span>
                 </template>
 
                 <el-menu-item index="translations">
                     <i class="el-icon-setting"></i>
-                    <span slot="title"><a href="{{ route('translations') }}">Translations</a></span>
+                    <span slot="title"><a href="{{ route('translations') }}">@lang('portal.translations')</a></span>
                 </el-menu-item>
 
                 <el-menu-item index="languages">
                     <i class="el-icon-setting"></i>
-                    <a href="{{ route('languages') }}">Languages</a>
+                    <a href="{{ route('languages') }}">@lang('portal.languages')</a>
                 </el-menu-item>
                 <el-menu-item index="9-2"><a href="{{ route('social_url_settings') }}">@lang('app.social_url')</a>
                 </el-menu-item>
@@ -150,10 +151,6 @@
 
         @endif
 
-        <el-menu-item index="11">
-            <i class="el-icon-document"></i>
-            <span slot="title"><a href="{{ route('profile') }}">Profile</a></span>
-        </el-menu-item>
 
         <li><a href="{{ route('payments') }}"><i class="fa fa-money"></i> @lang('app.payments')</a></li>
 

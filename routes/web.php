@@ -112,11 +112,19 @@ Route::resource('user', 'UserController');
 //Dashboard Route
 Route::group(['prefix'=>'dashboard', 'middleware' => 'dashboard'], function(){
     Route::get('/', 'DashboardController@dashboard')->name('dashboard');
+	Route::get('profile', 'UserController@profile')->name('profile');
 
-    Route::group(['middleware'=>'only_admin_access'], function(){
-        Route::group(['prefix'=>'settings'], function(){
+
+	Route::group(['middleware'=>'only_admin_access'], function(){
+
+	    Route::get('users', 'UserController@index')->name('users');
+
+
+	    Route::group(['prefix'=>'settings'], function(){
 
 	        Route::get('translations', 'TranslationController@index')->name('translations');
+	        Route::get('languages', 'LanguageController@index')->name('languages');
+
 
 	        Route::get('theme-settings', ['as'=>'theme_settings', 'uses' => 'SettingsController@ThemeSettings']);
             Route::get('modern-theme-settings', ['as'=>'modern_theme_settings', 'uses' => 'SettingsController@modernThemeSettings']);
@@ -124,7 +132,6 @@ Route::group(['prefix'=>'dashboard', 'middleware' => 'dashboard'], function(){
             Route::get('general', ['as'=>'general_settings', 'uses' => 'SettingsController@GeneralSettings']);
             Route::get('payments', ['as'=>'payment_settings', 'uses' => 'SettingsController@PaymentSettings']);
             Route::get('ad', ['as'=>'ad_settings', 'uses' => 'SettingsController@AdSettings']);
-            Route::get('languages', 'LanguageController@index')->name('languages');
 
             Route::get('storage', ['as'=>'file_storage_settings', 'uses' => 'SettingsController@StorageSettings']);
             Route::get('social', ['as'=>'social_settings', 'uses' => 'SettingsController@SocialSettings']);
@@ -190,6 +197,7 @@ Route::group(['prefix'=>'dashboard', 'middleware' => 'dashboard'], function(){
             Route::get('edit/{slug}', ['as'=>'edit_page', 'uses' => 'PostController@edit']);
             Route::post('edit/{slug}', ['uses' => 'PostController@updatePage']);
         });
+
         Route::group(['prefix'=>'admin_comments'], function(){
             Route::get('/', ['as'=>'admin_comments', 'uses' => 'CommentController@index']);
             Route::get('data', ['as'=>'admin_comments_data', 'uses' => 'CommentController@commentData']);
@@ -203,7 +211,6 @@ Route::group(['prefix'=>'dashboard', 'middleware' => 'dashboard'], function(){
         Route::post('status-change', ['as'=>'ads_status_change', 'uses' => 'ArtworkController@adStatusChange']);
 
         Route::get('ad-reports', ['as'=>'ad_reports', 'uses' => 'ArtworkController@reports']);
-        Route::get('users', ['as'=>'users', 'uses' => 'UserController@index']);
         Route::get('users-data', ['as'=>'get_users_data', 'uses' => 'UserController@usersData']);
         Route::get('users-info/{id}', ['as'=>'user_info', 'uses' => 'UserController@userInfo']);
         Route::post('change-user-status', ['as'=>'change_user_status', 'uses' => 'UserController@changeStatus']);
@@ -226,7 +233,8 @@ Route::group(['prefix'=>'dashboard', 'middleware' => 'dashboard'], function(){
     });
 
     //All user can access this route
-    Route::get('payments', ['as'=>'payments', 'uses' => 'PaymentController@index']);
+
+	Route::get('payments', ['as'=>'payments', 'uses' => 'PaymentController@index']);
     Route::get('payments-data', ['as'=>'get_payments_data', 'uses' => 'PaymentController@paymentsData']);
     Route::get('payments-info/{trand_id}', ['as'=>'payment_info', 'uses' => 'PaymentController@paymentInfo']);
     //End all users access
@@ -252,9 +260,7 @@ Route::group(['prefix'=>'dashboard', 'middleware' => 'dashboard'], function(){
             Route::get('archive-lists', ['as'=>'favourite_ad', 'uses' => 'ArtworkController@create']);
 
             Route::get('reports-by/{slug}', ['as'=>'reports_by_ads', 'uses' => 'ArtworkController@reportsByAds']);
-            Route::get('profile', ['as'=>'profile', 'uses' => 'UserController@profile']);
-            Route::get('profile/edit', ['as'=>'profile_edit', 'uses' => 'UserController@profileEdit']);
-            Route::post('profile/edit', ['uses' => 'UserController@profileEditPost']);
+
             Route::get('profile/change-avatar', ['as'=>'change_avatar', 'uses' => 'UserController@changeAvatar']);
             Route::post('upload-avatar', ['as'=>'upload_avatar',  'uses' => 'UserController@uploadAvatar']);
 

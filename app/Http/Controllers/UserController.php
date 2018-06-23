@@ -6,10 +6,8 @@ use App\Ad;
 use App\Country;
 use App\Favorite;
 use App\User;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -25,26 +23,20 @@ class UserController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index() {
-		$title = trans( 'app.users' );
+		$title = trans( 'portal.users' );
+		$users = User::all();
 
-		return view( 'admin.users', compact( 'title' ) );
+		return view( 'dashboard.admin.users', compact( 'title', 'users') );
 	}
 
-	public function usersData() {
-		$users = User::select( 'id', 'name', 'user_name', 'email', 'created_at' )->whereUserType( 'user' )->get();
+	public function profile() {
+		$title = trans( 'portal.profile' );
+		$user  = Auth::user();
+		$countries = Country::all();
 
-		return Datatables::of( $users )
-		                 ->editColumn( 'name', function ( $user ) {
-			                 $html = '<a href="' . route( 'user_info', $user->id ) . '">' . $user->name . '</a>';
-
-			                 return $html;
-		                 } )
-		                 ->editColumn( 'created_at', function ( $user ) {
-			                 return $user->signed_up_datetime();
-		                 } )
-		                 ->removeColumn( 'id' )
-		                 ->make();
+		return view( 'dashboard.user.profile', compact( 'title', 'user', 'countries') );
 	}
+
 
 	public function userInfo( $id ) {
 		$title = trans( 'app.user_info' );
@@ -175,12 +167,6 @@ class UserController extends Controller {
 		//
 	}
 
-	public function profile() {
-		$title = trans( 'app.profile' );
-		$user  = Auth::user();
-
-		return view( 'admin.profile', compact( 'title', 'user' ) );
-	}
 
 	public function profileEdit() {
 		$title     = trans( 'app.profile_edit' );

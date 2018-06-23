@@ -182,7 +182,7 @@ function get_ads_price( $plan = 'regular' ) {
  */
 if ( ! function_exists( 'get_languages' ) ) {
 	function get_languages() {
-		$languages = \App\Language::all();
+		$languages = \App\Language::active()->get();
 
 		return $languages;
 	}
@@ -190,13 +190,15 @@ if ( ! function_exists( 'get_languages' ) ) {
 
 function current_language() {
 	if ( session( 'lang' ) ) {
-		$language = \App\Language::whereLanguageCode( session( 'lang' ) )->first();
+		$language = \App\Language::whereCode( session( 'lang' ) )->first();
 		if ( $language ) {
 			return $language;
 		}
 	}
 
-	return false;
+	// TODO discover language
+
+	return \App\Language::first();
 }
 
 /**
