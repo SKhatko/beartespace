@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateReportAdTable extends Migration
+class CreateArtworkReportsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class CreateReportAdTable extends Migration
      */
     public function up()
     {
-        Schema::create('report_ads', function (Blueprint $table) {
+        Schema::create('artwork_reports', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('ad_id')->nullable();
             $table->string('reason')->nullable();
@@ -29,6 +29,6 @@ class CreateReportAdTable extends Migration
      */
     public function down()
     {
-        Schema::drop('report_ads');
+        Schema::drop('artwork_reports');
     }
 }

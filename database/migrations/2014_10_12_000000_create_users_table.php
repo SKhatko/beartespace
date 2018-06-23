@@ -30,6 +30,12 @@ class CreateUsersTable extends Migration {
 			$table->string( 'website' )->nullable();
 			$table->string( 'phone' )->nullable();
 			$table->string( 'photo' )->nullable();
+			$table->string( 'picture' )->nullable();
+			$table->string( 'education' )->nullable();
+			$table->string( 'education_title' )->nullable();
+			$table->text('inspiration')->nullable();
+			$table->text('exhibition')->nullable();
+			$table->text('technique')->nullable();
 
 			$table->enum( 'user_type', [ 'user', 'admin', 'artist', 'gallery' ] )->nullable();
 			//active_status 0:pending, 1:active, 2:block;
@@ -37,7 +43,7 @@ class CreateUsersTable extends Migration {
 			// email_verified 0:unverified, 1:verified
 			$table->boolean( 'email_verified' )->nullable();
 			//is_online => 0:offline, 1:online;
-			$table->enum( 'is_online', [ 0, 1 ] )->nullable();
+			$table->boolean( 'is_online' )->nullable();
 
 			$table->timestamp( 'last_login' )->nullable();
 			$table->rememberToken();

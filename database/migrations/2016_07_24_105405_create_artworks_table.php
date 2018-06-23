@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAdsTable extends Migration
+class CreateArtworksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class CreateAdsTable extends Migration
      */
     public function up()
     {
-        Schema::create('ads', function (Blueprint $table) {
+        Schema::create('artworks', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title')->nullable();
             $table->string('slug')->nullable();
@@ -61,6 +61,6 @@ class CreateAdsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('ads');
+        Schema::drop('artworks');
     }
 }

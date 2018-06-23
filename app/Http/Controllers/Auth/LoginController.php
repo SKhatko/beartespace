@@ -43,10 +43,11 @@ class LoginController extends Controller
 
         //Check if active account
         $user = User::whereEmail($request->email)->first();
+
         if ($user){
-            if ($user->active_status != '1'){
-                return redirect()->back()->with('error', trans('app.user_account_wrong'));
-            }
+//            if ($user->active_status != '1'){
+//                return redirect()->back()->with('error', trans('app.user_account_wrong'));
+//            }
         }
 
         // If the class is using the ThrottlesLogins trait, we can automatically throttle

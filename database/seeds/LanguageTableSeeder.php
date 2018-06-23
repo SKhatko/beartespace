@@ -11,7 +11,7 @@ class LanguageTableSeeder extends Seeder
      */
     public function run()
     {
-	    DB::table('language')->insert([
+	    DB::table('languages')->insert([
 		    'code' => 'en',
 		    'name' => 'English',
 		    'is_rtl' => false,

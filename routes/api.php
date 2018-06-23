@@ -21,3 +21,6 @@ Route::post('translations', 'Api\TranslationController@store');
 Route::post('languages', 'Api\LanguageController@store');
 Route::post('profile', 'Api\UserController@store');
 
+// Upload files
+Route::any('upload/user-photo/{id}', 'Api\UserController@uploadPhoto');
+
