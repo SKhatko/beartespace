@@ -110,7 +110,7 @@
 
 
             <a class="app-header-logo" href="{{ route('home') }}">
-                <img src="{{ logo_url() }}" title="{{get_option('site_name')}}" alt="{{get_option('site_name')}}"/>
+                <img src="{{ logo_url() }}" title="BeArteBid" alt="BeArteBid logo"/>
             </a>
 
             <div class="app-header-links">

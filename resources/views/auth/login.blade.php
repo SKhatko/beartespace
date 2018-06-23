@@ -2,80 +2,69 @@
 
 @section('content')
 
-                    <div class="panel-heading">Login</div>
-                    <div class="panel-body">
-                        @include('admin.flash_msg')
-                        {{--                        @include('auth.social_login')--}}
 
-                        <form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">
-                            {{ csrf_field() }}
+    <div class="app-login">
 
-                            <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                                <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+        <el-card class="box-card">
+            <div slot="header" class="clearfix">
+                <div class="app-login__title">Login</div>
+            </div>
 
-                                <div class="col-md-6">
-                                    <input id="email" type="email" class="form-control" name="email"
-                                           value="{{ old('email') }}" required autofocus>
+            <form class="app-login-form" role="form" method="POST" action="{{ route('login') }}">
+                {{ csrf_field() }}
 
-                                    @if ($errors->has('email'))
-                                        <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
 
-                            <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                                <label for="password" class="col-md-4 control-label">Password</label>
+                <el-form>
+                    <el-form-item label="E-Mail Address" required>
+                        <el-input placeholder="Email" value="{{ old('email') }}" name="email" autofocus></el-input>
+                    </el-form-item>
 
-                                <div class="col-md-6">
-                                    <input id="password" type="password" class="form-control" name="password" required>
+                    <el-form-item label="Password" required>
+                        <el-input placeholder="Password" value="{{ old('password') }}" name="password"></el-input>
+                    </el-form-item>
 
-                                    @if ($errors->has('password'))
-                                        <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
+                    <el-form-item>
+                        <el-checkbox {{ old('remember') ? 'checked' : '' }} name="remember">Remember Me</el-checkbox>
+                    </el-form-item>
 
-                            @if(get_option('enable_recaptcha_login') == 1)
-                                <div class="form-group {{ $errors->has('g-recaptcha-response') ? ' has-error' : '' }}">
-                                    <div class="col-md-6 col-md-offset-4">
-                                        <div class="g-recaptcha"
-                                             data-sitekey="{{get_option('recaptcha_site_key')}}"></div>
-                                        @if ($errors->has('g-recaptcha-response'))
-                                            <span class="help-block">
+                    <el-form-item>
+                        <el-button type="primary" native-type="submit">Primary</el-button>
+
+                        <el-button type="text">
+                            <a href="{{ route('password.request') }}">
+                                Forgot Your Password?
+                            </a>
+                        </el-button>
+
+                    </el-form-item>
+
+                </el-form>
+
+
+                @if(get_option('enable_recaptcha_login') == 1)
+                    <div class="form-group {{ $errors->has('g-recaptcha-response') ? ' has-error' : '' }}">
+                        <div class="col-md-6 col-md-offset-4">
+                            <div class="g-recaptcha"
+                                 data-sitekey="{{get_option('recaptcha_site_key')}}"></div>
+                            @if ($errors->has('g-recaptcha-response'))
+                                <span class="help-block">
                                                     <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
                                                 </span>
-                                        @endif
-                                    </div>
-                                </div>
                             @endif
-
-                            <div class="form-group">
-                                <div class="col-md-6 col-md-offset-4">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox"
-                                                   name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <div class="col-md-8 col-md-offset-4">
-                                    <button type="submit" class="btn btn-primary">
-                                        Login
-                                    </button>
-
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        Forgot Your Password?
-                                    </a>
-                                </div>
-                            </div>
-                        </form>
+                        </div>
                     </div>
+                @endif
+
+
+            </form>
+
+        </el-card>
+
+
+    </div>
+
+    {{--                        @include('admin.flash_msg')--}}
+    {{--                        @include('auth.social_login')--}}
+
 
 @endsection
