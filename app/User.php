@@ -74,10 +74,11 @@ class User extends Authenticatable
         return $address;
     }
 
-    public function ads(){
+    public function artworks(){
         return $this->hasMany(Artwork::class);
     }
-    public function favourite_ads(){
+
+    public function favouriteArtworks(){
         return $this->belongsToMany(Artwork::class, 'favorites');
     }
 
@@ -109,6 +110,10 @@ class User extends Authenticatable
 
     public function isAdmin(){
         return $this->user_type == 'admin';
+    }
+
+    public function isUser() {
+    	return $this->user_type == 'user';
     }
 
     public function isGallery() {

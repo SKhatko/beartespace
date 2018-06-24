@@ -20,8 +20,7 @@ Route::get('/paintings', ['as' => 'paintings', 'uses'=>'HomeController@paintings
 Route::get('/sculptures', ['as' => 'sculptures', 'uses'=>'HomeController@sculptures']);
 Route::get('/artists', ['as' => 'artists', 'uses'=>'HomeController@artists']);
 
-Route::get('/verifyemail/{token}', 'Auth\RegisterController@verify');
-
+//Route::get('/verifyemail/{token}', 'Auth\RegisterController@verify');
 
 Route::get('/checkout', ['as' => 'checkout', 'uses'=>'HomeController@checkout']);
 
@@ -32,10 +31,11 @@ Route::get('about', 'HomeController@about')->name('about');
 Route::get('rules', 'HomeController@rules')->name('rules');
 Route::get('shipping', 'HomeController@shipping')->name('shipping');
 
-
 // Contact us page
 Route::get('contacts', ['as' => 'contacts', 'uses'=>'HomeController@contacts']);
 Route::post('contacts', ['uses'=>'HomeController@contactsPost']);
+
+
 
 
 
@@ -79,9 +79,6 @@ Route::post('get-city-by-state', ['as'=>'get_city_by_state', 'uses' => 'ArtworkC
 Route::post('switch/product-view', ['as'=>'switch_grid_list_view', 'uses' => 'ArtworkController@switchGridListView']);
 
 
-Route::get('post-new', ['as'=>'create_ad', 'uses' => 'ArtworkController@create']);
-Route::post('post-new', ['uses' => 'ArtworkController@store']);
-
 //Post bid
 Route::post('{id}/post-new', ['as' => 'post_bid','uses' => 'BidController@postBid']);
 
@@ -113,7 +110,13 @@ Route::resource('user', 'UserController');
 Route::group(['prefix'=>'dashboard', 'middleware' => 'dashboard'], function(){
     Route::get('/', 'DashboardController@dashboard')->name('dashboard');
 	Route::get('profile', 'UserController@profile')->name('profile');
+	Route::get('change-password', 'UserController@changePassword')->name('change-password');
 
+	Route::get('artworks', 'ArtworkController@myArtworks')->name('artworks');
+	Route::get('artwork/create', 'ArtworkController@create')->name('artwork.create');
+	Route::get('favorites', 'ArtworkController@favoriteArtworks')->name('favorites');
+
+	Route::post('change-password', 'UserController@changePasswordPost');
 
 	Route::group(['middleware'=>'only_admin_access'], function(){
 
@@ -146,33 +149,7 @@ Route::group(['prefix'=>'dashboard', 'middleware' => 'dashboard'], function(){
             Route::get('monetization', ['as'=>'monetization', 'uses' => 'SettingsController@monetization']);
         });
 
-        Route::group(['prefix'=>'location'], function(){
-            Route::get('country', ['as'=>'country_list', 'uses' => 'LocationController@countries']);
-            Route::get('country-data', ['as'=>'get_countries_data', 'uses' => 'LocationController@getCountriesData']);
-            Route::get('states', ['as'=>'state_list', 'uses' => 'LocationController@stateList']);
-            Route::post('states', [ 'uses' => 'LocationController@saveState']);
-            Route::get('states/{id}/edit', ['as'=>'edit_state', 'uses' => 'LocationController@stateEdit']);
-            Route::post('states/{id}/edit', ['uses' => 'LocationController@stateEditPost']);
-            Route::post('states/delete', ['as'=>'delete_state', 'uses' => 'LocationController@stateDestroy']);
-            Route::get('state-data', ['as'=>'get_state_data', 'uses' => 'LocationController@getStatesData']);
-            Route::get('cities', ['as'=>'city_list', 'uses' => 'LocationController@cityList']);
-            Route::post('cities', ['uses' => 'LocationController@saveCity']);
-            Route::get('city-data', ['as'=>'get_city_data', 'uses' => 'LocationController@getCityData']);
 
-            Route::get('cities/{id}/edit', ['as'=>'edit_city', 'uses' => 'LocationController@cityEdit']);
-            Route::post('cities/{id}/edit', ['uses' => 'LocationController@cityEditPost']);
-            Route::post('city/delete', ['as'=>'delete_city', 'uses' => 'LocationController@cityDestroy']);
-        });
-
-        Route::group(['prefix'=>'categories'], function(){
-            Route::get('/', ['as'=>'parent_categories', 'uses' => 'CategoriesController@index']);
-            Route::post('/', ['uses' => 'CategoriesController@store']);
-
-            Route::get('edit/{id}', ['as'=>'edit_categories', 'uses' => 'CategoriesController@edit']);
-            Route::post('edit/{id}', ['uses' => 'CategoriesController@update']);
-
-            Route::post('delete-categories', ['as'=>'delete_categories', 'uses' => 'CategoriesController@destroy']);
-        });
 
         Route::group(['prefix'=>'posts'], function(){
             Route::get('/', ['as'=>'posts', 'uses' => 'PostController@posts']);
@@ -234,20 +211,16 @@ Route::group(['prefix'=>'dashboard', 'middleware' => 'dashboard'], function(){
 
     //All user can access this route
 
-	Route::get('payments', ['as'=>'payments', 'uses' => 'PaymentController@index']);
-    Route::get('payments-data', ['as'=>'get_payments_data', 'uses' => 'PaymentController@paymentsData']);
-    Route::get('payments-info/{trand_id}', ['as'=>'payment_info', 'uses' => 'PaymentController@paymentInfo']);
+	Route::get('payments','PaymentController@index')->name('payments');
     //End all users access
 
 
     Route::group(['prefix'=>'u'], function(){
         Route::group(['prefix'=>'posts'], function(){
-            Route::get('/', ['as'=>'my_ads', 'uses' => 'ArtworkController@myAds']);
             Route::post('delete', ['as'=>'delete_ads', 'uses' => 'ArtworkController@destroy']);
             Route::get('edit/{id}', ['as'=>'edit_ad', 'uses' => 'ArtworkController@edit']);
             Route::post('edit/{id}', ['uses' => 'ArtworkController@update']);
             Route::get('my-lists', ['as'=>'my_ads', 'uses' => 'ArtworkController@myAds']);
-            Route::get('favorite-lists', ['as'=>'favorite_ads', 'uses' => 'ArtworkController@favoriteAds']);
             //Upload ads image
             Route::post('upload-a-image', ['as'=>'upload_ads_image', 'uses' => 'ArtworkController@uploadAdsImage']);
             Route::post('upload-post-image', ['as'=>'upload_post_image', 'uses' => 'PostController@uploadPostImage']);
@@ -268,17 +241,7 @@ Route::group(['prefix'=>'dashboard', 'middleware' => 'dashboard'], function(){
             Route::get('bids/{ad_id}', ['as'=>'auction_bids', 'uses' => 'BidController@index']);
             Route::post('bids/action', ['as'=>'bid_action', 'uses' => 'BidController@bidAction']);
             Route::get('bidder_info/{bid_id}', ['as'=>'bidder_info', 'uses' => 'BidController@bidderInfo']);
-
-            /**
-             * Change Password route
-             */
-            Route::group(['prefix' => 'account'], function() {
-                Route::get('change-password', ['as' => 'change_password', 'uses' => 'UserController@changePassword']);
-                Route::post('change-password', 'UserController@changePasswordPost');
-            });
-
         });
     });
 
-    //Route::get('logout', ['as'=>'logout', 'uses' => 'DashboardController@logout']);
 });

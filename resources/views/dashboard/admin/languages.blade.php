@@ -5,19 +5,27 @@
 
 @section('content')
 
-    <div class="admin a">
+    <el-aside>
 
         @include('dashboard.partials.menu', ['index' => 'languages'])
 
-        <div class="a-content">
+    </el-aside>
 
-            <languages
-                    :translated-languages_="{{ $translatedLanguages }}"
-                    :languages_="{{ $languages }}">
-            </languages>
+    <el-main>
+
+        <div class="admin a">
+
+            <div class="a-content">
+
+                <languages
+                        :translated-languages_="{{ $translatedLanguages }}"
+                        :languages_="{{ $languages }}">
+                </languages>
+
+            </div>
 
         </div>
 
-    </div>
+    </el-main>
 
 @endsection

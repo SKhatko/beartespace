@@ -27,15 +27,15 @@ class UserController extends Controller {
 		$title = trans( 'portal.users' );
 		$users = User::all();
 
-		return view( 'dashboard.admin.users', compact( 'title', 'users') );
+		return view( 'dashboard.admin.users', compact( 'title', 'users' ) );
 	}
 
 	public function profile() {
-		$title = trans( 'portal.profile' );
-		$user  = Auth::user();
-		$countries = Country::all('country_name', 'id');
+		$title     = trans( 'portal.profile' );
+		$user      = Auth::user();
+		$countries = Country::all( 'country_name', 'id' );
 
-		return view( 'dashboard.user.profile', compact( 'title', 'user', 'countries') );
+		return view( 'dashboard.user.profile', compact( 'title', 'user', 'countries' ) );
 	}
 
 
@@ -206,9 +206,9 @@ class UserController extends Controller {
 			$is_uploaded = current_disk()->put( $imageFileName, $resized_thumb->__toString(), 'public' );
 
 			if ( $is_uploaded ) {
-				$previous_photo         = $user->photo;
+				$previous_photo = $user->photo;
 
-				$user->photo         = $image_name;
+				$user->photo = $image_name;
 				$user->save();
 
 				if ( $previous_photo ) {
@@ -281,22 +281,23 @@ class UserController extends Controller {
 	}
 
 	public function changePassword() {
-		$title = trans( 'app.change_password' );
+		$title = trans( 'portal.change_password' );
 
-		return view( 'admin.change_password', compact( 'title' ) );
+		return view( 'dashboard.user.change-password', compact( 'title' ) );
 	}
 
 	public function changePasswordPost( Request $request ) {
+
 		$rules = [
 			'old_password'              => 'required',
 			'new_password'              => 'required|confirmed',
 			'new_password_confirmation' => 'required',
 		];
+
 		$this->validate( $request, $rules );
 
 		$old_password = $request->old_password;
 		$new_password = $request->new_password;
-		//$new_password_confirmation = $request->new_password_confirmation;
 
 		if ( Auth::check() ) {
 			$logged_user = Auth::user();
@@ -305,10 +306,10 @@ class UserController extends Controller {
 				$logged_user->password = Hash::make( $new_password );
 				$logged_user->save();
 
-				return redirect()->back()->with( 'success', trans( 'app.password_changed_msg' ) );
+				return redirect()->back()->with( 'success', 'Password changed successfully' );
 			}
 
-			return redirect()->back()->with( 'error', trans( 'app.wrong_old_password' ) );
+			return redirect()->back()->with( 'error', 'Wrong Old password' );
 		}
 
 	}

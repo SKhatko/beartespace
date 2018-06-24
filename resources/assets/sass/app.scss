@@ -2,7 +2,6 @@
 @import "element-variables";
 
 // Bootstrap
-//@import "~bootstrap-sass/assets/stylesheets/bootstrap";
 @import "~font-awesome/css/font-awesome";
 @import "~select2/dist/css/select2";
 @import "~toastr/build/toastr";
@@ -11,9 +10,7 @@
 //@import "admin";
 //@import "rtl";
 
-
 @import "~element-ui/packages/theme-chalk/src/index";
-
 
 *,
 *::before,
@@ -25,13 +22,24 @@ html {
   font-size: 100%;
 }
 
-body {
-  font-family: 'Roboto', sans-serif;
-  padding: 0;
+body,html {
   margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: "Helvetica Neue", Helvetica ,Arial,sans-serif;
+  font-weight: 400;
   font-size: 14px;
-  min-height: 100vh;
-  color: black;
+}
+
+a {
+  text-decoration: none;
+}
+
+
+.app--wrapper {
+  width: 100%;
+  margin: 0 auto;
+  max-width: 1200px;
 }
 
 .app {
@@ -40,23 +48,28 @@ body {
   min-height: 100vh;
 
   &-header {
-    padding: 15px;
+    padding: 0;
 
     &--top {
       display: flex;
       justify-content: flex-end;
       align-items: center;
+      margin-bottom: 20px;
+      padding: 15px;
+      box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1)
     }
 
     &--bottom {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      padding: 15px;
     }
 
     &-auth {
       display: flex;
-      padding: 5px;
+      align-items: center;
+      margin: 0 15px;
       cursor: pointer;
     }
 
@@ -71,11 +84,16 @@ body {
       }
     }
 
+    &-logo {
+      flex: 1;
+    }
+
     &-links {
       flex: 1;
       display: flex;
-      justify-content: space-evenly;
+      justify-content: space-between;
       align-items: center;
+      margin-left: 30px;
 
     }
 
@@ -83,13 +101,10 @@ body {
 
   &-content {
     flex: 1;
-    max-width: 900px;
     width: 100%;
-    margin: 0 auto;
   }
 
   &-index {
-    display: flex;
 
     &-filters {
       min-width: 200px;
@@ -108,19 +123,24 @@ body {
     }
   }
 
-  &-login {
-    padding-top: 20vh;
-    max-width: 500px;
-    margin: 0 auto;
 
-    &__title {
+  &-auth {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
+    &-login {
+      width: 400px;
     }
 
-  }
+    &-email {
+      width: 400px;
+    }
 
-  &-register {
-    min-width:900px;
+    &-register {
+      width: 400px;
+    }
+
   }
 
   &-footer {
@@ -137,16 +157,14 @@ body {
 }
 
 // Admin styles
-
-.a {
-  display: flex;
-
-  &-sidebar {
-
-  }
-
-  &-content {
-    flex: 1;
-    padding:  15px;
-  }
+.admin {
+  width: 100%;
+  margin: 0 auto;
+  max-width: 900px;
 }
+
+.a-content {
+  padding: 15px;
+}
+
+

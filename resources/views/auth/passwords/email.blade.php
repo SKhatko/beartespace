@@ -1,46 +1,44 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default reset-password-form">
-                <div class="panel-heading">Reset Password</div>
-                <div class="panel-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
 
-                    <form class="form-horizontal" role="form" method="POST" action="{{ route('password.email') }}">
-                        {{ csrf_field() }}
+    <el-main class="app-auth">
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+        <el-card class="box-card app-auth-email">
+            <div slot="header">Reset Password</div>
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+            @include('partials.errors')
 
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Send Password Reset Link
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+            @if (session('status'))
+                <div class="alert alert-success">
+                    {{ session('status') }}
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
+            @endif
+
+            <el-form method="POST" action="{{ route('password.email') }}">
+                {{ csrf_field() }}
+
+                <el-form-item label="E-Mail Address" required>
+                    <el-input type="email" placeholder="Email" value="{{ old('email') }}" name="email"
+                              autofocus></el-input>
+                </el-form-item>
+
+                <el-form-item>
+                    <el-button type="primary" native-type="submit">Send Restore Link</el-button>
+
+                    <el-button type="text">
+                        <a href="{{ route('register') }}">
+                            Create New User
+                        </a>
+                    </el-button>
+
+                </el-form-item>
+
+            </el-form>
+
+        </el-card>
+
+    </el-main>
+
 @endsection
+

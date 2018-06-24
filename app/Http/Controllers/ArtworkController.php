@@ -55,13 +55,15 @@ class ArtworkController extends Controller
         return view('admin.all_ads', compact('title', 'ads'));
     }
 
-    public function myAds(){
+    public function myArtworks(){
         $title = trans('app.my_ads');
 
         $user = Auth::user();
-        $ads = $user->ads()->with('city', 'country', 'state')->orderBy('id', 'desc')->paginate(20);
 
-        return view('admin.my_ads', compact('title', 'ads'));
+        $artworks = $user->artworks()->orderBy('id', 'desc')->get();
+
+        return $artworks;
+        return view('admin.my_ads', compact('title', 'artworks'));
     }
 
     public function pendingAds(){
@@ -73,11 +75,11 @@ class ArtworkController extends Controller
         return view('admin.pending_ads', compact('title', 'ads'));
     }
 
-    public function favoriteAds(){
+    public function favoriteArtworks(){
         $title = trans('app.favourite_ads');
 
         $user = Auth::user();
-        $ads = $user->favourite_ads()->with('city', 'country', 'state')->orderBy('id', 'desc')->paginate(20);
+        $ads = $user->favouriteArtworks()->with('city', 'country', 'state')->orderBy('id', 'desc')->paginate(20);
 
         return view('admin.favourite_ads', compact('title', 'ads'));
     }
@@ -93,10 +95,8 @@ class ArtworkController extends Controller
         $categories = Category::orderBy('category_name', 'asc')->get();
         $countries = Country::all();
 
-        $previous_states = State::where('country_id', old('country'))->get();
-        $previous_cities = City::where('state_id', old('state'))->get();
 
-        return view('create_ad', compact('title', 'categories', 'countries', 'ads_images', 'previous_states', 'previous_cities'));
+        return view('dashboard.artworks.create', compact('title', 'categories', 'countries', 'ads_images'));
     }
 
     /**

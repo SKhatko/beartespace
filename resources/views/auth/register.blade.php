@@ -2,120 +2,84 @@
 
 @section('content')
 
+    <el-main class="app-auth">
 
-    <div class="app-register">
+        <el-card class="box-card app-auth-register">
+            <div slot="header" class="clearfix">New User Registration</div>
 
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 col-md-offset-2">
-                    <div class="panel panel-default login-form">
-                        <div class="panel-heading">Login</div>
-                        <div class="panel-body">
-                            @include('admin.flash_msg')
+            <el-form method="POST" action="{{ route('register') }}">
 
-                            <form method="POST" action="{{ route('register') }}">
-                                {{ csrf_field() }}
+                @include('partials.errors')
 
-                                <div class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }}">
-                                    <label for="first_name" class="col-md-4 control-label">
-                                        First name
-                                    </label>
+                {{ csrf_field() }}
 
-                                    <div class="col-md-6">
-                                        <input id="first_name" type="text" class="form-control" name="first_name" value="{{ old('first_name') }}"
-                                               required autofocus>
+                <el-row :gutter="20">
+                    <el-col :sm="12">
+                        <el-form-item label="First Name" required>
+                            <el-input name="first_name" value="{{ old('first_name') }}" autofocus></el-input>
+                        </el-form-item>
+                    </el-col>
 
-                                        @if ($errors->has('first_name'))
-                                            <span class="help-block">
-                                        <strong>{{ $errors->first('first_name') }}</strong>
-                                    </span>
-                                        @endif
-                                    </div>
-                                </div>
+                    <el-col :sm="12">
+                        <el-form-item label="Last Name" required>
+                            <el-input name="last_name" value="{{ old('last_name') }}"></el-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
 
-                                <div class="form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
-                                    <label for="last_name" class="col-md-4 control-label">
-                                        Last name
-                                    </label>
 
-                                    <div class="col-md-6">
-                                        <input id="last_name" type="text" class="form-control" name="last_name" value="{{ old('last_name') }}"
-                                               required autofocus>
 
-                                        @if ($errors->has('last_name'))
-                                            <span class="help-block">
-                                        <strong>{{ $errors->first('last_name') }}</strong>
-                                    </span>
-                                        @endif
-                                    </div>
-                                </div>
 
-                                <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                                    <label for="email" class="col-md-4 control-label">@lang('app.email_address')</label>
+                <el-form-item label="E-Mail Address" required>
+                    <el-input type="email" placeholder="Email" value="{{ old('email') }}" name="email"
+                              autofocus></el-input>
+                </el-form-item>
 
-                                    <div class="col-md-6">
-                                        <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}"
-                                               required>
+                <el-form-item label="Password" required>
+                    <el-input type="password" placeholder="Password" value="{{ old('password') }}"
+                              name="password"></el-input>
+                </el-form-item>
 
-                                        @if ($errors->has('email'))
-                                            <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                        @endif
-                                    </div>
-                                </div>
 
-                                <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                                    <label for="password" class="col-md-4 control-label">@lang('app.password')</label>
+                <!-- TODO Social login -->
+                {{--                        @include('auth.social_login')--}}
 
-                                    <div class="col-md-6">
-                                        <input id="password" type="password" class="form-control" name="password" required>
 
-                                        @if ($errors->has('password'))
-                                            <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                        @endif
-                                    </div>
-                                </div>
 
-                                <div class="form-group">
-                                    <label for="password-confirm"
-                                           class="col-md-4 control-label">@lang('app.confirm_password')</label>
+            <!-- TODO recaptcha -->
 
-                                    <div class="col-md-6">
-                                        <input id="password-confirm" type="password" class="form-control"
-                                               name="password_confirmation" required>
-                                    </div>
-                                </div>
-
-                                @if(get_option('enable_recaptcha_registration') == 1)
-                                    <div class="form-group {{ $errors->has('g-recaptcha-response') ? ' has-error' : '' }}">
-                                        <div class="col-md-6 col-md-offset-4">
-                                            <div class="g-recaptcha" data-sitekey="{{get_option('recaptcha_site_key')}}"></div>
-                                            @if ($errors->has('g-recaptcha-response'))
-                                                <span class="help-block">
+                @if(get_option('enable_recaptcha_registration') == 1)
+                    <div class="form-group {{ $errors->has('g-recaptcha-response') ? ' has-error' : '' }}">
+                        <div class="col-md-6 col-md-offset-4">
+                            <div class="g-recaptcha" data-sitekey="{{get_option('recaptcha_site_key')}}"></div>
+                            @if ($errors->has('g-recaptcha-response'))
+                                <span class="help-block">
                                                     <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
                                                 </span>
-                                            @endif
-                                        </div>
-                                    </div>
-                                @endif
-
-                                <div class="form-group">
-                                    <div class="col-md-6 col-md-offset-4">
-                                        <button type="submit" class="btn btn-primary">
-                                            <i class="fa fa-user-plus"></i> @lang('app.register')
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-
+                            @endif
                         </div>
                     </div>
+                @endif
+
+                <div>
+                    By Registering, you agree that you've read and accepted our User Agreement, you're at least 18 years old, and you consent to our Privacy Notice and receiving marketing communications from us.
                 </div>
-            </div>
-        </div>
-    </div>
+
+                <el-form-item>
+                    <el-button type="primary" native-type="submit">Register</el-button>
+
+                    <el-button type="text">
+                        <a href="{{ route('login') }}">
+                            or Login
+                        </a>
+                    </el-button>
+
+                </el-form-item>
+
+            </el-form>
+
+        </el-card>
+
+    </el-main>
 
 @endsection

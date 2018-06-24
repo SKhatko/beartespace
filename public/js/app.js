@@ -28592,6 +28592,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -95465,7 +95477,17 @@ module.exports = Component.exports
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return (_vm.user) ? _c('div', [_c('h2', [_vm._v("Profile")]), _vm._v(" "), _c('el-form', [_c('el-form-item', {
+  return (_vm.user) ? _c('div', [_c('h2', [_vm._v("Profile settings")]), _vm._v(" "), _c('el-collapse', {
+    attrs: {
+      "value": "1",
+      "accordion": ""
+    }
+  }, [_c('el-collapse-item', {
+    attrs: {
+      "title": "Personal Information",
+      "name": "1"
+    }
+  }, [_c('el-form', [_c('el-form-item', {
     attrs: {
       "label": "Name that will be shown on your profile"
     }
@@ -95782,7 +95804,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.save()
       }
     }
-  }, [_vm._v("\n        Save\n    ")])], 1) : _vm._e()
+  }, [_vm._v("\n                Save\n            ")])], 1), _vm._v(" "), _c('el-collapse-item', {
+    attrs: {
+      "title": "Payment Information",
+      "name": "2"
+    }
+  }), _vm._v(" "), _c('el-collapse-item', {
+    attrs: {
+      "title": "Change Password",
+      "name": "2"
+    }
+  })], 1)], 1) : _vm._e()
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

@@ -37,18 +37,19 @@ class RegisterController extends Controller {
 
 		event( new Registered( $user = $this->create( $request->all() ) ) );
 
-		dispatch( new SendVerificationEmail( $user ) );
+//		dispatch( new SendVerificationEmail( $user ) );
 
-		return view( 'auth.verify' );
+		if ( $user ) {
+			$this->guard()->login( $user );
+		}
 
-//        return $this->registered($request, $user)
-//            ?: redirect($this->redirectPath());
+		return redirect( $this->redirectPath() );
 	}
 
 	public function verify( $token ) {
 		$user = User::where( 'email_token', $token )->first();
 
-		if ( $user && !$user->email_verified) {
+		if ( $user && ! $user->email_verified ) {
 			$user->email_verified = true;
 			$user->save();
 
@@ -63,6 +64,7 @@ class RegisterController extends Controller {
 
 	public function confirm() {
 
+
 	}
 
 	/**
@@ -70,7 +72,7 @@ class RegisterController extends Controller {
 	 *
 	 * @var string
 	 */
-	protected $redirectTo = '/';
+	protected $redirectTo = '/dashboard/profile';
 
 	/**
 	 * Create a new controller instance.
@@ -90,10 +92,10 @@ class RegisterController extends Controller {
 	 */
 	protected function validator( array $data ) {
 		return Validator::make( $data, [
-			'first_name'     => 'required|string|max:255',
-			'last_name'     => 'required|string|max:255',
-			'email'    => 'required|string|email|max:255|unique:users',
-			'password' => 'required|string|min:6|confirmed',
+			'first_name' => 'required|string|max:255',
+			'last_name'  => 'required|string|max:255',
+			'email'      => 'required|string|email|max:255|unique:users',
+			'password'   => 'required|string|min:6',
 		] );
 	}
 
@@ -106,12 +108,11 @@ class RegisterController extends Controller {
 	 */
 	protected function create( array $data ) {
 		return User::create( [
-			'first_name'          => $data['first_name'],
-			'last_name'          => $data['last_name'],
+			'first_name'    => $data['first_name'],
+			'last_name'     => $data['last_name'],
 			'email'         => $data['email'],
 			'email_token'   => base64_encode( $data['email'] ),
 			'password'      => bcrypt( $data['password'] ),
-			// TODO change user type from request
 			'user_type'     => 'user',
 			'active_status' => '1'
 		] );

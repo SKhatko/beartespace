@@ -42,15 +42,6 @@ class DashboardController extends Controller
             $blocked_ads = Artwork::whereStatus('2')->whereUserId($user_id)->count();
         }
 
-        return view('dashboard.index', compact('approved_ads', 'pending_ads', 'blocked_ads', 'total_users', 'total_reports', 'total_payments', 'total_payments_amount', 'ten_contact_messages', 'reports'));
-    }
-
-
-    public function logout(){
-        if (Auth::check()){
-            Auth::logout();
-        }
-
-        return redirect(route('login'));
+        return view('dashboard.user.dashboard', compact('approved_ads', 'pending_ads', 'blocked_ads', 'total_users', 'total_reports', 'total_payments', 'total_payments_amount', 'ten_contact_messages', 'reports'));
     }
 }

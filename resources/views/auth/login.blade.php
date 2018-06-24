@@ -2,44 +2,46 @@
 
 @section('content')
 
+    <el-main class="app-auth">
 
-    <div class="app-login">
+        <el-card class="box-card app-auth-login">
+            <div slot="header" class="clearfix">Login</div>
 
-        <el-card class="box-card">
-            <div slot="header" class="clearfix">
-                <div class="app-login__title">Login</div>
-            </div>
+            <el-form method="POST" action="{{ route('login') }}">
 
-            <form class="app-login-form" role="form" method="POST" action="{{ route('login') }}">
+                @include('partials.errors')
+
                 {{ csrf_field() }}
 
+                <el-form-item label="E-Mail Address" required>
+                    <el-input type="email" placeholder="Email" value="{{ old('email') }}" name="email" autofocus></el-input>
+                </el-form-item>
 
-                <el-form>
-                    <el-form-item label="E-Mail Address" required>
-                        <el-input placeholder="Email" value="{{ old('email') }}" name="email" autofocus></el-input>
-                    </el-form-item>
+                <el-form-item label="Password" required>
+                    <el-input type="password" placeholder="Password" value="{{ old('password') }}" name="password"></el-input>
+                </el-form-item>
 
-                    <el-form-item label="Password" required>
-                        <el-input placeholder="Password" value="{{ old('password') }}" name="password"></el-input>
-                    </el-form-item>
+                <el-form-item>
+                    <el-checkbox {{ old('remember') ? 'checked' : '' }} name="remember">Remember Me</el-checkbox>
+                </el-form-item>
 
-                    <el-form-item>
-                        <el-checkbox {{ old('remember') ? 'checked' : '' }} name="remember">Remember Me</el-checkbox>
-                    </el-form-item>
+                <el-form-item>
+                    <el-button type="primary" native-type="submit">Login</el-button>
 
-                    <el-form-item>
-                        <el-button type="primary" native-type="submit">Primary</el-button>
+                    <el-button type="text">
+                        <a href="{{ route('password.request') }}">
+                            Forgot Your Password?
+                        </a>
+                    </el-button>
 
-                        <el-button type="text">
-                            <a href="{{ route('password.request') }}">
-                                Forgot Your Password?
-                            </a>
-                        </el-button>
+                </el-form-item>
 
-                    </el-form-item>
 
-                </el-form>
+                <!-- TODO Social login -->
+                {{--                        @include('auth.social_login')--}}
 
+
+            <!-- TODO recaptcha -->
 
                 @if(get_option('enable_recaptcha_login') == 1)
                     <div class="form-group {{ $errors->has('g-recaptcha-response') ? ' has-error' : '' }}">
@@ -55,16 +57,10 @@
                     </div>
                 @endif
 
-
-            </form>
+            </el-form>
 
         </el-card>
 
-
-    </div>
-
-    {{--                        @include('admin.flash_msg')--}}
-    {{--                        @include('auth.social_login')--}}
-
+    </el-main>
 
 @endsection

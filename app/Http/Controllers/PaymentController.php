@@ -14,49 +14,34 @@ class PaymentController extends Controller
 {
     
     public function index(){
+
+	    $user = Auth::user();
+	    if ($user->isAdmin()){
+		    $payments = Payment::select('id','ad_id', 'user_id', 'amount','payment_method', 'status','local_transaction_id', 'created_at')->with('ad', 'user')->get();
+	    }else{
+		    $payments = Payment::select('id','ad_id', 'user_id', 'amount','payment_method', 'status','local_transaction_id', 'created_at')->whereUserId($user->id)->with('ad', 'user')->get();
+	    }
+
+
+	    $d =  Datatables::of($payments)
+	                    ->editColumn('ad_id', function($payment){
+		                    if ($payment->ad)
+			                    return '<a href="'.route('single_ad', [$payment->ad->id, $payment->ad->slug]).'" target="_blank">'.$payment->ad->title.'</a>';
+	                    })
+	                    ->editColumn('user_id', function($payment){
+		                    if ($payment->user){
+			                    return '<a href="'.route('user_info', $payment->user->id).'"  target="_blank"> '.$payment->user->name.'</a>';
+		                    }
+		                    return trans('app.no_user');
+	                    })
+	                    ->editColumn('status', function($payment){
+		                    return '<a href="'.route('payment_info', $payment->local_transaction_id).'"  target="_blank"> '.$payment->status.'</a>';
+	                    });
+
         $title = trans('app.payments');
-        return view('admin.payments', compact('title'));
+        return view('dashboard.user.payments', compact('title', 'payments'));
     }
-    public function paymentsData(){
-        $user = Auth::user();
-        if ($user->isAdmin()){
-            $payments = Payment::select('id','ad_id', 'user_id', 'amount','payment_method', 'status','local_transaction_id', 'created_at')->with('ad', 'user')->get();
-        }else{
-            $payments = Payment::select('id','ad_id', 'user_id', 'amount','payment_method', 'status','local_transaction_id', 'created_at')->whereUserId($user->id)->with('ad', 'user')->get();
-        }
 
-        return  Datatables::of($payments)
-            ->editColumn('ad_id', function($payment){
-                if ($payment->ad)
-                return '<a href="'.route('single_ad', [$payment->ad->id, $payment->ad->slug]).'" target="_blank">'.$payment->ad->title.'</a>';
-            })
-            ->editColumn('user_id', function($payment){
-                if ($payment->user){
-                    return '<a href="'.route('user_info', $payment->user->id).'"  target="_blank"> '.$payment->user->name.'</a>';
-                }
-                return trans('app.no_user');
-            })
-            ->editColumn('status', function($payment){
-                return '<a href="'.route('payment_info', $payment->local_transaction_id).'"  target="_blank"> '.$payment->status.'</a>';
-            })
-            ->editColumn('created_at',function($user){
-                return $user->created_at_datetime();
-            })
-            ->removeColumn('id', 'local_transaction_id')
-            ->make();
-    }
-    
-    public function paymentInfo($tran_id){
-        $payment = Payment::where('local_transaction_id', $tran_id)->first() ;
-
-        if (!$payment){
-            return view('admin.error.error_404');
-        }
-
-        $title = trans('app.payment_info');
-        return view('admin.payment_info', compact('title', 'payment'));
-
-    }
 
     /**
      * @param $transaction_id
