@@ -114,6 +114,7 @@ Route::group(['prefix'=>'dashboard', 'middleware' => 'dashboard'], function(){
 
 	Route::get('artworks', 'ArtworkController@myArtworks')->name('artworks');
 	Route::get('artwork/create', 'ArtworkController@create')->name('artwork.create');
+	Route::post('artwork', 'ArtworkController@store')->name('artwork.store');
 	Route::get('favorites', 'ArtworkController@favoriteArtworks')->name('favorites');
 
 	Route::post('change-password', 'UserController@changePasswordPost');

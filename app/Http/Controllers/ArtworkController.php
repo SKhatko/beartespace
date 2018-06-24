@@ -106,6 +106,8 @@ class ArtworkController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request){
+
+    	return $request->all();
         $user_id = 0;
         if (Auth::check()){
             $user_id = Auth::user()->id;
