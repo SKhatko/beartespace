@@ -82,7 +82,7 @@
                 </el-input>
             </el-form-item>
 
-            <el-form-item label="Date of making Artwork">
+            <el-form-item label="Date of completion Artwork">
                 <el-date-picker
                         type="date"
                         value-format="yyyy-MM-dd"
@@ -154,11 +154,16 @@
                     width: '',
                     depth: '',
                     weight: '',
+                    inspiration: '',
+                    date_of_completion: '',
+                    price: '',
+
                     category_id: '',
 
-
-
-
+                    medium: '',
+                    direction: '',
+                    theme: '',
+                    color: '',
                 },
                 countries: [],
 

@@ -14,46 +14,27 @@ class CreateArtworksTable extends Migration
     {
         Schema::create('artworks', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('slug')->nullable();
             $table->string('title')->nullable();
             $table->text('description')->nullable();
-
+            $table->text('inspiration')->nullable();
             $table->float('height', 2)->nullable();
             $table->float('width', 2)->nullable();
             $table->float('depth', 2)->nullable();
             $table->float('weight', 2)->nullable();
+            $table->date('date_of_completion')->nullable();
+	        $table->decimal('price', 12,2)->nullable();
 
             $table->integer('category_id')->nullable();
 
-
-            $table->enum('type', ['personal', 'business'])->nullable();
-            $table->string('ad_condition')->nullable();
-            $table->string('model')->nullable();
-            $table->decimal('price', 12,2)->nullable();
-            $table->enum('is_negotiable', [0,1])->nullable();
-
-            $table->string('seller_name')->nullable();
-            $table->string('seller_email')->nullable();
-            $table->string('seller_phone')->nullable();
-
-            $table->integer('country_id')->nullable();
-            $table->integer('state_id')->nullable();
-            $table->integer('city_id')->nullable();
-            $table->string('address')->nullable();
-            $table->string('video_url')->nullable();
-            $table->string('category_type')->nullable();
+            $table->string('medium')->nullable();
+            $table->string('direction')->nullable();
+            $table->string('theme')->nullable();
+            $table->string('color')->nullable();
 
             //0 =pending for review, 1= published, 2=blocked, 3=archived
-            $table->enum('status', [0,1,2,3]);
-            $table->enum('price_plan', ['regular','premium'])->nullable();
-            $table->enum('mark_ad_urgent', ['0','1'])->nullable();
-
-            $table->integer('view')->nullable();
-            $table->integer('max_impression')->nullable();
-            $table->integer('user_id')->nullable();
-
-            $table->string('latitude')->nullable();
-            $table->string('longitude')->nullable();
-            $table->date('expired_at')->nullable();
+            $table->enum('status', [0,1,2,3])->nullable();
+	        $table->boolean('auction_status')->nullable();
             $table->timestamps();
         });
     }

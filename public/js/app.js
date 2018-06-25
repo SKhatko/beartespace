@@ -96453,8 +96453,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 width: '',
                 depth: '',
                 weight: '',
-                category_id: ''
+                inspiration: '',
+                date_of_completion: '',
+                price: '',
 
+                category_id: '',
+
+                medium: '',
+                direction: '',
+                theme: '',
+                color: ''
             },
             countries: [],
 
@@ -96668,7 +96676,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1), _vm._v(" "), _c('el-form-item', {
     attrs: {
-      "label": "Date of making Artwork"
+      "label": "Date of completion Artwork"
     }
   }, [_c('el-date-picker', {
     attrs: {
