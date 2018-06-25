@@ -14,7 +14,7 @@ class UserController extends Controller {
 
 		$user->update( $request->all() );
 
-		return $user;
+		return ['status'=> 'success', 'message' => 'Saved', 'data' => $user];
 	}
 
 	public function uploadPhoto( Request $request, $id ) {

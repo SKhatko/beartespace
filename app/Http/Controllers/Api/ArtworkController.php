@@ -10,11 +10,9 @@ class ArtworkController extends Controller
 {
 	public function store( Request $request ) {
 
-		$artwork = Artwork::find( $request['id'] );
+		$artwork = Artwork::updateOrCreate( $request->all() );
 
-		$artwork->update( $request->all() );
-
-		return $artwork;
+		return ['status'=> 'success', 'message' => 'Your Artwork is Saved and will be available after approve', 'data' => $artwork];
 	}
 
 	public function uploadPhoto( Request $request, $id ) {

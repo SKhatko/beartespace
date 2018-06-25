@@ -15,12 +15,16 @@ class CreateArtworksTable extends Migration
         Schema::create('artworks', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title')->nullable();
-            $table->string('slug')->nullable();
             $table->text('description')->nullable();
 
+            $table->float('height', 2)->nullable();
+            $table->float('width', 2)->nullable();
+            $table->float('depth', 2)->nullable();
+            $table->float('weight', 2)->nullable();
+
             $table->integer('category_id')->nullable();
-            $table->integer('sub_category_id')->nullable();
-            $table->integer('brand_id')->nullable();
+
+
             $table->enum('type', ['personal', 'business'])->nullable();
             $table->string('ad_condition')->nullable();
             $table->string('model')->nullable();

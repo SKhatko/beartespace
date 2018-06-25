@@ -58,16 +58,26 @@
                         <el-dropdown trigger="hover">
                       <span class="el-dropdown-link">
                          {{ auth()->user()->name }}
-{{--                          <img src="{{auth()->user()->get_gravatar()}}" class="app-header-auth__photo"/>--}}
+                          {{--                          <img src="{{auth()->user()->get_gravatar()}}" class="app-header-auth__photo"/>--}}
 
                           <i class="el-icon-arrow-down el-icon--right"></i>
                       </span>
                             <el-dropdown-menu slot="dropdown">
+
                                 <el-dropdown-item>
                                     <a href="{{route('dashboard')}}" class="el-dropdown-link">Dashboard</a>
                                 </el-dropdown-item>
+
                                 <el-dropdown-item>
-                                    <a href="{{route('profile')}}" class="el-dropdown-link">Profile</a>
+                                    <a href="{{route('dashboard.profile')}}" class="el-dropdown-link">Profile</a>
+                                </el-dropdown-item>
+
+                                <el-dropdown-item>
+                                    <a href="{{route('dashboard.artwork.create')}}" class="el-dropdown-link">Upload Artwork</a>
+                                </el-dropdown-item>
+
+                                <el-dropdown-item>
+                                    <a href="{{route('change-password')}}" class="el-dropdown-link">Change Password</a>
                                 </el-dropdown-item>
 
                                 <el-dropdown-item>
@@ -207,6 +217,8 @@
 <script src="{{ mix('js/app.js') }}"></script>
 
 @yield('page-js')
+
+@yield('scripts')
 
 </body>
 </html>

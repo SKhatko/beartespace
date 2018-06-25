@@ -20,6 +20,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('translations', 'Api\TranslationController@store');
 Route::post('languages', 'Api\LanguageController@store');
 Route::post('profile', 'Api\UserController@store');
+Route::post('artwork', 'Api\ArtworkController@store');
+
 
 // Upload files
 Route::any('upload/user-photo/{id}', 'Api\UserController@uploadPhoto');

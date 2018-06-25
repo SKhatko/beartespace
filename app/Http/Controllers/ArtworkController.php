@@ -91,7 +91,7 @@ class ArtworkController extends Controller
      */
     public function create()
     {
-        $title = trans('app.post_an_ad');
+        $title = 'Upload New Artwork';
         $categories = Category::orderBy('category_name', 'asc')->get();
         $countries = Country::all();
 
@@ -107,8 +107,7 @@ class ArtworkController extends Controller
      */
     public function store(Request $request){
 
-    	return $request->all();
-        $user_id = 0;
+    	$user_id = 0;
         if (Auth::check()){
             $user_id = Auth::user()->id;
         }

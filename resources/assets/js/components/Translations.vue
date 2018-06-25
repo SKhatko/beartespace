@@ -1,7 +1,7 @@
 <template>
 
 
-    <div v-if="translations">
+    <el-card v-if="translations">
 
         <h2>Translations</h2>
 
@@ -45,7 +45,7 @@
             Save
         </el-button>
 
-    </div>
+    </el-card>
 
 </template>
 

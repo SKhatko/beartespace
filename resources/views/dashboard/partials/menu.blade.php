@@ -8,7 +8,7 @@
 
     <el-menu-item index="profile">
         <i class="el-icon-document"></i>
-        <span slot="title"><a href="{{ route('profile') }}">Profile</a></span>
+        <span slot="title"><a href="{{ route('dashboard.profile') }}">Profile</a></span>
     </el-menu-item>
 
     <el-menu-item index="change-password">
@@ -33,8 +33,8 @@
                 <i class="el-icon-location"></i>
                 <span slot="title">Artworks</span>
             </template>
-            <el-menu-item index="2-1"><a href="{{ route('artworks') }}">My Artworks</a></el-menu-item>
-            <el-menu-item index="2-2"><a href="{{ route('artwork.create') }}">Create Artwork</a></el-menu-item>
+            <el-menu-item index="2-1"><a href="{{ route('dashboard.artworks') }}">My Artworks</a></el-menu-item>
+            <el-menu-item index="2-2"><a href="{{ route('dashboard.artwork.create') }}">Create Artwork</a></el-menu-item>
             <el-menu-item index="2-3"><a href="{{ route('pending_ads') }}">Pending for aprooval</a>
             </el-menu-item>
 
@@ -52,17 +52,17 @@
 
             <el-menu-item index="users">
                 <i class="el-icon-view"></i>
-                <span slot="title"><a href="{{ route('users') }}">Users</a></span>
+                <span slot="title"><a href="{{ route('admin.users') }}">Users</a></span>
             </el-menu-item>
 
             <el-menu-item index="translations">
                 <i class="el-icon-setting"></i>
-                <span slot="title"><a href="{{ route('translations') }}">Translations</a></span>
+                <span slot="title"><a href="{{ route('admin.translations') }}">Translations</a></span>
             </el-menu-item>
 
             <el-menu-item index="languages">
                 <i class="el-icon-setting"></i>
-                <a href="{{ route('languages') }}">Languages</a>
+                <a href="{{ route('admin.languages') }}">Languages</a>
             </el-menu-item>
 
 

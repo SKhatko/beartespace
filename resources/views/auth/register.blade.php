@@ -45,21 +45,8 @@
                 {{--                        @include('auth.social_login')--}}
 
 
+{{--                {!! NoCaptcha::display() !!}--}}
 
-            <!-- TODO recaptcha -->
-
-                @if(get_option('enable_recaptcha_registration') == 1)
-                    <div class="form-group {{ $errors->has('g-recaptcha-response') ? ' has-error' : '' }}">
-                        <div class="col-md-6 col-md-offset-4">
-                            <div class="g-recaptcha" data-sitekey="{{get_option('recaptcha_site_key')}}"></div>
-                            @if ($errors->has('g-recaptcha-response'))
-                                <span class="help-block">
-                                                    <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
-                                                </span>
-                            @endif
-                        </div>
-                    </div>
-                @endif
 
                 <div>
                     By Registering, you agree that you've read and accepted our User Agreement, you're at least 18 years old, and you consent to our Privacy Notice and receiving marketing communications from us.
@@ -81,5 +68,11 @@
         </el-card>
 
     </el-main>
+
+@endsection
+
+@section('scripts')
+
+{{--    {!! NoCaptcha::renderJs() !!}--}}
 
 @endsection
