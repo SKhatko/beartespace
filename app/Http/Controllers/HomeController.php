@@ -9,13 +9,12 @@ use App\Slider;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use Spatie\TranslationLoader\LanguageLine;
 use Yajra\Datatables\Datatables;
 
 class HomeController extends Controller {
 
 	public function index() {
-
-
 
 		// Home page
 
@@ -68,8 +67,8 @@ class HomeController extends Controller {
 		$limit_regular_ads = get_option( 'number_of_free_ads_in_home' );
 		$limit_premium_ads = get_option( 'number_of_premium_ads_in_home' );
 
-		$regular_ads = Artwork::activeRegular()->with( 'category', 'city' )->limit( $limit_regular_ads )->orderBy( 'id', 'desc' )->get();
-		$premium_ads = Artwork::activePremium()->with( 'category', 'city' )->limit( $limit_premium_ads )->orderBy( 'id', 'desc' )->get();
+		$regular_ads = Artwork::with( 'category', 'city' )->limit( $limit_regular_ads )->orderBy( 'id', 'desc' )->get();
+		$premium_ads = Artwork::with( 'category', 'city' )->limit( $limit_premium_ads )->orderBy( 'id', 'desc' )->get();
 
 		$total_ads_count = Artwork::active()->count();
 		$user_count      = User::count();

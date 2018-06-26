@@ -7,8 +7,6 @@
         <h2 v-if="artwork_">Edit Artwork</h2>
         <h2 v-else>Upload Artwork</h2>
 
-        {{ artwork_ }}
-
         <el-form label-position="top">
 
             <el-form-item>
@@ -16,7 +14,7 @@
                 <el-steps :active="activeStep" process-status="process" finish-status="success" align-center>
                     <el-step title="Add description" icon="el-icon-edit"></el-step>
                     <el-step title="Upload Images" icon="el-icon-picture"></el-step>
-                    <el-step title="Done" icon="el-icon-picture"></el-step>
+                    <el-step title="Done" icon="el-icon-star-off"></el-step>
                 </el-steps>
 
             </el-form-item>
@@ -149,7 +147,7 @@
 
                 <el-button type="primary" style="margin-top: 20px"
                            size="big"
-                           @click="saveArtwork()">
+                           @click="saveArtwork()" icon="el-icon-arrow-right">
                     Next
                 </el-button>
 
@@ -162,14 +160,18 @@
                 <el-form-item>
                     <el-upload
                             :action="'/api/upload/artwork-image/' + artwork.id"
-                            list-type="picture-card"
                             :file-list="artworkPhoto"
                             :on-preview="handlePictureCardPreview"
                             :on-remove="handleRemove"
                             :on-success="handleSuccess"
+                            :limit="3"
+                            :on-exceed="handleExceed"
                             accept=".jpg, .jpeg, .png">
-                        <!--<i class="el-icon-plus"></i>-->
-                        Upload Images
+                        <el-button type="info" plain>
+                            <i class="el-icon-upload"></i>
+
+                            Upload images
+                        </el-button>
                     </el-upload>
 
                     <el-dialog :visible.sync="dialogVisible">
@@ -181,7 +183,8 @@
                 <el-form-item>
                     <el-button type="primary"
                                size="big"
-                               @click="saveImages">
+                               @click="saveImages"
+                               icon="el-icon-arrow-right">
                         Next
                     </el-button>
 
@@ -300,7 +303,11 @@
             },
             saveImages() {
                 // this.artwork.photo = this.artworkPhoto.length ? this.artworkPhoto[0].name : '';
-
+            },
+            handleExceed(a, b, c) {
+                console.log(a);
+                console.log(b);
+                console.log(c);
             },
             handleRemove(file, fileList) {
                 this.artworkPhoto = [];
@@ -314,10 +321,10 @@
             },
             handleSuccess(response, file) {
                 console.log('success');
-                this.artworkPhoto = [{
+                this.artworkPhoto.push({
                     name: file.name,
                     url: file.url
-                }];
+                });
             }
         }
     }

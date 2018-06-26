@@ -96556,6 +96556,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -96632,7 +96635,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         saveImages: function saveImages() {
             // this.artwork.photo = this.artworkPhoto.length ? this.artworkPhoto[0].name : '';
-
+        },
+        handleExceed: function handleExceed(a, b, c) {
+            console.log(a);
+            console.log(b);
+            console.log(c);
         },
         handleRemove: function handleRemove(file, fileList) {
             this.artworkPhoto = [];
@@ -96646,10 +96653,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         handleSuccess: function handleSuccess(response, file) {
             console.log('success');
-            this.artworkPhoto = [{
+            this.artworkPhoto.push({
                 name: file.name,
                 url: file.url
-            }];
+            });
         }
     }
 });
@@ -96693,7 +96700,7 @@ module.exports = Component.exports
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('el-card', [(_vm.artwork_) ? _c('h2', [_vm._v("Edit Artwork")]) : _c('h2', [_vm._v("Upload Artwork")]), _vm._v("\n\n    " + _vm._s(_vm.artwork_) + "\n\n    "), _c('el-form', {
+  return _c('el-card', [(_vm.artwork_) ? _c('h2', [_vm._v("Edit Artwork")]) : _c('h2', [_vm._v("Upload Artwork")]), _vm._v(" "), _c('el-form', {
     attrs: {
       "label-position": "top"
     }
@@ -96717,7 +96724,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v(" "), _c('el-step', {
     attrs: {
       "title": "Done",
-      "icon": "el-icon-picture"
+      "icon": "el-icon-star-off"
     }
   })], 1)], 1), _vm._v(" "), (_vm.activeStep === 0) ? [_c('el-form-item', {
     attrs: {
@@ -96991,7 +96998,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     },
     attrs: {
       "type": "primary",
-      "size": "big"
+      "size": "big",
+      "icon": "el-icon-arrow-right"
     },
     on: {
       "click": function($event) {
@@ -97003,14 +97011,22 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("Upload up to 3 Photos of Your Artwork ( jpg/png files accepted )")]), _vm._v(" "), _c('el-form-item', [_c('el-upload', {
     attrs: {
       "action": '/api/upload/artwork-image/' + _vm.artwork.id,
-      "list-type": "picture-card",
       "file-list": _vm.artworkPhoto,
       "on-preview": _vm.handlePictureCardPreview,
       "on-remove": _vm.handleRemove,
       "on-success": _vm.handleSuccess,
+      "limit": 3,
+      "on-exceed": _vm.handleExceed,
       "accept": ".jpg, .jpeg, .png"
     }
-  }, [_vm._v("\n                    Upload Images\n                ")]), _vm._v(" "), _c('el-dialog', {
+  }, [_c('el-button', {
+    attrs: {
+      "type": "info",
+      "plain": ""
+    }
+  }, [_c('i', {
+    staticClass: "el-icon-upload"
+  }), _vm._v("\n\n                        Upload images\n                    ")])], 1), _vm._v(" "), _c('el-dialog', {
     attrs: {
       "visible": _vm.dialogVisible
     },
@@ -97028,7 +97044,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })])], 1), _vm._v(" "), _c('el-form-item', [_c('el-button', {
     attrs: {
       "type": "primary",
-      "size": "big"
+      "size": "big",
+      "icon": "el-icon-arrow-right"
     },
     on: {
       "click": _vm.saveImages
