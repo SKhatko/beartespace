@@ -145,6 +145,7 @@ Route::group( [ 'prefix' => 'dashboard', 'middleware' => 'dashboard' ], function
 
 		Route::get( 'artworks', 'ArtworkController@myArtworks' )->name( 'dashboard.artworks' );
 		Route::get( 'artwork/create', 'ArtworkController@create' )->name( 'dashboard.artwork.create' );
+		Route::get( 'artwork/{id}/edit', 'ArtworkController@edit' )->name( 'dashboard.artwork.edit' );
 
 	} );
 

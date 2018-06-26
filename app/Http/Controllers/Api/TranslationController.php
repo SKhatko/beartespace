@@ -10,23 +10,22 @@ class TranslationController extends Controller
 {
     public function store(Request $request)
     {
-	    // delete removed translations
-	    $translationIDs = array_pluck($request->all(), 'id');
-	    LanguageLine::whereNotIn('id', $translationIDs)->delete();
 
-	    // update or create translations
-	    foreach ($request->all() as $translation) {
-		    LanguageLine::updateOrCreate(['id' => $translation['id']], $translation);
+    	foreach ($request->all() as $group => $translations) {
+
+		    // delete removed translations
+		    $translationIDs = array_pluck($request->input($group), 'id');
+		    LanguageLine::whereGroup($group)->whereNotIn('id', $translationIDs)->delete();
+
+    		foreach ($translations as $translation) {
+			    LanguageLine::updateOrCreate(['id' => $translation['id']], $translation);
+		    }
 	    }
 
-//
-//		    LanguageLine::create([
-//			    'group' => 'validation',
-//			    'key' => 'required',
-//			    'text' => ['en' => 'This is a required field', 'nl' => 'Dit is een verplicht veld'],
-//		    ]);
+	    $translations = LanguageLine::all();
+    	$translations = $translations->groupBy('group');
 
-	    return response()->json(['success' => true]);
+	    return ['status'=> 'success', 'message' => 'Saved', 'data' => $translations];
 
     }
 }

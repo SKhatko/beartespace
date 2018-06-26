@@ -92,11 +92,8 @@ class ArtworkController extends Controller
     public function create()
     {
         $title = 'Upload New Artwork';
-        $categories = Category::orderBy('category_name', 'asc')->get();
-        $countries = Country::all();
 
-
-        return view('dashboard.artworks.create', compact('title', 'categories', 'countries', 'ads_images'));
+        return view('dashboard.artworks.create', compact('title'));
     }
 
     /**
@@ -107,206 +104,7 @@ class ArtworkController extends Controller
      */
     public function store(Request $request){
 
-    	$user_id = 0;
-        if (Auth::check()){
-            $user_id = Auth::user()->id;
-        }
 
-        $ads_price_plan = get_option('ads_price_plan');
-
-        if ($request->category){
-            $sub_category = Category::find($request->category);
-        }
-
-        $rules = [
-            'category'          => 'required',
-            'ad_title'          => 'required',
-            'ad_description'    => 'required',
-            'country'           => 'required',
-            'seller_name'       => 'required',
-            'seller_email'      => 'required',
-            'seller_phone'      => 'required',
-            'address'           => 'required',
-        ];
-
-        if( $ads_price_plan != 'all_ads_free'){
-            $rules['price_plan'] = 'required';
-        }
-
-        if ($request->category) {
-            if ($sub_category->category_type == 'jobs') {
-                $rules['salary_will_be'] = 'required';
-                $rules['job_nature'] = 'required';
-                $rules['job_validity'] = 'required';
-                $rules['application_deadline'] = 'required';
-
-                unset($rules['type']);
-                unset($rules['condition']);
-            }
-
-            if ($sub_category->category_type == 'cars_and_vehicles') {
-                $rules['transmission'] = 'required';
-                $rules['fuel_type'] = 'required';
-                $rules['engine_cc'] = 'required';
-                $rules['mileage'] = 'required';
-                $rules['build_year'] = 'required';
-            }
-            if ($sub_category->category_type == 'auction') {
-                $rules['bid_deadline'] = 'required';
-            }
-        }
-
-        //reCaptcha
-        if(get_option('enable_recaptcha_post_ad') == 1){
-            $rules['g-recaptcha-response'] = 'required';
-        }
-
-        $this->validate($request, $rules);
-
-        if (get_option('enable_recaptcha_post_ad') == 1){
-            $secret = get_option('recaptcha_secret_key');
-            $gRecaptchaResponse = $request->input('g-recaptcha-response');
-            $remoteIp = $request->ip();
-
-            $recaptcha = new \ReCaptcha\ReCaptcha($secret);
-            $resp = $recaptcha->verify($gRecaptchaResponse, $remoteIp);
-            if ( ! $resp->isSuccess()) {
-                return redirect()->back()->with('error', 'reCAPTCHA is not verified');
-            }
-        }
-
-        $title = $request->ad_title;
-        $slug = unique_slug($title);
-
-        $is_negotialble = $request->negotiable ? $request->negotiable : '0';
-        $brand_id = $request->brand ? $request->brand : 0;
-        $mark_ad_urgent = $request->mark_ad_urgent ? $request->mark_ad_urgent : '0';
-        $video_url = $request->video_url ? $request->video_url : '';
-
-        $data = [
-            'title'             => $request->ad_title,
-            'slug'              => $slug,
-            'description'       => $request->ad_description,
-            'category_id'       => $sub_category->category_id,
-            'sub_category_id'   => $request->category,
-            'brand_id'          => $brand_id,
-            'type'              => $request->type,
-            'ad_condition'      => $request->condition,
-            'price'             => $request->price,
-            'is_negotiable'     => $is_negotialble,
-
-            'seller_name'       => $request->seller_name,
-            'seller_email'      => $request->seller_email,
-            'seller_phone'      => $request->seller_phone,
-            'country_id'        => $request->country,
-            'state_id'          => $request->state,
-            'city_id'           => $request->city,
-            'address'           => $request->address,
-            'video_url'         => $video_url,
-            'category_type'     => 'classifieds',
-            'price_plan'        => $request->price_plan,
-            'mark_ad_urgent'    => $mark_ad_urgent,
-            'status'            => '0',
-            'user_id'           => $user_id,
-            'latitude'          => $request->latitude,
-            'longitude'         => $request->longitude,
-        ];
-
-        if ($sub_category->category_type == 'jobs') {
-            $data['category_type'] = 'jobs';
-        }
-
-        if ($sub_category->category_type == 'cars_and_vehicles') {
-            $data['category_type'] = 'cars_and_vehicles';
-        }
-        if ($sub_category->category_type == 'auction') {
-            $data['category_type']  = 'auction';
-            $data['expired_at']     = $request->bid_deadline;
-        }
-        //Check ads moderation settings
-        if (get_option('ads_moderation') == 'direct_publish'){
-            $data['status'] = '1';
-        }
-
-        //if price_plan not in post data, then set a default value, although mysql will save it as enum first value
-        if ( ! $request->price_plan){
-            $data['price_plan'] = 'regular';
-        }
-
-        $created_ad = Artwork::create($data);
-
-        /**
-         * iF add created
-         */
-        if ($created_ad){
-            //If job
-            if ($sub_category->category_type == 'jobs'){
-                $job_data = [
-                    'ad_id'                 => $created_ad->id,
-                    'job_nature'            => $request->job_nature,
-                    'job_validity'          => $request->job_validity,
-                    'apply_instruction'     => $request->apply_instruction,
-                    'application_deadline'  => $request->application_deadline,
-                    'is_any_where'          => $request->is_any_where,
-                    'salary_will_be'        => $request->salary_will_be,
-                ];
-                Job::create($job_data);
-            }
-            //If cars or vehicle
-            if ($sub_category->category_type == 'cars_and_vehicles') {
-                $cars_data = [
-                    'ad_id'                 => $created_ad->id,
-                    'transmission'            => $request->transmission,
-                    'fuel_type'            => $request->fuel_type,
-                    'engine_cc'            => $request->engine_cc,
-                    'mileage'            => $request->mileage,
-                    'build_year'            => $request->build_year.'-01-01',
-                ];
-                CarsVehicle::create($cars_data);
-            }
-            //Attach all unused media with this ad
-            $this->uploadAdsImage($request, $created_ad->id);
-            /**
-             * Payment transaction login here
-             */
-            $ads_price = get_ads_price($created_ad->price_plan);
-            if ($mark_ad_urgent){
-                $ads_price = $ads_price + get_option('urgent_ads_price');
-            }
-
-            if ($ads_price){
-                //Insert checkout Logic
-
-                $transaction_id = 'tran_'.time().str_random(6);
-                // get unique recharge transaction id
-                while( ( Payment::whereLocalTransactionId($transaction_id)->count() ) > 0) {
-                    $transaction_id = 'reid'.time().str_random(5);
-                }
-                $transaction_id = strtoupper($transaction_id);
-
-                $currency = get_option('currency_sign');
-                $payments_data = [
-                    'ad_id'     => $created_ad->id,
-                    'user_id'   => $user_id,
-                    'amount'    => $ads_price,
-                    'payment_method'    => $request->payment_method,
-                    'status'    => 'initial',
-                    'currency'  => $currency,
-                    'local_transaction_id'  => $transaction_id
-                ];
-                $created_payment = Payment::create($payments_data);
-
-                return redirect(route('payment_checkout', $created_payment->local_transaction_id));
-            }
-
-            if ( Auth::check()){
-                return redirect(route('pending_ads'))->with('success', trans('app.ad_created_msg'));
-            }
-            return back()->with('success', trans('app.ad_created_msg'));
-        }
-
-
-        //dd($request->input());
     }
 
     /**
@@ -328,27 +126,12 @@ class ArtworkController extends Controller
      */
     public function edit($id)
     {
-        $user = Auth::user();
-        $user_id = $user->id;
 
-        $title = trans('app.edit_ad');
-        $ad = Artwork::find($id);
+    	$title = 'Edit Artwork';
 
-        if (!$ad)
-            return view('admin.error.error_404');
+        $artwork = Artwork::find($id);
 
-        if (! $user->isAdmin()){
-            if ($ad->user_id != $user_id){
-                return view('admin.error.error_404');
-            }
-        }
-
-        $countries = Country::all();
-
-        $previous_states = State::where('country_id', $ad->country_id)->get();
-        $previous_cities = City::where('state_id', $ad->state_id)->get();
-
-        return view('admin.edit_ad', compact('title', 'countries', 'ad', 'previous_states', 'previous_cities'));
+        return view('dashboard.artworks.edit', compact('title', 'artwork'));
     }
 
     /**
@@ -360,108 +143,7 @@ class ArtworkController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $ad = Artwork::find($id);
-        $user = Auth::user();
-        $user_id = $user->id;
 
-        if (! $user->isAdmin()){
-            if ($ad->user_id != $user_id){
-                return view('admin.error.error_404');
-            }
-        }
-
-        $sub_category = Category::find($ad->sub_category_id);
-
-        $rules = [
-            'ad_title'          => 'required',
-            'ad_description'    => 'required',
-            'country'           => 'required',
-            'seller_name'       => 'required',
-            'seller_email'      => 'required',
-            'seller_phone'      => 'required',
-            'address'           => 'required',
-        ];
-
-        if ($sub_category->category_type == 'jobs'){
-            $rules['salary_will_be']        = 'required';
-            $rules['job_nature']            = 'required';
-            $rules['job_validity']          = 'required';
-            $rules['application_deadline']  = 'required';
-
-            unset($rules['type']);
-            unset($rules['condition']);
-        }
-
-        if ($sub_category->category_type == 'cars_and_vehicles') {
-            $rules['transmission'] = 'required';
-            $rules['fuel_type'] = 'required';
-            $rules['engine_cc'] = 'required';
-            $rules['mileage'] = 'required';
-            $rules['build_year'] = 'required';
-        }
-
-        $this->validate($request, $rules);
-
-        $title = $request->ad_title;
-        //$slug = unique_slug($title);
-
-        $is_negotialble = $request->negotiable ? $request->negotiable : '0';
-        $video_url = $request->video_url ? $request->video_url : '';
-
-        $data = [
-            'title'             => $request->ad_title,
-            'description'       => $request->ad_description,
-            'price'             => $request->price,
-            'is_negotiable'     => $is_negotialble,
-
-            'seller_name'       => $request->seller_name,
-            'seller_email'      => $request->seller_email,
-            'seller_phone'      => $request->seller_phone,
-            'country_id'        => $request->country,
-            'state_id'          => $request->state,
-            'city_id'           => $request->city,
-            'address'           => $request->address,
-            'video_url'         => $video_url,
-            'latitude'          => $request->latitude,
-            'longitude'         => $request->longitude,
-        ];
-
-        $updated_ad = $ad->update($data);
-
-        /**
-         * iF add created
-         */
-        if ($updated_ad){
-            if ($sub_category->category_type == 'jobs'){
-                $job_data = [
-                    'job_nature'            => $request->job_nature,
-                    'job_validity'          => $request->job_validity,
-                    'apply_instruction'     => $request->apply_instruction,
-                    'application_deadline'  => $request->application_deadline,
-                    'is_any_where'          => $request->is_any_where,
-                    'salary_will_be'        => $request->salary_will_be,
-                ];
-                $ad->job->update($job_data);
-            }
-
-
-            //If cars or vehicle
-            if ($sub_category->category_type == 'cars_and_vehicles') {
-                $cars_data = [
-                    'transmission'      => $request->transmission,
-                    'fuel_type'         => $request->fuel_type,
-                    'engine_cc'         => $request->engine_cc,
-                    'mileage'           => $request->mileage,
-                    'build_year'        => $request->build_year.'-01-01',
-                ];
-                $ad->cars_and_vehicles->update($cars_data);
-            }
-
-            //Upload new image
-            $this->uploadAdsImage($request, $ad->id);
-        }
-
-        return redirect()->back()->with('success', trans('app.ad_updated'));
     }
 
 
@@ -523,34 +205,6 @@ class ArtworkController extends Controller
         $category_id = $request->category_id;
         $brands = Sub_Category::whereCategoryId($category_id)->select('id', 'category_name', 'category_slug')->get();
         return $brands;
-    }
-
-    public function getBrandByCategory(Request $request){
-        $category_id = $request->category_id;
-        $brands = Brand::whereCategoryId($category_id)->select('id', 'brand_name')->get();
-
-        //Save into session about last category choice
-        session(['last_category_choice' => $request->ad_type ]);
-        return $brands;
-    }
-
-    public function getStateByCountry(Request $request){
-        $country_id = $request->country_id;
-        $states = State::whereCountryId($country_id)->select('id', 'state_name')->get();
-        return $states;
-    }
-
-    public function getCityByState(Request $request){
-        $state_id = $request->state_id;
-        $cities = City::whereStateId($state_id)->select('id', 'city_name')->get();
-        return $cities;
-    }
-
-    public function getParentCategoryInfo(Request $request){
-        $category_id = $request->category_id;
-        $sub_category = Category::find($category_id);
-        $category = Category::find($sub_category->category_id);
-        return $category;
     }
 
     public function uploadAdsImage(Request $request, $ad_id = 0){

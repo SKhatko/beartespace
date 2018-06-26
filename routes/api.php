@@ -24,5 +24,6 @@ Route::post('artwork', 'Api\ArtworkController@store');
 
 
 // Upload files
-Route::any('upload/user-photo/{id}', 'Api\UserController@uploadPhoto');
+Route::any('upload/user-photo/{id}', 'Api\MediaController@uploadUserPhoto');
+Route::any('upload/artwork-image/{id}', 'Api\MediaController@uploadArtworkImage');
 

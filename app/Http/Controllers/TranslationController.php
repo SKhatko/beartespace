@@ -12,6 +12,8 @@ class TranslationController extends Controller {
 	public function index() {
 
 		$translations = LanguageLine::all();
+		$translations = $translations->groupBy('group');
+
 		$languages = Language::all();
 
 		return view( 'dashboard.admin.translations', compact( 'translations', 'languages') );

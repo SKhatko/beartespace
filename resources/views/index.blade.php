@@ -17,7 +17,7 @@
                                         @if(! empty($artwork->video_url))
                                 <i class="fa fa-file-video-o"></i>
                             @else
-                                <i class="fa fa-file-image-o"> {{ $artwork->media_img->count() }}</i>
+
                             @endif
                                     </span>
                     </a>

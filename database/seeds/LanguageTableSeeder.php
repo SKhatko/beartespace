@@ -17,5 +17,12 @@ class LanguageTableSeeder extends Seeder
 		    'is_rtl' => false,
 		    'active' => true,
 	    ]);
+
+	    DB::table('languages')->insert([
+		    'code' => 'da',
+		    'name' => 'Danish',
+		    'is_rtl' => false,
+		    'active' => true,
+	    ]);
     }
 }

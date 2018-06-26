@@ -18,15 +18,14 @@ class CreateArtworksTable extends Migration
             $table->string('title')->nullable();
             $table->text('description')->nullable();
             $table->text('inspiration')->nullable();
-            $table->float('height', 2)->nullable();
-            $table->float('width', 2)->nullable();
-            $table->float('depth', 2)->nullable();
-            $table->float('weight', 2)->nullable();
-            $table->date('date_of_completion')->nullable();
+            $table->decimal('height', 5, 3)->nullable();
+            $table->decimal('width', 5, 3)->nullable();
+            $table->decimal('depth', 5, 3)->nullable();
+            $table->decimal('weight', 5, 3)->nullable();
+            $table->integer('year_of_completion')->nullable();
 	        $table->decimal('price', 12,2)->nullable();
 
-            $table->integer('category_id')->nullable();
-
+            $table->string('category')->nullable();
             $table->string('medium')->nullable();
             $table->string('direction')->nullable();
             $table->string('theme')->nullable();

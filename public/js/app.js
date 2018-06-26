@@ -28746,6 +28746,14 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -28758,15 +28766,15 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
     data: function data() {
         return {
             languages: [],
-
             translations: []
         };
     },
     mounted: function mounted() {
+
         if (this.languages_.length) {
             this.languages = this.languages_;
         }
-        if (this.translations_.length) {
+        if (Object.keys(this.translations_).length) {
             this.translations = this.translations_;
         }
     },
@@ -28775,13 +28783,13 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
     computed: {},
 
     methods: {
-        addTranslationField: function addTranslationField() {
+        addTranslationField: function addTranslationField(groupName) {
             var _this = this;
 
             var translation = {
                 id: 0,
-                group: 'portal',
-                key: '',
+                group: groupName,
+                key: 'Variable',
                 text: {}
             };
 
@@ -28793,16 +28801,28 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
                 return _this.$set(translation.text, langCode, "");
             });
 
-            this.translations.push(translation);
+            console.log(this.translations[groupName]);
+
+            this.translations[groupName].push(translation);
         },
-        removeTranslation: function removeTranslation(idx) {
-            this.translations.splice(idx, 1);
+        removeTranslation: function removeTranslation(groupName, translationIndex) {
+            this.translations[groupName].splice(translationIndex, 1);
         },
         save: function save() {
+            var _this2 = this;
 
             axios.post('/api/translations/', this.translations).then(function (response) {
                 if (response.data) {
-                    window.location.href = '/dashboard';
+                    console.log(response.data);
+                    _this2.$message({
+                        showClose: true,
+                        message: response.data.message,
+                        type: response.data.status
+                    });
+
+                    _this2.translations = response.data.data;
+                    // window.location.reload();
+                    // window.location.href = '/dashboard';
                 } else {
                     console.log(response.data);
                 }
@@ -29014,7 +29034,8 @@ $(function () {
 
             var timeinterval = setInterval(function (countDownItem, endtime) {
                 var t = getTimeRemaining(endtime);
-                var clockHtml = '<b>' + jsonData.time_remaining + '</b> ' + t.days + ' days ' + t.hours + ':' + t.minutes + ':' + t.seconds;
+                // var clockHtml = '<b>'+jsonData.time_remaining+'</b> ' + t.days + ' days ' + t.hours + ':' + t.minutes +':' +t.seconds;
+                var clockHtml = '<b>There was json</b> ' + t.days + ' days ' + t.hours + ':' + t.minutes + ':' + t.seconds;
 
                 $(countDownItem).html(clockHtml);
                 if (t.total <= 0) {
@@ -96134,20 +96155,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return (_vm.translations) ? _c('el-card', [_c('h2', [_vm._v("Translations")]), _vm._v(" "), _c('el-button', {
-    staticStyle: {
-      "margin-bottom": "20px"
-    },
-    attrs: {
-      "size": "big",
-      "type": "success"
-    },
-    on: {
-      "click": function($event) {
-        _vm.addTranslationField()
-      }
-    }
-  }, [_vm._v("\n        Add translation\n    ")]), _vm._v(" "), _c('el-tabs', {
+  return (_vm.translations) ? _c('el-card', [_c('h2', [_vm._v("Translations")]), _vm._v(" "), _c('el-tabs', {
     attrs: {
       "type": "card"
     }
@@ -96156,63 +96164,89 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "label": language.name
       }
-    }, [_vm._l((_vm.translations), function(translation, idx) {
-      return [_c('el-row', {
+    }, _vm._l((_vm.translations), function(group, groupName) {
+      return _c('el-collapse', {
+        key: groupName,
+        attrs: {
+          "accordion": ""
+        }
+      }, [_c('el-collapse-item', {
+        attrs: {
+          "title": groupName,
+          "name": groupName
+        }
+      }, [_vm._l((group), function(translation, translationIndex) {
+        return _c('el-row', {
+          key: translation.id,
+          staticStyle: {
+            "margin-bottom": "20px"
+          },
+          attrs: {
+            "gutter": 20,
+            "align": "middle"
+          }
+        }, [_c('el-col', {
+          attrs: {
+            "span": 4
+          }
+        }, [_c('el-input', {
+          attrs: {
+            "placeholder": "Variable"
+          },
+          model: {
+            value: (translation.key),
+            callback: function($$v) {
+              _vm.$set(translation, "key", $$v)
+            },
+            expression: "translation.key"
+          }
+        })], 1), _vm._v(" "), _c('el-col', {
+          attrs: {
+            "span": 18
+          }
+        }, [_c('el-input', {
+          attrs: {
+            "placeholder": "Translation"
+          },
+          model: {
+            value: (translation.text[language.code]),
+            callback: function($$v) {
+              _vm.$set(translation.text, language.code, $$v)
+            },
+            expression: "translation.text[language.code]"
+          }
+        })], 1), _vm._v(" "), _c('el-col', {
+          attrs: {
+            "span": 2
+          }
+        }, [_c('el-button', {
+          attrs: {
+            "size": "mini",
+            "type": "danger",
+            "icon": "el-icon-delete",
+            "circle": ""
+          },
+          on: {
+            "click": function($event) {
+              _vm.removeTranslation(groupName, translationIndex)
+            }
+          }
+        })], 1)], 1)
+      }), _vm._v(" "), _c('el-button', {
         staticStyle: {
           "margin-bottom": "20px"
         },
         attrs: {
-          "gutter": 20,
-          "align": "middle"
-        }
-      }, [_c('el-col', {
-        attrs: {
-          "span": 4
-        }
-      }, [_c('el-input', {
-        attrs: {
-          "placeholder": "Variable"
-        },
-        model: {
-          value: (translation.key),
-          callback: function($$v) {
-            _vm.$set(translation, "key", $$v)
-          },
-          expression: "translation.key"
-        }
-      })], 1), _vm._v(" "), _c('el-col', {
-        attrs: {
-          "span": 18
-        }
-      }, [_c('el-input', {
-        attrs: {
-          "placeholder": "Translation"
-        },
-        model: {
-          value: (translation.text[language.code]),
-          callback: function($$v) {
-            _vm.$set(translation.text, language.code, $$v)
-          },
-          expression: "translation.text[language.code]"
-        }
-      })], 1), _vm._v(" "), _c('el-col', {
-        attrs: {
-          "span": 2
-        }
-      }, [_c('el-button', {
-        attrs: {
-          "size": "medium",
-          "type": "danger",
-          "icon": "el-icon-delete",
-          "circle": ""
+          "size": "big",
+          "type": "success"
         },
         on: {
           "click": function($event) {
-            _vm.removeTranslation(idx)
+            _vm.addTranslationField(groupName)
           }
         }
-      })], 1)], 1)]
-    })], 2)]
+      }, [_vm._v("\n                            Add translation to " + _vm._s(groupName) + "\n                        ")])], 2)], 1)
+    }))]
   })], 2), _vm._v(" "), _c('el-button', {
     staticStyle: {
       "margin-top": "20px"
@@ -96435,6 +96469,93 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -96454,21 +96575,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 depth: '',
                 weight: '',
                 inspiration: '',
-                date_of_completion: '',
+                year_of_completion: '',
                 price: '',
 
-                category_id: '',
+                category: '',
 
                 medium: '',
                 direction: '',
                 theme: '',
                 color: ''
             },
-            countries: [],
+
+            activeStep: 0,
 
             artworkPhoto: [],
             dialogImageUrl: '',
             dialogVisible: false
+
         };
     },
     mounted: function mounted() {
@@ -96479,17 +96602,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         if (this.artwork.photo) {
             this.artworkPhoto = [{
                 name: this.artwork.photo,
-                url: '/avatars/' + this.artwork.id + '/' + this.artwork.photo
+                url: '/artworks/' + this.artwork.id + '/' + this.artwork.photo
             }];
         }
     },
 
 
     methods: {
-        save: function save() {
+        saveArtwork: function saveArtwork() {
             var _this = this;
-
-            this.artwork.photo = this.artworkPhoto.length ? this.artworkPhoto[0].name : '';
 
             axios.post('/api/artwork/', this.artwork).then(function (response) {
                 if (response.data) {
@@ -96499,21 +96620,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         message: response.data.message,
                         type: response.data.status
                     });
+
+                    _this.artwork = response.data.data;
+
+                    if (response.data.status = 'success') _this.activeStep++;
                     // window.location.reload();
                 } else {
                     console.log(response.data);
                 }
             });
         },
+        saveImages: function saveImages() {
+            // this.artwork.photo = this.artworkPhoto.length ? this.artworkPhoto[0].name : '';
+
+        },
         handleRemove: function handleRemove(file, fileList) {
             this.artworkPhoto = [];
         },
         handlePictureCardPreview: function handlePictureCardPreview(file) {
-            this.setDialogUrl();
+            this.setDialogUrl(file.name);
             this.dialogVisible = true;
         },
-        setDialogUrl: function setDialogUrl() {
-            this.dialogImageUrl = '/avatars/' + this.artwork.id + '/' + this.artworkPhoto[0].name;
+        setDialogUrl: function setDialogUrl(name) {
+            this.dialogImageUrl = '/artworks/' + this.artwork.id + '/' + name;
         },
         handleSuccess: function handleSuccess(response, file) {
             console.log('success');
@@ -96564,15 +96693,48 @@ module.exports = Component.exports
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('el-card', [_c('h2', [_vm._v("Upload Artwork")]), _vm._v(" "), _c('el-form', {
+  return _c('el-card', [(_vm.artwork_) ? _c('h2', [_vm._v("Edit Artwork")]) : _c('h2', [_vm._v("Upload Artwork")]), _vm._v("\n\n    " + _vm._s(_vm.artwork_) + "\n\n    "), _c('el-form', {
     attrs: {
       "label-position": "top"
     }
-  }, [_c('el-form-item', {
+  }, [_c('el-form-item', [_c('el-steps', {
+    attrs: {
+      "active": _vm.activeStep,
+      "process-status": "process",
+      "finish-status": "success",
+      "align-center": ""
+    }
+  }, [_c('el-step', {
+    attrs: {
+      "title": "Add description",
+      "icon": "el-icon-edit"
+    }
+  }), _vm._v(" "), _c('el-step', {
+    attrs: {
+      "title": "Upload Images",
+      "icon": "el-icon-picture"
+    }
+  }), _vm._v(" "), _c('el-step', {
+    attrs: {
+      "title": "Done",
+      "icon": "el-icon-picture"
+    }
+  })], 1)], 1), _vm._v(" "), (_vm.activeStep === 0) ? [_c('el-form-item', {
     attrs: {
       "label": "Artwork Name (Title)"
     }
-  }, [_c('el-input')], 1), _vm._v(" "), _c('el-form-item', {
+  }, [_c('el-input', {
+    attrs: {
+      "placeholder": "Please input"
+    },
+    model: {
+      value: (_vm.artwork.title),
+      callback: function($$v) {
+        _vm.$set(_vm.artwork, "title", $$v)
+      },
+      expression: "artwork.title"
+    }
+  })], 1), _vm._v(" "), _c('el-form-item', {
     attrs: {
       "label": "Select Category"
     }
@@ -96580,16 +96742,78 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "value": "",
       "placeholder": "Select"
+    },
+    model: {
+      value: (_vm.artwork.category),
+      callback: function($$v) {
+        _vm.$set(_vm.artwork, "category", $$v)
+      },
+      expression: "artwork.category"
     }
   }, [_c('el-option', {
     attrs: {
-      "value": "Painting"
+      "label": "Painting",
+      "value": "painting"
     }
   }), _vm._v(" "), _c('el-option', {
     attrs: {
-      "value": "Sculpture"
+      "label": "Sculpture",
+      "value": "sculpture"
     }
-  })], 1)], 1), _vm._v("\n\n        Size inputs\n\n        "), _c('el-form-item', {
+  })], 1)], 1), _vm._v(" "), _c('el-form', {
+    attrs: {
+      "inline": true,
+      "label-position": "top"
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Width"
+    }
+  }, [_c('el-input-number', {
+    model: {
+      value: (_vm.artwork.width),
+      callback: function($$v) {
+        _vm.$set(_vm.artwork, "width", $$v)
+      },
+      expression: "artwork.width"
+    }
+  })], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "label": "Height"
+    }
+  }, [_c('el-input-number', {
+    model: {
+      value: (_vm.artwork.height),
+      callback: function($$v) {
+        _vm.$set(_vm.artwork, "height", $$v)
+      },
+      expression: "artwork.height"
+    }
+  })], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "label": "Depth"
+    }
+  }, [_c('el-input-number', {
+    model: {
+      value: (_vm.artwork.depth),
+      callback: function($$v) {
+        _vm.$set(_vm.artwork, "depth", $$v)
+      },
+      expression: "artwork.depth"
+    }
+  })], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "label": "Weight"
+    }
+  }, [_c('el-input-number', {
+    model: {
+      value: (_vm.artwork.weight),
+      callback: function($$v) {
+        _vm.$set(_vm.artwork, "weight", $$v)
+      },
+      expression: "artwork.weight"
+    }
+  })], 1)], 1), _vm._v(" "), _c('el-form-item', {
     attrs: {
       "label": "Medium"
     }
@@ -96597,14 +96821,23 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "value": "",
       "placeholder": "Select"
+    },
+    model: {
+      value: (_vm.artwork.medium),
+      callback: function($$v) {
+        _vm.$set(_vm.artwork, "medium", $$v)
+      },
+      expression: "artwork.medium"
     }
   }, [_c('el-option', {
     attrs: {
-      "value": "Acrylic"
+      "label": "Acrylic",
+      "value": "1"
     }
   }), _vm._v(" "), _c('el-option', {
     attrs: {
-      "value": "Oil"
+      "label": "Oil",
+      "value": "2"
     }
   })], 1)], 1), _vm._v(" "), _c('el-form-item', {
     attrs: {
@@ -96614,14 +96847,23 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "value": "",
       "placeholder": "Select"
+    },
+    model: {
+      value: (_vm.artwork.direction),
+      callback: function($$v) {
+        _vm.$set(_vm.artwork, "direction", $$v)
+      },
+      expression: "artwork.direction"
     }
   }, [_c('el-option', {
     attrs: {
-      "value": "Colorism"
+      "label": "Colorism",
+      "value": "1"
     }
   }), _vm._v(" "), _c('el-option', {
     attrs: {
-      "value": "Realism"
+      "label": "Realism",
+      "value": "2"
     }
   })], 1)], 1), _vm._v(" "), _c('el-form-item', {
     attrs: {
@@ -96631,14 +96873,23 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "value": "",
       "placeholder": "Select"
+    },
+    model: {
+      value: (_vm.artwork.theme),
+      callback: function($$v) {
+        _vm.$set(_vm.artwork, "theme", $$v)
+      },
+      expression: "artwork.theme"
     }
   }, [_c('el-option', {
     attrs: {
-      "value": "Portrait"
+      "label": "Portrait",
+      "value": "1"
     }
   }), _vm._v(" "), _c('el-option', {
     attrs: {
-      "value": "Maritime"
+      "label": "Maritime",
+      "value": "2"
     }
   })], 1)], 1), _vm._v(" "), _c('el-form-item', {
     attrs: {
@@ -96648,14 +96899,23 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "value": "",
       "placeholder": "Select"
+    },
+    model: {
+      value: (_vm.artwork.color),
+      callback: function($$v) {
+        _vm.$set(_vm.artwork, "color", $$v)
+      },
+      expression: "artwork.color"
     }
   }, [_c('el-option', {
     attrs: {
-      "value": "Yellow"
+      "label": "Yellow",
+      "value": "1"
     }
   }), _vm._v(" "), _c('el-option', {
     attrs: {
-      "value": "Blue"
+      "label": "Blue",
+      "value": "2"
     }
   })], 1)], 1), _vm._v(" "), _c('el-form-item', {
     attrs: {
@@ -96676,27 +96936,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1), _vm._v(" "), _c('el-form-item', {
     attrs: {
-      "label": "Date of completion Artwork"
-    }
-  }, [_c('el-date-picker', {
-    attrs: {
-      "type": "date",
-      "value-format": "yyyy-MM-dd",
-      "placeholder": "Date"
-    }
-  })], 1), _vm._v(" "), _c('el-form-item', {
-    attrs: {
-      "label": "Price"
-    }
-  }, [_c('el-input-number', {
-    attrs: {
-      "value": "2",
-      "controls-position": "right",
-      "min": 1,
-      "max": 50000
-    }
-  })], 1), _vm._v(" "), _c('el-form-item', {
-    attrs: {
       "label": "Inspiration"
     }
   }, [_c('el-input', {
@@ -96712,11 +96951,58 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "artwork.inspiration"
     }
-  })], 1), _vm._v(" "), _c('label', {
+  })], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "label": "Date of completion Artwork"
+    }
+  }, [_c('el-date-picker', {
+    attrs: {
+      "type": "year",
+      "value-format": "yyyy",
+      "placeholder": "Pick a year"
+    },
+    model: {
+      value: (_vm.artwork.year_of_completion),
+      callback: function($$v) {
+        _vm.$set(_vm.artwork, "year_of_completion", $$v)
+      },
+      expression: "artwork.year_of_completion"
+    }
+  })], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "label": "Price ( EUR )"
+    }
+  }, [_c('el-input-number', {
+    attrs: {
+      "value": "2",
+      "min": 1,
+      "max": 50000
+    },
+    model: {
+      value: (_vm.artwork.price),
+      callback: function($$v) {
+        _vm.$set(_vm.artwork, "price", $$v)
+      },
+      expression: "artwork.price"
+    }
+  })], 1), _vm._v(" "), _c('el-button', {
+    staticStyle: {
+      "margin-top": "20px"
+    },
+    attrs: {
+      "type": "primary",
+      "size": "big"
+    },
+    on: {
+      "click": function($event) {
+        _vm.saveArtwork()
+      }
+    }
+  }, [_vm._v("\n                Next\n            ")])] : _vm._e(), _vm._v(" "), (_vm.activeStep === 1) ? [_c('label', {
     staticClass: "el-form-item__label"
   }, [_vm._v("Upload up to 3 Photos of Your Artwork ( jpg/png files accepted )")]), _vm._v(" "), _c('el-form-item', [_c('el-upload', {
     attrs: {
-      "action": '/api/upload/artwork-photo/' + _vm.artwork.id,
+      "action": '/api/upload/artwork-image/' + _vm.artwork.id,
       "list-type": "picture-card",
       "file-list": _vm.artworkPhoto,
       "on-preview": _vm.handlePictureCardPreview,
@@ -96724,7 +97010,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "on-success": _vm.handleSuccess,
       "accept": ".jpg, .jpeg, .png"
     }
-  }, [_vm._v("\n                Upload Photo\n            ")]), _vm._v(" "), _c('el-dialog', {
+  }, [_vm._v("\n                    Upload Images\n                ")]), _vm._v(" "), _c('el-dialog', {
     attrs: {
       "visible": _vm.dialogVisible
     },
@@ -96739,7 +97025,26 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "src": _vm.dialogImageUrl,
       "alt": ""
     }
-  })])], 1), _vm._v(" "), _c('el-button', {
+  })])], 1), _vm._v(" "), _c('el-form-item', [_c('el-button', {
+    attrs: {
+      "type": "primary",
+      "size": "big"
+    },
+    on: {
+      "click": _vm.saveImages
+    }
+  }, [_vm._v("\n                    Next\n                ")]), _vm._v(" "), _c('el-button', {
+    attrs: {
+      "type": "text"
+    },
+    on: {
+      "click": function($event) {
+        _vm.activeStep--
+      }
+    }
+  }, [_vm._v("Back to edit artwork")])], 1)] : _vm._e(), _vm._v(" "), (_vm.activeStep === 2) ? [_c('div', {
+    staticClass: "text-center"
+  }, [_vm._v("\n                Your work being approved. You'll get email once it's published.\n            ")]), _vm._v(" "), _c('el-form-item', [_c('el-button', {
     staticStyle: {
       "margin-top": "20px"
     },
@@ -96749,10 +97054,23 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     },
     on: {
       "click": function($event) {
-        _vm.save()
+        _vm.activeStep++
       }
     }
-  }, [_vm._v("\n            Save\n        ")])], 1)], 1)
+  }, [_c('a', {
+    attrs: {
+      "href": "/dashboard"
+    }
+  }, [_vm._v("\n                        Go to panel\n                    ")])]), _vm._v(" "), _c('el-button', {
+    attrs: {
+      "type": "text"
+    },
+    on: {
+      "click": function($event) {
+        _vm.activeStep--
+      }
+    }
+  }, [_vm._v("Back to edit artwork")])], 1)] : _vm._e()], 2)], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

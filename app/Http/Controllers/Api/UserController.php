@@ -14,14 +14,6 @@ class UserController extends Controller {
 
 		$user->update( $request->all() );
 
-		return ['status'=> 'success', 'message' => 'Saved', 'data' => $user];
-	}
-
-	public function uploadPhoto( Request $request, $id ) {
-
-		if ( $request->file( 'file' ) ) {
-
-			return $request->file( 'file' )->storeAs( '/public/avatars/' . $id, $request->file( 'file' )->getClientOriginalName() );
-		}
+		return [ 'status' => 'success', 'message' => 'Saved', 'data' => $user ];
 	}
 }

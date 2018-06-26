@@ -5,34 +5,42 @@
 
         <h2>Translations</h2>
 
-        <el-button style="margin-bottom: 20px"
-                   size="big"
-                   type="success"
-                   @click="addTranslationField()">
-            Add translation
-        </el-button>
-
         <el-tabs type="card">
+
             <template v-for="language in languages">
+
                 <el-tab-pane :label="language.name">
 
-                    <template v-for="(translation, idx) in translations">
+                    <el-collapse v-for="(group, groupName) in translations" :key="groupName" accordion>
 
-                        <el-row :gutter="20" style="margin-bottom: 20px" align="middle">
-                            <el-col :span="4">
-                                <el-input v-model="translation.key" placeholder="Variable"></el-input>
-                            </el-col>
-                            <el-col :span="18">
-                                <el-input v-model="translation.text[language.code]"
-                                          placeholder="Translation"></el-input>
-                            </el-col>
-                            <el-col :span="2">
-                                <el-button size="medium" type="danger" icon="el-icon-delete" circle
-                                           @click="removeTranslation(idx)"></el-button>
-                            </el-col>
-                        </el-row>
+                        <el-collapse-item :title="groupName" :name="groupName">
 
-                    </template>
+                            <el-row :gutter="20" style="margin-bottom: 20px" align="middle"
+                                    v-for="(translation, translationIndex) in group" :key="translation.id">
+                                <el-col :span="4">
+                                    <el-input v-model="translation.key" placeholder="Variable"></el-input>
+                                </el-col>
+                                <el-col :span="18">
+                                    <el-input v-model="translation.text[language.code]"
+                                              placeholder="Translation"></el-input>
+                                </el-col>
+                                <el-col :span="2">
+                                    <el-button size="mini" type="danger" icon="el-icon-delete" circle
+                                               @click="removeTranslation(groupName, translationIndex)"></el-button>
+                                </el-col>
+                            </el-row>
+
+                            <el-button style="margin-bottom: 20px"
+                                       size="big"
+                                       type="success"
+                                       @click="addTranslationField(groupName)">
+                                Add translation to {{ groupName }}
+                            </el-button>
+
+                        </el-collapse-item>
+
+                    </el-collapse>
+
 
                 </el-tab-pane>
             </template>
@@ -61,16 +69,16 @@
         data() {
             return {
                 languages: [],
-
                 translations: [],
             }
         },
 
         mounted() {
+
             if (this.languages_.length) {
                 this.languages = this.languages_;
             }
-            if (this.translations_.length) {
+            if (Object.keys(this.translations_).length) {
                 this.translations = this.translations_;
             }
         },
@@ -79,12 +87,12 @@
 
         methods: {
 
-            addTranslationField() {
+            addTranslationField(groupName) {
 
                 let translation = {
                     id: 0,
-                    group: 'portal',
-                    key: '',
+                    group: groupName,
+                    key: 'Variable',
                     text: {},
                 };
 
@@ -92,24 +100,34 @@
                     ([langCode, language]) => this.$set(translation.text, langCode, "")
                 );
 
-                this.translations.push(translation);
+                console.log(this.translations[groupName]);
+
+                this.translations[groupName].push(translation);
             },
 
-            removeTranslation(idx) {
-                this.translations.splice(idx, 1);
+            removeTranslation(groupName, translationIndex) {
+                this.translations[groupName].splice(translationIndex, 1);
             },
 
             save() {
-
                 axios.post('/api/translations/', this.translations)
                     .then((response) => {
                         if (response.data) {
-                            window.location.href = '/dashboard';
+                            console.log(response.data);
+                            this.$message({
+                                showClose: true,
+                                message: response.data.message,
+                                type: response.data.status
+                            });
+
+                            this.translations = response.data.data;
+                            // window.location.reload();
+                            // window.location.href = '/dashboard';
                         } else {
                             console.log(response.data);
                         }
                     });
-            }
+            },
         }
     }
 </script>

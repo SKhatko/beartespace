@@ -24,7 +24,8 @@ $(function () {
 
             var timeinterval = setInterval(function(countDownItem, endtime){
                 var t = getTimeRemaining(endtime);
-                var clockHtml = '<b>'+jsonData.time_remaining+'</b> ' + t.days + ' days ' + t.hours + ':' + t.minutes +':' +t.seconds;
+                // var clockHtml = '<b>'+jsonData.time_remaining+'</b> ' + t.days + ' days ' + t.hours + ':' + t.minutes +':' +t.seconds;
+                var clockHtml = '<b>There was json</b> ' + t.days + ' days ' + t.hours + ':' + t.minutes +':' +t.seconds;
 
                 $(countDownItem).html(clockHtml);
                 if(t.total<=0){
