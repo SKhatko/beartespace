@@ -165,14 +165,6 @@
                             </el-dropdown-menu>
                         </el-dropdown>
 
-
-                        <!-- TODO refactor -->
-                        {{--@if($header_menu_pages->count() > 0)--}}
-                        {{--@foreach($header_menu_pages as $page)--}}
-                        {{--<div><a href="{{ route('single_page', $page->slug) }}">{{ $page->title }}</a></div>--}}
-                        {{--@endforeach--}}
-                        {{--@endif--}}
-
                     </div>
 
                     <div class="app-header-search">
@@ -276,30 +268,8 @@
                         </el-col>
                     </el-row>
 
-                    {{--<el-card class="box-card">--}}
-                     {{----}}
-                    {{--</el-card>--}}
                 </div>
 
-
-            </div>
-
-            <div class="app-footer-menu">
-
-                @if($show_in_footer_menu->count() > 0)
-                    @foreach($show_in_footer_menu as $page)
-                        <div><a href="{{ route('single_page', $page->slug) }}">{{ $page->title }} </a></div>
-                    @endforeach
-                @endif
-                <div><a href="{{ route('contacts') }}">@lang('portal.contacts')</a></div>
-            </div>
-
-            <div class="app-footer-heading">
-                {{get_option('site_name')}}
-            </div>
-
-            <div class="app-footer-copyright">
-                Copyright text
             </div>
 
 

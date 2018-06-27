@@ -10,7 +10,7 @@
 
         @foreach($sculptures as $sculpture)
 
-            @dump($sculpture)
+            Sculpture {{ $sculpture->id }}
 
         @endforeach
     </div>

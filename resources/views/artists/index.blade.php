@@ -9,7 +9,7 @@
 
         @foreach($artists as $artist)
 
-            @dump($artist)
+            Artist {{ $artist->id }}
 
         @endforeach
     </div>

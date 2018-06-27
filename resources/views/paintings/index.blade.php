@@ -9,7 +9,7 @@
 
         @foreach($paintings as $painting)
 
-            @dump($painting)
+            Painting {{ $painting->id }}
 
         @endforeach
     </div>

@@ -61,19 +61,10 @@ class HomeController extends Controller {
 
 
 	public function auctions() {
-		$top_categories = Category::whereCategoryType( 'auction' )->orderBy( 'category_name', 'asc' )->get();
 
+		$auctions = Artwork::all();
 
-		$limit_regular_ads = get_option( 'number_of_free_ads_in_home' );
-		$limit_premium_ads = get_option( 'number_of_premium_ads_in_home' );
-
-		$regular_ads = Artwork::with( 'category', 'city' )->limit( $limit_regular_ads )->orderBy( 'id', 'desc' )->get();
-		$premium_ads = Artwork::with( 'category', 'city' )->limit( $limit_premium_ads )->orderBy( 'id', 'desc' )->get();
-
-		$total_ads_count = Artwork::active()->count();
-		$user_count      = User::count();
-
-		return view( 'auctions.index', compact( 'top_categories', 'regular_ads', 'premium_ads', 'total_ads_count', 'user_count' ) );
+		return view( 'auctions.index', compact( 'auctions') );
 	}
 
 	public function artists() {
