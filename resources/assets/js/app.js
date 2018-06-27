@@ -20,6 +20,16 @@ window.Vue = require('vue');
 import ElementUI from 'element-ui';
 import locale from 'element-ui/lib/locale/lang/en'
 
+Vue.prototype.trans = (key) => {
+    return _.get(window.trans, key, key);
+};
+
+Vue.prototype.options = (key) => {
+    return Object.entries(_.get(window.trans, key, key)).map(function (translation) {
+        return {value: translation[0], label: translation[1]}
+    });
+};
+
 
 Vue.use(ElementUI, {locale});
 
@@ -30,7 +40,7 @@ Vue.component('languages', require('./components/Languages.vue'));
 Vue.component('users', require('./components/Users.vue'));
 Vue.component('profile', require('./components/Profile.vue'));
 Vue.component('artwork', require('./components/Artwork.vue'));
-// Vue.component('registration-form', require('./components/RegistrationForm.vue'));
+
 
 const app = new Vue({
     el: '#app',
@@ -41,3 +51,5 @@ const app = new Vue({
 
     }
 });
+
+

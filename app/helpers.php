@@ -1,4 +1,19 @@
 <?php
+
+if ( ! function_exists( 'getAllTranslations' ) ) {
+	function getAllTranslations( ) {
+		$translations = [];
+
+		$groups = \DB::table('language_lines')->distinct('group')->pluck('group');
+
+		foreach ($groups as $group) {
+			$translations[$group] = trans($group);
+		}
+
+		return json_encode($translations);
+	}
+}
+
 /**
  * @return mixed
  * Custom functions made by themeqx

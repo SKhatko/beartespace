@@ -24,12 +24,13 @@ class CreateArtworksTable extends Migration
             $table->decimal('weight', 5, 3)->nullable();
             $table->integer('year_of_completion')->nullable();
 	        $table->decimal('price', 12,2)->nullable();
+	        $table->json('image')->nullable();
 
             $table->string('category')->nullable();
-            $table->string('medium')->nullable();
-            $table->string('direction')->nullable();
-            $table->string('theme')->nullable();
-            $table->string('color')->nullable();
+            $table->json('medium')->nullable();
+            $table->json('direction')->nullable();
+            $table->json('theme')->nullable();
+            $table->json('color')->nullable();
 
             //0 =pending for review, 1= published, 2=blocked, 3=archived
             $table->enum('status', [0,1,2,3])->nullable();

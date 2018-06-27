@@ -9,6 +9,14 @@ use Illuminate\Support\Facades\Auth;
 class Artwork extends Model {
 	protected $guarded = [];
 
+	protected $casts = [
+		'medium'    => 'array',
+		'direction' => 'array',
+		'theme'     => 'array',
+		'color'     => 'array',
+		'image'     => 'array'
+	];
+
 	public function user() {
 		return $this->belongsTo( User::class );
 	}
@@ -20,10 +28,6 @@ class Artwork extends Model {
 	public function medias() {
 		return $this->hasMany( Media::class );
 	}
-
-
-
-
 
 
 	public function scopeActive( $query ) {

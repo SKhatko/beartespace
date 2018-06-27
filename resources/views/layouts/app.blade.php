@@ -17,7 +17,7 @@
     @yield('page-css')
 
     <script>
-        window.trans = {!! $transcriptions !!};
+        window.trans = {!! $translations !!};
     </script>
 
 </head>

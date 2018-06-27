@@ -1,4 +1,5 @@
 const { mix } = require('laravel-mix');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 /*
  |--------------------------------------------------------------------------
@@ -10,6 +11,13 @@ const { mix } = require('laravel-mix');
  | file for the application as well as bundling up all the JS files.
  |
  */
+
+
+mix.webpackConfig({
+    plugins: [
+        // new BundleAnalyzerPlugin(),
+    ],
+});
 
 mix.js('resources/assets/js/app.js', 'public/js')
     .sass('resources/assets/sass/app.scss', 'public/css').browserSync({

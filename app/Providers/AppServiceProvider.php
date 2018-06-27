@@ -21,7 +21,7 @@ class AppServiceProvider extends ServiceProvider {
 
 		$live = true;
 
-		if($live) {
+		if ( $live ) {
 			$amazonS3Config = [
 				'filesystems.disks.s3' =>
 					[
@@ -61,8 +61,12 @@ class AppServiceProvider extends ServiceProvider {
 			config( $googleConfig );
 			config( $twitterConfig );
 
+			view()->composer( 'layouts.app', function ( $view ) {
+				$translations = getAllTranslations();
+				$view->with( [ 'translations' => $translations ]);
+			} );
+
 			view()->composer( '*', function ( $view ) {
-				$translations = 123;
 				$header_menu_pages   = Post::whereStatus( '1' )->where( 'show_in_header_menu', 1 )->get();
 				$show_in_footer_menu = Post::whereStatus( '1' )->where( 'show_in_footer_menu', 1 )->get();
 
@@ -73,11 +77,11 @@ class AppServiceProvider extends ServiceProvider {
 
 				$current_lang = current_language();
 
-				$view->with( [ 'lUser'               => $loggedUser,
-				               'header_menu_pages'   => $header_menu_pages,
-				               'show_in_footer_menu' => $show_in_footer_menu,
-				               'current_lang'        => $current_lang,
-				               'translations'        => $translations,
+				$view->with( [
+					'lUser'               => $loggedUser,
+					'header_menu_pages'   => $header_menu_pages,
+					'show_in_footer_menu' => $show_in_footer_menu,
+					'current_lang'        => $current_lang,
 				] );
 			} );
 		}

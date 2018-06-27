@@ -38,7 +38,7 @@ class TranslationsTableSeeder extends Seeder {
 				[ 'Oil on canvas', 'Olie på lærred' ],
 				[ 'Oil on plate', 'Olie på plade' ]
 			],
-			'art-direction'     => [
+			'direction'         => [
 				[ 'Abstract', 'Abstrakt' ],
 				[ 'Camp', 'Camp' ],
 				[ 'Decorative figurism', 'Dekorativ figurisme' ],
@@ -114,10 +114,21 @@ class TranslationsTableSeeder extends Seeder {
 				[ 'Metal oxides', 'Metaloxider' ],
 				[ 'Silver wires', 'Sølv ledninger' ]
 			],
-			'categories'        => [
+			'category'          => [
 				[ 'Painting', 'Maleri' ],
 				[ 'Sculpture', 'Skulptur' ]
-			]
+			],
+			'color'             => [
+				[ 'Yellow', 'Gule' ]
+			],
+			'theme'            => [
+				[ 'Portraiture', 'Portraiture' ],
+				[ 'Religion/Historical', 'Religion/Historisk' ],
+				[ 'Landscape', 'Landskab' ],
+				[ 'Still Life', 'Stilleben' ],
+				[ 'Abstract/Figurative Art', 'Abstrakt/Figurativ kunst' ],
+				[ 'Maritime', 'Maritime' ],
+			],
 		];
 
 		foreach ( $translations as $medium => $trans ) {

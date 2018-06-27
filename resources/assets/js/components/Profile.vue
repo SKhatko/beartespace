@@ -170,14 +170,12 @@
 
         props: {
             user_: {},
-            trans_: {},
             countries_: {}
         },
 
         data() {
             return {
                 user: [],
-                trans: [],
                 countries: [],
 
                 userPhoto: [],
@@ -191,9 +189,7 @@
             if (this.user_) {
                 this.user = this.user_;
             }
-            if (this.trans_) {
-                this.trans = this.trans_;
-            }
+
             if (this.countries_) {
                 this.countries = this.countries_;
             }

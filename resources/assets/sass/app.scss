@@ -2,8 +2,7 @@
 @import "element-variables";
 // Bootstrap
 @import "~font-awesome/css/font-awesome";
-@import "~select2/dist/css/select2";
-@import "~toastr/build/toastr";
+
 //@import "style";
 //@import "admin";
 //@import "rtl";
@@ -185,6 +184,10 @@ a {
   }
 }
 
+.el-select, .el-date-editor.el-input {
+  width: 100%;
+}
+
 // Admin styles
 .admin {
   width: 100%;
@@ -193,7 +196,7 @@ a {
 }
 
 .a-content {
-  padding: 15px;
+  padding: 40px 15px;
 }
 
 

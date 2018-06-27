@@ -23,22 +23,22 @@
             <template v-if="activeStep === 0">
 
 
+                <el-row :gutter="20">
+                    <el-col :sm="12">
+                        <el-form-item label="Artwork Name (Title)">
+                            <el-input placeholder="Please input" v-model="artwork.title"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :sm="12">
+                        <el-form-item label="Select Category">
+                            <el-select value="" v-model="artwork.category" placeholder="Select">
+                                <el-option v-for="(label, value) in trans('category')" :key="value" :value="value"
+                                           :label="label"></el-option>
+                            </el-select>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
 
-                <el-form-item label="Artwork Name (Title)">
-                    <el-input placeholder="Please input" v-model="artwork.title"></el-input>
-                </el-form-item>
-
-
-                <el-form-item label="Select Category">
-                    <el-select value="" v-model="artwork.category" placeholder="Select">
-                        <el-option label="Painting"
-                                   value="painting">
-                        </el-option>
-                        <el-option label="Sculpture"
-                                   value="sculpture">
-                        </el-option>
-                    </el-select>
-                </el-form-item>
 
                 <el-form :inline="true" label-position="top">
                     <el-form-item label="Width">
@@ -58,92 +58,85 @@
                     </el-form-item>
                 </el-form>
 
+                <el-row :gutter="20">
+                    <el-col :sm="6">
+                        <el-form-item label="Medium">
+                            <el-select value="" v-model="artwork.medium" placeholder="Select material" multiple
+                                       collapse-tags>
+                                <el-option v-for="medium in options('medium')" :key="medium.value" :label="medium.label"
+                                           :value="medium.value"></el-option>
+                            </el-select>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :sm="6">
+                        <el-form-item label="Art direction">
+                            <el-select value="" v-model="artwork.direction" placeholder="Select" multiple collapse-tags>
+                                <el-option v-for="direction in options('direction')" :key="direction.value"
+                                           :label="direction.label"
+                                           :value="direction.value"></el-option>
+                            </el-select>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :sm="6">
+                        <el-form-item label="Theme">
+                            <el-select value="" v-model="artwork.theme" placeholder="Select" multiple collapse-tags>
+                                <el-option v-for="theme in options('theme')" :key="theme.value" :label="theme.label"
+                                           :value="theme.value"></el-option>
+                            </el-select>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :sm="6">
+                        <el-form-item label="Main colors">
+                            <el-select value="" v-model="artwork.color" placeholder="Select" multiple collapse-tags>
+                                <el-option v-for="color in options('color')" :key="color.value" :label="color.label"
+                                           :value="color.value"></el-option>
+                            </el-select>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
 
-                <el-form-item label="Medium">
-                    <el-select value="" v-model="artwork.medium" placeholder="Select">
-                        <el-option
-                                label="Acrylic"
-                                value="1">
-                        </el-option>
-                        <el-option
-                                label="Oil"
-                                value="2">
-                        </el-option>
-                    </el-select>
-                </el-form-item>
+                <el-row :gutter="20">
+                    <el-col :sm="12">
+                        <el-form-item label="Artwork Description">
+                            <el-input
+                                    type="textarea"
+                                    :rows="2"
+                                    placeholder="Description"
+                                    v-model="artwork.description">
+                            </el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :sm="12">
+                        <el-form-item label="Inspiration">
+                            <el-input
+                                    type="textarea"
+                                    :rows="2"
+                                    placeholder="Things that inspire you"
+                                    v-model="artwork.inspiration">
+                            </el-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
 
 
-                <el-form-item label="Art direction">
-                    <el-select value="" v-model="artwork.direction" placeholder="Select">
-                        <el-option
-                                label="Colorism"
-                                value="1">
-                        </el-option>
-                        <el-option
-                                label="Realism"
-                                value="2">
-                        </el-option>
-                    </el-select>
-                </el-form-item>
+                <el-row :gutter="20">
+                    <el-col :sm="12">
+                        <el-form-item label="Date of completion Artwork">
+                            <el-date-picker
+                                    v-model="artwork.year_of_completion"
+                                    type="year"
+                                    value-format="yyyy"
+                                    placeholder="Pick a year">
+                            </el-date-picker>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :sm="12">
+                        <el-form-item label="Price ( EUR )">
+                            <el-input-number value="2" v-model="artwork.price" :min="1" :max="50000"></el-input-number>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
 
-                <el-form-item label="Theme">
-                    <el-select value="" v-model="artwork.theme" placeholder="Select">
-                        <el-option
-                                label="Portrait"
-                                value="1">
-                        </el-option>
-                        <el-option
-                                label="Maritime"
-                                value="2">
-                        </el-option>
-                    </el-select>
-                </el-form-item>
-
-
-                <el-form-item label="Main colors">
-                    <el-select value="" v-model="artwork.color" placeholder="Select">
-                        <el-option
-                                label="Yellow"
-                                value="1">
-                        </el-option>
-                        <el-option
-                                label="Blue"
-                                value="2">
-                        </el-option>
-                    </el-select>
-                </el-form-item>
-
-
-                <el-form-item label="Artwork Description">
-                    <el-input
-                            type="textarea"
-                            :rows="2"
-                            placeholder="Description"
-                            v-model="artwork.description">
-                    </el-input>
-                </el-form-item>
-
-                <el-form-item label="Inspiration">
-                    <el-input
-                            type="textarea"
-                            :rows="2"
-                            placeholder="Things that inspire you"
-                            v-model="artwork.inspiration">
-                    </el-input>
-                </el-form-item>
-
-                <el-form-item label="Date of completion Artwork">
-                    <el-date-picker
-                            v-model="artwork.year_of_completion"
-                            type="year"
-                            value-format="yyyy"
-                            placeholder="Pick a year">
-                    </el-date-picker>
-                </el-form-item>
-
-                <el-form-item label="Price ( EUR )">
-                    <el-input-number value="2" v-model="artwork.price" :min="1" :max="50000"></el-input-number>
-                </el-form-item>
 
                 <el-button type="primary" style="margin-top: 20px"
                            size="big"
@@ -160,7 +153,7 @@
                 <el-form-item>
                     <el-upload
                             :action="'/api/upload/artwork-image/' + artwork.id"
-                            :file-list="artworkPhoto"
+                            :file-list="artwork.image"
                             :on-preview="handlePictureCardPreview"
                             :on-remove="handleRemove"
                             :on-success="handleSuccess"
@@ -183,7 +176,7 @@
                 <el-form-item>
                     <el-button type="primary"
                                size="big"
-                               @click="saveImages"
+                               @click="saveArtwork(true)"
                                icon="el-icon-arrow-right">
                         Next
                     </el-button>
@@ -217,9 +210,7 @@
             </template>
 
 
-
         </el-form>
-
 
 
     </el-card>
@@ -250,15 +241,15 @@
 
                     category: '',
 
-                    medium: '',
-                    direction: '',
-                    theme: '',
-                    color: '',
+                    image: [],
+                    medium: [],
+                    direction: [],
+                    theme: [],
+                    color: [],
                 },
 
                 activeStep: 0,
 
-                artworkPhoto: [],
                 dialogImageUrl: '',
                 dialogVisible: false
 
@@ -267,15 +258,12 @@
 
 
         mounted() {
+
+            console.log(trans);
+            console.log(this.artwork_);
+
             if (this.artwork_) {
                 this.artwork = this.artwork_;
-            }
-
-            if (this.artwork.photo) {
-                this.artworkPhoto = [{
-                    name: this.artwork.photo,
-                    url: '/artworks/' + this.artwork.id + '/' + this.artwork.photo
-                }];
             }
         },
 
@@ -294,23 +282,18 @@
 
                             this.artwork = response.data.data;
 
-                            if(response.data.status = 'success') this.activeStep++;
+                            if (response.data.status = 'success') this.activeStep++;
                             // window.location.reload();
                         } else {
                             console.log(response.data);
                         }
                     });
             },
-            saveImages() {
-                // this.artwork.photo = this.artworkPhoto.length ? this.artworkPhoto[0].name : '';
-            },
             handleExceed(a, b, c) {
-                console.log(a);
-                console.log(b);
-                console.log(c);
+                console.log(a, b, c);
             },
             handleRemove(file, fileList) {
-                this.artworkPhoto = [];
+                this.artwork.image = fileList;
             },
             handlePictureCardPreview(file) {
                 this.setDialogUrl(file.name);
@@ -319,9 +302,8 @@
             setDialogUrl(name) {
                 this.dialogImageUrl = '/artworks/' + this.artwork.id + '/' + name;
             },
-            handleSuccess(response, file) {
-                console.log('success');
-                this.artworkPhoto.push({
+            handleSuccess(response, file, fileList) {
+                this.artwork.image.push({
                     name: file.name,
                     url: file.url
                 });

@@ -1,17 +1,5 @@
 $(function () {
 
-    //Select 2 initiate
-    $('select.select2').select2();
-
-    $("select.select2NoSearch").select2({
-        minimumResultsForSearch: Infinity
-    });
-
-
-    $("select.select2icon").select2({
-        formatResult: fa_icon_format
-    });
-
     var countDownWrap = $('.countdown');
     var toastr_options = {closeButton: true};
 
