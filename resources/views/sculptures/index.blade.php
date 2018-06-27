@@ -4,6 +4,15 @@
 
 @section('content')
 
-    Sculptures
+    <div class="app--wrapper">
+
+        <h2>Sculptures</h2>
+
+        @foreach($sculptures as $sculpture)
+
+            @dump($sculpture)
+
+        @endforeach
+    </div>
 
 @endsection

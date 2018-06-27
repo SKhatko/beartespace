@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Media;
+use App\Language;
 use App\Post;
 use App\User;
 use Illuminate\Http\Request;
@@ -21,8 +22,11 @@ class PostController extends Controller
      */
     public function index()
     {
-        $title = trans('app.pages');
-        return view('admin.pages', compact('title'));
+        $title = 'Pages';
+        $pages = Post::all();
+        $languages = Language::all();
+
+        return view('dashboard.admin.pages', compact('title', 'pages', 'languages'));
     }
 
     public function pagesData(){

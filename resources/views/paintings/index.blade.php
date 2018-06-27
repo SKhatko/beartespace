@@ -4,6 +4,14 @@
 
 @section('content')
 
-    Paintings
+    <div class="app--wrapper">
+        <h2>Paintings</h2>
+
+        @foreach($paintings as $painting)
+
+            @dump($painting)
+
+        @endforeach
+    </div>
 
 @endsection

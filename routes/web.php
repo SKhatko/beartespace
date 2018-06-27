@@ -13,16 +13,16 @@
 
 Auth::routes();
 
-Route::get( '/', [ 'as' => 'home', 'uses' => 'HomeController@index' ] );
+Route::get( '/','HomeController@index' )->name('home');
 
-Route::get( '/auctions', [ 'as' => 'auctions', 'uses' => 'HomeController@auctions' ] );
-Route::get( '/paintings', [ 'as' => 'paintings', 'uses' => 'HomeController@paintings' ] );
-Route::get( '/sculptures', [ 'as' => 'sculptures', 'uses' => 'HomeController@sculptures' ] );
-Route::get( '/artists', [ 'as' => 'artists', 'uses' => 'HomeController@artists' ] );
+Route::get( '/auctions','HomeController@auctions' )->name('auctions');
+Route::get( '/paintings','HomeController@paintings' )->name('paintings');
+Route::get( '/sculptures', 'HomeController@sculptures' )->name('sculptures');
+Route::get( '/artists','HomeController@artists' )->name('artists');
 
 //Route::get('/verifyemail/{token}', 'Auth\RegisterController@verify');
 
-Route::get( '/checkout', [ 'as' => 'checkout', 'uses' => 'HomeController@checkout' ] );
+Route::get( '/checkout', 'HomeController@checkout' )->name('checkout');
 
 Route::get( '/language/{lang}', [ 'as' => 'switch_language', 'uses' => 'LanguageController@switchLang' ] );
 
@@ -157,6 +157,7 @@ Route::group( [ 'prefix' => 'dashboard', 'middleware' => 'dashboard' ], function
 		Route::get( 'users', 'UserController@index' )->name( 'admin.users' );
 		Route::get( 'translations', 'TranslationController@index' )->name( 'admin.translations' );
 		Route::get( 'languages', 'LanguageController@index' )->name( 'admin.languages' );
+		Route::get( 'pages','PageController@index')->name('admin.pages');
 
 
 		Route::group( [ 'prefix' => 'settings' ], function () {
@@ -207,7 +208,6 @@ Route::group( [ 'prefix' => 'dashboard', 'middleware' => 'dashboard' ], function
 		} );
 
 		Route::group( [ 'prefix' => 'pages' ], function () {
-			Route::get( '/', [ 'as' => 'pages', 'uses' => 'PostController@index' ] );
 			Route::get( 'data', [ 'as' => 'pages_data', 'uses' => 'PostController@pagesData' ] );
 
 			Route::get( 'create', [ 'as' => 'create_new_page', 'uses' => 'PostController@create' ] );

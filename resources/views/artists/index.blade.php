@@ -4,6 +4,14 @@
 
 @section('content')
 
-    Artists
+    <div class="app--wrapper">
+        <h2>Artists</h2>
+
+        @foreach($artists as $artist)
+
+            @dump($artist)
+
+        @endforeach
+    </div>
 
 @endsection

@@ -121,7 +121,7 @@ class TranslationsTableSeeder extends Seeder {
 			'color'             => [
 				[ 'Yellow', 'Gule' ]
 			],
-			'theme'            => [
+			'theme'             => [
 				[ 'Portraiture', 'Portraiture' ],
 				[ 'Religion/Historical', 'Religion/Historisk' ],
 				[ 'Landscape', 'Landskab' ],

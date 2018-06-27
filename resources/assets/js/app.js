@@ -40,6 +40,7 @@ Vue.component('languages', require('./components/Languages.vue'));
 Vue.component('users', require('./components/Users.vue'));
 Vue.component('profile', require('./components/Profile.vue'));
 Vue.component('artwork', require('./components/Artwork.vue'));
+Vue.component('pages', require('./components/Pages.vue'));
 
 
 const app = new Vue({

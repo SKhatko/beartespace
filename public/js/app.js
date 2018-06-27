@@ -15832,6 +15832,7 @@ Vue.component('languages', __webpack_require__(191));
 Vue.component('users', __webpack_require__(194));
 Vue.component('profile', __webpack_require__(192));
 Vue.component('artwork', __webpack_require__(189));
+Vue.component('pages', __webpack_require__(213));
 
 var app = new Vue({
     el: '#app',
@@ -90416,6 +90417,314 @@ module.exports = function(module) {
 __webpack_require__(75);
 module.exports = __webpack_require__(76);
 
+
+/***/ }),
+/* 203 */,
+/* 204 */,
+/* 205 */,
+/* 206 */,
+/* 207 */,
+/* 208 */,
+/* 209 */,
+/* 210 */,
+/* 211 */,
+/* 212 */,
+/* 213 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(14)(
+  /* script */
+  __webpack_require__(214),
+  /* template */
+  __webpack_require__(215),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/skhatko/code/larabid/resources/assets/js/components/Pages.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Pages.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-10e79553", Component.options)
+  } else {
+    hotAPI.reload("data-v-10e79553", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 214 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+
+    props: {
+        pages_: {},
+        languages_: {}
+    },
+
+    data: function data() {
+        return {
+            languages: [],
+            pages: []
+        };
+    },
+    mounted: function mounted() {
+
+        if (this.languages_.length) {
+            this.languages = this.languages_;
+        }
+        if (Object.keys(this.pages_).length) {
+            this.pages = this.pages_;
+        }
+    },
+
+
+    computed: {},
+
+    methods: {
+        addTranslationField: function addTranslationField(groupName) {
+            var _this = this;
+
+            var translation = {
+                id: 0,
+                group: groupName,
+                key: 'Variable',
+                text: {}
+            };
+
+            Object.entries(this.languages).forEach(function (_ref) {
+                var _ref2 = _slicedToArray(_ref, 2),
+                    langCode = _ref2[0],
+                    language = _ref2[1];
+
+                return _this.$set(translation.text, langCode, "");
+            });
+
+            console.log(this.pages[groupName]);
+
+            this.pages[groupName].push(translation);
+        },
+        removeTranslation: function removeTranslation(groupName, translationIndex) {
+            this.pages[groupName].splice(translationIndex, 1);
+        },
+        save: function save() {
+            var _this2 = this;
+
+            axios.post('/api/pages/', this.pages).then(function (response) {
+                if (response.data) {
+                    console.log(response.data);
+                    _this2.$message({
+                        showClose: true,
+                        message: response.data.message,
+                        type: response.data.status
+                    });
+
+                    _this2.pages = response.data.data;
+                    // window.location.reload();
+                    // window.location.href = '/dashboard';
+                } else {
+                    console.log(response.data);
+                }
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 215 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return (_vm.pages) ? _c('el-card', [_c('h2', [_vm._v("Pages")]), _vm._v(" "), _c('el-tabs', {
+    attrs: {
+      "type": "card"
+    }
+  }, [_vm._l((_vm.languages), function(language) {
+    return [_c('el-tab-pane', {
+      attrs: {
+        "label": language.name
+      }
+    }, _vm._l((_vm.pages), function(group, groupName) {
+      return _c('el-collapse', {
+        key: groupName,
+        attrs: {
+          "accordion": ""
+        }
+      }, [_c('el-collapse-item', {
+        attrs: {
+          "title": groupName,
+          "name": groupName
+        }
+      }, [_vm._l((group), function(translation, translationIndex) {
+        return _c('el-row', {
+          key: translation.id,
+          staticStyle: {
+            "margin-bottom": "20px"
+          },
+          attrs: {
+            "gutter": 20,
+            "align": "middle"
+          }
+        }, [_c('el-col', {
+          attrs: {
+            "span": 4
+          }
+        }, [_c('el-input', {
+          attrs: {
+            "placeholder": "Variable"
+          },
+          model: {
+            value: (translation.key),
+            callback: function($$v) {
+              _vm.$set(translation, "key", $$v)
+            },
+            expression: "translation.key"
+          }
+        })], 1), _vm._v(" "), _c('el-col', {
+          attrs: {
+            "span": 18
+          }
+        }, [_c('el-input', {
+          attrs: {
+            "placeholder": "Translation"
+          },
+          model: {
+            value: (translation.text[language.code]),
+            callback: function($$v) {
+              _vm.$set(translation.text, language.code, $$v)
+            },
+            expression: "translation.text[language.code]"
+          }
+        })], 1), _vm._v(" "), _c('el-col', {
+          attrs: {
+            "span": 2
+          }
+        }, [_c('el-button', {
+          attrs: {
+            "size": "mini",
+            "type": "danger",
+            "icon": "el-icon-delete",
+            "circle": ""
+          },
+          on: {
+            "click": function($event) {
+              _vm.removeTranslation(groupName, translationIndex)
+            }
+          }
+        })], 1)], 1)
+      }), _vm._v(" "), _c('el-button', {
+        staticStyle: {
+          "margin-bottom": "20px"
+        },
+        attrs: {
+          "size": "big",
+          "type": "success"
+        },
+        on: {
+          "click": function($event) {
+            _vm.addTranslationField(groupName)
+          }
+        }
+      }, [_vm._v("\n                            Add translation to " + _vm._s(groupName) + "\n                        ")])], 2)], 1)
+    }))]
+  })], 2), _vm._v(" "), _c('el-button', {
+    staticStyle: {
+      "margin-top": "20px"
+    },
+    attrs: {
+      "type": "primary",
+      "size": "big"
+    },
+    on: {
+      "click": function($event) {
+        _vm.save()
+      }
+    }
+  }, [_vm._v("\n        Save\n    ")])], 1) : _vm._e()
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-10e79553", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

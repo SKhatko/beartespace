@@ -65,6 +65,11 @@
                 <a href="{{ route('admin.languages') }}">Languages</a>
             </el-menu-item>
 
+            <el-menu-item index="pages">
+                <i class="el-icon-document"></i>
+                <span slot="title"><a href="{{ route('admin.pages') }}">Pages</a></span>
+            </el-menu-item>
+
 
         </el-submenu>
 
@@ -84,10 +89,6 @@
             </el-menu-item>
         </el-submenu>
 
-        <el-menu-item index="5">
-            <i class="el-icon-document"></i>
-            <span slot="title"><a href="{{ route('pages') }}">@lang('app.pages')</a></span>
-        </el-menu-item>
 
         <el-menu-item index="6">
             <i class="el-icon-document"></i>

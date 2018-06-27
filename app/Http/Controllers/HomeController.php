@@ -77,15 +77,20 @@ class HomeController extends Controller {
 	}
 
 	public function artists() {
-		return view( 'artists.index' );
+
+		$artists = User::all();
+
+		return view( 'artists.index', compact('artists') );
 	}
 
 	public function paintings() {
-		return view( 'paintings.index' );
+		$paintings = Artwork::all();
+		return view( 'paintings.index', compact('paintings'));
 	}
 
 	public function sculptures() {
-		return view( 'sculptures.index' );
+		$sculptures = Artwork::all();
+		return view( 'sculptures.index', compact('sculptures'));
 	}
 
 	public function checkout() {
