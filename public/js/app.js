@@ -28859,7 +28859,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
         return {
             languages: [],
             pages: [],
-            activePage: 1
+            activePage: ''
         };
     },
     mounted: function mounted() {
@@ -29240,6 +29240,13 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -29253,7 +29260,8 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
         return {
             languages: [],
             translations: [],
-            activeGroup: 'portal'
+            activeGroup: '',
+            newGroup: ''
         };
     },
     mounted: function mounted() {
@@ -29276,7 +29284,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
             var translation = {
                 id: 0,
                 group: groupName,
-                key: 'Variable',
+                key: 'variable',
                 text: {}
             };
 
@@ -29287,6 +29295,12 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 
                 return _this.$set(translation.text, langCode, "");
             });
+
+            console.log(this.translations);
+
+            if (!this.translations[groupName]) {
+                this.translations[groupName] = [];
+            }
 
             console.log(this.translations[groupName]);
 
@@ -91074,7 +91088,35 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }, [_vm._v("\n                            Save\n                        ")])], 2)]
     })], 2)], 1)], 1)
-  })], 2) : _vm._e()
+  }), _vm._v(" "), _c('el-form', {
+    staticStyle: {
+      "margin-top": "20px"
+    },
+    attrs: {
+      "inline": ""
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Add new group"
+    }
+  }, [_c('el-input', {
+    model: {
+      value: (_vm.newGroup),
+      callback: function($$v) {
+        _vm.newGroup = $$v
+      },
+      expression: "newGroup"
+    }
+  })], 1), _vm._v(" "), _c('el-button', {
+    attrs: {
+      "type": "success"
+    },
+    on: {
+      "click": function($event) {
+        _vm.addTranslationField(_vm.newGroup)
+      }
+    }
+  }, [_vm._v("Add")])], 1)], 2) : _vm._e()
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

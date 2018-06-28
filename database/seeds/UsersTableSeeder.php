@@ -20,5 +20,8 @@ class UsersTableSeeder extends Seeder
             'gender' => 'male',
             'user_type' => 'admin',
         ]);
+
+	    factory(App\User::class, 100)->create();
+
     }
 }

@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Spatie\TranslationLoader\LanguageLine;
 use Yajra\Datatables\Datatables;
+use App\Page;
 
 class HomeController extends Controller {
 

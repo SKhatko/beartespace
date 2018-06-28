@@ -48,10 +48,17 @@
 
                 </el-tabs>
 
-
             </el-collapse-item>
 
         </el-collapse>
+
+        <el-form inline style="margin-top: 20px">
+            <el-form-item label="Add new group">
+                <el-input v-model="newGroup"></el-input>
+            </el-form-item>
+            <el-button type="success" @click="addTranslationField(newGroup)">Add</el-button>
+
+        </el-form>
 
     </el-card>
 
@@ -70,7 +77,8 @@
             return {
                 languages: [],
                 translations: [],
-                activeGroup: 'portal'
+                activeGroup: '',
+                newGroup: '',
             }
         },
 
@@ -93,13 +101,19 @@
                 let translation = {
                     id: 0,
                     group: groupName,
-                    key: 'Variable',
+                    key: 'variable',
                     text: {},
                 };
 
                 Object.entries(this.languages).forEach(
                     ([langCode, language]) => this.$set(translation.text, langCode, "")
                 );
+
+                console.log(this.translations);
+
+                if(!this.translations[groupName]) {
+                    this.translations[groupName] = [];
+                }
 
                 console.log(this.translations[groupName]);
 

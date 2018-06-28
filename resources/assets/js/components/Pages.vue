@@ -79,7 +79,7 @@
             return {
                 languages: [],
                 pages: [],
-                activePage: 1
+                activePage: ''
             }
         },
 

@@ -9,7 +9,16 @@
 
         @foreach($artists as $artist)
 
-            Artist {{ $artist->id }}
+            <div class="artist">
+                Artist {{ $artist->name }} <br>
+                Dob {{ $artist->dob }} <br>
+                Country {{ $artist->country['country_name'] }} <br>
+                Gender {{ $artist->gender }} <br>
+                Website {{ $artist->website }} <br>
+
+                <img src="{{ $artist->photo }}" alt="">
+            </div>
+
 
         @endforeach
     </div>
