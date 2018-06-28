@@ -5,15 +5,15 @@
 
         <h2>Translations</h2>
 
-        <el-tabs type="card">
+        <el-collapse v-for="(group, groupName) in translations" :key="groupName" accordion v-model="activeGroup">
 
-            <template v-for="language in languages">
+            <el-collapse-item :title="groupName" :name="groupName">
 
-                <el-tab-pane :label="language.name">
+                <el-tabs type="card">
 
-                    <el-collapse v-for="(group, groupName) in translations" :key="groupName" accordion>
+                    <template v-for="language in languages">
 
-                        <el-collapse-item :title="groupName" :name="groupName">
+                        <el-tab-pane :label="language.name">
 
                             <el-row :gutter="20" style="margin-bottom: 20px" align="middle"
                                     v-for="(translation, translationIndex) in group" :key="translation.id">
@@ -37,21 +37,21 @@
                                 Add translation to {{ groupName }}
                             </el-button>
 
-                        </el-collapse-item>
+                            <el-button type="primary" style="margin-top: 20px"
+                                       size="big"
+                                       @click="save()">
+                                Save
+                            </el-button>
 
-                    </el-collapse>
+                        </el-tab-pane>
+                    </template>
+
+                </el-tabs>
 
 
-                </el-tab-pane>
-            </template>
+            </el-collapse-item>
 
-        </el-tabs>
-
-        <el-button type="primary" style="margin-top: 20px"
-                   size="big"
-                   @click="save()">
-            Save
-        </el-button>
+        </el-collapse>
 
     </el-card>
 
@@ -70,6 +70,7 @@
             return {
                 languages: [],
                 translations: [],
+                activeGroup: 'portal'
             }
         },
 
@@ -101,6 +102,8 @@
                 );
 
                 console.log(this.translations[groupName]);
+
+                this.activeGroup = groupName;
 
                 this.translations[groupName].push(translation);
             },

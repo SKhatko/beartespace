@@ -256,6 +256,7 @@
                                 <div slot="header" class="clearfix">
                                     <span>@lang('portal.auction')</span>
                                 </div>
+                                <a href="{{ route('auctions')}}">Go to Online auctions</a>
                             </el-card>
                         </el-col>
 
