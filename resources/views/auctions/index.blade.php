@@ -14,7 +14,6 @@
                     Title {{ $auction->title }} <br>
                     Autor {{ $auction->user['name'] }} <br>
                     Country {{ $auction->user->country['country_name'] }} <br>
-
                 </div>
 
                 <img src="{{ $auction->image }}" alt="" style="max-height: 400px">

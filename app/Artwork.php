@@ -25,7 +25,7 @@ class Artwork extends Model {
 		return $this->belongsTo( Category::class );
 	}
 
-	public function medias() {
+	public function images() {
 		return $this->hasMany( Media::class );
 	}
 

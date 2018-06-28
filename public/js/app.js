@@ -28491,7 +28491,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -29096,6 +29095,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -29125,10 +29127,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
 
         if (this.user.photo) {
-            this.userPhoto = [{
-                name: this.user.photo,
-                url: '/avatars/' + this.user.id + '/' + this.user.photo
-            }];
+            this.user.photo = [this.user.photo];
         }
     },
 
@@ -29136,8 +29135,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         save: function save() {
             var _this = this;
-
-            this.user.photo = this.userPhoto.length ? this.userPhoto[0].name : '';
 
             axios.post('/api/profile/', this.user).then(function (response) {
                 if (response.data) {
@@ -29147,6 +29144,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         message: response.data.message,
                         type: response.data.status
                     });
+
                     // window.location.reload();
                 } else {
                     console.log(response.data);
@@ -29154,18 +29152,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         handleRemove: function handleRemove(file, fileList) {
-            this.userPhoto = [];
+            this.user.photo = [];
         },
         handlePictureCardPreview: function handlePictureCardPreview(file) {
             this.setDialogUrl();
             this.dialogVisible = true;
         },
         setDialogUrl: function setDialogUrl() {
-            this.dialogImageUrl = '/avatars/' + this.user.id + '/' + this.userPhoto[0].name;
+            this.dialogImageUrl = '/user/' + this.user.id + '/' + this.user.photo[0].name;
         },
         handleSuccess: function handleSuccess(response, file) {
             console.log('success');
-            this.userPhoto = [{
+            console.log(file);
+            this.user.photo = [{
                 name: file.name,
                 url: file.url
             }];
@@ -89748,14 +89747,21 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("Upload Your Photo ( jpg/png files accepted )")]), _vm._v(" "), _c('el-form-item', [_c('el-upload', {
     attrs: {
       "action": '/api/upload/user-photo/' + _vm.user.id,
-      "list-type": "picture-card",
-      "file-list": _vm.userPhoto,
+      "list-type": "list",
+      "file-list": _vm.user.photo,
       "on-preview": _vm.handlePictureCardPreview,
       "on-remove": _vm.handleRemove,
       "on-success": _vm.handleSuccess,
       "accept": ".jpg, .jpeg, .png"
     }
-  }, [_vm._v("\n                Upload Photo\n            ")]), _vm._v(" "), _c('el-dialog', {
+  }, [_c('el-button', {
+    attrs: {
+      "type": "info",
+      "plain": ""
+    }
+  }, [_c('i', {
+    staticClass: "el-icon-upload"
+  }), _vm._v("\n                    Upload photo\n                ")])], 1), _vm._v(" "), _c('el-dialog', {
     attrs: {
       "visible": _vm.dialogVisible
     },
@@ -90869,7 +90875,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('i', {
     staticClass: "el-icon-upload"
-  }), _vm._v("\n\n                        Upload images\n                    ")])], 1), _vm._v(" "), _c('el-dialog', {
+  }), _vm._v("\n                        Upload images\n                    ")])], 1), _vm._v(" "), _c('el-dialog', {
     attrs: {
       "visible": _vm.dialogVisible
     },

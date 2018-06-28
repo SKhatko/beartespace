@@ -32,7 +32,8 @@ class UserController extends Controller {
 
 	public function profile() {
 		$title     = trans( 'portal.profile' );
-		$user      = Auth::user();
+		$user      = Auth::user()->with('photo')->first();
+
 		$countries = Country::all( 'country_name', 'id' );
 
 		return view( 'dashboard.user.profile', compact( 'title', 'user', 'countries' ) );

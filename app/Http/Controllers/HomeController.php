@@ -17,7 +17,6 @@ class HomeController extends Controller {
 	public function index() {
 
 		// Home page
-
 		$artworks = Artwork::all();
 
 //		return $artworks;
@@ -72,6 +71,13 @@ class HomeController extends Controller {
 		$artists = User::all();
 
 		return view( 'artists.index', compact( 'artists' ) );
+	}
+
+	public function showArtist( $id ) {
+
+		$artist = User::find( $id );
+
+		return $artist->media;
 	}
 
 	public function paintings() {

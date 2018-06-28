@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\User;
+use App\Media;
 
 class MediaController extends Controller
 {
@@ -12,7 +14,9 @@ class MediaController extends Controller
 
 		if ( $request->file( 'file' ) ) {
 
-			return $request->file( 'file' )->storeAs( '/public/avatars/' . $id, $request->file( 'file' )->getClientOriginalName() );
+			Media::updateOrCreate(['user_id' => $id], ['name' => $request->file( 'file' )->getClientOriginalName(), 'folder' => 'user' ]);
+
+			return $request->file( 'file' )->storeAs( '/public/user/' . $id, $request->file( 'file' )->getClientOriginalName() );
 		}
 	}
 

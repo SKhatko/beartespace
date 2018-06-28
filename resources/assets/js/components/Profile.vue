@@ -10,14 +10,17 @@
             <el-form-item>
                 <el-upload
                         :action="'/api/upload/user-photo/' + user.id"
-                        list-type="picture-card"
-                        :file-list="userPhoto"
+                        list-type="list"
+                        :file-list="user.photo"
                         :on-preview="handlePictureCardPreview"
                         :on-remove="handleRemove"
                         :on-success="handleSuccess"
                         accept=".jpg, .jpeg, .png">
                     <!--<i class="el-icon-plus"></i>-->
-                    Upload Photo
+                    <el-button type="info" plain>
+                        <i class="el-icon-upload"></i>
+                        Upload photo
+                    </el-button>
                 </el-upload>
 
                 <el-dialog :visible.sync="dialogVisible">
@@ -195,19 +198,13 @@
             }
 
             if (this.user.photo) {
-                this.userPhoto = [{
-                    name: this.user.photo,
-                    url: '/avatars/' + this.user.id + '/' + this.user.photo
-                }];
+                this.user.photo = [this.user.photo];
             }
         },
 
         methods: {
 
             save() {
-
-                this.user.photo = this.userPhoto.length ? this.userPhoto[0].name : '';
-
                 axios.post('/api/profile/', this.user)
                     .then((response) => {
                         if (response.data) {
@@ -217,6 +214,7 @@
                                 message: response.data.message,
                                 type: response.data.status
                             });
+
                             // window.location.reload();
                         } else {
                             console.log(response.data);
@@ -224,18 +222,19 @@
                     });
             },
             handleRemove(file, fileList) {
-                this.userPhoto = [];
+                this.user.photo = [];
             },
             handlePictureCardPreview(file) {
                 this.setDialogUrl();
                 this.dialogVisible = true;
             },
             setDialogUrl() {
-                this.dialogImageUrl = '/avatars/' + this.user.id + '/' + this.userPhoto[0].name;
+                this.dialogImageUrl = '/user/' + this.user.id + '/' + this.user.photo[0].name;
             },
             handleSuccess(response, file) {
                 console.log('success');
-                this.userPhoto = [{
+                console.log(file);
+                this.user.photo = [{
                     name: file.name,
                     url: file.url
                 }];

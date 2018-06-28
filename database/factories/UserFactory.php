@@ -17,8 +17,6 @@ $factory->define( App\User::class, function ( Faker $faker ) {
 		'gender'          => $faker->randomElement( [ 'male', 'female', 'third_gender' ] ),
 		'address'         => $faker->address,
 		'website'         => $faker->domainName,
-		'photo'           => $faker->imageUrl,
-		'picture'         => $faker->imageUrl,
 		'education'       => $faker->company,
 		'education_title' => $faker->jobTitle,
 		'inspiration'     => $faker->paragraph,

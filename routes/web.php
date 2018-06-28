@@ -19,6 +19,7 @@ Route::get( '/auctions','HomeController@auctions' )->name('auctions');
 Route::get( '/paintings','HomeController@paintings' )->name('paintings');
 Route::get( '/sculptures', 'HomeController@sculptures' )->name('sculptures');
 Route::get( '/artists','HomeController@artists' )->name('artists');
+Route::get( '/artists/{id}','HomeController@showArtist' )->name('artist');
 
 //Route::get('/verifyemail/{token}', 'Auth\RegisterController@verify');
 
@@ -294,9 +295,6 @@ Route::group( [ 'prefix' => 'dashboard', 'middleware' => 'dashboard' ], function
 			Route::get( 'archive-lists', [ 'as' => 'favourite_ad', 'uses' => 'ArtworkController@create' ] );
 
 			Route::get( 'reports-by/{slug}', [ 'as' => 'reports_by_ads', 'uses' => 'ArtworkController@reportsByAds' ] );
-
-			Route::get( 'profile/change-avatar', [ 'as' => 'change_avatar', 'uses' => 'UserController@changeAvatar' ] );
-			Route::post( 'upload-avatar', [ 'as' => 'upload_avatar', 'uses' => 'UserController@uploadAvatar' ] );
 
 			//bids
 			Route::get( 'bids/{ad_id}', [ 'as' => 'auction_bids', 'uses' => 'BidController@index' ] );

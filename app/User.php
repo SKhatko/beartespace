@@ -32,6 +32,10 @@ class User extends Authenticatable
 		return $this->hasMany(Artwork::class);
 	}
 
+	public function photo() {
+    	return $this->hasOne(Media::class);
+	}
+
 
 	/**
      * @param int $s

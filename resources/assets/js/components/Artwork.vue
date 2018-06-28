@@ -162,7 +162,6 @@
                             accept=".jpg, .jpeg, .png">
                         <el-button type="info" plain>
                             <i class="el-icon-upload"></i>
-
                             Upload images
                         </el-button>
                     </el-upload>

@@ -19,6 +19,7 @@ class CreateMediaTable extends Migration
             $table->string('name')->nullable();
             $table->string('slug')->nullable();
             $table->string('url')->nullable();
+            $table->string('folder')->nullable();
             $table->timestamps();
         });
     }
