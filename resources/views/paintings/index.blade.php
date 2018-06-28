@@ -9,7 +9,22 @@
 
         @foreach($paintings as $painting)
 
-            Painting {{ $painting->id }}
+            <div class="painting" style="display: flex">
+
+                <div>
+                    Title {{ $painting->title }} <br>
+                    Autor {{ $painting->user['name'] }} <br>
+                    Country {{ $painting->user->country['country_name'] }} <br>
+
+                </div>
+
+
+                <img src="{{ $painting->image }}" alt="" style="max-height: 400px">
+
+
+            </div>
+
+            <hr>
 
         @endforeach
     </div>

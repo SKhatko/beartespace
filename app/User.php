@@ -28,7 +28,12 @@ class User extends Authenticatable
         return $this->belongsTo(Country::class);
     }
 
-    /**
+	public function artworks(){
+		return $this->hasMany(Artwork::class);
+	}
+
+
+	/**
      * @param int $s
      * @param string $d
      * @param string $r
@@ -72,10 +77,6 @@ class User extends Authenticatable
             $address .= $this->address;
         }
         return $address;
-    }
-
-    public function artworks(){
-        return $this->hasMany(Artwork::class);
     }
 
     public function favouriteArtworks(){

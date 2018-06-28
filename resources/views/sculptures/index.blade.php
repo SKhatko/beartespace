@@ -10,9 +10,24 @@
 
         @foreach($sculptures as $sculpture)
 
-            Sculpture {{ $sculpture->id }}
+            <div class="sculpture" style="display: flex">
 
+                <div>
+                    Title {{ $sculpture->title }} <br>
+                    Autor {{ $sculpture->user['name'] }} <br>
+                    Country {{ $sculpture->user->country['country_name'] }} <br>
+
+                </div>
+
+
+                <img src="{{ $sculpture->image }}" alt="" style="max-height: 400px">
+
+
+            </div>
+
+            <hr>
         @endforeach
+
     </div>
 
 @endsection

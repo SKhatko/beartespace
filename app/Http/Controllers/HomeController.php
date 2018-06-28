@@ -9,7 +9,6 @@ use App\Slider;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests;
-use Spatie\TranslationLoader\LanguageLine;
 use Yajra\Datatables\Datatables;
 use App\Page;
 
@@ -65,24 +64,26 @@ class HomeController extends Controller {
 
 		$auctions = Artwork::all();
 
-		return view( 'auctions.index', compact( 'auctions') );
+		return view( 'auctions.index', compact( 'auctions' ) );
 	}
 
 	public function artists() {
 
 		$artists = User::all();
 
-		return view( 'artists.index', compact('artists') );
+		return view( 'artists.index', compact( 'artists' ) );
 	}
 
 	public function paintings() {
 		$paintings = Artwork::all();
-		return view( 'paintings.index', compact('paintings'));
+
+		return view( 'paintings.index', compact( 'paintings' ) );
 	}
 
 	public function sculptures() {
 		$sculptures = Artwork::all();
-		return view( 'sculptures.index', compact('sculptures'));
+
+		return view( 'sculptures.index', compact( 'sculptures' ) );
 	}
 
 	public function checkout() {

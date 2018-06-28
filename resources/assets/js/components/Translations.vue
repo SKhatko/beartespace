@@ -111,7 +111,7 @@
 
                 console.log(this.translations);
 
-                if(!this.translations[groupName]) {
+                if (!this.translations[groupName]) {
                     this.translations[groupName] = [];
                 }
 
