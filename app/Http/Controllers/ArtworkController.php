@@ -55,7 +55,7 @@ class ArtworkController extends Controller
         return view('admin.all_ads', compact('title', 'ads'));
     }
 
-    public function myArtworks(){
+    public function artworks(){
         $title = trans('app.my_ads');
 
         $user = Auth::user();
@@ -93,7 +93,7 @@ class ArtworkController extends Controller
     {
         $title = 'Upload New Artwork';
 
-        return view('dashboard.artworks.create', compact('title'));
+	    return view('dashboard.artworks.create', compact('title'));
     }
 
     /**

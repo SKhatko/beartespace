@@ -79,10 +79,14 @@
                                     <a href="{{route('dashboard.profile')}}" class="el-dropdown-link">Profile</a>
                                 </el-dropdown-item>
 
+                                @if(!$lUser->isUser())
+
                                 <el-dropdown-item>
                                     <a href="{{route('dashboard.artwork.create')}}" class="el-dropdown-link">Upload
                                         Artwork</a>
                                 </el-dropdown-item>
+
+                                @endif
 
                                 <el-dropdown-item>
                                     <a href="{{route('change-password')}}" class="el-dropdown-link">Change Password</a>

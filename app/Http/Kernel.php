@@ -60,7 +60,7 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'dashboard' => \App\Http\Middleware\DashboardArea::class,
-        'only_admin_access' => \App\Http\Middleware\OnlyAdminAccess::class,
-        'only_artist_access' => \App\Http\Middleware\OnlyArtistAccess::class,
+        'admin' => \App\Http\Middleware\OnlyAdminAccess::class,
+        'artist' => \App\Http\Middleware\OnlyArtistAccess::class,
     ];
 }

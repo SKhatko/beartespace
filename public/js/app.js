@@ -29128,6 +29128,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         if (this.user.photo) {
             this.user.photo = [this.user.photo];
+        } else {
+            this.user.photo = [];
         }
     },
 

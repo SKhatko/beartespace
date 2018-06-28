@@ -32,7 +32,7 @@ class UserController extends Controller {
 
 	public function profile() {
 		$title     = trans( 'portal.profile' );
-		$user      = Auth::user()->with('photo')->first();
+		$user      = auth()->user()->load('photo');
 
 		$countries = Country::all( 'country_name', 'id' );
 

@@ -187,7 +187,6 @@
             }
         },
 
-
         mounted() {
             if (this.user_) {
                 this.user = this.user_;
@@ -199,6 +198,8 @@
 
             if (this.user.photo) {
                 this.user.photo = [this.user.photo];
+            } else {
+                this.user.photo = [];
             }
         },
 
@@ -221,16 +222,20 @@
                         }
                     });
             },
+
             handleRemove(file, fileList) {
                 this.user.photo = [];
             },
+
             handlePictureCardPreview(file) {
                 this.setDialogUrl();
                 this.dialogVisible = true;
             },
+
             setDialogUrl() {
                 this.dialogImageUrl = '/user/' + this.user.id + '/' + this.user.photo[0].name;
             },
+
             handleSuccess(response, file) {
                 console.log('success');
                 console.log(file);

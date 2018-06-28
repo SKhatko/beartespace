@@ -24,7 +24,8 @@
     "pragmarx/countries": "^0.5.8",
     "spatie/laravel-translatable": "^2.2",
     "spatie/laravel-translation-loader": "^2.1",
-    "stripe/stripe-php": "^6.8"
+    "stripe/stripe-php": "^6.8",
+    "tymon/jwt-auth": "^0.5.12"
   },
   "require-dev": {
     "filp/whoops": "^2.0",

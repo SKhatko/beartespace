@@ -142,9 +142,9 @@ Route::group( [ 'prefix' => 'dashboard', 'middleware' => 'dashboard' ], function
 
 
 	// Not user (admin, artist, gallery)
-	Route::group( [ 'middleway' => 'only_artist_access' ], function () {
+	Route::group( [ 'middleware' => 'artist' ], function () {
 
-		Route::get( 'artworks', 'ArtworkController@myArtworks' )->name( 'dashboard.artworks' );
+		Route::get( 'artworks', 'ArtworkController@artworks' )->name( 'dashboard.artworks' );
 		Route::get( 'artwork/create', 'ArtworkController@create' )->name( 'dashboard.artwork.create' );
 		Route::get( 'artwork/{id}/edit', 'ArtworkController@edit' )->name( 'dashboard.artwork.edit' );
 
@@ -153,7 +153,7 @@ Route::group( [ 'prefix' => 'dashboard', 'middleware' => 'dashboard' ], function
 
 	// Admin only
 
-	Route::group( [ 'middleware' => 'only_admin_access' ], function () {
+	Route::group( [ 'middleware' => 'admin' ], function () {
 
 		Route::get( 'users', 'UserController@index' )->name( 'admin.users' );
 		Route::get( 'translations', 'TranslationController@index' )->name( 'admin.translations' );

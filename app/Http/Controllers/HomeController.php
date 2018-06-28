@@ -15,7 +15,6 @@ use App\Page;
 class HomeController extends Controller {
 
 	public function index() {
-
 		// Home page
 		$artworks = Artwork::all();
 
