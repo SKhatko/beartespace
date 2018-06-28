@@ -18,5 +18,35 @@ class UsersTableSeeder extends Seeder {
 			'gender'     => 'male',
 			'user_type'  => 'admin',
 		] );
+
+		DB::table( 'users' )->insert( [
+			'first_name' => 'Oleksandra',
+			'last_name'  => 'Lyhoshvaj',
+			'email'      => 'aleksandralihosvaj@gmail.com',
+			'user_name'  => 'Alex',
+			'password'   => bcrypt( '123456' ),
+			'gender'     => 'female',
+			'user_type'  => 'admin',
+		] );
+
+		DB::table( 'users' )->insert( [
+			'first_name' => 'User',
+			'last_name'  => 'Family',
+			'email'      => 'user@gmail.com',
+			'user_name'  => '',
+			'password'   => bcrypt( '123456' ),
+			'gender'     => 'female',
+			'user_type'  => 'user',
+		] );
+
+		DB::table( 'users' )->insert( [
+			'first_name' => 'Artist',
+			'last_name'  => 'Family',
+			'email'      => 'artist@gmail.com',
+			'user_name'  => '',
+			'password'   => bcrypt( '123456' ),
+			'gender'     => 'male',
+			'user_type'  => 'artist',
+		] );
 	}
 }
