@@ -19,7 +19,7 @@
                 </div>
 
 
-                <img src="{{ $artist->photo }}" alt="" style="max-height: 400px">
+                <img src="{{ $artist->photo['url'] }}" alt="" style="max-height: 400px">
             </div>
 
             <hr>
