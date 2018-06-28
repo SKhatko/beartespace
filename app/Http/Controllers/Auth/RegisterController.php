@@ -92,10 +92,10 @@ class RegisterController extends Controller {
 	 */
 	protected function validator( array $data ) {
 		return Validator::make( $data, [
-			'first_name'           => 'required|string|max:255',
-			'last_name'            => 'required|string|max:255',
-			'email'                => 'required|string|email|max:255|unique:users',
-			'password'             => 'required|string|min:6',
+			'first_name' => 'required|string|max:255',
+			'last_name'  => 'required|string|max:255',
+			'email'      => 'required|string|email|max:255|unique:users',
+			'password'   => 'required|string|min:6',
 //			'g-recaptcha-response' => 'required|captcha'
 
 		] );
@@ -116,7 +116,8 @@ class RegisterController extends Controller {
 			'email_token'   => base64_encode( $data['email'] ),
 			'password'      => bcrypt( $data['password'] ),
 			'user_type'     => 'user',
-			'active_status' => '1'
+			'active_status' => '1',
+			'api_token'     => str_random( 60 )
 		] );
 	}
 }

@@ -10,7 +10,9 @@ class ArtworkController extends Controller
 {
 	public function store( Request $request ) {
 
-		$user = auth()->user();
+		$user = $request->user();
+
+		return $user;
 
 		$artwork = $user->artworks()->updateOrCreate( ['id' => $request->input('id')], $request->all() );
 
