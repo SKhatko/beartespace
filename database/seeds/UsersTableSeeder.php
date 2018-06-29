@@ -17,7 +17,7 @@ class UsersTableSeeder extends Seeder {
 			'password'   => bcrypt( '123456' ),
 			'gender'     => 'male',
 			'user_type'  => 'admin',
-			'api_token'     => str_random( 60 )
+			'api_token'     => str_random( 30 )
 		] );
 
 		DB::table( 'users' )->insert( [
@@ -28,7 +28,7 @@ class UsersTableSeeder extends Seeder {
 			'password'   => bcrypt( '123456' ),
 			'gender'     => 'female',
 			'user_type'  => 'admin',
-			'api_token'     => str_random( 60 )
+			'api_token'     => str_random( 30 )
 		] );
 
 		DB::table( 'users' )->insert( [
@@ -39,7 +39,7 @@ class UsersTableSeeder extends Seeder {
 			'password'   => bcrypt( '123456' ),
 			'gender'     => 'female',
 			'user_type'  => 'user',
-			'api_token'     => str_random( 60 )
+			'api_token'     => str_random( 30 )
 		] );
 
 		DB::table( 'users' )->insert( [
@@ -50,7 +50,7 @@ class UsersTableSeeder extends Seeder {
 			'password'   => bcrypt( '123456' ),
 			'gender'     => 'male',
 			'user_type'  => 'artist',
-			'api_token'     => str_random( 60 )
+			'api_token'     => str_random( 30 )
 		] );
 	}
 }

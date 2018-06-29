@@ -40,10 +40,7 @@ Route::post( 'contacts', [ 'uses' => 'HomeController@contactsPost' ] );
 Route::get( 'page/{slug}', [ 'as' => 'single_page', 'uses' => 'PostController@showPage' ] );
 
 Route::get( 'category/{cat_id?}', [ 'uses' => 'CategoriesController@show' ] )->name( 'category' );
-Route::get( 'countries/{country_code?}', [ 'uses' => 'LocationController@countriesListsPublic' ] )->name( 'countries' );
-Route::get( 'set-country/{country_code}', [ 'uses' => 'LocationController@setCurrentCountry' ] )->name( 'set_country' );
 
-Route::get( 'searchCityJson', [ 'uses' => 'LocationController@searchCityJson' ] )->name( 'searchCityJson' );
 
 
 Route::get( 'search/{country_code?}/{state_id?}/{city_id?}/{category_slug?}/{brand_slug?}', [

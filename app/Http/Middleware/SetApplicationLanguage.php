@@ -20,12 +20,6 @@ class SetApplicationLanguage {
 		//Set Language
 		App::setLocale( session( 'lang' ) ? session( 'lang' ) : Config::get( 'app.locale' ) );
 
-		//Share Logged In User
-		if ( Auth::check() ) {
-			view()->share( 'logged_user', Auth::user() );
-		}
-
-
 		return $next( $request );
 	}
 }
