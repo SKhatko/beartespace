@@ -9,7 +9,7 @@
 
         @foreach($artists as $artist)
 
-            <a href="{{ route('artist', $artist->id) }}">{{ $artist->name }}</a>
+            <h3><a href="{{ route('artist', $artist->id) }}">{{ $artist->name }}</a></h3>
             <div class="artist">
                 <div>
                     Artist {{ $artist->name }} <br>

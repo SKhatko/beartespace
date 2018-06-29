@@ -7,26 +7,21 @@
     <div class="app--wrapper">
         <h2>Painting</h2>
 
-        <a href="{{ route('artist', $artwork->user->id) }}">{{ $artwork->user->name }}</a>
+        <h3><a href="{{ route('artist', $artwork->user->id) }}">{{ $artwork->user->name }}</a></h3>
 
+        <div class="artwork" style="display: flex">
 
-            <div class="artwork" style="display: flex">
-
-                <div>
-                    Title {{ $artwork->title }} <br>
-                    Autor {{ $artwork->user['name'] }} <br>
-                    Country {{ $artwork->user->country['country_name'] }} <br>
-
-                </div>
-
-
-                <img src="{{ $artwork->image }}" alt="" style="max-height: 400px">
-
-
+            <div>
+                Title {{ $artwork->title }} <br>
+                Country {{ $artwork->user->country['country_name'] }} <br>
             </div>
 
-            <hr>
+            @foreach($artwork->images as $image)
+                <img src="{{ $image->name }}" alt="" style="max-height: 400px">
+            @endforeach
 
+        </div>
+        <hr>
     </div>
 
 @endsection

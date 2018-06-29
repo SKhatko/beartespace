@@ -14,13 +14,13 @@
 
             <div>
                 Title {{ $artwork->title }} <br>
-                Autor {{ $artwork->user['name'] }} <br>
                 Country {{ $artwork->user->country['country_name'] }} <br>
 
             </div>
 
-
-            <img src="{{ $artwork->image }}" alt="" style="max-height: 400px">
+            @foreach($artwork->images as $image)
+                <img src="{{ $image->name }}" alt="" style="max-height: 400px">
+            @endforeach
 
 
         </div>

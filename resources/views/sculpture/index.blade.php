@@ -10,7 +10,7 @@
 
         @foreach($sculptures as $sculpture)
 
-            <div class="sculpture" style="display: flex">
+            <div class="sculpture">
 
                 <div>
                     Title {{ $sculpture->title }} <br>
@@ -20,7 +20,7 @@
                 </div>
 
 
-                <img src="{{ $sculpture->image }}" alt="" style="max-height: 400px">
+                <img src="{{ $sculpture->images()->first()->name }}" alt="" style="max-width: 400px">
 
 
             </div>

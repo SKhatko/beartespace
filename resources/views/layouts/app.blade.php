@@ -81,15 +81,15 @@
 
                                 @if(!$lUser->isUser())
 
-                                <el-dropdown-item>
-                                    <a href="{{route('dashboard.artworks')}}" class="el-dropdown-link">My
-                                        Artworks</a>
-                                </el-dropdown-item>
+                                    <el-dropdown-item>
+                                        <a href="{{route('dashboard.artworks')}}" class="el-dropdown-link">My
+                                            Artworks</a>
+                                    </el-dropdown-item>
 
-                                <el-dropdown-item>
-                                    <a href="{{route('dashboard.artwork.create')}}" class="el-dropdown-link">Upload
-                                        Artwork</a>
-                                </el-dropdown-item>
+                                    <el-dropdown-item>
+                                        <a href="{{route('dashboard.artwork.create')}}" class="el-dropdown-link">Upload
+                                            Artwork</a>
+                                    </el-dropdown-item>
 
                                 @endif
 
@@ -142,9 +142,9 @@
 
                     <div class="app-header-links">
 
-                        <a href="{{ route('artists') }}">@lang('artist')</a>
-                        <a href="{{ route('paintings') }}">@lang('painting')</a>
-                        <a href="{{ route('sculptures') }}">@lang('sculpture')</a>
+                        <a href="{{ route('artists') }}">@lang('portal.artists')</a>
+                        <a href="{{ route('paintings') }}">@lang('portal.paintings')</a>
+                        <a href="{{ route('sculptures') }}">@lang('portal.sculptures')</a>
                         <a href="{{ route('auctions') }}">@lang('portal.auction')</a>
 
                         <el-dropdown trigger="hover">
@@ -265,7 +265,7 @@
                                 <div slot="header" class="clearfix">
                                     <span>@lang('portal.auction')</span>
                                 </div>
-                                <a href="{{ route('auctions')}}">Go to Online auctions</a>
+                                <a href="{{ route('auctions')}}">Go to Online Auction</a>
                             </el-card>
                         </el-col>
 
@@ -274,6 +274,8 @@
                                 <div slot="header" class="clearfix">
                                     <span>@lang('portal.contact')</span>
                                 </div>
+
+                                {!! showPage('contacts-in-footer') !!}
                             </el-card>
                         </el-col>
                     </el-row>

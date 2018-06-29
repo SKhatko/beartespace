@@ -14,6 +14,15 @@ if ( ! function_exists( 'getAllTranslations' ) ) {
 	}
 }
 
+if ( ! function_exists( 'showPage' ) ) {
+	function showPage( $slug ) {
+
+		$page = App\Page::whereSlug('contacts-in-footer')->first();
+
+		return $page->content;
+	}
+}
+
 /**
  * @return mixed
  * Custom functions made by themeqx
