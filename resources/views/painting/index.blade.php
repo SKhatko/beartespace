@@ -12,11 +12,15 @@
             <a href="{{ route('artwork', $painting->id) }}">{{ $painting->title }}</a>
 
 
-                <div>
-                    Autor {{ $painting->user['name'] }} <br>
-                    Country {{ $painting->user->country['country_name'] }} <br>
+            <div>
+                Autor {{ $painting->user['name'] }} <br>
+                Country {{ $painting->user->country['country_name'] }} <br>
 
-                </div>
+
+                @foreach($painting->images as $image)
+                    <img src="{{ $image->name }}" alt="" style="max-width: 900px">
+                @endforeach
+            </div>
 
 
 

@@ -10,7 +10,7 @@
         @foreach($artists as $artist)
 
             <a href="{{ route('artist', $artist->id) }}">{{ $artist->name }}</a>
-            <div class="artist" style="display:flex">
+            <div class="artist">
                 <div>
                     Artist {{ $artist->name }} <br>
                     Dob {{ $artist->dob }} <br>
@@ -19,8 +19,7 @@
                     Website {{ $artist->website }} <br>
                 </div>
 
-
-                <img src="{{ $artist->photo['url'] }}" alt="" style="max-height: 400px">
+                <img src="{{ $artist->photo->name }}" alt="" style="max-width: 400px">
             </div>
 
             <hr>

@@ -34,7 +34,7 @@ class HomeController extends Controller {
 
 	public function artists() {
 
-		$artists = User::artist()->get();
+		$artists = User::artist()->limit(20)->get();
 
 		return view( 'artist.index', compact( 'artists' ) );
 	}
@@ -47,13 +47,13 @@ class HomeController extends Controller {
 	}
 
 	public function paintings() {
-		$paintings = Artwork::painting()->active()->get();
+		$paintings = Artwork::painting()->active()->limit(20)->get();
 
 		return view( 'painting.index', compact( 'paintings' ) );
 	}
 
 	public function sculptures() {
-		$sculptures = Artwork::sculpture()->active()->get();
+		$sculptures = Artwork::sculpture()->active()->limit(20)->get();
 
 		return view( 'sculpture.index', compact( 'sculptures' ) );
 	}

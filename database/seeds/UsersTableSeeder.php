@@ -47,13 +47,5 @@ class UsersTableSeeder extends Seeder {
 			'user_type'  => 'artist',
 			'api_token'  => str_random( 60 )
 		] ]);
-
-		$users = User::all();
-
-		foreach ($users as $user) {
-			$user->artworks()->saveMany( factory( App\Artwork::class, 20)->make() );
-		}
-
-
 	}
 }
