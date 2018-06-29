@@ -10,7 +10,7 @@ class ArtworkController extends Controller
 {
 	public function store( Request $request ) {
 
-		$user = auth('api')->user();
+		$user = $request->user();
 
 		return $user;
 
