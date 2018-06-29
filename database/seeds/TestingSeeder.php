@@ -23,7 +23,7 @@ class TestingSeeder extends Seeder {
 		foreach ( $users as $user ) {
 			$user->artworks()->saveMany( factory( App\Artwork::class, 10 )->make() );
 			$user->photo()->save( factory( App\Media::class )->make( [
-				'name' => 'http://lorempixel.com/' . random_int( 1, 1920 ) . '/' . random_int( 1, 1920 ) . '/people',
+				'name' => 'https://picsum.photos/' . random_int( 1, 1920 ) . '/' . random_int( 1, 1920 ),
 			] ) );
 		}
 
