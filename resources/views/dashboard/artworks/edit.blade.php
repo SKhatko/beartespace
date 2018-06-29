@@ -8,6 +8,6 @@
 
     @include('partials.errors')
 
-    <artwork :artwork_="{{ $artwork }}"></artwork>
+    <artwork :artwork_="{{ $artwork }}" :images_="{{ $artwork->images }}"></artwork>
 
 @endsection

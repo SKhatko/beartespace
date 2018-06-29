@@ -31,6 +31,7 @@ class UserController extends Controller {
 	}
 
 	public function profile() {
+//		return Auth::guard('api')->user();
 		$title     = trans( 'portal.profile' );
 		$user      = auth()->user()->load('photo');
 

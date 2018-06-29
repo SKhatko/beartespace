@@ -28491,18 +28491,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
     props: {
-        artwork_: {}
+        artwork_: {},
+        user_: {},
+        images_: {}
     },
 
     data: function data() {
         return {
             artwork: {
                 id: 0,
+                user_id: '',
                 title: '',
                 description: '',
                 height: '',
@@ -28510,17 +28516,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 depth: '',
                 weight: '',
                 inspiration: '',
-                year_of_completion: '',
+                date_of_completion: '',
                 price: '',
 
                 category: '',
 
-                image: [],
                 medium: [],
                 direction: [],
                 theme: [],
                 color: []
             },
+
+            images: [],
 
             activeStep: 0,
 
@@ -28530,13 +28537,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
     mounted: function mounted() {
-
-        console.log(trans);
         console.log(this.artwork_);
+        console.log(this.user_);
+        console.log(this.images_);
 
         if (this.artwork_) {
             this.artwork = this.artwork_;
         }
+
+        if (!this.artwork.user_id) {
+            this.artwork.user_id = this.user_.id;
+        }
+
+        if (this.images_) {
+            this.images = this.images_;
+        }
+
+        console.log(this.artwork.medium);
     },
 
 
@@ -28566,17 +28583,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             console.log(a, b, c);
         },
         handleRemove: function handleRemove(file, fileList) {
-            this.artwork.image = fileList;
+            var _this2 = this;
+
+            axios.post('/api/remove/artwork-image/' + this.artwork.id, file).then(function (response) {
+                if (response.data) {
+                    console.log(response.data);
+                    _this2.$message({
+                        showClose: true,
+                        message: response.data.message,
+                        type: response.data.status
+                    });
+
+                    _this2.images = response.data.data;
+                } else {
+                    console.log(response.data);
+                }
+            });
+
+            // this.images = fileList;
         },
         handlePictureCardPreview: function handlePictureCardPreview(file) {
             this.setDialogUrl(file.name);
             this.dialogVisible = true;
         },
         setDialogUrl: function setDialogUrl(name) {
-            this.dialogImageUrl = '/artworks/' + this.artwork.id + '/' + name;
+            this.dialogImageUrl = '/artwork/' + this.artwork.id + '/' + name;
         },
         handleSuccess: function handleSuccess(response, file, fileList) {
-            this.artwork.image.push({
+            this.images.push({
                 name: file.name,
                 url: file.url
             });
@@ -90642,9 +90676,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('el-select', {
     attrs: {
       "value": "",
-      "placeholder": "Select material",
       "multiple": "",
-      "collapse-tags": ""
+      "filterable": "",
+      "allow-create": "",
+      "default-first-option": "",
+      "placeholder": "Select material"
     },
     model: {
       value: (_vm.artwork.medium),
@@ -90672,9 +90708,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('el-select', {
     attrs: {
       "value": "",
-      "placeholder": "Select",
       "multiple": "",
-      "collapse-tags": ""
+      "filterable": "",
+      "allow-create": "",
+      "default-first-option": "",
+      "placeholder": "Select"
     },
     model: {
       value: (_vm.artwork.direction),
@@ -90702,9 +90740,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('el-select', {
     attrs: {
       "value": "",
-      "placeholder": "Select",
       "multiple": "",
-      "collapse-tags": ""
+      "filterable": "",
+      "allow-create": "",
+      "default-first-option": "",
+      "placeholder": "Select"
     },
     model: {
       value: (_vm.artwork.theme),
@@ -90732,9 +90772,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('el-select', {
     attrs: {
       "value": "",
-      "placeholder": "Select",
       "multiple": "",
-      "collapse-tags": ""
+      "filterable": "",
+      "allow-create": "",
+      "default-first-option": "",
+      "placeholder": "Select"
     },
     model: {
       value: (_vm.artwork.color),
@@ -90812,15 +90854,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('el-date-picker', {
     attrs: {
       "type": "year",
-      "value-format": "yyyy",
+      "value-format": "yyyy-MM-dd",
       "placeholder": "Pick a year"
     },
     model: {
-      value: (_vm.artwork.year_of_completion),
+      value: (_vm.artwork.date_of_completion),
       callback: function($$v) {
-        _vm.$set(_vm.artwork, "year_of_completion", $$v)
+        _vm.$set(_vm.artwork, "date_of_completion", $$v)
       },
-      expression: "artwork.year_of_completion"
+      expression: "artwork.date_of_completion"
     }
   })], 1)], 1), _vm._v(" "), _c('el-col', {
     attrs: {
@@ -90857,12 +90899,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.saveArtwork()
       }
     }
-  }, [_vm._v("\n                Next\n            ")])] : _vm._e(), _vm._v(" "), (_vm.activeStep === 1) ? [_c('label', {
+  }, [_vm._v("\n                Next\n            ")])] : _vm._e(), _vm._v(" "), (_vm.activeStep === 1) ? [_vm._v("\n\n            " + _vm._s(_vm.images) + "\n\n            "), _c('label', {
     staticClass: "el-form-item__label"
-  }, [_vm._v("Upload up to 3 Photos of Your Artwork ( jpg/png files accepted )")]), _vm._v(" "), _c('el-form-item', [_c('el-upload', {
+  }, [_vm._v("Upload up to 3 Photos of Your Artwork ( jpg/png files accepted\n                )")]), _vm._v(" "), _c('el-form-item', [_c('el-upload', {
     attrs: {
       "action": '/api/upload/artwork-image/' + _vm.artwork.id,
-      "file-list": _vm.artwork.image,
+      "file-list": _vm.images,
       "on-preview": _vm.handlePictureCardPreview,
       "on-remove": _vm.handleRemove,
       "on-success": _vm.handleSuccess,
@@ -90929,9 +90971,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('a', {
     attrs: {
-      "href": "/dashboard"
+      "href": "/dashboard",
+      "target": "_blank"
     }
-  }, [_vm._v("\n                        Go to panel\n                    ")])]), _vm._v(" "), _c('el-button', {
+  }, [_vm._v("\n                        Preview\n                    ")])]), _vm._v(" "), _c('el-button', {
     attrs: {
       "type": "text"
     },

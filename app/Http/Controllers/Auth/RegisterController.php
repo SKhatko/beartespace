@@ -39,11 +39,11 @@ class RegisterController extends Controller {
 
 //		dispatch( new SendVerificationEmail( $user ) );
 
-		if ( $user ) {
-			$this->guard()->login( $user );
-		}
+		$this->guard()->login($user);
 
-		return redirect( $this->redirectPath() );
+		return $this->registered($request, $user)
+			?: redirect($this->redirectPath());
+//		return redirect( $this->redirectPath() );
 	}
 
 	public function verify( $token ) {
@@ -113,11 +113,11 @@ class RegisterController extends Controller {
 			'first_name'    => $data['first_name'],
 			'last_name'     => $data['last_name'],
 			'email'         => $data['email'],
+			'api_token'     => str_random( 60 ),
 			'email_token'   => base64_encode( $data['email'] ),
 			'password'      => bcrypt( $data['password'] ),
 			'user_type'     => 'user',
 			'active_status' => '1',
-			'api_token'     => str_random( 60 )
 		] );
 	}
 }

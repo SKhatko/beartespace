@@ -9,6 +9,7 @@
 
         @foreach($artists as $artist)
 
+            <a href="{{ route('artist', $artist->id) }}">{{ $artist->name }}</a>
             <div class="artist" style="display:flex">
                 <div>
                     Artist {{ $artist->name }} <br>

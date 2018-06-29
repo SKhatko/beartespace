@@ -34,10 +34,13 @@ class ArtworkController extends Controller
      */
     public function index()
     {
-        $title = trans('app.all_ads');
-        $ads = Artwork::with('city', 'country', 'state')->whereStatus('1')->orderBy('id', 'desc')->paginate(20);
+	    $title = 'My artworks';
 
-        return view('admin.all_ads', compact('title', 'ads'));
+	    $user = Auth::user();
+
+	    $artworks = $user->artworks()->orderBy('id', 'desc')->get();
+
+	    return view('dashboard.artworks.index', compact('title', 'artworks'));
     }
 
     public function adminPendingAds()
@@ -53,17 +56,6 @@ class ArtworkController extends Controller
         $ads = Artwork::with('city', 'country', 'state')->whereStatus('2')->orderBy('id', 'desc')->paginate(20);
 
         return view('admin.all_ads', compact('title', 'ads'));
-    }
-
-    public function artworks(){
-        $title = trans('app.my_ads');
-
-        $user = Auth::user();
-
-        $artworks = $user->artworks()->orderBy('id', 'desc')->get();
-
-        return $artworks;
-        return view('admin.my_ads', compact('title', 'artworks'));
     }
 
     public function pendingAds(){
@@ -201,12 +193,6 @@ class ArtworkController extends Controller
         return ['success'=>0, 'msg' => trans('app.error_msg')];
     }
 
-    public function getSubCategoryByCategory(Request $request){
-        $category_id = $request->category_id;
-        $brands = Sub_Category::whereCategoryId($category_id)->select('id', 'category_name', 'category_slug')->get();
-        return $brands;
-    }
-
     public function uploadAdsImage(Request $request, $ad_id = 0){
         $user_id = 0;
 
@@ -275,30 +261,6 @@ class ArtworkController extends Controller
         return ['success'=>1, 'msg'=>trans('app.media_deleted_msg')];
     }
 
-    /**
-     * @param Request $request
-     * @return array
-     */
-    public function featureMediaCreatingAds(Request $request){
-        $user_id = Auth::user()->id;
-        $media_id = $request->media_id;
-
-        Media::whereUserId($user_id)->whereAdId(0)->whereRef('ad')->update(['is_feature'=>'0']);
-        Media::whereId($media_id)->update(['is_feature'=>'1']);
-
-        return ['success'=>1, 'msg'=>trans('app.media_featured_msg')];
-    }
-
-    /**
-     * @return mixed
-     */
-
-    public function appendMediaImage(){
-        $user_id = Auth::user()->id;
-        $ads_images = Media::whereUserId($user_id)->whereAdId(0)->whereRef('ad')->get();
-
-        return view('admin.append_media', compact('ads_images'));
-    }
 
     /**
      * @param null $segment_one
@@ -562,58 +524,6 @@ class ArtworkController extends Controller
         return redirect($search_url);
     }
 
-
-    public function adsByUser($user_id = 0){
-        $user = User::find($user_id);
-
-        if ( ! $user_id || ! $user ){
-            return redirect(route('search' ));
-        }
-
-        $title = trans('app.ads_by').' '.$user->name;
-        $ads = Artwork::active()->whereUserId($user_id)->paginate(40);
-
-        return view('ads_by_user', compact('ads', 'title', 'user'));
-    }
-
-    /**
-     * @param $slug
-     * @return mixed
-     */
-    public function singleAuction($id, $slug){
-        $limit_regular_ads = get_option('number_of_free_ads_in_home');
-        //$ad = Artwork::whereSlug($slug)->first();
-        $ad = Artwork::find($id);
-
-        if (! $ad){
-            return view('error_404');
-        }
-
-        if ( ! $ad->is_published()){
-            if (Auth::check()){
-                $user_id = Auth::user()->id;
-                if ($user_id != $ad->user_id){
-                    return view('error_404');
-                }
-            }else{
-                return view('error_404');
-            }
-        }else{
-            $ad->view = $ad->view+1;
-            $ad->save();
-        }
-
-        $title = $ad->title;
-
-        //Get Related Ads, add [->whereCountryId($ad->country_id)] for more specific results
-        $related_ads = Artwork::active()->whereCategoryId($ad->category_id)->where('id', '!=',$ad->id)->with('category', 'city')->limit($limit_regular_ads)->orderByRaw('RAND()')->get();
-
-        return view('single_ad', compact('ad', 'title', 'related_ads'));
-    }
-
-    public function switchGridListView(Request $request){
-        session(['grid_list_view' => $request->grid_list_view]);
-    }
 
     /**
      * @param Request $request

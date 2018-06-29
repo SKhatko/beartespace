@@ -34,6 +34,18 @@ class Artwork extends Model {
 		return $query->whereStatus( '1' );
 	}
 
+	public function scopeSculpture( $query ) {
+		return $query->whereCategory( 'sculpture' );
+	}
+
+	public function scopePainting( $query ) {
+		return $query->whereCategory( 'painting' );
+	}
+
+	public function scopeAuction( $query ) {
+		return $query->whereAuctionStatus('1');
+	}
+
 
 	public function posting_datetime() {
 		$created_date_time = $this->created_at->timezone( get_option( 'default_timezone' ) )->format( get_option( 'date_format_custom' ) . ' ' . get_option( 'time_format_custom' ) );
@@ -54,24 +66,6 @@ class Artwork extends Model {
 	}
 
 
-	public function status_context() {
-		$status = $this->status;
-		$html   = '';
-		switch ( $status ) {
-			case 0:
-				$html = '<span class="text-muted">' . trans( 'app.pending' ) . '</span>';
-				break;
-			case 1:
-				$html = '<span class="text-success">' . trans( 'app.published' ) . '</span>';
-				break;
-			case 2:
-				$html = '<span class="text-warning">' . trans( 'app.blocked' ) . '</span>';
-				break;
-		}
-
-		return $html;
-	}
-
 	public function is_my_favorite() {
 		if ( ! Auth::check() ) {
 			return false;
@@ -88,11 +82,6 @@ class Artwork extends Model {
 
 	public function reports() {
 		return $this->hasMany( ArtworkReport::class );
-	}
-
-	public function increase_impression() {
-		$this->max_impression = $this->max_impression + 1;
-		$this->save();
 	}
 
 	public function bids() {

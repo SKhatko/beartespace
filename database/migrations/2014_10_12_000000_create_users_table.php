@@ -44,7 +44,7 @@ class CreateUsersTable extends Migration {
 			$table->boolean( 'is_online' )->nullable();
 
 			$table->timestamp( 'last_login' )->nullable();
-			$table->string('api_token', 30)->unique()->nullable();
+			$table->string('api_token', 60)->unique()->nullable();
 			$table->rememberToken();
 			$table->timestamps();
 		} );

@@ -8,6 +8,12 @@
 
     @include('partials.errors')
 
-    <artwork :user_="{{ auth()->user() }}"></artwork>
+    @foreach($artworks as $artwork)
+
+        <h2>
+            <a href="{{ route('dashboard.artwork.edit', $artwork->id) }}">{{ $artwork->id . '. ' . $artwork->title }}</a>
+        </h2>
+
+    @endforeach
 
 @endsection

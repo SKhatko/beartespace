@@ -61,8 +61,7 @@
                 <el-row :gutter="20">
                     <el-col :sm="6">
                         <el-form-item label="Medium">
-                            <el-select value="" v-model="artwork.medium" placeholder="Select material" multiple
-                                       collapse-tags>
+                            <el-select value="" v-model="artwork.medium" multiple filterable allow-create default-first-option  placeholder="Select material">
                                 <el-option v-for="medium in options('medium')" :key="medium.value" :label="medium.label"
                                            :value="medium.value"></el-option>
                             </el-select>
@@ -70,7 +69,7 @@
                     </el-col>
                     <el-col :sm="6">
                         <el-form-item label="Art direction">
-                            <el-select value="" v-model="artwork.direction" placeholder="Select" multiple collapse-tags>
+                            <el-select value="" v-model="artwork.direction" multiple filterable allow-create default-first-option placeholder="Select" >
                                 <el-option v-for="direction in options('direction')" :key="direction.value"
                                            :label="direction.label"
                                            :value="direction.value"></el-option>
@@ -79,7 +78,7 @@
                     </el-col>
                     <el-col :sm="6">
                         <el-form-item label="Theme">
-                            <el-select value="" v-model="artwork.theme" placeholder="Select" multiple collapse-tags>
+                            <el-select value="" v-model="artwork.theme" multiple filterable allow-create default-first-option placeholder="Select">
                                 <el-option v-for="theme in options('theme')" :key="theme.value" :label="theme.label"
                                            :value="theme.value"></el-option>
                             </el-select>
@@ -87,7 +86,7 @@
                     </el-col>
                     <el-col :sm="6">
                         <el-form-item label="Main colors">
-                            <el-select value="" v-model="artwork.color" placeholder="Select" multiple collapse-tags>
+                            <el-select value="" v-model="artwork.color" multiple filterable allow-create default-first-option placeholder="Select">
                                 <el-option v-for="color in options('color')" :key="color.value" :label="color.label"
                                            :value="color.value"></el-option>
                             </el-select>
@@ -123,9 +122,9 @@
                     <el-col :sm="12">
                         <el-form-item label="Date of completion Artwork">
                             <el-date-picker
-                                    v-model="artwork.year_of_completion"
+                                    v-model="artwork.date_of_completion"
                                     type="year"
-                                    value-format="yyyy"
+                                    value-format="yyyy-MM-dd"
                                     placeholder="Pick a year">
                             </el-date-picker>
                         </el-form-item>
@@ -149,11 +148,14 @@
 
             <template v-if="activeStep === 1">
 
-                <label class="el-form-item__label">Upload up to 3 Photos of Your Artwork ( jpg/png files accepted )</label>
+                {{ images }}
+
+                <label class="el-form-item__label">Upload up to 3 Photos of Your Artwork ( jpg/png files accepted
+                    )</label>
                 <el-form-item>
                     <el-upload
                             :action="'/api/upload/artwork-image/' + artwork.id"
-                            :file-list="artwork.image"
+                            :file-list="images"
                             :on-preview="handlePictureCardPreview"
                             :on-remove="handleRemove"
                             :on-success="handleSuccess"
@@ -194,11 +196,12 @@
                 </div>
 
                 <el-form-item>
+
                     <el-button type="primary" style="margin-top: 20px"
                                size="big"
                                @click="activeStep++">
-                        <a href="/dashboard">
-                            Go to panel
+                        <a href="/dashboard" target="_blank">
+                            Preview
                         </a>
                     </el-button>
 
@@ -222,12 +225,15 @@
 
         props: {
             artwork_: {},
+            user_: {},
+            images_: {},
         },
 
         data() {
             return {
                 artwork: {
                     id: 0,
+                    user_id: '',
                     title: '',
                     description: '',
                     height: '',
@@ -235,17 +241,18 @@
                     depth: '',
                     weight: '',
                     inspiration: '',
-                    year_of_completion: '',
+                    date_of_completion: '',
                     price: '',
 
                     category: '',
 
-                    image: [],
                     medium: [],
                     direction: [],
                     theme: [],
                     color: [],
                 },
+
+                images: [],
 
                 activeStep: 0,
 
@@ -257,13 +264,23 @@
 
 
         mounted() {
-
-            console.log(trans);
             console.log(this.artwork_);
+            console.log(this.user_);
+            console.log(this.images_);
 
             if (this.artwork_) {
                 this.artwork = this.artwork_;
             }
+
+            if(!this.artwork.user_id) {
+                this.artwork.user_id = this.user_.id
+            }
+
+            if(this.images_) {
+                this.images = this.images_;
+            }
+
+            console.log(this.artwork.medium);
         },
 
         methods: {
@@ -292,17 +309,33 @@
                 console.log(a, b, c);
             },
             handleRemove(file, fileList) {
-                this.artwork.image = fileList;
+                axios.post('/api/remove/artwork-image/' + this.artwork.id, file)
+                    .then((response) => {
+                        if (response.data) {
+                            console.log(response.data);
+                            this.$message({
+                                showClose: true,
+                                message: response.data.message,
+                                type: response.data.status
+                            });
+
+                            this.images = response.data.data;
+                        } else {
+                            console.log(response.data);
+                        }
+                    });
+
+                // this.images = fileList;
             },
             handlePictureCardPreview(file) {
                 this.setDialogUrl(file.name);
                 this.dialogVisible = true;
             },
             setDialogUrl(name) {
-                this.dialogImageUrl = '/artworks/' + this.artwork.id + '/' + name;
+                this.dialogImageUrl = '/artwork/' + this.artwork.id + '/' + name;
             },
             handleSuccess(response, file, fileList) {
-                this.artwork.image.push({
+                this.images.push({
                     name: file.name,
                     url: file.url
                 });

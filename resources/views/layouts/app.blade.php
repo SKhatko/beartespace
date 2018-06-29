@@ -42,7 +42,7 @@
                 <div class="app-header-languages">
                     <el-dropdown trigger="hover">
                       <span class="el-dropdown-link">
-                          {{$current_lang->name}}
+                          {{$current_lang->name ?? 'en' }}
                           <i class="el-icon-arrow-down el-icon--right"></i>
                       </span>
                         <el-dropdown-menu slot="dropdown">
@@ -80,6 +80,11 @@
                                 </el-dropdown-item>
 
                                 @if(!$lUser->isUser())
+
+                                <el-dropdown-item>
+                                    <a href="{{route('dashboard.artworks')}}" class="el-dropdown-link">My
+                                        Artworks</a>
+                                </el-dropdown-item>
 
                                 <el-dropdown-item>
                                     <a href="{{route('dashboard.artwork.create')}}" class="el-dropdown-link">Upload
@@ -137,9 +142,9 @@
 
                     <div class="app-header-links">
 
-                        <a href="{{ route('artists') }}">@lang('portal.artists')</a>
-                        <a href="{{ route('paintings') }}">@lang('portal.paintings')</a>
-                        <a href="{{ route('sculptures') }}">@lang('portal.sculptures')</a>
+                        <a href="{{ route('artists') }}">@lang('artist')</a>
+                        <a href="{{ route('paintings') }}">@lang('painting')</a>
+                        <a href="{{ route('sculptures') }}">@lang('sculpture')</a>
                         <a href="{{ route('auctions') }}">@lang('portal.auction')</a>
 
                         <el-dropdown trigger="hover">

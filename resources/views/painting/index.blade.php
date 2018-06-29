@@ -9,20 +9,16 @@
 
         @foreach($paintings as $painting)
 
-            <div class="painting" style="display: flex">
+            <a href="{{ route('artwork', $painting->id) }}">{{ $painting->title }}</a>
+
 
                 <div>
-                    Title {{ $painting->title }} <br>
                     Autor {{ $painting->user['name'] }} <br>
                     Country {{ $painting->user->country['country_name'] }} <br>
 
                 </div>
 
 
-                <img src="{{ $painting->image }}" alt="" style="max-height: 400px">
-
-
-            </div>
 
             <hr>
 

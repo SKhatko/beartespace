@@ -17,4 +17,17 @@ class UserController extends Controller {
 
 		return [ 'status' => 'success', 'message' => 'Saved', 'data' => $user ];
 	}
+
+	public function uploadUserPhoto( Request $request, $id ) {
+
+		if ( $request->file( 'file' ) ) {
+
+			Media::updateOrCreate( [ 'user_id' => $id ], [
+				'name' => $request->file( 'file' )->getClientOriginalName(),
+				'folder' => 'user'
+			] );
+
+			return $request->file( 'file' )->storeAs( '/public/user/' . $id, $request->file( 'file' )->getClientOriginalName() );
+		}
+	}
 }
