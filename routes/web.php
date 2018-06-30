@@ -23,6 +23,11 @@ Route::group(['middleware' => 'web'], function () {
 	Route::get( '/artist','HomeController@artists' )->name('artists');
 	Route::get( '/artist/{id}','HomeController@artist' )->name('artist');
 
+	// Contact us page
+	Route::get( 'contact-form', 'HomeController@contactForm')->name('contact-form');
+	Route::post( 'contact-form', 'HomeController@contactFormPost');
+
+
 	Route::get( '/language/{lang}', [ 'as' => 'switch_language', 'uses' => 'LanguageController@switchLang' ] );
 
 // Pages
@@ -42,7 +47,7 @@ Route::group(['middleware' => 'web'], function () {
 		Route::get( 'payments', 'PaymentController@index' )->name( 'payments' );
 
 
-		Route::get( 'favorites', 'ArtworkController@favoriteArtworks' )->name( 'favorites' );
+		Route::get( 'favorites', 'UserController@favoriteArtworks' )->name( 'favorites' );
 
 
 		// Not user (admin, artist, gallery)
@@ -51,7 +56,7 @@ Route::group(['middleware' => 'web'], function () {
 			Route::get( 'artworks', 'ArtworkController@index' )->name( 'dashboard.artworks' );
 			Route::get( 'artwork/create', 'ArtworkController@create' )->name( 'dashboard.artwork.create' );
 			Route::get( 'artwork/{id}/edit', 'ArtworkController@edit' )->name( 'dashboard.artwork.edit' );
-
+			Route::post( 'artwork/{id}', 'ArtworkController@destroy' )->name( 'dashboard.artwork.destroy' );
 		} );
 
 
@@ -222,9 +227,7 @@ Route::group(['middleware' => 'web'], function () {
 
 Route::get( '/checkout', 'HomeController@checkout' )->name('checkout');
 
-// Contact us page
-Route::get( 'contacts', [ 'as' => 'contacts', 'uses' => 'HomeController@contacts' ] );
-Route::post( 'contacts', [ 'uses' => 'HomeController@contactsPost' ] );
+
 
 
 Route::get( 'page/{slug}', [ 'as' => 'single_page', 'uses' => 'PostController@showPage' ] );

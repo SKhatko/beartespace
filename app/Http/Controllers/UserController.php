@@ -24,20 +24,32 @@ class UserController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index() {
+
 		$title = trans( 'portal.users' );
+
 		$users = User::all();
 
 		return view( 'dashboard.admin.users', compact( 'title', 'users' ) );
 	}
 
 	public function profile() {
-//		return Auth::guard('api')->user();
+
 		$title     = trans( 'portal.profile' );
+
 		$user      = auth()->user()->load('photo');
 
 		$countries = Country::all( 'country_name', 'id' );
 
 		return view( 'dashboard.user.profile', compact( 'title', 'user', 'countries' ) );
+	}
+
+	public function favoriteArtworks(){
+		$title = trans('app.favourite_ads');
+
+		$user = Auth::user();
+		$ads = $user->favouriteArtworks()->orderBy('id', 'desc');
+
+		return view('dashboard.user.favourites', compact('title', 'ads'));
 	}
 
 

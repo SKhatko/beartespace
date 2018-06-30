@@ -67,15 +67,6 @@ class ArtworkController extends Controller
         return view('admin.pending_ads', compact('title', 'ads'));
     }
 
-    public function favoriteArtworks(){
-        $title = trans('app.favourite_ads');
-
-        $user = Auth::user();
-        $ads = $user->favouriteArtworks()->with('city', 'country', 'state')->orderBy('id', 'desc')->paginate(20);
-
-        return view('admin.favourite_ads', compact('title', 'ads'));
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -167,30 +158,13 @@ class ArtworkController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy(Request $request, $id)
     {
-        $slug = $request->slug;
-        $ad = Artwork::whereSlug($slug)->first();
-        if ($ad){
-            $media = Media::whereAdId($ad->id)->get();
-            if ($media->count() > 0){
-                foreach($media as $m){
-                    $storage = Storage::disk($m->storage);
-                    if ($storage->has('uploads/images/'.$m->media_name)){
-                        $storage->delete('uploads/images/'.$m->media_name);
-                    }
-                    if ($m->type == 'image'){
-                        if ($storage->has('uploads/images/thumbs/'.$m->media_name)){
-                            $storage->delete('uploads/images/thumbs/'.$m->media_name);
-                        }
-                    }
-                    $m->delete();
-                }
-            }
-            $ad->delete();
-            return ['success'=>1, 'msg' => trans('app.media_deleted_msg')];
-        }
-        return ['success'=>0, 'msg' => trans('app.error_msg')];
+    	$artwork = Artwork::find($id);
+
+    	$artwork->images()->delete();
+    	$artwork->delete();
+
     }
 
     public function uploadAdsImage(Request $request, $ad_id = 0){

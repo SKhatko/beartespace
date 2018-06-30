@@ -17,7 +17,7 @@ if ( ! function_exists( 'getAllTranslations' ) ) {
 if ( ! function_exists( 'showPage' ) ) {
 	function showPage( $slug ) {
 
-		$page = App\Page::whereSlug('contacts-in-footer')->first();
+		$page = App\Page::whereSlug($slug)->first();
 
 		return $page->content;
 	}
@@ -92,25 +92,6 @@ function avatar_img_url( $img = '', $source ) {
 		} elseif ( $source == 's3' ) {
 			$url_path = \Illuminate\Support\Facades\Storage::disk( 's3' )->url( 'uploads/avatar/' . $img );
 		}
-	}
-
-	return $url_path;
-}
-
-/**
- * @return string
- *
- * @return logo url
- */
-function logo_url() {
-	$url_path = '';
-	$img      = get_option( 'logo' );
-	$source   = get_option( 'logo_storage' );
-
-	if ( $source == 'public' ) {
-		$url_path = asset( 'uploads/logo/' . $img );
-	} elseif ( $source == 's3' ) {
-		$url_path = \Illuminate\Support\Facades\Storage::disk( 's3' )->url( 'uploads/logo/' . $img );
 	}
 
 	return $url_path;

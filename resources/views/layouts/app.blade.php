@@ -34,7 +34,7 @@
                 @if(Request::segment(1) === 'dashboard')
                     <div class="app-header-logo">
                         <a class="app-header-logo__link" href="{{ route('home') }}">
-                            <img src="{{ logo_url() }}" title="BeArteBid" alt="BeArteBid logo"/>
+                            <img src="/images/logo.png" title="BeArteBid" alt="BeArteBid logo"/>
                         </a>
                     </div>
                 @endif
@@ -136,7 +136,7 @@
 
                     <div class="app-header-logo">
                         <a class="app-header-logo__link" href="{{ route('home') }}">
-                            <img src="{{ logo_url() }}" title="BeArteBid" alt="BeArteBid logo"/>
+                            <img src="/images/logo.png" title="BeArteBid" alt="BeArteBid logo"/>
                         </a>
                     </div>
 
@@ -173,6 +173,8 @@
                                 </el-dropdown-item>
                             </el-dropdown-menu>
                         </el-dropdown>
+
+                        <a href="{{ route('contact-form') }}">@lang('portal.contact')</a>
 
                     </div>
 

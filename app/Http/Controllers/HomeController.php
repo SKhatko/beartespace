@@ -34,7 +34,7 @@ class HomeController extends Controller {
 
 	public function artists() {
 
-		$artists = User::artist()->limit(20)->get();
+		$artists = User::artist()->limit( 20 )->get();
 
 		return view( 'artist.index', compact( 'artists' ) );
 	}
@@ -47,13 +47,13 @@ class HomeController extends Controller {
 	}
 
 	public function paintings() {
-		$paintings = Artwork::painting()->active()->limit(20)->get();
+		$paintings = Artwork::painting()->active()->limit( 20 )->get();
 
 		return view( 'painting.index', compact( 'paintings' ) );
 	}
 
 	public function sculptures() {
-		$sculptures = Artwork::sculpture()->active()->limit(20)->get();
+		$sculptures = Artwork::sculpture()->active()->limit( 20 )->get();
 
 		return view( 'sculpture.index', compact( 'sculptures' ) );
 	}
@@ -82,20 +82,21 @@ class HomeController extends Controller {
 	}
 
 
-	public function contacts() {
+	public function contactForm() {
 		$title = trans( 'app.contact_us' );
 
-		return view( 'pages.contacts', compact( 'title' ) );
+		return view( 'pages.contact-form', compact( 'title' ) );
 	}
 
-	public function contactsPost( Request $request ) {
-		$rules = [
+	public function contactFormPost( Request $request ) {
+
+		$this->validate( $request, [
 			'name'    => 'required',
 			'email'   => 'required|email',
 			'message' => 'required',
-		];
-		$this->validate( $request, $rules );
-		Contact_query::create( array_only( $request->input(), [ 'name', 'email', 'message' ] ) );
+		] );
+
+		Contact_query::create( $request->all() );
 
 		return redirect()->back()->with( 'success', trans( 'app.your_message_has_been_sent' ) );
 	}
