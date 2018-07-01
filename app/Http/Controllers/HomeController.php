@@ -66,14 +66,17 @@ class HomeController extends Controller {
 
 	public function shoppingCart() {
 
-		$oldCart = session('cart');
-		$cart = new Cart($oldCart);
+		$oldCart = session( 'cart' );
+		$cart    = new Cart( $oldCart );
 
-		return view('checkout.shopping-cart', with(['artworks' => $cart->items, 'totalPrice' => $cart->totalPrice]));
+		return view( 'checkout.shopping-cart', with( [
+			'artworks'   => $cart->items,
+			'totalPrice' => $cart->totalPrice
+		] ) );
 	}
 
 	public function checkout() {
-		return view( 'checkout.index' );
+		return view( 'checkout.checkout' );
 	}
 
 	public function about() {
@@ -108,21 +111,27 @@ class HomeController extends Controller {
 		return redirect()->back()->with( 'success', trans( 'app.your_message_has_been_sent' ) );
 	}
 
-	public function contactMessages() {
-		$title = trans( 'app.contact_messages' );
 
-		return view( 'admin.contact_messages', compact( 'title' ) );
+	public function search( Request $request, $query = null ) {
+
+		// Search query
+		$query = trim( $request->input( 'query' ) );
+
+
+		// TODO search in Artists, Artworks
+
+		$artworks = Artwork::whereRaw( 'LOWER(title) LIKE ?', '%' . $query . '%' )
+		                   ->orWhereRaw( 'LOWER(description) LIKE ?', '%' . $query . '%' )
+		                   ->orWhereRaw( 'LOWER(inspiration) LIKE ?', '%' . $query . '%' )
+		                   ->orWhereRaw( 'LOWER(medium) LIKE ?', '%' . $query . '%' )
+		                   ->orWhereRaw( 'LOWER(direction) LIKE ?', '%' . $query . '%' )
+		                   ->orWhereRaw( 'LOWER(theme) LIKE ?', '%' . $query . '%' )
+		                   ->orWhereRaw( 'LOWER(color) LIKE ?', '%' . $query . '%' )
+		                   ->get();
+
+		return view( 'search', compact( 'artworks', 'artists' ) );
 	}
 
-	public function contactMessagesData() {
-		$contact_messages = Contact_query::select( 'name', 'email', 'message', 'created_at' )->orderBy( 'id', 'desc' )->get();
-
-		return Datatables::of( $contact_messages )
-		                 ->editColumn( 'created_at', function ( $contact_message ) {
-			                 return $contact_message->created_at_datetime();
-		                 } )
-		                 ->make();
-	}
 }
 
 

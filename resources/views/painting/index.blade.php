@@ -8,16 +8,21 @@
         <h2>Paintings</h2>
 
         @foreach($paintings as $painting)
+            <div class="app-content-artwork">
 
-            <h3><a href="{{ route('artwork', $painting->id) }}">{{ $painting->title }}</a></h3>
+                <a href="{{ route('artwork', $painting->id) }}" class="app-content-artwork__link">
+                    <img src="{{ $painting->images()->first()->name }}" alt="" style="max-width: 900px">
 
-            <div>
-                Autor {{ $painting->user['name'] }} <br>
-                Country {{ $painting->user->country['country_name'] }} <br>
+                    <h3>{{ $painting->title }}</h3>
+                </a>
 
-                <img src="{{ $painting->images()->first()->name }}" alt="" style="max-width: 900px">
+                <div>
+                    Autor {{ $painting->user['name'] }} <br>
+                    Country {{ $painting->user->country['country_name'] }} <br>
+
+                </div>
             </div>
-            <hr>
+
 
         @endforeach
     </div>

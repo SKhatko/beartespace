@@ -82,13 +82,40 @@
                                 @if(!$lUser->isUser())
 
                                     <el-dropdown-item>
-                                        <a href="{{route('dashboard.artworks')}}" class="el-dropdown-link">My
-                                            Artworks</a>
+                                        <a href="{{route('dashboard.artworks')}}" class="el-dropdown-link">My Artworks</a>
                                     </el-dropdown-item>
 
                                     <el-dropdown-item>
-                                        <a href="{{route('dashboard.artwork.create')}}" class="el-dropdown-link">Upload
-                                            Artwork</a>
+                                        <a href="{{route('dashboard.artwork.create')}}" class="el-dropdown-link">Upload Artwork</a>
+                                    </el-dropdown-item>
+
+                                @endif
+
+                                @if($lUser->isAdmin())
+
+                                    <el-dropdown-item>
+                                        <i class="el-icon-view"></i>
+                                        <a href="{{route('admin.messages')}}" class="el-dropdown-link">Messages</a>
+                                    </el-dropdown-item>
+
+                                    <el-dropdown-item>
+                                        <i class="el-icon-view"></i>
+                                       <a href="{{ route('admin.users') }}">Users</a>
+                                    </el-dropdown-item>
+
+                                    <el-dropdown-item>
+                                        <i class="el-icon-setting"></i>
+                                        <a href="{{ route('admin.translations') }}">Translations</a>
+                                    </el-dropdown-item>
+
+                                    <el-dropdown-item>
+                                        <i class="el-icon-setting"></i>
+                                        <a href="{{ route('admin.languages') }}">Languages</a>
+                                    </el-dropdown-item>
+
+                                    <el-dropdown-item>
+                                        <i class="el-icon-document"></i>
+                                       <a href="{{ route('admin.pages') }}">Pages</a>
                                     </el-dropdown-item>
 
                                 @endif
@@ -175,11 +202,20 @@
                     </div>
 
                     <div class="app-header-search">
-                        <form action="{{ route('search_redirect') }}">
+                        <form action="{{ route('search') }}" method="POST">
                             {{ csrf_field() }}
 
-                            <el-input
-                                    placeholder="Search" name="q"
+                            {{--<el-input placeholder="Please input" name="q" class="input-with-select">--}}
+                            {{--<el-select value="" slot="prepend" placeholder="Select" name="field">--}}
+                            {{--<el-option label="Artist" value="artist"></el-option>--}}
+                            {{--<el-option label="Painting" value="painting"></el-option>--}}
+                            {{--<el-option label="Sculpture" value="sculpture"></el-option>--}}
+                            {{--</el-select>--}}
+                            {{--<el-button slot="append" icon="el-icon-search"></el-button>--}}
+                            {{--</el-input>--}}
+
+                            <el-input required
+                                    placeholder="Search" name="query"
                                     prefix-icon="el-icon-search">
                             </el-input>
 

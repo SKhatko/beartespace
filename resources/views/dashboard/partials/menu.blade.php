@@ -6,17 +6,6 @@
     </el-menu-item>
 
 
-    <el-menu-item index="profile">
-        <i class="el-icon-document"></i>
-        <span slot="title"><a href="{{ route('dashboard.profile') }}">Profile</a></span>
-    </el-menu-item>
-
-    <el-menu-item index="change-password">
-        <i class="el-icon-document"></i>
-        <span slot="title"><a href="{{ route('change-password') }}">Change Password</a></span>
-    </el-menu-item>
-
-
     <el-menu-item index="payments">
         <i class="el-icon-document"></i>
         <span slot="title"><a href="{{ route('payments') }}">Payments</a></span>
@@ -29,42 +18,11 @@
 
     @if($lUser->isAdmin())
 
-        <el-submenu index="settings">
-            <template slot="title">
-                <i class="el-icon-setting"></i>
-                <span slot="title">Done</span>
-            </template>
-
-            <el-menu-item index="users">
-                <i class="el-icon-view"></i>
-                <span slot="title"><a href="{{ route('admin.users') }}">Users</a></span>
-            </el-menu-item>
-
-            <el-menu-item index="translations">
-                <i class="el-icon-setting"></i>
-                <span slot="title"><a href="{{ route('admin.translations') }}">Translations</a></span>
-            </el-menu-item>
-
-            <el-menu-item index="languages">
-                <i class="el-icon-setting"></i>
-                <a href="{{ route('admin.languages') }}">Languages</a>
-            </el-menu-item>
-
-            <el-menu-item index="pages">
-                <i class="el-icon-document"></i>
-                <span slot="title"><a href="{{ route('admin.pages') }}">Pages</a></span>
-            </el-menu-item>
-
-
-        </el-submenu>
-
         <el-submenu index="2">
             <template slot="title">
                 <i class="el-icon-location"></i>
                 <span slot="title">Artworks</span>
             </template>
-            <el-menu-item index="2-1"><a href="{{ route('dashboard.artworks') }}">My Artworks</a></el-menu-item>
-            <el-menu-item index="2-2"><a href="{{ route('dashboard.artwork.create') }}">Upload Artwork</a></el-menu-item>
             <el-menu-item index="2-3"><a href="{{ route('pending_ads') }}">Pending for aprooval</a>
             </el-menu-item>
 
@@ -108,13 +66,6 @@
             </el-menu-item>
 
         </el-submenu>
-
-
-        <el-menu-item index="11">
-            <i class="el-icon-document"></i>
-            <span slot="title"><a href="{{ route('contact_messages') }}">@lang('app.contact_messages')
-                    <span class="label label-default pull-right"><i class="fa fa-user"></i> </span> </a></span>
-        </el-menu-item>
 
 
 

@@ -25,7 +25,10 @@ Route::group(['middleware' => 'web'], function () {
 
 	// Contact us page
 	Route::get( 'contact-form', 'HomeController@contactForm')->name('contact-form');
-	Route::post( 'contact-form', 'HomeController@contactFormPost');
+	Route::post( 'contact-form', 'HomeController@contactFormPost')->name('contact-form');
+
+	// Search
+	Route::post( 'search/{query?}', 'HomeController@search')->name('search');
 
 	// Leads
 	Route::post('add-lead', 'LeadController@addLead')->name('add-lead');
@@ -36,6 +39,7 @@ Route::group(['middleware' => 'web'], function () {
 	Route::get('shopping-cart', 'HomeController@shoppingCart')->name('shopping-cart');
 	Route::get('add-to-cart/{id}', 'ArtworkController@addToCart')->name('add-to-cart');
 	Route::get('remove-from-cart/{id}', 'ArtworkController@removeFromCart')->name('remove-from-cart');
+	Route::get( 'checkout', 'HomeController@checkout' )->name('checkout');
 
 
 // Pages
@@ -76,6 +80,7 @@ Route::group(['middleware' => 'web'], function () {
 			Route::get( 'translations', 'TranslationController@index' )->name( 'admin.translations' );
 			Route::get( 'languages', 'LanguageController@index' )->name( 'admin.languages' );
 			Route::get( 'pages','PageController@index')->name('admin.pages');
+			Route::get( 'messages', 'MessageController@messages')->name('admin.messages');
 
 
 			Route::group( [ 'prefix' => 'settings' ], function () {
@@ -158,12 +163,6 @@ Route::group(['middleware' => 'web'], function () {
 			] );
 			Route::post( 'delete-reports', [ 'as' => 'delete_report', 'uses' => 'ArtworkController@deleteReports' ] );
 
-			Route::get( 'contact-messages', [ 'as' => 'contact_messages', 'uses' => 'HomeController@contactMessages' ] );
-			Route::get( 'contact-messages-data', [
-				'as'   => 'contact_messages_data',
-				'uses' => 'HomeController@contactMessagesData'
-			] );
-
 
 			Route::group( [ 'prefix' => 'administrators' ], function () {
 				Route::get( '/', [ 'as' => 'administrators', 'uses' => 'UserController@administrators' ] );
@@ -233,7 +232,6 @@ Route::group(['middleware' => 'web'], function () {
 
 //Route::get('/verifyemail/{token}', 'Auth\RegisterController@verify');
 
-Route::get( '/checkout', 'HomeController@checkout' )->name('checkout');
 
 
 
@@ -244,11 +242,6 @@ Route::get( 'category/{cat_id?}', [ 'uses' => 'CategoriesController@show' ] )->n
 
 
 
-Route::get( 'search/{country_code?}/{state_id?}/{city_id?}/{category_slug?}/{brand_slug?}', [
-	'as'   => 'search',
-	'uses' => 'ArtworkController@search'
-] );
-Route::get( 'search-redirect', [ 'as' => 'search_redirect', 'uses' => 'ArtworkController@searchRedirect' ] );
 
 Route::get( 'auction-by-user/{id?}', [ 'as' => 'ads_by_user', 'uses' => 'ArtworkController@adsByUser' ] );
 

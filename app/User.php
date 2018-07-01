@@ -37,6 +37,40 @@ class User extends Authenticatable {
 		return $this->hasOne( Media::class );
 	}
 
+	public function orders() {
+		return $this->hasMany(Order::class);
+	}
+
+
+	public function isAdmin() {
+		return $this->user_type == 'admin';
+	}
+
+	public function isUser() {
+		return $this->user_type == 'user';
+	}
+
+	public function isGallery() {
+		return $this->user_type == 'gallery';
+	}
+
+	public function isArtist() {
+		return $this->user_type == 'artist';
+	}
+
+	public function scopeArtist( $query ) {
+		return $query->where( 'user_type', 'artist' );
+	}
+
+	public function getNameAttribute() {
+		return trim( $this->first_name ) . ' ' . trim( $this->last_name );
+	}
+
+	public function setNameAttribute() {
+		return trim( $this->first_name ) . ' ' . trim( $this->last_name );
+	}
+
+
 
 	/**
 	 * @param int $s
@@ -118,34 +152,6 @@ class User extends Authenticatable {
 		}
 
 		return $context;
-	}
-
-	public function isAdmin() {
-		return $this->user_type == 'admin';
-	}
-
-	public function isUser() {
-		return $this->user_type == 'user';
-	}
-
-	public function isGallery() {
-		return $this->user_type == 'gallery';
-	}
-
-	public function isArtist() {
-		return $this->user_type == 'artist';
-	}
-
-	public function scopeArtist( $query ) {
-		return $query->where( 'user_type', 'artist' );
-	}
-
-	public function getNameAttribute() {
-		return trim( $this->first_name ) . ' ' . trim( $this->last_name );
-	}
-
-	public function setNameAttribute() {
-		return trim( $this->first_name ) . ' ' . trim( $this->last_name );
 	}
 
 }
