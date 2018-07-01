@@ -26182,7 +26182,15 @@ __webpack_require__(183);
 
 // Import and use Vue Froala lib.
 
+
 Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_froala_wysiwyg___default.a);
+//
+// var grid = document.querySelector('.grid');
+// var msnry = new Masonry( grid, {
+//     // options...
+//     itemSelector: '.grid-item',
+//     columnWidth: 100
+// });
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -26216,7 +26224,24 @@ Vue.component('pages', __webpack_require__(198));
 var app = new Vue({
     el: '#app',
     components: {},
-    data: {}
+    data: {
+        artworkFilters: [{
+            id: 1,
+            label: 'Category',
+            children: [{
+                id: 3,
+                label: 'Painting'
+            }, {
+                id: 2,
+                label: 'Sculpture'
+            }]
+        }],
+        defaultProps: {
+            children: 'children',
+            label: 'label',
+            disabled: 'disabled'
+        }
+    }
 });
 
 /***/ }),
@@ -29488,6 +29513,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 window._ = __webpack_require__(184);
+// window.Masonry = require('masonry-layout');
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support

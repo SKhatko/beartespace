@@ -19,6 +19,7 @@ class CreateOrdersTable extends Migration
 	        $table->json('cart')->nullable();
 	        $table->string('payment_id')->nullable();
 
+
 	        $table->decimal('amount')->nullable();
 	        $table->string('payment_method')->nullable();
 	        $table->enum('status', ['initial','pending','success','failed','declined','dispute'])->nullable();
@@ -33,7 +34,6 @@ class CreateOrdersTable extends Migration
 	        $table->string('local_transaction_id')->nullable();
 	        //payment created column will be use by gateway
 	        $table->integer('payment_created')->nullable();
-	        $table->timestamps();
             $table->timestamps();
         });
     }

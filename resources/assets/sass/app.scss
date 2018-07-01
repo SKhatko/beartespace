@@ -1,25 +1,10 @@
-// Variables
+@import "variables";
 @import "element-variables";
-
 @import "~normalize.css";
 @import "~froala-editor/css/froala_editor.pkgd.css";
 @import "~froala-editor/css/froala_style.min.css";
 @import "~font-awesome/css/font-awesome";
-
-//@import "style";
-//@import "admin";
-//@import "rtl";
 @import "~element-ui/packages/theme-chalk/src/index";
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-html {
-  font-size: 100%;
-}
 
 body, html {
   margin: 0;
@@ -28,11 +13,6 @@ body, html {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 400;
   font-size: 14px;
-}
-
-a {
-  text-decoration: none;
-  color: #606266;
 }
 
 .app--wrapper {
@@ -96,7 +76,6 @@ a {
         top: 2px;
       }
 
-
     }
 
     &-links {
@@ -120,21 +99,45 @@ a {
     width: 100%;
   }
 
-  &-index {
+  &-artworks {
+    display: flex;
 
-    &-filters {
-      min-width: 200px;
+    aside {
+      width: 300px;
     }
 
-    &-content {
+    & main {
+      flex: 1;
+    }
 
-      &-artworks {
-        display: flex;
-        flex-wrap: wrap;
+    & .artworks {
+      column-count: 2;
+      column-gap: 15px;
+    }
+
+
+    & .artwork {
+      //flex: 1 1 30%;
+      padding: 10px;
+      margin-bottom: 50px;
+
+      &-image {
+        display: block;
+
+        & img {
+          height: auto;
+          width: 100%;
+          max-height: 500px;
+        }
       }
 
-      &-artwork {
-        flex: 1 1 30%;
+      &-panel {
+        display: flex;
+        justify-content: space-between;
+
+        &-right {
+          display: flex;
+        }
       }
     }
   }

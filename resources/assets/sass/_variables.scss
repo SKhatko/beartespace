@@ -1,5 +1,4 @@
 
-
 // Body
 $body-bg: #f5f8fa;
 
@@ -37,3 +36,71 @@ $input-color-placeholder: lighten($text-color, 30%);
 
 // Panels
 $panel-default-heading-bg: #fff;
+
+
+// Typography
+
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 100%;
+}
+
+
+.h1 {
+  font-size: 30px;
+  font-weight: 300;
+}
+
+.h2 {
+  font-size: 25px;
+  font-weight: 300;
+}
+
+.h3 {
+  font-size: 20px;
+  font-weight: 400;
+
+}
+
+.h4 {
+  font-size: 18px;
+  font-weight: 400;
+
+}
+
+.h5 {
+  font-size: 16px;
+  font-weight: 400;
+
+}
+
+.h6 {
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.p {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.small {
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.smaller {
+  font-size: 10px;
+  font-weight: 400;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}

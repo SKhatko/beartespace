@@ -13,8 +13,16 @@ window.Vue = require('vue');
 require('froala-editor/js/froala_editor.pkgd.min');
 
 // Import and use Vue Froala lib.
-import VueFroala from 'vue-froala-wysiwyg'
-Vue.use(VueFroala)
+import VueFroala from 'vue-froala-wysiwyg';
+
+Vue.use(VueFroala);
+//
+// var grid = document.querySelector('.grid');
+// var msnry = new Masonry( grid, {
+//     // options...
+//     itemSelector: '.grid-item',
+//     columnWidth: 100
+// });
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -55,7 +63,22 @@ const app = new Vue({
 
     },
     data: {
-
+        artworkFilters: [{
+            id: 1,
+            label: 'Category',
+            children: [{
+                id: 3,
+                label: 'Painting',
+            }, {
+                id: 2,
+                label: 'Sculpture'
+            }]
+        }],
+        defaultProps: {
+            children: 'children',
+            label: 'label',
+            disabled: 'disabled',
+        },
     }
 });
 
