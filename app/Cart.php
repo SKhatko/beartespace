@@ -38,4 +38,12 @@ class Cart {
 			$this->totalPrice -= $artwork->price;
 		}
 	}
+
+	public function toggle($artwork, $id) {
+		if ( array_key_exists( $id, $this->items ) ) {
+			$this->remove($artwork, $id);
+		} else {
+			$this->add($artwork, $id);
+		}
+	}
 }

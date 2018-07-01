@@ -56,6 +56,22 @@ class ArtworkController extends Controller {
 		return redirect()->route( 'shopping-cart' );
 	}
 
+	public function toggleToCart( Request $request, $id ) {
+
+		$artwork = Artwork::find( $id );
+
+		$oldCart = session( 'cart' );
+
+		$cart = new Cart( $oldCart );
+
+		$cart->toggle( $artwork, $artwork->id );
+
+		session( [ 'cart' => $cart ] );
+
+		return back();
+	}
+
+
 	public function removeFromCart(Request $request, $id) {
 
 		$artwork = Artwork::find( $id );

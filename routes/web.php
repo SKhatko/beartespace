@@ -38,6 +38,7 @@ Route::group(['middleware' => 'web'], function () {
 	// Shopping
 	Route::get('shopping-cart', 'HomeController@shoppingCart')->name('shopping-cart');
 	Route::get('add-to-cart/{id}', 'ArtworkController@addToCart')->name('add-to-cart');
+	Route::get('toggle-to-cart/{id}', 'ArtworkController@toggleToCart')->name('toggle-to-cart');
 	Route::get('remove-from-cart/{id}', 'ArtworkController@removeFromCart')->name('remove-from-cart');
 	Route::get( 'checkout', 'HomeController@checkout' )->name('checkout');
 

@@ -5,7 +5,6 @@
 @section('content')
 
     <div class="app--wrapper">
-        <h2 class="h2">Paintings</h2>
 
         <div class="app-artworks">
             <aside>
@@ -19,36 +18,47 @@
             </aside>
 
             <main>
+
+                <h2 class="h2">Paintings</h2>
+
                 <div class="artworks">
 
-                        @foreach($paintings as $painting)
+                    @foreach($paintings as $painting)
 
-                            <div class="artwork">
-                                <a href="{{ route('artwork', $painting->id) }}" class="artwork-image">
-                                    <img src="{{ $painting->images()->first()->name }}" alt="">
-                                </a>
+                        <div class="artwork">
+                            <a href="{{ route('artwork', $painting->id) }}" class="artwork-image">
+                                <img src="{{ $painting->images()->first()->name }}" alt="">
+                            </a>
 
-                                <div class="artwork-panel">
-                                    <div class="h4">
-                                        <a href="{{ route('artwork', $painting->id) }}" class="artwork-title">
-                                            {{ $painting->title }}
-                                        </a>
-                                    </div>
+                            <a href="{{ route('artwork', $painting->id) }}" class="artwork-title">
+                                {{ $painting->title }}
+                            </a>
 
-                                    <div class="artwork-panel-right h3">
-                                        <a class="artwork-favorite"><span class="el-icon-star-off"></span></a>
-                                        <a class="artwork-cart"><span class="el-icon-goods"></span></a>
-                                    </div>
 
-                                </div>
-
-                                <div class="h4">{{ $painting->user['name'] }}</div>
-
-                                <div class="h5">{{ $painting->user->country['country_name'] }}</div>
-
+                            <div class="artwork-panel">
+                                <a href="#" class="artwork-favorite"><span class="el-icon-star-off"></span></a>
+                                <a href="{{ route('toggle-to-cart', $painting->id) }}" class="artwork-cart"><span class="el-icon-goods"></span></a>
                             </div>
 
-                        @endforeach
+                            <div class="h4">{{ $painting->user['name'] }}</div>
+
+
+                            <el-row :gutter="20">
+
+                                <el-col :span="16">
+                                    <div class="h5">{{ $painting->user->country['country_name'] }}</div>
+                                </el-col>
+
+                                <el-col :span="8">
+                                    <div class="artwork-price">
+                                        {{ $painting->price }} EUR
+                                    </div>
+                                </el-col>
+                            </el-row>
+
+                        </div>
+
+                    @endforeach
 
                 </div>
             </main>
