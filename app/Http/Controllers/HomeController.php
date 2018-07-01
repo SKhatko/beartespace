@@ -3,12 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Artwork;
+use App\Cart;
 use App\Contact_query;
 use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Yajra\Datatables\Datatables;
-use App\Page;
 
 class HomeController extends Controller {
 
@@ -63,6 +62,14 @@ class HomeController extends Controller {
 		$artwork = Artwork::find( $id );
 
 		return view( $artwork->category . '.show', compact( 'artwork' ) );
+	}
+
+	public function shoppingCart() {
+
+		$oldCart = session('cart');
+		$cart = new Cart($oldCart);
+
+		return view('checkout.shopping-cart', with(['artworks' => $cart->items, 'totalPrice' => $cart->totalPrice]));
 	}
 
 	public function checkout() {

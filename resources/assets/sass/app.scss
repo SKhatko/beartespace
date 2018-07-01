@@ -86,10 +86,17 @@ a {
     }
 
     &-basket {
+      font-size: 23px;
+      position: relative;
 
-      & svg {
-        width: 20px;
+      sup {
+        font-size: 12px;
+        position: absolute;
+        right: -4px;
+        top: 2px;
       }
+
+
     }
 
     &-links {

@@ -27,8 +27,16 @@ Route::group(['middleware' => 'web'], function () {
 	Route::get( 'contact-form', 'HomeController@contactForm')->name('contact-form');
 	Route::post( 'contact-form', 'HomeController@contactFormPost');
 
+	// Leads
+	Route::post('add-lead', 'LeadController@addLead')->name('add-lead');
 
 	Route::get( '/language/{lang}', [ 'as' => 'switch_language', 'uses' => 'LanguageController@switchLang' ] );
+
+	// Shopping
+	Route::get('shopping-cart', 'HomeController@shoppingCart')->name('shopping-cart');
+	Route::get('add-to-cart/{id}', 'ArtworkController@addToCart')->name('add-to-cart');
+	Route::get('remove-from-cart/{id}', 'ArtworkController@removeFromCart')->name('remove-from-cart');
+
 
 // Pages
 	Route::get( 'about', 'HomeController@about' )->name( 'about' );

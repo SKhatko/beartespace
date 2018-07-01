@@ -115,18 +115,14 @@
                     @endif
                 </div>
 
-                <a href="{{ route('checkout') }}" class="app-header-basket">
-                    <el-badge is-dot class="item">
-                        {{--<i class="el-icon-goods"></i>--}}
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27 21">
-                            <g fill="none" fill-rule="evenodd" transform="translate(0 1)">
-                                <path stroke="#333" stroke-linecap="round"
-                                      d="M0 .478h4.667l3.734 13.077H23.35l2.804-8.635"></path>
-                                <circle cx="21.25" cy="17.669" r="1.635" fill="#333"></circle>
-                                <circle cx="10.232" cy="17.924" r="1.635" fill="#333"></circle>
-                            </g>
-                        </svg>
-                    </el-badge>
+                <a href="{{ route('shopping-cart') }}" class="app-header-basket">
+
+                    @if(session('cart') && session('cart')->totalQuantity > 0)
+                        <span class="el-icon-goods"></span><sup>{{ session('cart')->totalQuantity }}</sup>
+                    @else
+                        <span class="el-icon-sold-out"></span>
+                    @endif
+
                 </a>
 
             </div>
@@ -216,7 +212,8 @@
 
                 <div class="app-footer-newsletter">
 
-                    <el-form inline label-position="top">
+                    <el-form inline label-position="top" method="POST" action="{{ route('add-lead') }}">
+                        {{ csrf_field() }}
                         <el-form-item label="Sign Up to be informed about new Artworks">
                             <el-input name="email" type="email">
                                 <el-button slot="append" native-type="submit" type="primary">Send</el-button>

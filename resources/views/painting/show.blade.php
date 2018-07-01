@@ -14,6 +14,9 @@
             <div>
                 Title {{ $artwork->title }} <br>
                 Country {{ $artwork->user->country['country_name'] }} <br>
+                <el-button>
+                    <a href="{{ route('add-to-cart', $artwork->id) }}">Add to cart</a>
+                </el-button>
             </div>
 
             @foreach($artwork->images as $image)
