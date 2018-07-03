@@ -1,5 +1,6 @@
-const { mix } = require('laravel-mix');
+const {mix} = require('laravel-mix');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const FontelloPlugin = require("fontello-webpack-plugin");
 
 /*
  |--------------------------------------------------------------------------
@@ -12,10 +13,16 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
  |
  */
 
-
 mix.webpackConfig({
     plugins: [
         // new BundleAnalyzerPlugin(),
+        new FontelloPlugin({
+            config: require("./fontello.config.json"),
+            output: {
+                css: '/css/icons.css',
+                font: '/fonts/vendor/fontello/[name].[ext]'
+            }
+        })
     ],
 });
 

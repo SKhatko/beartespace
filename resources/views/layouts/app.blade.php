@@ -13,6 +13,7 @@
     {{--<link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">--}}
 
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/icons.css') }}" rel="stylesheet">
 
     @yield('page-css')
 
@@ -99,7 +100,7 @@
                                     </el-dropdown-item>
 
                                     <el-dropdown-item>
-                                        <i class="el-icon-view"></i>
+                                        <i class="icon-group"></i>
                                        <a href="{{ route('admin.users') }}">Users</a>
                                     </el-dropdown-item>
 

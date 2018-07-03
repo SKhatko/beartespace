@@ -1,4 +1,18 @@
 {
   "/js/app.js": "/js/app.js",
-  "/css/app.css": "/css/app.css"
+  "/css/app.css": "/css/app.css",
+  "/resources/assets/sass/_icons.css": "/resources/assets/sass/_icons.css",
+  "/font/icons.eot": "/font/icons.eot",
+  "/font/icons.svg": "/font/icons.svg",
+  "/font/icons.ttf": "/font/icons.ttf",
+  "/font/icons.woff": "/font/icons.woff",
+  "/font/icons.woff2": "/font/icons.woff2",
+  "/css/icons.css": "/css/icons.css",
+  "/fonts/vendor/fontello": "/fonts/vendor/fontello",
+  "/fonts/vendor/fontello/": "/fonts/vendor/fontello/",
+  "/fonts/vendor/fontello/icons.eot": "/fonts/vendor/fontello/icons.eot",
+  "/fonts/vendor/fontello/icons.svg": "/fonts/vendor/fontello/icons.svg",
+  "/fonts/vendor/fontello/icons.ttf": "/fonts/vendor/fontello/icons.ttf",
+  "/fonts/vendor/fontello/icons.woff": "/fonts/vendor/fontello/icons.woff",
+  "/fonts/vendor/fontello/icons.woff2": "/fonts/vendor/fontello/icons.woff2"
 }
