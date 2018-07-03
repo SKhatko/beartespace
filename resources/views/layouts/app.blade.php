@@ -94,7 +94,7 @@
                                 @if($lUser->isAdmin())
 
                                     <el-dropdown-item>
-                                        <i class="el-icon-view"></i>
+                                        <i class="el-icon-message"></i>
                                         <a href="{{route('admin.messages')}}" class="el-dropdown-link">Messages</a>
                                     </el-dropdown-item>
 
@@ -104,7 +104,7 @@
                                     </el-dropdown-item>
 
                                     <el-dropdown-item>
-                                        <i class="el-icon-setting"></i>
+                                        <i class="el-icon-tickets"></i>
                                         <a href="{{ route('admin.translations') }}">Translations</a>
                                     </el-dropdown-item>
 
