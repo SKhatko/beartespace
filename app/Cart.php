@@ -40,7 +40,7 @@ class Cart {
 	}
 
 	public function toggle($artwork, $id) {
-		if ( array_key_exists( $id, $this->items ) ) {
+		if ( $this->items && array_key_exists( $id, $this->items ) ) {
 			$this->remove($artwork, $id);
 		} else {
 			$this->add($artwork, $id);
