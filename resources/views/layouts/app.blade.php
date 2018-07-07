@@ -100,7 +100,7 @@
                                     </el-dropdown-item>
 
                                     <el-dropdown-item>
-                                        <i class="icon-users"></i>
+                                        <i class="icon-user"></i>
                                        <a href="{{ route('admin.users') }}">Users</a>
                                     </el-dropdown-item>
 

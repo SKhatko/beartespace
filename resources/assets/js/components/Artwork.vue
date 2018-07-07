@@ -58,6 +58,30 @@
                     </el-form-item>
                 </el-form>
 
+                <el-form-item >
+                    <el-checkbox v-model="artwork.optional_size" v-if="artwork.category === 'painting'">Has frame</el-checkbox>
+                    <el-checkbox v-model="artwork.optional_size" v-if="artwork.category === 'sculpture'">Has base</el-checkbox>
+
+                </el-form-item>
+
+                <el-form :inline="true" label-position="top" v-if="artwork.optional_size">
+                    <el-form-item label="Total Width">
+                        <el-input-number v-model="artwork.b_width"></el-input-number>
+                    </el-form-item>
+
+                    <el-form-item label="Total Height">
+                        <el-input-number v-model="artwork.b_height"></el-input-number>
+                    </el-form-item>
+
+                    <el-form-item label="Total Depth">
+                        <el-input-number v-model="artwork.b_depth"></el-input-number>
+                    </el-form-item>
+
+                    <el-form-item label="Total Weight">
+                        <el-input-number v-model="artwork.b_weight"></el-input-number>
+                    </el-form-item>
+                </el-form>
+
                 <el-row :gutter="20">
                     <el-col :sm="6">
                         <el-form-item label="Medium">
@@ -280,7 +304,6 @@
                 this.images = this.images_;
             }
 
-            console.log(this.artwork.medium);
         },
 
         methods: {

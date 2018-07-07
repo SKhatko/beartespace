@@ -24,16 +24,16 @@ class CreateUsersTable extends Migration {
 
 			$table->date('dob')->nullable();
 			$table->integer( 'country_id' )->nullable();
-			$table->string( 'mobile' )->nullable();
 			$table->enum( 'gender', [ 'male', 'female', 'third_gender' ] )->nullable();
 			$table->string( 'address' )->nullable();
+			$table->string( 'address_2' )->nullable();
 			$table->string( 'website' )->nullable();
 			$table->string( 'phone' )->nullable();
 			$table->string( 'education' )->nullable();
 			$table->string( 'education_title' )->nullable();
 			$table->text('inspiration')->nullable();
 			$table->text('exhibition')->nullable();
-			$table->text('technique')->nullable();
+			$table->json('technique')->nullable();
 
 			$table->enum( 'user_type', [ 'user', 'admin', 'artist', 'gallery' ] )->nullable();
 			//active_status 0:pending, 1:active, 2:block;

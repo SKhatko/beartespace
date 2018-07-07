@@ -25,6 +25,10 @@ class User extends Authenticatable {
 		'api_token'
 	];
 
+	protected $casts = [
+		'technique'    => 'array',
+	];
+
 	public function country() {
 		return $this->belongsTo( Country::class );
 	}

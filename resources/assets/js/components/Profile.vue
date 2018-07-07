@@ -100,12 +100,6 @@
                     </el-form-item>
                 </el-col>
 
-                <el-col :sm="8">
-                    <el-form-item label="Mobile">
-                        <el-input v-model="user.mobile"></el-input>
-                    </el-form-item>
-                </el-col>
-
                 <el-col>
                     <el-form-item label="Address">
                         <el-input
@@ -113,6 +107,17 @@
                                 :rows="2"
                                 placeholder="Address"
                                 v-model="user.address">
+                        </el-input>
+                    </el-form-item>
+                </el-col>
+
+                <el-col>
+                    <el-form-item label="Address 2">
+                        <el-input
+                                type="textarea"
+                                :rows="2"
+                                placeholder="Address 2"
+                                v-model="user.address_2">
                         </el-input>
                     </el-form-item>
                 </el-col>
@@ -130,7 +135,10 @@
 
                 <el-col>
                     <el-form-item label="Technique">
-                        <el-input v-model="user.technique"></el-input>
+                        <el-select value="" v-model="user.technique" multiple filterable allow-create default-first-option  placeholder="What do you work with?">
+                            <el-option v-for="medium in options('medium')" :key="medium.value" :label="medium.label"
+                                       :value="medium.value"></el-option>
+                        </el-select>
                     </el-form-item>
                 </el-col>
 
@@ -178,7 +186,9 @@
 
         data() {
             return {
-                user: [],
+                user: {
+                    technique: [],
+                },
                 countries: [],
 
                 userPhoto: [],
@@ -200,6 +210,10 @@
                 this.user.photo = [this.user.photo];
             } else {
                 this.user.photo = [];
+            }
+
+            if( !this.user_.technique) {
+                this.user.technique = [];
             }
         },
 

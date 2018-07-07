@@ -28519,6 +28519,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -28577,8 +28601,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         if (this.images_) {
             this.images = this.images_;
         }
-
-        console.log(this.artwork.medium);
     },
 
 
@@ -29157,6 +29179,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -29168,7 +29198,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     data: function data() {
         return {
-            user: [],
+            user: {
+                technique: []
+            },
             countries: [],
 
             userPhoto: [],
@@ -29189,6 +29221,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.user.photo = [this.user.photo];
         } else {
             this.user.photo = [];
+        }
+
+        if (!this.user_.technique) {
+            this.user.technique = [];
         }
     },
 
@@ -90022,22 +90058,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.phone"
     }
-  })], 1)], 1), _vm._v(" "), _c('el-col', {
-    attrs: {
-      "sm": 8
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Mobile"
-    }
-  }, [_c('el-input', {
-    model: {
-      value: (_vm.user.mobile),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "mobile", $$v)
-      },
-      expression: "user.mobile"
-    }
   })], 1)], 1), _vm._v(" "), _c('el-col', [_c('el-form-item', {
     attrs: {
       "label": "Address"
@@ -90054,6 +90074,23 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.$set(_vm.user, "address", $$v)
       },
       expression: "user.address"
+    }
+  })], 1)], 1), _vm._v(" "), _c('el-col', [_c('el-form-item', {
+    attrs: {
+      "label": "Address 2"
+    }
+  }, [_c('el-input', {
+    attrs: {
+      "type": "textarea",
+      "rows": 2,
+      "placeholder": "Address 2"
+    },
+    model: {
+      value: (_vm.user.address_2),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "address_2", $$v)
+      },
+      expression: "user.address_2"
     }
   })], 1)], 1), _vm._v(" "), _c('el-col', {
     attrs: {
@@ -90091,7 +90128,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "label": "Technique"
     }
-  }, [_c('el-input', {
+  }, [_c('el-select', {
+    attrs: {
+      "value": "",
+      "multiple": "",
+      "filterable": "",
+      "allow-create": "",
+      "default-first-option": "",
+      "placeholder": "What do you work with?"
+    },
     model: {
       value: (_vm.user.technique),
       callback: function($$v) {
@@ -90099,7 +90144,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.technique"
     }
-  })], 1)], 1), _vm._v(" "), _c('el-col', {
+  }, _vm._l((_vm.options('medium')), function(medium) {
+    return _c('el-option', {
+      key: medium.value,
+      attrs: {
+        "label": medium.label,
+        "value": medium.value
+      }
+    })
+  }))], 1)], 1), _vm._v(" "), _c('el-col', {
     attrs: {
       "sm": 12
     }
@@ -90687,7 +90740,76 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "artwork.weight"
     }
-  })], 1)], 1), _vm._v(" "), _c('el-row', {
+  })], 1)], 1), _vm._v(" "), _c('el-form-item', [(_vm.artwork.category === 'painting') ? _c('el-checkbox', {
+    model: {
+      value: (_vm.artwork.optional_size),
+      callback: function($$v) {
+        _vm.$set(_vm.artwork, "optional_size", $$v)
+      },
+      expression: "artwork.optional_size"
+    }
+  }, [_vm._v("Has frame")]) : _vm._e(), _vm._v(" "), (_vm.artwork.category === 'sculpture') ? _c('el-checkbox', {
+    model: {
+      value: (_vm.artwork.optional_size),
+      callback: function($$v) {
+        _vm.$set(_vm.artwork, "optional_size", $$v)
+      },
+      expression: "artwork.optional_size"
+    }
+  }, [_vm._v("Has base")]) : _vm._e()], 1), _vm._v(" "), (_vm.artwork.optional_size) ? _c('el-form', {
+    attrs: {
+      "inline": true,
+      "label-position": "top"
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Total Width"
+    }
+  }, [_c('el-input-number', {
+    model: {
+      value: (_vm.artwork.b_width),
+      callback: function($$v) {
+        _vm.$set(_vm.artwork, "b_width", $$v)
+      },
+      expression: "artwork.b_width"
+    }
+  })], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "label": "Total Height"
+    }
+  }, [_c('el-input-number', {
+    model: {
+      value: (_vm.artwork.b_height),
+      callback: function($$v) {
+        _vm.$set(_vm.artwork, "b_height", $$v)
+      },
+      expression: "artwork.b_height"
+    }
+  })], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "label": "Total Depth"
+    }
+  }, [_c('el-input-number', {
+    model: {
+      value: (_vm.artwork.b_depth),
+      callback: function($$v) {
+        _vm.$set(_vm.artwork, "b_depth", $$v)
+      },
+      expression: "artwork.b_depth"
+    }
+  })], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "label": "Total Weight"
+    }
+  }, [_c('el-input-number', {
+    model: {
+      value: (_vm.artwork.b_weight),
+      callback: function($$v) {
+        _vm.$set(_vm.artwork, "b_weight", $$v)
+      },
+      expression: "artwork.b_weight"
+    }
+  })], 1)], 1) : _vm._e(), _vm._v(" "), _c('el-row', {
     attrs: {
       "gutter": 20
     }
