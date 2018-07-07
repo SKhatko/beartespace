@@ -69,6 +69,8 @@ class HomeController extends Controller {
 		$oldCart = session( 'cart' );
 		$cart    = new Cart( $oldCart );
 
+		logger($cart->items);
+
 		return view( 'checkout.shopping-cart', with( [
 			'artworks'   => $cart->items,
 			'totalPrice' => $cart->totalPrice

@@ -28543,6 +28543,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -28626,8 +28649,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
             });
         },
-        handleExceed: function handleExceed(a, b, c) {
-            console.log(a, b, c);
+        mainPhotoExceed: function mainPhotoExceed() {
+            this.$message({
+                message: 'Maximum quantity of images is 1',
+                type: 'warning'
+            });
+        },
+        handleExceed: function handleExceed() {
+            this.$message({
+                message: 'Maximum quantity of images is 3',
+                type: 'warning'
+            });
         },
         handleRemove: function handleRemove(file, fileList) {
             var _this2 = this;
@@ -90748,7 +90780,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "artwork.optional_size"
     }
-  }, [_vm._v("Has frame")]) : _vm._e(), _vm._v(" "), (_vm.artwork.category === 'sculpture') ? _c('el-checkbox', {
+  }, [_vm._v("Has frame\n                ")]) : _vm._e(), _vm._v(" "), (_vm.artwork.category === 'sculpture') ? _c('el-checkbox', {
     model: {
       value: (_vm.artwork.optional_size),
       callback: function($$v) {
@@ -90756,7 +90788,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "artwork.optional_size"
     }
-  }, [_vm._v("Has base")]) : _vm._e()], 1), _vm._v(" "), (_vm.artwork.optional_size) ? _c('el-form', {
+  }, [_vm._v("Has base\n                ")]) : _vm._e()], 1), _vm._v(" "), (_vm.artwork.optional_size) ? _c('el-form', {
     attrs: {
       "inline": true,
       "label-position": "top"
@@ -91047,9 +91079,29 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.saveArtwork()
       }
     }
-  }, [_vm._v("\n                Next\n            ")])] : _vm._e(), _vm._v(" "), (_vm.activeStep === 1) ? [_vm._v("\n\n            " + _vm._s(_vm.images) + "\n\n            "), _c('label', {
+  }, [_vm._v("\n                Next\n            ")])] : _vm._e(), _vm._v(" "), (_vm.activeStep === 1) ? [_c('label', {
     staticClass: "el-form-item__label"
-  }, [_vm._v("Upload up to 3 Photos of Your Artwork ( jpg/png files accepted\n                )")]), _vm._v(" "), _c('el-form-item', [_c('el-upload', {
+  }, [_vm._v("Upload main photo of artwork ( jpg/png files accepted)")]), _vm._v(" "), _c('el-form-item', [_c('el-upload', {
+    attrs: {
+      "action": '/api/upload/artwork-image/' + _vm.artwork.id,
+      "file-list": _vm.images,
+      "on-preview": _vm.handlePictureCardPreview,
+      "on-remove": _vm.handleRemove,
+      "on-success": _vm.handleSuccess,
+      "limit": 1,
+      "on-exceed": _vm.mainPhotoExceed,
+      "accept": ".jpg, .jpeg, .png"
+    }
+  }, [_c('el-button', {
+    attrs: {
+      "type": "info",
+      "plain": ""
+    }
+  }, [_c('i', {
+    staticClass: "el-icon-upload"
+  }), _vm._v("\n                        Upload images\n                    ")])], 1)], 1), _vm._v(" "), _c('label', {
+    staticClass: "el-form-item__label"
+  }, [_vm._v("Upload images of back side, signature, or artwork from side. Up to 3\n                Photos of Your Artwork allowed( jpg/png files accepted)")]), _vm._v(" "), _c('el-form-item', [_c('el-upload', {
     attrs: {
       "action": '/api/upload/artwork-image/' + _vm.artwork.id,
       "file-list": _vm.images,
