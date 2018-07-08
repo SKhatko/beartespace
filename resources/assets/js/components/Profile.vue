@@ -53,7 +53,6 @@
                     </el-form-item>
                 </el-col>
 
-
                 <el-col :sm="8">
                     <el-form-item label="Country">
                         <el-select filterable value="user.country_id" v-model="user.country_id"
@@ -67,6 +66,14 @@
                         </el-select>
                     </el-form-item>
                 </el-col>
+
+
+                <el-col :sm="12">
+                    <el-form-item label="City">
+                        <el-input v-model="user.city"></el-input>
+                    </el-form-item>
+                </el-col>
+
                 <el-col :sm="8">
                     <el-form-item label="Gender">
                         <el-select value="user.gender" v-model="user.gender">

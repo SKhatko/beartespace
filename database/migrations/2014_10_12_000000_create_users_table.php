@@ -24,6 +24,7 @@ class CreateUsersTable extends Migration {
 
 			$table->date('dob')->nullable();
 			$table->integer( 'country_id' )->nullable();
+			$table->string( 'city' )->nullable();
 			$table->enum( 'gender', [ 'male', 'female', 'third_gender' ] )->nullable();
 			$table->string( 'address' )->nullable();
 			$table->string( 'address_2' )->nullable();

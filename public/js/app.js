@@ -29219,6 +29219,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -90004,6 +90011,22 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     })
   }))], 1)], 1), _vm._v(" "), _c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "City"
+    }
+  }, [_c('el-input', {
+    model: {
+      value: (_vm.user.city),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "city", $$v)
+      },
+      expression: "user.city"
+    }
+  })], 1)], 1), _vm._v(" "), _c('el-col', {
     attrs: {
       "sm": 8
     }
