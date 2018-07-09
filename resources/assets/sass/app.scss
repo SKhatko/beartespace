@@ -99,6 +99,24 @@ body, html {
     width: 100%;
   }
 
+  &-artists {
+    display: flex;
+    padding: 15px;
+
+    aside {
+      min-width: 300px;
+    }
+
+    main {
+      flex: 1;
+    }
+
+    .artists {
+      column-count: 2;
+      column-gap: 15px;
+    }
+  }
+
   &-artworks {
     display: flex;
     padding: 15px;

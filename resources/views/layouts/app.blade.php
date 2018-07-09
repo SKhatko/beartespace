@@ -167,8 +167,7 @@
                     <div class="app-header-links">
 
                         <a href="{{ route('artists') }}">@lang('portal.artists')</a>
-                        <a href="{{ route('paintings') }}">@lang('portal.paintings')</a>
-                        <a href="{{ route('sculptures') }}">@lang('portal.sculptures')</a>
+                        <a href="{{ route('artworks') }}">@lang('portal.artworks')</a>
                         <a href="{{ route('auctions') }}">@lang('portal.auction')</a>
 
                         <el-dropdown trigger="hover">
@@ -205,15 +204,6 @@
                     <div class="app-header-search">
                         <form action="{{ route('search') }}" method="POST">
                             {{ csrf_field() }}
-
-                            {{--<el-input placeholder="Please input" name="q" class="input-with-select">--}}
-                            {{--<el-select value="" slot="prepend" placeholder="Select" name="field">--}}
-                            {{--<el-option label="Artist" value="artist"></el-option>--}}
-                            {{--<el-option label="Painting" value="painting"></el-option>--}}
-                            {{--<el-option label="Sculpture" value="sculpture"></el-option>--}}
-                            {{--</el-select>--}}
-                            {{--<el-button slot="append" icon="el-icon-search"></el-button>--}}
-                            {{--</el-input>--}}
 
                             <el-input required
                                     placeholder="Search" name="query"
@@ -279,9 +269,8 @@
                                 <div slot="header" class="clearfix">
                                     <span>For Clients</span>
                                 </div>
-                                <a href="{{ route('rules')}}">@lang('portal.artists')</a>
-                                <a href="{{ route('rules')}}">@lang('portal.paintings')</a>
-                                <a href="{{ route('rules')}}">@lang('portal.sculptures')</a>
+                                <a href="{{ route('artists')}}">@lang('portal.artists')</a>
+                                <a href="{{ route('artworks')}}">@lang('portal.artworks')</a>
                             </el-card>
                         </el-col>
                         <el-col :span="4">

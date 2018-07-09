@@ -48,7 +48,7 @@ Vue.prototype.options = (key) => {
 Vue.use(ElementUI, {locale});
 
 
-Vue.component('example', require('./components/Example.vue'));
+Vue.component('register-form', require('./components/RegisterForm.vue'));
 Vue.component('translations', require('./components/Translations.vue'));
 Vue.component('languages', require('./components/Languages.vue'));
 Vue.component('users', require('./components/Users.vue'));

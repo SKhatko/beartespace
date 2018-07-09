@@ -45,13 +45,15 @@ class HomeController extends Controller {
 		return view( 'artist.show', compact( 'artist' ) );
 	}
 
-	public function paintings() {
-		$paintings = Artwork::painting()->active()->limit( 20 )->get();
+	public function artworks() {
 
-		return view( 'painting.index', compact( 'paintings' ) );
+		$artworks = Artwork::active()->limit( 20 )->get();
+
+		return view( 'artwork.index', compact('artworks'));
 	}
 
 	public function sculptures() {
+
 		$sculptures = Artwork::sculpture()->active()->limit( 20 )->get();
 
 		return view( 'sculpture.index', compact( 'sculptures' ) );
@@ -61,7 +63,7 @@ class HomeController extends Controller {
 
 		$artwork = Artwork::find( $id );
 
-		return view( $artwork->category . '.show', compact( 'artwork' ) );
+		return view( 'artwork.show', compact( 'artwork' ) );
 	}
 
 	public function shoppingCart() {

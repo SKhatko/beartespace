@@ -17,8 +17,8 @@ Route::group(['middleware' => 'web'], function () {
 
 	Route::get( '/','HomeController@index' )->name('home');
 	Route::get( '/auction','HomeController@auctions' )->name('auctions');
-	Route::get( '/painting','HomeController@paintings' )->name('paintings');
-	Route::get( '/sculpture', 'HomeController@sculptures' )->name('sculptures');
+	Route::get( '/auction/{id}','HomeController@auctions' )->name('auction');
+	Route::get( '/artwork','HomeController@artworks' )->name('artworks');
 	Route::get( '/artwork/{id}', 'HomeController@artwork' )->name('artwork');
 	Route::get( '/artist','HomeController@artists' )->name('artists');
 	Route::get( '/artist/{id}','HomeController@artist' )->name('artist');

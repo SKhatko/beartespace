@@ -16,6 +16,7 @@ class TranslationsTableSeeder extends Seeder {
 				[ 'Register', '' ],
 				[ 'Artists', '' ],
 				[ 'Paintings', '' ],
+				[ 'Artworks', '' ],
 				[ 'Sculptures', '' ],
 				[ 'Auction', '' ],
 				[ 'About Us', '' ],
