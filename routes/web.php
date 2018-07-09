@@ -231,10 +231,6 @@ Route::group(['middleware' => 'web'], function () {
 
 
 
-//Route::get('/verifyemail/{token}', 'Auth\RegisterController@verify');
-
-
-
 
 
 Route::get( 'page/{slug}', [ 'as' => 'single_page', 'uses' => 'PostController@showPage' ] );

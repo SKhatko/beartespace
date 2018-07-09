@@ -5,9 +5,12 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable {
-	use Notifiable, HasApiTokens;
+	use Notifiable, HasApiTokens, SoftDeletes;
+
+	protected $dates = ['deleted_at'];
 
 	/**
 	 * The attributes that are mass assignable.
@@ -23,7 +26,7 @@ class User extends Authenticatable {
 	protected $hidden = [
 		'password',
 		'remember_token',
-		'api_token'
+		'activation_token'
 	];
 
 	protected $casts = [

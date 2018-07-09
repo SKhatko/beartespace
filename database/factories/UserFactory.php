@@ -23,6 +23,6 @@ $factory->define( App\User::class, function ( Faker $faker ) {
 		'exhibition'      => $faker->paragraph,
 		'technique'       => $faker->words( random_int( 0, 20 ) ),
 		'user_type'       => $faker->randomElement( [ 'user', 'admin', 'artist', 'gallery' ] ),
-		'active_status'   => $faker->randomElement( [ 0, 1, 2 ] ),
+		'active'   => $faker->randomElement( [ 0, 1, 2 ] ),
 	];
 } );

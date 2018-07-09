@@ -18,7 +18,6 @@ class UsersTableSeeder extends Seeder {
 			'password'   => bcrypt( '123456' ),
 			'gender'     => 'male',
 			'user_type'  => 'admin',
-			'api_token'  => str_random( 60 )
 		], [
 			'first_name' => 'Oleksandra',
 			'last_name'  => 'Lyhoshvaj',
@@ -27,7 +26,6 @@ class UsersTableSeeder extends Seeder {
 			'password'   => bcrypt( '123456' ),
 			'gender'     => 'female',
 			'user_type'  => 'admin',
-			'api_token'  => str_random( 60 )
 		], [
 			'first_name' => 'User',
 			'last_name'  => 'Family',
@@ -36,7 +34,6 @@ class UsersTableSeeder extends Seeder {
 			'password'   => bcrypt( '123456' ),
 			'gender'     => 'female',
 			'user_type'  => 'user',
-			'api_token'  => str_random( 60 )
 		], [
 			'first_name' => 'Artist',
 			'last_name'  => 'Family',
@@ -45,7 +42,6 @@ class UsersTableSeeder extends Seeder {
 			'password'   => bcrypt( '123456' ),
 			'gender'     => 'male',
 			'user_type'  => 'artist',
-			'api_token'  => str_random( 60 )
 		] ]);
 	}
 }

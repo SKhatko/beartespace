@@ -34,7 +34,6 @@ class RegisterController extends Controller {
 	 */
 	public function register( Request $request ) {
 
-		return $request->all();
 		$this->validator( $request->all() )->validate();
 
 		event( new Registered( $user = $this->create( $request->all() ) ) );
@@ -46,6 +45,9 @@ class RegisterController extends Controller {
 		return $this->registered($request, $user)
 			?: redirect($this->redirectPath());
 //		return redirect( $this->redirectPath() );
+
+		//Route::get('/verifyemail/{token}', 'Auth\RegisterController@verify');
+
 	}
 
 	public function verify( $token ) {
@@ -115,7 +117,6 @@ class RegisterController extends Controller {
 			'first_name'    => $data['first_name'],
 			'last_name'     => $data['last_name'],
 			'email'         => $data['email'],
-			'api_token'     => str_random( 60 ),
 			'email_token'   => base64_encode( $data['email'] ),
 			'password'      => bcrypt( $data['password'] ),
 			'user_type'     => 'user',

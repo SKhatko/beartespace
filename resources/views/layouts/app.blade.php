@@ -61,7 +61,7 @@
                 <div class="app-header-auth">
                     @if (Auth::guest())
                         <a href="{{ route('login') }}">@lang('portal.login')</a>&nbsp; | &nbsp; <a
-                                href="{{ route('register') }}">@lang('portal.register')</a>
+                                href="{{ route('register') }}">@lang('portal.signup')</a>
                     @else
                         <el-dropdown trigger="hover">
                       <span class="el-dropdown-link">

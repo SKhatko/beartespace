@@ -4,7 +4,6 @@
 
     <register-form></register-form>
 
-
 @endsection
 
 @section('scripts')
