@@ -11,36 +11,40 @@
 |
 */
 
-Route::group(['middleware' => 'web'], function () {
+Route::group( [ 'middleware' => 'web' ], function () {
 
 	Auth::routes();
 
-	Route::get( '/','HomeController@index' )->name('home');
-	Route::get( '/auction','HomeController@auctions' )->name('auctions');
-	Route::get( '/auction/{id}','HomeController@auctions' )->name('auction');
-	Route::get( '/artwork','HomeController@artworks' )->name('artworks');
-	Route::get( '/artwork/{id}', 'HomeController@artwork' )->name('artwork');
-	Route::get( '/artist','HomeController@artists' )->name('artists');
-	Route::get( '/artist/{id}','HomeController@artist' )->name('artist');
+	Route::get( 'register/activate/{token}', 'Auth\RegisterController@registerActivate' )->name( 'register.activate' );
+	Route::get( 'register/verify', 'Auth\RegisterController@verify' )->name( 'register.verify' );
+
+
+	Route::get( '/', 'HomeController@index' )->name( 'home' );
+	Route::get( '/auction', 'HomeController@auctions' )->name( 'auctions' );
+	Route::get( '/auction/{id}', 'HomeController@auctions' )->name( 'auction' );
+	Route::get( '/artwork', 'HomeController@artworks' )->name( 'artworks' );
+	Route::get( '/artwork/{id}', 'HomeController@artwork' )->name( 'artwork' );
+	Route::get( '/artist', 'HomeController@artists' )->name( 'artists' );
+	Route::get( '/artist/{id}', 'HomeController@artist' )->name( 'artist' );
 
 	// Contact us page
-	Route::get( 'contact-form', 'HomeController@contactForm')->name('contact-form');
-	Route::post( 'contact-form', 'HomeController@contactFormPost')->name('contact-form');
+	Route::get( 'contact-form', 'HomeController@contactForm' )->name( 'contact-form' );
+	Route::post( 'contact-form', 'HomeController@contactFormPost' )->name( 'contact-form' );
 
 	// Search
-	Route::post( 'search/{query?}', 'HomeController@search')->name('search');
+	Route::post( 'search/{query?}', 'HomeController@search' )->name( 'search' );
 
 	// Leads
-	Route::post('add-lead', 'LeadController@addLead')->name('add-lead');
+	Route::post( 'add-lead', 'LeadController@addLead' )->name( 'add-lead' );
 
 	Route::get( '/language/{lang}', [ 'as' => 'switch_language', 'uses' => 'LanguageController@switchLang' ] );
 
 	// Shopping
-	Route::get('shopping-cart', 'HomeController@shoppingCart')->name('shopping-cart');
-	Route::get('add-to-cart/{id}', 'ArtworkController@addToCart')->name('add-to-cart');
-	Route::get('toggle-to-cart/{id}', 'ArtworkController@toggleToCart')->name('toggle-to-cart');
-	Route::get('remove-from-cart/{id}', 'ArtworkController@removeFromCart')->name('remove-from-cart');
-	Route::get( 'checkout', 'HomeController@checkout' )->name('checkout');
+	Route::get( 'shopping-cart', 'HomeController@shoppingCart' )->name( 'shopping-cart' );
+	Route::get( 'add-to-cart/{id}', 'ArtworkController@addToCart' )->name( 'add-to-cart' );
+	Route::get( 'toggle-to-cart/{id}', 'ArtworkController@toggleToCart' )->name( 'toggle-to-cart' );
+	Route::get( 'remove-from-cart/{id}', 'ArtworkController@removeFromCart' )->name( 'remove-from-cart' );
+	Route::get( 'checkout', 'HomeController@checkout' )->name( 'checkout' );
 
 
 // Pages
@@ -48,9 +52,8 @@ Route::group(['middleware' => 'web'], function () {
 	Route::get( 'rules', 'HomeController@rules' )->name( 'rules' );
 	Route::get( 'shipping', 'HomeController@shipping' )->name( 'shipping' );
 
-
 //Dashboard Route
-	Route::group( [ 'prefix' => 'dashboard', 'middleware' => 'dashboard' ], function () {
+	Route::group( [ 'prefix' => 'dashboard', 'middleware' => [ 'dashboard', 'email-verified' ] ], function () {
 
 		// All users access
 		Route::get( '/', 'DashboardController@dashboard' )->name( 'dashboard' );
@@ -80,13 +83,15 @@ Route::group(['middleware' => 'web'], function () {
 			Route::get( 'users', 'UserController@index' )->name( 'admin.users' );
 			Route::get( 'translations', 'TranslationController@index' )->name( 'admin.translations' );
 			Route::get( 'languages', 'LanguageController@index' )->name( 'admin.languages' );
-			Route::get( 'pages','PageController@index')->name('admin.pages');
-			Route::get( 'messages', 'MessageController@messages')->name('admin.messages');
+			Route::get( 'pages', 'PageController@index' )->name( 'admin.pages' );
+			Route::get( 'messages', 'MessageController@messages' )->name( 'admin.messages' );
 
 
 			Route::group( [ 'prefix' => 'settings' ], function () {
 
-				Route::get( 'theme-settings', [ 'as' => 'theme_settings', 'uses' => 'SettingsController@ThemeSettings' ] );
+				Route::get( 'theme-settings', [ 'as'   => 'theme_settings',
+				                                'uses' => 'SettingsController@ThemeSettings'
+				] );
 				Route::get( 'modern-theme-settings', [
 					'as'   => 'modern_theme_settings',
 					'uses' => 'SettingsController@modernThemeSettings'
@@ -96,7 +101,9 @@ Route::group(['middleware' => 'web'], function () {
 					'uses' => 'SettingsController@SocialUrlSettings'
 				] );
 				Route::get( 'general', [ 'as' => 'general_settings', 'uses' => 'SettingsController@GeneralSettings' ] );
-				Route::get( 'payments', [ 'as' => 'payment_settings', 'uses' => 'SettingsController@PaymentSettings' ] );
+				Route::get( 'payments', [ 'as'   => 'payment_settings',
+				                          'uses' => 'SettingsController@PaymentSettings'
+				] );
 				Route::get( 'ad', [ 'as' => 'ad_settings', 'uses' => 'SettingsController@AdSettings' ] );
 
 				Route::get( 'storage', [
@@ -152,12 +159,16 @@ Route::group(['middleware' => 'web'], function () {
 			Route::get( 'approved', [ 'as' => 'approved_ads', 'uses' => 'ArtworkController@index' ] );
 			Route::get( 'pending', [ 'as' => 'admin_pending_ads', 'uses' => 'ArtworkController@adminPendingAds' ] );
 			Route::get( 'blocked', [ 'as' => 'admin_blocked_ads', 'uses' => 'ArtworkController@adminBlockedAds' ] );
-			Route::post( 'status-change', [ 'as' => 'ads_status_change', 'uses' => 'ArtworkController@adStatusChange' ] );
+			Route::post( 'status-change', [ 'as'   => 'ads_status_change',
+			                                'uses' => 'ArtworkController@adStatusChange'
+			] );
 
 			Route::get( 'ad-reports', [ 'as' => 'ad_reports', 'uses' => 'ArtworkController@reports' ] );
 			Route::get( 'users-data', [ 'as' => 'get_users_data', 'uses' => 'UserController@usersData' ] );
 			Route::get( 'users-info/{id}', [ 'as' => 'user_info', 'uses' => 'UserController@userInfo' ] );
-			Route::post( 'change-user-status', [ 'as' => 'change_user_status', 'uses' => 'UserController@changeStatus' ] );
+			Route::post( 'change-user-status', [ 'as'   => 'change_user_status',
+			                                     'uses' => 'UserController@changeStatus'
+			] );
 			Route::post( 'change-user-feature', [
 				'as'   => 'change_user_feature',
 				'uses' => 'UserController@changeFeature'
@@ -211,7 +222,9 @@ Route::group(['middleware' => 'web'], function () {
 				Route::get( 'pending-lists', [ 'as' => 'pending_ads', 'uses' => 'ArtworkController@pendingAds' ] );
 				Route::get( 'archive-lists', [ 'as' => 'favourite_ad', 'uses' => 'ArtworkController@create' ] );
 
-				Route::get( 'reports-by/{slug}', [ 'as' => 'reports_by_ads', 'uses' => 'ArtworkController@reportsByAds' ] );
+				Route::get( 'reports-by/{slug}', [ 'as'   => 'reports_by_ads',
+				                                   'uses' => 'ArtworkController@reportsByAds'
+				] );
 
 				//bids
 				Route::get( 'bids/{ad_id}', [ 'as' => 'auction_bids', 'uses' => 'BidController@index' ] );
@@ -222,22 +235,12 @@ Route::group(['middleware' => 'web'], function () {
 
 	} );
 
-});
-
-
-
-
-
-
-
-
+} );
 
 
 Route::get( 'page/{slug}', [ 'as' => 'single_page', 'uses' => 'PostController@showPage' ] );
 
 Route::get( 'category/{cat_id?}', [ 'uses' => 'CategoriesController@show' ] )->name( 'category' );
-
-
 
 
 Route::get( 'auction-by-user/{id?}', [ 'as' => 'ads_by_user', 'uses' => 'ArtworkController@adsByUser' ] );

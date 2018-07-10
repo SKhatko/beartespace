@@ -12,6 +12,7 @@ use Yajra\Datatables\Datatables;
 class HomeController extends Controller {
 
 	public function index() {
+
 		// Home page
 
 		return view( 'index' );

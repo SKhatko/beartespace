@@ -27,7 +27,7 @@
                     <el-button type="primary" native-type="submit">Send Restore Link</el-button>
 
                     <el-button type="text">
-                        <a href="{{ route('signup') }}">
+                        <a href="{{ route('register') }}">
                             Create New User
                         </a>
                     </el-button>

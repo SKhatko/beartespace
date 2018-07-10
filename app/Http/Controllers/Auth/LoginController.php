@@ -27,6 +27,10 @@ class LoginController extends Controller
     {
         $this->validateLogin($request);
 
+	    $request->validate( [
+		    'remember' => 'boolean'
+	    ] );
+
         if (get_option('enable_recaptcha_login') == 1){
             $this->validate($request, array('g-recaptcha-response' => 'required'));
 
@@ -45,9 +49,7 @@ class LoginController extends Controller
         $user = User::whereEmail($request->email)->first();
 
         if ($user){
-//            if ($user->active_status != '1'){
-//                return redirect()->back()->with('error', trans('app.user_account_wrong'));
-//            }
+//
         }
 
         // If the class is using the ThrottlesLogins trait, we can automatically throttle

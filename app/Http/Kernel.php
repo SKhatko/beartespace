@@ -35,7 +35,7 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
 
-            //Specific Middleware
+	        //Specific Middleware
             \App\Http\Middleware\SetApplicationLanguage::class,
         ],
 
@@ -60,6 +60,7 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'dashboard' => \App\Http\Middleware\DashboardArea::class,
+        'email-verified' => \App\Http\Middleware\EmailVerified::class,
         'admin' => \App\Http\Middleware\OnlyAdminAccess::class,
         'artist' => \App\Http\Middleware\OnlyArtistAccess::class,
     ];

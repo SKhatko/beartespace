@@ -19,6 +19,9 @@
 
     <script>
         window.trans = {!! $translations !!};
+
+        window.errors = {!! json_encode($errors->all()) !!}
+
     </script>
 
 </head>

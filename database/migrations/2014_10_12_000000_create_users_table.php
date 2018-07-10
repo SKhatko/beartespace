@@ -19,7 +19,6 @@ class CreateUsersTable extends Migration {
 			$table->string( 'last_name' )->nullable();
 			$table->string( 'user_name' )->nullable();
 			$table->string( 'email' )->unique()->nullable();
-			$table->string( 'email_token' )->nullable();
 			$table->string( 'password' )->nullable();
 
 			$table->date('dob')->nullable();
@@ -39,7 +38,7 @@ class CreateUsersTable extends Migration {
 			$table->enum( 'user_type', [ 'user', 'admin', 'artist', 'gallery' ] )->nullable();
 			$table->string('activation_token')->nullable();
 			//active_status 0:pending, 1:active, 2:block;
-			$table->enum( 'active', [ 0, 1, 2 ] )->nullable();
+			$table->enum( 'active', [ 0, 1, 2 ] )->default(0)->nullable;
 			// email_verified 0:unverified, 1:verified
 			$table->boolean( 'email_verified' )->nullable();
 			//is_online => 0:offline, 1:online;

@@ -3,9 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Support\Facades\Auth;
 
-class DashboardArea {
+class EmailVerified {
 	/**
 	 * Handle an incoming request.
 	 *
@@ -16,8 +15,8 @@ class DashboardArea {
 	 */
 	public function handle( $request, Closure $next ) {
 
-		if ( ! Auth::check() ) {
-			return redirect()->guest( route( 'login' ) )->with( 'error', trans( 'app.unauthorized_access' ) );
+		if ( !$request->user()->email_verified ) {
+			return redirect()->route('register.verify');
 		}
 
 		return $next( $request );

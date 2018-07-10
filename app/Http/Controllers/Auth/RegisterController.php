@@ -6,7 +6,6 @@ use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Jobs\SendVerificationEmail;
 
@@ -34,36 +33,61 @@ class RegisterController extends Controller {
 	 */
 	public function register( Request $request ) {
 
-		$this->validator( $request->all() )->validate();
+		$request->validate( [
+			'first_name' => 'required|string|max:255',
+			'last_name'  => 'required|string|max:255',
+			'email'      => 'required|string|email|max:255|unique:users',
+			'password'   => 'required|string|min:6',
+			'user_type'  => 'required|string'
+//			'g-recaptcha-response' => 'required|captcha'
+		] );
 
-		event( new Registered( $user = $this->create( $request->all() ) ) );
+		$user = User::create( [
+			'first_name'       => $request->input( 'first_name' ),
+			'last_name'        => $request->input( 'last_name' ),
+			'email'            => $request->input( 'email' ),
+			'password'         => bcrypt( $request->input( 'password' ) ),
+			'user_type'        => $request->input( 'user_type' ),
+			'activation_token' => str_random( 60 )
+//			'g-recaptcha-response' => 'required|captcha'
+		] );
 
-//		dispatch( new SendVerificationEmail( $user ) );
+		event( new Registered( $user ) );
 
-		$this->guard()->login($user);
+		//		$user->notify(new SignupActivate($user));
 
-		return $this->registered($request, $user)
-			?: redirect($this->redirectPath());
-//		return redirect( $this->redirectPath() );
+		//		dispatch( new SendVerificationEmail( $user ) );
 
-		//Route::get('/verifyemail/{token}', 'Auth\RegisterController@verify');
+		$this->guard()->login( $user );
+
+		return view( 'auth.confirm' );
+	}
+
+	public function verify() {
+
+		$user = auth()->user();
+
+
+		dispatch( new SendVerificationEmail( $user ) );
+
+		return view( 'auth.confirm' );
 
 	}
 
-	public function verify( $token ) {
-		$user = User::where( 'email_token', $token )->first();
+	public function registerActivate( $token ) {
 
-		if ( $user && ! $user->email_verified ) {
-			$user->email_verified = true;
-			$user->save();
+		$user = User::where( 'activation_token', $token )->first();
 
-			$this->guard()->login( $user );
-
-			return view( 'auth.confirm', [ 'user' => $user ] );
-		} else {
-			return redirect( $this->redirectTo );
+		if ( ! $user ) {
+			return response()->json( [
+				'message' => 'This activation token is invalid.'
+			], 404 );
 		}
 
+		$user->email_verified = true;
+		$user->save();
+
+		return $user;
 	}
 
 	public function confirm() {
@@ -85,42 +109,5 @@ class RegisterController extends Controller {
 	 */
 	public function __construct() {
 		$this->middleware( 'guest' );
-	}
-
-	/**
-	 * Get a validator for an incoming registration request.
-	 *
-	 * @param  array $data
-	 *
-	 * @return \Illuminate\Contracts\Validation\Validator
-	 */
-	protected function validator( array $data ) {
-		return Validator::make( $data, [
-			'first_name' => 'required|string|max:255',
-			'last_name'  => 'required|string|max:255',
-			'email'      => 'required|string|email|max:255|unique:users',
-			'password'   => 'required|string|min:6',
-//			'g-recaptcha-response' => 'required|captcha'
-
-		] );
-	}
-
-	/**
-	 * Create a new user instance after a valid registration.
-	 *
-	 * @param  array $data
-	 *
-	 * @return User
-	 */
-	protected function create( array $data ) {
-		return User::create( [
-			'first_name'    => $data['first_name'],
-			'last_name'     => $data['last_name'],
-			'email'         => $data['email'],
-			'email_token'   => base64_encode( $data['email'] ),
-			'password'      => bcrypt( $data['password'] ),
-			'user_type'     => 'user',
-			'active_status' => '1',
-		] );
 	}
 }

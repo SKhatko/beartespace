@@ -4,9 +4,13 @@
         <el-card class="box-card app-auth-register">
             <div slot="header" class="clearfix">New User Registration</div>
 
-            <el-form label-position="top" :rules="rules" :model="user" ref="user">
+            <el-form label-position="top" :rules="rules" :model="user" ref="user" method="post" action="/register"
+                     @submit.native.prevent="register">
 
-                {{ user }}
+                <errors></errors>
+
+                <input type="hidden" name="_token" :value="csrf">
+
 
                 <el-row :gutter="20">
                     <el-col>
@@ -58,7 +62,7 @@
                 </div>
 
                 <el-form-item>
-                    <el-button type="primary" @click="signup">Register</el-button>
+                    <el-button type="primary" native-type="submit">Register</el-button>
 
                     <el-button type="text">
                         <a href="/login">
@@ -77,9 +81,12 @@
 
 <script>
 
+    import Errors from './partials/Errors.vue'
+
     export default {
 
         props: {},
+        components: {Errors},
 
         data() {
             return {
@@ -92,55 +99,38 @@
                 },
                 rules: {
                     first_name: [
-                        {required: true, message: 'Required', trigger: 'change'},
+                        {required: true, message: 'Required'},
                     ],
                     last_name: [
-                        {required: true, message: 'Required', trigger: 'blur'}
+                        {required: true, message: 'Required'}
                     ],
                     email: [
-                        {type: 'email', required: true, message: 'Please enter email', trigger: 'blur'}
+                        {type: 'email', required: true, message: 'Please enter email'}
                     ],
                     password: [
-                        {required: true, message: 'Please enter password', trigger: 'change'}
+                        {required: true, message: 'Please enter password'}
                     ],
                     user_type: [
-                        {required: true, message: 'Please select customer type', trigger: 'blur'}
+                        {required: true, message: 'Please select customer type'}
                     ]
-                }
+                },
+                csrf: ''
+
             }
         },
 
         mounted() {
-
-
+            this.csrf = window.csrf;
         },
 
         methods: {
-            signup() {
+            register() {
 
                 console.log(this.user);
 
                 this.$refs['user'].validate((valid) => {
-                    console.log(valid);
                     if (valid) {
-
-                        axios.post('/api/register/', this.user)
-                            .then((response) => {
-                                if (response.data) {
-                                    console.log(response.data);
-                                    this.$message({
-                                        showClose: true,
-                                        message: response.data.message,
-                                        type: response.data.status
-                                    });
-
-                                    this.pages = response.data.data;
-                                    // window.location.reload();
-                                    // window.location.href = '/dashboard';
-                                } else {
-                                    console.log(response.data);
-                                }
-                            });
+                        this.$refs['user'].$el.submit()
                     }
                 });
             }
