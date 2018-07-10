@@ -29680,6 +29680,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             console.log(this.user);
 
             this.$refs['user'].validate(function (valid) {
+                console.log(valid);
                 if (valid) {
 
                     axios.post('/api/register/', _this.user).then(function (response) {
@@ -93712,6 +93713,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             console.log(this.user);
 
             this.$refs['user'].validate(function (valid) {
+                console.log(valid);
+
                 if (valid) {
                     axios.post('/api/login/', _this.user).then(function (response) {
                         if (response.data) {
@@ -93766,7 +93769,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "email",
       "placeholder": "Email",
       "name": "email",
-      "autofocus": ""
+      "autofocus": "",
+      "required": ""
     },
     model: {
       value: (_vm.user.email),
@@ -93784,7 +93788,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "password",
       "placeholder": "Password",
-      "name": "password"
+      "name": "password",
+      "required": ""
     },
     model: {
       value: (_vm.user.password),

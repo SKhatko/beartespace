@@ -121,6 +121,7 @@
                 console.log(this.user);
 
                 this.$refs['user'].validate((valid) => {
+                    console.log(valid);
                     if (valid) {
 
                         axios.post('/api/register/', this.user)

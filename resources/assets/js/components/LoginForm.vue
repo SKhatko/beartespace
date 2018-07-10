@@ -7,11 +7,11 @@
             <el-form :model="user" :rules="rules" ref="user" >
 
                 <el-form-item label="E-Mail Address" prop="email">
-                    <el-input type="email" placeholder="Email" v-model="user.email" name="email" autofocus></el-input>
+                    <el-input type="email" placeholder="Email" v-model="user.email" name="email" autofocus required></el-input>
                 </el-form-item>
 
                 <el-form-item label="Password" prop="password">
-                    <el-input type="password" placeholder="Password" v-model="user.password" name="password"></el-input>
+                    <el-input type="password" placeholder="Password" v-model="user.password" name="password" required></el-input>
                 </el-form-item>
 
                 <el-form-item>
@@ -64,6 +64,8 @@
                 console.log(this.user);
 
                 this.$refs['user'].validate((valid) => {
+                    console.log(valid);
+
                     if (valid) {
                         axios.post('/api/login/', this.user)
                             .then((response) => {
