@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use App\Jobs\SendVerificationEmail;
+use App\Notifications\SignupActivate;
 
 
 class RegisterController extends Controller {
@@ -54,45 +54,11 @@ class RegisterController extends Controller {
 
 		event( new Registered( $user ) );
 
-		//		$user->notify(new SignupActivate($user));
-
-		//		dispatch( new SendVerificationEmail( $user ) );
-
 		$this->guard()->login( $user );
 
-		return view( 'auth.confirm' );
-	}
+		$user->notify( new SignupActivate( $user ) );
 
-	public function verify() {
-
-		$user = auth()->user();
-
-
-		dispatch( new SendVerificationEmail( $user ) );
-
-		return view( 'auth.confirm' );
-
-	}
-
-	public function registerActivate( $token ) {
-
-		$user = User::where( 'activation_token', $token )->first();
-
-		if ( ! $user ) {
-			return response()->json( [
-				'message' => 'This activation token is invalid.'
-			], 404 );
-		}
-
-		$user->email_verified = true;
-		$user->save();
-
-		return $user;
-	}
-
-	public function confirm() {
-
-
+		return view( 'auth.confirm', compact('user'));
 	}
 
 	/**

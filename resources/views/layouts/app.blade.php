@@ -8,7 +8,7 @@
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@section('title') BeArteBid @show</title>
+    <title>@section('title') BeArteSpace @show</title>
 
     {{--<link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">--}}
 
@@ -38,7 +38,7 @@
                 @if(Request::segment(1) === 'dashboard')
                     <div class="app-header-logo">
                         <a class="app-header-logo__link" href="{{ route('home') }}">
-                            <img src="/images/logo.png" title="BeArteBid" alt="BeArteBid logo"/>
+                            <img src="/images/logo-200.png" alt="BeArteSpace logo"/>
                         </a>
                     </div>
                 @endif
@@ -163,7 +163,7 @@
 
                     <div class="app-header-logo">
                         <a class="app-header-logo__link" href="{{ route('home') }}">
-                            <img src="/images/logo.png" title="BeArteBid" alt="BeArteBid logo"/>
+                            <img src="/images/logo-300.png" title="BeArteSpae" alt="BeArteSpace logo"/>
                         </a>
                     </div>
 
@@ -178,7 +178,7 @@
                        @lang('portal.about-us')
                       </span>
                             <el-dropdown-menu slot="dropdown">
-                                <el-dropdown-item><a href="{{ route('rules')}}">About BeArteBid</a></el-dropdown-item>
+                                <el-dropdown-item><a href="{{ route('rules')}}">About BeArteSpace</a></el-dropdown-item>
                                 <el-dropdown-item><a href="{{ route('rules')}}">BeArte Gallery</a></el-dropdown-item>
                                 <el-dropdown-item><a href="{{ route('rules')}}">BeArte Design</a></el-dropdown-item>
                             </el-dropdown-menu>
@@ -262,7 +262,7 @@
                                 <div slot="header" class="clearfix">
                                     <span>@lang('portal.about-us')</span>
                                 </div>
-                                <a href="{{ route('rules')}}">About BeArteBid</a>
+                                <a href="{{ route('rules')}}">About BeArteSpace</a>
                                 <a href="{{ route('rules')}}">BeArte Gallery</a>
                                 <a href="{{ route('rules')}}">BeArte Design</a>
                             </el-card>

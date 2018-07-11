@@ -16,13 +16,8 @@ class RedirectIfAuthenticated {
 	 * @return mixed
 	 */
 	public function handle( $request, Closure $next, $guard = null ) {
-//		if ( Auth::guard( $guard )->check() ) {
-//			dd(Auth::guard( $guard )->check());
-//			return redirect( '/' );
-//		}
-
-		if ( ! Auth::check() ) {
-			return redirect()->guest( route( 'login' ) )->with( 'error', trans( 'app.unauthorized_access' ) );
+		if ( Auth::guard( $guard )->check() ) {
+			return redirect( '/' );
 		}
 
 		return $next( $request );

@@ -15,8 +15,9 @@ Route::group( [ 'middleware' => 'web' ], function () {
 
 	Auth::routes();
 
-	Route::get( 'register/activate/{token}', 'Auth\RegisterController@registerActivate' )->name( 'register.activate' );
-	Route::get( 'register/verify', 'Auth\RegisterController@verify' )->name( 'register.verify' );
+	Route::get( 'confirm-email/activate/{token}', 'Auth\ConfirmEmailController@confirm' )->name( 'confirm-email.activate' );
+	Route::get( 'confirm-email/verify', 'Auth\ConfirmEmailController@verify' )->name( 'confirm-email.verify' );
+	Route::get( 'confirm-email/resend', 'Auth\ConfirmEmailController@resend' )->name( 'confirm-email.resend' );
 
 
 	Route::get( '/', 'HomeController@index' )->name( 'home' );
@@ -53,7 +54,7 @@ Route::group( [ 'middleware' => 'web' ], function () {
 	Route::get( 'shipping', 'HomeController@shipping' )->name( 'shipping' );
 
 //Dashboard Route
-	Route::group( [ 'prefix' => 'dashboard', 'middleware' => [ 'dashboard', 'email-verified' ] ], function () {
+	Route::group( [ 'prefix' => 'dashboard', 'middleware' => [ 'dashboard', 'confirmed-email' ] ], function () {
 
 		// All users access
 		Route::get( '/', 'DashboardController@dashboard' )->name( 'dashboard' );

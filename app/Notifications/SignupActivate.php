@@ -42,9 +42,11 @@ class SignupActivate extends Notification
     {
 	    return (new MailMessage)
 		    ->subject('Confirm your account')
-		    ->line('Thanks for signup! Please before you begin, you must confirm your account.')
-		    ->action('Confirm Account', url('/api/register/activate/'.$notifiable->activation_token))
-		    ->line('Thank you for using our application!');
+		    ->markdown('mail.welcome', ['user' => auth()->user()]);
+//		    ->line('Thanks for signup! Please before you begin, you must confirm your account.')
+//		    ->action('Confirm Account', url('/api/register/activate/'.$notifiable->activation_token))
+//		    ->line('Thank you for using our application!');
+
     }
 
     /**

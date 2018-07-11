@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class EmailVerified {
+class ConfirmedEmail {
 	/**
 	 * Handle an incoming request.
 	 *
@@ -16,7 +16,7 @@ class EmailVerified {
 	public function handle( $request, Closure $next ) {
 
 		if ( !$request->user()->email_verified ) {
-			return redirect()->route('register.verify');
+			return redirect()->route('confirm-email.verify');
 		}
 
 		return $next( $request );
