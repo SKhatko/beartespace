@@ -54,8 +54,6 @@
                 <!-- TODO Social login -->
                 <!--@include('auth.social_login')-->
 
-                <!--NoCaptcha::display()-->
-
                 <div style="margin-bottom:20px;">
                     By Registering, you agree that you've read and accepted our User Agreement, you're at least 18 years
                     old, and you consent to our Privacy Notice and receiving marketing communications from us.

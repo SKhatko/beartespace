@@ -19,6 +19,18 @@ Route::group( [ 'middleware' => 'web' ], function () {
 	Route::get( 'confirm-email/verify', 'Auth\ConfirmEmailController@verify' )->name( 'confirm-email.verify' );
 	Route::get( 'confirm-email/resend', 'Auth\ConfirmEmailController@resend' )->name( 'confirm-email.resend' );
 
+	Route::group( [ 'prefix' => 'login' ], function () {
+		//Social login route
+		Route::get( 'facebook','SocialLogin@redirectFacebook')->name('facebook_redirect');
+		Route::get( 'facebook-callback','SocialLogin@callbackFacebook' )->name('facebook_callback');
+
+		Route::get( 'google','SocialLogin@redirectGoogle')->name('google_redirect');
+		Route::get( 'google-callback', 'SocialLogin@callbackGoogle')->name('google_callback');
+
+		Route::get( 'twitter', 'SocialLogin@redirectTwitter')->name('twitter_redirect');
+		Route::get( 'twitter-callback', 'SocialLogin@callbackTwitter')->name('twitter_callback');
+	} );
+
 
 	Route::get( '/', 'HomeController@index' )->name( 'home' );
 	Route::get( '/auction', 'HomeController@auctions' )->name( 'auctions' );
@@ -304,16 +316,3 @@ Route::any( 'checkout/{transaction_id}/paypal-notify', [
 	'uses' => 'PaymentController@paypalNotify'
 ] );
 
-
-Route::group( [ 'prefix' => 'login' ], function () {
-	//Social login route
-
-	Route::get( 'facebook', [ 'as' => 'facebook_redirect', 'uses' => 'SocialLogin@redirectFacebook' ] );
-	Route::get( 'facebook-callback', [ 'as' => 'facebook_callback', 'uses' => 'SocialLogin@callbackFacebook' ] );
-
-	Route::get( 'google', [ 'as' => 'google_redirect', 'uses' => 'SocialLogin@redirectGoogle' ] );
-	Route::get( 'google-callback', [ 'as' => 'google_callback', 'uses' => 'SocialLogin@callbackGoogle' ] );
-
-	Route::get( 'twitter', [ 'as' => 'twitter_redirect', 'uses' => 'SocialLogin@redirectTwitter' ] );
-	Route::get( 'twitter-callback', [ 'as' => 'twitter_callback', 'uses' => 'SocialLogin@callbackTwitter' ] );
-} );

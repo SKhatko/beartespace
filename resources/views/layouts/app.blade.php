@@ -38,7 +38,7 @@
                 @if(Request::segment(1) === 'dashboard')
                     <div class="app-header-logo">
                         <a class="app-header-logo__link" href="{{ route('home') }}">
-                            <img src="/images/logo-200.png" alt="BeArteSpace logo"/>
+                            <img src="/images/logo-100.png" alt="BeArteSpace logo"/>
                         </a>
                     </div>
                 @endif
@@ -163,7 +163,7 @@
 
                     <div class="app-header-logo">
                         <a class="app-header-logo__link" href="{{ route('home') }}">
-                            <img src="/images/logo-300.png" title="BeArteSpae" alt="BeArteSpace logo"/>
+                            <img src="/images/logo-200.png" title="BeArteSpae" alt="BeArteSpace logo"/>
                         </a>
                     </div>
 

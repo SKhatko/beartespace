@@ -29369,8 +29369,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 
 
@@ -91810,6 +91808,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -91950,7 +91960,34 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "href": "/password/reset"
     }
-  }, [_vm._v("Forgot Your Password?")])])], 1)], 1)], 1)], 1)
+  }, [_vm._v("Forgot Your Password?")])])], 1)], 1), _vm._v(" "), _c('a', {
+    staticClass: "btn btn-lg btn-block btn-facebook",
+    attrs: {
+      "href": "/login/facebook"
+    }
+  }, [_c('span', {
+    staticClass: "hidden-xs"
+  }, [_c('i', {
+    staticClass: "fa fa-facebook-square"
+  }), _vm._v(" Facebook")])]), _vm._v(" "), _c('a', {
+    staticClass: "btn btn-lg btn-block btn-google",
+    attrs: {
+      "href": "/login/google"
+    }
+  }, [_c('span', {
+    staticClass: "hidden-xs"
+  }, [_c('i', {
+    staticClass: "fa fa-google-plus-square"
+  }), _vm._v(" Google")])]), _vm._v(" "), _c('a', {
+    staticClass: "btn btn-lg btn-block btn-twitter",
+    attrs: {
+      "href": "/login/twitter"
+    }
+  }, [_c('span', {
+    staticClass: "hidden-xs"
+  }, [_c('i', {
+    staticClass: "fa fa-twitter"
+  }), _vm._v(" Twitter")])])], 1)], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
