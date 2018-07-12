@@ -24,14 +24,11 @@
   "dependencies": {
     "browser-sync": "^2.24.4",
     "browser-sync-webpack-plugin": "^2.2.2",
-    "ckeditor": "^4.9.2",
     "element-ui": "^2.4.1",
     "font-awesome": "^4.7.0",
     "fontello-webpack-plugin": "^0.4.8",
     "lodash.get": "^4.4.2",
-    "masonry-layout": "^4.2.1",
     "normalize.css": "^8.0.0",
-    "select2": "^4.0.6-rc.1",
     "vue-froala-wysiwyg": "^2.8.4"
   }
 }
