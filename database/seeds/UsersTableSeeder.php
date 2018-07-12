@@ -17,6 +17,7 @@ class UsersTableSeeder extends Seeder {
 			'user_name'  => 'admin',
 			'password'   => bcrypt( '123456' ),
 			'gender'     => 'male',
+			'activation_token' => str_random( 60 ),
 			'user_type'  => 'admin',
 		], [
 			'first_name' => 'Oleksandra',
@@ -24,6 +25,7 @@ class UsersTableSeeder extends Seeder {
 			'email'      => 'aleksandralihosvaj@gmail.com',
 			'user_name'  => 'Alex',
 			'password'   => bcrypt( '123456' ),
+			'activation_token' => str_random( 60 ),
 			'gender'     => 'female',
 			'user_type'  => 'admin',
 		], [
@@ -32,6 +34,7 @@ class UsersTableSeeder extends Seeder {
 			'email'      => 'user@gmail.com',
 			'user_name'  => '',
 			'password'   => bcrypt( '123456' ),
+			'activation_token' => str_random( 60 ),
 			'gender'     => 'female',
 			'user_type'  => 'user',
 		], [
@@ -40,6 +43,7 @@ class UsersTableSeeder extends Seeder {
 			'email'      => 'artist@gmail.com',
 			'user_name'  => '',
 			'password'   => bcrypt( '123456' ),
+			'activation_token' => str_random( 60 ),
 			'gender'     => 'male',
 			'user_type'  => 'artist',
 		] ]);

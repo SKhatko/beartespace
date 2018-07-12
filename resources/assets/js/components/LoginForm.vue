@@ -32,17 +32,17 @@
 
             </el-form>
 
-            <a href="/login/facebook" class="btn btn-lg btn-block btn-facebook">
-                <span class="hidden-xs"><i class="fa fa-facebook-square"></i> Facebook</span>
-            </a>
+            <!--<a href="/login/facebook" class="btn btn-lg btn-block btn-facebook">-->
+                <!--<span class="hidden-xs"><i class="fa fa-facebook-square"></i> Facebook</span>-->
+            <!--</a>-->
 
-            <a href="/login/google" class="btn btn-lg btn-block btn-google">
-                <span class="hidden-xs"><i class="fa fa-google-plus-square"></i> Google</span>
-            </a>
+            <!--<a href="/login/google" class="btn btn-lg btn-block btn-google">-->
+                <!--<span class="hidden-xs"><i class="fa fa-google-plus-square"></i> Google</span>-->
+            <!--</a>-->
 
-            <a href="/login/twitter" class="btn btn-lg btn-block btn-twitter">
-                <span class="hidden-xs"><i class="fa fa-twitter"></i> Twitter</span>
-            </a>
+            <!--<a href="/login/twitter" class="btn btn-lg btn-block btn-twitter">-->
+                <!--<span class="hidden-xs"><i class="fa fa-twitter"></i> Twitter</span>-->
+            <!--</a>-->
 
         </el-card>
 

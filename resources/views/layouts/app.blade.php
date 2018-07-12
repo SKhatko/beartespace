@@ -319,11 +319,11 @@
 
 </div>
 
+@yield('script')
+
 <script src="{{ mix('js/app.js') }}"></script>
 
 @yield('page-js')
-
-@yield('scripts')
 
 </body>
 </html>

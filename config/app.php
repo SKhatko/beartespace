@@ -227,14 +227,11 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'TranslatedLanguages' => PeterColes\Languages\LanguagesFacade::class,
 
-        //Debugbar
-        'Debugbar' => Barryvdh\Debugbar\Facade::class,
         //Image Processor
         'Image' => Intervention\Image\Facades\Image::class,
         //Form and html builder
-        'Form' => 'Collective\Html\FormFacade',
-        'Html' => 'Collective\Html\HtmlFacade',
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        'Currency' => \Torann\Currency\Facades\Currency::class,
     ],
 
 ];

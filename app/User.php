@@ -48,6 +48,10 @@ class User extends Authenticatable {
 		return $this->hasMany(Order::class);
 	}
 
+	public function currency() {
+		return $this->belongsTo( Currency::class );
+	}
+
 
 	public function isAdmin() {
 		return $this->user_type == 'admin';
