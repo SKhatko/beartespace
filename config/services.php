@@ -41,11 +41,11 @@ return [
 //		'redirect'      => url( 'login/facebook-callback' ),
 //	],
 //
-//	'google'  => [
-//		'client_id'     => env( 'GOOGLE_CLIENT_ID' ),
-//		'client_secret' => env( 'GOOGLE_CLIENT_SECRET' ),
-//		'redirect'      => url( 'login/google-callback' ),
-//	],
+	'google'  => [
+		'client_id'     => env( 'GOOGLE_CLIENT_ID' ),
+		'client_secret' => env( 'GOOGLE_CLIENT_SECRET' ),
+		'redirect'      => url( 'login/google-callback' ),
+	],
 //
 //	'twitter' => [
 //		'client_id'     => env( 'TWITTER_CLIENT_ID' ),
