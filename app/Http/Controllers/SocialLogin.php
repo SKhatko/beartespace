@@ -36,6 +36,7 @@ class SocialLogin extends Controller
     }
 
     public function callbackGoogle(SocialAccountService $service){
+    	logger(Socialite::driver('google')->user());
         try {
             $google_user = Socialite::driver('google')->user();
             logger($google_user);
