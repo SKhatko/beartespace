@@ -7,7 +7,6 @@ use App\Cart;
 use App\Contact_query;
 use App\User;
 use Illuminate\Http\Request;
-use Yajra\Datatables\Datatables;
 
 class HomeController extends Controller {
 

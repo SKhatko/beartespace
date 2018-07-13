@@ -17,12 +17,14 @@
 
     @yield('page-css')
 
+
     <script>
         window.trans = {!! $translations !!};
 
         window.errors = {!! json_encode($errors->all()) !!}
 
     </script>
+
 
 </head>
 <body class="@if(is_rtl()) rtl @endif">
@@ -80,17 +82,27 @@
                                 </el-dropdown-item>
 
                                 <el-dropdown-item>
+                                    <a href="{{ route('dashboard.payments') }}" class="el-dropdown-link">Payments</a>
+                                </el-dropdown-item>
+
+
+                                <el-dropdown-item>
                                     <a href="{{route('dashboard.profile')}}" class="el-dropdown-link">Profile</a>
+                                </el-dropdown-item>
+
+                                <el-dropdown-item>
+                                    <a href="{{route('dashboard.favorites')}}" class="el-dropdown-link">Favorites</a>
                                 </el-dropdown-item>
 
                                 @if(!$lUser->isUser())
 
                                     <el-dropdown-item>
-                                        <a href="{{route('dashboard.artworks')}}" class="el-dropdown-link">My Artworks</a>
+                                        <a href="{{route('dashboard.artworks')}}" class="el-dropdown-link">Artworks</a>
                                     </el-dropdown-item>
 
                                     <el-dropdown-item>
-                                        <a href="{{route('dashboard.artwork.create')}}" class="el-dropdown-link">Upload Artwork</a>
+                                        <a href="{{route('dashboard.artwork.create')}}" class="el-dropdown-link">Upload
+                                            Artwork</a>
                                     </el-dropdown-item>
 
                                 @endif
@@ -104,7 +116,7 @@
 
                                     <el-dropdown-item>
                                         <i class="icon-user"></i>
-                                       <a href="{{ route('admin.users') }}">Users</a>
+                                        <a href="{{ route('admin.users') }}">Users</a>
                                     </el-dropdown-item>
 
                                     <el-dropdown-item>
@@ -119,13 +131,13 @@
 
                                     <el-dropdown-item>
                                         <i class="el-icon-document"></i>
-                                       <a href="{{ route('admin.pages') }}">Pages</a>
+                                        <a href="{{ route('admin.pages') }}">Pages</a>
                                     </el-dropdown-item>
 
                                 @endif
 
                                 <el-dropdown-item>
-                                    <a href="{{route('change-password')}}" class="el-dropdown-link">Change Password</a>
+                                    <a href="{{route('dashboard.change-password')}}" class="el-dropdown-link">Change Password</a>
                                 </el-dropdown-item>
 
                                 <el-dropdown-item>
@@ -209,8 +221,8 @@
                             {{ csrf_field() }}
 
                             <el-input required
-                                    placeholder="Search" name="query"
-                                    prefix-icon="el-icon-search">
+                                      placeholder="Search" name="query"
+                                      prefix-icon="el-icon-search">
                             </el-input>
 
                         </form>
@@ -221,23 +233,25 @@
 
         </el-header>
 
+
         <el-container class="app-content">
 
             @yield('content')
 
         </el-container>
 
+
         <el-footer height="auto" class="app-footer">
 
             <div class="app-footer--top">
 
                 <div class="app-footer-social">
-                    <a href="{{ get_option('facebook_url') }}"><i class="fa fa-facebook"></i></a>
-                    <a href="{{ get_option('twitter_url') }}"><i class="fa fa-twitter"></i> </a>
-                    <a href="{{ get_option('google_plus_url') }}"><i class="fa fa-google-plus"></i> </a>
-                    <a href="{{ get_option('youtube_url') }}"><i class="fa fa-youtube"></i> </a>
-                    <a href="{{ get_option('linked_in_url') }}"><i class="fa fa-linkedin"></i> </a>
-                    <a href="{{ get_option('dribble_url') }}"><i class="fa fa-dribbble"></i> </a>
+                    <a href="#"><i class="fa fa-facebook"></i></a>
+                    <a href="#"><i class="fa fa-twitter"></i> </a>
+                    <a href="#"><i class="fa fa-google-plus"></i> </a>
+                    <a href="#"><i class="fa fa-youtube"></i> </a>
+                    <a href="#"><i class="fa fa-linkedin"></i> </a>
+                    <a href="#"><i class="fa fa-dribbble"></i> </a>
                 </div>
 
                 <div class="app-footer-newsletter">
@@ -314,6 +328,7 @@
 
 
         </el-footer>
+
 
     </el-container>
 

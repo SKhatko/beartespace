@@ -34,8 +34,8 @@ class AppServiceProvider extends ServiceProvider {
 			$current_lang = current_language();
 
 			$view->with( [
-				'lUser'               => $loggedUser,
-				'current_lang'        => $current_lang,
+				'lUser'        => $loggedUser,
+				'current_lang' => $current_lang,
 			] );
 		} );
 

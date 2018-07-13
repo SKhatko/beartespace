@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Artwork;
 use App\Contact_query;
 use App\Payment;
-use App\ArtworkReport;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -31,11 +30,9 @@ class DashboardController extends Controller
             $blocked_ads = Artwork::whereStatus('2')->count();
 
             $total_users = User::count();
-            $total_reports = ArtworkReport::count();
             $total_payments = Payment::whereStatus('success')->count();
             $total_payments_amount = Payment::whereStatus('success')->sum('amount');
             $ten_contact_messages = Contact_query::take(10)->orderBy('id', 'desc')->get();
-            $reports = ArtworkReport::orderBy('id', 'desc')->with('ad')->take(10)->get();
         }else{
             $approved_ads = Artwork::whereStatus('1')->whereUserId($user_id)->count();
             $pending_ads = Artwork::whereStatus('0')->whereUserId($user_id)->count();

@@ -9,7 +9,7 @@ class Payment extends Model
 {
     protected $guarded = [];
     
-    public function ad(){
+    public function artwork(){
         return $this->belongsTo(Artwork::class);
     }
     

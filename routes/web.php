@@ -21,14 +21,14 @@ Route::group( [ 'middleware' => 'web' ], function () {
 
 	Route::group( [ 'prefix' => 'login' ], function () {
 		//Social login route
-		Route::get( 'facebook','SocialLogin@redirectFacebook')->name('facebook_redirect');
-		Route::get( 'facebook-callback','SocialLogin@callbackFacebook' )->name('facebook_callback');
+		Route::get( 'facebook', 'SocialLogin@redirectFacebook' )->name( 'facebook_redirect' );
+		Route::get( 'facebook-callback', 'SocialLogin@callbackFacebook' )->name( 'facebook_callback' );
 
-		Route::get( 'google','SocialLogin@redirectGoogle')->name('google_redirect');
-		Route::get( 'google-callback', 'SocialLogin@callbackGoogle')->name('google_callback');
+		Route::get( 'google', 'SocialLogin@redirectGoogle' )->name( 'google_redirect' );
+		Route::get( 'google-callback', 'SocialLogin@callbackGoogle' )->name( 'google_callback' );
 
-		Route::get( 'twitter', 'SocialLogin@redirectTwitter')->name('twitter_redirect');
-		Route::get( 'twitter-callback', 'SocialLogin@callbackTwitter')->name('twitter_callback');
+		Route::get( 'twitter', 'SocialLogin@redirectTwitter' )->name( 'twitter_redirect' );
+		Route::get( 'twitter-callback', 'SocialLogin@callbackTwitter' )->name( 'twitter_callback' );
 	} );
 
 
@@ -71,12 +71,14 @@ Route::group( [ 'middleware' => 'web' ], function () {
 		// All users access
 		Route::get( '/', 'DashboardController@dashboard' )->name( 'dashboard' );
 		Route::get( 'profile', 'UserController@profile' )->name( 'dashboard.profile' );
-		Route::get( 'change-password', 'UserController@changePassword' )->name( 'change-password' );
+		Route::get( 'change-password', 'UserController@changePassword' )->name( 'dashboard.change-password' );
 		Route::post( 'change-password', 'UserController@changePasswordPost' );
-		Route::get( 'payments', 'PaymentController@index' )->name( 'payments' );
+
+		// TODO
+		Route::get( 'payments', 'PaymentController@index' )->name( 'dashboard.payments' );
 
 
-		Route::get( 'favorites', 'UserController@favoriteArtworks' )->name( 'favorites' );
+		Route::get( 'favorites', 'UserController@favoriteArtworks' )->name( 'dashboard.favorites' );
 
 
 		// Not user (admin, artist, gallery)
@@ -100,106 +102,18 @@ Route::group( [ 'middleware' => 'web' ], function () {
 			Route::get( 'messages', 'MessageController@messages' )->name( 'admin.messages' );
 
 
-			Route::group( [ 'prefix' => 'settings' ], function () {
-
-				Route::get( 'theme-settings', [ 'as'   => 'theme_settings',
-				                                'uses' => 'SettingsController@ThemeSettings'
-				] );
-				Route::get( 'modern-theme-settings', [
-					'as'   => 'modern_theme_settings',
-					'uses' => 'SettingsController@modernThemeSettings'
-				] );
-				Route::get( 'social-url-settings', [
-					'as'   => 'social_url_settings',
-					'uses' => 'SettingsController@SocialUrlSettings'
-				] );
-				Route::get( 'general', [ 'as' => 'general_settings', 'uses' => 'SettingsController@GeneralSettings' ] );
-				Route::get( 'payments', [ 'as'   => 'payment_settings',
-				                          'uses' => 'SettingsController@PaymentSettings'
-				] );
-				Route::get( 'ad', [ 'as' => 'ad_settings', 'uses' => 'SettingsController@AdSettings' ] );
-
-				Route::get( 'storage', [
-					'as'   => 'file_storage_settings',
-					'uses' => 'SettingsController@StorageSettings'
-				] );
-				Route::get( 'social', [ 'as' => 'social_settings', 'uses' => 'SettingsController@SocialSettings' ] );
-				Route::get( 'blog', [ 'as' => 'blog_settings', 'uses' => 'SettingsController@BlogSettings' ] );
-				Route::get( 'other', [ 'as' => 'other_settings', 'uses' => 'SettingsController@OtherSettings' ] );
-				Route::post( 'other', [ 'as' => 'other_settings', 'uses' => 'SettingsController@OtherSettingsPost' ] );
-
-				Route::get( 'recaptcha', [
-					'as'   => 're_captcha_settings',
-					'uses' => 'SettingsController@reCaptchaSettings'
-				] );
-
-				//Save settings / options
-				Route::post( 'save-settings', [ 'as' => 'save_settings', 'uses' => 'SettingsController@update' ] );
-				Route::get( 'monetization', [ 'as' => 'monetization', 'uses' => 'SettingsController@monetization' ] );
-			} );
-
-
-			Route::group( [ 'prefix' => 'posts' ], function () {
-				Route::get( '/', [ 'as' => 'posts', 'uses' => 'PostController@posts' ] );
-				Route::get( 'data', [ 'as' => 'posts_data', 'uses' => 'PostController@postsData' ] );
-
-				Route::get( 'create', [ 'as' => 'create_new_post', 'uses' => 'PostController@createPost' ] );
-				Route::post( 'create', [ 'uses' => 'PostController@storePost' ] );
-				Route::post( 'delete', [ 'as' => 'delete_post', 'uses' => 'PostController@destroyPost' ] );
-
-				Route::get( 'edit/{slug}', [ 'as' => 'edit_post', 'uses' => 'PostController@editPost' ] );
-				Route::post( 'edit/{slug}', [ 'uses' => 'PostController@updatePost' ] );
-			} );
-
-			Route::group( [ 'prefix' => 'pages' ], function () {
-				Route::get( 'data', [ 'as' => 'pages_data', 'uses' => 'PostController@pagesData' ] );
-
-				Route::get( 'create', [ 'as' => 'create_new_page', 'uses' => 'PostController@create' ] );
-				Route::post( 'create', [ 'uses' => 'PostController@store' ] );
-				Route::post( 'delete', [ 'as' => 'delete_page', 'uses' => 'PostController@destroy' ] );
-
-				Route::get( 'edit/{slug}', [ 'as' => 'edit_page', 'uses' => 'PostController@edit' ] );
-				Route::post( 'edit/{slug}', [ 'uses' => 'PostController@updatePage' ] );
-			} );
-
-			Route::group( [ 'prefix' => 'admin_comments' ], function () {
-				Route::get( '/', [ 'as' => 'admin_comments', 'uses' => 'CommentController@index' ] );
-				Route::get( 'data', [ 'as' => 'admin_comments_data', 'uses' => 'CommentController@commentData' ] );
-
-				Route::post( 'action', [ 'as' => 'comment_action', 'uses' => 'CommentController@commentAction' ] );
-			} );
-
 			Route::get( 'approved', [ 'as' => 'approved_ads', 'uses' => 'ArtworkController@index' ] );
-			Route::get( 'pending', [ 'as' => 'admin_pending_ads', 'uses' => 'ArtworkController@adminPendingAds' ] );
-			Route::get( 'blocked', [ 'as' => 'admin_blocked_ads', 'uses' => 'ArtworkController@adminBlockedAds' ] );
-			Route::post( 'status-change', [ 'as'   => 'ads_status_change',
-			                                'uses' => 'ArtworkController@adStatusChange'
+			Route::get( 'pending', [ 'as' => 'admin_pending_ads', 'uses' => 'ArtworkController@adminPendingArtworks' ] );
+			Route::get( 'blocked', [ 'as' => 'admin_blocked_ads', 'uses' => 'ArtworkController@adminBlockedArtworks' ] );
+			Route::post( 'status-change', [
+				'as'   => 'ads_status_change',
+				'uses' => 'ArtworkController@artworkStatusChange'
 			] );
 
-			Route::get( 'ad-reports', [ 'as' => 'ad_reports', 'uses' => 'ArtworkController@reports' ] );
-			Route::get( 'users-data', [ 'as' => 'get_users_data', 'uses' => 'UserController@usersData' ] );
-			Route::get( 'users-info/{id}', [ 'as' => 'user_info', 'uses' => 'UserController@userInfo' ] );
-			Route::post( 'change-user-status', [ 'as'   => 'change_user_status',
-			                                     'uses' => 'UserController@changeStatus'
-			] );
 			Route::post( 'change-user-feature', [
 				'as'   => 'change_user_feature',
 				'uses' => 'UserController@changeFeature'
 			] );
-			Route::post( 'delete-reports', [ 'as' => 'delete_report', 'uses' => 'ArtworkController@deleteReports' ] );
-
-
-			Route::group( [ 'prefix' => 'administrators' ], function () {
-				Route::get( '/', [ 'as' => 'administrators', 'uses' => 'UserController@administrators' ] );
-				Route::get( 'create', [ 'as' => 'add_administrator', 'uses' => 'UserController@addAdministrator' ] );
-				Route::post( 'create', [ 'uses' => 'UserController@storeAdministrator' ] );
-
-				Route::post( 'block-unblock', [
-					'as'   => 'administratorBlockUnblock',
-					'uses' => 'UserController@administratorBlockUnblock'
-				] );
-
-			} );
 
 		} );
 
@@ -210,16 +124,9 @@ Route::group( [ 'middleware' => 'web' ], function () {
 				Route::post( 'edit/{id}', [ 'uses' => 'ArtworkController@update' ] );
 				Route::get( 'my-lists', [ 'as' => 'my_ads', 'uses' => 'ArtworkController@myAds' ] );
 				//Upload ads image
-				Route::post( 'upload-a-image', [
-					'as'   => 'upload_ads_image',
-					'uses' => 'ArtworkController@uploadAdsImage'
-				] );
-				Route::post( 'upload-post-image', [
-					'as'   => 'upload_post_image',
-					'uses' => 'PostController@uploadPostImage'
-				] );
+
+
 				//Delete media
-				Route::post( 'delete-media', [ 'as' => 'delete_media', 'uses' => 'ArtworkController@deleteMedia' ] );
 				Route::post( 'feature-media-creating', [
 					'as'   => 'feature_media_creating_ads',
 					'uses' => 'ArtworkController@featureMediaCreatingAds'
@@ -228,16 +135,9 @@ Route::group( [ 'middleware' => 'web' ], function () {
 					'as'   => 'append_media_image',
 					'uses' => 'ArtworkController@appendMediaImage'
 				] );
-				Route::get( 'append-post-media-image', [
-					'as'   => 'append_post_media_image',
-					'uses' => 'PostController@appendPostMediaImage'
-				] );
-				Route::get( 'pending-lists', [ 'as' => 'pending_ads', 'uses' => 'ArtworkController@pendingAds' ] );
-				Route::get( 'archive-lists', [ 'as' => 'favourite_ad', 'uses' => 'ArtworkController@create' ] );
 
-				Route::get( 'reports-by/{slug}', [ 'as'   => 'reports_by_ads',
-				                                   'uses' => 'ArtworkController@reportsByAds'
-				] );
+				Route::get( 'pending-lists', [ 'as' => 'pending_ads', 'uses' => 'ArtworkController@pendingArtworks' ] );
+				Route::get( 'archive-lists', [ 'as' => 'favourite_ad', 'uses' => 'ArtworkController@create' ] );
 
 				//bids
 				Route::get( 'bids/{ad_id}', [ 'as' => 'auction_bids', 'uses' => 'BidController@index' ] );
@@ -251,9 +151,6 @@ Route::group( [ 'middleware' => 'web' ], function () {
 } );
 
 
-Route::get( 'page/{slug}', [ 'as' => 'single_page', 'uses' => 'PostController@showPage' ] );
-
-Route::get( 'category/{cat_id?}', [ 'uses' => 'CategoriesController@show' ] )->name( 'category' );
 
 
 Route::get( 'auction-by-user/{id?}', [ 'as' => 'ads_by_user', 'uses' => 'ArtworkController@adsByUser' ] );

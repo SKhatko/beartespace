@@ -4,17 +4,6 @@
 
     <el-card>
 
-        @if(session('error'))
-            <div class="row">
-                <div class="col-lg-12">
-                    <br/>
-                    <div class="alert alert-danger">
-                        {{ dump(session('error')) }}
-                    </div>
-                </div>
-            </div>
-        @endif
-
         <el-row :gutter="10" style="margin-bottom:10px;">
 
             <el-col :span="8">
@@ -74,7 +63,7 @@
             <el-col>
                 <el-card shadow="hover">
                     <div class="huge">  {{ $total_payments_amount }}
-                        <sup>{{ get_option('currency_sign') }}</sup></div>
+                        <sup>currency_sign</sup></div>
                     <div>@lang('app.total_payment')</div>
                 </el-card>
             </el-col>

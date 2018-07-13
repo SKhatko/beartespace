@@ -211,14 +211,7 @@ function current_language() {
  */
 if ( ! function_exists( 'is_rtl' ) ) {
 	function is_rtl() {
-		$current_language = current_language();
-		if ( $current_language ) {
-			if ( $current_language->is_rtl == 1 ) {
-				return true;
-			}
-		}
-
-		return false;
+		return (current_language() && current_language()->is_rtl == 1);
 	}
 }
 

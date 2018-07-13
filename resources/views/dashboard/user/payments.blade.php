@@ -2,6 +2,6 @@
 
 @section('admin-content')
 
-    @dump($payments)
+    Payments here
 
 @endsection

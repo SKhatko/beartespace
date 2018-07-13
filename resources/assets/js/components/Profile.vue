@@ -117,17 +117,17 @@
                     </el-form-item>
                 </el-col>
 
-                <el-col>
-                    <el-form-item label="Address 2" prop="address_2">
-                        <el-input
-                                ref="autocomplete"
-                                type="textarea"
-                                :rows="2"
-                                placeholder="Address 2"
-                                v-model="user.address_2">
-                        </el-input>
-                    </el-form-item>
-                </el-col>
+                <!--<el-col>-->
+                    <!--<el-form-item label="Address 2" prop="address_2">-->
+                        <!--<el-input-->
+                                <!--ref="autocomplete"-->
+                                <!--type="textarea"-->
+                                <!--:rows="2"-->
+                                <!--placeholder="Address 2"-->
+                                <!--v-model="user.address_2">-->
+                        <!--</el-input>-->
+                    <!--</el-form-item>-->
+                <!--</el-col>-->
 
                 <el-col :sm="12">
                     <el-form-item label="Education" prop="education">
@@ -231,24 +231,21 @@
                 this.user.technique = [];
             }
 
-            console.log(google.maps.places);
+            // this.user.address_2 = new google.maps.places.Autocomplete(
+            //     (this.$refs.autocomplete),
+            //     {types: ['geocode']}
+            // );
 
-
-            this.user.address_2 = new google.maps.places.Autocomplete(
-                (this.$refs.autocomplete),
-                {types: ['geocode']}
-            );
-
-            this.user.address_2.addListener('place_changed', () => {
-                let place = this.autocomplete.getPlace();
-                let ac = place.address_components;
-                let lat = place.geometry.location.lat();
-                let lon = place.geometry.location.lng();
-                let city = ac[0]["short_name"];
-
-                console.log(place);
-                console.log(`The user picked ${city} with the coordinates ${lat}, ${lon}`);
-            });
+            // this.user.address_2.addListener('place_changed', () => {
+            //     let place = this.autocomplete.getPlace();
+            //     let ac = place.address_components;
+            //     let lat = place.geometry.location.lat();
+            //     let lon = place.geometry.location.lng();
+            //     let city = ac[0]["short_name"];
+            //
+            //     console.log(place);
+            //     console.log(`The user picked ${city} with the coordinates ${lat}, ${lon}`);
+            // });
         },
 
         methods: {

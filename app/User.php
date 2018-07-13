@@ -120,18 +120,6 @@ class User extends Authenticatable {
 		return $url;
 	}
 
-	public function get_address() {
-		$address = '';
-
-		if ( $this->country ) {
-			$address .= $this->country->country_name . ', ';
-		}
-		if ( ! empty( $this->address ) ) {
-			$address .= $this->address;
-		}
-
-		return $address;
-	}
 
 	public function favouriteArtworks() {
 		return $this->belongsToMany( Artwork::class, 'favorites' );

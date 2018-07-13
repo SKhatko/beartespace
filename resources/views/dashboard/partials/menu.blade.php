@@ -1,19 +1,8 @@
 <el-menu default-active="{{ $index }}" class="a-menu" :collapse="false" mode="horizontal">
 
-    <el-menu-item index="dashboard">
-        <i class="el-icon-menu"></i>
-        <span slot="title"><a href="{{ route('dashboard') }}">Dashboard</a></span>
-    </el-menu-item>
 
 
-    <el-menu-item index="payments">
-        <i class="el-icon-document"></i>
-        <span slot="title"><a href="{{ route('payments') }}">Payments</a></span>
-    </el-menu-item>
 
-    <el-menu-item index="favorites">
-        <a href="{{ route('favorites') }}">@lang('app.favourite_ads')</a>
-    </el-menu-item>
 
 
     @if($lUser->isAdmin())
@@ -44,64 +33,6 @@
         </el-submenu>
 
 
-        <el-menu-item index="6">
-            <i class="el-icon-document"></i>
-            <span slot="title"><a href="{{ route('admin_comments') }}">@lang('app.comments') </a></span>
-        </el-menu-item>
-
-        <el-menu-item index="7">
-            <i class="el-icon-document"></i>
-            <span slot="title"><a href="{{ route('ad_reports') }}">@lang('app.ad_reports')</a></span>
-        </el-menu-item>
-
-
-        <el-submenu index="9">
-            <template slot="title">
-                <i class="el-icon-location"></i>
-                <span slot="title">Appearance</span>
-            </template>
-            <el-menu-item index="9-1"><a href="{{ route('theme_settings') }}">@lang('app.theme_settings')</a>
-            </el-menu-item>
-            <el-menu-item index="9-2"><a href="{{ route('social_url_settings') }}">@lang('app.social_url')</a>
-            </el-menu-item>
-
-        </el-submenu>
-
-
-
-
-        <el-submenu index="9">
-            <template slot="title">
-                <i class="el-icon-location"></i>
-                <span slot="title">Sett</span>
-            </template>
-            <el-menu-item index="9-1">
-                <li><a href="{{ route('general_settings') }}">@lang('app.general_settings')</a></li>
-            </el-menu-item>
-            <el-menu-item index="9-2">
-                <li><a href="{{ route('ad_settings') }}">@lang('app.ad_settings_and_pricing')</a></li>
-            </el-menu-item>
-            <el-menu-item index="9-2">
-                <li><a href="{{ route('payment_settings') }}">@lang('app.payment_settings')</a></li>
-            </el-menu-item>
-            <el-menu-item index="9-2">
-                <li><a href="{{ route('file_storage_settings') }}">@lang('app.file_storage_settings')</a></li>
-            </el-menu-item>
-            <el-menu-item index="9-2">
-                <li><a href="{{ route('social_settings') }}">@lang('app.social_settings')</a></li>
-            </el-menu-item>
-            <el-menu-item index="9-2">
-                <li><a href="{{ route('re_captcha_settings') }}">@lang('app.re_captcha_settings')</a></li>
-            </el-menu-item>
-            <el-menu-item index="9-2">
-                <li><a href="{{ route('other_settings') }}">@lang('app.other_settings')</a></li>
-            </el-menu-item>
-            <el-menu-item index="324">
-                <a href="{{ route('administrators') }}"><i class="fa fa-users"></i> @lang('app.administrators') <span
-                            class="label label-default pull-right"><i class="fa fa-user"></i> </span> </a>
-            </el-menu-item>
-
-        </el-submenu>
 
     @endif
 
