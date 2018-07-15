@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <div class="app--wrapper">
+    <div class="app--wrapper" style="text-align: center;">
         artworks, autors, sliders (Main page here)
 
     </div>

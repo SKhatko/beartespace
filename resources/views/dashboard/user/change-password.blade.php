@@ -6,7 +6,7 @@
 
     <el-card>
 
-        <el-form method="POST" action="{{ route('change-password') }}">
+        <el-form method="POST" action="{{ route('dashboard.change-password') }}">
 
             @include('partials.errors')
 

@@ -4,8 +4,6 @@
 
 @section('admin-content')
 
-    @include('admin.flash_msg')
-
     @include('partials.errors')
 
     <artwork :artwork_="{{ $artwork }}" :images_="{{ $artwork->images }}"></artwork>

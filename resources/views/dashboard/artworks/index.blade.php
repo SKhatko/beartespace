@@ -4,8 +4,6 @@
 
 @section('admin-content')
 
-    @include('admin.flash_msg')
-
     @include('partials.errors')
 
     @foreach($artworks as $artwork)

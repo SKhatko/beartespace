@@ -28826,6 +28826,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -91133,7 +91141,15 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return (_vm.languages) ? _c('div', [_c('h2', [_vm._v("Languages ( Test all functionality )")]), _vm._v(" "), _c('el-select', {
+  return (_vm.languages) ? _c('div', [_c('h2', [_vm._v("Languages ( Test all functionality )")]), _vm._v(" "), _c('el-row', {
+    attrs: {
+      "gutter": 20
+    }
+  }, [_c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-select', {
     staticStyle: {
       "margin-right": "10px"
     },
@@ -91156,8 +91172,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "label": name,
         "value": code
       }
-    }, [_vm._v("\n            " + _vm._s(name) + "\n        ")])
-  })), _vm._v(" "), _c('el-button', {
+    }, [_vm._v("\n                    " + _vm._s(name) + "\n                ")])
+  }))], 1), _vm._v(" "), _c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-button', {
     staticStyle: {
       "margin-bottom": "20px"
     },
@@ -91170,7 +91190,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.addLanguageField()
       }
     }
-  }, [_vm._v("\n        Add language\n    ")]), _vm._v(" "), [_c('el-table', {
+  }, [_vm._v("\n                Add language\n            ")])], 1)], 1), _vm._v(" "), [_c('el-table', {
     staticStyle: {
       "width": "100%"
     },

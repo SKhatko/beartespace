@@ -7,26 +7,34 @@
 
         <!-- TODO test -->
 
-        <el-select style="margin-right: 10px"
-                value=""
-                v-model="newLanguage"
-                filterable
-                placeholder="Select new language">
-            <el-option
-                    v-for="(name, code) in translatedLanguages"
-                    :key="code"
-                    :label="name"
-                    :value="code">
-                {{ name }}
-            </el-option>
-        </el-select>
+        <el-row :gutter="20">
+            <el-col :sm="12">
+                <el-select style="margin-right: 10px"
+                           value=""
+                           v-model="newLanguage"
+                           filterable
+                           placeholder="Select new language">
+                    <el-option
+                            v-for="(name, code) in translatedLanguages"
+                            :key="code"
+                            :label="name"
+                            :value="code">
+                        {{ name }}
+                    </el-option>
+                </el-select>
+            </el-col>
 
-        <el-button style="margin-bottom: 20px"
-                   size="big"
-                   type="success"
-                   @click="addLanguageField()">
-            Add language
-        </el-button>
+            <el-col :sm="12">
+
+                <el-button style="margin-bottom: 20px"
+                           size="big"
+                           type="success"
+                           @click="addLanguageField()">
+                    Add language
+                </el-button>
+            </el-col>
+        </el-row>
+
 
         <template>
             <el-table
