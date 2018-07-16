@@ -29,9 +29,9 @@ class UsersTableSeeder extends Seeder {
 			'gender'     => 'female',
 			'user_type'  => 'admin',
 		], [
-			'first_name' => 'User',
+			'first_name' => 'Customer',
 			'last_name'  => 'Family',
-			'email'      => 'user@gmail.com',
+			'email'      => 'customer@gmail.com',
 			'user_name'  => '',
 			'password'   => bcrypt( '123456' ),
 			'activation_token' => str_random( 60 ),
