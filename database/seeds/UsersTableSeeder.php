@@ -19,6 +19,15 @@ class UsersTableSeeder extends Seeder {
 			'gender'     => 'male',
 			'activation_token' => str_random( 60 ),
 			'user_type'  => 'admin',
+		],[
+			'first_name' => 'Support',
+			'last_name'  => 'Team',
+			'email'      => 'support@beartespace.com',
+			'user_name'  => 'admin',
+			'password'   => bcrypt( '123456' ),
+			'gender'     => 'third_gender',
+			'activation_token' => str_random( 60 ),
+			'user_type'  => 'admin',
 		], [
 			'first_name' => 'Oleksandra',
 			'last_name'  => 'Lyhoshvaj',
