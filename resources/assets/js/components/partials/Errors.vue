@@ -20,7 +20,7 @@
 
         data() {
             return {
-                errors: {}
+                errors: {},
             }
         },
 

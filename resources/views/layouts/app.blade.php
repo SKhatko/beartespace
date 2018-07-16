@@ -15,11 +15,11 @@
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     <link href="{{ mix('css/icons.css') }}" rel="stylesheet">
 
-    @yield('page-css')
-
-
     <script>
         window.trans = {!! $translations !!};
+
+        window.status = {!! json_encode(session('status') ?? '') !!};
+        window.error = {!! json_encode(session('error') ?? '') !!};
 
         window.errors = {!! json_encode($errors->all()) !!}
 
@@ -137,7 +137,8 @@
                                 @endif
 
                                 <el-dropdown-item>
-                                    <a href="{{route('dashboard.change-password')}}" class="el-dropdown-link">Change Password</a>
+                                    <a href="{{route('dashboard.change-password')}}" class="el-dropdown-link">Change
+                                        Password</a>
                                 </el-dropdown-item>
 
                                 <el-dropdown-item>
@@ -337,8 +338,6 @@
 @yield('script')
 
 <script src="{{ mix('js/app.js') }}"></script>
-
-@yield('page-js')
 
 </body>
 </html>

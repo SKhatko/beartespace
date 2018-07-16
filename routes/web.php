@@ -33,6 +33,7 @@ Route::group( [ 'middleware' => 'web' ], function () {
 
 
 	Route::get( '/', 'HomeController@index' )->name( 'home' );
+	Route::get( '/home', 'HomeController@index' );
 	Route::get( '/auction', 'HomeController@auctions' )->name( 'auctions' );
 	Route::get( '/auction/{id}', 'HomeController@auctions' )->name( 'auction' );
 	Route::get( '/artwork', 'HomeController@artworks' )->name( 'artworks' );
@@ -97,11 +98,13 @@ Route::group( [ 'middleware' => 'web' ], function () {
 
 
 			Route::get( 'approved', [ 'as' => 'approved_ads', 'uses' => 'ArtworkController@index' ] );
-			Route::get( 'pending', [ 'as'   => 'admin_pending_ads',
-			                         'uses' => 'ArtworkController@adminPendingArtworks'
+			Route::get( 'pending', [
+				'as'   => 'admin_pending_ads',
+				'uses' => 'ArtworkController@adminPendingArtworks'
 			] );
-			Route::get( 'blocked', [ 'as'   => 'admin_blocked_ads',
-			                         'uses' => 'ArtworkController@adminBlockedArtworks'
+			Route::get( 'blocked', [
+				'as'   => 'admin_blocked_ads',
+				'uses' => 'ArtworkController@adminBlockedArtworks'
 			] );
 
 		} );
@@ -122,11 +125,6 @@ Route::group( [ 'middleware' => 'web' ], function () {
 	} );
 
 } );
-
-// Password reset routes...
-//Route::post('send-password-reset-link', ['as' => 'send_reset_link', 'uses'=>'Auth\PasswordController@postEmail']);
-//Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
-//Route::post('password/reset', ['as'=>'password_reset_post', 'uses'=>'Auth\PasswordController@postReset']);
 
 //Post bid
 Route::post( '{id}/post-new', [ 'as' => 'post_bid', 'uses' => 'BidController@postBid' ] );

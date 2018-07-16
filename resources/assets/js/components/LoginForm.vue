@@ -26,9 +26,12 @@
                 <el-form-item>
                     <el-button type="primary" native-type="submit">Login</el-button>
 
-                    <el-button type="text"><a href="/password/reset">Forgot Your Password?</a></el-button>
+                    <el-button type="text"><a href="/register">Create New Account</a></el-button>
 
                 </el-form-item>
+
+                <el-button type="text"><a href="/password/reset">Forgot Your Password?</a></el-button>
+
 
             </el-form>
 
@@ -84,7 +87,7 @@
         },
 
         methods: {
-            login(event) {
+            login() {
 
                 console.log(this.user);
 

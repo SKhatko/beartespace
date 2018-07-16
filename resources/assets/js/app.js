@@ -1,4 +1,3 @@
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -6,7 +5,7 @@
  */
 
 require('./bootstrap');
-require('./main');
+// require('./main');
 
 window.Vue = require('vue');
 
@@ -48,7 +47,9 @@ Vue.prototype.options = (key) => {
 Vue.use(ElementUI, {locale});
 
 
+Vue.component('password-reset-new-password', require('./components/auth/PasswordResetNewPassword.vue'));
 Vue.component('register-form', require('./components/RegisterForm.vue'));
+Vue.component('password-reset-form', require('./components/PasswordResetForm.vue'));
 Vue.component('login-form', require('./components/LoginForm.vue'));
 Vue.component('translations', require('./components/Translations.vue'));
 Vue.component('languages', require('./components/Languages.vue'));
@@ -59,9 +60,7 @@ Vue.component('pages', require('./components/Pages.vue'));
 
 const app = new Vue({
     el: '#app',
-    components: {
-
-    },
+    components: {},
     data: {
         artworkFilters: [{
             id: 1,
@@ -79,6 +78,26 @@ const app = new Vue({
             label: 'label',
             disabled: 'disabled',
         },
+    },
+    mounted() {
+
+        if (window.status) {
+            this.$message({
+                showClose: true,
+                message: window.status,
+                type: 'success',
+                duration: 6000
+            });
+        }
+
+        if (window.error) {
+            this.$message({
+                showClose: true,
+                message: window.error,
+                type: 'error',
+                duration: 6000
+            })
+        }
     }
 });
 
