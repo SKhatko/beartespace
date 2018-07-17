@@ -40,7 +40,6 @@ class CreateUsersTable extends Migration {
 			$table->string('activation_token')->nullable();
 			//active_status 0:pending, 1:active, 2:block;
 			$table->enum( 'active', [ 0, 1, 2 ] )->default(0)->nullable;
-			// email_verified 0:unverified, 1:verified
 			$table->boolean( 'email_verified' )->nullable();
 			//is_online => 0:offline, 1:online;
 			$table->boolean( 'is_online' )->nullable();
