@@ -18,7 +18,9 @@
                         <el-col :sm="12">
                             <p>{{ $artwork['item']['title'] }}</p>
                             <p>{{ $artwork['item']->user->name }}</p>
-                            <p>{{ $artwork['item']->user->country->name }}</p>
+                            @if($artwork['item']->user->country)
+                                <p>{{ $artwork['item']->user->country->name }}</p>
+                            @endif
                         </el-col>
                         <el-col :sm="2">
                             {{ $artwork['item']['price'] }}
