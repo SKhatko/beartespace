@@ -7,15 +7,9 @@
     <div class="app--wrapper">
 
         <div class="app-artworks">
-            <aside>
 
-                <el-tree
-                        :data="artworkFilters"
-                        :props="defaultProps"
-                        show-checkbox>
-                </el-tree>
+            <artworks-menu></artworks-menu>
 
-            </aside>
 
             <main>
 

@@ -1,4 +1,5 @@
 
+window.get = require('lodash.get');
 // window._ = require('lodash');
 // window.Masonry = require('masonry-layout');
 

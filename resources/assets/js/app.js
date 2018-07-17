@@ -15,13 +15,7 @@ require('froala-editor/js/froala_editor.pkgd.min');
 import VueFroala from 'vue-froala-wysiwyg';
 
 Vue.use(VueFroala);
-//
-// var grid = document.querySelector('.grid');
-// var msnry = new Masonry( grid, {
-//     // options...
-//     itemSelector: '.grid-item',
-//     columnWidth: 100
-// });
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -34,11 +28,11 @@ import ElementUI from 'element-ui';
 import locale from 'element-ui/lib/locale/lang/en'
 
 Vue.prototype.trans = (key) => {
-    return _.get(window.trans, key, key);
+    return get(window.trans, key, key);
 };
 
 Vue.prototype.options = (key) => {
-    return Object.entries(_.get(window.trans, key, key)).map(function (translation) {
+    return Object.entries(get(window.trans, key, key)).map(function (translation) {
         return {value: translation[0], label: translation[1]}
     });
 };
@@ -46,6 +40,8 @@ Vue.prototype.options = (key) => {
 
 Vue.use(ElementUI, {locale});
 
+
+Vue.component('artworks-menu', require('./components/ArtworksMenu.vue'));
 
 Vue.component('password-reset-new-password', require('./components/auth/PasswordResetNewPassword.vue'));
 Vue.component('register-form', require('./components/RegisterForm.vue'));
@@ -62,22 +58,7 @@ const app = new Vue({
     el: '#app',
     components: {},
     data: {
-        artworkFilters: [{
-            id: 1,
-            label: 'Category',
-            children: [{
-                id: 3,
-                label: 'Painting',
-            }, {
-                id: 2,
-                label: 'Sculpture'
-            }]
-        }],
-        defaultProps: {
-            children: 'children',
-            label: 'label',
-            disabled: 'disabled',
-        },
+
     },
     mounted() {
 
