@@ -9,7 +9,29 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class User extends Authenticatable {
 	use Notifiable, SoftDeletes;
 
-	protected $dates = ['deleted_at'];
+	protected $dates = [ 'deleted_at' ];
+
+	protected $fillable = [
+		'name',
+		'first_name',
+		'last_name',
+		'user_name',
+		'dob',
+		'country_id',
+		'currency_id',
+		'city',
+		'gender',
+		'address',
+		'address_2',
+		'website',
+		'phone',
+		'education',
+		'education_title',
+		'inspiration',
+		'exhibition',
+		'technique',
+		'user_type'
+	];
 
 	/**
 	 * The attributes that are mass assignable.
@@ -29,7 +51,7 @@ class User extends Authenticatable {
 	];
 
 	protected $casts = [
-		'technique'    => 'array',
+		'technique' => 'array',
 	];
 
 	public function country() {
@@ -45,7 +67,7 @@ class User extends Authenticatable {
 	}
 
 	public function orders() {
-		return $this->hasMany(Order::class);
+		return $this->hasMany( Order::class );
 	}
 
 	public function currency() {
@@ -80,7 +102,6 @@ class User extends Authenticatable {
 	public function setNameAttribute() {
 		return trim( $this->first_name ) . ' ' . trim( $this->last_name );
 	}
-
 
 
 	/**
