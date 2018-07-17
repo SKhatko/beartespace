@@ -11,27 +11,27 @@ class User extends Authenticatable {
 
 	protected $dates = [ 'deleted_at' ];
 
-	protected $fillable = [
-		'name',
-		'first_name',
-		'last_name',
-		'user_name',
-		'dob',
-		'country_id',
-		'currency_id',
-		'city',
-		'gender',
-		'address',
-		'address_2',
-		'website',
-		'phone',
-		'education',
-		'education_title',
-		'inspiration',
-		'exhibition',
-		'technique',
-		'user_type'
-	];
+//	protected $fillable = [
+//		'name',
+//		'first_name',
+//		'last_name',
+//		'user_name',
+//		'dob',
+//		'country_id',
+//		'currency_id',
+//		'city',
+//		'gender',
+//		'address',
+//		'address_2',
+//		'website',
+//		'phone',
+//		'education',
+//		'education_title',
+//		'inspiration',
+//		'exhibition',
+//		'technique',
+//		'user_type'
+//	];
 
 	/**
 	 * The attributes that are mass assignable.
