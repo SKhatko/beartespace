@@ -11,35 +11,26 @@ class TranslationsTableSeeder extends Seeder {
 	public function run() {
 
 		$translations = [
-			'portal'            => [
+			'portal'    => [
 				[ 'Login', '' ],
 				[ 'Signup', '' ],
 				[ 'Artists', '' ],
-				[ 'Paintings', '' ],
 				[ 'Artworks', '' ],
-				[ 'Sculptures', '' ],
 				[ 'Auction', '' ],
 				[ 'About Us', '' ],
 				[ 'Information', '' ],
 				[ 'Contact', '' ],
+				[ 'Category', '' ],
+				[ 'Direction', '' ],
+				[ 'Medium', '' ],
+				[ 'Theme', '' ],
+				[ 'Color', '' ]
 			],
-			'medium'            => [
-				[ 'Acrylic on Indian cotton', 'Akryl på indisk bomuld' ],
-				[ 'Acrylic on canvas', 'Akryl på lærred' ],
-				[ 'Acrylic on paper', 'Akryl på papir' ],
-				[ 'Acrylic on plate', 'Akryl på plade' ],
-				[ 'Watercolor on paper', 'Akvarel på papir' ],
-				[ 'Own technique on canvas', 'Egen teknik på lærred' ],
-				[ 'Own technique on the plate', 'Egen teknik på plade' ],
-				[ 'Mixed technique (acrylic / chalk)', 'Mixet teknik (akryl/kridt)' ],
-				[ 'Mixed technique (oil / chalk)', 'Mixet teknik (oile/kridt)' ],
-				[ 'Mixed technology on canvas', 'Mixet teknik på lærred' ],
-				[ 'Mixed technique on cardboard', 'Mixet teknik på pap' ],
-				[ 'Oil and acrylic on canvas', 'Olie og akryl på lærred' ],
-				[ 'Oil on canvas', 'Olie på lærred' ],
-				[ 'Oil on plate', 'Olie på plade' ]
+			'category'  => [
+				[ 'Painting', 'Maleri' ],
+				[ 'Sculpture', 'Skulptur' ]
 			],
-			'direction'         => [
+			'direction' => [
 				[ 'Abstract', 'Abstrakt' ],
 				[ 'Camp', 'Camp' ],
 				[ 'Decorative figurism', 'Dekorativ figurisme' ],
@@ -68,7 +59,21 @@ class TranslationsTableSeeder extends Seeder {
 				[ 'Symbolism', 'Symbolik' ],
 				[ 'Synthetism', 'Syntetisme' ]
 			],
-			'subject'           => [
+			'medium'    => [
+				[ 'Acrylic on Indian cotton', 'Akryl på indisk bomuld' ],
+				[ 'Acrylic on canvas', 'Akryl på lærred' ],
+				[ 'Acrylic on paper', 'Akryl på papir' ],
+				[ 'Acrylic on plate', 'Akryl på plade' ],
+				[ 'Watercolor on paper', 'Akvarel på papir' ],
+				[ 'Own technique on canvas', 'Egen teknik på lærred' ],
+				[ 'Own technique on the plate', 'Egen teknik på plade' ],
+				[ 'Mixed technique (acrylic / chalk)', 'Mixet teknik (akryl/kridt)' ],
+				[ 'Mixed technique (oil / chalk)', 'Mixet teknik (oile/kridt)' ],
+				[ 'Mixed technology on canvas', 'Mixet teknik på lærred' ],
+				[ 'Mixed technique on cardboard', 'Mixet teknik på pap' ],
+				[ 'Oil and acrylic on canvas', 'Olie og akryl på lærred' ],
+				[ 'Oil on canvas', 'Olie på lærred' ],
+				[ 'Oil on plate', 'Olie på plade' ],
 				[ 'Cotton', 'Bomuld' ],
 				[ 'Glass', 'Glas' ],
 				[ 'Tempered glass', 'Hærdet glas' ],
@@ -77,21 +82,7 @@ class TranslationsTableSeeder extends Seeder {
 				[ 'Porcelain', 'Porcelæn' ],
 				[ 'Satin', 'Satin' ],
 				[ 'Silk', 'Silke' ],
-				[ 'Crepe de Chine', 'Crepe de Chine' ]
-			],
-			'design'            => [
-				[ 'Abstraction', 'Abstraction' ],
-				[ 'Flowers', 'Blomster' ],
-				[ 'Animals', 'Dyr' ],
-				[ 'Fish', 'Fisk' ],
-				[ 'Birds', 'Fugle' ],
-				[ 'Human figures', 'Menneskelige figurer' ],
-				[ 'Plants', 'Planter' ],
-				[ 'Butterflies', 'Sommerfugle' ],
-				[ 'Spirals', 'Spiraler' ],
-				[ 'Without', 'Uden' ]
-			],
-			'technique'         => [
+				[ 'Crepe de Chine', 'Crepe de Chine' ],
 				[ 'Batik', 'Batik' ],
 				[ 'Mixed', 'Blandet' ],
 				[ 'Burned at high temperature', 'brænt ved høj temperatur' ],
@@ -105,30 +96,28 @@ class TranslationsTableSeeder extends Seeder {
 				[ 'Form', 'Form' ],
 				[ 'Handmade', 'Håndlavet' ],
 				[ 'Handpainted', 'Håndmalet' ],
-				[ 'Hand-rolled edge', 'Håndrullet kant' ]
+				[ 'Hand-rolled edge', 'Håndrullet kant' ],
 			],
-			'additional-effect' => [
-				[ 'Engobe', 'Engobe' ],
-				[ 'Feather', 'Fjer' ],
-				[ 'Glazed', 'Glaseret' ],
-				[ 'Glitter', 'Glitter' ],
-				[ 'Metal oxides', 'Metaloxider' ],
-				[ 'Silver wires', 'Sølv ledninger' ]
-			],
-			'category'          => [
-				[ 'Painting', 'Maleri' ],
-				[ 'Sculpture', 'Skulptur' ]
-			],
-			'color'             => [
-				[ 'Yellow', 'Gule' ]
-			],
-			'theme'             => [
+			'theme'     => [
 				[ 'Portraiture', 'Portraiture' ],
 				[ 'Religion/Historical', 'Religion/Historisk' ],
 				[ 'Landscape', 'Landskab' ],
 				[ 'Still Life', 'Stilleben' ],
 				[ 'Abstract/Figurative Art', 'Abstrakt/Figurativ kunst' ],
 				[ 'Maritime', 'Maritime' ],
+				[ 'Abstraction', 'Abstraction' ],
+				[ 'Flowers', 'Blomster' ],
+				[ 'Animals', 'Dyr' ],
+				[ 'Fish', 'Fisk' ],
+				[ 'Birds', 'Fugle' ],
+				[ 'Human figures', 'Menneskelige figurer' ],
+				[ 'Plants', 'Planter' ],
+				[ 'Butterflies', 'Sommerfugle' ],
+				[ 'Spirals', 'Spiraler' ],
+				[ 'Without', 'Uden' ]
+			],
+			'color'     => [
+				[ 'Yellow', 'Gule' ]
 			],
 		];
 

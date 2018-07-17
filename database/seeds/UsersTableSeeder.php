@@ -20,7 +20,7 @@ class UsersTableSeeder extends Seeder {
 				'gender'           => 'male',
 				'activation_token' => str_random( 60 ),
 				'user_type'        => 'admin',
-				'email_verified' => true,
+				'email_verified'   => true,
 			],
 			[
 				'first_name'       => 'Support',
@@ -31,7 +31,7 @@ class UsersTableSeeder extends Seeder {
 				'gender'           => 'third_gender',
 				'activation_token' => str_random( 60 ),
 				'user_type'        => 'admin',
-				'email_verified' => true,
+				'email_verified'   => true,
 			],
 			[
 				'first_name'       => 'Oleksandra',
@@ -42,7 +42,7 @@ class UsersTableSeeder extends Seeder {
 				'activation_token' => str_random( 60 ),
 				'gender'           => 'female',
 				'user_type'        => 'admin',
-				'email_verified' => true,
+				'email_verified'   => true,
 			],
 			[
 				'first_name'       => 'Customer',
@@ -53,7 +53,7 @@ class UsersTableSeeder extends Seeder {
 				'activation_token' => str_random( 60 ),
 				'gender'           => 'female',
 				'user_type'        => 'user',
-				'email_verified' => true,
+				'email_verified'   => true,
 			],
 			[
 				'first_name'       => 'Artist',
@@ -64,7 +64,7 @@ class UsersTableSeeder extends Seeder {
 				'activation_token' => str_random( 60 ),
 				'gender'           => 'male',
 				'user_type'        => 'artist',
-				'email_verified' => true,
+				'email_verified'   => true,
 			]
 		] );
 	}

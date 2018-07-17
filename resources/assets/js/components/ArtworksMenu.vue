@@ -7,9 +7,12 @@
         <el-tree
                 :data="artworkFilters"
                 :props="defaultProps"
-                node-key="id"
-                :default-expanded-keys="[2, 3]"
-                :default-checked-keys="[5]"
+                node-key="key"
+                :default-expanded-keys="['category']"
+                :default-checked-keys="['category--painting']"
+                check-on-click-node
+                :expand-on-click-node="false"
+                accordion
                 show-checkbox>
         </el-tree>
 
@@ -26,27 +29,17 @@
         data() {
             return {
                 artworkFilters: [
-                //     {
-                //     id: 1,
-                //     label: 'Category',
-                //     children: [{
-                //         id: 3,
-                //         label: 'Painting',
-                //     }, {
-                //         id: 2,
-                //         label: 'Sculpture'
-                //     }]
-                // },{
-                //     id: 1,
-                //     label: 'Category',
-                //     children: [{
-                //         id: 3,
-                //         label: 'Painting',
-                //     }, {
-                //         id: 2,
-                //         label: 'Sculpture'
-                //     }]
-                // }
+                    //     {
+                    //     key: 1,
+                    //     label: 'Category',
+                    //     children: [{
+                    //         key: 3,
+                    //         label: 'Painting',
+                    //     }, {
+                    //         key: 2,
+                    //         label: 'Sculpture'
+                    //     }]
+                    // }
                 ],
                 defaultProps: {
                     children: 'children',
@@ -58,27 +51,23 @@
         },
 
         mounted() {
-            // this.artworkFilters
-            // trans('category')
+            let filters = ['category', 'direction', 'medium', 'theme', 'color'];
 
-            let nodeId = 1;
+            filters.map(filter => {
+                console.log(filter);
 
-            let filters = [this.trans('category'), this.trans('direction'), this.trans('medium')];
-
-            console.log(this.trans('category'));
-
-            this.artworkFilters.push({
-                id: nodeId++,
-                label: 'Category',
-                children: Object.entries(this.trans('category')).map(function(category) {
-                    console.log(category);
-                    return {
-                        id: nodeId++,
-                        label: category[1]
-                    }
+                this.artworkFilters.push({
+                    key: filter,
+                    label: this.trans('portal')[filter],
+                    children: Object.entries(this.trans(filter)).map(function (item) {
+                        console.log(item);
+                        return {
+                            key: filter + '--' + item[0],
+                            label: item[1],
+                        }
+                    })
                 })
-
-            })
+            });
         },
 
         methods: {}

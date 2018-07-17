@@ -55,7 +55,7 @@
 
 <script>
 
-    import Errors from './partials/Errors.vue'
+    import Errors from '../partials/Errors.vue'
 
     export default {
 

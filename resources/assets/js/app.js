@@ -44,15 +44,16 @@ Vue.use(ElementUI, {locale});
 Vue.component('artworks-menu', require('./components/ArtworksMenu.vue'));
 
 Vue.component('password-reset-new-password', require('./components/auth/PasswordResetNewPassword.vue'));
-Vue.component('register-form', require('./components/RegisterForm.vue'));
-Vue.component('password-reset-form', require('./components/PasswordResetForm.vue'));
-Vue.component('login-form', require('./components/LoginForm.vue'));
-Vue.component('translations', require('./components/Translations.vue'));
-Vue.component('languages', require('./components/Languages.vue'));
-Vue.component('users', require('./components/Users.vue'));
-Vue.component('profile', require('./components/Profile.vue'));
-Vue.component('artwork', require('./components/Artwork.vue'));
-Vue.component('pages', require('./components/Pages.vue'));
+Vue.component('register-form', require('./components/auth/RegisterForm.vue'));
+Vue.component('password-reset-form', require('./components/auth/PasswordResetForm.vue'));
+Vue.component('login-form', require('./components/auth/LoginForm.vue'));
+
+Vue.component('translations', require('./components/dashboard/Translations.vue'));
+Vue.component('languages', require('./components/dashboard/Languages.vue'));
+Vue.component('users', require('./components/dashboard/Users.vue'));
+Vue.component('profile', require('./components/dashboard/Profile.vue'));
+Vue.component('artwork', require('./components/dashboard/Artwork.vue'));
+Vue.component('pages', require('./components/dashboard/Pages.vue'));
 
 const app = new Vue({
     el: '#app',
