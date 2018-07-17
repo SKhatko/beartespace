@@ -15869,6 +15869,7 @@ Vue.prototype.options = function (key) {
 Vue.use(__WEBPACK_IMPORTED_MODULE_1_element_ui___default.a, { locale: __WEBPACK_IMPORTED_MODULE_2_element_ui_lib_locale_lang_en___default.a });
 
 Vue.component('artworks-menu', __webpack_require__(233));
+Vue.component('artists-menu', __webpack_require__(264));
 
 Vue.component('password-reset-new-password', __webpack_require__(207));
 Vue.component('register-form', __webpack_require__(237));
@@ -76392,6 +76393,145 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
      require("vue-hot-reload-api").rerender("data-v-c743e7f0", module.exports)
+  }
+}
+
+/***/ }),
+/* 263 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+
+    props: {
+        'artists_': {}
+    },
+
+    data: function data() {
+        return {
+            artistFilters: [],
+            defaultProps: {
+                children: 'children',
+                label: 'label',
+                disabled: 'disabled'
+            }
+
+        };
+    },
+    mounted: function mounted() {
+
+        this.artistFilters.push({
+            key: 'artists',
+            label: this.trans('portal')['artists'],
+            children: Object.values(this.artists_).map(function (artist) {
+                return {
+                    key: artist.id,
+                    label: artist.name
+                };
+            })
+        });
+
+        this.artistFilters.push({
+            key: 'medium',
+            label: this.trans('portal')['technique'],
+            children: Object.entries(this.trans('medium')).map(function (item) {
+                return {
+                    key: 'medium--' + item[0],
+                    label: item[1]
+                };
+            })
+        });
+    },
+
+
+    methods: {}
+});
+
+/***/ }),
+/* 264 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(3)(
+  /* script */
+  __webpack_require__(263),
+  /* template */
+  __webpack_require__(265),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/skhatko/code/larabid/resources/assets/js/components/ArtistsMenu.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] ArtistsMenu.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-3c6b425a", Component.options)
+  } else {
+    hotAPI.reload("data-v-3c6b425a", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 265 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('aside', [_c('h2', {
+    staticClass: "h2"
+  }, [_vm._v("Menu")]), _vm._v(" "), _c('el-tree', {
+    attrs: {
+      "data": _vm.artistFilters,
+      "props": _vm.defaultProps,
+      "node-key": "key",
+      "default-expanded-keys": ['category'],
+      "default-checked-keys": ['category--painting'],
+      "check-on-click-node": "",
+      "expand-on-click-node": false,
+      "accordion": "",
+      "show-checkbox": ""
+    }
+  })], 1)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-3c6b425a", module.exports)
   }
 }
 

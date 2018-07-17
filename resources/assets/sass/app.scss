@@ -115,6 +115,51 @@ body, html {
       column-count: 2;
       column-gap: 15px;
     }
+
+    .artist {
+      margin-bottom: 20px;
+      position: relative;
+      break-inside: avoid;
+
+      &-photo {
+        display: block;
+
+        & img {
+          height: auto;
+          width: 100%;
+          max-height: 500px;
+        }
+      }
+
+      &-title {
+        font-size: 18px;
+        font-weight: 700;
+        margin: 10px 0 20px;
+      }
+
+      &-panel {
+        position: absolute;
+        display: flex;
+        justify-content: flex-end;
+        top: 25px;
+        left: 0;
+        right: 25px;
+        text-align: right;
+        font-size: 25px;
+      }
+
+      &-favorite {
+        border-radius: 50%;
+        background: linear-gradient(to bottom, rgba(255, 255, 255, 0.7),rgba(255, 255, 255, 0.5));
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+    }
+
   }
 
   &-artworks {
@@ -136,9 +181,9 @@ body, html {
 
 
     .artwork {
-      //flex: 1 1 30%;
-      margin-bottom: 50px;
+      margin-bottom: 20px;
       position: relative;
+      break-inside: avoid;
 
       &-image {
         display: block;
@@ -160,12 +205,11 @@ body, html {
         position: absolute;
         display: flex;
         justify-content: flex-end;
-        top: 0;
+        top: 25px;
         left: 0;
-        right: 0;
+        right: 25px;
         text-align: right;
         font-size: 25px;
-        padding: 10px;
         //background: #ffffff;
       }
 

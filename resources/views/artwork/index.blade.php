@@ -10,7 +10,6 @@
 
             <artworks-menu></artworks-menu>
 
-
             <main>
 
                 <h2 class="h2">Artworks</h2>
@@ -19,7 +18,7 @@
 
                     @foreach($artworks as $artwork)
 
-                        <div class="artwork">
+                        <el-card class="artwork">
                             <a href="{{ route('artwork', $artwork->id) }}" class="artwork-image">
                                 <img src="{{ $artwork->images()->first()->name }}" alt="">
                             </a>
@@ -50,7 +49,7 @@
                                 </el-col>
                             </el-row>
 
-                        </div>
+                        </el-card>
 
                     @endforeach
 

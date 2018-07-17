@@ -42,6 +42,7 @@ Vue.use(ElementUI, {locale});
 
 
 Vue.component('artworks-menu', require('./components/ArtworksMenu.vue'));
+Vue.component('artists-menu', require('./components/ArtistsMenu.vue'));
 
 Vue.component('password-reset-new-password', require('./components/auth/PasswordResetNewPassword.vue'));
 Vue.component('register-form', require('./components/auth/RegisterForm.vue'));
