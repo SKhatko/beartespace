@@ -10,13 +10,7 @@ class UsersTableSeeder extends Seeder {
 	 * @return void
 	 */
 	public function run() {
-//		factory(App\User::class, 50)->create();
-		$newUsers = factory(App\User::class, 50)->make();
 
-		foreach ($newUsers as $user) {
-			dump($user->name);
-		}
-//		DB::table('users')->save($newUsers);
 		DB::table( 'users' )->insert( [
 			[
 				'first_name'       => 'Stanislav',

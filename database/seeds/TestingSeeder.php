@@ -11,12 +11,13 @@ class TestingSeeder extends Seeder {
 	 * @return void
 	 */
 	public function run() {
+//		factory(App\User::class, 50)->create();
 
-//		factory( App\User::class, 20 )->create()->each( function ( $u ) {
-//			$u->artworks()->save( factory( App\Artwork::class )->make( [
-//				'user_id' => $u->id
-//			] ) );
-//		} );
+		factory( App\User::class, 20 )->create()->each( function ( $u ) {
+			$u->artworks()->save( factory( App\Artwork::class )->make( [
+				'user_id' => $u->id
+			] ) );
+		} );
 
 
 		$users = User::all();
