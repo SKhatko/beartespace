@@ -49,7 +49,7 @@ class HomeController extends Controller {
 
 		$artworks = Artwork::active()->limit( 20 )->get();
 
-		return view( 'artwork.index', compact('artworks'));
+		return view( 'artwork.index', compact( 'artworks' ) );
 	}
 
 	public function sculptures() {
@@ -91,6 +91,19 @@ class HomeController extends Controller {
 
 	public function shipping() {
 		return view( 'pages.shipping' );
+	}
+
+	// Invite routes
+	public function inviteArtist() {
+		return view( 'invite.artist' );
+	}
+
+	public function inviteGallery() {
+		return view( 'invite.gallery' );
+	}
+
+	public function inviteWriter() {
+		return view( 'invite.writer' );
 	}
 
 

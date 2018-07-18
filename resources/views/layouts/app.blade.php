@@ -37,13 +37,24 @@
 
             <div class="app-header--top">
 
-                @if(Request::segment(1) === 'dashboard')
-                    <div class="app-header-logo">
-                        <a class="app-header-logo__link" href="{{ route('home') }}">
-                            <img src="/images/logo-100.png" alt="BeArteSpace logo"/>
-                        </a>
+                <div class="app-header--left">
+
+                    <div class="app-header-invites">
+                        <a href="{{ route('invite.artist') }}">Are you an artist?</a>|
+                        <a href="{{ route('invite.gallery') }}">Are you an gallery?</a>|
+                        <a href="{{ route('invite.writer') }}">Are you an writer? ( For Art Writers )</a>
                     </div>
-                @endif
+
+                    @if(Request::segment(1) === 'dashboard')
+                        <div class="app-header-logo">
+                            <a class="app-header-logo__link" href="{{ route('home') }}">
+                                <img src="/images/logo-100.png" alt="BeArteSpace logo"/>
+                            </a>
+                        </div>
+                    @endif
+
+                </div>
+
 
                 <div class="app-header-languages">
                     <el-dropdown trigger="hover">
@@ -159,7 +170,23 @@
                     @endif
                 </div>
 
-                <a href="{{ route('shopping-cart') }}" class="app-header-basket">
+                <div class="app-header-subscribe">
+                    <el-popover
+                            placement="bottom"
+                            width="400"
+                            trigger="click">
+                        <el-form inline label-position="top" method="POST" action="{{ route('add-lead') }}">
+                            {{ csrf_field() }}
+                            <el-input name="email" type="email" placeholder="Type your Email and click send">
+                                <el-button slot="append" native-type="submit" type="primary">Send</el-button>
+                            </el-input>
+                        </el-form>
+                        <div slot="reference">Subscribe for Newsletters</div>
+
+                    </el-popover>
+                </div>
+
+                <a href="{{ route('shopping-cart') }}" class="app-header-basket" style="display:none;">
 
                     @if(session('cart') && session('cart')->totalQuantity > 0)
                         <span class="el-icon-goods"></span><sup>{{ session('cart')->totalQuantity }}</sup>

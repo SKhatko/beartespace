@@ -31,7 +31,6 @@ body, html {
 
     &--top {
       display: flex;
-      justify-content: flex-end;
       align-items: center;
       margin-bottom: 20px;
       padding: 15px;
@@ -50,6 +49,20 @@ body, html {
 
       .app-header-logo {
         margin-right: 30px;
+      }
+
+    }
+
+    &--left {
+      flex: 1
+    }
+
+    &-invites {
+      color: lightgrey;
+
+      & a {
+        padding: 0 10px;
+        color: black;
       }
 
     }

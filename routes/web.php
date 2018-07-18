@@ -41,6 +41,10 @@ Route::group( [ 'middleware' => 'web' ], function () {
 	Route::get( '/artist', 'HomeController@artists' )->name( 'artists' );
 	Route::get( '/artist/{id}', 'HomeController@artist' )->name( 'artist' );
 
+	// Invites
+	Route::get( '/invite/artist', 'HomeController@inviteArtist')->name('invite.artist');
+	Route::get( '/invite/gallery', 'HomeController@inviteGallery')->name('invite.gallery');
+	Route::get( '/invite/writer', 'HomeController@inviteWriter')->name('invite.writer');
 	// Contact us page
 	Route::get( 'contact-form', 'HomeController@contactForm' )->name( 'contact-form' );
 	Route::post( 'contact-form', 'HomeController@contactFormPost' )->name( 'contact-form' );
