@@ -23,14 +23,14 @@ class TestingSeeder extends Seeder {
 		foreach ( $users as $user ) {
 			$user->artworks()->saveMany( factory( App\Artwork::class, 10 )->make() );
 			$user->photo()->save( factory( App\Media::class )->make( [
-				'name' => 'https://picsum.photos/' . random_int( 1, 1920 ) . '/' . random_int( 1, 1920 ),
+				'url' => 'https://picsum.photos/' . random_int( 1, 1920 ) . '/' . random_int( 1, 1920 ),
 			] ) );
 		}
 
 		$artworks = Artwork::all();
 
 		foreach ( $artworks as $artwork ) {
-			$artwork->images()->saveMany( factory( App\Media::class, random_int( 1, 3 ) )->make() );
+			$artwork->images()->saveMany( factory( App\Media::class, random_int( 1, 4 ) )->make() );
 		}
 	}
 }

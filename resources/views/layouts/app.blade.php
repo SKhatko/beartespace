@@ -177,7 +177,7 @@
                             trigger="click">
                         <el-form inline label-position="top" method="POST" action="{{ route('add-lead') }}">
                             {{ csrf_field() }}
-                            <el-input name="email" type="email" placeholder="Type your Email and click send">
+                            <el-input name="email" type="email" placeholder="Type your Email and click send" required>
                                 <el-button slot="append" native-type="submit" type="primary">Send</el-button>
                             </el-input>
                         </el-form>
@@ -212,35 +212,6 @@
                         <a href="{{ route('artists') }}">@lang('portal.artists')</a>
                         <a href="{{ route('artworks') }}">@lang('portal.artworks')</a>
                         <a href="{{ route('auctions') }}">@lang('portal.auction')</a>
-
-                        <el-dropdown trigger="hover">
-                      <span class="el-dropdown-link">
-                       @lang('portal.about-us')
-                      </span>
-                            <el-dropdown-menu slot="dropdown">
-                                <el-dropdown-item><a href="{{ route('rules')}}">About BeArteSpace</a></el-dropdown-item>
-                                <el-dropdown-item><a href="{{ route('rules')}}">BeArte Gallery</a></el-dropdown-item>
-                                <el-dropdown-item><a href="{{ route('rules')}}">BeArte Design</a></el-dropdown-item>
-                            </el-dropdown-menu>
-                        </el-dropdown>
-                        <el-dropdown trigger="hover">
-                      <span class="el-dropdown-link">
-                       @lang('portal.information')
-                      </span>
-                            <el-dropdown-menu slot="dropdown">
-                                <el-dropdown-item><a href="{{ route('rules')}}">Terms and Conditions</a>
-                                </el-dropdown-item>
-                                <el-dropdown-item><a href="{{ route('rules')}}">Rights to Cancellation</a>
-                                </el-dropdown-item>
-                                <el-dropdown-item><a href="{{ route('rules')}}">Warranty</a></el-dropdown-item>
-                                <el-dropdown-item><a href="{{ route('rules')}}">Taxes</a></el-dropdown-item>
-                                <el-dropdown-item><a href="{{ route('shipping')}}">Freight</a></el-dropdown-item>
-                                <el-dropdown-item><a href="{{ route('rules')}}">Cookies and Privacy Regulation</a>
-                                </el-dropdown-item>
-                            </el-dropdown-menu>
-                        </el-dropdown>
-
-                        <a href="{{ route('contact-form') }}">@lang('portal.contact')</a>
 
                     </div>
 
@@ -316,6 +287,9 @@
                                 </div>
                                 <a href="{{ route('artists')}}">@lang('portal.artists')</a>
                                 <a href="{{ route('artworks')}}">@lang('portal.artworks')</a>
+                                <a href="{{ route('invite.artist') }}">Are you an artist?</a>
+                                <a href="{{ route('invite.gallery') }}">Are you an gallery?</a>
+                                <a href="{{ route('invite.writer') }}">Are you an writer? ( For Art Writers )</a>
                             </el-card>
                         </el-col>
                         <el-col :span="4">
@@ -323,10 +297,13 @@
                                 <div slot="header" class="clearfix">
                                     <span>@lang('portal.information')</span>
                                 </div>
-                                <a href="{{ route('rules')}}">Terms & Conditions</a>
-                                <a href="{{ route('rules')}}">RIghts to Cancellation</a>
-                                <a href="{{ route('rules')}}">Warranty</a>
-                                <a href="{{ route('rules')}}">Taxes</a>
+                                <a href="{{ route('rules')}}">Terms and Conditions</a>
+                                <a href="{{ route('rules')}}">Rights to Cancellation</a>
+                                <a href="{{ route('rules')}}">Warranty</a></el-dropdown-item>
+                                <a href="{{ route('rules')}}">Taxes</a></el-dropdown-item>
+                                <a href="{{ route('shipping')}}">Freight</a></el-dropdown-item>
+                                <a href="{{ route('rules')}}">Cookies and Privacy Regulation</a>
+                                <a href="{{ route('contact-form') }}">@lang('portal.contact')</a>
                             </el-card>
                         </el-col>
 

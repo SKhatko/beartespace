@@ -45,4 +45,8 @@ class Artwork extends Model {
 	public function bids() {
 		return $this->hasMany( Bid::class );
 	}
+
+	public function size() {
+		return $this->width . ' x ' . $this->height . ' cm';
+	}
 }

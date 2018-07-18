@@ -104,6 +104,10 @@ class User extends Authenticatable {
 	}
 
 
+
+
+
+
 	/**
 	 * @param int $s
 	 * @param string $d

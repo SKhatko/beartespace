@@ -21,7 +21,7 @@
                         <el-card class="artist">
 
                             <a href="{{ route('artist', $artist->id) }}" class="artist-photo">
-                                <img src="{{ $artist->photo->name }}" alt="">
+                                <img src="{{ $artist->photo->url }}" alt="{{ $artist->photo->name }}">
                             </a>
 
                             <div class="artist-footer">

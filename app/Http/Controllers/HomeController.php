@@ -14,7 +14,11 @@ class HomeController extends Controller {
 
 		// Home page
 
-		return view( 'index' );
+		$artworks = Artwork::inRandomOrder()->with('images', 'user')->get();
+
+		$artwork = $artworks->first();
+
+		return view( 'index', compact('artwork') );
 	}
 
 	public function auctions() {

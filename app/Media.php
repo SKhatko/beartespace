@@ -6,8 +6,7 @@ use App\Events\MediaDeleted;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 
-class Media extends Model
-{
+class Media extends Model {
 	use Notifiable;
 
 	protected $guarded = [];
@@ -16,8 +15,10 @@ class Media extends Model
 		'deleted' => MediaDeleted::class,
 	];
 
-    public function getUrlAttribute($value) {
-    	$id = $this->user_id ?? $this->artwork_id;
-    	return $this->folder . '/' . $id . '/' . $this->name;
-    }
+	public function getUrlAttribute( $value ) {
+
+		$id = $this->user_id ?? $this->artwork_id;
+
+		return $value ?? $this->folder . '/' . $id . '/' . $this->name;
+	}
 }
