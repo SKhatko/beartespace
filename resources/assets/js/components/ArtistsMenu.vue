@@ -7,14 +7,19 @@
         <el-tree
                 :data="artistFilters"
                 :props="defaultProps"
+                ref="artists"
                 node-key="key"
-                :default-expanded-keys="['category']"
-                :default-checked-keys="['category--painting']"
+                :default-expanded-keys="['artists']"
+                :default-checked-keys="['artist--14']"
                 check-on-click-node
                 :expand-on-click-node="false"
                 accordion
+                empty-text="Empty text"
                 show-checkbox>
         </el-tree>
+
+        <el-button @click="getCheckedFilters">Show</el-button>
+
 
     </aside>
 
@@ -47,8 +52,8 @@
                 label: this.trans('portal')['artists'],
                 children: Object.values(this.artists_).map(function (artist) {
                     return {
-                        key: artist.id,
-                        label: artist.name,
+                        key: 'artist--' + artist.id,
+                        label: artist.name
                     }
                 })
             });
@@ -65,6 +70,10 @@
             })
         },
 
-        methods: {}
+        methods: {
+            getCheckedFilters() {
+                console.log(this.$refs.artists.getCheckedKeys());
+            }
+        }
     }
 </script>

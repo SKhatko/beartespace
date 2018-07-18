@@ -24,19 +24,19 @@
                                 <img src="{{ $artist->photo->name }}" alt="">
                             </a>
 
-                            <a href="{{ route('artist', $artist->id) }}" class="artist-name"
-                               style="display: block;">
-                                {{ $artist->name }}
-                            </a>
+                            <div class="artist-footer">
+                                <div class="artist-info">
 
-                            <div class="artist-panel">
-                                <a href="#" class="artist-favorite"><span class="el-icon-star-off"></span></a>
+                                    <a href="{{ route('artist', $artist->id) }}" class="h4">
+                                        {{ $artist->name }}
+                                    </a>
+
+                                    <div class="h5">{{ $artist->country['country_name'] }}</div>
+                                </div>
+                                <div class="artist-follow">
+                                    <el-button type="primary" plain size="small">Follow</el-button>
+                                </div>
                             </div>
-
-                            <div class="h4">{{ $artist->user['name'] }}</div>
-
-                            <div class="h5">{{ $artist->country['country_name'] }}</div>
-
 
                         </el-card>
 
