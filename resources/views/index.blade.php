@@ -4,35 +4,32 @@
 
 @section('content')
 
-    <div class="app--wrapper">
-        <div class="app-index">
-            <div class="app-index-banner" style="background:#fff url({{ $artwork->images()->first()->url }}) no-repeat center; -webkit-background-size: cover;background-size: cover;">
+    <div class="app-index">
+        <div class="app-index-banner"
+             style="background:#fff url({{ $artwork->images()->first()->url }}) no-repeat center; -webkit-background-size: cover;background-size: cover;">
 
-                <div class="banner--fade">
+            <div class="banner--fade">
 
-                    <h1 class="banner-title">We sell Art - Join Us</h1>
+                <h1 class="banner-title">We sell Art - Join Us</h1>
 
-                    <div class="banner-buttons">
-                        <a href="{{ route('artworks') }}" class="banner-buttons-link">Buy art</a>
-                        <a href="{{ route('auctions') }}" class="banner-buttons-link">Go to Auctions</a>
-                    </div>
-
-                    <div class="banner-info">
-                        <span>{{ $artwork->user->name }}</span>
-                        <span>{{ $artwork->title }}</span>
-                        <span>{{ $artwork->size() }}</span>
-                        <span>
-                            @foreach($artwork->medium as $medium)
-                                {{ trans('medium.' . $medium) && strpos(trans('medium.' . $medium), 'medium') !== false ? $medium : trans('medium.' . $medium)}}
-                            @endforeach
-                        </span>
-                    </div>
-
+                <div class="banner-buttons">
+                    <a href="{{ route('artworks') }}">Buy Art</a>
+                    <a href="{{ route('auctions') }}">Go to Auctions</a>
                 </div>
+
+                <div class="banner-info">
+                    <span>{{ $artwork->user->name }}</span>
+                    <span>{{ $artwork->title }}</span>
+                    <span>{{ $artwork->size() }}</span>
+                    <span>
+                            @foreach($artwork->medium as $medium)
+                            {{ trans('medium.' . $medium) && strpos(trans('medium.' . $medium), 'medium') !== false ? $medium : trans('medium.' . $medium)}}
+                        @endforeach
+                        </span>
+                </div>
+
             </div>
         </div>
-
-
     </div>
 
 @endsection

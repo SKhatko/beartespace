@@ -98,11 +98,21 @@ body, html {
       align-items: center;
       margin-right: 30px;
 
-      a, .el-dropdown {
-        cursor: pointer;
-        margin-left: 20px;
+      a {
+        font-size: 18px;
+        padding: 0 10px;
+        transition: all 0.8s ease;
+
+        &:hover {
+          color: #454545;
+          text-decoration: underline;
+        }
       }
 
+    }
+
+    &-subscribe {
+      font-weight: 700;
     }
 
   }
@@ -113,6 +123,9 @@ body, html {
   }
 
   &-index {
+    width: 100%;
+    margin: 0;
+    padding: 0;
 
     &-banner {
       text-align: center;
@@ -127,7 +140,7 @@ body, html {
 
         &-title {
           color: #fff;
-          font-size: 40px;
+          font-size: 60px;
           font-weight: 300;
         }
 
@@ -139,8 +152,8 @@ body, html {
           & a {
             margin: 0 10px;
             background-color: rgba(0,0,0,0.5);
-            padding: 10px 20px;
-            font-size: 20px;
+            padding: 15px 20px;
+            font-size: 22px;
             color: #fff;
             min-width: 200px;
           }
@@ -149,14 +162,14 @@ body, html {
         &-info {
           display: flex;
           justify-content: center;
-          margin-top: 20px;
+          margin-top: 30px;
           align-items: center;
 
           & span {
-            flex: 1;
-            font-size: 14px;
-            color: #fff;
-            margin: 0 10px;
+            //flex: 1;
+            font-size: 16px;
+            color: #dddddd;
+            margin: 0 20px;
           }
         }
 

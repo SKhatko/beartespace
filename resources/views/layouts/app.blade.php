@@ -40,9 +40,9 @@
                 <div class="app-header--left">
 
                     <div class="app-header-invites">
-                        <a href="{{ route('invite.artist') }}">Are you an artist?</a>|
-                        <a href="{{ route('invite.gallery') }}">Are you an gallery?</a>|
-                        <a href="{{ route('invite.writer') }}">Are you an writer? ( For Art Writers )</a>
+                        <a href="{{ route('invite.artist') }}">For an Artist</a>|
+                        <a href="{{ route('invite.gallery') }}">For Galleries</a>|
+                        <a href="{{ route('invite.writer') }}">For Art Writers</a>
                     </div>
 
                     @if(Request::segment(1) === 'dashboard')
@@ -77,7 +77,7 @@
                 <div class="app-header-auth">
                     @if (Auth::guest())
                         <a href="{{ route('login') }}">@lang('portal.login')</a>&nbsp; | &nbsp; <a
-                                href="{{ route('register') }}">@lang('portal.signup')</a>
+                                href="{{ route('register') }}">@lang('portal.signup')</a>&nbsp; |
                     @else
                         <el-dropdown trigger="hover">
                       <span class="el-dropdown-link">
