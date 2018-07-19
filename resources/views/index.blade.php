@@ -6,7 +6,7 @@
 
     <div class="app-index">
         <div class="app-index-banner"
-             style="background:#fff url({{ $artwork->images()->first()->url }}) no-repeat center; -webkit-background-size: cover;background-size: cover;">
+             style="background:#fff url({{ $artwork->images()->first()->url }}) no-repeat center; -webkit-background-size: cover;background-size: cover;background-attachment: fixed;">
 
             <div class="banner--fade">
 
