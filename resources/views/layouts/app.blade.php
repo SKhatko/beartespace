@@ -40,7 +40,7 @@
                 <div class="app-header--left">
 
                     <div class="app-header-invites">
-                        <a href="{{ route('invite.artist') }}">For an Artist</a>|
+                        <a href="{{ route('invite.artist') }}">For Artists</a>|
                         <a href="{{ route('invite.gallery') }}">For Galleries</a>|
                         <a href="{{ route('invite.writer') }}">For Art Writers</a>
                     </div>
@@ -55,6 +55,23 @@
 
                 </div>
 
+                <div class="app-header-currencies">
+                    <el-dropdown trigger="hover">
+                      <span class="el-dropdown-link">
+                          {{ session('currency') }}
+                          <i class="el-icon-arrow-down el-icon--right"></i>
+                      </span>
+                        <el-dropdown-menu slot="dropdown">
+                            @foreach(currency()->getCurrencies() as $currency)
+                                @if($currency['code'] !== session('currency'))
+                                    <el-dropdown-item>
+                                        <a href="{{ route('switch-currency', $currency['code']) }}">{{ $currency['code'] }}</a>
+                                    </el-dropdown-item>
+                                @endif
+                            @endforeach
+                        </el-dropdown-menu>
+                    </el-dropdown>
+                </div>
 
                 <div class="app-header-languages">
                     <el-dropdown trigger="hover">
@@ -66,7 +83,7 @@
                             @foreach(get_languages() as $lang)
                                 @if($lang->code !== app()->getLocale())
                                     <el-dropdown-item>
-                                        <a href="{{ route('switch_language', $lang->code) }}">{{ $lang->name }}</a>
+                                        <a href="{{ route('switch-language', $lang->code) }}">{{ $lang->name }}</a>
                                     </el-dropdown-item>
                                 @endif
                             @endforeach

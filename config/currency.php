@@ -53,7 +53,7 @@ return [
     |
     */
 
-    'cache_driver' => null,
+    'cache_driver' => env('CACHE_DRIVER', null),
 
     /*
     |--------------------------------------------------------------------------

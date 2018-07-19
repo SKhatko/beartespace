@@ -12,13 +12,15 @@ class HomeController extends Controller {
 
 	public function index() {
 
+//		dump( currency()->getUserCurrency() );
+//		dump( currency()->config( 'currency' ) );
 		// Home page
 
-		$artworks = Artwork::inRandomOrder()->with('images', 'user')->get();
+		$artworks = Artwork::inRandomOrder()->with( 'images', 'user' )->get();
 
 		$artwork = $artworks->first();
 
-		return view( 'index', compact('artwork') );
+		return view( 'index', compact( 'artwork' ) );
 	}
 
 	public function auctions() {

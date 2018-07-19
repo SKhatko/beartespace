@@ -37,6 +37,9 @@ class Kernel extends HttpKernel
 
 	        //Specific Middleware
             \App\Http\Middleware\SetApplicationLanguage::class,
+            \App\Http\Middleware\SetCurrency::class,
+//	        \Torann\Currency\Middleware\CurrencyMiddleware::class,
+
         ],
 
         'api' => [

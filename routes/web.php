@@ -55,7 +55,8 @@ Route::group( [ 'middleware' => 'web' ], function () {
 	// Leads
 	Route::post( 'add-lead', 'LeadController@addLead' )->name( 'add-lead' );
 
-	Route::get( '/language/{lang}', [ 'as' => 'switch_language', 'uses' => 'LanguageController@switchLang' ] );
+	Route::get( '/language/{lang}', 'LanguageController@switchLang')->name('switch-language');
+	Route::get( '/currency/{code}', 'CurrencyController@switchCurrency')->name('switch-currency');
 
 	// Shopping
 	Route::get( 'shopping-cart', 'HomeController@shoppingCart' )->name( 'shopping-cart' );

@@ -7,13 +7,12 @@ use Illuminate\Http\Request;
 use PeterColes\Languages\LanguagesFacade as TranslatedLanguages;
 
 class LanguageController extends Controller {
+
 	public function index() {
 
 		$title               = trans( 'app.language_settings' );
 		$languages           = Language::all();
 		$translatedLanguages = TranslatedLanguages::lookup();
-
-//		return $languages;
 
 		return view( 'dashboard.admin.languages', compact( 'title', 'languages', 'translatedLanguages' ) );
 	}
@@ -22,7 +21,12 @@ class LanguageController extends Controller {
 	 * Switch Language
 	 */
 	public function switchLang( $lang ) {
-		session( [ 'lang' => $lang ] );
+
+		$langExists = Language::where('code', $lang)->where( 'active', 1 )->first();
+
+		if ( $langExists ) {
+			session( [ 'lang' => $lang ] );
+		}
 
 		return back();
 	}

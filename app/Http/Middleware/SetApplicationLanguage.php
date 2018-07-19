@@ -17,7 +17,7 @@ class SetApplicationLanguage {
 	 * @return mixed
 	 */
 	public function handle( $request, Closure $next ) {
-		//Set Language
+
 		App::setLocale( session( 'lang' ) ? session( 'lang' ) : Config::get( 'app.locale' ) );
 
 		return $next( $request );

@@ -78,6 +78,11 @@ body, html {
       cursor: pointer;
     }
 
+    &-currencies {
+      cursor: pointer;
+      margin-right: 10px;
+    }
+
     &-basket {
       font-size: 23px;
       position: relative;
@@ -113,6 +118,7 @@ body, html {
 
     &-subscribe {
       font-weight: 700;
+      cursor: pointer;
     }
 
   }
@@ -142,6 +148,7 @@ body, html {
           color: #fff;
           font-size: 60px;
           font-weight: 300;
+          text-shadow: 0 0 3px black;
         }
 
         &-buttons {
@@ -156,6 +163,7 @@ body, html {
             font-size: 22px;
             color: #fff;
             min-width: 200px;
+            border: 1px solid #fff;
           }
         }
 
@@ -170,6 +178,7 @@ body, html {
             font-size: 16px;
             color: #dddddd;
             margin: 0 20px;
+            text-shadow: 0 0 2px black;
           }
         }
 
