@@ -6,26 +6,21 @@
 
     @if($artwork)
         <div class="app--wrapper">
-            <h2>Painting</h2>
 
-            <h3><a href="{{ route('artist', $artwork->user->id) }}">{{ $artwork->user->name }}</a></h3>
+            <div class="app-artwork">
 
-            <div class="artwork" style="display: flex">
+                <div class="h3"><a href="{{ route('artist', $artwork->user->id) }}">{{ $artwork->user->name }}</a>, {{ $artwork->title }}</div>
 
-                <div>
-                    Title {{ $artwork->title }} <br>
-                    Country {{ $artwork->user->country['country_name'] }} <br>
-                    <el-button>
-                        <a href="{{ route('add-to-cart', $artwork->id) }}">Add to cart</a>
-                    </el-button>
+                <div class="h4">{{ $artwork->user->country['country_name'] }}</div>
+
+                <div class="app-artwork-images">
+                    @foreach($artwork->images as $image)
+                        <img src="{{ $image->url }}" alt="{{ $image->name }}" style="display: block;">
+                    @endforeach
                 </div>
 
-                @foreach($artwork->images as $image)
-                    <img src="{{ $image->name }}" alt="" style="max-height: 400px">
-                @endforeach
-
             </div>
-            <hr>
+
         </div>
     @endif
 
