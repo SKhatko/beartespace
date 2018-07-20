@@ -13,6 +13,10 @@
 
                 <div class="h4">{{ $artwork->user->country['country_name'] }}</div>
 
+                <el-button>
+                    <a href="{{ route('add-to-cart', $artwork->id) }}">Add to cart</a>
+                </el-button>
+
                 <div class="app-artwork-images">
                     @foreach($artwork->images as $image)
                         <img src="{{ $image->url }}" alt="{{ $image->name }}" style="display: block;">
