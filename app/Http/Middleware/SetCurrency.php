@@ -15,7 +15,7 @@ class SetCurrency
      */
     public function handle($request, Closure $next)
     {
-	    session(['currency', (session('currency') ?? currency()->config( 'currency' ))]);
+	    session(['currency', (session('currency') ?? currency()->config( 'default' ))]);
 
         return $next($request);
     }

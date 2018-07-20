@@ -29,7 +29,7 @@
                 </div>
 
                 <div class="artwork-price">
-                    {{ $artwork->price }} EUR
+                    {{ currency($artwork->price) . optionalPrice($artwork->price) }}
                 </div>
             </div>
 
