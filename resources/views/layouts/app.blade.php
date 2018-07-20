@@ -203,15 +203,11 @@
                     </el-popover>
                 </div>
 
-                <a href="{{ route('shopping-cart') }}" class="app-header-basket" style="display:none;">
-
-                    @if(session('cart') && session('cart')->totalQuantity > 0)
-                        <span class="el-icon-goods"></span><sup>{{ session('cart')->totalQuantity }}</sup>
-                    @else
-                        <span class="el-icon-sold-out"></span>
-                    @endif
-
-                </a>
+                @if(session('cart') && session('cart')->totalQuantity > 0)
+                    <a href="{{ route('shopping-cart') }}" class="app-header-cart">
+                        <i class="el-icon-goods"></i><sup>{{ session('cart')->totalQuantity }}</sup>
+                    </a>
+                @endif
 
             </div>
 
