@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Spatie\TranslationLoader\LanguageLine;
 
 class TranslationsTableSeeder extends Seeder {
 	/**
@@ -127,10 +128,10 @@ class TranslationsTableSeeder extends Seeder {
 			foreach ( $trans as $tran ) {
 				$key = str_slug( $tran[0], '-' );
 
-				DB::table( 'language_lines' )->insert( [
+				LanguageLine::create( [
 					'group' => $medium,
 					'key'   => $key,
-					'text'  => json_encode( [ 'en' => $tran[0], 'da' => $tran[1] ] ),
+					'text'  => [ 'en' => $tran[0], 'da' => $tran[1] ],
 				] );
 			}
 		}
