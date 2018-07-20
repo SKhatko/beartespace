@@ -386,12 +386,24 @@ body, html {
       box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
     }
 
-    &--bottom {
+    &--middle {
       padding-top: 40px;
+    }
+
+    &--bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+      padding: 15px;
+      box-shadow: 0 -2px 12px 0 rgba(0, 0, 0, 0.1);
+    }
+
+    &-menu {
 
       a {
+        margin: 7px 0;
         display: block;
-        margin-bottom: 10px;
       }
 
     }

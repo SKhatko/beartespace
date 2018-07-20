@@ -47,7 +47,7 @@
 
                     @if(Request::segment(1) === 'dashboard')
                         <div class="app-header-logo">
-                            <a class="app-header-logo__link" href="{{ route('home') }}">
+                            <a href="{{ route('home') }}">
                                 <img src="/images/logo-100.png" alt="BeArteSpace logo"/>
                             </a>
                         </div>
@@ -219,8 +219,8 @@
                 <div class="app-header--bottom">
 
                     <div class="app-header-logo">
-                        <a class="app-header-logo__link" href="{{ route('home') }}">
-                            <img src="/images/logo-200.png" title="BeArteSpae" alt="BeArteSpace logo"/>
+                        <a href="{{ route('home') }}">
+                            <img src="/images/logo-200.png" title="BeArteSpace" alt="BeArteSpace logo"/>
                         </a>
                     </div>
 
@@ -284,63 +284,59 @@
 
             </div>
 
-            <div class="app-footer--bottom">
+            <div class="app-footer--middle">
                 <div class="app--wrapper">
                     <el-row :gutter="20">
                         <el-col :span="4">
-                            <el-card shadow="hover">
-                                <div slot="header" class="clearfix">
-                                    <span>@lang('portal.about-us')</span>
-                                </div>
+                            <div class="app-footer-menu">
+
+                                <div class="h4">@lang('portal.about-us')</div>
+
                                 <a href="{{ route('rules')}}">About BeArteSpace</a>
                                 <a href="{{ route('rules')}}">BeArte Gallery</a>
                                 <a href="{{ route('rules')}}">BeArte Design</a>
-                            </el-card>
+                            </div>
                         </el-col>
                         <el-col :span="4">
-                            <el-card shadow="hover">
-                                <div slot="header" class="clearfix">
-                                    <span>For Clients</span>
-                                </div>
+                            <div class="app-footer-menu">
+
+                                <div class="h4">For Clients</div>
+
                                 <a href="{{ route('artists')}}">@lang('portal.artists')</a>
                                 <a href="{{ route('artworks')}}">@lang('portal.artworks')</a>
-                                <a href="{{ route('invite.artist') }}">Are you an artist?</a>
-                                <a href="{{ route('invite.gallery') }}">Are you an gallery?</a>
-                                <a href="{{ route('invite.writer') }}">Are you an writer? ( For Art Writers )</a>
-                            </el-card>
+                                <a href="{{ route('invite.artist') }}">For Artists</a>
+                                <a href="{{ route('invite.gallery') }}">For Galleries</a>
+                                <a href="{{ route('invite.writer') }}">For Art Writers</a>
+                            </div>
                         </el-col>
                         <el-col :span="4">
-                            <el-card shadow="hover">
-                                <div slot="header" class="clearfix">
-                                    <span>@lang('portal.information')</span>
-                                </div>
+                            <div class="app-footer-menu">
+                                <div class="h4">@lang('portal.information')</div>
+
                                 <a href="{{ route('rules')}}">Terms and Conditions</a>
                                 <a href="{{ route('rules')}}">Rights to Cancellation</a>
-                                <a href="{{ route('rules')}}">Warranty</a></el-dropdown-item>
-                                <a href="{{ route('rules')}}">Taxes</a></el-dropdown-item>
-                                <a href="{{ route('shipping')}}">Freight</a></el-dropdown-item>
+                                <a href="{{ route('rules')}}">Warranty</a>
+                                <a href="{{ route('rules')}}">Taxes</a>
+                                <a href="{{ route('shipping')}}">Freight</a>
                                 <a href="{{ route('rules')}}">Cookies and Privacy Regulation</a>
                                 <a href="{{ route('contact-form') }}">@lang('portal.contact')</a>
-                            </el-card>
+                            </div>
                         </el-col>
 
                         <el-col :span="4">
-                            <el-card shadow="hover">
-                                <div slot="header" class="clearfix">
-                                    <span>@lang('portal.auction')</span>
-                                </div>
+                            <div class="app-footer-menu">
+                                <div class="h4">@lang('portal.auction')</div>
+
                                 <a href="{{ route('auctions')}}">Go to Online Auction</a>
-                            </el-card>
+                            </div>
                         </el-col>
 
                         <el-col :span="8">
-                            <el-card shadow="hover">
-                                <div slot="header" class="clearfix">
-                                    <span>@lang('portal.contact')</span>
-                                </div>
+                            <div class="app-footer-menu">
+                                <div class="h4">@lang('portal.contact')</div>
 
                                 {!! showPage('contacts-in-footer') !!}
-                            </el-card>
+                            </div>
                         </el-col>
                     </el-row>
 
@@ -348,9 +344,22 @@
 
             </div>
 
+            <div class="app-footer--bottom">
+
+                <div class="app--wrapper">
+                    <div class="app-footer-logo">
+                        <a href="{{ route('home') }}">
+                            <img src="/images/logo-100.png" title="BeArteSpace" alt="BeArteSpace logo"/>
+                        </a>
+                    </div>
+                    <div class="app-footer-copy">
+                        &copy; 2018 Beartespace
+                    </div>
+                </div>
+
+            </div>
 
         </el-footer>
-
 
     </el-container>
 
