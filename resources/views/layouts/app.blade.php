@@ -76,11 +76,11 @@
                 <div class="app-header-languages">
                     <el-dropdown trigger="hover">
                       <span class="el-dropdown-link">
-                          {{$current_lang->name ?? 'en' }}
+                          {{ currentLanguage()->name ?? 'en' }}
                           <i class="el-icon-arrow-down el-icon--right"></i>
                       </span>
                         <el-dropdown-menu slot="dropdown">
-                            @foreach(get_languages() as $lang)
+                            @foreach(getLanguages() as $lang)
                                 @if($lang->code !== app()->getLocale())
                                     <el-dropdown-item>
                                         <a href="{{ route('switch-language', $lang->code) }}">{{ $lang->name }}</a>
@@ -122,7 +122,7 @@
                                     <a href="{{route('dashboard.favorites')}}" class="el-dropdown-link">Favorites</a>
                                 </el-dropdown-item>
 
-                                @if(!$lUser->isUser())
+                                @if(!auth()->user()->isUser())
 
                                     <el-dropdown-item>
                                         <a href="{{route('dashboard.artworks')}}" class="el-dropdown-link">Artworks</a>
@@ -135,7 +135,7 @@
 
                                 @endif
 
-                                @if($lUser->isAdmin())
+                                @if(auth()->user()->isAdmin())
 
                                     <el-dropdown-item>
                                         <i class="el-icon-message"></i>

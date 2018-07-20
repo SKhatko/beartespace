@@ -26,16 +26,10 @@ class AppServiceProvider extends ServiceProvider {
 
 		view()->composer( '*', function ( $view ) {
 
-			$loggedUser = null;
-			if ( Auth::check() ) {
-				$loggedUser = Auth::user();
-			}
-
-			$current_lang = current_language();
+//			$current_lang = currentLanguage();
 
 			$view->with( [
-				'lUser'        => $loggedUser,
-				'current_lang' => $current_lang,
+//				'current_lang' => $current_lang,
 			] );
 		} );
 

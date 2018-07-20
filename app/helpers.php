@@ -34,15 +34,15 @@ if ( ! function_exists( 'optionalPrice' ) ) {
 	}
 }
 
-if ( ! function_exists( 'get_languages' ) ) {
-	function get_languages() {
+if ( ! function_exists( 'getLanguages' ) ) {
+	function getLanguages() {
 		$languages = \App\Language::active()->get();
 
 		return $languages;
 	}
 }
 
-function current_language() {
+function currentLanguage() {
 	if ( session( 'lang' ) ) {
 		$language = \App\Language::whereCode( session( 'lang' ) )->first();
 		if ( $language ) {
@@ -60,7 +60,7 @@ function current_language() {
  */
 if ( ! function_exists( 'is_rtl' ) ) {
 	function is_rtl() {
-		return ( current_language() && current_language()->is_rtl == 1 );
+		return ( currentLanguage() && currentLanguage()->is_rtl == 1 );
 	}
 }
 
