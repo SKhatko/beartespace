@@ -16,4 +16,12 @@ class PageController extends Controller
 
 		return view('dashboard.admin.pages', compact('title', 'pages', 'languages'));
 	}
+
+	public function show($slug) {
+
+		$page = Page::whereSlug( $slug )->first();
+
+		return view('pages.page', compact('page'));
+
+	}
 }

@@ -187,21 +187,24 @@
                     @endif
                 </div>
 
-                <div class="app-header-subscribe">
-                    <el-popover
-                            placement="bottom"
-                            width="400"
-                            trigger="click">
-                        <el-form inline label-position="top" method="POST" action="{{ route('add-lead') }}">
-                            {{ csrf_field() }}
-                            <el-input name="email" type="email" placeholder="Type your Email and click send" required>
-                                <el-button slot="append" native-type="submit" type="primary">Send</el-button>
-                            </el-input>
-                        </el-form>
-                        <div slot="reference">Subscribe for Newsletters</div>
+                @if(!Cookie::get('email_subscription'))
+                    <div class="app-header-subscribe">
+                        <el-popover
+                                placement="bottom"
+                                width="400"
+                                trigger="click">
+                            <el-form inline label-position="top" method="POST" action="{{ route('add-lead') }}">
+                                {{ csrf_field() }}
+                                <el-input name="email" type="email" placeholder="Type your Email and click send"
+                                          required>
+                                    <el-button slot="append" native-type="submit" type="primary">Send</el-button>
+                                </el-input>
+                            </el-form>
+                            <div slot="reference">Subscribe for Newsletters</div>
 
-                    </el-popover>
-                </div>
+                        </el-popover>
+                    </div>
+                @endif
 
                 @if(session('cart') && session('cart')->totalQuantity > 0)
                     <a href="{{ route('shopping-cart') }}" class="app-header-cart">
@@ -257,26 +260,6 @@
 
             <div class="app-footer--top">
 
-                <div class="app-footer-social">
-                    <a href="#"><i class="fa fa-facebook"></i></a>
-                    <a href="#"><i class="fa fa-twitter"></i> </a>
-                    <a href="#"><i class="fa fa-google-plus"></i> </a>
-                    <a href="#"><i class="fa fa-youtube"></i> </a>
-                    <a href="#"><i class="fa fa-linkedin"></i> </a>
-                    <a href="#"><i class="fa fa-dribbble"></i> </a>
-                </div>
-
-                <div class="app-footer-newsletter">
-
-                    <el-form inline label-position="top" method="POST" action="{{ route('add-lead') }}">
-                        {{ csrf_field() }}
-                        <el-form-item label="Sign Up to be informed about new Artworks">
-                            <el-input name="email" type="email">
-                                <el-button slot="append" native-type="submit" type="primary">Send</el-button>
-                            </el-input>
-                        </el-form-item>
-                    </el-form>
-                </div>
 
             </div>
 
@@ -310,7 +293,7 @@
                                 <div class="h4">@lang('portal.information')</div>
 
                                 <a href="{{ route('rules')}}">Terms and Conditions</a>
-                                <a href="{{ route('rules')}}">Rights to Cancellation</a>
+                                <a href="{{ route('page', 'right-to-cancellation')}}">Rights to Cancellation</a>
                                 <a href="{{ route('rules')}}">Warranty</a>
                                 <a href="{{ route('rules')}}">Taxes</a>
                                 <a href="{{ route('shipping')}}">Freight</a>
@@ -336,6 +319,41 @@
                         </el-col>
                     </el-row>
 
+                    <el-row :gutter="20">
+
+                        <el-col :sm="12">
+
+                            <div class="app-footer-social">
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-twitter"></i> </a>
+                                <a href="#"><i class="fa fa-google-plus"></i> </a>
+                                <a href="#"><i class="fa fa-youtube"></i> </a>
+                                <a href="#"><i class="fa fa-linkedin"></i> </a>
+                                <a href="#"><i class="fa fa-dribbble"></i> </a>
+                            </div>
+
+                        </el-col>
+
+                        <el-col :sm="6" :offset="6">
+
+                            @if(!Cookie::get('email_subscription'))
+                                <div class="app-footer-subscribe">
+                                    <el-form inline label-position="top" method="POST" action="{{ route('add-lead') }}">
+                                        {{ csrf_field() }}
+                                        <el-form-item>
+                                            <el-input name="email" type="email"
+                                                      placeholder="Sign Up to be informed about new Artworks" required>
+                                                <el-button slot="append" native-type="submit" type="primary">Send
+                                                </el-button>
+                                            </el-input>
+                                        </el-form-item>
+                                    </el-form>
+                                </div>
+                            @endif
+
+                        </el-col>
+                    </el-row>
+
                 </div>
 
             </div>
@@ -343,14 +361,20 @@
             <div class="app-footer--bottom">
 
                 <div class="app--wrapper">
-                    <div class="app-footer-logo">
-                        <a href="{{ route('home') }}">
-                            <img src="/images/logo-100.png" title="BeArteSpace" alt="BeArteSpace logo"/>
-                        </a>
+
+                    <div class="app-footer-bottom">
+                        <div class="app-footer-logo">
+                            <a href="{{ route('home') }}">
+                                <img src="/images/logo-100.png" title="BeArteSpace" alt="BeArteSpace logo"/>
+                            </a>
+                        </div>
+
+                        <div class="app-footer-copy">
+                            &copy; 2018 Beartespace
+                        </div>
+
                     </div>
-                    <div class="app-footer-copy">
-                        &copy; 2018 Beartespace
-                    </div>
+
                 </div>
 
             </div>
