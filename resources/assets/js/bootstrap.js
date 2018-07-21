@@ -1,7 +1,8 @@
 
 window.get = require('lodash.get');
+window.Vue = require('vue');
+
 // window._ = require('lodash');
-// window.Masonry = require('masonry-layout');
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support

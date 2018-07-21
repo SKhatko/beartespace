@@ -265,94 +265,77 @@
 
             <div class="app-footer--middle">
                 <div class="app--wrapper">
-                    <el-row :gutter="20">
-                        <el-col :span="4">
-                            <div class="app-footer-menu">
+                    <div class="app-footer-menu">
+                        <div class="app-footer-submenu">
 
-                                <div class="h4">@lang('portal.about-us')</div>
+                            <div class="h4">@lang('portal.about-us')</div>
 
-                                <a href="{{ route('rules')}}">About BeArteSpace</a>
-                                <a href="{{ route('rules')}}">BeArte Gallery</a>
-                                <a href="{{ route('rules')}}">BeArte Design</a>
+                            <a href="{{ route('page', 'about-beartespace')}}">About BeArteSpace</a>
+                            <a href="{{ route('page', 'about-beartegallery')}}">BeArte Gallery</a>
+                            <a href="{{ route('page', 'about-beartedesign')}}">BeArte Design</a>
+                        </div>
+                        <div class="app-footer-submenu">
+
+                            <div class="h4">For Clients</div>
+
+                            <a href="{{ route('artists')}}">@lang('portal.artists')</a>
+                            <a href="{{ route('artworks')}}">@lang('portal.artworks')</a>
+                            <a href="{{ route('invite.artist') }}">For Artists</a>
+                            <a href="{{ route('invite.gallery') }}">For Galleries</a>
+                            <a href="{{ route('invite.writer') }}">For Art Writers</a>
+                        </div>
+                        <div class="app-footer-submenu">
+                            <div class="h4">@lang('portal.information')</div>
+
+                            <a href="{{ route('page', 'terms-and-conditions')}}">Terms and Conditions</a>
+                            <a href="{{ route('page', 'right-of-cancellation')}}">Rights to Cancellation</a>
+                            <a href="{{ route('page', 'warranty')}}">Warranty</a>
+                            <a href="{{ route('page', 'taxes')}}">Taxes</a>
+                            <a href="{{ route('page', 'freight')}}">Freight</a>
+                            <a href="{{ route('page', 'cookies-and-privacy-regulation')}}">Cookies and Privacy Regulation</a>
+                            <a href="{{ route('contact-form') }}">@lang('portal.contact')</a>
+                        </div>
+
+                        <div class="app-footer-submenu">
+                            <div class="h4">@lang('portal.auction')</div>
+
+                            <a href="{{ route('auctions')}}">Go to Online Auction</a>
+                        </div>
+
+                        <div class="app-footer-submenu">
+                            <div class="h4">@lang('portal.contact')</div>
+
+                            {!! showPage('contacts-in-footer') !!}
+                        </div>
+                    </div>
+
+                    <div class="app-footer-panel">
+
+                        <div class="app-footer-social">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i> </a>
+                            <a href="#"><i class="fa fa-google-plus"></i> </a>
+                            <a href="#"><i class="fa fa-youtube"></i> </a>
+                            <a href="#"><i class="fa fa-linkedin"></i> </a>
+                            <a href="#"><i class="fa fa-dribbble"></i> </a>
+                        </div>
+
+                        @if(!Cookie::get('email_subscription'))
+                            <div class="app-footer-subscribe">
+                                <el-form inline label-position="top" method="POST" action="{{ route('add-lead') }}">
+                                    {{ csrf_field() }}
+                                    <el-form-item>
+                                        <el-input name="email" type="email"
+                                                  placeholder="Sign Up to be informed about new Artworks" required>
+                                            <el-button slot="append" native-type="submit" type="primary">Send
+                                            </el-button>
+                                        </el-input>
+                                    </el-form-item>
+                                </el-form>
                             </div>
-                        </el-col>
-                        <el-col :span="4">
-                            <div class="app-footer-menu">
+                        @endif
 
-                                <div class="h4">For Clients</div>
-
-                                <a href="{{ route('artists')}}">@lang('portal.artists')</a>
-                                <a href="{{ route('artworks')}}">@lang('portal.artworks')</a>
-                                <a href="{{ route('invite.artist') }}">For Artists</a>
-                                <a href="{{ route('invite.gallery') }}">For Galleries</a>
-                                <a href="{{ route('invite.writer') }}">For Art Writers</a>
-                            </div>
-                        </el-col>
-                        <el-col :span="4">
-                            <div class="app-footer-menu">
-                                <div class="h4">@lang('portal.information')</div>
-
-                                <a href="{{ route('rules')}}">Terms and Conditions</a>
-                                <a href="{{ route('page', 'right-to-cancellation')}}">Rights to Cancellation</a>
-                                <a href="{{ route('rules')}}">Warranty</a>
-                                <a href="{{ route('rules')}}">Taxes</a>
-                                <a href="{{ route('shipping')}}">Freight</a>
-                                <a href="{{ route('rules')}}">Cookies and Privacy Regulation</a>
-                                <a href="{{ route('contact-form') }}">@lang('portal.contact')</a>
-                            </div>
-                        </el-col>
-
-                        <el-col :span="4">
-                            <div class="app-footer-menu">
-                                <div class="h4">@lang('portal.auction')</div>
-
-                                <a href="{{ route('auctions')}}">Go to Online Auction</a>
-                            </div>
-                        </el-col>
-
-                        <el-col :span="8">
-                            <div class="app-footer-menu">
-                                <div class="h4">@lang('portal.contact')</div>
-
-                                {!! showPage('contacts-in-footer') !!}
-                            </div>
-                        </el-col>
-                    </el-row>
-
-                    <el-row :gutter="20">
-
-                        <el-col :sm="12">
-
-                            <div class="app-footer-social">
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i> </a>
-                                <a href="#"><i class="fa fa-google-plus"></i> </a>
-                                <a href="#"><i class="fa fa-youtube"></i> </a>
-                                <a href="#"><i class="fa fa-linkedin"></i> </a>
-                                <a href="#"><i class="fa fa-dribbble"></i> </a>
-                            </div>
-
-                        </el-col>
-
-                        <el-col :sm="6" :offset="6">
-
-                            @if(!Cookie::get('email_subscription'))
-                                <div class="app-footer-subscribe">
-                                    <el-form inline label-position="top" method="POST" action="{{ route('add-lead') }}">
-                                        {{ csrf_field() }}
-                                        <el-form-item>
-                                            <el-input name="email" type="email"
-                                                      placeholder="Sign Up to be informed about new Artworks" required>
-                                                <el-button slot="append" native-type="submit" type="primary">Send
-                                                </el-button>
-                                            </el-input>
-                                        </el-form-item>
-                                    </el-form>
-                                </div>
-                            @endif
-
-                        </el-col>
-                    </el-row>
+                    </div>
 
                 </div>
 
@@ -362,7 +345,7 @@
 
                 <div class="app--wrapper">
 
-                    <div class="app-footer-bottom">
+                    <div class="app-footer-panel">
                         <div class="app-footer-logo">
                             <a href="{{ route('home') }}">
                                 <img src="/images/logo-100.png" title="BeArteSpace" alt="BeArteSpace logo"/>

@@ -29,6 +29,6 @@
     "fontello-webpack-plugin": "^0.4.8",
     "lodash.get": "^4.4.2",
     "normalize.css": "^8.0.0",
-    "vue-froala-wysiwyg": "^2.8.4"
+    "vue2-editor": "^2.5.0"
   }
 }

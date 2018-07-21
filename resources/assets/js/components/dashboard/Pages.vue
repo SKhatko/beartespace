@@ -41,9 +41,8 @@
 
                             <el-tab-pane :label="language.name">
 
-                                <froala :tag="'textarea'" :config="{}" v-model="page.content[language.code]"></froala>
-
-                                <!--<froalaView v-model="page.content[language.code]"></froalaView>-->
+                                <!--<froala :tag="'textarea'" :config="{}" v-model="page.content[language.code]"></froala>-->
+                                <vue-editor v-model="page.content[language.code]"></vue-editor>
 
                             </el-tab-pane>
 
@@ -67,6 +66,8 @@
 </template>
 
 <script>
+
+    import { VueEditor } from 'vue2-editor'
 
     export default {
 

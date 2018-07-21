@@ -7,22 +7,11 @@
 require('./bootstrap');
 // require('./main');
 
-window.Vue = require('vue');
-
-require('froala-editor/js/froala_editor.pkgd.min');
-
-// Import and use Vue Froala lib.
-import VueFroala from 'vue-froala-wysiwyg';
-
-Vue.use(VueFroala);
-
-
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-
 
 import ElementUI from 'element-ui';
 import locale from 'element-ui/lib/locale/lang/en'

@@ -5,10 +5,11 @@
 @section('content')
 
     <div class="app--wrapper">
-
         @if($page)
 
-            {!! $page->content !!}
+            <div class="app-page">
+                {!! $page->content !!}
+            </div>
 
         @endif
 
