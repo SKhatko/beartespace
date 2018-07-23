@@ -52,7 +52,8 @@ body, html {
     }
 
     &--left {
-      flex: 1
+      flex: 1;
+      display: flex;
     }
 
     &-invites {

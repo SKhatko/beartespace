@@ -39,18 +39,20 @@
 
                 <div class="app-header--left">
 
-                    <div class="app-header-invites">
-                        <a href="{{ route('invite.artist') }}">For Artists</a>|
-                        <a href="{{ route('invite.gallery') }}">For Galleries</a>|
-                        <a href="{{ route('invite.writer') }}">For Art Writers</a>
-                    </div>
-
                     @if(Request::segment(1) === 'dashboard')
                         <div class="app-header-logo">
                             <a href="{{ route('home') }}">
                                 <img src="/images/logo-100.png" alt="BeArteSpace logo"/>
                             </a>
                         </div>
+                    @else
+
+                        <div class="app-header-invites">
+                            <a href="{{ route('invite.artist') }}">For Artists</a>|
+                            <a href="{{ route('invite.gallery') }}">For Galleries</a>|
+                            <a href="{{ route('invite.writer') }}">For Art Writers</a>
+                        </div>
+
                     @endif
 
                 </div>
@@ -292,7 +294,8 @@
                             <a href="{{ route('page', 'warranty')}}">Warranty</a>
                             <a href="{{ route('page', 'taxes')}}">Taxes</a>
                             <a href="{{ route('page', 'freight')}}">Freight</a>
-                            <a href="{{ route('page', 'cookies-and-privacy-regulation')}}">Cookies and Privacy Regulation</a>
+                            <a href="{{ route('page', 'cookies-and-privacy-regulation')}}">Cookies and Privacy
+                                Regulation</a>
                             <a href="{{ route('contact-form') }}">@lang('portal.contact')</a>
                         </div>
 

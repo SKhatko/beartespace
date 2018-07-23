@@ -21,4 +21,8 @@ class Media extends Model {
 
 		return $value ?? $this->folder . '/' . $id . '/' . $this->name;
 	}
+
+	public function user() {
+		return $this->belongsTo(User::class, 'id', 'user_id');
+	}
 }

@@ -34,12 +34,12 @@ Route::group( [ 'middleware' => 'web' ], function () {
 
 	Route::get( '/', 'HomeController@index' )->name( 'home' );
 	Route::get( '/home', 'HomeController@index' );
-	Route::get( '/auction', 'HomeController@auctions' )->name( 'auctions' );
-	Route::get( '/auction/{id}', 'HomeController@auctions' )->name( 'auction' );
-	Route::get( '/artwork', 'HomeController@artworks' )->name( 'artworks' );
-	Route::get( '/artwork/{id}', 'HomeController@artwork' )->name( 'artwork' );
-	Route::get( '/artist', 'HomeController@artists' )->name( 'artists' );
-	Route::get( '/artist/{id}', 'HomeController@artist' )->name( 'artist' );
+	Route::get( '/auctions', 'HomeController@auctions' )->name( 'auctions' );
+	Route::get( '/auctions/{id}', 'HomeController@auctions' )->name( 'auction' );
+	Route::get( '/artworks', 'HomeController@artworks' )->name( 'artworks' );
+	Route::get( '/artworks/{id}', 'HomeController@artwork' )->name( 'artwork' );
+	Route::get( '/artists', 'HomeController@artists' )->name( 'artists' );
+	Route::get( '/artists/{id}', 'HomeController@artist' )->name( 'artist' );
 
 	// Invites
 	Route::get( '/invite/artist', 'HomeController@inviteArtist')->name('invite.artist');

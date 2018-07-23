@@ -1,4 +1,4 @@
- <template>
+<template>
 
     <el-card v-if="user">
 
@@ -6,26 +6,49 @@
 
         <el-form label-position="top" :model="user" :rules="rules" ref="profile">
 
-            <label class="el-form-item__label">Upload Your Photo ( jpg/png files accepted )</label>
-            <el-form-item>
+            <el-form-item label="Upload avatar">
                 <el-upload
-                        :action="'/api/upload/user-photo/' + user.id"
-                        list-type="list"
-                        :file-list="user.photo"
-                        :on-preview="handlePictureCardPreview"
-                        :on-remove="handleRemove"
-                        :on-success="handleSuccess"
-                        accept=".jpg, .jpeg, .png">
-                    <el-button type="info" plain>
-                        <i class="el-icon-upload"></i>
-                        Upload photo
-                    </el-button>
-                </el-upload>
+                        class="avatar-uploader"
+                        :action="'/api/upload/user-avatar/' + user.id"
+                        :show-file-list="false"
+                        accept=".jpg, .jpeg, .png"
+                        :on-success="handleAvatarSuccess"
+                        :before-upload="beforeAvatarUpload">
+                    <div class="avatar" v-if="user.avatar">
+                        <img :src="user.avatar.url" class="avatar">
 
-                <el-dialog :visible.sync="dialogVisible">
-                    <img width="100%" :src="dialogImageUrl" alt="">
-                </el-dialog>
+                        <!--<el-button type="info" plain>-->
+                        <!--<i class="el-icon-upload"></i>-->
+                        <!--Change Avatar-->
+                        <!--</el-button>-->
+                    </div>
+                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </el-upload>
             </el-form-item>
+
+            <el-form-item label="Upload profile image">
+                <el-upload
+                        class="avatar-uploader"
+                        :action="'/api/upload/user-image/' + user.id"
+                        :show-file-list="false"
+                        accept=".jpg, .jpeg, .png"
+                        :on-success="handleImageSuccess"
+                        :before-upload="beforeAvatarUpload">
+                    <div v-if="user.image">
+                        <img :src="user.image.url" class="image">
+
+                        <!--<el-button type="info" plain>-->
+                        <!--<i class="el-icon-upload"></i>-->
+                        <!--Change image-->
+                        <!--</el-button>-->
+                    </div>
+                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </el-upload>
+            </el-form-item>
+
+            <el-dialog :visible.sync="dialogVisible">
+                <img width="100%" :src="dialogImageUrl" alt="">
+            </el-dialog>
 
             <el-row :gutter="20">
                 <el-col :sm="12">
@@ -117,18 +140,6 @@
                     </el-form-item>
                 </el-col>
 
-                <!--<el-col>-->
-                    <!--<el-form-item label="Address 2" prop="address_2">-->
-                        <!--<el-input-->
-                                <!--ref="autocomplete"-->
-                                <!--type="textarea"-->
-                                <!--:rows="2"-->
-                                <!--placeholder="Address 2"-->
-                                <!--v-model="user.address_2">-->
-                        <!--</el-input>-->
-                    <!--</el-form-item>-->
-                <!--</el-col>-->
-
                 <el-col :sm="12">
                     <el-form-item label="Education" prop="education">
                         <el-input v-model="user.education"></el-input>
@@ -142,7 +153,8 @@
 
                 <el-col>
                     <el-form-item label="Technique" prop="technique">
-                        <el-select value="" v-model="user.technique" multiple filterable allow-create default-first-option  placeholder="What do you work with?">
+                        <el-select value="" v-model="user.technique" multiple filterable allow-create
+                                   default-first-option placeholder="What do you work with?">
                             <el-option v-for="medium in options('medium')" :key="medium.value" :label="medium.label"
                                        :value="medium.value"></el-option>
                         </el-select>
@@ -166,7 +178,6 @@
                 </el-col>
 
             </el-row>
-
 
 
             <el-button type="primary" style="margin-top: 20px"
@@ -193,6 +204,7 @@
 
         data() {
             return {
+
                 user: {
                     technique: [],
                 },
@@ -221,34 +233,30 @@
                 this.countries = this.countries_;
             }
 
-            if (this.user.photo) {
-                this.user.photo = [this.user.photo];
-            } else {
-                this.user.photo = [];
-            }
-
-            if( !this.user_.technique) {
+            if (!this.user_.technique) {
                 this.user.technique = [];
             }
-
-            // this.user.address_2 = new google.maps.places.Autocomplete(
-            //     (this.$refs.autocomplete),
-            //     {types: ['geocode']}
-            // );
-
-            // this.user.address_2.addListener('place_changed', () => {
-            //     let place = this.autocomplete.getPlace();
-            //     let ac = place.address_components;
-            //     let lat = place.geometry.location.lat();
-            //     let lon = place.geometry.location.lng();
-            //     let city = ac[0]["short_name"];
-            //
-            //     console.log(place);
-            //     console.log(`The user picked ${city} with the coordinates ${lat}, ${lon}`);
-            // });
         },
 
         methods: {
+            handleAvatarSuccess(res, file) {
+                this.user.avatar = res;
+            },
+            handleImageSuccess(res, file) {
+                this.user.image = res;
+            },
+            beforeAvatarUpload(file) {
+                const isJPG = file.type === 'image/jpeg';
+                const isLt2M = file.size / 1024 / 1024 < 2;
+
+                if (!isJPG) {
+                    this.$message.error('Avatar picture must be JPG format!');
+                }
+                if (!isLt2M) {
+                    this.$message.error('Avatar picture size can not exceed 2MB!');
+                }
+                return isJPG && isLt2M;
+            },
 
             save() {
                 axios.post('/api/profile/', this.user)
@@ -272,23 +280,52 @@
                 this.user.photo = [];
             },
 
-            handlePictureCardPreview(file) {
-                this.setDialogUrl();
+            handlePictureCardPreview($url) {
+                // this.setDialogUrl();
+                this.dialogImageUrl = $url;
+
                 this.dialogVisible = true;
             },
 
             setDialogUrl() {
                 this.dialogImageUrl = '/user/' + this.user.id + '/' + this.user.photo[0].name;
             },
-
-            handleSuccess(response, file) {
-                console.log('success');
-                console.log(file);
-                this.user.photo = [{
-                    name: file.name,
-                    url: file.url
-                }];
-            }
         }
     }
 </script>
+
+<style>
+
+    .avatar-uploader .el-upload {
+        border: 1px dashed #d9d9d9;
+        border-radius: 6px;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .avatar-uploader .el-upload:hover {
+        border-color: #409EFF;
+    }
+
+    .avatar-uploader-icon {
+        font-size: 28px;
+        color: #8c939d;
+        width: 178px;
+        height: 178px;
+        line-height: 178px;
+        text-align: center;
+    }
+
+    .avatar {
+        max-width: 178px;
+        max-height: 178px;
+        display: block;
+    }
+
+    .image {
+        width: 100%;
+        display: block;
+    }
+
+</style>

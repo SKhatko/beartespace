@@ -24,6 +24,7 @@ Route::post( 'artwork', 'Api\ArtworkController@store' );
 Route::post( 'pages', 'Api\PageController@store' );
 
 // Upload files
-Route::any( 'upload/user-photo/{id}', 'Api\UserController@uploadUserPhoto' );
+Route::any( 'upload/user-avatar/{id}', 'Api\UserController@uploadUserAvatar' );
+Route::any( 'upload/user-image/{id}', 'Api\UserController@uploadUserImage' );
 Route::any( 'upload/artwork-image/{id}', 'Api\ArtworkController@uploadArtworkImage' );
 Route::any( 'remove/artwork-image/{id}', 'Api\ArtworkController@removeArtworkImage' );

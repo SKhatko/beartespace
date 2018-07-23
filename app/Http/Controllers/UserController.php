@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Favorite;
+use App\Media;
 use App\User;
 use App\Country;
 
@@ -36,7 +37,7 @@ class UserController extends Controller {
 
 		$title = trans( 'portal.profile' );
 
-		$user = auth()->user()->load( 'photo' );
+		$user = auth()->user()->load( 'photo', 'avatar', 'image' );
 
 		$countries = Country::all( 'country_name', 'id' );
 
@@ -47,6 +48,7 @@ class UserController extends Controller {
 		$title = trans( 'app.favourite_ads' );
 
 		$user = Auth::user();
+
 		$artworks  = $user->favouriteArtworks()->orderBy( 'id', 'desc' );
 
 		return view( 'dashboard.user.favourites', compact( 'title', 'artworks' ) );

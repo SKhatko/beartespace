@@ -21,10 +21,13 @@ class CreateUsersTable extends Migration {
 			$table->string( 'email' )->unique()->nullable();
 			$table->string( 'password' )->nullable();
 
+			$table->integer('avatar_id')->nullable();
+			$table->integer('image_id')->nullable();
 			$table->date('dob')->nullable();
 			$table->integer( 'country_id' )->nullable();
 			$table->integer( 'currency_id' )->nullable();
 			$table->string( 'city' )->nullable();
+			$table->string( 'postcode' )->nullable();
 			$table->enum( 'gender', [ 'male', 'female', 'third_gender' ] )->nullable();
 			$table->string( 'address' )->nullable();
 			$table->string( 'address_2' )->nullable();

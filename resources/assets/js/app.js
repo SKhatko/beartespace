@@ -16,6 +16,7 @@ require('./bootstrap');
 import ElementUI from 'element-ui';
 import locale from 'element-ui/lib/locale/lang/en'
 
+
 Vue.prototype.trans = (key) => {
     return get(window.trans, key, key);
 };
@@ -28,7 +29,6 @@ Vue.prototype.options = (key) => {
 
 
 Vue.use(ElementUI, {locale});
-
 
 Vue.component('artworks-menu', require('./components/ArtworksMenu.vue'));
 Vue.component('artists-menu', require('./components/ArtistsMenu.vue'));

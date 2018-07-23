@@ -74,6 +74,14 @@ class User extends Authenticatable {
 		return $this->belongsTo( Currency::class );
 	}
 
+	public function avatar() {
+		return $this->hasOne( Media::class, 'id', 'avatar_id');
+	}
+
+	public function image() {
+		return $this->hasOne( Media::class, 'id', 'image_id');
+	}
+
 
 	public function isAdmin() {
 		return $this->user_type == 'admin';
