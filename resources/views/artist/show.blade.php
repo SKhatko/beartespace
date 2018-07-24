@@ -12,7 +12,11 @@
                 <div class="artist">
                     <div>
                         <div class="artist-image">
-                            <img src="{{ $artist->photo->url }}" alt="{{ $artist->photo->name }}">
+                            <img src="{{ $artist->image->url }}" alt="{{ $artist->image->name }}">
+                        </div>
+
+                        <div class="artist-image">
+                            <img src="{{ $artist->avatar->url }}" alt="{{ $artist->avatar->name }}">
                         </div>
                         <div class="artist-name">{{ $artist->name }} </div>
                         <div class="artist-dob">{{ $artist->dob }}</div>

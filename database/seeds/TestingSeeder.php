@@ -26,7 +26,11 @@ class TestingSeeder extends Seeder {
 		foreach ( $users as $user ) {
 			if ( $user->user_type = 'artist' ) {
 				$user->artworks()->saveMany( factory( App\Artwork::class, 10 )->make() );
-				$user->photo()->save( factory( App\Media::class )->make( [
+				$user->avatar()->save( factory( App\Media::class )->make( [
+					'url' => 'https://picsum.photos/' . random_int( 1, 1920 ) . '/' . random_int( 1, 1920 ),
+				] ) );
+
+				$user->image()->save( factory( App\Media::class )->make( [
 					'url' => 'https://picsum.photos/' . random_int( 1, 1920 ) . '/' . random_int( 1, 1920 ),
 				] ) );
 			}

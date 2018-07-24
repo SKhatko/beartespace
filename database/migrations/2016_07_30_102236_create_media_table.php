@@ -16,6 +16,8 @@ class CreateMediaTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->nullable();
             $table->integer('artwork_id')->nullable();
+	        $table->integer('avatar_id')->nullable();
+	        $table->integer('image_id')->nullable();
             $table->string('name')->nullable();
             $table->string('slug')->nullable();
             $table->string('url')->nullable();

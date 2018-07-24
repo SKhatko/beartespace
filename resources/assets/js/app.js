@@ -15,7 +15,7 @@ require('./bootstrap');
 
 import ElementUI from 'element-ui';
 import locale from 'element-ui/lib/locale/lang/en'
-
+import Croppa from 'vue-croppa';
 
 Vue.prototype.trans = (key) => {
     return get(window.trans, key, key);
@@ -29,6 +29,7 @@ Vue.prototype.options = (key) => {
 
 
 Vue.use(ElementUI, {locale});
+Vue.use(Croppa, { componentName: 'cropper' });
 
 Vue.component('artworks-menu', require('./components/ArtworksMenu.vue'));
 Vue.component('artists-menu', require('./components/ArtistsMenu.vue'));

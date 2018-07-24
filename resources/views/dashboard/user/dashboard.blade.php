@@ -71,7 +71,7 @@
         @endif
 
 
-        @if($lUser->isAdmin())
+        @if(auth()->user()->isAdmin())
             <div class="row">
                 @if($ten_contact_messages)
                     <div class="col-xs-12">

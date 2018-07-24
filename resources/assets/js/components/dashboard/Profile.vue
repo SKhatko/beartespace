@@ -6,24 +6,30 @@
 
         <el-form label-position="top" :model="user" :rules="rules" ref="profile">
 
-            <el-form-item label="Upload avatar">
-                <el-upload
-                        class="avatar-uploader"
-                        :action="'/api/upload/user-avatar/' + user.id"
-                        :show-file-list="false"
-                        accept=".jpg, .jpeg, .png"
-                        :on-success="handleAvatarSuccess"
-                        :before-upload="beforeAvatarUpload">
-                    <div class="avatar" v-if="user.avatar">
-                        <img :src="user.avatar.url" class="avatar">
+            <!--{{ myCroppa }}-->
 
-                        <!--<el-button type="info" plain>-->
-                        <!--<i class="el-icon-upload"></i>-->
-                        <!--Change Avatar-->
-                        <!--</el-button>-->
-                    </div>
-                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                </el-upload>
+            <el-form-item label="Upload avatar">
+
+                <div class="profile-avatar-cropper">
+                    <cropper v-model="avatarCropper"
+                             placeholder="Select image"
+                             :quality="1"
+                             :width="290"
+                             :height="290"
+                             :image-border-radius="150"
+                             @new-image="avatarChanged = true"
+                             @image-remove="avatarChanged = true"
+                             prevent-white-space
+                             remove-button-color="gray">
+                        <img slot="initial" :src="user.avatar.url"/>
+                        <img slot="placeholder" src="/images/user-placeholder-image.png"/>
+
+                    </cropper>
+
+                </div>
+
+                <el-button @click="uploadAvatar" v-if="avatarChanged">Save</el-button>
+
             </el-form-item>
 
             <el-form-item label="Upload profile image">
@@ -45,10 +51,6 @@
                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
             </el-form-item>
-
-            <el-dialog :visible.sync="dialogVisible">
-                <img width="100%" :src="dialogImageUrl" alt="">
-            </el-dialog>
 
             <el-row :gutter="20">
                 <el-col :sm="12">
@@ -204,7 +206,8 @@
 
         data() {
             return {
-
+                avatarChanged: false,
+                avatarCropper: {},
                 user: {
                     technique: [],
                 },
@@ -217,10 +220,6 @@
                     ],
                 },
                 countries: [],
-
-                userPhoto: [],
-                dialogImageUrl: '',
-                dialogVisible: false
             }
         },
 
@@ -236,26 +235,15 @@
             if (!this.user_.technique) {
                 this.user.technique = [];
             }
+
         },
 
         methods: {
-            handleAvatarSuccess(res, file) {
-                this.user.avatar = res;
-            },
             handleImageSuccess(res, file) {
                 this.user.image = res;
             },
             beforeAvatarUpload(file) {
-                const isJPG = file.type === 'image/jpeg';
-                const isLt2M = file.size / 1024 / 1024 < 2;
-
-                if (!isJPG) {
-                    this.$message.error('Avatar picture must be JPG format!');
-                }
-                if (!isLt2M) {
-                    this.$message.error('Avatar picture size can not exceed 2MB!');
-                }
-                return isJPG && isLt2M;
+                console.log('beforeAvatarUpload');
             },
 
             save() {
@@ -268,33 +256,51 @@
                                 message: response.data.message,
                                 type: response.data.status
                             });
-
-                            // window.location.reload();
                         } else {
                             console.log(response.data);
                         }
                     });
             },
 
-            handleRemove(file, fileList) {
-                this.user.photo = [];
-            },
 
-            handlePictureCardPreview($url) {
-                // this.setDialogUrl();
-                this.dialogImageUrl = $url;
+            uploadAvatar() {
 
-                this.dialogVisible = true;
-            },
+                let avatarSrc = this.avatarCropper.generateDataUrl();
 
-            setDialogUrl() {
-                this.dialogImageUrl = '/user/' + this.user.id + '/' + this.user.photo[0].name;
-            },
+                if (!avatarSrc) {
+                    alert('no image')
+                    return
+                }
+
+                if (!this.avatarCropper.hasImage()) {
+                    alert('no image to upload')
+                    return
+                }
+
+                axios.post('/api/upload/user-avatar/' + this.user.id, {avatar: avatarSrc})
+                    .then((response) => {
+                        console.log(response.data);
+                        this.user.avatar = response.data.data;
+                        this.$message({
+                            showClose: true,
+                            message: response.data.message,
+                            type: response.data.status
+                        });
+                    });
+            }
         }
     }
 </script>
 
 <style>
+
+    .profile-avatar-cropper {
+        line-height: initial;
+    }
+
+    .profile-avatar-save {
+        text-align: center;
+    }
 
     .avatar-uploader .el-upload {
         border: 1px dashed #d9d9d9;

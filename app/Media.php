@@ -25,4 +25,12 @@ class Media extends Model {
 	public function user() {
 		return $this->belongsTo(User::class, 'id', 'user_id');
 	}
+
+	public function avatar() {
+		return $this->belongsTo( User::class, 'avatar_id');
+	}
+
+	public function image() {
+		return $this->belongsTo( User::class, 'image_id');
+	}
 }

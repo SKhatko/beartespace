@@ -35,9 +35,10 @@ class UserController extends Controller {
 
 	public function profile() {
 
+
 		$title = trans( 'portal.profile' );
 
-		$user = auth()->user()->load( 'photo', 'avatar', 'image' );
+		$user = auth()->user()->load('avatar', 'image' );
 
 		$countries = Country::all( 'country_name', 'id' );
 

@@ -11,28 +11,6 @@ class User extends Authenticatable {
 
 	protected $dates = [ 'deleted_at' ];
 
-//	protected $fillable = [
-//		'name',
-//		'first_name',
-//		'last_name',
-//		'user_name',
-//		'dob',
-//		'country_id',
-//		'currency_id',
-//		'city',
-//		'gender',
-//		'address',
-//		'address_2',
-//		'website',
-//		'phone',
-//		'education',
-//		'education_title',
-//		'inspiration',
-//		'exhibition',
-//		'technique',
-//		'user_type'
-//	];
-
 	/**
 	 * The attributes that are mass assignable.
 	 *
@@ -62,10 +40,6 @@ class User extends Authenticatable {
 		return $this->hasMany( Artwork::class );
 	}
 
-	public function photo() {
-		return $this->hasOne( Media::class );
-	}
-
 	public function orders() {
 		return $this->hasMany( Order::class );
 	}
@@ -75,11 +49,11 @@ class User extends Authenticatable {
 	}
 
 	public function avatar() {
-		return $this->hasOne( Media::class, 'id', 'avatar_id');
+		return $this->hasOne( Media::class, 'avatar_id');
 	}
 
 	public function image() {
-		return $this->hasOne( Media::class, 'id', 'image_id');
+		return $this->hasOne( Media::class, 'image_id');
 	}
 
 
