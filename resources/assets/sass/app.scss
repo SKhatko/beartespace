@@ -212,8 +212,8 @@ body, html {
     }
 
     .artists {
-      column-count: 2;
-      column-gap: 15px;
+      //column-count: 2;
+      //column-gap: 15px;
     }
 
     .artist {
@@ -221,8 +221,13 @@ body, html {
       position: relative;
       break-inside: avoid;
 
-      &-photo {
+      &-avatar {
         display: block;
+        border-radius: 50%;
+        overflow: hidden;
+        line-height: 0;
+        max-width: 290px;
+        max-height: 290px;
 
         & img {
           height: auto;

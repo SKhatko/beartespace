@@ -19555,6 +19555,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -19595,7 +19597,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         handleImageSuccess: function handleImageSuccess(res, file) {
-            this.user.image = res;
+            this.user.image = res.data;
         },
         beforeAvatarUpload: function beforeAvatarUpload(file) {
             console.log('beforeAvatarUpload');
@@ -19616,20 +19618,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
             });
         },
+        initAvatarCropper: function initAvatarCropper() {
+            this.avatarCropper.addClipPlugin(function (ctx, x, y, w, h) {
+                /*
+                 * ctx: canvas context
+                 * x: start point (top-left corner) x coordination
+                 * y: start point (top-left corner) y coordination
+                 * w: croppa width
+                 * h: croppa height
+                */
+                console.log(ctx, x, y, w, h);
+                ctx.beginPath();
+                ctx.arc(x + w / 2, y + h / 2, w / 2, 0, 2 * Math.PI, true);
+                ctx.closePath();
+            });
+        },
         uploadAvatar: function uploadAvatar() {
             var _this2 = this;
 
-            var avatarSrc = this.avatarCropper.generateDataUrl();
-
-            if (!avatarSrc) {
-                alert('no image');
-                return;
-            }
-
-            if (!this.avatarCropper.hasImage()) {
-                alert('no image to upload');
-                return;
-            }
+            var avatarSrc = this.avatarCropper.generateDataUrl('image/jpeg');
 
             axios.post('/api/upload/user-avatar/' + this.user.id, { avatar: avatarSrc }).then(function (response) {
                 console.log(response.data);
@@ -20803,7 +20810,7 @@ for (var i = 0; i < DOMIterables.length; i++) {
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(167)();
-exports.push([module.i, "\n.profile-avatar-cropper {\n    line-height: initial;\n}\n.profile-avatar-save {\n    text-align: center;\n}\n.avatar-uploader .el-upload {\n    border: 1px dashed #d9d9d9;\n    border-radius: 6px;\n    cursor: pointer;\n    position: relative;\n    overflow: hidden;\n}\n.avatar-uploader .el-upload:hover {\n    border-color: #409EFF;\n}\n.avatar-uploader-icon {\n    font-size: 28px;\n    color: #8c939d;\n    width: 178px;\n    height: 178px;\n    line-height: 178px;\n    text-align: center;\n}\n.avatar {\n    max-width: 178px;\n    max-height: 178px;\n    display: block;\n}\n.image {\n    width: 100%;\n    display: block;\n}\n\n", ""]);
+exports.push([module.i, "\n.profile-avatar-cropper {\n    line-height: initial;\n    margin-bottom: 10px;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-align: start;\n        align-items: flex-start;\n    position: relative;\n}\n.profile-avatar-save {\n    position: absolute;\n    bottom: 10px;\n    left: 80px;\n}\n.avatar-uploader .el-upload {\n    border: 1px dashed #d9d9d9;\n    border-radius: 6px;\n    cursor: pointer;\n    position: relative;\n    overflow: hidden;\n}\n.avatar-uploader .el-upload:hover {\n    border-color: #409EFF;\n}\n.avatar-uploader-icon {\n    font-size: 28px;\n    color: #8c939d;\n    width: 178px;\n    height: 178px;\n    line-height: 178px;\n    text-align: center;\n}\n.avatar {\n    max-width: 178px;\n    max-height: 178px;\n    display: block;\n}\n.image {\n    width: 100%;\n    display: block;\n}\n\n", ""]);
 
 /***/ }),
 /* 167 */
@@ -64277,11 +64284,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "profile-avatar-cropper"
   }, [_c('cropper', {
     attrs: {
-      "placeholder": "Select image",
+      "placeholder": "Click to upload",
+      "canvas-color": "#ffffff",
+      "initial-image": _vm.user.avatar.url,
       "quality": 1,
       "width": 290,
       "height": 290,
-      "image-border-radius": 150,
       "prevent-white-space": "",
       "remove-button-color": "gray"
     },
@@ -64291,7 +64299,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       "image-remove": function($event) {
         _vm.avatarChanged = true
-      }
+      },
+      "move": function($event) {
+        _vm.avatarChanged = true
+      },
+      "zoom": function($event) {
+        _vm.avatarChanged = true
+      },
+      "init": _vm.initAvatarCropper
     },
     model: {
       value: (_vm.avatarCropper),
@@ -64302,21 +64317,20 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('img', {
     attrs: {
-      "slot": "initial",
-      "src": _vm.user.avatar.url
-    },
-    slot: "initial"
-  }), _vm._v(" "), _c('img', {
-    attrs: {
       "slot": "placeholder",
       "src": "/images/user-placeholder-image.png"
     },
     slot: "placeholder"
-  })])], 1), _vm._v(" "), (_vm.avatarChanged) ? _c('el-button', {
+  })]), _vm._v(" "), (_vm.avatarChanged) ? _c('el-button', {
+    staticClass: "profile-avatar-save",
+    attrs: {
+      "type": "primary",
+      "round": ""
+    },
     on: {
       "click": _vm.uploadAvatar
     }
-  }, [_vm._v("Save")]) : _vm._e()], 1), _vm._v(" "), _c('el-form-item', {
+  }, [_vm._v("Save avatar")]) : _vm._e()], 1)]), _vm._v(" "), _c('el-form-item', {
     attrs: {
       "label": "Upload profile image"
     }

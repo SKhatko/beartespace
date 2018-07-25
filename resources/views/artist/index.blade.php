@@ -20,7 +20,7 @@
 
                         <el-card class="artist">
 
-                            <a href="{{ route('artist', $artist->id) }}" class="artist-photo">
+                            <a href="{{ route('artist', $artist->id) }}" class="artist-avatar">
                                 <img src="{{ $artist->avatar->url }}" alt="{{ $artist->avatar->name }}">
                             </a>
 
@@ -37,6 +37,21 @@
                                     <el-button type="primary" plain size="small">Follow</el-button>
                                 </div>
                             </div>
+
+                            <div class="artist-artworks" style="margin-top: 20px;">
+
+                                @foreach($artist->artworks->random(3) as $artwork)
+
+                                    <div class="artist-artwork-image" style="display:inline-block; margin-right:10px;">
+                                        <img src="{{ $artwork->images->first()->url  }}" alt=""
+                                             style="max-width: 200px; max-height: 100px">
+                                    </div>
+
+                                @endforeach
+
+                            </div>
+
+
 
                         </el-card>
 

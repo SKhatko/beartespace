@@ -6,29 +6,31 @@
 
         <el-form label-position="top" :model="user" :rules="rules" ref="profile">
 
-            <!--{{ myCroppa }}-->
-
             <el-form-item label="Upload avatar">
 
                 <div class="profile-avatar-cropper">
                     <cropper v-model="avatarCropper"
-                             placeholder="Select image"
+                             placeholder="Click to upload"
+                             canvas-color="#ffffff"
+                             :initial-image="user.avatar.url"
                              :quality="1"
                              :width="290"
                              :height="290"
-                             :image-border-radius="150"
                              @new-image="avatarChanged = true"
                              @image-remove="avatarChanged = true"
+                             @move="avatarChanged = true"
+                             @zoom="avatarChanged = true"
+                             @init="initAvatarCropper"
                              prevent-white-space
                              remove-button-color="gray">
-                        <img slot="initial" :src="user.avatar.url"/>
-                        <img slot="placeholder" src="/images/user-placeholder-image.png"/>
 
+                        <!--<img crossOrigin="anonymous" slot="initial" :src="user.avatar.url"/>-->
+                        <img slot="placeholder" src="/images/user-placeholder-image.png"/>
                     </cropper>
 
-                </div>
+                    <el-button @click="uploadAvatar" v-if="avatarChanged" type="primary" class="profile-avatar-save" round>Save avatar</el-button>
 
-                <el-button @click="uploadAvatar" v-if="avatarChanged">Save</el-button>
+                </div>
 
             </el-form-item>
 
@@ -240,7 +242,7 @@
 
         methods: {
             handleImageSuccess(res, file) {
-                this.user.image = res;
+                this.user.image = res.data;
             },
             beforeAvatarUpload(file) {
                 console.log('beforeAvatarUpload');
@@ -262,20 +264,25 @@
                     });
             },
 
+            initAvatarCropper() {
+                this.avatarCropper.addClipPlugin(function (ctx, x, y, w, h) {
+                    /*
+                     * ctx: canvas context
+                     * x: start point (top-left corner) x coordination
+                     * y: start point (top-left corner) y coordination
+                     * w: croppa width
+                     * h: croppa height
+                    */
+                    console.log(ctx, x, y, w, h);
+                    ctx.beginPath();
+                    ctx.arc(x + w / 2, y + h / 2, w / 2, 0, 2 * Math.PI, true);
+                    ctx.closePath()
+                })
+            },
 
             uploadAvatar() {
 
-                let avatarSrc = this.avatarCropper.generateDataUrl();
-
-                if (!avatarSrc) {
-                    alert('no image')
-                    return
-                }
-
-                if (!this.avatarCropper.hasImage()) {
-                    alert('no image to upload')
-                    return
-                }
+                let avatarSrc = this.avatarCropper.generateDataUrl('image/jpeg');
 
                 axios.post('/api/upload/user-avatar/' + this.user.id, {avatar: avatarSrc})
                     .then((response) => {
@@ -296,10 +303,16 @@
 
     .profile-avatar-cropper {
         line-height: initial;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: flex-start;
+        position: relative;
     }
 
     .profile-avatar-save {
-        text-align: center;
+        position: absolute;
+        bottom: 10px;
+        left: 80px;
     }
 
     .avatar-uploader .el-upload {
