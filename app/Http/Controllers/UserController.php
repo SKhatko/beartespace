@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use App\Artwork;
 use App\Favorite;
 use App\Media;
 use App\User;
@@ -46,13 +47,12 @@ class UserController extends Controller {
 	}
 
 	public function favoriteArtworks() {
-		$title = trans( 'app.favourite_ads' );
 
-		$user = Auth::user();
+		$user = auth()->user();
 
-		$artworks  = $user->favouriteArtworks()->orderBy( 'id', 'desc' );
+		$artworks  = $user->favouriteArtworks()->orderBy( 'id', 'desc' )->get();
 
-		return view( 'dashboard.user.favourites', compact( 'title', 'artworks' ) );
+		return view( 'dashboard.user.favourites', compact( 'artworks' ) );
 	}
 
 

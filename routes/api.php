@@ -17,11 +17,18 @@ Route::middleware( 'auth:api' )->get( '/user', function ( Request $request ) {
 	return $request->user();
 } );
 
+Route::group(['middleware' => 'auth:api'], function () {
+
+});
+
 Route::post( 'translations', 'Api\TranslationController@store' );
 Route::post( 'languages', 'Api\LanguageController@store' );
 Route::post( 'profile', 'Api\UserController@store' );
 Route::post( 'artwork', 'Api\ArtworkController@store' );
 Route::post( 'pages', 'Api\PageController@store' );
+
+
+Route::any('toggle-favourite/{id}', 'Api\UserController@toggleFavouriteArtwork');
 
 // Upload files
 Route::any( 'upload/user-avatar/{id}', 'Api\UserController@uploadUserAvatar' );

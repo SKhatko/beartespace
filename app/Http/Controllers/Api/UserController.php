@@ -19,6 +19,20 @@ class UserController extends Controller {
 		return [ 'status' => 'success', 'message' => 'Saved', 'data' => $user ];
 	}
 
+	public function toggleFavouriteArtwork(Request $request, $id) {
+
+		$user = User::find( $request['id'] );
+
+		$user->favouriteArtworks()->toggle($id);
+
+		if($user->favouriteArtworks()->where('id', $id)->exists()) {
+			return 'added';
+		} else {
+			return 'removed';
+		}
+
+	}
+
 
 	public function uploadUserAvatar( Request $request, $id ) {
 

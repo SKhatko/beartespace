@@ -208,6 +208,12 @@
                     </div>
                 @endif
 
+                @if(count(auth()->user()->favouriteArtworks))
+                <a href="{{ route('dashboard.favorites') }}" class="app-header-star">
+                    <i class="el-icon-star-off"></i><sup>{{ count(auth()->user()->favouriteArtworks) }}</sup>
+                </a>
+                @endif
+
                 @if(session('cart') && session('cart')->totalQuantity > 0)
                     <a href="{{ route('shopping-cart') }}" class="app-header-cart">
                         <i class="el-icon-goods"></i><sup>{{ session('cart')->totalQuantity }}</sup>

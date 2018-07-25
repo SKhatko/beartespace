@@ -40,6 +40,10 @@ class User extends Authenticatable {
 		return $this->hasMany( Artwork::class );
 	}
 
+	public function favouriteArtworks() {
+		return $this->belongsToMany( Artwork::class, 'favorites' );
+	}
+
 	public function orders() {
 		return $this->hasMany( Order::class );
 	}
@@ -125,11 +129,6 @@ class User extends Authenticatable {
 		}
 
 		return $url;
-	}
-
-
-	public function favouriteArtworks() {
-		return $this->belongsToMany( Artwork::class, 'favorites' );
 	}
 
 	public function signed_up_datetime() {
