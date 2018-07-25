@@ -208,7 +208,7 @@
                     </div>
                 @endif
 
-                @if(count(auth()->user()->favouriteArtworks))
+                @if(auth()->user() && count(auth()->user()->favouriteArtworks))
                 <a href="{{ route('dashboard.favorites') }}" class="app-header-star">
                     <i class="el-icon-star-off"></i><sup>{{ count(auth()->user()->favouriteArtworks) }}</sup>
                 </a>
