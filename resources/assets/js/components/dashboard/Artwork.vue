@@ -59,10 +59,9 @@
                 </el-form>
 
                 <el-form-item>
-                    <el-checkbox v-model="artwork.optional_size" v-if="artwork.category === 'painting'">Has frame
-                    </el-checkbox>
-                    <el-checkbox v-model="artwork.optional_size" v-if="artwork.category === 'sculpture'">Has base
-                    </el-checkbox>
+
+                    <el-checkbox v-model="artwork.optional_size" v-if="artwork.category === 'painting'">Has frame</el-checkbox>
+                    <el-checkbox v-model="artwork.optional_size" v-if="artwork.category === 'sculpture'">Has base</el-checkbox>
 
                 </el-form-item>
 
@@ -151,10 +150,11 @@
                 <el-row :gutter="20">
                     <el-col :sm="12">
                         <el-form-item label="Date of completion Artwork">
+
                             <el-date-picker
                                     v-model="artwork.date_of_completion"
                                     type="year"
-                                    value-format="yyyy-MM-dd"
+                                    value-format="yyyy-MM-dd HH:mm:ss"
                                     placeholder="Pick a year">
                             </el-date-picker>
                         </el-form-item>
@@ -164,6 +164,32 @@
                             <el-input-number value="2" v-model="artwork.price" :min="1" :max="50000"></el-input-number>
                         </el-form-item>
                     </el-col>
+                </el-row>
+
+                <el-row :gutter="20">
+                    <el-col :sm="8">
+                        <el-form-item label="Your artworks can be sold on auction">
+                            <el-checkbox v-model="artwork.auction_status" border>Place for auction</el-checkbox>
+                        </el-form-item>
+                    </el-col>
+
+                    <el-col :sm="8">
+                        <el-form-item label="Auction end date">
+                            <el-date-picker
+                                    v-model="artwork.auction_end"
+                                    type="datetime"
+                                    value-format="yyyy-MM-dd HH:mm:ss"
+                                    placeholder="Select date and time">
+                            </el-date-picker>
+                        </el-form-item>
+                    </el-col>
+
+                    <el-col :sm="8" v-if="artwork.auction_status">
+                        <el-form-item label="Starting price on auction ( EUR )">
+                            <el-input-number value="2" v-model="artwork.auction_price" :min="1" :max="50000"></el-input-number>
+                        </el-form-item>
+                    </el-col>
+
                 </el-row>
 
 
@@ -177,25 +203,6 @@
 
 
             <template v-if="activeStep === 1">
-
-                <label class="el-form-item__label">Upload main photo of artwork ( jpg/png files accepted)</label>
-                <el-form-item>
-                    <el-upload
-                            :action="'/api/upload/artwork-image/' + artwork.id"
-                            :file-list="images"
-                            :on-preview="handlePictureCardPreview"
-                            :on-remove="handleRemove"
-                            :on-success="handleSuccess"
-                            :limit="1"
-                            :on-exceed="mainPhotoExceed"
-                            accept=".jpg, .jpeg, .png">
-                        <el-button type="info" plain>
-                            <i class="el-icon-upload"></i>
-                            Upload images
-                        </el-button>
-                    </el-upload>
-                </el-form-item>
-
 
                 <label class="el-form-item__label">Upload images of back side, signature, or artwork from side. Up to 3
                     Photos of Your Artwork allowed( jpg/png files accepted)</label>
@@ -284,19 +291,25 @@
                     title: '',
                     description: '',
                     height: '',
+                    b_height: '',
                     width: '',
+                    b_width: '',
                     depth: '',
+                    b_depth: '',
                     weight: '',
+                    b_weight: '',
                     inspiration: '',
                     date_of_completion: '',
                     price: '',
-
                     category: '',
-
                     medium: [],
                     direction: [],
                     theme: [],
                     color: [],
+                    auction_status: true,
+                    auction_price: '',
+                    auction_start: '',
+                    auction_end: '',
                 },
 
                 images: [],
@@ -383,12 +396,10 @@
                 // this.images = fileList;
             },
             handlePictureCardPreview(file) {
-                this.setDialogUrl(file.name);
+                this.dialogImageUrl = file.url;
                 this.dialogVisible = true;
             },
-            setDialogUrl(name) {
-                this.dialogImageUrl = '/artwork/' + this.artwork.id + '/' + name;
-            },
+
             handleSuccess(response, file, fileList) {
                 this.images.push({
                     name: file.name,

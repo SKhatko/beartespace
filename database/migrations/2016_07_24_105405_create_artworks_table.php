@@ -28,7 +28,7 @@ class CreateArtworksTable extends Migration
             $table->decimal('b_depth', 5, 3)->nullable();
             $table->decimal('weight', 5, 3)->nullable();
             $table->decimal('b_weight', 5, 3)->nullable();
-            $table->date('date_of_completion')->nullable();
+            $table->timestamp('date_of_completion')->nullable();
 	        $table->decimal('price', 12,2)->nullable();
             $table->string('category')->nullable();
             $table->json('medium')->nullable();
@@ -39,6 +39,9 @@ class CreateArtworksTable extends Migration
             //0 =pending for review, 1= published, 2=blocked, 3=archived
             $table->enum('status', [0,1,2,3])->nullable();
 	        $table->boolean('auction_status')->nullable();
+	        $table->decimal('auction_price', 12,2)->nullable();
+	        $table->timestamp('auction_start')->nullable();
+	        $table->timestamp('auction_end')->nullable();
             $table->timestamps();
         });
     }

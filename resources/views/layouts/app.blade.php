@@ -5,6 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="/favicon.png">
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -36,6 +37,13 @@
         <el-header height="auto" class="app-header">
 
             <div class="app-header--top">
+
+                <span>Always free shipping</span>
+                <span>14-days return right</span>
+                <span>Best art selection</span>
+
+            </div>
+            <div class="app-header--middle">
 
                 <div class="app-header--left">
 
@@ -235,7 +243,7 @@
 
                         <a href="{{ route('artists') }}">@lang('portal.artists')</a>
                         <a href="{{ route('artworks') }}">@lang('portal.artworks')</a>
-                        <a href="{{ route('auctions') }}">@lang('portal.auction')</a>
+                        <a href="{{ route('auctions') }}">on-line auctions</a>
 
                     </div>
 

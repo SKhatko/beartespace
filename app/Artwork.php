@@ -42,6 +42,10 @@ class Artwork extends Model {
 		return !!$value;
 	}
 
+	public function getAuctionStatusAttribute($value) {
+		return !!$value;
+	}
+
 	public function bids() {
 		return $this->hasMany( Bid::class );
 	}

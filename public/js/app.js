@@ -18900,6 +18900,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -18918,19 +18925,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 title: '',
                 description: '',
                 height: '',
+                b_height: '',
                 width: '',
+                b_width: '',
                 depth: '',
+                b_depth: '',
                 weight: '',
+                b_weight: '',
                 inspiration: '',
                 date_of_completion: '',
                 price: '',
-
                 category: '',
-
                 medium: [],
                 direction: [],
                 theme: [],
-                color: []
+                color: [],
+                auction_status: true,
+                auction_price: '',
+                auction_start: '',
+                auction_end: ''
             },
 
             images: [],
@@ -19016,11 +19029,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             // this.images = fileList;
         },
         handlePictureCardPreview: function handlePictureCardPreview(file) {
-            this.setDialogUrl(file.name);
+            this.dialogImageUrl = file.url;
             this.dialogVisible = true;
-        },
-        setDialogUrl: function setDialogUrl(name) {
-            this.dialogImageUrl = '/artwork/' + this.artwork.id + '/' + name;
         },
         handleSuccess: function handleSuccess(response, file, fileList) {
             this.images.push({
@@ -65538,7 +65548,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "artwork.optional_size"
     }
-  }, [_vm._v("Has frame\n                ")]) : _vm._e(), _vm._v(" "), (_vm.artwork.category === 'sculpture') ? _c('el-checkbox', {
+  }, [_vm._v("Has frame")]) : _vm._e(), _vm._v(" "), (_vm.artwork.category === 'sculpture') ? _c('el-checkbox', {
     model: {
       value: (_vm.artwork.optional_size),
       callback: function($$v) {
@@ -65546,7 +65556,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "artwork.optional_size"
     }
-  }, [_vm._v("Has base\n                ")]) : _vm._e()], 1), _vm._v(" "), (_vm.artwork.optional_size) ? _c('el-form', {
+  }, [_vm._v("Has base")]) : _vm._e()], 1), _vm._v(" "), (_vm.artwork.optional_size) ? _c('el-form', {
     attrs: {
       "inline": true,
       "label-position": "top"
@@ -65792,7 +65802,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('el-date-picker', {
     attrs: {
       "type": "year",
-      "value-format": "yyyy-MM-dd",
+      "value-format": "yyyy-MM-dd HH:mm:ss",
       "placeholder": "Pick a year"
     },
     model: {
@@ -65823,7 +65833,72 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "artwork.price"
     }
-  })], 1)], 1)], 1), _vm._v(" "), _c('el-button', {
+  })], 1)], 1)], 1), _vm._v(" "), _c('el-row', {
+    attrs: {
+      "gutter": 20
+    }
+  }, [_c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Your artworks can be sold on auction"
+    }
+  }, [_c('el-checkbox', {
+    attrs: {
+      "border": ""
+    },
+    model: {
+      value: (_vm.artwork.auction_status),
+      callback: function($$v) {
+        _vm.$set(_vm.artwork, "auction_status", $$v)
+      },
+      expression: "artwork.auction_status"
+    }
+  }, [_vm._v("Place for auction")])], 1)], 1), _vm._v(" "), _c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Auction end date"
+    }
+  }, [_c('el-date-picker', {
+    attrs: {
+      "type": "datetime",
+      "value-format": "yyyy-MM-dd HH:mm:ss",
+      "placeholder": "Select date and time"
+    },
+    model: {
+      value: (_vm.artwork.auction_end),
+      callback: function($$v) {
+        _vm.$set(_vm.artwork, "auction_end", $$v)
+      },
+      expression: "artwork.auction_end"
+    }
+  })], 1)], 1), _vm._v(" "), (_vm.artwork.auction_status) ? _c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Starting price on auction ( EUR )"
+    }
+  }, [_c('el-input-number', {
+    attrs: {
+      "value": "2",
+      "min": 1,
+      "max": 50000
+    },
+    model: {
+      value: (_vm.artwork.auction_price),
+      callback: function($$v) {
+        _vm.$set(_vm.artwork, "auction_price", $$v)
+      },
+      expression: "artwork.auction_price"
+    }
+  })], 1)], 1) : _vm._e()], 1), _vm._v(" "), _c('el-button', {
     staticStyle: {
       "margin-top": "20px"
     },
@@ -65838,26 +65913,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }, [_vm._v("\n                Next\n            ")])] : _vm._e(), _vm._v(" "), (_vm.activeStep === 1) ? [_c('label', {
-    staticClass: "el-form-item__label"
-  }, [_vm._v("Upload main photo of artwork ( jpg/png files accepted)")]), _vm._v(" "), _c('el-form-item', [_c('el-upload', {
-    attrs: {
-      "action": '/api/upload/artwork-image/' + _vm.artwork.id,
-      "file-list": _vm.images,
-      "on-preview": _vm.handlePictureCardPreview,
-      "on-remove": _vm.handleRemove,
-      "on-success": _vm.handleSuccess,
-      "limit": 1,
-      "on-exceed": _vm.mainPhotoExceed,
-      "accept": ".jpg, .jpeg, .png"
-    }
-  }, [_c('el-button', {
-    attrs: {
-      "type": "info",
-      "plain": ""
-    }
-  }, [_c('i', {
-    staticClass: "el-icon-upload"
-  }), _vm._v("\n                        Upload images\n                    ")])], 1)], 1), _vm._v(" "), _c('label', {
     staticClass: "el-form-item__label"
   }, [_vm._v("Upload images of back side, signature, or artwork from side. Up to 3\n                Photos of Your Artwork allowed( jpg/png files accepted)")]), _vm._v(" "), _c('el-form-item', [_c('el-upload', {
     attrs: {

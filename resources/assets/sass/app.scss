@@ -30,6 +30,16 @@ body, html {
 
     &--top {
       display: flex;
+      justify-content: space-between;
+      padding: 10px 15px;
+      background-color: $brand-primary;
+      color: #ffffff;
+      text-transform: uppercase;
+
+    }
+
+    &--middle {
+      display: flex;
       align-items: center;
       margin-bottom: 20px;
       padding: 15px;
@@ -208,6 +218,58 @@ body, html {
         }
 
 
+      }
+
+    }
+
+    &-auctions {
+      text-align: center;
+      padding: 90px 15px;
+
+      .auctions {
+        padding-top: 50px;
+        display: flex;
+        justify-content: space-evenly;
+      }
+
+      .auctions-bottom {
+        text-align: right;
+        padding-top: 10px;
+
+        &-link {
+          text-transform: uppercase;
+          font-weight: bold;
+          border: 1px solid black;
+          padding: 7px 20px;
+          display: inline-block;
+        }
+      }
+
+      .auction {
+        flex: 0 0 22%;
+        text-align: left;
+
+        &-image {
+          margin-bottom: 10px;
+
+          img {
+            width: 100%;
+            max-height: 400px;
+          }
+        }
+
+        &-title {
+          font-size: 22px;
+          font-weight: 300;
+        }
+
+        &-artist {
+          font-size: 18px;
+        }
+
+        &-ends {
+          font-weight: bold;
+        }
       }
 
 

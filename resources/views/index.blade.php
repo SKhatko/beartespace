@@ -30,6 +30,54 @@
 
             </div>
         </div>
+
+        <div class="app-index-auctions">
+
+            <div class="app--wrapper">
+
+                <div class="h2">
+                    Next coming auction
+                </div>
+
+                <div class="h4">
+                    Go to see the next coming auctions
+                </div>
+
+                <div class="auctions">
+
+                    @foreach($auctions as $auction)
+
+                        <div class="auction">
+                            <a href="{{ route('auction', $auction->id) }}" class="auction-image">
+                                <img src="{{ $auction->images->first()->url }}" alt="{{ $auction->images->first()->name }}">
+                            </a>
+
+                            <a href="{{ route('auction', $auction->id) }}" class="auction-title">
+                                {{ $auction->title }}
+                            </a>
+
+                            <div class="auction-artist">
+                                {{ $auction->user->name }}
+                            </div>
+
+                            <div class="auction-ends">
+                                Ends {{ date('F jS\. Y', strtotime($auction->auction_end)) }}
+                                {{--Ends August 6th. 2018--}}
+                            </div>
+                        </div>
+
+                    @endforeach
+
+                </div>
+
+                <div class="auctions-bottom">
+                    <a href="{{ route('auctions') }}" class="auctions-bottom-link">More auctions</a>
+                </div>
+
+            </div>
+        </div>
+
+
     </div>
 
 @endsection
