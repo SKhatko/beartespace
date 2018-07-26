@@ -477,7 +477,8 @@ body, html {
     }
 
     &--middle {
-      padding-top: 40px;
+      padding: 40px 15px 0;
+
     }
 
     &--bottom {
@@ -488,13 +489,19 @@ body, html {
       box-shadow: 0 -2px 12px 0 rgba(0, 0, 0, 0.1);
     }
 
-    &-menu {
+    &-column {
+      flex: 1;
+    }
+
+    &-panel {
       display: flex;
       justify-content: space-between;
-      padding: 0 15px;
+      align-items: center;
+      padding: 15px;
     }
 
     &-submenu {
+      margin-bottom: 20px;
 
       a {
         margin: 7px 0;
@@ -502,11 +509,12 @@ body, html {
       }
     }
 
-    &-panel {
-      padding: 15px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    &-languages {
+      margin-bottom: 10px;
+    }
+
+    &-currencies {
+      margin-bottom: 10px;
     }
 
 
@@ -526,6 +534,13 @@ body, html {
 
     &-copy {
       white-space: nowrap;
+    }
+
+    &-logo {
+
+      a {
+        margin-right: 20px;
+      }
     }
   }
 }
