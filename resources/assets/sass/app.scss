@@ -4,6 +4,8 @@
 @import "~font-awesome/css/font-awesome";
 @import "~element-ui/packages/theme-chalk/src/index";
 @import "~vue-croppa/dist/vue-croppa";
+@import "~swiper/dist/css/swiper";
+
 
 body, html {
   margin: 0;
@@ -229,7 +231,7 @@ body, html {
       .auctions {
         padding-top: 50px;
         display: flex;
-        justify-content: space-evenly;
+        justify-content: space-between;
       }
 
       .auctions-bottom {
@@ -246,21 +248,24 @@ body, html {
       }
 
       .auction {
-        flex: 0 0 22%;
         text-align: left;
+        position: relative;
 
         &-image {
           margin-bottom: 10px;
+          display: block;
 
           img {
-            width: 100%;
-            max-height: 400px;
+            height: 350px;
+            max-width: 100%;
           }
         }
 
         &-title {
           font-size: 22px;
           font-weight: 300;
+          display: block;
+          width: 200px;
         }
 
         &-artist {
@@ -272,8 +277,100 @@ body, html {
         }
       }
 
+    }
+
+    &-articles {
+      background-color: #82d8d8b5;
+      text-align: center;
+      padding: 45px 15px;
+
+      .articles {
+        padding-top: 50px;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .articles-bottom {
+        text-align: right;
+        padding-top: 10px;
+
+        &-link {
+          text-transform: uppercase;
+          font-weight: bold;
+          border: 1px solid black;
+          padding: 7px 20px;
+          display: inline-block;
+        }
+      }
+
+      .article {
+        text-align: left;
+        display: flex;
+
+        &-image {
+          margin-bottom: 10px;
+          display: block;
+
+          img {
+            height: 300px;
+          }
+        }
+
+        &-content {
+          margin-left: 20px;
+        }
+
+
+      }
+
 
     }
+
+
+    &-artworks {
+      text-align: center;
+      padding: 90px 15px;
+
+      .artworks {
+        padding-top: 50px;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .artworks-bottom {
+        text-align: right;
+        padding-top: 10px;
+
+        &-link {
+          text-transform: uppercase;
+          font-weight: bold;
+          border: 1px solid black;
+          padding: 7px 20px;
+          display: inline-block;
+        }
+      }
+
+      .artwork {
+        text-align: left;
+
+        &-image {
+          margin-bottom: 10px;
+          display: block;
+
+          img {
+            height: 350px;
+            max-width: 100%;
+          }
+        }
+
+
+      }
+
+
+    }
+
+
+
   }
 
   &-artists {

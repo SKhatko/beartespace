@@ -49,7 +49,8 @@
 
                         <div class="auction">
                             <a href="{{ route('auction', $auction->id) }}" class="auction-image">
-                                <img src="{{ $auction->images->first()->url }}" alt="{{ $auction->images->first()->name }}">
+                                <img src="{{ $auction->images->first()->url }}"
+                                     alt="{{ $auction->images->first()->name }}">
                             </a>
 
                             <a href="{{ route('auction', $auction->id) }}" class="auction-title">
@@ -72,6 +73,72 @@
 
                 <div class="auctions-bottom">
                     <a href="{{ route('auctions') }}" class="auctions-bottom-link">More auctions</a>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="app-index-articles">
+
+            <div class="app--wrapper">
+
+                <div class="articles">
+                    <!-- slides -->
+                    @foreach($articles as $article)
+
+                        <a href="{{ route('artwork', $article->id) }}" class="article">
+                            <div class="article-image">
+                                <img src="{{ $article->image->url }}" alt="{{ $article->image->name }}">
+                            </div>
+                            <div class="article-content">
+                                <div class="h2">{{ $article->title }}</div>
+                                <div class="h5">{{ $article->content }}</div>
+                            </div>
+                        </a>
+
+                    @endforeach
+
+
+                </div>
+
+                <div class="articles-bottom">
+                    <a href="{{ route('auctions') }}" class="articles-bottom-link">More articles</a>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="app-index-artworks">
+
+            <div class="app--wrapper">
+
+                <div class="h2">
+                    Selected artworks by our curator
+                </div>
+
+                <div class="h4">
+                    Find here our selected artworks
+                </div>
+
+                <div class="artworks">
+
+                    @foreach($auctions as $artwork)
+
+                        <div class="artwork">
+                            <a href="{{ route('artwork', $artwork->id) }}" class="artwork-image">
+                                <img src="{{ $artwork->images->first()->url }}"
+                                     alt="{{ $artwork->images->first()->name }}">
+                            </a>
+                        </div>
+
+                    @endforeach
+
+                </div>
+
+                <div class="artworks-bottom">
+                    <a href="{{ route('auctions') }}" class="artworks-bottom-link">The full selection from our
+                        curator</a>
                 </div>
 
             </div>

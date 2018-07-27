@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Artwork;
+use App\Article;
 use App\Cart;
 use App\Contact_query;
 use App\User;
@@ -12,16 +13,13 @@ class HomeController extends Controller {
 
 	public function index() {
 
-//		dump( currency()->getUserCurrency() );
-//		dump( currency()->config( 'currency' ) );
-		// Home page
+		$articles = Article::where('active', 1)->take(2)->get();
 
 		$artwork = Artwork::inRandomOrder()->with( 'images', 'user' )->first();
 
-		$auctions = Artwork::auction()->orderBy('id', 'desc')->take(4)->get();
+		$auctions = Artwork::auction()->orderBy('id', 'desc')->take(3)->get();
 
-
-		return view( 'index', compact( 'artwork', 'auctions' ) );
+		return view( 'index', compact( 'artwork', 'auctions', 'articles' ) );
 	}
 
 	public function auctions() {

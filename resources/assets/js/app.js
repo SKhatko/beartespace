@@ -16,6 +16,8 @@ require('./bootstrap');
 import ElementUI from 'element-ui';
 import locale from 'element-ui/lib/locale/lang/en'
 import Croppa from 'vue-croppa';
+import VueAwesomeSwiper from 'vue-awesome-swiper'
+
 
 Vue.prototype.trans = (key) => {
     return get(window.trans, key, key);
@@ -29,7 +31,11 @@ Vue.prototype.options = (key) => {
 
 
 Vue.use(ElementUI, {locale});
-Vue.use(Croppa, { componentName: 'cropper' });
+Vue.use(Croppa, {componentName: 'cropper'});
+Vue.use(VueAwesomeSwiper, {
+    slidesPerView: 'auto',
+    spaceBetween: 30
+});
 
 Vue.component('artworks-menu', require('./components/ArtworksMenu.vue'));
 Vue.component('artists-menu', require('./components/ArtistsMenu.vue'));
@@ -49,9 +55,7 @@ Vue.component('pages', require('./components/dashboard/Pages.vue'));
 const app = new Vue({
     el: '#app',
     components: {},
-    data: {
-
-    },
+    data: {},
     mounted() {
 
         if (window.status) {

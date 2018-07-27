@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\User;
 use App\Artwork;
+use App\Article;
 
 class TestingSeeder extends Seeder {
 	/**
@@ -33,6 +34,8 @@ class TestingSeeder extends Seeder {
 				$user->image()->save( factory( App\Media::class )->make( [
 					'url' => 'https://picsum.photos/' . random_int( 1, 1920 ) . '/' . random_int( 1, 1920 ),
 				] ) );
+
+				$user->articles()->saveMany( factory( App\Article::class, 5 )->make() );
 			}
 		}
 
@@ -40,6 +43,12 @@ class TestingSeeder extends Seeder {
 
 		foreach ( $artworks as $artwork ) {
 			$artwork->images()->saveMany( factory( App\Media::class, random_int( 1, 4 ) )->make() );
+		}
+
+		$articles = Article::all();
+
+		foreach ( $articles as $article ) {
+			$article->image()->save( factory( App\Media::class )->make() );
 		}
 	}
 }
