@@ -10,55 +10,55 @@
 
             <artists-menu :artists_="{{ $artists }}"></artists-menu>
 
-            <main>
+            <div class="artists">
 
-                <h2 class="h2">Artists</h2>
+                @foreach($artists as $artist)
 
-                <div class="artists">
+                    <el-card style="margin-bottom: 30px">
 
-                    @foreach($artists as $artist)
-
-                        <el-card class="artist">
+                        <div class="artist">
 
                             <a href="{{ route('artist', $artist->id) }}" class="artist-avatar">
                                 <img src="{{ $artist->avatar->url }}" alt="{{ $artist->avatar->name }}">
                             </a>
 
-                            <div class="artist-footer">
-                                <div class="artist-info">
-
-                                    <a href="{{ route('artist', $artist->id) }}" class="h4">
-                                        {{ $artist->name }}
-                                    </a>
-
-                                    <div class="h5">{{ $artist->country['country_name'] }}</div>
-                                </div>
-                                <div class="artist-follow">
-                                    <el-button type="primary" plain size="small">Follow</el-button>
-                                </div>
-                            </div>
-
-                            <div class="artist-artworks" style="margin-top: 20px;">
+                            <div class="artist-artworks">
 
                                 @foreach($artist->artworks->random(3) as $artwork)
 
-                                    <div class="artist-artwork-image" style="display:inline-block; margin-right:10px;">
-                                        <img src="{{ $artwork->images->first()->url  }}" alt=""
-                                             style="max-width: 200px; max-height: 100px">
-                                    </div>
+                                    <a href="{{ route('artwork', $artwork->id) }}" class="artist-artwork">
+                                        <img src="{{ $artwork->images->first()->url }}"
+                                             alt="{{ $artwork->images->first()->name }}">
+                                    </a>
 
                                 @endforeach
 
                             </div>
 
+                        </div>
 
 
-                        </el-card>
+                        <div class="artist-footer">
+                            <div class="artist-info">
 
-                    @endforeach
+                                <a href="{{ route('artist', $artist->id) }}" class="h4">
+                                    {{ $artist->name }}
+                                </a>
 
-                </div>
-            </main>
+                                <div class="h5">{{ $artist->country['country_name'] }}</div>
+                            </div>
+                            <div class="artist-follow">
+                                <el-button type="primary" plain size="small">Follow</el-button>
+                            </div>
+                        </div>
+
+
+                    </el-card>
+
+                @endforeach
+
+            </div>
+
         </div>
 
 

@@ -19,20 +19,21 @@ class UserController extends Controller {
 		return [ 'status' => 'success', 'message' => 'Saved', 'data' => $user ];
 	}
 
-	public function toggleFavouriteArtwork(Request $request, $id) {
+	public function toggleFavouriteArtwork( Request $request, $id ) {
 
-		$user = User::find( $request['id'] );
+//		$user = User::find( $request['id'] );
+		$user = User::find( 1 );
 
-		$user->favouriteArtworks()->toggle($id);
+		$artworksCount = $user->favouriteArtworks()->count();
 
-		if($user->favouriteArtworks()->where('id', $id)->exists()) {
-			return 'added';
+		$user->favouriteArtworks()->toggle( $id );
+
+		if($user->favouriteArtworks()->count() > $artworksCount) {
+			return [ 'status' => 'success', 'message' => 'Artwork Added to Favourites', 'data' => $user->favouriteArtworks ];
 		} else {
-			return 'removed';
+			return [ 'status' => 'success', 'message' => 'Artwork Removed from Favourites', 'data' => $user->favouriteArtworks ];
 		}
-
 	}
-
 
 	public function uploadUserAvatar( Request $request, $id ) {
 

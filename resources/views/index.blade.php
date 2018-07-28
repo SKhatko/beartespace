@@ -137,7 +137,7 @@
                 </div>
 
                 <div class="artworks-bottom">
-                    <a href="{{ route('auctions') }}" class="artworks-bottom-link">The full selection from our
+                    <a href="{{ route('selections') }}" class="artworks-bottom-link">The full selection from our
                         curator</a>
                 </div>
 

@@ -1,27 +1,44 @@
 <template>
 
-    <aside>
-
-        <h2 class="h2">Menu</h2>
-
-        <el-tree
-                :data="artistFilters"
-                :props="defaultProps"
-                ref="artists"
-                node-key="key"
-                :default-expanded-keys="['artists']"
-                :default-checked-keys="['artist--14']"
-                check-on-click-node
-                :expand-on-click-node="false"
-                accordion
-                empty-text="Empty text"
-                show-checkbox>
-        </el-tree>
-
-        <el-button @click="getCheckedFilters">Show</el-button>
+    <div class="artists-menu">
 
 
-    </aside>
+        <el-form inline>
+            <el-form-item>
+                <el-select value="artist" v-model="artist" filterable placeholder="Select">
+                    <el-option
+                            v-for="item in artists_"
+                            :key="item.id"
+                            :label="item.name"
+                            :value="item.id">
+                    </el-option>
+                </el-select>
+            </el-form-item>
+
+            <el-form-item>
+                <el-button @click="getCheckedFilters">Show</el-button>
+
+            </el-form-item>
+        </el-form>
+
+
+        <!--<el-tree-->
+                <!--:data="artistFilters"-->
+                <!--:props="defaultProps"-->
+                <!--ref="artists"-->
+                <!--node-key="key"-->
+                <!--:default-expanded-keys="['artists']"-->
+                <!--:default-checked-keys="['artist&#45;&#45;14']"-->
+                <!--check-on-click-node-->
+                <!--:expand-on-click-node="false"-->
+                <!--accordion-->
+                <!--empty-text="Empty text"-->
+                <!--show-checkbox>-->
+        <!--</el-tree>-->
+
+
+
+    </div>
 
 </template>
 
@@ -35,6 +52,7 @@
 
         data() {
             return {
+                artist: 1,
                 artistFilters: [],
                 defaultProps: {
                     children: 'children',

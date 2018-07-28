@@ -6,33 +6,64 @@
 
     @if($artist)
 
-        <div class="app--wrapper">
-            <div class="app-artist">
+        <div class="app-artist">
 
-                <div class="artist">
-                    <div>
-                        <div class="artist-image">
-                            <img src="{{ $artist->image->url }}" alt="{{ $artist->image->name }}">
-                        </div>
+            <div class="artist">
 
-                        <div class="artist-image">
+                <div class="artist-image"
+                     style="background-image: url({{ $artist->image->url }});">
+
+                    <div class="artist-image--fade">
+
+
+                        <div class="artist-avatar">
                             <img src="{{ $artist->avatar->url }}" alt="{{ $artist->avatar->name }}">
                         </div>
+
                         <div class="artist-name">{{ $artist->name }} </div>
                         <div class="artist-dob">{{ $artist->dob }}</div>
                         <div class="artist-country">{{ $artist->country['country_name'] }}</div>
-                        <div class="artist-gender">{{ $artist->gender }}</div>
-                        <div class="artist-website">{{ $artist->website }}</div>
+
+
                     </div>
 
                 </div>
 
-                <hr>
+                <div class="app--wrapper">
+
+                    <div class="artist-info">
+
+                        <div class="artist-gender">{{ $artist->gender }}</div>
+                        <div class="artist-website">{{ $artist->website }}</div>
+                        <div class="artist-education">{{ $artist->education }}</div>
+                        <div class="artist-education-title">{{ $artist->education_title }}</div>
+                        <div class="artist-inspiration">{{ $artist->inspiration }}</div>
+                        <div class="artist-exhibition">{{ $artist->exhibition }}</div>
+                        <div class="artist-technique">
+
+                            @if($artist->technique)
+                                @foreach($artist->technique as $medium)
+                                    {{ trans('medium.' . $medium) && strpos(trans('medium.' . $medium), 'medium') !== false ? $medium : trans('medium.' . $medium)}}
+                                @endforeach
+                            @endif
+                        </div>
+
+                    </div>
+
+                </div>
+
+
             </div>
 
-            <h2>Other artworks</h2>
+            <div class="app--wrapper">
+                <hr>
 
-            @include('partials.artworks', ['artworks' => $artist->artworks])
+
+                <h2>Other artworks</h2>
+
+                @include('partials.artworks', ['artworks' => $artist->artworks])
+
+            </div>
 
         </div>
 

@@ -1,6 +1,7 @@
 
 window.get = require('lodash.get');
 window.Vue = require('vue');
+window.Vuex = require('vuex');
 
 // window._ = require('lodash');
 

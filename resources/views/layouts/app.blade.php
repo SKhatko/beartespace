@@ -38,9 +38,9 @@
 
             <div class="app-header--top">
 
-                <span>Always free shipping</span>
-                <span>14-days return right</span>
-                <span>Best art selection</span>
+                <a href="{{ route('page', 'freight')}}">Always free shipping</a>
+                <a href="{{ route('page', 'right-of-cancellation')}}">14-days return right</a>
+                <a href="{{ route('selections')}}">Best art selection</a>
 
             </div>
             <div class="app-header--middle">
@@ -168,6 +168,11 @@
                                     </el-dropdown-item>
 
                                     <el-dropdown-item>
+                                        <i class="el-icon-setting"></i>
+                                        <a href="{{ route('admin.settings') }}">Settings</a>
+                                    </el-dropdown-item>
+
+                                    <el-dropdown-item>
                                         <i class="el-icon-document"></i>
                                         <a href="{{ route('admin.pages') }}">Pages</a>
                                     </el-dropdown-item>
@@ -216,17 +221,13 @@
                     </div>
                 @endif
 
-                @if(auth()->user() && count(auth()->user()->favouriteArtworks))
-                    <a href="{{ route('dashboard.favorites') }}" class="app-header-star">
-                        <i class="el-icon-star-off"></i><sup>{{ count(auth()->user()->favouriteArtworks) }}</sup>
-                    </a>
-                @endif
+                <a href="{{ route('dashboard.favorites') }}" class="app-header-star" v-if="$store.state.favouritesCount">
+                    <i class="el-icon-star-off"></i><sup>@{{ $store.state.favouritesCount }}</sup>
+                </a>
 
-                @if(session('cart') && session('cart')->totalQuantity > 0)
-                    <a href="{{ route('shopping-cart') }}" class="app-header-cart">
-                        <i class="el-icon-goods"></i><sup>{{ session('cart')->totalQuantity }}</sup>
-                    </a>
-                @endif
+                <a href="{{ route('shopping-cart') }}" class="app-header-cart" v-if="$store.state.cartCount">
+                    <i class="el-icon-goods"></i><sup>@{{ $store.state.cartCount }}</sup>
+                </a>
 
             </div>
 
@@ -318,7 +319,7 @@
                                 <a href="{{ route('page', 'warranty')}}">Warranty</a>
                                 <a href="{{ route('page', 'taxes')}}">Taxes</a>
                                 <a href="{{ route('page', 'freight')}}">Freight</a>
-                                <a href="{{ route('page', 'cookies-and-privacy-regulation')}}">Cookies and Privacy
+                                <a href="{{ route('page', 'cookies-and-privacy')}}">Cookies and Privacy
                                     Regulation</a>
                                 <a href="{{ route('contact-form') }}">@lang('portal.contact')</a>
                             </div>
@@ -341,7 +342,8 @@
                             <div class="app-footer-submenu">
 
                                 <div class="app-footer-currencies">
-                                    Currency: <el-dropdown trigger="hover">
+                                    Currency:
+                                    <el-dropdown trigger="hover">
                                           <span class="el-dropdown-link">
                                               {{ session('currency') }}
                                               <i class="el-icon-arrow-down el-icon--right"></i>
@@ -359,7 +361,8 @@
                                 </div>
 
                                 <div class="app-footer-languages">
-                                    Language: <el-dropdown trigger="hover">
+                                    Language:
+                                    <el-dropdown trigger="hover">
                                           <span class="el-dropdown-link">
                                               {{ currentLanguage()->name ?? 'en' }}
                                               <i class="el-icon-arrow-down el-icon--right"></i>
@@ -428,7 +431,8 @@
                                 <img src="/images/logo-100.png" title="BeArteSpace" alt="BeArteSpace logo"/>
                             </a>
                             <a href="http://bearte.org/">
-                                <img src="/images/bearte-gallery-logo-100.png" title="BeArteSpace" alt="BeArteSpace logo"/>
+                                <img src="/images/bearte-gallery-logo-100.png" title="BeArteSpace"
+                                     alt="BeArteSpace logo"/>
                             </a>
                         </div>
 

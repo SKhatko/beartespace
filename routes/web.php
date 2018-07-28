@@ -38,6 +38,8 @@ Route::group( [ 'middleware' => 'web' ], function () {
 	Route::get( '/auctions/{id}', 'HomeController@auctions' )->name( 'auction' );
 	Route::get( '/artworks', 'HomeController@artworks' )->name( 'artworks' );
 	Route::get( '/artworks/{id}', 'HomeController@artwork' )->name( 'artwork' );
+	Route::get( '/selections', 'HomeController@selections' )->name( 'selections' );
+	Route::get( '/selections/{id}', 'HomeController@selection' )->name( 'selection' );
 	Route::get( '/artists', 'HomeController@artists' )->name( 'artists' );
 	Route::get( '/artists/{id}', 'HomeController@artist' )->name( 'artist' );
 
@@ -102,7 +104,8 @@ Route::group( [ 'middleware' => 'web' ], function () {
 			Route::get( 'translations', 'TranslationController@index' )->name( 'admin.translations' );
 			Route::get( 'languages', 'LanguageController@index' )->name( 'admin.languages' );
 			Route::get( 'pages', 'PageController@index' )->name( 'admin.pages' );
-			Route::get( 'messages', 'MessageController@messages' )->name( 'admin.messages' );
+			Route::get( 'messages', 'MessageController@index' )->name( 'admin.messages' );
+			Route::get( 'settings', 'SettingController@index' )->name( 'admin.settings' );
 
 
 			Route::get( 'approved', [ 'as' => 'approved_ads', 'uses' => 'ArtworkController@index' ] );

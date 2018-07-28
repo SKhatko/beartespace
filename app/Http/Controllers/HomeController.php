@@ -36,6 +36,20 @@ class HomeController extends Controller {
 		return view( 'auction.show', compact( 'auction' ) );
 	}
 
+	public function selections() {
+
+		$artworks = Artwork::active()->limit( 20 )->get();
+
+		return view( 'artwork.index', compact( 'artworks' ) );
+	}
+
+	public function selection( $id ) {
+
+		$artwork = Artwork::find( $id );
+
+		return view( 'artwork.show', compact( 'artwork' ) );
+	}
+
 	public function artists() {
 
 		$artists = User::artist()->limit( 20 )->get();
@@ -52,16 +66,9 @@ class HomeController extends Controller {
 
 	public function artworks() {
 
-		$artworks = Artwork::active()->limit( 20 )->get();
+		$artworks = Artwork::active()->limit( 20 )->with('images', 'user.country')->get();
 
 		return view( 'artwork.index', compact( 'artworks' ) );
-	}
-
-	public function sculptures() {
-
-		$sculptures = Artwork::sculpture()->active()->limit( 20 )->get();
-
-		return view( 'sculpture.index', compact( 'sculptures' ) );
 	}
 
 	public function artwork( $id ) {
@@ -70,6 +77,7 @@ class HomeController extends Controller {
 
 		return view( 'artwork.show', compact( 'artwork' ) );
 	}
+
 
 	public function shoppingCart() {
 

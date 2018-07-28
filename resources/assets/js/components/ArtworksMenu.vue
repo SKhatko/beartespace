@@ -54,13 +54,13 @@
             let filters = ['category', 'direction', 'medium', 'theme', 'color'];
 
             filters.map(filter => {
-                console.log(filter);
+                // console.log(filter);
 
                 this.artworkFilters.push({
                     key: filter,
                     label: this.trans('portal')[filter],
                     children: Object.entries(this.trans(filter)).map(function (item) {
-                        console.log(item);
+                        // console.log(item);
                         return {
                             key: filter + '--' + item[0],
                             label: item[1],

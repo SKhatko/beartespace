@@ -6,7 +6,6 @@
 @import "~vue-croppa/dist/vue-croppa";
 @import "~swiper/dist/css/swiper";
 
-
 body, html {
   margin: 0;
   padding: 0;
@@ -175,7 +174,7 @@ body, html {
       .banner {
 
         &--fade {
-          background-color: rgba(0,0,0,0.4);
+          background-color: rgba(0, 0, 0, 0.4);
           padding: 50px 15px;
         }
 
@@ -193,7 +192,7 @@ body, html {
 
           & a {
             margin: 0 10px;
-            background-color: rgba(0,0,0,0.5);
+            background-color: rgba(0, 0, 0, 0.5);
             padding: 15px 20px;
             font-size: 22px;
             color: #fff;
@@ -218,7 +217,6 @@ body, html {
             text-shadow: 0 0 2px black;
           }
         }
-
 
       }
 
@@ -320,12 +318,9 @@ body, html {
           margin-left: 20px;
         }
 
-
       }
 
-
     }
-
 
     &-artworks {
       text-align: center;
@@ -363,21 +358,17 @@ body, html {
           }
         }
 
-
       }
 
-
     }
-
-
 
   }
 
   &-artists {
-    display: flex;
+    //display: flex;
     padding: 15px;
 
-    aside {
+    &-menu {
       min-width: 300px;
     }
 
@@ -386,14 +377,14 @@ body, html {
     }
 
     .artists {
-      //column-count: 2;
-      //column-gap: 15px;
+
     }
 
     .artist {
       margin-bottom: 20px;
       position: relative;
-      break-inside: avoid;
+      display: flex;
+      align-items: center;
 
       &-avatar {
         display: block;
@@ -402,12 +393,29 @@ body, html {
         line-height: 0;
         max-width: 290px;
         max-height: 290px;
+        min-width: 290px;
 
         & img {
           height: auto;
           width: 100%;
           max-height: 500px;
         }
+      }
+
+      &-artworks {
+        margin-left: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      &-artwork {
+
+        img {
+          width: 100%;
+          max-height: 200px;
+        }
+
       }
 
       &-footer {
@@ -426,17 +434,48 @@ body, html {
   }
 
   &-artist {
+    width: 100%;
+
     .artist {
 
       &-image {
-        max-width: 300px;
-        max-height: 300px;
+        text-align: center;
+        position: relative;
+        background-color: #fff;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        background-attachment: fixed;
+        margin-bottom: 30px;
+        color: #fff;
 
+        &--fade {
+          background-color: rgba(0, 0, 0, 0.4);
+          padding: 50px 15px;
+        }
 
         img {
           max-width: 100%;
           max-height: 100%
         }
+      }
+
+      &-avatar {
+        overflow: hidden;
+        margin-bottom: 20px;
+
+        img {
+          border-radius: 50%;
+        }
+      }
+
+      &-name {
+        font-size: 20px;
+      }
+      
+      &-info {
+        margin-bottom: 20px;
+
       }
     }
   }
@@ -614,7 +653,6 @@ body, html {
       margin-bottom: 10px;
     }
 
-
     &-social {
       display: flex;
       align-items: center;
@@ -625,8 +663,16 @@ body, html {
       }
     }
 
-    &-subscribe .el-form-item {
-      margin-right: 0;
+    &-subscribe {
+      label {
+        line-height: 20px;
+        margin-top: 10px;
+      }
+
+      .el-form-item {
+        margin-right: 0;
+      }
+
     }
 
     &-copy {

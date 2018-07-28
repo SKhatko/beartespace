@@ -39,11 +39,11 @@ class Cart {
 		}
 	}
 
-	public function toggle($artwork, $id) {
+	public function toggle( $artwork, $id ) {
 		if ( $this->items && array_key_exists( $id, $this->items ) ) {
-			$this->remove($artwork, $id);
+			$this->remove( $artwork, $id );
 		} else {
-			$this->add($artwork, $id);
+			$this->add( $artwork, $id );
 		}
 	}
 }

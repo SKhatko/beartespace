@@ -6,12 +6,13 @@ use App\Artwork;
 use App\Media;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Cart;
 
 class ArtworkController extends Controller {
 
 	public function store( Request $request ) {
 
-		$artwork = Artwork::updateOrCreate( [ 'id' => $request->input( 'id' ) ], $request->except('images') );
+		$artwork = Artwork::updateOrCreate( [ 'id' => $request->input( 'id' ) ], $request->except( 'images' ) );
 
 //		return array_pluck($request->input('images'), 'name');
 //		$artworkImageIds = array_pluck($request->input('images'), 'name');
@@ -41,10 +42,38 @@ class ArtworkController extends Controller {
 
 	public function removeArtworkImage( Request $request, $id ) {
 
-		Media::whereArtworkId($id)->whereName($request->input('name'))->first()->delete();
+		Media::whereArtworkId( $id )->whereName( $request->input( 'name' ) )->first()->delete();
 
-		$images = Media::whereArtworkId($id)->get();
+		$images = Media::whereArtworkId( $id )->get();
+
 		return [ 'status' => 'success', 'message' => 'Image deleted', 'data' => $images ];
+	}
+
+	public function toggleCart( Request $request, $id ) {
+
+		$artwork = Artwork::find( $id );
+
+		$oldCart = session( 'cart' );
+
+		$cart = new Cart( $oldCart );
+
+		$cart->toggle( $artwork, $artwork->id );
+
+		session( [ 'cart' => $cart ] );
+
+		if ( ( $oldCart->totalQuantity ?? 0 ) < session( 'cart' )->totalQuantity ) {
+			return [
+				'status'  => 'success',
+				'message' => 'Artwork Added to Shopping Cart',
+				'data'    => session( 'cart' )
+			];
+		} else {
+			return [
+				'status'  => 'success',
+				'message' => 'Artwork Removed from Shopping Cart',
+				'data'    => session( 'cart' )
+			];
+		}
 	}
 
 }

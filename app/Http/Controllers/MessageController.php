@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class MessageController extends Controller {
 
-	public function messages() {
+	public function index() {
 
 		$title = trans( 'app.contact_messages' );
 

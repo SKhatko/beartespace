@@ -4,7 +4,7 @@
 
 @section('admin-content')
 
-    {{ $title }}
+    Favourites artworks
 
 @endsection
 

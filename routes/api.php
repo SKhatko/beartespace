@@ -28,7 +28,8 @@ Route::post( 'artwork', 'Api\ArtworkController@store' );
 Route::post( 'pages', 'Api\PageController@store' );
 
 
-Route::any('toggle-favourite/{id}', 'Api\UserController@toggleFavouriteArtwork');
+Route::put('favourites/{id}/toggle', 'Api\UserController@toggleFavouriteArtwork');
+Route::put('cart/{id}/toggle', 'Api\ArtworkController@toggleCart');
 
 // Upload files
 Route::any( 'upload/user-avatar/{id}', 'Api\UserController@uploadUserAvatar' );
