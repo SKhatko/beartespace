@@ -76972,13 +76972,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
     props: {
-        artwork_: {}
-
+        artwork_: {},
+        price_: ''
     },
 
     data: function data() {
@@ -77035,11 +77037,11 @@ module.exports = Component.exports
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('el-card', {
+  return (_vm.artwork) ? _c('el-card', {
     staticClass: "artwork"
   }, [_c('div', {
     staticClass: "artwork-top"
-  }, [_c('a', {
+  }, [(_vm.artwork.images) ? _c('a', {
     staticClass: "artwork-image",
     attrs: {
       "href": '/artwork/' + _vm.artwork.id
@@ -77049,7 +77051,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "src": _vm.artwork.images[0].url,
       "alt": _vm.artwork.images[0].name
     }
-  })]), _vm._v(" "), _c('div', {
+  })]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "artwork-panel"
   }, [_c('el-button', {
     staticClass: "artwork-panel-favourite",
@@ -77080,13 +77082,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("\n        " + _vm._s(_vm.artwork.title) + "\n    ")]), _vm._v(" "), _c('div', {
     staticClass: "artwork-bottom"
-  }, [_c('div', {
+  }, [(_vm.artwork.user && _vm.artwork.user.country) ? _c('div', {
     staticClass: "artwork-info"
   }, [_c('div', {
     staticClass: "h4"
   }, [_vm._v(_vm._s(_vm.artwork.user.name))]), _vm._v(" "), _c('div', {
     staticClass: "h5"
-  }, [_vm._v(_vm._s(_vm.artwork.user.country.country_name))])])])])
+  }, [_vm._v(_vm._s(_vm.artwork.user.country.country_name))])]) : _vm._e(), _vm._v(" "), (_vm.price_) ? _c('div', {
+    staticClass: "artwork-price"
+  }, [_vm._v("\n            " + _vm._s(_vm.price_) + "\n        ")]) : _vm._e()])]) : _vm._e()
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
