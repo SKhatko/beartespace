@@ -227,6 +227,7 @@ body, html {
       padding: 90px 15px;
 
       .auctions {
+        margin: 0 -15px;
         padding-top: 50px;
         display: flex;
         justify-content: space-between;
@@ -246,16 +247,19 @@ body, html {
       }
 
       .auction {
+        padding: 15px;
+        flex: 1;
         text-align: left;
-        position: relative;
 
         &-image {
           margin-bottom: 10px;
-          display: block;
+          display: flex;
+          align-items: center;
+          height: 350px;
+          overflow: hidden;
 
           img {
-            height: 350px;
-            max-width: 100%;
+            width: 100%;
           }
         }
 
@@ -286,6 +290,7 @@ body, html {
         padding-top: 50px;
         display: flex;
         justify-content: space-between;
+        margin: 0 -15px;
       }
 
       .articles-bottom {
@@ -302,8 +307,9 @@ body, html {
       }
 
       .article {
+        padding: 15px;
         text-align: left;
-        display: flex;
+        flex: 1;
 
         &-image {
           margin-bottom: 10px;
@@ -327,6 +333,7 @@ body, html {
       padding: 90px 15px;
 
       .artworks {
+        margin: 0 -15px;
         padding-top: 50px;
         display: flex;
         justify-content: space-between;
@@ -346,14 +353,18 @@ body, html {
       }
 
       .artwork {
+        flex: 1;
+        padding: 15px;
         text-align: left;
 
         &-image {
           margin-bottom: 10px;
-          display: block;
+          display: flex;
+          align-items: center;
+          height: 350px;
+          overflow: hidden;
 
           img {
-            height: 350px;
             max-width: 100%;
           }
         }

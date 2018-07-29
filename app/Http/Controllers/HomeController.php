@@ -17,7 +17,7 @@ class HomeController extends Controller {
 
 		$artwork = Artwork::inRandomOrder()->with( 'images', 'user' )->first();
 
-		$auctions = Artwork::auction()->orderBy('id', 'desc')->take(3)->get();
+		$auctions = Artwork::auction()->orderBy('id', 'desc')->take(4)->get();
 
 		return view( 'index', compact( 'artwork', 'auctions', 'articles' ) );
 	}
