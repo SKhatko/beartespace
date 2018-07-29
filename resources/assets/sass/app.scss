@@ -414,6 +414,7 @@ body, html {
       }
 
       &-artworks {
+        margin: 0 -15px;
         margin-left: 20px;
         display: flex;
         align-items: center;
@@ -421,10 +422,15 @@ body, html {
       }
 
       &-artwork {
+        padding: 15px;
+        flex: 1;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        max-height: 250px;
 
         img {
           width: 100%;
-          max-height: 200px;
         }
 
       }
@@ -486,8 +492,12 @@ body, html {
       
       &-info {
         margin-bottom: 20px;
-
+        padding: 15px;
       }
+    }
+
+    .artist-artworks {
+      padding: 15px;
     }
   }
 

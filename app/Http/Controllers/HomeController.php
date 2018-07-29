@@ -59,7 +59,7 @@ class HomeController extends Controller {
 
 	public function artist( $id ) {
 
-		$artist = User::find( $id );
+		$artist = User::where( 'id', $id )->with('image', 'avatar', 'artworks.images')->first();
 
 		return view( 'artist.show', compact( 'artist' ) );
 	}

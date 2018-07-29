@@ -52,16 +52,19 @@
 
                 </div>
 
+                <div class="artist-artworks">
 
-            </div>
-
-            <div class="app--wrapper">
-                <hr>
+                    <div class="app--wrapper">
 
 
-                <h2>Other artworks</h2>
 
-                @include('partials.artworks', ['artworks' => $artist->artworks])
+                        <h2>Other artworks</h2>
+
+                        @include('partials.artworks', ['artworks' => $artist->artworks])
+
+                    </div>
+
+                </div>
 
             </div>
 
