@@ -77044,7 +77044,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [(_vm.artwork.images) ? _c('a', {
     staticClass: "artwork-image",
     attrs: {
-      "href": '/artwork/' + _vm.artwork.id
+      "href": '/artworks/' + _vm.artwork.id
     }
   }, [_c('img', {
     attrs: {
@@ -77078,7 +77078,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })], 1)]), _vm._v(" "), _c('a', {
     staticClass: "artwork-title",
     attrs: {
-      "href": '/artwork/' + _vm.artwork.id
+      "href": '/artworks/' + _vm.artwork.id
     }
   }, [_vm._v("\n        " + _vm._s(_vm.artwork.title) + "\n    ")]), _vm._v(" "), _c('div', {
     staticClass: "artwork-bottom"
