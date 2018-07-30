@@ -13,11 +13,11 @@ class HomeController extends Controller {
 
 	public function index() {
 
-		$articles = Article::where('active', 1)->take(2)->get();
+		$articles = Article::where( 'active', 1 )->take( 2 )->get();
 
 		$artwork = Artwork::inRandomOrder()->with( 'images', 'user' )->first();
 
-		$auctions = Artwork::auction()->orderBy('id', 'desc')->take(4)->get();
+		$auctions = Artwork::auction()->orderBy( 'id', 'desc' )->take( 4 )->get();
 
 		return view( 'index', compact( 'artwork', 'auctions', 'articles' ) );
 	}
@@ -59,14 +59,50 @@ class HomeController extends Controller {
 
 	public function artist( $id ) {
 
-		$artist = User::where( 'id', $id )->with('image', 'avatar', 'artworks.images')->first();
+		$artist = User::where( 'id', $id )->with( 'image', 'avatar', 'artworks.images' )->first();
 
 		return view( 'artist.show', compact( 'artist' ) );
 	}
 
-	public function artworks() {
+	public function artworks( Request $request ) {
 
-		$artworks = Artwork::active()->limit( 20 )->with('images', 'user.country')->get();
+		$artworks = Artwork::query();
+
+		if ( $request->input( 'category' ) ) {
+			$queries = explode( ',', $request->input( 'category' ) );
+			foreach ( $queries as $query ) {
+				$artworks->whereRaw( 'LOWER(category) LIKE ?', '%' . $query . '%' );
+			}
+		} elseif ( $request->input( 'direction' ) ) {
+			$queries = explode( ',', $request->input( 'direction' ) );
+			foreach ( $queries as $query ) {
+				$artworks->whereRaw( 'LOWER(direction) LIKE ?', '%' . $query . '%' );
+			}
+		} elseif ( $request->input( 'medium' ) ) {
+			$queries = explode( ',', $request->input( 'medium' ) );
+			foreach ( $queries as $query ) {
+				$artworks->whereRaw( 'LOWER(medium) LIKE ?', '%' . $query . '%' );
+			}
+		} elseif ( $request->input( 'theme' ) ) {
+			$queries = explode( ',', $request->input( 'theme' ) );
+			foreach ( $queries as $query ) {
+				$artworks->whereRaw( 'LOWER(theme) LIKE ?', '%' . $query . '%' );
+			}
+		} elseif ( $request->input( 'color' ) ) {
+			$queries = explode( ',', $request->input( 'color' ) );
+			foreach ( $queries as $query ) {
+				$artworks->whereRaw( 'LOWER(color) LIKE ?', '%' . $query . '%' );
+			}
+		} elseif ( $request->input( 'price' ) ) {
+			$queries = explode( ',', $request->input( 'price' ) );
+			foreach ( $queries as $query ) {
+				$artworks->whereRaw( 'LOWER(color) LIKE ?', '%' . $query . '%' );
+			}
+		} else {
+			$artworks = Artwork::limit( 20 )->with( 'images', 'user.country' );
+		}
+
+		$artworks = $artworks->get();
 
 		return view( 'artwork.index', compact( 'artworks' ) );
 	}
