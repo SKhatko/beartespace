@@ -7,22 +7,52 @@
   "ascent": 850,
   "glyphs": [
     {
-      "uid": "ecf8edb95c3f45eb433b4cce7ba9f740",
-      "css": "users",
-      "code": 59392,
+      "uid": "b22fdf6cbaa9c54fbb0bc9abb0ed4098",
+      "css": "dropbox",
+      "code": 62256,
       "src": "entypo"
     },
     {
-      "uid": "b19ac67070bc44e310990016288e449c",
-      "css": "heart",
+      "uid": "cdcc1a6693235d1205370c1f47d5e7ad",
+      "css": "megaphone",
+      "code": 59392,
+      "src": "linecons"
+    },
+    {
+      "uid": "f5053e43ef8be31afb905801449ae26d",
+      "css": "truck",
       "code": 59393,
       "src": "linecons"
     },
     {
-      "uid": "56a0672588820ab1a16363e5d07dd22e",
-      "css": "user",
-      "code": 59394,
+      "uid": "d58dc0a0927a7dea2992f615f2fbf400",
+      "css": "wallet",
+      "code": 59396,
       "src": "linecons"
+    },
+    {
+      "uid": "a1d4b614f12cfe2b5aa66313ad88c90c",
+      "css": "users-outline",
+      "code": 59394,
+      "src": "typicons"
+    },
+    {
+      "uid": "c3043114c56d36658e5cae51d36281c8",
+      "css": "mastercard",
+      "code": 62249,
+      "src": "brandico"
+    },
+    {
+      "uid": "cd65196712e52477b9252b4b296b0c44",
+      "css": "visa",
+      "code": 62248,
+      "src": "brandico"
+    },
+    {
+      "uid": "b83f99fd47bff831e25255c9bbbbabe7",
+      "css": "cc-paypal",
+      "code": 61940,
+      "src": "fontawesome"
     }
   ]
 }

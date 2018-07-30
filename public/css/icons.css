@@ -29,8 +29,18 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
-.icon-users::before { content: "\e800"; }
+.icon-dropbox::before { content: "\f330"; }
 
-.icon-heart::before { content: "\e801"; }
+.icon-megaphone::before { content: "\e800"; }
 
-.icon-user::before { content: "\e802"; }
+.icon-truck::before { content: "\e801"; }
+
+.icon-wallet::before { content: "\e804"; }
+
+.icon-users-outline::before { content: "\e802"; }
+
+.icon-mastercard::before { content: "\f329"; }
+
+.icon-visa::before { content: "\f328"; }
+
+.icon-cc-paypal::before { content: "\f1f4"; }

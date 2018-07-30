@@ -321,7 +321,7 @@ body, html {
         }
 
         &-content {
-          margin-left: 20px;
+          //margin-left: 20px;
         }
 
       }
@@ -644,6 +644,59 @@ body, html {
       align-items: center;
       margin-top: 20px;
       box-shadow: 0 -2px 12px 0 rgba(0, 0, 0, 0.1);
+    }
+
+    &-promos {
+      display: flex;
+      justify-content: space-between;
+      padding: 60px 0;
+
+      .promo {
+        flex: 1 1 22%;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        align-items: center;
+
+        &--top {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+
+        &-image {
+          font-size: 40px;
+          text-align: center;
+          box-shadow: 0 0 1px gray;
+          border-radius: 50%;
+          padding: 20px 15px;
+          margin-bottom: 10px;
+        }
+
+        &-description {
+          margin: 10px 0 20px;
+          text-align: center;
+
+          .icons {
+            font-size: 40px;
+            display: flex;
+            align-items: center;
+            color: gray;
+          }
+        }
+
+        &-link {
+          border-bottom: 1px solid black;
+          text-transform: capitalize;
+          transition: all 0.3s ease;
+
+          &:hover {
+            text-decoration: underline;
+          }
+
+
+        }
+      }
     }
 
     &-column {
