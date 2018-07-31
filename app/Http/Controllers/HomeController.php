@@ -68,41 +68,54 @@ class HomeController extends Controller {
 
 		$artworks = Artwork::query();
 
-		if ( $request->input( 'category' ) ) {
-			$queries = explode( ',', $request->input( 'category' ) );
-			foreach ( $queries as $query ) {
-				$artworks->whereRaw( 'LOWER(category) LIKE ?', '%' . $query . '%' );
+		if ( $request->all()) {
+			if ( $request->input( 'category' ) ) {
+				$queries = explode( ',', $request->input( 'category' ) );
+				foreach ( $queries as $query ) {
+					$artworks->whereRaw( 'LOWER(category) LIKE ?', '%' . $query . '%' );
+				}
 			}
-		} elseif ( $request->input( 'direction' ) ) {
-			$queries = explode( ',', $request->input( 'direction' ) );
-			foreach ( $queries as $query ) {
-				$artworks->whereRaw( 'LOWER(direction) LIKE ?', '%' . $query . '%' );
+
+			if ( $request->input( 'direction' ) ) {
+				$queries = explode( ',', $request->input( 'direction' ) );
+				foreach ( $queries as $query ) {
+					$artworks->whereRaw( 'LOWER(direction) LIKE ?', '%' . $query . '%' );
+				}
+
 			}
-		} elseif ( $request->input( 'medium' ) ) {
-			$queries = explode( ',', $request->input( 'medium' ) );
-			foreach ( $queries as $query ) {
-				$artworks->whereRaw( 'LOWER(medium) LIKE ?', '%' . $query . '%' );
+
+			if ( $request->input( 'medium' ) ) {
+				$queries = explode( ',', $request->input( 'medium' ) );
+				foreach ( $queries as $query ) {
+					$artworks->whereRaw( 'LOWER(medium) LIKE ?', '%' . $query . '%' );
+				}
 			}
-		} elseif ( $request->input( 'theme' ) ) {
-			$queries = explode( ',', $request->input( 'theme' ) );
-			foreach ( $queries as $query ) {
-				$artworks->whereRaw( 'LOWER(theme) LIKE ?', '%' . $query . '%' );
+
+			if ( $request->input( 'theme' ) ) {
+				$queries = explode( ',', $request->input( 'theme' ) );
+				foreach ( $queries as $query ) {
+					$artworks->whereRaw( 'LOWER(theme) LIKE ?', '%' . $query . '%' );
+				}
 			}
-		} elseif ( $request->input( 'color' ) ) {
-			$queries = explode( ',', $request->input( 'color' ) );
-			foreach ( $queries as $query ) {
-				$artworks->whereRaw( 'LOWER(color) LIKE ?', '%' . $query . '%' );
+
+			if ( $request->input( 'color' ) ) {
+				$queries = explode( ',', $request->input( 'color' ) );
+				foreach ( $queries as $query ) {
+					$artworks->whereRaw( 'LOWER(color) LIKE ?', '%' . $query . '%' );
+				}
 			}
-		} elseif ( $request->input( 'price' ) ) {
-			$queries = explode( ',', $request->input( 'price' ) );
-			foreach ( $queries as $query ) {
-				$artworks->whereRaw( 'LOWER(color) LIKE ?', '%' . $query . '%' );
+
+			if ( $request->input( 'price' ) ) {
+				$queries = explode( ',', $request->input( 'price' ) );
+				foreach ( $queries as $query ) {
+					$artworks->whereRaw( 'LOWER(color) LIKE ?', '%' . $query . '%' );
+				}
 			}
 		} else {
 			$artworks = Artwork::limit( 20 )->with( 'images', 'user.country' );
 		}
 
-		$artworks = $artworks->get();
+		$artworks = $artworks->limit( 20 )->with( 'images', 'user.country' )->get();
 
 		return view( 'artwork.index', compact( 'artworks' ) );
 	}
