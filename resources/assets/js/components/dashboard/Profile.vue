@@ -8,7 +8,7 @@
 
             <el-form-item label="Upload avatar">
 
-                <div class="profile-avatar-cropper">
+                <div class="profile-avatar-cropper" v-if="user.avatar">
                     <cropper v-model="avatarCropper"
                              placeholder="Click to upload"
                              canvas-color="#ffffff"

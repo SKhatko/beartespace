@@ -74062,7 +74062,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "label": "Upload avatar"
     }
-  }, [_c('div', {
+  }, [(_vm.user.avatar) ? _c('div', {
     staticClass: "profile-avatar-cropper"
   }, [_c('cropper', {
     attrs: {
@@ -74112,7 +74112,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.uploadAvatar
     }
-  }, [_vm._v("Save avatar")]) : _vm._e()], 1)]), _vm._v(" "), _c('el-form-item', {
+  }, [_vm._v("Save avatar")]) : _vm._e()], 1) : _vm._e()]), _vm._v(" "), _c('el-form-item', {
     attrs: {
       "label": "Upload profile image"
     }
