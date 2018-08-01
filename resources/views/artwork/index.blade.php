@@ -12,8 +12,6 @@
 
             <main>
 
-                <h2 class="h2">Artworks</h2>
-
                 @include('partials.artworks', $artworks)
 
             </main>

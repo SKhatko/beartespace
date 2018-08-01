@@ -18104,6 +18104,123 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -18112,47 +18229,49 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     data: function data() {
         return {
-            artworkFilters: [
-                //     {
-                //     key: 1,
-                //     label: 'Category',
-                //     children: [{
-                //         key: 3,
-                //         label: 'Painting',
-                //     }, {
-                //         key: 2,
-                //         label: 'Sculpture'
-                //     }]
-                // }
-            ],
-            defaultProps: {
-                children: 'children',
-                label: 'label',
-                disabled: 'disabled'
-            }
+            artworkFilters: {
+
+                // Free
+                artist: '',
+                artwork: '',
+                medium: [],
+                category: [],
+
+                // Basic
+                theme: [],
+                direction: [],
+
+                // Vip
+                country: '',
+                shape: '',
+                size: '',
+                color: '',
+                price: [1, 9]
+            },
+
+            // TODO countries
+            countries: ''
 
         };
     },
     mounted: function mounted() {
-        var _this = this;
-
         var filters = ['category', 'direction', 'medium', 'theme', 'color'];
 
-        filters.map(function (filter) {
-            // console.log(filter);
-
-            _this.artworkFilters.push({
-                key: filter,
-                label: _this.trans('portal')[filter],
-                children: Object.entries(_this.trans(filter)).map(function (item) {
-                    // console.log(item);
-                    return {
-                        key: filter + '--' + item[0],
-                        label: item[1]
-                    };
-                })
-            });
-        });
+        // filters.map(filter => {
+        //     // console.log(filter);
+        //
+        //     this.artworkFilters.push({
+        //         key: filter,
+        //         label: this.trans('portal')[filter],
+        //         children: Object.entries(this.trans(filter)).map(function (item) {
+        //             // console.log(item);
+        //             return {
+        //                 key: filter + '--' + item[0],
+        //                 label: item[1],
+        //             }
+        //         })
+        //     })
+        // });
     },
 
 
@@ -74678,19 +74797,236 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('aside', [_c('h2', {
-    staticClass: "h2"
-  }, [_vm._v("Menu")]), _vm._v(" "), _c('el-tree', {
+  return _c('div', {
+    staticClass: "app-artworks-menu"
+  }, [_c('el-form', {
     attrs: {
-      "data": _vm.artworkFilters,
-      "props": _vm.defaultProps,
-      "node-key": "key",
-      "default-expanded-keys": ['category'],
-      "default-checked-keys": ['category--painting'],
-      "check-on-click-node": "",
-      "expand-on-click-node": false,
-      "accordion": "",
-      "show-checkbox": ""
+      "inline": ""
+    }
+  }, [_c('el-form-item', [_c('el-input', {
+    attrs: {
+      "placeholder": "Filter by artist name"
+    },
+    model: {
+      value: (_vm.artworkFilters.artist),
+      callback: function($$v) {
+        _vm.$set(_vm.artworkFilters, "artist", $$v)
+      },
+      expression: "artworkFilters.artist"
+    }
+  })], 1), _vm._v(" "), _c('el-form-item', [_c('el-input', {
+    attrs: {
+      "placeholder": "Filter by artwork title"
+    },
+    model: {
+      value: (_vm.artworkFilters.artwork),
+      callback: function($$v) {
+        _vm.$set(_vm.artworkFilters, "artwork", $$v)
+      },
+      expression: "artworkFilters.artwork"
+    }
+  })], 1), _vm._v(" "), _c('el-form-item', [_c('el-select', {
+    attrs: {
+      "value": "",
+      "filterable": "",
+      "multiple": "",
+      "collapse-tags": "",
+      "placeholder": "Filter by category"
+    },
+    model: {
+      value: (_vm.artworkFilters.category),
+      callback: function($$v) {
+        _vm.$set(_vm.artworkFilters, "category", $$v)
+      },
+      expression: "artworkFilters.category"
+    }
+  }, _vm._l((_vm.trans('category')), function(category, key) {
+    return _c('el-option', {
+      key: key,
+      attrs: {
+        "label": category,
+        "value": key
+      }
+    })
+  }))], 1), _vm._v(" "), _c('el-form-item', [_c('el-select', {
+    attrs: {
+      "value": "",
+      "filterable": "",
+      "multiple": "",
+      "collapse-tags": "",
+      "placeholder": "Filter by medium"
+    },
+    model: {
+      value: (_vm.artworkFilters.medium),
+      callback: function($$v) {
+        _vm.$set(_vm.artworkFilters, "medium", $$v)
+      },
+      expression: "artworkFilters.medium"
+    }
+  }, _vm._l((_vm.trans('medium')), function(medium, key) {
+    return _c('el-option', {
+      key: key,
+      attrs: {
+        "label": medium,
+        "value": key
+      }
+    })
+  }))], 1), _vm._v(" "), _c('el-form-item', [_c('el-select', {
+    attrs: {
+      "value": "",
+      "filterable": "",
+      "multiple": "",
+      "collapse-tags": "",
+      "placeholder": "Filter by theme"
+    },
+    model: {
+      value: (_vm.artworkFilters.theme),
+      callback: function($$v) {
+        _vm.$set(_vm.artworkFilters, "theme", $$v)
+      },
+      expression: "artworkFilters.theme"
+    }
+  }, _vm._l((_vm.trans('theme')), function(theme, key) {
+    return _c('el-option', {
+      key: key,
+      attrs: {
+        "label": theme,
+        "value": key
+      }
+    })
+  }))], 1), _vm._v(" "), _c('el-form-item', [_c('el-select', {
+    attrs: {
+      "value": "",
+      "filterable": "",
+      "multiple": "",
+      "collapse-tags": "",
+      "placeholder": "Filter by direction"
+    },
+    model: {
+      value: (_vm.artworkFilters.direction),
+      callback: function($$v) {
+        _vm.$set(_vm.artworkFilters, "direction", $$v)
+      },
+      expression: "artworkFilters.direction"
+    }
+  }, _vm._l((_vm.trans('direction')), function(direction, key) {
+    return _c('el-option', {
+      key: key,
+      attrs: {
+        "label": direction,
+        "value": key
+      }
+    })
+  }))], 1), _vm._v(" "), _c('el-form-item', [_c('el-select', {
+    attrs: {
+      "value": "",
+      "filterable": "",
+      "multiple": "",
+      "collapse-tags": "",
+      "placeholder": "Filter by country"
+    },
+    model: {
+      value: (_vm.artworkFilters.country),
+      callback: function($$v) {
+        _vm.$set(_vm.artworkFilters, "country", $$v)
+      },
+      expression: "artworkFilters.country"
+    }
+  }, _vm._l((_vm.countries), function(country, key) {
+    return _c('el-option', {
+      key: key,
+      attrs: {
+        "label": country,
+        "value": key
+      }
+    })
+  }))], 1), _vm._v(" "), _c('el-form-item', [_c('el-select', {
+    attrs: {
+      "value": "",
+      "filterable": "",
+      "multiple": "",
+      "collapse-tags": "",
+      "placeholder": "Filter by shape"
+    },
+    model: {
+      value: (_vm.artworkFilters.shape),
+      callback: function($$v) {
+        _vm.$set(_vm.artworkFilters, "shape", $$v)
+      },
+      expression: "artworkFilters.shape"
+    }
+  }, _vm._l((_vm.trans('shape')), function(shape, key) {
+    return _c('el-option', {
+      key: key,
+      attrs: {
+        "label": shape,
+        "value": key
+      }
+    })
+  }))], 1), _vm._v(" "), _c('el-form-item', [_c('el-select', {
+    attrs: {
+      "value": "",
+      "placeholder": "Filter by size"
+    },
+    model: {
+      value: (_vm.artworkFilters.size),
+      callback: function($$v) {
+        _vm.$set(_vm.artworkFilters, "size", $$v)
+      },
+      expression: "artworkFilters.size"
+    }
+  }, [_c('el-option', {
+    key: 50,
+    attrs: {
+      "label": "Up to 50cm",
+      "value": 50
+    }
+  }), _vm._v(" "), _c('el-option', {
+    key: 100,
+    attrs: {
+      "label": "Up to 100cm",
+      "value": 100
+    }
+  }), _vm._v(" "), _c('el-option', {
+    key: 200,
+    attrs: {
+      "label": "Up to 200cm",
+      "value": 200
+    }
+  })], 1)], 1), _vm._v(" "), _c('el-form-item', [_c('el-select', {
+    attrs: {
+      "value": "",
+      "filterable": "",
+      "multiple": "",
+      "collapse-tags": "",
+      "placeholder": "Filter by color"
+    },
+    model: {
+      value: (_vm.artworkFilters.color),
+      callback: function($$v) {
+        _vm.$set(_vm.artworkFilters, "color", $$v)
+      },
+      expression: "artworkFilters.color"
+    }
+  }, _vm._l((_vm.trans('color')), function(color, key) {
+    return _c('el-option', {
+      key: key,
+      attrs: {
+        "label": color,
+        "value": key
+      }
+    })
+  }))], 1)], 1), _vm._v(" "), _c('p', [_vm._v("Price")]), _vm._v(" "), _c('el-slider', {
+    attrs: {
+      "range": "",
+      "max": 10
+    },
+    model: {
+      value: (_vm.artworkFilters.price),
+      callback: function($$v) {
+        _vm.$set(_vm.artworkFilters, "price", $$v)
+      },
+      expression: "artworkFilters.price"
     }
   })], 1)
 },staticRenderFns: []}

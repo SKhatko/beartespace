@@ -502,12 +502,8 @@ body, html {
   }
 
   &-artworks {
-    display: flex;
     padding: 15px;
 
-    aside {
-      width: 300px;
-    }
 
     main {
       flex: 1;

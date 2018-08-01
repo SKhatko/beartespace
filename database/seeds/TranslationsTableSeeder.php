@@ -118,6 +118,12 @@ class TranslationsTableSeeder extends Seeder {
 				[ 'Spirals', 'Spiraler' ],
 				[ 'Without', 'Uden' ]
 			],
+			'shape' => [
+				['Square', ''],
+				['Oval/Round', ''],
+				['Horizontal', ''],
+				['Vertical', ''],
+			],
 			'color'     => [
 				[ 'Yellow', 'Gule' ]
 			],
