@@ -34,6 +34,7 @@ class UsersTableSeeder extends Seeder {
 				'user_type'        => 'admin',
 				'email_verified'   => true,
 			],
+
 //			[
 //				'first_name'       => 'Oleksandra',
 //				'last_name'        => 'Lyhoshvaj',
