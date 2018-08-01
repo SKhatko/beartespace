@@ -122,14 +122,20 @@
             </el-form-item>
 
 
+            <el-form-item>
+
+                <el-select value="" v-model="artworkFilters.price" placeholder="Filter by price">
+                    <el-option :key="7000" label="Up to 7000" :value="7000"></el-option>
+                    <el-option :key="15000" label="Up to 15000" :value="15000"></el-option>
+                    <el-option :key="30000" label="Up to 30000" :value="30000"></el-option>
+
+                </el-select>
+
+            </el-form-item>
+
+
         </el-form>
 
-         <p>Price</p>
-        <el-slider
-                v-model="artworkFilters.price"
-                range
-                :max="10">
-        </el-slider>
 
         <!--<el-button>Filter</el-button>-->
 
@@ -162,7 +168,7 @@
                     shape: '',
                     size: '',
                     color: '',
-                    price: [1, 9],
+                    price: '',
                 },
 
                 // TODO countries

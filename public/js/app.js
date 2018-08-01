@@ -18221,6 +18221,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -18246,7 +18252,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 shape: '',
                 size: '',
                 color: '',
-                price: [1, 9]
+                price: ''
             },
 
             // TODO countries
@@ -75016,10 +75022,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "value": key
       }
     })
-  }))], 1)], 1), _vm._v(" "), _c('p', [_vm._v("Price")]), _vm._v(" "), _c('el-slider', {
+  }))], 1), _vm._v(" "), _c('el-form-item', [_c('el-select', {
     attrs: {
-      "range": "",
-      "max": 10
+      "value": "",
+      "placeholder": "Filter by price"
     },
     model: {
       value: (_vm.artworkFilters.price),
@@ -75028,7 +75034,25 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "artworkFilters.price"
     }
-  })], 1)
+  }, [_c('el-option', {
+    key: 7000,
+    attrs: {
+      "label": "Up to 7000",
+      "value": 7000
+    }
+  }), _vm._v(" "), _c('el-option', {
+    key: 15000,
+    attrs: {
+      "label": "Up to 15000",
+      "value": 15000
+    }
+  }), _vm._v(" "), _c('el-option', {
+    key: 30000,
+    attrs: {
+      "label": "Up to 30000",
+      "value": 30000
+    }
+  })], 1)], 1)], 1)], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
