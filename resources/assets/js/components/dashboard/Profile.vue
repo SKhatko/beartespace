@@ -42,7 +42,7 @@
                         :on-success="handleImageSuccess"
                         :before-upload="beforeAvatarUpload">
                     <div v-if="user.image">
-                        <img :src="user.image.url" class="image">
+                        <img :src="user.image.url" style="width: 290px">
 
                         <!--<el-button type="info" plain>-->
                         <!--<i class="el-icon-upload"></i>-->

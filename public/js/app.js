@@ -74191,7 +74191,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "before-upload": _vm.beforeAvatarUpload
     }
   }, [(_vm.user.image) ? _c('div', [_c('img', {
-    staticClass: "image",
+    staticStyle: {
+      "width": "290px"
+    },
     attrs: {
       "src": _vm.user.image.url
     }
