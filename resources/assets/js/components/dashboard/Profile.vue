@@ -8,11 +8,10 @@
 
             <el-form-item label="Upload avatar">
 
-                <div class="profile-avatar-cropper" v-if="user.avatar">
+                <div class="profile-avatar-cropper">
                     <cropper v-model="avatarCropper"
                              placeholder="Click to upload"
                              canvas-color="#ffffff"
-                             :initial-image="user.avatar.url"
                              :quality="1"
                              :width="290"
                              :height="290"
@@ -24,7 +23,7 @@
                              prevent-white-space
                              remove-button-color="gray">
 
-                        <!--<img crossOrigin="anonymous" slot="initial" :src="user.avatar.url"/>-->
+                        <img v-if="user.avatar" crossOrigin="anonymous" slot="initial" :src="user.avatar.url"/>
                         <img slot="placeholder" src="/images/user-placeholder-image.png"/>
                     </cropper>
 

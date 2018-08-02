@@ -19601,7 +19601,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -74122,13 +74121,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "label": "Upload avatar"
     }
-  }, [(_vm.user.avatar) ? _c('div', {
+  }, [_c('div', {
     staticClass: "profile-avatar-cropper"
   }, [_c('cropper', {
     attrs: {
       "placeholder": "Click to upload",
       "canvas-color": "#ffffff",
-      "initial-image": _vm.user.avatar.url,
       "quality": 1,
       "width": 290,
       "height": 290,
@@ -74157,7 +74155,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "avatarCropper"
     }
-  }, [_c('img', {
+  }, [(_vm.user.avatar) ? _c('img', {
+    attrs: {
+      "slot": "initial",
+      "crossOrigin": "anonymous",
+      "src": _vm.user.avatar.url
+    },
+    slot: "initial"
+  }) : _vm._e(), _vm._v(" "), _c('img', {
     attrs: {
       "slot": "placeholder",
       "src": "/images/user-placeholder-image.png"
@@ -74172,7 +74177,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.uploadAvatar
     }
-  }, [_vm._v("Save avatar")]) : _vm._e()], 1) : _vm._e()]), _vm._v(" "), _c('el-form-item', {
+  }, [_vm._v("Save avatar")]) : _vm._e()], 1)]), _vm._v(" "), _c('el-form-item', {
     attrs: {
       "label": "Upload profile image"
     }
