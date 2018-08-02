@@ -18003,26 +18003,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -18033,47 +18013,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     data: function data() {
         return {
-            artist: 1,
-            artistFilters: [],
-            defaultProps: {
-                children: 'children',
-                label: 'label',
-                disabled: 'disabled'
+            artistFilters: {
+                artist: ''
             }
 
         };
     },
-    mounted: function mounted() {
-
-        this.artistFilters.push({
-            key: 'artists',
-            label: this.trans('portal')['artists'],
-            children: Object.values(this.artists_).map(function (artist) {
-                return {
-                    key: 'artist--' + artist.id,
-                    label: artist.name
-                };
-            })
-        });
-
-        this.artistFilters.push({
-            key: 'medium',
-            label: this.trans('portal')['technique'],
-            children: Object.entries(this.trans('medium')).map(function (item) {
-                return {
-                    key: 'medium--' + item[0],
-                    label: item[1]
-                };
-            })
-        });
-    },
+    mounted: function mounted() {},
 
 
-    methods: {
-        getCheckedFilters: function getCheckedFilters() {
-            console.log(this.$refs.artists.getCheckedKeys());
-        }
-    }
+    methods: {}
 });
 
 /***/ }),
@@ -74136,32 +74085,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "inline": ""
     }
-  }, [_c('el-form-item', [_c('el-select', {
+  }, [_c('el-form-item', [_c('el-input', {
     attrs: {
-      "value": "artist",
-      "filterable": "",
-      "placeholder": "Select"
+      "placeholder": "Filter by artist name"
     },
     model: {
-      value: (_vm.artist),
+      value: (_vm.artistFilters.artist),
       callback: function($$v) {
-        _vm.artist = $$v
+        _vm.$set(_vm.artistFilters, "artist", $$v)
       },
-      expression: "artist"
+      expression: "artistFilters.artist"
     }
-  }, _vm._l((_vm.artists_), function(item) {
-    return _c('el-option', {
-      key: item.id,
-      attrs: {
-        "label": item.name,
-        "value": item.id
-      }
-    })
-  }))], 1), _vm._v(" "), _c('el-form-item', [_c('el-button', {
-    on: {
-      "click": _vm.getCheckedFilters
-    }
-  }, [_vm._v("Show")])], 1)], 1)], 1)
+  })], 1)], 1)], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

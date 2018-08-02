@@ -14,7 +14,7 @@ class UserController extends Controller {
 
 		$user = User::find( $request['id'] );
 
-		$user->update( $request->except( 'photo' ) );
+		$user->update( $request->except( ['image', 'avatar'] ));
 
 		return [ 'status' => 'success', 'message' => 'Saved', 'data' => $user ];
 	}
