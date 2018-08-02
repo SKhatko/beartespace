@@ -12,7 +12,7 @@ class UserController extends Controller {
 
 	public function store( Request $request ) {
 
-		$user = User::find( $request['id'] );
+		$user = User::findOrFail( $request['id'] );
 
 		$user->update( $request->except( ['image', 'avatar'] ));
 
