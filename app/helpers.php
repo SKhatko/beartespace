@@ -19,7 +19,11 @@ if ( ! function_exists( 'showPage' ) ) {
 
 		$page = App\Page::whereSlug( $slug )->first();
 
-		return $page->content;
+		if($page) {
+			return $page->content;
+		} else {
+			return '';
+		}
 	}
 }
 
