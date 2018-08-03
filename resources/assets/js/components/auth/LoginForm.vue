@@ -7,20 +7,17 @@
 
             <errors></errors>
 
-            <el-form :model="user" :rules="rules" ref="user" method="post" action="/login" @submit.native.prevent="login">
+            <el-form :model="user" :rules="rules" ref="user" method="post" action="/login"
+                     @submit.native.prevent="login">
 
                 <input type="hidden" name="_token" :value="csrf">
 
                 <el-form-item label="E-Mail Address" prop="email">
-                    <el-input type="email" placeholder="Email" v-model="user.email" name="email" autofocus ></el-input>
+                    <el-input type="email" placeholder="Email" v-model="user.email" name="email" autofocus></el-input>
                 </el-form-item>
 
                 <el-form-item label="Password" prop="password">
                     <el-input type="password" placeholder="Password" v-model="user.password" name="password"></el-input>
-                </el-form-item>
-
-                <el-form-item>
-                    <el-checkbox v-model="user.remember">Remember Me</el-checkbox>
                 </el-form-item>
 
                 <el-form-item>
@@ -36,15 +33,15 @@
             </el-form>
 
             <!--<a href="/login/facebook" class="btn btn-lg btn-block btn-facebook">-->
-                <!--<span class="hidden-xs"><i class="fa fa-facebook-square"></i> Facebook</span>-->
+            <!--<span class="hidden-xs"><i class="fa fa-facebook-square"></i> Facebook</span>-->
             <!--</a>-->
 
             <!--<a href="/login/google" class="btn btn-lg btn-block btn-google">-->
-                <!--<span class="hidden-xs"><i class="fa fa-google-plus-square"></i> Google</span>-->
+            <!--<span class="hidden-xs"><i class="fa fa-google-plus-square"></i> Google</span>-->
             <!--</a>-->
 
             <!--<a href="/login/twitter" class="btn btn-lg btn-block btn-twitter">-->
-                <!--<span class="hidden-xs"><i class="fa fa-twitter"></i> Twitter</span>-->
+            <!--<span class="hidden-xs"><i class="fa fa-twitter"></i> Twitter</span>-->
             <!--</a>-->
 
         </el-card>
@@ -68,7 +65,6 @@
                 user: {
                     email: '',
                     password: '',
-                    remember: true
                 },
                 rules: {
                     email: [

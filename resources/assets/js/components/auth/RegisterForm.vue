@@ -128,6 +128,26 @@
 
                 this.$refs['user'].validate((valid) => {
                     if (valid) {
+                        // axios.get('/oauth/clients')
+                        //     .then(response => {
+                        //         console.log(response.data);
+                        //     });
+                        //
+                        // axios.post('/oauth/clients', {
+                        //     grant_type: 'password',
+                        //     client_id: 2,
+                        //     client_secret: 'iqjMvNiVfeWaAS9w00JSRsrt4DVn6rP8jSpa7ZtH',
+                        //     username: this.user.email,
+                        //     password: this.user.password,
+                        //     scope: '*'
+                        // })
+                        //     .then(response => {
+                        //         console.log(response.data);
+                        //     })
+                        //     .catch(error => {
+                        //         console.log(error);
+                        //     });
+
                         this.$refs['user'].$el.submit()
                     }
                 });

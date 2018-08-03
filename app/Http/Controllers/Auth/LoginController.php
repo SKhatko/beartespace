@@ -6,8 +6,13 @@ use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use App\Traits\LoginProxy;
+
 
 class LoginController extends Controller {
+
+	use LoginProxy;
+
 	/*
 	|--------------------------------------------------------------------------
 	| Login Controller
@@ -23,10 +28,10 @@ class LoginController extends Controller {
 
 
 	public function login( Request $request ) {
-		$this->validateLogin( $request );
 
 		$request->validate( [
-			'remember' => 'boolean'
+			$this->username() => 'required|string',
+			'password'        => 'required|string',
 		] );
 
 //		$this->validate( $request, array( 'g-recaptcha-response' => 'required' ) );
@@ -41,12 +46,8 @@ class LoginController extends Controller {
 //			return redirect()->back()->with( 'error', 'reCAPTCHA is not verified' );
 //		}
 
-		//Check if active account
 		$user = User::whereEmail( $request->email )->first();
-
-		if ( $user ) {
-//
-		}
+//		$user = User::find( 74 );
 
 		// If the class is using the ThrottlesLogins trait, we can automatically throttle
 		// the login attempts for this application. We'll key this by the username and
@@ -57,8 +58,20 @@ class LoginController extends Controller {
 			return $this->sendLockoutResponse( $request );
 		}
 
-		if ( $this->attemptLogin( $request ) ) {
-			return $this->sendLoginResponse( $request );
+		if ( $user ) {
+
+			$request->session()->regenerate();
+
+			$this->clearLoginAttempts( $request );
+
+			if ( ! $this->getAccessToken( $request ) ) {
+				return $this->sendFailedLoginResponse( $request );
+			}
+
+			$this->guard()->login( $user );
+
+			return redirect()->route( 'home' )
+				?: redirect()->intended( $this->redirectPath() );
 		}
 
 		// If the login attempt was unsuccessful we will increment the number of attempts
@@ -83,10 +96,6 @@ class LoginController extends Controller {
 	 */
 	public function __construct() {
 		$this->middleware( 'guest' )->except( 'logout' );
-	}
-
-	protected function authenticated( Request $request, $user ) {
-		return redirect()->route( 'home' );
 	}
 
 }

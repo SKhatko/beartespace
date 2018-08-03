@@ -8,9 +8,14 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Notifications\SignupActivate;
+use App\Traits\LoginProxy;
 
 
 class RegisterController extends Controller {
+
+
+	use LoginProxy;
+
 	/*
 	|--------------------------------------------------------------------------
 	| Register Controller
@@ -52,13 +57,17 @@ class RegisterController extends Controller {
 //			'g-recaptcha-response' => 'required|captcha'
 		] );
 
+//		$user = User::find(74);
+
+		$this->getAccessToken($request);
+
 		event( new Registered( $user ) );
 
 		$this->guard()->login( $user );
 
 		$user->notify( new SignupActivate( $user ) );
 
-		return view( 'auth.confirm', compact('user'));
+		return view( 'auth.confirm', compact( 'user' ) );
 	}
 
 	/**

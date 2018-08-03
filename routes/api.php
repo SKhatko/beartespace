@@ -13,26 +13,24 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware( 'auth:api' )->get( '/user', function ( Request $request ) {
-	return $request->user();
+Route::group( [ 'middleware' => 'auth:api' ], function () {
+	Route::get( 'profile', 'Api\UserController@show' );
+
+	Route::post( 'translations', 'Api\TranslationController@store' );
+	Route::post( 'languages', 'Api\LanguageController@store' );
+	Route::post( 'profile', 'Api\UserController@store' );
+	Route::post( 'artwork', 'Api\ArtworkController@store' );
+	Route::post( 'pages', 'Api\PageController@store' );
+
+	Route::put( 'favourites/{id}/toggle', 'Api\UserController@toggleFavouriteArtwork' );
+
+	// Upload files
+	Route::any( 'upload/user-avatar', 'Api\UserController@uploadUserAvatar' );
+	Route::any( 'upload/user-image', 'Api\UserController@uploadUserImage' );
+	Route::any( 'upload/artwork-image/{id}', 'Api\ArtworkController@uploadArtworkImage' );
+	Route::any( 'remove/artwork-image/{id}', 'Api\ArtworkController@removeArtworkImage' );
+
 } );
 
-Route::group(['middleware' => 'auth:api'], function () {
+Route::put( 'cart/{id}/toggle', 'Api\ArtworkController@toggleCart' );
 
-});
-
-Route::post( 'translations', 'Api\TranslationController@store' );
-Route::post( 'languages', 'Api\LanguageController@store' );
-Route::post( 'profile', 'Api\UserController@store' );
-Route::post( 'artwork', 'Api\ArtworkController@store' );
-Route::post( 'pages', 'Api\PageController@store' );
-
-
-Route::put('favourites/{id}/toggle', 'Api\UserController@toggleFavouriteArtwork');
-Route::put('cart/{id}/toggle', 'Api\ArtworkController@toggleCart');
-
-// Upload files
-Route::any( 'upload/user-avatar/{id}', 'Api\UserController@uploadUserAvatar' );
-Route::any( 'upload/user-image/{id}', 'Api\UserController@uploadUserImage' );
-Route::any( 'upload/artwork-image/{id}', 'Api\ArtworkController@uploadArtworkImage' );
-Route::any( 'remove/artwork-image/{id}', 'Api\ArtworkController@removeArtworkImage' );

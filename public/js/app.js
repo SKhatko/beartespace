@@ -15899,6 +15899,19 @@ var app = new Vue({
     data: {},
     mounted: function mounted() {
 
+        console.log('token', window.accessToken);
+
+        if (window.accessToken) {
+            // window.localStorage.setItem('access-token', window.accessToken);
+            axios.defaults.headers.common = {
+                'Authorization': "Bearer " + window.accessToken,
+                'Accept': 'application/json'
+            };
+        } else {
+            console.log('Unauthorized');
+            axios.defaults.headers.common = {};
+        }
+
         if (window.status) {
             this.$message({
                 showClose: true,
@@ -15916,6 +15929,12 @@ var app = new Vue({
                 duration: 6000
             });
         }
+
+        console.log('headers', axios.defaults.headers.common);
+
+        axios.get('/api/profile').then(function (response) {
+            console.log('profile', response.data);
+        });
     }
 });
 
@@ -18293,9 +18312,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
 
 
 
@@ -18310,8 +18326,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             user: {
                 email: '',
-                password: '',
-                remember: true
+                password: ''
             },
             rules: {
                 email: [{ type: 'email', required: true, message: 'Please enter email', trigger: 'blur' }],
@@ -18654,6 +18669,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.$refs['user'].validate(function (valid) {
                 if (valid) {
+                    // axios.get('/oauth/clients')
+                    //     .then(response => {
+                    //         console.log(response.data);
+                    //     });
+                    //
+                    // axios.post('/oauth/clients', {
+                    //     grant_type: 'password',
+                    //     client_id: 2,
+                    //     client_secret: 'iqjMvNiVfeWaAS9w00JSRsrt4DVn6rP8jSpa7ZtH',
+                    //     username: this.user.email,
+                    //     password: this.user.password,
+                    //     scope: '*'
+                    // })
+                    //     .then(response => {
+                    //         console.log(response.data);
+                    //     })
+                    //     .catch(error => {
+                    //         console.log(error);
+                    //     });
+
                     _this.$refs['user'].$el.submit();
                 }
             });
@@ -19601,6 +19636,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -19612,8 +19669,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     data: function data() {
         return {
-            avatarChanged: false,
             avatarCropper: {},
+            avatarChanged: false,
+            imageCropper: {},
+            imageChanged: false,
             user: {
                 technique: []
             },
@@ -19682,10 +19741,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             var avatarSrc = this.avatarCropper.generateDataUrl('image/jpeg');
 
-            axios.post('/api/upload/user-avatar/' + this.user.id, { avatar: avatarSrc }).then(function (response) {
+            axios.post('/api/upload/user-avatar', { avatar: avatarSrc }).then(function (response) {
                 console.log(response.data);
                 _this2.user.avatar = response.data.data;
                 _this2.$message({
+                    showClose: true,
+                    message: response.data.message,
+                    type: response.data.status
+                });
+            });
+        },
+        uploadImage: function uploadImage() {
+            var _this3 = this;
+
+            var imageSrc = this.imageCropper.generateDataUrl('image/jpeg');
+
+            axios.post('/api/upload/user-image', { avatar: imageSrc }).then(function (response) {
+                console.log(response.data);
+                _this3.user.avatar = response.data.data;
+                _this3.$message({
                     showClose: true,
                     message: response.data.message,
                     type: response.data.status
@@ -20973,7 +21047,7 @@ for (var i = 0; i < DOMIterables.length; i++) {
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(168)();
-exports.push([module.i, "\n.profile-avatar-cropper {\n    line-height: initial;\n    margin-bottom: 10px;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-align: start;\n        align-items: flex-start;\n    position: relative;\n}\n.profile-avatar-save {\n    position: absolute;\n    bottom: 10px;\n    left: 80px;\n}\n.avatar-uploader .el-upload {\n    border: 1px dashed #d9d9d9;\n    border-radius: 6px;\n    cursor: pointer;\n    position: relative;\n    overflow: hidden;\n}\n.avatar-uploader .el-upload:hover {\n    border-color: #409EFF;\n}\n.avatar-uploader-icon {\n    font-size: 28px;\n    color: #8c939d;\n    width: 178px;\n    height: 178px;\n    line-height: 178px;\n    text-align: center;\n}\n.avatar {\n    max-width: 178px;\n    max-height: 178px;\n    display: block;\n}\n.image {\n    width: 100%;\n    display: block;\n}\n\n", ""]);
+exports.push([module.i, "\n.profile-avatar-cropper {\n    line-height: initial;\n    margin-bottom: 10px;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-align: start;\n        align-items: flex-start;\n    position: relative;\n}\n.profile-avatar-save {\n    position: absolute;\n    bottom: 10px;\n    left: 80px;\n}\n\n\n", ""]);
 
 /***/ }),
 /* 168 */
@@ -73738,15 +73812,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.password"
     }
-  })], 1), _vm._v(" "), _c('el-form-item', [_c('el-checkbox', {
-    model: {
-      value: (_vm.user.remember),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "remember", $$v)
-      },
-      expression: "user.remember"
-    }
-  }, [_vm._v("Remember Me")])], 1), _vm._v(" "), _c('el-form-item', [_c('el-button', {
+  })], 1), _vm._v(" "), _c('el-form-item', [_c('el-button', {
     attrs: {
       "type": "primary",
       "native-type": "submit"
@@ -74177,14 +74243,61 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.uploadAvatar
     }
-  }, [_vm._v("Save avatar")]) : _vm._e()], 1)]), _vm._v(" "), _c('el-form-item', {
+  }, [_vm._v("Save avatar\n                ")]) : _vm._e()], 1)]), _vm._v(" "), _c('el-form-item', {
     attrs: {
       "label": "Upload profile image"
     }
-  }, [_c('el-upload', {
+  }, [_c('div', {
+    staticClass: "profile-image-cropper"
+  }, [_c('cropper', {
+    attrs: {
+      "placeholder": "Click to upload",
+      "canvas-color": "#ffffff",
+      "quality": 1,
+      "prevent-white-space": "",
+      "remove-button-color": "gray"
+    },
+    on: {
+      "new-image": function($event) {
+        _vm.imageChanged = true
+      },
+      "image-remove": function($event) {
+        _vm.imageChanged = true
+      },
+      "move": function($event) {
+        _vm.imageChanged = true
+      },
+      "zoom": function($event) {
+        _vm.imageChanged = true
+      }
+    },
+    model: {
+      value: (_vm.imageCropper),
+      callback: function($$v) {
+        _vm.imageCropper = $$v
+      },
+      expression: "imageCropper"
+    }
+  }, [(_vm.user.image) ? _c('img', {
+    attrs: {
+      "slot": "initial",
+      "crossOrigin": "anonymous",
+      "src": _vm.user.image.url
+    },
+    slot: "initial"
+  }) : _vm._e()]), _vm._v(" "), (_vm.imageChanged) ? _c('el-button', {
+    staticClass: "profile-image-save",
+    attrs: {
+      "type": "primary",
+      "round": ""
+    },
+    on: {
+      "click": _vm.uploadImage
+    }
+  }, [_vm._v("Save image\n                ")]) : _vm._e()], 1), _vm._v(" "), _c('el-upload', {
     staticClass: "avatar-uploader",
     attrs: {
-      "action": '/api/upload/user-image/' + _vm.user.id,
+      "action": '/api/upload/user-image',
       "show-file-list": false,
       "accept": ".jpg, .jpeg, .png",
       "on-success": _vm.handleImageSuccess,

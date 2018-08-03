@@ -27,16 +27,38 @@
                         <img slot="placeholder" src="/images/user-placeholder-image.png"/>
                     </cropper>
 
-                    <el-button @click="uploadAvatar" v-if="avatarChanged" type="primary" class="profile-avatar-save" round>Save avatar</el-button>
+                    <el-button @click="uploadAvatar" v-if="avatarChanged" type="primary" class="profile-avatar-save"
+                               round>Save avatar
+                    </el-button>
 
                 </div>
 
             </el-form-item>
 
             <el-form-item label="Upload profile image">
+                <div class="profile-image-cropper">
+                    <cropper v-model="imageCropper"
+                             placeholder="Click to upload"
+                             canvas-color="#ffffff"
+                             :quality="1"
+                             @new-image="imageChanged = true"
+                             @image-remove="imageChanged = true"
+                             @move="imageChanged = true"
+                             @zoom="imageChanged = true"
+                             prevent-white-space
+                             remove-button-color="gray">
+
+                        <img v-if="user.image" crossOrigin="anonymous" slot="initial" :src="user.image.url"/>
+                    </cropper>
+
+                    <el-button @click="uploadImage" v-if="imageChanged" type="primary" class="profile-image-save"
+                               round>Save image
+                    </el-button>
+
+                </div>
                 <el-upload
                         class="avatar-uploader"
-                        :action="'/api/upload/user-image/' + user.id"
+                        :action="'/api/upload/user-image'"
                         :show-file-list="false"
                         accept=".jpg, .jpeg, .png"
                         :on-success="handleImageSuccess"
@@ -207,8 +229,10 @@
 
         data() {
             return {
-                avatarChanged: false,
                 avatarCropper: {},
+                avatarChanged: false,
+                imageCropper: {},
+                imageChanged: false,
                 user: {
                     technique: [],
                 },
@@ -283,7 +307,23 @@
 
                 let avatarSrc = this.avatarCropper.generateDataUrl('image/jpeg');
 
-                axios.post('/api/upload/user-avatar/' + this.user.id, {avatar: avatarSrc})
+                axios.post('/api/upload/user-avatar', {avatar: avatarSrc})
+                    .then((response) => {
+                        console.log(response.data);
+                        this.user.avatar = response.data.data;
+                        this.$message({
+                            showClose: true,
+                            message: response.data.message,
+                            type: response.data.status
+                        });
+                    });
+            },
+
+            uploadImage() {
+
+                let imageSrc = this.imageCropper.generateDataUrl('image/jpeg');
+
+                axios.post('/api/upload/user-image', {avatar: imageSrc})
                     .then((response) => {
                         console.log(response.data);
                         this.user.avatar = response.data.data;
@@ -314,36 +354,5 @@
         left: 80px;
     }
 
-    .avatar-uploader .el-upload {
-        border: 1px dashed #d9d9d9;
-        border-radius: 6px;
-        cursor: pointer;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .avatar-uploader .el-upload:hover {
-        border-color: #409EFF;
-    }
-
-    .avatar-uploader-icon {
-        font-size: 28px;
-        color: #8c939d;
-        width: 178px;
-        height: 178px;
-        line-height: 178px;
-        text-align: center;
-    }
-
-    .avatar {
-        max-width: 178px;
-        max-height: 178px;
-        display: block;
-    }
-
-    .image {
-        width: 100%;
-        display: block;
-    }
 
 </style>

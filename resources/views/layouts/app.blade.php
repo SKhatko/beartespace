@@ -22,7 +22,9 @@
         window.status = {!! json_encode(session('status') ?? '') !!};
         window.error = {!! json_encode(session('error') ?? '') !!};
 
-        window.errors = {!! json_encode($errors->all()) !!}
+        window.errors = {!! json_encode($errors->all()) !!};
+
+        window.accessToken = '{{ session('accessToken') }}'
 
     </script>
 
