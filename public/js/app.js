@@ -15899,19 +15899,6 @@ var app = new Vue({
     data: {},
     mounted: function mounted() {
 
-        console.log('token', window.accessToken);
-
-        if (window.accessToken) {
-            // window.localStorage.setItem('access-token', window.accessToken);
-            axios.defaults.headers.common = {
-                'Authorization': "Bearer " + window.accessToken,
-                'Accept': 'application/json'
-            };
-        } else {
-            console.log('Unauthorized');
-            axios.defaults.headers.common = {};
-        }
-
         if (window.status) {
             this.$message({
                 showClose: true,
@@ -15929,8 +15916,6 @@ var app = new Vue({
                 duration: 6000
             });
         }
-
-        console.log('headers', axios.defaults.headers.common);
 
         axios.get('/api/profile').then(function (response) {
             console.log('profile', response.data);
@@ -18312,6 +18297,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -18326,7 +18315,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             user: {
                 email: '',
-                password: ''
+                password: '',
+                remember: true
             },
             rules: {
                 email: [{ type: 'email', required: true, message: 'Please enter email', trigger: 'blur' }],
@@ -19658,6 +19648,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -19669,6 +19671,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     data: function data() {
         return {
+            file: '',
+            showPreview: false,
+            imagePreview: '',
+
             avatarCropper: {},
             avatarChanged: false,
             imageCropper: {},
@@ -19684,6 +19690,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
     mounted: function mounted() {
+
         if (this.user_) {
             this.user = this.user_;
         }
@@ -19699,6 +19706,68 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
     methods: {
+        submitFile: function submitFile() {
+            /*
+                    Initialize the form data
+                */
+            var formData = new FormData();
+
+            /*
+                Add the form data we need to submit
+            */
+            formData.append('file', this.file);
+
+            /*
+              Make the request to the POST /single-file URL
+            */
+            axios.post('/api/upload/user-image', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }).then(function () {
+                console.log('SUCCESS!!');
+            }).catch(function () {
+                console.log('FAILURE!!');
+            });
+        },
+        handleFileUpload: function handleFileUpload() {
+            /*
+              Set the local file variable to what the user has selected.
+            */
+            this.file = this.$refs.file.files[0];
+
+            /*
+              Initialize a File Reader object
+            */
+            var reader = new FileReader();
+
+            /*
+              Add an event listener to the reader that when the file
+              has been loaded, we flag the show preview as true and set the
+              image to be what was read from the reader.
+            */
+            reader.addEventListener("load", function () {
+                this.showPreview = true;
+                this.imagePreview = reader.result;
+            }.bind(this), false);
+
+            /*
+              Check to see if the file is not empty.
+            */
+            if (this.file) {
+                /*
+                  Ensure the file is an image file.
+                */
+                if (/\.(jpe?g|png|gif)$/i.test(this.file.name)) {
+                    /*
+                      Fire the readAsDataURL method which will read the file in and
+                      upon completion fire a 'load' event which we will listen to and
+                      display the image in the preview.
+                    */
+                    reader.readAsDataURL(this.file);
+                }
+            }
+        },
         handleImageSuccess: function handleImageSuccess(res, file) {
             this.user.image = res.data;
         },
@@ -73812,7 +73881,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.password"
     }
-  })], 1), _vm._v(" "), _c('el-form-item', [_c('el-button', {
+  })], 1), _vm._v(" "), _c('el-form-item', [_c('el-checkbox', {
+    model: {
+      value: (_vm.user.remember),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "remember", $$v)
+      },
+      expression: "user.remember"
+    }
+  }, [_vm._v("Remember Me")])], 1), _vm._v(" "), _c('el-form-item', [_c('el-button', {
     attrs: {
       "type": "primary",
       "native-type": "submit"
@@ -74299,6 +74376,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "action": '/api/upload/user-image',
       "show-file-list": false,
+      "headers": {
+        'Accept': 'application/json'
+      },
+      "with-credentials": "",
       "accept": ".jpg, .jpeg, .png",
       "on-success": _vm.handleImageSuccess,
       "before-upload": _vm.beforeAvatarUpload
@@ -74312,7 +74393,37 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })]) : _c('i', {
     staticClass: "el-icon-plus avatar-uploader-icon"
-  })])], 1), _vm._v(" "), _c('el-row', {
+  })])], 1), _vm._v(" "), _c('el-form-item', [_c('div', {
+    staticClass: "large-12 medium-12 small-12 cell"
+  }, [_c('label', [_vm._v("File Preview\n                    "), _c('input', {
+    ref: "file",
+    attrs: {
+      "type": "file",
+      "id": "file",
+      "accept": "image/*"
+    },
+    on: {
+      "change": function($event) {
+        _vm.handleFileUpload()
+      }
+    }
+  })]), _vm._v(" "), _c('img', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.showPreview),
+      expression: "showPreview"
+    }],
+    attrs: {
+      "src": _vm.imagePreview
+    }
+  }), _vm._v(" "), _c('button', {
+    on: {
+      "click": function($event) {
+        _vm.submitFile()
+      }
+    }
+  }, [_vm._v("Submit")])])]), _vm._v(" "), _c('el-row', {
     attrs: {
       "gutter": 20
     }

@@ -15,10 +15,11 @@
 
                     <div class="artist-image--fade">
 
-
-                        <div class="artist-avatar">
-                            <img src="{{ $artist->avatar->url }}" alt="{{ $artist->avatar->name }}">
-                        </div>
+                        @if($artist->avatar)
+                            <div class="artist-avatar">
+                                <img src="{{ $artist->avatar->url }}" alt="{{ $artist->avatar->name }}">
+                            </div>
+                        @endif
 
                         <div class="artist-name">{{ $artist->name }} </div>
                         <div class="artist-dob">{{ $artist->dob }}</div>
@@ -55,7 +56,6 @@
                 <div class="artist-artworks">
 
                     <div class="app--wrapper">
-
 
 
                         <h2>Other artworks</h2>

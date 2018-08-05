@@ -73,6 +73,7 @@ class UserController extends Controller {
 
 	public function uploadUserImage( Request $request ) {
 
+		return $request->all();
 		if ( $request->file( 'file' ) ) {
 
 			$user = auth()->user();

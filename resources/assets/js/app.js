@@ -63,19 +63,6 @@ const app = new Vue({
     data: {},
     mounted() {
 
-        console.log('token', window.accessToken);
-
-        if (window.accessToken) {
-            // window.localStorage.setItem('access-token', window.accessToken);
-            axios.defaults.headers.common = {
-                'Authorization': "Bearer " + window.accessToken,
-                'Accept': 'application/json',
-            }
-        } else {
-            console.log('Unauthorized');
-            axios.defaults.headers.common = {};
-        }
-
         if (window.status) {
             this.$message({
                 showClose: true,
@@ -94,12 +81,9 @@ const app = new Vue({
             })
         }
 
-        console.log('headers', axios.defaults.headers.common);
-
         axios.get('/api/profile').then(response => {
             console.log('profile', response.data);
-        })
-
+        });
     }
 });
 

@@ -39,7 +39,7 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\SetApplicationLanguage::class,
             \App\Http\Middleware\SetCurrency::class,
 //	        \Torann\Currency\Middleware\CurrencyMiddleware::class,
-
+	        \Laravel\Passport\Http\Middleware\CreateFreshApiToken::class,
         ],
 
         'api' => [

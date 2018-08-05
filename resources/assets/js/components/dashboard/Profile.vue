@@ -60,6 +60,8 @@
                         class="avatar-uploader"
                         :action="'/api/upload/user-image'"
                         :show-file-list="false"
+                        :headers="{'Accept': 'application/json'}"
+                        with-credentials
                         accept=".jpg, .jpeg, .png"
                         :on-success="handleImageSuccess"
                         :before-upload="beforeAvatarUpload">
@@ -73,6 +75,16 @@
                     </div>
                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
+            </el-form-item>
+
+            <el-form-item>
+                <div class="large-12 medium-12 small-12 cell">
+                    <label>File Preview
+                        <input type="file" id="file" ref="file" accept="image/*" v-on:change="handleFileUpload()"/>
+                    </label>
+                    <img v-bind:src="imagePreview" v-show="showPreview"/>
+                    <button v-on:click="submitFile()">Submit</button>
+                </div>
             </el-form-item>
 
             <el-row :gutter="20">
@@ -229,6 +241,10 @@
 
         data() {
             return {
+                file: '',
+                showPreview: false,
+                imagePreview: '',
+
                 avatarCropper: {},
                 avatarChanged: false,
                 imageCropper: {},
@@ -249,6 +265,7 @@
         },
 
         mounted() {
+
             if (this.user_) {
                 this.user = this.user_;
             }
@@ -264,6 +281,74 @@
         },
 
         methods: {
+            submitFile(){
+                /*
+                        Initialize the form data
+                    */
+                let formData = new FormData();
+
+                /*
+                    Add the form data we need to submit
+                */
+                formData.append('file', this.file);
+
+                /*
+                  Make the request to the POST /single-file URL
+                */
+                axios.post( '/api/upload/user-image',
+                    formData,
+                    {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    }
+                ).then(function(){
+                    console.log('SUCCESS!!');
+                })
+                    .catch(function(){
+                        console.log('FAILURE!!');
+                    });
+            },
+            handleFileUpload(){
+                /*
+                  Set the local file variable to what the user has selected.
+                */
+                this.file = this.$refs.file.files[0];
+
+                /*
+                  Initialize a File Reader object
+                */
+                let reader  = new FileReader();
+
+                /*
+                  Add an event listener to the reader that when the file
+                  has been loaded, we flag the show preview as true and set the
+                  image to be what was read from the reader.
+                */
+                reader.addEventListener("load", function () {
+                    this.showPreview = true;
+                    this.imagePreview = reader.result;
+                }.bind(this), false);
+
+                /*
+                  Check to see if the file is not empty.
+                */
+                if( this.file ){
+                    /*
+                      Ensure the file is an image file.
+                    */
+                    if ( /\.(jpe?g|png|gif)$/i.test( this.file.name ) ) {
+                        /*
+                          Fire the readAsDataURL method which will read the file in and
+                          upon completion fire a 'load' event which we will listen to and
+                          display the image in the preview.
+                        */
+                        reader.readAsDataURL( this.file );
+                    }
+                }
+            },
+
+
             handleImageSuccess(res, file) {
                 this.user.image = res.data;
             },

@@ -24,8 +24,6 @@
 
         window.errors = {!! json_encode($errors->all()) !!};
 
-        window.accessToken = '{{ session('accessToken') }}'
-
     </script>
 
 

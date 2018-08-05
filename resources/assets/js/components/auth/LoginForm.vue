@@ -21,6 +21,10 @@
                 </el-form-item>
 
                 <el-form-item>
+                    <el-checkbox v-model="user.remember">Remember Me</el-checkbox>
+                </el-form-item>
+
+                <el-form-item>
                     <el-button type="primary" native-type="submit">Login</el-button>
 
                     <el-button type="text"><a href="/register">Create New Account</a></el-button>
@@ -65,6 +69,7 @@
                 user: {
                     email: '',
                     password: '',
+                    remember: true
                 },
                 rules: {
                     email: [
