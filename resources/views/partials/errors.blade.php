@@ -1,6 +1,6 @@
 @if ($errors->any())
     @foreach ($errors->all() as $error)
-        <el-alert
+        <el-alert style="margin-bottom: 5px;"
                 title="{{ $error }}"
                 type="error"
                 show-icon>
@@ -9,13 +9,17 @@
 @endif
 
 @if(session('success'))
-    <div class="alert alert-success">
-        {!! session('success') !!}
-    </div>
+    <el-alert style="margin-bottom: 5px;"
+              title="{!! session('success') !!}"
+              type="success"
+              show-icon>
+    </el-alert>
 @endif
 
 @if(session('error'))
-    <div class="alert alert-danger">
-        {!! session('error') !!}
-    </div>
+    <el-alert style="margin-bottom: 5px;"
+              title="{!! session('error') !!}"
+              type="error"
+              show-icon>
+    </el-alert>
 @endif

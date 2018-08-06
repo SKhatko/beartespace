@@ -49,31 +49,4 @@ class ArtworkController extends Controller {
 		return [ 'status' => 'success', 'message' => 'Image deleted', 'data' => $images ];
 	}
 
-	public function toggleCart( Request $request, $id ) {
-
-		$artwork = Artwork::find( $id );
-
-		$oldCart = session( 'cart' );
-
-		$cart = new Cart( $oldCart );
-
-		$cart->toggle( $artwork, $artwork->id );
-
-		session( [ 'cart' => $cart ] );
-
-		if ( ( $oldCart->totalQuantity ?? 0 ) < session( 'cart' )->totalQuantity ) {
-			return [
-				'status'  => 'success',
-				'message' => 'Artwork Added to Shopping Cart',
-				'data'    => session( 'cart' )
-			];
-		} else {
-			return [
-				'status'  => 'success',
-				'message' => 'Artwork Removed from Shopping Cart',
-				'data'    => session( 'cart' )
-			];
-		}
-	}
-
 }

@@ -15917,9 +15917,22 @@ var app = new Vue({
             });
         }
 
-        axios.get('/api/profile').then(function (response) {
-            console.log('profile', response.data);
-        });
+        if (window.cart) {
+            this.$store.commit('setInitialCart', window.cart);
+        }
+        //
+        // axios.get('/api/profile').then(response => {
+        //     console.log('profile', response.data);
+        // })
+        //     .catch(error => {
+        //         if(error.response.status === 401) {
+        //             // window.location.href = '/login';
+        //
+        //
+        //             console.log(error.response);
+        //
+        //         }
+        //     });
     }
 });
 
@@ -19660,6 +19673,36 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -19694,6 +19737,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         if (this.user_) {
             this.user = this.user_;
         }
+
+        console.log(this.user);
 
         if (this.countries_) {
             this.countries = this.countries_;
@@ -19758,7 +19803,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 /*
                   Ensure the file is an image file.
                 */
-                if (/\.(jpe?g|png|gif)$/i.test(this.file.name)) {
+                if (/\.(jpe?g)$/i.test(this.file.name)) {
                     /*
                       Fire the readAsDataURL method which will read the file in and
                       upon completion fire a 'load' event which we will listen to and
@@ -19791,19 +19836,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         initAvatarCropper: function initAvatarCropper() {
-            this.avatarCropper.addClipPlugin(function (ctx, x, y, w, h) {
-                /*
-                 * ctx: canvas context
-                 * x: start point (top-left corner) x coordination
-                 * y: start point (top-left corner) y coordination
-                 * w: croppa width
-                 * h: croppa height
-                */
-                console.log(ctx, x, y, w, h);
-                ctx.beginPath();
-                ctx.arc(x + w / 2, y + h / 2, w / 2, 0, 2 * Math.PI, true);
-                ctx.closePath();
-            });
+            // this.avatarCropper.addClipPlugin(function (ctx, x, y, w, h) {
+            //     /*
+            //      * ctx: canvas context
+            //      * x: start point (top-left corner) x coordination
+            //      * y: start point (top-left corner) y coordination
+            //      * w: croppa width
+            //      * h: croppa height
+            //     */
+            //     console.log(ctx, x, y, w, h);
+            //     ctx.beginPath();
+            //     ctx.arc(x + w / 2, y + h / 2, w / 2, 0, 2 * Math.PI, true);
+            //     ctx.closePath()
+            // })
         },
         uploadAvatar: function uploadAvatar() {
             var _this2 = this;
@@ -20308,6 +20353,11 @@ var store = {
 
                 state.favourites = response.data.data;
                 state.favouritesCount = response.data.data.length;
+            }).catch(function (error) {
+                if (error.response.status === 401) {
+                    window.location.href = '/login';
+                    console.log(error.response);
+                }
             });
         },
         toggleCart: function toggleCart(state, item) {
@@ -20315,15 +20365,21 @@ var store = {
 
             axios.put('/api/cart/' + item.id + '/toggle').then(function (response) {
 
+                state.cart = response.data.data.items;
+                state.cartCount = response.data.data.totalQuantity;
+
+                console.log(response.data.data);
+
                 _this2._vm.$message({
                     showClose: true,
                     message: response.data.message,
                     type: response.data.status
                 });
-
-                state.cart = response.data.data.items;
-                state.cartCount = response.data.data.totalQuantity;
             });
+        },
+        setInitialCart: function setInitialCart(state, cart) {
+            console.log(cart);
+            // state.cartCount = count;
         }
     }
 };
@@ -21112,13 +21168,7 @@ for (var i = 0; i < DOMIterables.length; i++) {
 
 
 /***/ }),
-/* 167 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(168)();
-exports.push([module.i, "\n.profile-avatar-cropper {\n    line-height: initial;\n    margin-bottom: 10px;\n    display: -ms-flexbox;\n    display: flex;\n    -ms-flex-align: start;\n        align-items: flex-start;\n    position: relative;\n}\n.profile-avatar-save {\n    position: absolute;\n    bottom: 10px;\n    left: 80px;\n}\n\n\n", ""]);
-
-/***/ }),
+/* 167 */,
 /* 168 */
 /***/ (function(module, exports) {
 
@@ -73673,7 +73723,7 @@ module.exports = Component.exports
 
 
 /* styles */
-__webpack_require__(229)
+__webpack_require__(245)
 
 var Component = __webpack_require__(2)(
   /* script */
@@ -74253,16 +74303,13 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return (_vm.user) ? _c('el-card', [_c('h2', [_vm._v("Personal Information")]), _vm._v(" "), _c('el-form', {
-    ref: "profile",
+  return (_vm.user) ? _c('el-card', [(_vm.user.user_type === 'user') ? _c('div', [_vm._v("User")]) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('div', [_vm._v("Artist")]) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'gallery') ? _c('div', [_vm._v("Gallery")]) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'admin') ? _c('div', [_vm._v("Admin")]) : _vm._e(), _vm._v(" "), _c('h2', [_vm._v("Profile information")]), _vm._v(" "), _c('el-form', {
     attrs: {
-      "label-position": "top",
-      "model": _vm.user,
-      "rules": _vm.rules
+      "label-position": "top"
     }
   }, [_c('el-form-item', {
     attrs: {
-      "label": "Upload avatar"
+      "label": _vm.user.user_type === 'gallery' ? 'Upload logo' : 'Upload avatar'
     }
   }, [_c('div', {
     staticClass: "profile-avatar-cropper"
@@ -74274,7 +74321,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "width": 290,
       "height": 290,
       "prevent-white-space": "",
-      "remove-button-color": "gray"
+      "remove-button-color": "#379797"
     },
     on: {
       "new-image": function($event) {
@@ -74305,22 +74352,382 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "src": _vm.user.avatar.url
     },
     slot: "initial"
-  }) : _vm._e(), _vm._v(" "), _c('img', {
-    attrs: {
-      "slot": "placeholder",
-      "src": "/images/user-placeholder-image.png"
-    },
-    slot: "placeholder"
-  })]), _vm._v(" "), (_vm.avatarChanged) ? _c('el-button', {
+  }) : _vm._e()]), _vm._v(" "), (_vm.avatarChanged) ? _c('el-button', {
     staticClass: "profile-avatar-save",
     attrs: {
       "type": "primary",
+      "plain": "",
       "round": ""
     },
     on: {
       "click": _vm.uploadAvatar
     }
-  }, [_vm._v("Save avatar\n                ")]) : _vm._e()], 1)]), _vm._v(" "), _c('el-form-item', {
+  }, [_vm._v("\n                    Save\n                ")]) : _vm._e()], 1)])], 1), _vm._v(" "), _c('el-form', {
+    ref: "profile",
+    attrs: {
+      "label-position": "top",
+      "model": _vm.user,
+      "rules": _vm.rules
+    }
+  }, [_c('el-row', {
+    attrs: {
+      "gutter": 20
+    }
+  }, [_c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "First name",
+      "prop": "first_name"
+    }
+  }, [_c('el-input', {
+    model: {
+      value: (_vm.user.first_name),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "first_name", $$v)
+      },
+      expression: "user.first_name"
+    }
+  })], 1)], 1), _vm._v(" "), _c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Last name",
+      "prop": "last_name"
+    }
+  }, [_c('el-input', {
+    model: {
+      value: (_vm.user.last_name),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "last_name", $$v)
+      },
+      expression: "user.last_name"
+    }
+  })], 1)], 1), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Profile name ( Name that will be used as link to your profile )",
+      "prop": "user_name"
+    }
+  }, [_c('el-input', {
+    model: {
+      value: (_vm.user.user_name),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "user_name", $$v)
+      },
+      expression: "user.user_name"
+    }
+  })], 1)], 1) : _vm._e(), _vm._v(" "), _c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Email",
+      "prop": "email"
+    }
+  }, [_c('el-input', {
+    attrs: {
+      "disabled": ""
+    },
+    model: {
+      value: (_vm.user.email),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "email", $$v)
+      },
+      expression: "user.email"
+    }
+  })], 1)], 1), _vm._v(" "), (_vm.user.user_type === 'artist' || _vm.user.user_type === 'gallery') ? _c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Country",
+      "prop": "country_id"
+    }
+  }, [_c('el-select', {
+    attrs: {
+      "filterable": "",
+      "value": "user.country_id",
+      "placeholder": "Select country"
+    },
+    model: {
+      value: (_vm.user.country_id),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "country_id", $$v)
+      },
+      expression: "user.country_id"
+    }
+  }, _vm._l((_vm.countries), function(country) {
+    return _c('el-option', {
+      key: country.id,
+      attrs: {
+        "label": country.country_name,
+        "value": country.id
+      }
+    })
+  }))], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist' || _vm.user.user_type === 'gallery') ? _c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "City",
+      "prop": "city"
+    }
+  }, [_c('el-input', {
+    model: {
+      value: (_vm.user.city),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "city", $$v)
+      },
+      expression: "user.city"
+    }
+  })], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist' || _vm.user.user_type === 'gallery') ? _c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Postcode",
+      "prop": "postcode"
+    }
+  }, [_c('el-input', {
+    model: {
+      value: (_vm.user.postcode),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "postcode", $$v)
+      },
+      expression: "user.postcode"
+    }
+  })], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist' || _vm.user.user_type === 'gallery') ? _c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Address",
+      "prop": "address"
+    }
+  }, [_c('el-input', {
+    attrs: {
+      "type": "textarea",
+      "rows": 2,
+      "placeholder": "Address"
+    },
+    model: {
+      value: (_vm.user.address),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "address", $$v)
+      },
+      expression: "user.address"
+    }
+  })], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Gender",
+      "prop": "gender"
+    }
+  }, [_c('el-select', {
+    attrs: {
+      "value": "user.gender"
+    },
+    model: {
+      value: (_vm.user.gender),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "gender", $$v)
+      },
+      expression: "user.gender"
+    }
+  }, [_c('el-option', {
+    attrs: {
+      "value": "male"
+    }
+  }, [_vm._v("Male")]), _vm._v(" "), _c('el-option', {
+    attrs: {
+      "value": "female"
+    }
+  }, [_vm._v("Femail")]), _vm._v(" "), _c('el-option', {
+    attrs: {
+      "value": "third_gender"
+    }
+  }, [_vm._v("Third")])], 1)], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Date of birth",
+      "prop": "dob"
+    }
+  }, [_c('el-date-picker', {
+    attrs: {
+      "type": "date",
+      "value-format": "yyyy-MM-dd",
+      "placeholder": "Date of birth"
+    },
+    model: {
+      value: (_vm.user.dob),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "dob", $$v)
+      },
+      expression: "user.dob"
+    }
+  })], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist' || _vm.user.user_type === 'gallery') ? _c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Website",
+      "prop": "website"
+    }
+  }, [_c('el-input', {
+    attrs: {
+      "placeholder": "Website"
+    },
+    model: {
+      value: (_vm.user.website),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "website", $$v)
+      },
+      expression: "user.website"
+    }
+  })], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist' || _vm.user.user_type === 'gallery') ? _c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Phone",
+      "prop": "phone"
+    }
+  }, [_c('el-input', {
+    model: {
+      value: (_vm.user.phone),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "phone", $$v)
+      },
+      expression: "user.phone"
+    }
+  })], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Education",
+      "prop": "education"
+    }
+  }, [_c('el-input', {
+    model: {
+      value: (_vm.user.education),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "education", $$v)
+      },
+      expression: "user.education"
+    }
+  })], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "University educational title",
+      "prop": "education_title"
+    }
+  }, [_c('el-input', {
+    model: {
+      value: (_vm.user.education_title),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "education_title", $$v)
+      },
+      expression: "user.education_title"
+    }
+  })], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-col', [_c('el-form-item', {
+    attrs: {
+      "label": "Technique",
+      "prop": "technique"
+    }
+  }, [_c('el-select', {
+    attrs: {
+      "value": "",
+      "multiple": "",
+      "filterable": "",
+      "allow-create": "",
+      "default-first-option": "",
+      "placeholder": "What do you work with?"
+    },
+    model: {
+      value: (_vm.user.technique),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "technique", $$v)
+      },
+      expression: "user.technique"
+    }
+  }, _vm._l((_vm.options('medium')), function(medium) {
+    return _c('el-option', {
+      key: medium.value,
+      attrs: {
+        "label": medium.label,
+        "value": medium.value
+      }
+    })
+  }))], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Inspiration",
+      "prop": "inspiration"
+    }
+  }, [_c('el-input', {
+    attrs: {
+      "type": "textarea",
+      "rows": 2,
+      "placeholder": "Things that inspire you"
+    },
+    model: {
+      value: (_vm.user.inspiration),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "inspiration", $$v)
+      },
+      expression: "user.inspiration"
+    }
+  })], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist' || _vm.user.user_type === 'gallery') ? _c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Exhibitions",
+      "prop": "exhibition"
+    }
+  }, [_c('el-input', {
+    attrs: {
+      "type": "textarea",
+      "rows": 2
+    },
+    model: {
+      value: (_vm.user.exhibition),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "exhibition", $$v)
+      },
+      expression: "user.exhibition"
+    }
+  })], 1)], 1) : _vm._e()], 1), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('div', [_c('el-form-item', {
     attrs: {
       "label": "Upload profile image"
     }
@@ -74371,7 +74778,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.uploadImage
     }
-  }, [_vm._v("Save image\n                ")]) : _vm._e()], 1), _vm._v(" "), _c('el-upload', {
+  }, [_vm._v("Save image\n                    ")]) : _vm._e()], 1)]), _vm._v(" "), _c('el-form-item', [_c('el-upload', {
     staticClass: "avatar-uploader",
     attrs: {
       "action": '/api/upload/user-image',
@@ -74395,7 +74802,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "el-icon-plus avatar-uploader-icon"
   })])], 1), _vm._v(" "), _c('el-form-item', [_c('div', {
     staticClass: "large-12 medium-12 small-12 cell"
-  }, [_c('label', [_vm._v("File Preview\n                    "), _c('input', {
+  }, [_c('label', [_vm._v("File Preview\n                        "), _c('input', {
     ref: "file",
     attrs: {
       "type": "file",
@@ -74423,344 +74830,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.submitFile()
       }
     }
-  }, [_vm._v("Submit")])])]), _vm._v(" "), _c('el-row', {
-    attrs: {
-      "gutter": 20
-    }
-  }, [_c('el-col', {
-    attrs: {
-      "sm": 12
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "First name",
-      "prop": "first_name"
-    }
-  }, [_c('el-input', {
-    model: {
-      value: (_vm.user.first_name),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "first_name", $$v)
-      },
-      expression: "user.first_name"
-    }
-  })], 1)], 1), _vm._v(" "), _c('el-col', {
-    attrs: {
-      "sm": 12
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Last name",
-      "prop": "last_name"
-    }
-  }, [_c('el-input', {
-    model: {
-      value: (_vm.user.last_name),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "last_name", $$v)
-      },
-      expression: "user.last_name"
-    }
-  })], 1)], 1), _vm._v(" "), _c('el-col', {
-    attrs: {
-      "sm": 12
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Username ( Name that will be shown on your profile )",
-      "prop": "user_name"
-    }
-  }, [_c('el-input', {
-    model: {
-      value: (_vm.user.user_name),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "user_name", $$v)
-      },
-      expression: "user.user_name"
-    }
-  })], 1)], 1), _vm._v(" "), _c('el-col', {
-    attrs: {
-      "sm": 12
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Email",
-      "prop": "email"
-    }
-  }, [_c('el-input', {
-    attrs: {
-      "disabled": ""
-    },
-    model: {
-      value: (_vm.user.email),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "email", $$v)
-      },
-      expression: "user.email"
-    }
-  })], 1)], 1), _vm._v(" "), _c('el-col', {
-    attrs: {
-      "sm": 8
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Country",
-      "prop": "country_id"
-    }
-  }, [_c('el-select', {
-    attrs: {
-      "filterable": "",
-      "value": "user.country_id",
-      "placeholder": "Select country"
-    },
-    model: {
-      value: (_vm.user.country_id),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "country_id", $$v)
-      },
-      expression: "user.country_id"
-    }
-  }, _vm._l((_vm.countries), function(country) {
-    return _c('el-option', {
-      key: country.id,
-      attrs: {
-        "label": country.country_name,
-        "value": country.id
-      }
-    })
-  }))], 1)], 1), _vm._v(" "), _c('el-col', {
-    attrs: {
-      "sm": 12
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "City",
-      "prop": "city"
-    }
-  }, [_c('el-input', {
-    model: {
-      value: (_vm.user.city),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "city", $$v)
-      },
-      expression: "user.city"
-    }
-  })], 1)], 1), _vm._v(" "), _c('el-col', {
-    attrs: {
-      "sm": 8
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Gender",
-      "prop": "gender"
-    }
-  }, [_c('el-select', {
-    attrs: {
-      "value": "user.gender"
-    },
-    model: {
-      value: (_vm.user.gender),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "gender", $$v)
-      },
-      expression: "user.gender"
-    }
-  }, [_c('el-option', {
-    attrs: {
-      "value": "male"
-    }
-  }, [_vm._v("Male")]), _vm._v(" "), _c('el-option', {
-    attrs: {
-      "value": "female"
-    }
-  }, [_vm._v("Femail")]), _vm._v(" "), _c('el-option', {
-    attrs: {
-      "value": "third_gender"
-    }
-  }, [_vm._v("Third")])], 1)], 1)], 1), _vm._v(" "), _c('el-col', {
-    attrs: {
-      "sm": 8
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Date of birth",
-      "prop": "dob"
-    }
-  }, [_c('el-date-picker', {
-    attrs: {
-      "type": "date",
-      "value-format": "yyyy-MM-dd",
-      "placeholder": "Date of birth"
-    },
-    model: {
-      value: (_vm.user.dob),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "dob", $$v)
-      },
-      expression: "user.dob"
-    }
-  })], 1)], 1), _vm._v(" "), _c('el-col', {
-    attrs: {
-      "sm": 8
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Website",
-      "prop": "website"
-    }
-  }, [_c('el-input', {
-    attrs: {
-      "placeholder": "Website"
-    },
-    model: {
-      value: (_vm.user.website),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "website", $$v)
-      },
-      expression: "user.website"
-    }
-  })], 1)], 1), _vm._v(" "), _c('el-col', {
-    attrs: {
-      "sm": 8
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Phone",
-      "prop": "phone"
-    }
-  }, [_c('el-input', {
-    model: {
-      value: (_vm.user.phone),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "phone", $$v)
-      },
-      expression: "user.phone"
-    }
-  })], 1)], 1), _vm._v(" "), _c('el-col', [_c('el-form-item', {
-    attrs: {
-      "label": "Address",
-      "prop": "address"
-    }
-  }, [_c('el-input', {
-    attrs: {
-      "type": "textarea",
-      "rows": 2,
-      "placeholder": "Address"
-    },
-    model: {
-      value: (_vm.user.address),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "address", $$v)
-      },
-      expression: "user.address"
-    }
-  })], 1)], 1), _vm._v(" "), _c('el-col', {
-    attrs: {
-      "sm": 12
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Education",
-      "prop": "education"
-    }
-  }, [_c('el-input', {
-    model: {
-      value: (_vm.user.education),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "education", $$v)
-      },
-      expression: "user.education"
-    }
-  })], 1)], 1), _vm._v(" "), _c('el-col', {
-    attrs: {
-      "sm": 12
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "University educational title",
-      "prop": "education_title"
-    }
-  }, [_c('el-input', {
-    model: {
-      value: (_vm.user.education_title),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "education_title", $$v)
-      },
-      expression: "user.education_title"
-    }
-  })], 1)], 1), _vm._v(" "), _c('el-col', [_c('el-form-item', {
-    attrs: {
-      "label": "Technique",
-      "prop": "technique"
-    }
-  }, [_c('el-select', {
-    attrs: {
-      "value": "",
-      "multiple": "",
-      "filterable": "",
-      "allow-create": "",
-      "default-first-option": "",
-      "placeholder": "What do you work with?"
-    },
-    model: {
-      value: (_vm.user.technique),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "technique", $$v)
-      },
-      expression: "user.technique"
-    }
-  }, _vm._l((_vm.options('medium')), function(medium) {
-    return _c('el-option', {
-      key: medium.value,
-      attrs: {
-        "label": medium.label,
-        "value": medium.value
-      }
-    })
-  }))], 1)], 1), _vm._v(" "), _c('el-col', {
-    attrs: {
-      "sm": 12
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Inspiration",
-      "prop": "inspiration"
-    }
-  }, [_c('el-input', {
-    attrs: {
-      "type": "textarea",
-      "rows": 2,
-      "placeholder": "Things that inspire you"
-    },
-    model: {
-      value: (_vm.user.inspiration),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "inspiration", $$v)
-      },
-      expression: "user.inspiration"
-    }
-  })], 1)], 1), _vm._v(" "), _c('el-col', {
-    attrs: {
-      "sm": 12
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Exhibitions",
-      "prop": "exhibition"
-    }
-  }, [_c('el-input', {
-    attrs: {
-      "type": "textarea",
-      "rows": 2
-    },
-    model: {
-      value: (_vm.user.exhibition),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "exhibition", $$v)
-      },
-      expression: "user.exhibition"
-    }
-  })], 1)], 1)], 1), _vm._v(" "), _c('el-button', {
+  }, [_vm._v("Submit")])])])], 1) : _vm._e(), _vm._v(" "), _c('el-button', {
     staticStyle: {
       "margin-top": "20px"
     },
@@ -74773,7 +74843,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.save()
       }
     }
-  }, [_vm._v("\n            Save\n        ")])], 1)], 1) : _vm._e()
+  }, [_vm._v("\n            Save\n        ")]), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-button', {
+    staticStyle: {
+      "margin-top": "20px"
+    }
+  }, [_c('a', {
+    attrs: {
+      "href": '/artist/' + _vm.user.id,
+      "target": "_blank"
+    }
+  }, [_vm._v("Preview")])]) : _vm._e()], 1)], 1) : _vm._e()
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -76373,32 +76452,7 @@ if (false) {
 }
 
 /***/ }),
-/* 229 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(167);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(230)("4babcd27", content, false);
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-42835b3d\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Profile.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-42835b3d\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Profile.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
+/* 229 */,
 /* 230 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -77611,6 +77665,48 @@ var index_esm = {
 __webpack_require__(76);
 module.exports = __webpack_require__(77);
 
+
+/***/ }),
+/* 235 */,
+/* 236 */,
+/* 237 */,
+/* 238 */,
+/* 239 */,
+/* 240 */,
+/* 241 */,
+/* 242 */,
+/* 243 */,
+/* 244 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(168)();
+exports.push([module.i, "\n.profile-avatar-cropper {\n  line-height: initial;\n  margin-bottom: 10px;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-align: start;\n      align-items: flex-start;\n  position: relative;\n}\n.profile-avatar-cropper .croppa-container {\n    border: 1px dashed #379797;\n}\n.profile-avatar-save {\n  position: absolute;\n  bottom: 10px;\n  left: 110px;\n}\n", ""]);
+
+/***/ }),
+/* 245 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(244);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(230)("3d4e380d", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-42835b3d\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Profile.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-42835b3d\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Profile.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
 
 /***/ })
 /******/ ]);

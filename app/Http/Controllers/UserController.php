@@ -39,7 +39,7 @@ class UserController extends Controller {
 
 		$title = trans( 'portal.profile' );
 
-		$user = auth()->user()->load('avatar', 'image' );
+		$user = auth()->user()->load( 'avatar', 'image' );
 
 		$countries = Country::all( 'country_name', 'id' );
 
@@ -50,7 +50,7 @@ class UserController extends Controller {
 
 		$user = auth()->user();
 
-		$artworks  = $user->favouriteArtworks()->orderBy( 'id', 'desc' )->get();
+		$artworks = $user->favouriteArtworks()->orderBy( 'id', 'desc' )->get();
 
 		return view( 'dashboard.user.favourites', compact( 'artworks' ) );
 	}
@@ -180,13 +180,11 @@ class UserController extends Controller {
 
 	public function changePasswordPost( Request $request ) {
 
-		$rules = [
+		$this->validate( $request, [
 			'old_password'              => 'required',
 			'new_password'              => 'required|confirmed',
 			'new_password_confirmation' => 'required',
-		];
-
-		$this->validate( $request, $rules );
+		] );
 
 		$old_password = $request->old_password;
 		$new_password = $request->new_password;
@@ -198,7 +196,7 @@ class UserController extends Controller {
 				$logged_user->password = Hash::make( $new_password );
 				$logged_user->save();
 
-				return redirect()->back()->with( 'success', 'Password changed successfully' );
+				return redirect()->back()->with( 'status', 'Password changed successfully' );
 			}
 
 			return redirect()->back()->with( 'error', 'Wrong Old password' );

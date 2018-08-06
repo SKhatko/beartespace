@@ -4,6 +4,8 @@
 
 @section('admin-content')
 
+    @include('partials.back')
+
     <profile
             :user_="{{ $user }}"
             :countries_="{{ $countries }}">

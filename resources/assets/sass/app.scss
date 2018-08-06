@@ -599,6 +599,11 @@ body, html {
     }
   }
 
+  &-change-password {
+    width: 400px;
+    margin: 0 auto;
+  }
+
   &-auth {
     display: flex;
     justify-content: center;

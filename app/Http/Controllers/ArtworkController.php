@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Artwork;
-use App\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,52 +20,6 @@ class ArtworkController extends Controller {
 		$artworks = $user->artworks()->orderBy( 'id', 'desc' )->get();
 
 		return view( 'dashboard.artworks.index', compact( 'title', 'artworks' ) );
-	}
-
-	public function addToCart( Request $request, $id ) {
-
-		$artwork = Artwork::find( $id );
-
-		$oldCart = session( 'cart' );
-
-		$cart = new Cart( $oldCart );
-
-		$cart->add( $artwork, $artwork->id );
-
-		session( [ 'cart' => $cart ] );
-
-		return redirect()->route( 'shopping-cart' );
-	}
-
-	public function toggleToCart( Request $request, $id ) {
-
-		$artwork = Artwork::find( $id );
-
-		$oldCart = session( 'cart' );
-
-		$cart = new Cart( $oldCart );
-
-		$cart->toggle( $artwork, $artwork->id );
-
-		session( [ 'cart' => $cart ] );
-
-		return back();
-	}
-
-
-	public function removeFromCart(Request $request, $id) {
-
-		$artwork = Artwork::find( $id );
-
-		$oldCart = session( 'cart' );
-
-		$cart = new Cart( $oldCart );
-
-		$cart->remove( $artwork, $artwork->id );
-
-		session( [ 'cart' => $cart ] );
-
-		return redirect()->route( 'shopping-cart' );
 	}
 
 	public function adminPendingArtworks() {

@@ -81,9 +81,22 @@ const app = new Vue({
             })
         }
 
-        axios.get('/api/profile').then(response => {
-            console.log('profile', response.data);
-        });
+        if(window.cart) {
+            this.$store.commit('setInitialCart', window.cart);
+        }
+        //
+        // axios.get('/api/profile').then(response => {
+        //     console.log('profile', response.data);
+        // })
+        //     .catch(error => {
+        //         if(error.response.status === 401) {
+        //             // window.location.href = '/login';
+        //
+        //
+        //             console.log(error.response);
+        //
+        //         }
+        //     });
     }
 });
 

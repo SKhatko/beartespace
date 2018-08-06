@@ -3,9 +3,9 @@
 namespace App;
 
 class Cart {
-	public $items = [];
-	public $totalQuantity = 0;
-	public $totalPrice = 0;
+	public $items;
+	public $totalQuantity;
+	public $totalPrice;
 
 	public function __construct( $oldCart ) {
 
@@ -13,6 +13,10 @@ class Cart {
 			$this->items         = $oldCart->items;
 			$this->totalQuantity = $oldCart->totalQuantity;
 			$this->totalPrice    = $oldCart->totalPrice;
+		} else {
+			$this->items         = [];
+			$this->totalQuantity = 0;
+			$this->totalPrice    = 0;
 		}
 	}
 

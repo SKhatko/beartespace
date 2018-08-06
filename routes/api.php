@@ -32,5 +32,5 @@ Route::group( [ 'middleware' => 'auth:api' ], function () {
 
 } );
 
-Route::put( 'cart/{id}/toggle', 'Api\ArtworkController@toggleCart' );
+Route::put( 'cart/{id}/toggle', 'Api\CartController@toggleCart' );
 

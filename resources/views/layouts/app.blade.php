@@ -24,6 +24,10 @@
 
         window.errors = {!! json_encode($errors->all()) !!};
 
+        window.cart = {!! json_encode(session( 'cart' ) ?? '') !!};
+
+        window.favourites = '';
+
     </script>
 
 
@@ -43,6 +47,7 @@
                 <a href="{{ route('selections')}}">Best art selection</a>
 
             </div>
+
             <div class="app-header--middle">
 
                 <div class="app-header--left">

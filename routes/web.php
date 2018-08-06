@@ -64,10 +64,10 @@ Route::group( [ 'middleware' => 'web' ], function () {
 	Route::get( '/currency/{code}', 'CurrencyController@switchCurrency')->name('switch-currency');
 
 	// Shopping
-	Route::get( 'shopping-cart', 'HomeController@shoppingCart' )->name( 'shopping-cart' );
-	Route::get( 'add-to-cart/{id}', 'ArtworkController@addToCart' )->name( 'add-to-cart' );
-	Route::get( 'toggle-to-cart/{id}', 'ArtworkController@toggleToCart' )->name( 'toggle-to-cart' );
-	Route::get( 'remove-from-cart/{id}', 'ArtworkController@removeFromCart' )->name( 'remove-from-cart' );
+	Route::get( 'shopping-cart', 'CartController@index' )->name( 'shopping-cart' );
+	Route::get( 'add-to-cart/{id}', 'CartController@addToCart' )->name( 'add-to-cart' );
+	Route::get( 'toggle-to-cart/{id}', 'CartController@toggleToCart' )->name( 'toggle-to-cart' );
+	Route::get( 'remove-from-cart/{id}', 'CartController@removeFromCart' )->name( 'remove-from-cart' );
 	Route::get( 'checkout', 'HomeController@checkout' )->name( 'checkout' );
 
 	// Pages
@@ -82,7 +82,7 @@ Route::group( [ 'middleware' => 'web' ], function () {
 		Route::get( '/', 'DashboardController@dashboard' )->name( 'dashboard' );
 		Route::get( 'profile', 'UserController@profile' )->name( 'dashboard.profile' );
 		Route::get( 'change-password', 'UserController@changePassword' )->name( 'dashboard.change-password' );
-		Route::post( 'dashboard.change-password', 'UserController@changePasswordPost' );
+		Route::post( 'change-password', 'UserController@changePasswordPost' );
 
 		// TODO
 		Route::get( 'payments', 'PaymentController@index' )->name( 'dashboard.payments' );

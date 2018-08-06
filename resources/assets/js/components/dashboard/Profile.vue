@@ -2,11 +2,16 @@
 
     <el-card v-if="user">
 
-        <h2>Personal Information</h2>
+        <div v-if="user.user_type === 'user'">User</div>
+        <div v-if="user.user_type === 'artist'">Artist</div>
+        <div v-if="user.user_type === 'gallery'">Gallery</div>
+        <div v-if="user.user_type === 'admin'">Admin</div>
 
-        <el-form label-position="top" :model="user" :rules="rules" ref="profile">
+        <h2>Profile information</h2>
 
-            <el-form-item label="Upload avatar">
+        <el-form label-position="top">
+
+            <el-form-item :label="user.user_type === 'gallery' ? 'Upload logo' : 'Upload avatar'">
 
                 <div class="profile-avatar-cropper">
                     <cropper v-model="avatarCropper"
@@ -21,73 +26,27 @@
                              @zoom="avatarChanged = true"
                              @init="initAvatarCropper"
                              prevent-white-space
-                             remove-button-color="gray">
+                             remove-button-color="#379797">
 
                         <img v-if="user.avatar" crossOrigin="anonymous" slot="initial" :src="user.avatar.url"/>
-                        <img slot="placeholder" src="/images/user-placeholder-image.png"/>
+                        <!--<img slot="placeholder" src="/images/user-placeholder-image.png"/>-->
                     </cropper>
 
-                    <el-button @click="uploadAvatar" v-if="avatarChanged" type="primary" class="profile-avatar-save"
-                               round>Save avatar
+                    <el-button @click="uploadAvatar" v-if="avatarChanged" type="primary" plain
+                               class="profile-avatar-save" round>
+                        Save
                     </el-button>
 
                 </div>
 
             </el-form-item>
 
-            <el-form-item label="Upload profile image">
-                <div class="profile-image-cropper">
-                    <cropper v-model="imageCropper"
-                             placeholder="Click to upload"
-                             canvas-color="#ffffff"
-                             :quality="1"
-                             @new-image="imageChanged = true"
-                             @image-remove="imageChanged = true"
-                             @move="imageChanged = true"
-                             @zoom="imageChanged = true"
-                             prevent-white-space
-                             remove-button-color="gray">
+        </el-form>
 
-                        <img v-if="user.image" crossOrigin="anonymous" slot="initial" :src="user.image.url"/>
-                    </cropper>
-
-                    <el-button @click="uploadImage" v-if="imageChanged" type="primary" class="profile-image-save"
-                               round>Save image
-                    </el-button>
-
-                </div>
-                <el-upload
-                        class="avatar-uploader"
-                        :action="'/api/upload/user-image'"
-                        :show-file-list="false"
-                        :headers="{'Accept': 'application/json'}"
-                        with-credentials
-                        accept=".jpg, .jpeg, .png"
-                        :on-success="handleImageSuccess"
-                        :before-upload="beforeAvatarUpload">
-                    <div v-if="user.image">
-                        <img :src="user.image.url" style="width: 290px">
-
-                        <!--<el-button type="info" plain>-->
-                        <!--<i class="el-icon-upload"></i>-->
-                        <!--Change image-->
-                        <!--</el-button>-->
-                    </div>
-                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                </el-upload>
-            </el-form-item>
-
-            <el-form-item>
-                <div class="large-12 medium-12 small-12 cell">
-                    <label>File Preview
-                        <input type="file" id="file" ref="file" accept="image/*" v-on:change="handleFileUpload()"/>
-                    </label>
-                    <img v-bind:src="imagePreview" v-show="showPreview"/>
-                    <button v-on:click="submitFile()">Submit</button>
-                </div>
-            </el-form-item>
+        <el-form label-position="top" :model="user" :rules="rules" ref="profile">
 
             <el-row :gutter="20">
+
                 <el-col :sm="12">
                     <el-form-item label="First name" prop="first_name">
                         <el-input v-model="user.first_name"></el-input>
@@ -100,8 +59,8 @@
                 </el-col>
 
 
-                <el-col :sm="12">
-                    <el-form-item label="Username ( Name that will be shown on your profile )" prop="user_name">
+                <el-col :sm="12" v-if="user.user_type === 'artist'">
+                    <el-form-item label="Profile name ( Name that will be used as link to your profile )" prop="user_name">
                         <el-input v-model="user.user_name"></el-input>
                     </el-form-item>
                 </el-col>
@@ -112,7 +71,7 @@
                     </el-form-item>
                 </el-col>
 
-                <el-col :sm="8">
+                <el-col :sm="8" v-if="user.user_type === 'artist' || user.user_type === 'gallery' ">
                     <el-form-item label="Country" prop="country_id">
                         <el-select filterable value="user.country_id" v-model="user.country_id"
                                    placeholder="Select country">
@@ -127,46 +86,19 @@
                 </el-col>
 
 
-                <el-col :sm="12">
+                <el-col :sm="12" v-if="user.user_type === 'artist' || user.user_type === 'gallery' ">
                     <el-form-item label="City" prop="city">
                         <el-input v-model="user.city"></el-input>
                     </el-form-item>
                 </el-col>
 
-                <el-col :sm="8">
-                    <el-form-item label="Gender" prop="gender">
-                        <el-select value="user.gender" v-model="user.gender">
-                            <el-option value="male">Male</el-option>
-                            <el-option value="female">Femail</el-option>
-                            <el-option value="third_gender">Third</el-option>
-                        </el-select>
-                    </el-form-item>
-                </el-col>
-                <el-col :sm="8">
-                    <el-form-item label="Date of birth" prop="dob">
-                        <el-date-picker
-                                v-model="user.dob"
-                                type="date"
-                                value-format="yyyy-MM-dd"
-                                placeholder="Date of birth"
-                        >
-                        </el-date-picker>
+                <el-col :sm="12" v-if="user.user_type === 'artist' || user.user_type === 'gallery' ">
+                    <el-form-item label="Postcode" prop="postcode">
+                        <el-input v-model="user.postcode"></el-input>
                     </el-form-item>
                 </el-col>
 
-                <el-col :sm="8">
-                    <el-form-item label="Website" prop="website">
-                        <el-input placeholder="Website" v-model="user.website"></el-input>
-                    </el-form-item>
-                </el-col>
-
-                <el-col :sm="8">
-                    <el-form-item label="Phone" prop="phone">
-                        <el-input v-model="user.phone"></el-input>
-                    </el-form-item>
-                </el-col>
-
-                <el-col>
+                <el-col :sm="12" v-if="user.user_type === 'artist' || user.user_type === 'gallery' ">
                     <el-form-item label="Address" prop="address">
                         <el-input
                                 type="textarea"
@@ -177,18 +109,52 @@
                     </el-form-item>
                 </el-col>
 
-                <el-col :sm="12">
+                <el-col :sm="8" v-if="user.user_type === 'artist' ">
+                    <el-form-item label="Gender" prop="gender">
+                        <el-select value="user.gender" v-model="user.gender">
+                            <el-option value="male">Male</el-option>
+                            <el-option value="female">Femail</el-option>
+                            <el-option value="third_gender">Third</el-option>
+                        </el-select>
+                    </el-form-item>
+                </el-col>
+
+                <el-col :sm="8" v-if="user.user_type === 'artist'">
+                    <el-form-item label="Date of birth" prop="dob">
+                        <el-date-picker
+                                v-model="user.dob"
+                                type="date"
+                                value-format="yyyy-MM-dd"
+                                placeholder="Date of birth">
+                        </el-date-picker>
+                    </el-form-item>
+                </el-col>
+
+                <el-col :sm="8" v-if="user.user_type === 'artist' || user.user_type === 'gallery' ">
+                    <el-form-item label="Website" prop="website">
+                        <el-input placeholder="Website" v-model="user.website"></el-input>
+                    </el-form-item>
+                </el-col>
+
+                <el-col :sm="8" v-if="user.user_type === 'artist' || user.user_type === 'gallery' ">
+                    <el-form-item label="Phone" prop="phone">
+                        <el-input v-model="user.phone"></el-input>
+                    </el-form-item>
+                </el-col>
+
+                <el-col :sm="12" v-if="user.user_type === 'artist' ">
                     <el-form-item label="Education" prop="education">
                         <el-input v-model="user.education"></el-input>
                     </el-form-item>
                 </el-col>
-                <el-col :sm="12">
+
+                <el-col :sm="12" v-if="user.user_type === 'artist' ">
                     <el-form-item label="University educational title" prop="education_title">
                         <el-input v-model="user.education_title"></el-input>
                     </el-form-item>
                 </el-col>
 
-                <el-col>
+                <el-col v-if="user.user_type === 'artist' ">
                     <el-form-item label="Technique" prop="technique">
                         <el-select value="" v-model="user.technique" multiple filterable allow-create
                                    default-first-option placeholder="What do you work with?">
@@ -198,7 +164,7 @@
                     </el-form-item>
                 </el-col>
 
-                <el-col :sm="12">
+                <el-col :sm="12" v-if="user.user_type === 'artist'">
                     <el-form-item label="Inspiration" prop="inspiration">
                         <el-input
                                 type="textarea"
@@ -208,7 +174,8 @@
                         </el-input>
                     </el-form-item>
                 </el-col>
-                <el-col :sm="12">
+
+                <el-col :sm="12" v-if="user.user_type === 'artist' || user.user_type === 'gallery' ">
                     <el-form-item label="Exhibitions" prop="exhibition">
                         <el-input type="textarea" :rows="2" v-model="user.exhibition"></el-input>
                     </el-form-item>
@@ -216,11 +183,74 @@
 
             </el-row>
 
+            <div v-if="user.user_type === 'artist'">
+
+
+                <el-form-item label="Upload profile image">
+                    <div class="profile-image-cropper">
+                        <cropper v-model="imageCropper"
+                                 placeholder="Click to upload"
+                                 canvas-color="#ffffff"
+                                 :quality="1"
+                                 @new-image="imageChanged = true"
+                                 @image-remove="imageChanged = true"
+                                 @move="imageChanged = true"
+                                 @zoom="imageChanged = true"
+                                 prevent-white-space
+                                 remove-button-color="gray">
+
+                            <img v-if="user.image" crossOrigin="anonymous" slot="initial" :src="user.image.url"/>
+                        </cropper>
+
+                        <el-button @click="uploadImage" v-if="imageChanged" type="primary" class="profile-image-save"
+                                   round>Save image
+                        </el-button>
+
+                    </div>
+                </el-form-item>
+
+                <el-form-item>
+                    <el-upload
+                            class="avatar-uploader"
+                            :action="'/api/upload/user-image'"
+                            :show-file-list="false"
+                            :headers="{'Accept': 'application/json'}"
+                            with-credentials
+                            accept=".jpg, .jpeg, .png"
+                            :on-success="handleImageSuccess"
+                            :before-upload="beforeAvatarUpload">
+                        <div v-if="user.image">
+                            <img :src="user.image.url" style="width: 290px">
+
+                            <!--<el-button type="info" plain>-->
+                            <!--<i class="el-icon-upload"></i>-->
+                            <!--Change image-->
+                            <!--</el-button>-->
+                        </div>
+                        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                    </el-upload>
+                </el-form-item>
+
+                <el-form-item>
+                    <div class="large-12 medium-12 small-12 cell">
+                        <label>File Preview
+                            <input type="file" id="file" ref="file" accept="image/*" v-on:change="handleFileUpload()"/>
+                        </label>
+                        <img v-bind:src="imagePreview" v-show="showPreview"/>
+                        <button v-on:click="submitFile()">Submit</button>
+                    </div>
+                </el-form-item>
+
+            </div>
 
             <el-button type="primary" style="margin-top: 20px"
                        size="big"
                        @click="save()">
                 Save
+            </el-button>
+
+            <el-button style="margin-top: 20px" v-if="user.user_type === 'artist'">
+                <a :href="'/artist/' + user.id" target="_blank">Preview</a>
             </el-button>
 
         </el-form>
@@ -270,6 +300,8 @@
                 this.user = this.user_;
             }
 
+            console.log(this.user);
+
             if (this.countries_) {
                 this.countries = this.countries_;
             }
@@ -281,7 +313,7 @@
         },
 
         methods: {
-            submitFile(){
+            submitFile() {
                 /*
                         Initialize the form data
                     */
@@ -295,21 +327,21 @@
                 /*
                   Make the request to the POST /single-file URL
                 */
-                axios.post( '/api/upload/user-image',
+                axios.post('/api/upload/user-image',
                     formData,
                     {
                         headers: {
                             'Content-Type': 'multipart/form-data'
                         }
                     }
-                ).then(function(){
+                ).then(function () {
                     console.log('SUCCESS!!');
                 })
-                    .catch(function(){
+                    .catch(function () {
                         console.log('FAILURE!!');
                     });
             },
-            handleFileUpload(){
+            handleFileUpload() {
                 /*
                   Set the local file variable to what the user has selected.
                 */
@@ -318,7 +350,7 @@
                 /*
                   Initialize a File Reader object
                 */
-                let reader  = new FileReader();
+                let reader = new FileReader();
 
                 /*
                   Add an event listener to the reader that when the file
@@ -333,21 +365,20 @@
                 /*
                   Check to see if the file is not empty.
                 */
-                if( this.file ){
+                if (this.file) {
                     /*
                       Ensure the file is an image file.
                     */
-                    if ( /\.(jpe?g|png|gif)$/i.test( this.file.name ) ) {
+                    if (/\.(jpe?g)$/i.test(this.file.name)) {
                         /*
                           Fire the readAsDataURL method which will read the file in and
                           upon completion fire a 'load' event which we will listen to and
                           display the image in the preview.
                         */
-                        reader.readAsDataURL( this.file );
+                        reader.readAsDataURL(this.file);
                     }
                 }
             },
-
 
             handleImageSuccess(res, file) {
                 this.user.image = res.data;
@@ -373,19 +404,19 @@
             },
 
             initAvatarCropper() {
-                this.avatarCropper.addClipPlugin(function (ctx, x, y, w, h) {
-                    /*
-                     * ctx: canvas context
-                     * x: start point (top-left corner) x coordination
-                     * y: start point (top-left corner) y coordination
-                     * w: croppa width
-                     * h: croppa height
-                    */
-                    console.log(ctx, x, y, w, h);
-                    ctx.beginPath();
-                    ctx.arc(x + w / 2, y + h / 2, w / 2, 0, 2 * Math.PI, true);
-                    ctx.closePath()
-                })
+                // this.avatarCropper.addClipPlugin(function (ctx, x, y, w, h) {
+                //     /*
+                //      * ctx: canvas context
+                //      * x: start point (top-left corner) x coordination
+                //      * y: start point (top-left corner) y coordination
+                //      * w: croppa width
+                //      * h: croppa height
+                //     */
+                //     console.log(ctx, x, y, w, h);
+                //     ctx.beginPath();
+                //     ctx.arc(x + w / 2, y + h / 2, w / 2, 0, 2 * Math.PI, true);
+                //     ctx.closePath()
+                // })
             },
 
             uploadAvatar() {
@@ -423,7 +454,7 @@
     }
 </script>
 
-<style>
+<style lang="scss">
 
     .profile-avatar-cropper {
         line-height: initial;
@@ -431,12 +462,16 @@
         display: flex;
         align-items: flex-start;
         position: relative;
+
+        .croppa-container {
+            border: 1px dashed #379797
+        }
     }
 
     .profile-avatar-save {
         position: absolute;
         bottom: 10px;
-        left: 80px;
+        left: 110px;
     }
 
 
