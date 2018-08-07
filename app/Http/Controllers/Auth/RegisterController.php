@@ -55,8 +55,6 @@ class RegisterController extends Controller {
 
 //		$user = User::find(74);
 
-		$this->getAccessToken($request);
-
 		event( new Registered( $user ) );
 
 		$this->guard()->login( $user );

@@ -6,13 +6,13 @@
     <el-main class="app-auth">
 
         <el-card class="box-card app-auth-login">
-            <div slot="header" class="clearfix"><i class="el-icon-success"></i> Confirmation is sent to your Email</div>
+            <div slot="header" class="clearfix"><i class="el-icon-success"></i> &nbsp; Confirmation is sent to Email box</div>
 
             <p>
-                Confirmation has been send to your Email.
+                Confirmation has been send to {{ auth()->user()->email }}.
             </p>
             <p>
-                Follow the link from your Email to continue.
+                Please go to your email box and follow the link to continue.
             </p>
 
             <p>Click <el-button type="text"><a href="{{ route('confirm-email.resend') }}">here</a></el-button>
