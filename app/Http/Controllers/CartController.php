@@ -22,7 +22,7 @@ class CartController extends Controller {
 
 	public function addToCart( Request $request, $id ) {
 
-		$artwork = Artwork::find( $id );
+		$artwork = Artwork::findOrFail( $id );
 
 		$oldCart = session( 'cart' );
 
