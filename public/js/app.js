@@ -15899,6 +15899,15 @@ var app = new Vue({
     data: {},
     mounted: function mounted() {
 
+        if (window.notify) {
+            this.$notify.info({
+                title: window.notify.title,
+                dangerouslyUseHTMLString: true,
+                message: window.notify.message,
+                duration: 8000
+            });
+        }
+
         if (window.status) {
             this.$message({
                 showClose: true,

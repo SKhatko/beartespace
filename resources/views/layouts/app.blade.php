@@ -19,7 +19,10 @@
     <script>
         window.trans = {!! $translations !!};
 
+        window.notify = {!! json_encode(session('notify') ?? '') !!};
+
         window.status = {!! json_encode(session('status') ?? '') !!};
+
         window.error = {!! json_encode(session('error') ?? '') !!};
 
         window.errors = {!! json_encode($errors->all()) !!};

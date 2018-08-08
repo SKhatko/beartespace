@@ -76,7 +76,7 @@ Route::group( [ 'middleware' => 'web' ], function () {
 	Route::get( 'shipping', 'HomeController@shipping' )->name( 'shipping' );
 
 	//Dashboard Route
-	Route::group( [ 'prefix' => 'dashboard', 'middleware' => [ 'dashboard', 'confirmed-email' ] ], function () {
+	Route::group( [ 'prefix' => 'dashboard', 'middleware' => [ 'dashboard', 'confirmed-email', 'has-profile-avatar' ] ], function () {
 
 		// All users access
 		Route::get( '/', 'DashboardController@dashboard' )->name( 'dashboard' );

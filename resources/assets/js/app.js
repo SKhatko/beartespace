@@ -63,6 +63,15 @@ const app = new Vue({
     data: {},
     mounted() {
 
+        if (window.notify) {
+            this.$notify.info({
+                title: window.notify.title,
+                dangerouslyUseHTMLString: true,
+                message: window.notify.message,
+                duration: 8000
+            });
+        }
+
         if (window.status) {
             this.$message({
                 showClose: true,
@@ -81,7 +90,7 @@ const app = new Vue({
             })
         }
 
-        if(window.cart) {
+        if (window.cart) {
             this.$store.commit('setInitialCart', window.cart);
         }
         //
