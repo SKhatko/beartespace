@@ -67,7 +67,7 @@ class HomeController extends Controller {
 
 		$artworks = Artwork::query();
 
-		if ( $request->all()) {
+		if ( $request->all() ) {
 			if ( $request->input( 'category' ) ) {
 				$queries = explode( ',', $request->input( 'category' ) );
 				foreach ( $queries as $query ) {
@@ -153,6 +153,10 @@ class HomeController extends Controller {
 
 	public function inviteWriter() {
 		return view( 'invite.writer' );
+	}
+
+	public function inviteCustomer() {
+		return view( 'invite.customer' );
 	}
 
 

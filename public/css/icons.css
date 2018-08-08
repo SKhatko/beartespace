@@ -44,3 +44,9 @@
 .icon-visa::before { content: "\f328"; }
 
 .icon-cc-paypal::before { content: "\f1f4"; }
+
+.icon-user-outline::before { content: "\e803"; }
+
+.icon-art-gallery::before { content: "\e806"; }
+
+.icon-picture::before { content: "\e805"; }

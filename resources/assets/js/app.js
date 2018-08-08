@@ -40,6 +40,7 @@ Vue.use(VueAwesomeSwiper, {
 });
 
 Vue.component('partials-artwork', require('./components/partials/Artwork.vue'));
+Vue.component('register-dialog', require('./components/partials/RegisterDialog.vue'));
 
 Vue.component('artworks-menu', require('./components/ArtworksMenu.vue'));
 Vue.component('artists-menu', require('./components/ArtistsMenu.vue'));
@@ -60,7 +61,10 @@ const app = new Vue({
     el: '#app',
     store: new Vuex.Store(store),
     components: {},
-    data: {},
+    data: {
+        showRegisterDialog: false
+
+    },
     mounted() {
 
         if (window.notify) {
@@ -106,7 +110,7 @@ const app = new Vue({
         //
         //         }
         //     });
-    }
+    },
 });
 
 

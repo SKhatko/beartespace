@@ -53,6 +53,24 @@
       "css": "cc-paypal",
       "code": 61940,
       "src": "fontawesome"
+    },
+    {
+      "uid": "8ed4884bf9b840729eef8f0bbd2b1dbb",
+      "css": "user-outline",
+      "code": 59395,
+      "src": "typicons"
+    },
+    {
+      "uid": "05417ae0104ab18a0fe454358579a987",
+      "css": "art-gallery",
+      "code": 59398,
+      "src": "maki"
+    },
+    {
+      "uid": "3def559c3c39b8500882e02892b7daa8",
+      "css": "picture",
+      "code": 59397,
+      "src": "entypo"
     }
   ]
 }
