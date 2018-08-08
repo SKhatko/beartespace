@@ -46,21 +46,25 @@
                               autofocus></el-input>
                 </el-form-item>
 
+
                 <el-form-item label="Password" prop="password">
-                    <el-input type="password" placeholder="Password" v-model="user.password"
-                              name="password"></el-input>
+                    <el-input :type="passwordType" placeholder="Password" v-model="user.password"
+                              name="password">
+
+                        <el-button slot="append" icon="el-icon-view" @click="togglePasswordView"></el-button>
+                    </el-input>
                 </el-form-item>
 
                 <!-- TODO Social login -->
                 <!--@include('auth.social_login')-->
 
-                <div style="margin-bottom:20px;">
-                    By Registering, you agree that you've read and accepted our User Agreement, you're at least 18 years
-                    old, and you consent to our Privacy Notice and receiving marketing communications from us.
-                </div>
+                <p style="margin-bottom:20px;">
+                    By Registering, you agree that you've read and accepted our <a :href="userAgreementSrc" target="_blank" style="font-weight: bold;">User Agreement</a>, you're at least 18 years
+                    old, and you consent to our <a href="/page/cookies-and-privacy" target="_blank" style="font-weight: bold;">Privacy Notice</a> and receiving marketing communications from us.
+                </p>
 
                 <el-form-item>
-                    <el-button type="primary" native-type="submit">Register</el-button>
+                    <el-button type="primary" native-type="submit" :loading="loading">Register</el-button>
 
                     <el-button type="text">
                         <a href="/login">
@@ -95,6 +99,8 @@
                     email: '',
                     password: ''
                 },
+                passwordType: 'password',
+                loading: false,
                 rules: {
                     first_name: [
                         {required: true, message: 'Required'},
@@ -123,34 +129,20 @@
 
         methods: {
             register() {
-
-                console.log(this.user);
-
                 this.$refs['user'].validate((valid) => {
                     if (valid) {
-                        // axios.get('/oauth/clients')
-                        //     .then(response => {
-                        //         console.log(response.data);
-                        //     });
-                        //
-                        // axios.post('/oauth/clients', {
-                        //     grant_type: 'password',
-                        //     client_id: 2,
-                        //     client_secret: 'iqjMvNiVfeWaAS9w00JSRsrt4DVn6rP8jSpa7ZtH',
-                        //     username: this.user.email,
-                        //     password: this.user.password,
-                        //     scope: '*'
-                        // })
-                        //     .then(response => {
-                        //         console.log(response.data);
-                        //     })
-                        //     .catch(error => {
-                        //         console.log(error);
-                        //     });
-
+                        this.loading = true;
                         this.$refs['user'].$el.submit()
                     }
                 });
+            },
+            togglePasswordView() {
+                this.passwordType = this.passwordType === 'password' ? 'text' : 'password'
+            }
+        },
+        computed: {
+            userAgreementSrc() {
+                return '/page/' +  this.user.user_type + '-agreement';
             }
         }
     }

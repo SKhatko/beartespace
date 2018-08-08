@@ -18323,6 +18323,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -18340,6 +18342,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 password: '',
                 remember: true
             },
+            passwordType: 'password',
+            loading: false,
             rules: {
                 email: [{ type: 'email', required: true, message: 'Please enter email', trigger: 'blur' }],
                 password: [{ required: true, message: 'Please enter password', trigger: 'blur' }]
@@ -18357,13 +18361,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         login: function login() {
             var _this = this;
 
-            console.log(this.user);
-
             this.$refs['user'].validate(function (valid) {
                 if (valid) {
+                    _this.loading = true;
                     _this.$refs['user'].$el.submit();
                 }
             });
+        },
+        togglePasswordView: function togglePasswordView() {
+            this.passwordType = this.passwordType === 'password' ? 'text' : 'password';
         }
     }
 });
@@ -18639,6 +18645,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -18657,6 +18667,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 email: '',
                 password: ''
             },
+            passwordType: 'password',
+            loading: false,
             rules: {
                 first_name: [{ required: true, message: 'Required' }],
                 last_name: [{ required: true, message: 'Required' }],
@@ -18677,33 +18689,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         register: function register() {
             var _this = this;
 
-            console.log(this.user);
-
             this.$refs['user'].validate(function (valid) {
                 if (valid) {
-                    // axios.get('/oauth/clients')
-                    //     .then(response => {
-                    //         console.log(response.data);
-                    //     });
-                    //
-                    // axios.post('/oauth/clients', {
-                    //     grant_type: 'password',
-                    //     client_id: 2,
-                    //     client_secret: 'iqjMvNiVfeWaAS9w00JSRsrt4DVn6rP8jSpa7ZtH',
-                    //     username: this.user.email,
-                    //     password: this.user.password,
-                    //     scope: '*'
-                    // })
-                    //     .then(response => {
-                    //         console.log(response.data);
-                    //     })
-                    //     .catch(error => {
-                    //         console.log(error);
-                    //     });
-
+                    _this.loading = true;
                     _this.$refs['user'].$el.submit();
                 }
             });
+        },
+        togglePasswordView: function togglePasswordView() {
+            this.passwordType = this.passwordType === 'password' ? 'text' : 'password';
+        }
+    },
+    computed: {
+        userAgreementSrc: function userAgreementSrc() {
+            return '/page/' + this.user.user_type + '-agreement';
         }
     }
 });
@@ -73929,7 +73928,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('el-input', {
     attrs: {
-      "type": "password",
+      "type": _vm.passwordType,
       "placeholder": "Password",
       "name": "password"
     },
@@ -73940,7 +73939,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.password"
     }
-  })], 1), _vm._v(" "), _c('el-form-item', [_c('el-checkbox', {
+  }, [_c('el-button', {
+    attrs: {
+      "slot": "append",
+      "icon": "el-icon-view"
+    },
+    on: {
+      "click": _vm.togglePasswordView
+    },
+    slot: "append"
+  })], 1)], 1), _vm._v(" "), _c('el-form-item', [_c('el-checkbox', {
     model: {
       value: (_vm.user.remember),
       callback: function($$v) {
@@ -73951,7 +73959,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("Remember Me")])], 1), _vm._v(" "), _c('el-form-item', [_c('el-button', {
     attrs: {
       "type": "primary",
-      "native-type": "submit"
+      "native-type": "submit",
+      "loading": _vm.loading
     }
   }, [_vm._v("Login")]), _vm._v(" "), _c('el-button', {
     attrs: {
@@ -75014,7 +75023,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('el-input', {
     attrs: {
-      "type": "password",
+      "type": _vm.passwordType,
       "placeholder": "Password",
       "name": "password"
     },
@@ -75025,14 +75034,40 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.password"
     }
-  })], 1), _vm._v(" "), _c('div', {
+  }, [_c('el-button', {
+    attrs: {
+      "slot": "append",
+      "icon": "el-icon-view"
+    },
+    on: {
+      "click": _vm.togglePasswordView
+    },
+    slot: "append"
+  })], 1)], 1), _vm._v(" "), _c('p', {
     staticStyle: {
       "margin-bottom": "20px"
     }
-  }, [_vm._v("\n                By Registering, you agree that you've read and accepted our User Agreement, you're at least 18 years\n                old, and you consent to our Privacy Notice and receiving marketing communications from us.\n            ")]), _vm._v(" "), _c('el-form-item', [_c('el-button', {
+  }, [_vm._v("\n                By Registering, you agree that you've read and accepted our "), _c('a', {
+    staticStyle: {
+      "font-weight": "bold"
+    },
+    attrs: {
+      "href": _vm.userAgreementSrc,
+      "target": "_blank"
+    }
+  }, [_vm._v("User Agreement")]), _vm._v(", you're at least 18 years\n                old, and you consent to our "), _c('a', {
+    staticStyle: {
+      "font-weight": "bold"
+    },
+    attrs: {
+      "href": "/page/cookies-and-privacy",
+      "target": "_blank"
+    }
+  }, [_vm._v("Privacy Notice")]), _vm._v(" and receiving marketing communications from us.\n            ")]), _vm._v(" "), _c('el-form-item', [_c('el-button', {
     attrs: {
       "type": "primary",
-      "native-type": "submit"
+      "native-type": "submit",
+      "loading": _vm.loading
     }
   }, [_vm._v("Register")]), _vm._v(" "), _c('el-button', {
     attrs: {

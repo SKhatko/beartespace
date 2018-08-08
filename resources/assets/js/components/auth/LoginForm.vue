@@ -17,7 +17,9 @@
                 </el-form-item>
 
                 <el-form-item label="Password" prop="password">
-                    <el-input type="password" placeholder="Password" v-model="user.password" name="password"></el-input>
+                    <el-input :type="passwordType" placeholder="Password" v-model="user.password" name="password">
+                        <el-button slot="append" icon="el-icon-view" @click="togglePasswordView"></el-button>
+                    </el-input>
                 </el-form-item>
 
                 <el-form-item>
@@ -25,7 +27,7 @@
                 </el-form-item>
 
                 <el-form-item>
-                    <el-button type="primary" native-type="submit">Login</el-button>
+                    <el-button type="primary" native-type="submit" :loading="loading">Login</el-button>
 
                     <el-button type="text"><a href="/register">Create New Account</a></el-button>
 
@@ -71,6 +73,8 @@
                     password: '',
                     remember: true
                 },
+                passwordType: 'password',
+                loading: false,
                 rules: {
                     email: [
                         {type: 'email', required: true, message: 'Please enter email', trigger: 'blur'}
@@ -89,14 +93,15 @@
 
         methods: {
             login() {
-
-                console.log(this.user);
-
                 this.$refs['user'].validate((valid) => {
                     if (valid) {
+                        this.loading = true;
                         this.$refs['user'].$el.submit();
                     }
                 });
+            },
+            togglePasswordView() {
+                this.passwordType = this.passwordType === 'password' ? 'text' : 'password'
             }
         }
     }

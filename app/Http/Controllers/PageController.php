@@ -6,22 +6,21 @@ use Illuminate\Http\Request;
 use App\Page;
 use App\Language;
 
-class PageController extends Controller
-{
-	public function index()
-	{
-		$title = 'Pages';
-		$pages = Page::all();
+class PageController extends Controller {
+
+	public function index() {
+
+		$title     = 'Pages';
+		$pages     = Page::all();
 		$languages = Language::all();
 
-		return view('dashboard.admin.pages', compact('title', 'pages', 'languages'));
+		return view( 'dashboard.admin.pages', compact( 'title', 'pages', 'languages' ) );
 	}
 
-	public function show($slug) {
+	public function show( $slug ) {
 
-		$page = Page::whereSlug( $slug )->first();
+		$page = Page::whereSlug( $slug )->firstOrFail();
 
-		return view('pages.page', compact('page'));
-
+		return view( 'pages.page', compact( 'page' ) );
 	}
 }
