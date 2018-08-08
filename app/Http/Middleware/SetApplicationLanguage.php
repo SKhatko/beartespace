@@ -4,7 +4,6 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use App\Language;
 
@@ -22,7 +21,7 @@ class SetApplicationLanguage {
 
 		if ( ! session()->has( 'lang' ) ) {
 
-			$browserLanguage = substr( $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2 ); //read browser language
+			$browserLanguage = substr( isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? $_SERVER['HTTP_ACCEPT_LANGUAGE'] : '', 0, 2 ); //read browser language
 
 			$langExists = Language::whereCode( $browserLanguage )->whereActive( 1 )->first();
 
