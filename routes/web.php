@@ -16,7 +16,7 @@ Route::group( [ 'middleware' => 'web' ], function () {
 	Auth::routes();
 
 	Route::get( 'confirm-email/activate/{token}', 'Auth\ConfirmEmailController@confirm' )->name( 'confirm-email.activate' );
-	Route::get( 'confirm-email/verify', 'Auth\ConfirmEmailController@verify' )->name( 'confirm-email.verify' );
+	Route::get( 'confirm-email/verify', 'Auth\ConfirmEmailController@verify' )->name( 'confirm-email.verify' )->middleware('auth');
 	Route::get( 'confirm-email/resend', 'Auth\ConfirmEmailController@resend' )->name( 'confirm-email.resend' );
 
 	Route::group( [ 'prefix' => 'login' ], function () {

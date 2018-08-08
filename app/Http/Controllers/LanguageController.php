@@ -22,7 +22,7 @@ class LanguageController extends Controller {
 	 */
 	public function switchLang( $lang ) {
 
-		$langExists = Language::where('code', $lang)->where( 'active', 1 )->first();
+		$langExists = Language::whereCode( $lang )->whereActive( 1 )->first();
 
 		if ( $langExists ) {
 			session( [ 'lang' => $lang ] );

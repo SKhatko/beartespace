@@ -232,6 +232,8 @@ return [
         //Form and html builder
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Currency' => \Torann\Currency\Facades\Currency::class,
+        'GeoIP' => \Torann\GeoIP\Facades\GeoIP::class,
+
     ],
 
 ];

@@ -6,6 +6,8 @@ use Closure;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
+use App\Language;
+
 
 class SetApplicationLanguage {
 	/**
@@ -17,6 +19,19 @@ class SetApplicationLanguage {
 	 * @return mixed
 	 */
 	public function handle( $request, Closure $next ) {
+
+		if ( ! session()->has( 'lang' ) ) {
+
+			$browserLanguage = substr( $_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2 ); //read browser language
+
+			$langExists = Language::whereCode( $browserLanguage )->whereActive( 1 )->first();
+
+			if ( $langExists ) {
+				session( [ 'lang' => $browserLanguage ] );
+			} else {
+				session( [ 'lang' => Config::get( 'app.locale' ) ] );
+			}
+		}
 
 		App::setLocale( session( 'lang' ) ? session( 'lang' ) : Config::get( 'app.locale' ) );
 
