@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Language;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 use PeterColes\Languages\LanguagesFacade as TranslatedLanguages;
 
 class LanguageController extends Controller {
@@ -25,7 +26,8 @@ class LanguageController extends Controller {
 		$langExists = Language::whereCode( $lang )->whereActive( 1 )->first();
 
 		if ( $langExists ) {
-			session( [ 'lang' => $lang ] );
+			Cookie::queue( Cookie::make( 'locale', $lang, 60 * 24 * 365 ) );
+//			session( [ 'lang' => $lang ] );
 		}
 
 		return back();

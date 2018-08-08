@@ -73,15 +73,16 @@
 
                 </div>
 
+
                 <div class="app-header-currencies">
                     <el-dropdown trigger="hover">
                       <span class="el-dropdown-link">
-                          {{ session('currency') }}
+                          {{ getCurrentCurrency() }}
                           <i class="el-icon-arrow-down el-icon--right"></i>
                       </span>
                         <el-dropdown-menu slot="dropdown">
                             @foreach(currency()->getCurrencies() as $currency)
-                                @if($currency['code'] !== session('currency'))
+                                @if($currency['code'] !== getCurrentCurrency())
                                     <el-dropdown-item>
                                         <a href="{{ route('switch-currency', $currency['code']) }}">{{ $currency['code'] }}</a>
                                     </el-dropdown-item>
@@ -441,12 +442,12 @@
                                     Currency:
                                     <el-dropdown trigger="hover">
                                           <span class="el-dropdown-link">
-                                              {{ session('currency') }}
+                                              {{ getCurrentCurrency() }}
                                               <i class="el-icon-arrow-down el-icon--right"></i>
                                           </span>
                                         <el-dropdown-menu slot="dropdown">
                                             @foreach(currency()->getCurrencies() as $currency)
-                                                @if($currency['code'] !== session('currency'))
+                                                @if($currency['code'] !== getCurrentCurrency())
                                                     <el-dropdown-item>
                                                         <a href="{{ route('switch-currency', $currency['code']) }}">{{ $currency['code'] }}</a>
                                                     </el-dropdown-item>

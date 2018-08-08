@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use App\Language;
+use Illuminate\Support\Facades\Cookie;
 
 
 class SetApplicationLanguage {
@@ -19,20 +20,46 @@ class SetApplicationLanguage {
 	 */
 	public function handle( $request, Closure $next ) {
 
-		if ( ! session()->has( 'lang' ) ) {
+		if ( ! Cookie::get( 'locale' ) ) {
 
-			$browserLanguage = substr( isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? $_SERVER['HTTP_ACCEPT_LANGUAGE'] : '', 0, 2 ); //read browser language
+			$browserLanguage = substr( isset( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) ? $_SERVER['HTTP_ACCEPT_LANGUAGE'] : '', 0, 2 );
 
 			$langExists = Language::whereCode( $browserLanguage )->whereActive( 1 )->first();
 
 			if ( $langExists ) {
-				session( [ 'lang' => $browserLanguage ] );
+
+				Cookie::queue( Cookie::make( 'locale', $browserLanguage, 60 * 24 * 365 ) );
+
+				session( [ 'locale' => $browserLanguage ] );
+				App::setLocale( $browserLanguage );
 			} else {
-				session( [ 'lang' => Config::get( 'app.locale' ) ] );
+				// default
+				Cookie::queue( Cookie::make( 'locale', 'en', 60 * 24 * 365 ) );
+
+				session( [ 'locale' => 'en' ] );
+				App::setLocale( 'en' );
 			}
+
+		} else {
+			session( [ 'locale' => Cookie::get( 'locale' ) ] );
+			App::setLocale( Cookie::get( 'locale' ) );
 		}
 
-		App::setLocale( session( 'lang' ) ? session( 'lang' ) : Config::get( 'app.locale' ) );
+
+//		if ( ! session()->has( 'lang' ) ) {
+//
+//			$browserLanguage = substr( isset( $_SERVER['HTTP_ACCEPT_LANGUAGE'] ) ? $_SERVER['HTTP_ACCEPT_LANGUAGE'] : '', 0, 2 ); //read browser language
+//
+//			$langExists = Language::whereCode( $browserLanguage )->whereActive( 1 )->first();
+//
+//			if ( $langExists ) {
+//				session( [ 'lang' => $browserLanguage ] );
+//			} else {
+//				session( [ 'lang' => Config::get( 'app.locale' ) ] );
+//			}
+//		}
+//
+//		App::setLocale( session( 'lang' ) ? session( 'lang' ) : Config::get( 'app.locale' ) );
 
 		return $next( $request );
 	}

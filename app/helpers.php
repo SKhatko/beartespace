@@ -19,7 +19,7 @@ if ( ! function_exists( 'showPage' ) ) {
 
 		$page = App\Page::whereSlug( $slug )->first();
 
-		if($page) {
+		if ( $page ) {
 			return $page->content;
 		} else {
 			return '';
@@ -30,8 +30,8 @@ if ( ! function_exists( 'showPage' ) ) {
 if ( ! function_exists( 'optionalPrice' ) ) {
 	function optionalPrice( $price ) {
 
-		if ( session( 'currency' ) !== currency()->config( 'default' ) ) {
-			return ' / ~ ' . currency_format( $price, session( 'currency' ) );
+		if ( Cookie::get( 'currency' ) !== currency()->config( 'default' ) ) {
+			return ' / ~ ' . currency_format( $price, Cookie::get( 'currency' ) );
 		}
 
 		return '';
@@ -47,16 +47,24 @@ if ( ! function_exists( 'getLanguages' ) ) {
 }
 
 function currentLanguage() {
-	if ( session( 'lang' ) ) {
-		$language = \App\Language::whereCode( session( 'lang' ) )->first();
-		if ( $language ) {
-			return $language;
-		}
+
+	$language = \App\Language::whereCode( app()->getLocale() )->first();
+
+	if ( $language ) {
+		return $language;
 	}
 
-	// TODO discover language
+	dd( \App\Language::first());
 
 	return \App\Language::first();
+}
+
+function getCurrentCurrency() {
+	if ( Cookie::get('currency') && currency()->hasCurrency(Cookie::get('currency')) ) {
+		return Cookie::get('currency');
+	}
+
+	return session('currency');
 }
 
 /**
