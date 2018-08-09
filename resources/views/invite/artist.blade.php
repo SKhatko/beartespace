@@ -7,7 +7,7 @@
     <div class="app--wrapper">
         Artist invitation and registration
 
-        <register-form></register-form>
+        <register-form user-type="artist"></register-form>
 
     </div>
 

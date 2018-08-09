@@ -18930,13 +18930,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
-    props: {},
+    props: {
+        userType: ''
+    },
     components: { Errors: __WEBPACK_IMPORTED_MODULE_0__partials_Errors_vue___default.a },
 
     data: function data() {
@@ -18954,8 +18957,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 first_name: [{ required: true, message: 'Required' }],
                 last_name: [{ required: true, message: 'Required' }],
                 email: [{ type: 'email', required: true, message: 'Please enter email' }],
-                password: [{ required: true, message: 'Please enter password' }],
-                user_type: [{ required: true, message: 'Please select customer type' }]
+                password: [{ required: true, message: 'Please enter password' }]
+                // user_type: [
+                //     {required: true, message: 'Please select customer type'}
+                // ]
             },
             csrf: ''
 
@@ -18963,6 +18968,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     mounted: function mounted() {
         this.csrf = window.csrf;
+
+        if (this.userType) {
+            this.user.user_type = this.userType;
+        }
+
+        console.log(this.user.user_type);
     },
 
 
@@ -75152,41 +75163,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     domProps: {
       "value": _vm.csrf
     }
-  }), _vm._v(" "), _c('el-row', {
+  }), _vm._v(" "), _c('input', {
     attrs: {
-      "gutter": 20
-    }
-  }, [_c('el-col', [_c('el-form-item', {
-    attrs: {
-      "label": "Select user type"
-    }
-  }, [_c('el-radio-group', {
-    attrs: {
+      "type": "hidden",
       "name": "user_type"
     },
-    model: {
-      value: (_vm.user.user_type),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "user_type", $$v)
-      },
-      expression: "user.user_type"
+    domProps: {
+      "value": _vm.user.user_type
     }
-  }, [_c('el-radio-button', {
-    attrs: {
-      "name": "user_type",
-      "label": "user"
-    }
-  }, [_vm._v("Customer")]), _vm._v(" "), _c('el-radio-button', {
-    attrs: {
-      "name": "user_type",
-      "label": "artist"
-    }
-  }, [_vm._v("Artist")]), _vm._v(" "), _c('el-radio-button', {
-    attrs: {
-      "name": "user_type",
-      "label": "gallery"
-    }
-  }, [_vm._v("Gallery")])], 1)], 1)], 1)], 1), _vm._v(" "), _c('el-row', {
+  }), _vm._v(" "), _c('el-row', {
     attrs: {
       "gutter": 20
     }

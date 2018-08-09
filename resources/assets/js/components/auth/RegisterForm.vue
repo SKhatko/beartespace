@@ -10,22 +10,23 @@
                 <errors></errors>
 
                 <input type="hidden" name="_token" :value="csrf">
+                <input type="hidden" name="user_type" :value="user.user_type">
 
 
-                <el-row :gutter="20">
-                    <el-col>
+                <!--<el-row :gutter="20">-->
+                    <!--<el-col>-->
 
-                        <el-form-item label="Select user type">
+                        <!--<el-form-item label="Select user type">-->
 
-                            <el-radio-group v-model="user.user_type" name="user_type">
-                                <el-radio-button name="user_type" label="user">Customer</el-radio-button>
-                                <el-radio-button name="user_type" label="artist">Artist</el-radio-button>
-                                <el-radio-button name="user_type" label="gallery">Gallery</el-radio-button>
-                            </el-radio-group>
+                            <!--<el-radio-group v-model="user.user_type" name="user_type">-->
+                                <!--<el-radio-button name="user_type" label="user">Customer</el-radio-button>-->
+                                <!--<el-radio-button name="user_type" label="artist">Artist</el-radio-button>-->
+                                <!--<el-radio-button name="user_type" label="gallery">Gallery</el-radio-button>-->
+                            <!--</el-radio-group>-->
 
-                        </el-form-item>
-                    </el-col>
-                </el-row>
+                        <!--</el-form-item>-->
+                    <!--</el-col>-->
+                <!--</el-row>-->
 
                 <el-row :gutter="20">
                     <el-col :sm="12">
@@ -87,7 +88,9 @@
 
     export default {
 
-        props: {},
+        props: {
+            userType: ''
+        },
         components: {Errors},
 
         data() {
@@ -114,9 +117,9 @@
                     password: [
                         {required: true, message: 'Please enter password'}
                     ],
-                    user_type: [
-                        {required: true, message: 'Please select customer type'}
-                    ]
+                    // user_type: [
+                    //     {required: true, message: 'Please select customer type'}
+                    // ]
                 },
                 csrf: ''
 
@@ -125,6 +128,12 @@
 
         mounted() {
             this.csrf = window.csrf;
+
+            if(this.userType) {
+                this.user.user_type = this.userType;
+            }
+
+            console.log(this.user.user_type);
         },
 
         methods: {

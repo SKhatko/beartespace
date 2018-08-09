@@ -7,7 +7,7 @@
     <div class="app--wrapper">
         Gallery invitation and registration
 
-        <register-form></register-form>
+        <register-form user-type="customer"></register-form>
 
     </div>
 
