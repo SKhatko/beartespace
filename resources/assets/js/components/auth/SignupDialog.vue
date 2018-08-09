@@ -1,10 +1,10 @@
 <template>
 
     <div>
-        <a href="/register" @click.prevent="showRegisterDialog = !showRegisterDialog">{{ trans('portal')['signup']}}</a>
+        <a href="/register" @click.prevent="showSignupDialog = !showSignupDialog">{{ trans('portal')['signup']}}</a>
 
         <el-dialog
-                :visible.sync="showRegisterDialog"
+                :visible.sync="showSignupDialog"
                 width="30%"
                 center>
 
@@ -24,7 +24,7 @@
 
                 <hr style="margin-bottom: 20px;">
 
-                <el-row :gutter="20" style="margin-bottom: 30px">
+                <el-row :gutter="20" style="margin-bottom: 20px">
 
                     <el-col>
                         <a href="/invite/artist">
@@ -39,7 +39,7 @@
 
                 <hr style="margin-bottom: 20px;">
 
-                <el-row :gutter="20" style="margin-bottom: 20px">
+                <el-row :gutter="20">
 
                     <el-col>
                         <a href="/invite/gallery">
@@ -64,7 +64,7 @@
     export default {
         data() {
             return {
-                showRegisterDialog: false
+                showSignupDialog: false
             }
         },
         mounted() {
@@ -81,7 +81,8 @@
         .icon {
             display: block;
             font-size: 32px;
-            margin-bottom: 10px;
+            border-right: 2px solid white;
+            margin-right: 10px;
         }
 
         .el-card__body {

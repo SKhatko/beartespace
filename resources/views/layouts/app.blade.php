@@ -115,7 +115,7 @@
                 <div class="app-header-auth">
                     @if (Auth::guest())
                         <a href="{{ route('login') }}">@lang('portal.login')</a>&nbsp; | &nbsp;
-                        <register-dialog></register-dialog>&nbsp; |
+                        <signup-dialog></signup-dialog>&nbsp; |
                     @else
                         <el-dropdown trigger="hover">
                       <span class="el-dropdown-link">

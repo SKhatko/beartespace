@@ -16153,7 +16153,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_4_vue_awesome_swiper___default.a, {
 });
 
 Vue.component('partials-artwork', __webpack_require__(217));
-Vue.component('register-dialog', __webpack_require__(218));
+Vue.component('signup-dialog', __webpack_require__(251));
 
 Vue.component('artworks-menu', __webpack_require__(206));
 Vue.component('artists-menu', __webpack_require__(205));
@@ -20554,84 +20554,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 135 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            showRegisterDialog: false
-        };
-    },
-    mounted: function mounted() {}
-});
-
-/***/ }),
+/* 135 */,
 /* 136 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21542,13 +21465,7 @@ exports = module.exports = __webpack_require__(66)();
 exports.push([module.i, "\n.profile-avatar-cropper {\n  line-height: initial;\n  margin-bottom: 10px;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-align: start;\n      align-items: flex-start;\n  position: relative;\n}\n.profile-avatar-cropper .croppa-container {\n    border: 1px dashed #379797;\n}\n.profile-avatar-save {\n  position: absolute;\n  bottom: 10px;\n  left: 110px;\n}\n", ""]);
 
 /***/ }),
-/* 171 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(66)();
-exports.push([module.i, "\n.register .icon {\n  display: block;\n  font-size: 32px;\n  margin-bottom: 10px;\n}\n.register .el-card__body {\n  background-color: #3babab;\n  color: #ffffff;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-align: center;\n      align-items: center;\n  font-size: 16px;\n  cursor: pointer;\n}\n.register .el-card__body:hover {\n    background-color: #379797;\n}\n", ""]);
-
-/***/ }),
+/* 171 */,
 /* 172 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -74182,44 +74099,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 218 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-/* styles */
-__webpack_require__(235)
-
-var Component = __webpack_require__(1)(
-  /* script */
-  __webpack_require__(135),
-  /* template */
-  __webpack_require__(226),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "/Users/skhatko/code/larabid/resources/assets/js/components/partials/RegisterDialog.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] RegisterDialog.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-5dabfe77", Component.options)
-  } else {
-    hotAPI.reload("data-v-5dabfe77", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
+/* 218 */,
 /* 219 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -75706,103 +75586,7 @@ if (false) {
 }
 
 /***/ }),
-/* 226 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('a', {
-    attrs: {
-      "href": "/register"
-    },
-    on: {
-      "click": function($event) {
-        $event.preventDefault();
-        _vm.showRegisterDialog = !_vm.showRegisterDialog
-      }
-    }
-  }, [_vm._v(_vm._s(_vm.trans('portal')['signup']))]), _vm._v(" "), _c('el-dialog', {
-    attrs: {
-      "visible": _vm.showRegisterDialog,
-      "width": "30%",
-      "center": ""
-    },
-    on: {
-      "update:visible": function($event) {
-        _vm.showRegisterDialog = $event
-      }
-    }
-  }, [_c('div', {
-    staticClass: "register"
-  }, [_c('el-row', {
-    staticStyle: {
-      "margin-bottom": "20px"
-    },
-    attrs: {
-      "gutter": 20
-    }
-  }, [_c('el-col', [_c('a', {
-    attrs: {
-      "href": "/invite/customer"
-    }
-  }, [_c('el-card', {
-    attrs: {
-      "shadow": "hover"
-    }
-  }, [_c('i', {
-    staticClass: "icon icon-user-outline"
-  }), _vm._v(" "), _c('p', [_vm._v(" I'm a customer. I want to buy Art")])])], 1)])], 1), _vm._v(" "), _c('hr', {
-    staticStyle: {
-      "margin-bottom": "20px"
-    }
-  }), _vm._v(" "), _c('el-row', {
-    staticStyle: {
-      "margin-bottom": "30px"
-    },
-    attrs: {
-      "gutter": 20
-    }
-  }, [_c('el-col', [_c('a', {
-    attrs: {
-      "href": "/invite/artist"
-    }
-  }, [_c('el-card', {
-    attrs: {
-      "shadow": "hover"
-    }
-  }, [_c('i', {
-    staticClass: "icon icon-art-gallery"
-  }), _vm._v(" "), _c('p', [_vm._v(" I am an artist. I want to sell my artworks")])])], 1)])], 1), _vm._v(" "), _c('hr', {
-    staticStyle: {
-      "margin-bottom": "20px"
-    }
-  }), _vm._v(" "), _c('el-row', {
-    staticStyle: {
-      "margin-bottom": "20px"
-    },
-    attrs: {
-      "gutter": 20
-    }
-  }, [_c('el-col', [_c('a', {
-    attrs: {
-      "href": "/invite/gallery"
-    }
-  }, [_c('el-card', {
-    attrs: {
-      "shadow": "hover"
-    }
-  }, [_c('i', {
-    staticClass: "icon icon-picture"
-  }), _vm._v(" "), _c('p', [_vm._v(" I am a Gallery. I want to buy and sell art")])])], 1)])], 1)], 1)])], 1)
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-5dabfe77", module.exports)
-  }
-}
-
-/***/ }),
+/* 226 */,
 /* 227 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -76973,32 +76757,7 @@ if(false) {
 }
 
 /***/ }),
-/* 235 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(171);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(77)("03e3380b", content, false);
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-5dabfe77\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./RegisterDialog.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-5dabfe77\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./RegisterDialog.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
+/* 235 */,
 /* 236 */
 /***/ (function(module, exports) {
 
@@ -77990,6 +77749,258 @@ var index_esm = {
 __webpack_require__(78);
 module.exports = __webpack_require__(79);
 
+
+/***/ }),
+/* 240 */,
+/* 241 */,
+/* 242 */,
+/* 243 */,
+/* 244 */,
+/* 245 */,
+/* 246 */,
+/* 247 */,
+/* 248 */,
+/* 249 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            showSignupDialog: false
+        };
+    },
+    mounted: function mounted() {}
+});
+
+/***/ }),
+/* 250 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(66)();
+exports.push([module.i, "\n.register .icon {\n  display: block;\n  font-size: 32px;\n  border-right: 2px solid white;\n  margin-right: 10px;\n}\n.register .el-card__body {\n  background-color: #3babab;\n  color: #ffffff;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-align: center;\n      align-items: center;\n  font-size: 16px;\n  cursor: pointer;\n}\n.register .el-card__body:hover {\n    background-color: #379797;\n}\n", ""]);
+
+/***/ }),
+/* 251 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+/* styles */
+__webpack_require__(253)
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(249),
+  /* template */
+  __webpack_require__(252),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/skhatko/code/larabid/resources/assets/js/components/auth/SignupDialog.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] SignupDialog.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-b4db9954", Component.options)
+  } else {
+    hotAPI.reload("data-v-b4db9954", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 252 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('a', {
+    attrs: {
+      "href": "/register"
+    },
+    on: {
+      "click": function($event) {
+        $event.preventDefault();
+        _vm.showSignupDialog = !_vm.showSignupDialog
+      }
+    }
+  }, [_vm._v(_vm._s(_vm.trans('portal')['signup']))]), _vm._v(" "), _c('el-dialog', {
+    attrs: {
+      "visible": _vm.showSignupDialog,
+      "width": "30%",
+      "center": ""
+    },
+    on: {
+      "update:visible": function($event) {
+        _vm.showSignupDialog = $event
+      }
+    }
+  }, [_c('div', {
+    staticClass: "register"
+  }, [_c('el-row', {
+    staticStyle: {
+      "margin-bottom": "20px"
+    },
+    attrs: {
+      "gutter": 20
+    }
+  }, [_c('el-col', [_c('a', {
+    attrs: {
+      "href": "/invite/customer"
+    }
+  }, [_c('el-card', {
+    attrs: {
+      "shadow": "hover"
+    }
+  }, [_c('i', {
+    staticClass: "icon icon-user-outline"
+  }), _vm._v(" "), _c('p', [_vm._v(" I'm a customer. I want to buy Art")])])], 1)])], 1), _vm._v(" "), _c('hr', {
+    staticStyle: {
+      "margin-bottom": "20px"
+    }
+  }), _vm._v(" "), _c('el-row', {
+    staticStyle: {
+      "margin-bottom": "20px"
+    },
+    attrs: {
+      "gutter": 20
+    }
+  }, [_c('el-col', [_c('a', {
+    attrs: {
+      "href": "/invite/artist"
+    }
+  }, [_c('el-card', {
+    attrs: {
+      "shadow": "hover"
+    }
+  }, [_c('i', {
+    staticClass: "icon icon-art-gallery"
+  }), _vm._v(" "), _c('p', [_vm._v(" I am an artist. I want to sell my artworks")])])], 1)])], 1), _vm._v(" "), _c('hr', {
+    staticStyle: {
+      "margin-bottom": "20px"
+    }
+  }), _vm._v(" "), _c('el-row', {
+    attrs: {
+      "gutter": 20
+    }
+  }, [_c('el-col', [_c('a', {
+    attrs: {
+      "href": "/invite/gallery"
+    }
+  }, [_c('el-card', {
+    attrs: {
+      "shadow": "hover"
+    }
+  }, [_c('i', {
+    staticClass: "icon icon-picture"
+  }), _vm._v(" "), _c('p', [_vm._v(" I am a Gallery. I want to buy and sell art")])])], 1)])], 1)], 1)])], 1)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-b4db9954", module.exports)
+  }
+}
+
+/***/ }),
+/* 253 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(250);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(77)("10917c36", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-b4db9954\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./SignupDialog.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-b4db9954\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./SignupDialog.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
 
 /***/ })
 /******/ ]);

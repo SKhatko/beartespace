@@ -6,7 +6,9 @@
 
     <div class="app--wrapper">
         Artist invitation and registration
-        <el-button><a href="{{ route('register') }}">Register</a></el-button>
+
+        <register-form></register-form>
+
     </div>
 
 @endsection

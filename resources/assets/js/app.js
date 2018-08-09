@@ -40,7 +40,7 @@ Vue.use(VueAwesomeSwiper, {
 });
 
 Vue.component('partials-artwork', require('./components/partials/Artwork.vue'));
-Vue.component('register-dialog', require('./components/partials/RegisterDialog.vue'));
+Vue.component('signup-dialog', require('./components/auth/SignupDialog.vue'));
 
 Vue.component('artworks-menu', require('./components/ArtworksMenu.vue'));
 Vue.component('artists-menu', require('./components/ArtistsMenu.vue'));
