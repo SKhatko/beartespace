@@ -16180,6 +16180,12 @@ var app = new Vue({
     },
     mounted: function mounted() {
 
+        if (window.alert) {
+            this.$alert(window.alert.message, window.alert.title, {
+                confirmButtonText: 'OK'
+            });
+        }
+
         if (window.notify) {
             this.$notify.info({
                 title: window.notify.title,
@@ -74207,15 +74213,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "native-type": "submit",
       "loading": _vm.loading
     }
-  }, [_vm._v("Login")]), _vm._v(" "), _c('el-button', {
+  }, [_vm._v("Login")]), _vm._v(" "), _c('signup-dialog', {
     attrs: {
-      "type": "text"
+      "type_": "button"
     }
-  }, [_c('a', {
-    attrs: {
-      "href": "/register"
-    }
-  }, [_vm._v("Create New Account")])])], 1), _vm._v(" "), _c('el-button', {
+  })], 1), _vm._v(" "), _c('el-button', {
     attrs: {
       "type": "text"
     }
@@ -74707,7 +74709,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.email"
     }
-  })], 1)], 1), _vm._v(" "), (_vm.user.user_type === 'artist' || _vm.user.user_type === 'gallery') ? _c('el-col', {
+  })], 1)], 1), _vm._v(" "), _c('el-col', {
     attrs: {
       "sm": 8
     }
@@ -74737,7 +74739,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "value": country.id
       }
     })
-  }))], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist' || _vm.user.user_type === 'gallery') ? _c('el-col', {
+  }))], 1)], 1), _vm._v(" "), _c('el-col', {
     attrs: {
       "sm": 12
     }
@@ -74754,7 +74756,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.city"
     }
-  })], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist' || _vm.user.user_type === 'gallery') ? _c('el-col', {
+  })], 1)], 1), _vm._v(" "), _c('el-col', {
     attrs: {
       "sm": 12
     }
@@ -74771,7 +74773,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.postcode"
     }
-  })], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist' || _vm.user.user_type === 'gallery') ? _c('el-col', {
+  })], 1)], 1), _vm._v(" "), _c('el-col', {
     attrs: {
       "sm": 12
     }
@@ -74793,7 +74795,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.address"
     }
-  })], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-col', {
+  })], 1)], 1), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-col', {
     attrs: {
       "sm": 8
     }
@@ -77812,8 +77814,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+    props: {
+        type_: ''
+    },
     data: function data() {
         return {
             showSignupDialog: false
@@ -77827,7 +77833,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(66)();
-exports.push([module.i, "\n.register .icon {\n  display: block;\n  font-size: 32px;\n  border-right: 2px solid white;\n  margin-right: 10px;\n}\n.register .el-card__body {\n  background-color: #3babab;\n  color: #ffffff;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-align: center;\n      align-items: center;\n  font-size: 16px;\n  cursor: pointer;\n}\n.register .el-card__body:hover {\n    background-color: #379797;\n}\n", ""]);
+exports.push([module.i, "\n.register .icon {\n  display: block;\n  font-size: 32px;\n  border-right: 2px solid white;\n  margin-right: 10px;\n}\n.register p {\n  line-height: 20px;\n}\n.register .el-card__body {\n  background-color: #3babab;\n  color: #ffffff;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-align: center;\n      align-items: center;\n  font-size: 16px;\n  cursor: pointer;\n}\n.register .el-card__body:hover {\n    background-color: #379797;\n}\n", ""]);
 
 /***/ }),
 /* 251 */
@@ -77872,7 +77878,11 @@ module.exports = Component.exports
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('a', {
+  return _c('div', {
+    staticStyle: {
+      "display": "inline-block"
+    }
+  }, [(_vm.type_ === 'link') ? _c('a', {
     attrs: {
       "href": "/register"
     },
@@ -77882,10 +77892,20 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.showSignupDialog = !_vm.showSignupDialog
       }
     }
-  }, [_vm._v(_vm._s(_vm.trans('portal')['signup']))]), _vm._v(" "), _c('el-dialog', {
+  }, [_vm._v(_vm._s(_vm.trans('portal')['signup']))]) : _vm._e(), _vm._v(" "), (_vm.type_ === 'button') ? _c('el-button', {
+    attrs: {
+      "type": "text"
+    },
+    on: {
+      "click": function($event) {
+        $event.preventDefault();
+        _vm.showSignupDialog = !_vm.showSignupDialog
+      }
+    }
+  }, [_vm._v("  Create New Account")]) : _vm._e(), _vm._v(" "), _c('el-dialog', {
     attrs: {
       "visible": _vm.showSignupDialog,
-      "width": "30%",
+      "width": "400px",
       "center": ""
     },
     on: {

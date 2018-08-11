@@ -67,6 +67,12 @@ const app = new Vue({
     },
     mounted() {
 
+        if (window.alert) {
+            this.$alert(window.alert.message, window.alert.title, {
+                confirmButtonText: 'OK',
+            });
+        }
+
         if (window.notify) {
             this.$notify.info({
                 title: window.notify.title,

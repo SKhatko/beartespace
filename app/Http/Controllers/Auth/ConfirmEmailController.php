@@ -28,7 +28,12 @@ class ConfirmEmailController extends Controller
 
 		$user->save();
 
-		return redirect()->route('login');
+		auth()->login($user);
+
+		return redirect()->route('dashboard.profile')->with('alert', [
+			'title'   => 'Email address confirmed',
+			'message' => 'Please fill up profile information'
+		]);
 	}
 
 	public function resend() {

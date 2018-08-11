@@ -31,6 +31,8 @@
 
         window.favourites = '';
 
+        window.alert = {!! json_encode(session('alert')?? '') !!};
+
     </script>
 
 
@@ -115,7 +117,7 @@
                 <div class="app-header-auth">
                     @if (Auth::guest())
                         <a href="{{ route('login') }}">@lang('portal.login')</a>&nbsp; | &nbsp;
-                        <signup-dialog></signup-dialog>&nbsp; |
+                        <signup-dialog type_="link"></signup-dialog>&nbsp; |
                     @else
                         <el-dropdown trigger="hover">
                       <span class="el-dropdown-link">

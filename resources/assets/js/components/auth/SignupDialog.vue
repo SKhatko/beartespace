@@ -1,11 +1,12 @@
 <template>
 
-    <div>
-        <a href="/register" @click.prevent="showSignupDialog = !showSignupDialog">{{ trans('portal')['signup']}}</a>
+    <div style="display: inline-block;">
+        <a href="/register" v-if="type_ === 'link'" @click.prevent="showSignupDialog = !showSignupDialog">{{ trans('portal')['signup']}}</a>
+        <el-button type="text" v-if="type_ === 'button'" @click.prevent="showSignupDialog = !showSignupDialog">&nbsp; Create New Account</el-button>
 
         <el-dialog
                 :visible.sync="showSignupDialog"
-                width="30%"
+                width="400px"
                 center>
 
             <div class="register">
@@ -62,6 +63,9 @@
 
 <script>
     export default {
+        props: {
+            type_: ''
+        },
         data() {
             return {
                 showSignupDialog: false
@@ -83,6 +87,10 @@
             font-size: 32px;
             border-right: 2px solid white;
             margin-right: 10px;
+        }
+
+        p {
+            line-height: 20px;
         }
 
         .el-card__body {

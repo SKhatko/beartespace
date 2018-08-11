@@ -71,7 +71,7 @@
                     </el-form-item>
                 </el-col>
 
-                <el-col :sm="8" v-if="user.user_type === 'artist' || user.user_type === 'gallery' ">
+                <el-col :sm="8">
                     <el-form-item label="Country" prop="country_id">
                         <el-select filterable value="user.country_id" v-model="user.country_id"
                                    placeholder="Select country">
@@ -86,19 +86,19 @@
                 </el-col>
 
 
-                <el-col :sm="12" v-if="user.user_type === 'artist' || user.user_type === 'gallery' ">
+                <el-col :sm="12">
                     <el-form-item label="City" prop="city">
                         <el-input v-model="user.city"></el-input>
                     </el-form-item>
                 </el-col>
 
-                <el-col :sm="12" v-if="user.user_type === 'artist' || user.user_type === 'gallery' ">
+                <el-col :sm="12">
                     <el-form-item label="Postcode" prop="postcode">
                         <el-input v-model="user.postcode"></el-input>
                     </el-form-item>
                 </el-col>
 
-                <el-col :sm="12" v-if="user.user_type === 'artist' || user.user_type === 'gallery' ">
+                <el-col :sm="12">
                     <el-form-item label="Address" prop="address">
                         <el-input
                                 type="textarea"

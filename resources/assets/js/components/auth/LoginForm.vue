@@ -29,7 +29,7 @@
                 <el-form-item>
                     <el-button type="primary" native-type="submit" :loading="loading">Login</el-button>
 
-                    <el-button type="text"><a href="/register">Create New Account</a></el-button>
+                    <signup-dialog type_="button"></signup-dialog>
 
                 </el-form-item>
 
