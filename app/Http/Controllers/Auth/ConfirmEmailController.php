@@ -19,14 +19,15 @@ class ConfirmEmailController extends Controller
 		$user = User::where( 'activation_token', $token )->first();
 
 		if ( ! $user ) {
-			return redirect()->route('register');
+			return redirect('/');
 		}
 
 		$user->email_verified = true;
 
 		$user->save();
 
-		auth()->login($user);
+//		auth()->login($user);
+		return redirect()->route('login');
 
 		return redirect()->route('dashboard.profile')->with('alert', [
 			'title'   => 'Email address confirmed',

@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use Carbon\Carbon;
 use Closure;
 
 class TrialPlan
@@ -15,10 +16,8 @@ class TrialPlan
      */
     public function handle($request, Closure $next)
     {
-    	if(auth()->user()->user_plan == 'trial') {
+    	if(auth()->user()->user_plan == 'trial' && auth()->user()->created_at >= Carbon::now()->addDays(30)->toDateTimeString()) {
 		    return redirect()->route('payment.plan.update');
-
-//		    dd(auth()->user()->created_at);
 	    }
 
         return $next($request);

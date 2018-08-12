@@ -27,7 +27,7 @@
                         <div class="h4">Basic</div>
 
                         <p>
-                            <el-button type="success"><a href="/register?p=base&u=artist">Continue</a></el-button>
+                            <el-button type="success"><a href="/register?p=basic&u=artist">Continue</a></el-button>
                         </p>
                     </div>
                 </el-card>

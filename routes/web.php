@@ -16,7 +16,7 @@ Route::group( [ 'middleware' => 'web' ], function () {
 	Auth::routes();
 
 	Route::get( 'confirm-email/activate/{token}', 'Auth\ConfirmEmailController@confirm' )->name( 'confirm-email.activate' );
-	Route::get( 'confirm-email/verify', 'Auth\ConfirmEmailController@verify' )->name( 'confirm-email.verify' )->middleware('auth');
+	Route::get( 'confirm-email/verify', 'Auth\ConfirmEmailController@verify' )->name( 'confirm-email.verify' )->middleware( 'auth' );
 	Route::get( 'confirm-email/resend', 'Auth\ConfirmEmailController@resend' )->name( 'confirm-email.resend' );
 
 	Route::get( 'payment/plan/update', 'PaymentController@updatePlan' )->name( 'payment.plan.update' );
@@ -46,10 +46,10 @@ Route::group( [ 'middleware' => 'web' ], function () {
 	Route::get( '/artists/{id}', 'HomeController@artist' )->name( 'artist' );
 
 	// Invites
-	Route::get( '/invite/artist', 'HomeController@inviteArtist')->name('invite.artist');
-	Route::get( '/invite/gallery', 'HomeController@inviteGallery')->name('invite.gallery');
-	Route::get( '/invite/writer', 'HomeController@inviteWriter')->name('invite.writer');
-	Route::get( '/invite/customer', 'HomeController@inviteCustomer')->name('invite.customer');
+	Route::get( '/invite/artist', 'HomeController@inviteArtist' )->name( 'invite.artist' );
+	Route::get( '/invite/gallery', 'HomeController@inviteGallery' )->name( 'invite.gallery' );
+	Route::get( '/invite/writer', 'HomeController@inviteWriter' )->name( 'invite.writer' );
+	Route::get( '/invite/customer', 'HomeController@inviteCustomer' )->name( 'invite.customer' );
 	// Contact us page
 	Route::get( 'contact-form', 'HomeController@contactForm' )->name( 'contact-form' );
 	Route::post( 'contact-form', 'HomeController@contactFormPost' )->name( 'contact-form' );
@@ -61,10 +61,10 @@ Route::group( [ 'middleware' => 'web' ], function () {
 	Route::post( 'add-lead', 'LeadController@addLead' )->name( 'add-lead' );
 
 	// Page
-	Route::get('page/{slug}', 'PageController@show')->name('page');
+	Route::get( 'page/{slug}', 'PageController@show' )->name( 'page' );
 
-	Route::get( '/language/{lang}', 'LanguageController@switchLang')->name('switch-language');
-	Route::get( '/currency/{code}', 'CurrencyController@switchCurrency')->name('switch-currency');
+	Route::get( '/language/{lang}', 'LanguageController@switchLang' )->name( 'switch-language' );
+	Route::get( '/currency/{code}', 'CurrencyController@switchCurrency' )->name( 'switch-currency' );
 
 	// Shopping
 	Route::get( 'shopping-cart', 'CartController@index' )->name( 'shopping-cart' );
@@ -79,7 +79,17 @@ Route::group( [ 'middleware' => 'web' ], function () {
 	Route::get( 'shipping', 'HomeController@shipping' )->name( 'shipping' );
 
 	//Dashboard Route
-	Route::group( [ 'prefix' => 'dashboard', 'middleware' => [ 'dashboard', 'confirmed-email', 'has-profile-avatar', 'trial-plan' ] ], function () {
+	Route::group( [
+		'prefix'     => 'dashboard',
+		'middleware' => [
+			'dashboard',
+			'confirmed-email',
+			'has-profile-avatar',
+			'trial-plan',
+			'basic-plan',
+			'expanded-plan'
+		]
+	], function () {
 
 		// All users access
 		Route::get( '/', 'DashboardController@dashboard' )->name( 'dashboard' );
