@@ -18,7 +18,7 @@ class TrialPlan
     	if(auth()->user()->user_plan == 'trial') {
 		    return redirect()->route('payment.plan.update');
 
-		    dd(auth()->user()->created_at);
+//		    dd(auth()->user()->created_at);
 	    }
 
         return $next($request);

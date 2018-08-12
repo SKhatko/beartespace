@@ -54,8 +54,6 @@ function currentLanguage() {
 		return $language;
 	}
 
-	dd( \App\Language::first());
-
 	return \App\Language::first();
 }
 
