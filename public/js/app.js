@@ -18937,6 +18937,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -18944,13 +18945,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
 
     props: {
-        userType: ''
+        userType: '',
+        userPlan: ''
     },
     components: { Errors: __WEBPACK_IMPORTED_MODULE_0__partials_Errors_vue___default.a },
 
     data: function data() {
         return {
             user: {
+                user_plan: 'trial',
                 user_type: 'user',
                 first_name: '',
                 last_name: '',
@@ -18979,7 +18982,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.user.user_type = this.userType;
         }
 
+        if (this.userPlan) {
+            this.user.user_plan = this.userPlan;
+        }
+
         console.log(this.user.user_type);
+        console.log(this.user.user_plan);
     },
 
 
@@ -75166,12 +75174,44 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "value": _vm.csrf
     }
   }), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.user.user_type),
+      expression: "user.user_type"
+    }],
     attrs: {
       "type": "hidden",
       "name": "user_type"
     },
     domProps: {
-      "value": _vm.user.user_type
+      "value": (_vm.user.user_type)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.$set(_vm.user, "user_type", $event.target.value)
+      }
+    }
+  }), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.user.user_plan),
+      expression: "user.user_plan"
+    }],
+    attrs: {
+      "type": "hidden",
+      "name": "user_plan"
+    },
+    domProps: {
+      "value": (_vm.user.user_plan)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.$set(_vm.user, "user_plan", $event.target.value)
+      }
     }
   }), _vm._v(" "), _c('el-row', {
     attrs: {

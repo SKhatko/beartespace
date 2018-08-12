@@ -13,7 +13,7 @@
                 </div>
 
                 <p>
-                    Confirmation has been send to {{ auth()->user()->email }}.
+                    Confirmation has been send to <b>{{ auth()->user()->email }}</b>.
                 </p>
                 <p>
                     Please go to your email box and follow the link to continue.

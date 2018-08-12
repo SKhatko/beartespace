@@ -375,6 +375,25 @@ body, html {
 
   }
 
+  &-invite {
+    padding: 80px 15px;
+    text-align: center;
+
+    .pricing {
+      display: flex;
+      justify-content: center;
+      //max-width: 900px;
+      margin: 50px auto;
+
+      &-plan {
+        margin: 0 10px;
+        //flex: 1 0 30%;
+      }
+
+
+    }
+  }
+
   &-artists {
     //display: flex;
     padding: 15px;
@@ -608,7 +627,7 @@ body, html {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 100px 15px;
+    padding: 80px 15px;
 
     &-login {
       width: 400px;

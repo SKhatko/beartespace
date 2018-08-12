@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <register-form></register-form>
+    <register-form user-type="{{ $userType ?? 'user' }}" user-plan="{{ $userPlan ?? 'trial' }}"></register-form>
 
 @endsection
 

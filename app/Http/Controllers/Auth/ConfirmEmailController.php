@@ -11,9 +11,7 @@ class ConfirmEmailController extends Controller
 {
 	public function verify() {
 
-		$user = auth()->user();
-
-		return view( 'auth.confirm', compact('user'));
+		return view( 'auth.confirm');
 	}
 
 	public function confirm( $token ) {

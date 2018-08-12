@@ -10,7 +10,8 @@
                 <errors></errors>
 
                 <input type="hidden" name="_token" :value="csrf">
-                <input type="hidden" name="user_type" :value="user.user_type">
+                <input type="hidden" name="user_type" v-model="user.user_type">
+                <input type="hidden" name="user_plan" v-model="user.user_plan">
 
 
                 <!--<el-row :gutter="20">-->
@@ -89,13 +90,15 @@
     export default {
 
         props: {
-            userType: ''
+            userType: '',
+            userPlan: ''
         },
         components: {Errors},
 
         data() {
             return {
                 user: {
+                    user_plan: 'trial',
                     user_type: 'user',
                     first_name: '',
                     last_name: '',
@@ -133,7 +136,12 @@
                 this.user.user_type = this.userType;
             }
 
+            if(this.userPlan) {
+                this.user.user_plan = this.userPlan;
+            }
+
             console.log(this.user.user_type);
+            console.log(this.user.user_plan);
         },
 
         methods: {

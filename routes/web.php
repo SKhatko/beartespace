@@ -19,6 +19,8 @@ Route::group( [ 'middleware' => 'web' ], function () {
 	Route::get( 'confirm-email/verify', 'Auth\ConfirmEmailController@verify' )->name( 'confirm-email.verify' )->middleware('auth');
 	Route::get( 'confirm-email/resend', 'Auth\ConfirmEmailController@resend' )->name( 'confirm-email.resend' );
 
+	Route::get( 'payment/plan/update', 'PaymentController@updatePlan' )->name( 'payment.plan.update' );
+
 	Route::group( [ 'prefix' => 'login' ], function () {
 		//Social login route
 		Route::get( 'facebook', 'SocialLogin@redirectFacebook' )->name( 'facebook_redirect' );
@@ -77,7 +79,7 @@ Route::group( [ 'middleware' => 'web' ], function () {
 	Route::get( 'shipping', 'HomeController@shipping' )->name( 'shipping' );
 
 	//Dashboard Route
-	Route::group( [ 'prefix' => 'dashboard', 'middleware' => [ 'dashboard', 'confirmed-email', 'has-profile-avatar' ] ], function () {
+	Route::group( [ 'prefix' => 'dashboard', 'middleware' => [ 'dashboard', 'confirmed-email', 'has-profile-avatar', 'trial-plan' ] ], function () {
 
 		// All users access
 		Route::get( '/', 'DashboardController@dashboard' )->name( 'dashboard' );
