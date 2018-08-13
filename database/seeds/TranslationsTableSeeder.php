@@ -26,7 +26,10 @@ class TranslationsTableSeeder extends Seeder {
 				[ 'Medium', '' ],
 				[ 'Theme', '' ],
 				[ 'Color', '' ],
-				[ 'Technique', '' ]
+				[ 'Technique', '' ],
+				[ 'Basic', ''],
+				[ 'Expanded', ''],
+				[ 'Trial', ''],
 			],
 			'category'  => [
 				[ 'Painting', 'Maleri' ],

@@ -35,7 +35,6 @@
 
             <el-form-item v-if="activePlan">
                 <div class="h1" style="text-align:center">
-                    {{ this.activePlan[this.selectedPeriod]}}
                     {{ activePlan[selectedPeriod] }}
                 </div>
             </el-form-item>
@@ -54,9 +53,11 @@
         props: {
             stripeKey: '',
             plans_: {},
+            user_: {},
         },
         data() {
             return {
+                user: [],
                 stripeFormData: {
                     stripeEmail: '',
                     stripeToken: '',
@@ -76,20 +77,30 @@
         },
         mounted() {
 
+            console.log(window.cfg);
+            if(this.user_) {
+                this.user = JSON.parse(this.user_);
+            }
+
             if (this.plans_) {
                 this.plans = JSON.parse(this.plans_);
                 console.log(this.plans);
             }
 
+            console.log(this.activePlan[this.selectedPeriod + '_price'] * 100);
+
             this.stripe = StripeCheckout.configure({
                 key: this.stripeKey,
                 image: "/images/b-favicon-64.png",
                 locale: "auto",
+                currency: window.cfg.currency,
+                email: this.user.email,
                 panelLabel: "Subscribe For",
                 token: (token) => {
                     this.stripeFormData.stripeToken = token.id;
                     this.stripeFormData.stripeEmail = token.email;
                     this.stripeFormData.plan = this.activePlan;
+                    this.stripeFormData.period = this.selectedPeriod;
                     this.stripeFormData.coupon = this.coupon;
 
                     axios.post('/subscription/stripe', this.stripeFormData)
@@ -111,7 +122,7 @@
                     name: this.activePlan.name,
                     description: 'Subscription plan on BeArteBid',
                     zipCode: false,
-                    amount: this.activePlan[this.selectedPeriod],
+                    amount: this.activePlan[this.selectedPeriod + '_price'] * 100,
                 });
                 this.stripeLoading = false;
             },

@@ -13,26 +13,26 @@ class PlansSeeder extends Seeder {
 			[
 				'name'      => 'basic',
 				'user_type' => 'user',
-				'month'     => '10.99',
-				'year'      => '80.29'
+				'month_price'     => '9.99',
+				'year_price'      => '99.29'
 			],
 			[
 				'name'      => 'basic',
 				'user_type' => 'artist',
-				'month'     => '10.99',
-				'year'      => '80.29'
+				'month_price'     => '10.99',
+				'year_price'      => '80.29'
 			],
 			[
 				'name'      => 'expanded',
 				'user_type' => 'user',
-				'month'     => '10.99',
-				'year'      => '80.29'
+				'month_price'     => '11.99',
+				'year_price'      => '89.29'
 			],
 			[
 				'name'      => 'expanded',
 				'user_type' => 'artist',
-				'month'     => '10.99',
-				'year'      => '80.29'
+				'month_price'     => '15.99',
+				'year_price_price'      => '100.29'
 			],
 		] );
 	}

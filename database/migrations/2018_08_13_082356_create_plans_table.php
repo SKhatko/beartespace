@@ -17,7 +17,9 @@ class CreatePlansTable extends Migration
             $table->increments('id');
 	        $table->string('name');
 	        $table->enum('user_type', ['user', 'artist', 'gallery']);
+	        $table->decimal('month_price', 12,2)->nullable();
 	        $table->decimal('month', 12,2)->nullable();
+	        $table->decimal('year_price', 12,2)->nullable();
 	        $table->decimal('year', 12,2)->nullable();
 	        $table->timestamps();
         });

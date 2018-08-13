@@ -20735,15 +20735,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
         stripeKey: '',
-        plans_: {}
+        plans_: {},
+        user_: {}
     },
     data: function data() {
         return {
+            user: [],
             stripeFormData: {
                 stripeEmail: '',
                 stripeToken: '',
@@ -20764,20 +20765,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     mounted: function mounted() {
         var _this = this;
 
+        console.log(window.cfg);
+        if (this.user_) {
+            this.user = JSON.parse(this.user_);
+        }
+
         if (this.plans_) {
             this.plans = JSON.parse(this.plans_);
             console.log(this.plans);
         }
 
+        console.log(this.activePlan[this.selectedPeriod + '_price'] * 100);
+
         this.stripe = StripeCheckout.configure({
             key: this.stripeKey,
             image: "/images/b-favicon-64.png",
             locale: "auto",
+            currency: window.cfg.currency,
+            email: this.user.email,
             panelLabel: "Subscribe For",
             token: function token(_token) {
                 _this.stripeFormData.stripeToken = _token.id;
                 _this.stripeFormData.stripeEmail = _token.email;
                 _this.stripeFormData.plan = _this.activePlan;
+                _this.stripeFormData.period = _this.selectedPeriod;
                 _this.stripeFormData.coupon = _this.coupon;
 
                 axios.post('/subscription/stripe', _this.stripeFormData).then(function (response) {
@@ -20802,7 +20813,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 name: this.activePlan.name,
                 description: 'Subscription plan on BeArteBid',
                 zipCode: false,
-                amount: this.activePlan[this.selectedPeriod]
+                amount: this.activePlan[this.selectedPeriod + '_price'] * 100
             });
             this.stripeLoading = false;
         }
@@ -74616,7 +74627,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "text-align": "center"
     }
-  }, [_vm._v("\n                " + _vm._s(this.activePlan[this.selectedPeriod]) + "\n                " + _vm._s(_vm.activePlan[_vm.selectedPeriod]) + "\n            ")])]) : _vm._e(), _vm._v(" "), _c('el-button', {
+  }, [_vm._v("\n                " + _vm._s(_vm.activePlan[_vm.selectedPeriod]) + "\n            ")])]) : _vm._e(), _vm._v(" "), _c('el-button', {
     attrs: {
       "native-type": "submit",
       "loading": _vm.stripeLoading

@@ -17,6 +17,13 @@
     <link href="{{ mix('css/icons.css') }}" rel="stylesheet">
 
     <script>
+
+        window.cfg = {
+            'currency': '{{ session('currency') }}',
+            'locale': '{{ session('locale') }}'
+
+        };
+
         window.trans = {!! $translations !!};
 
         window.notify = {!! json_encode(session('notify') ?? '') !!};

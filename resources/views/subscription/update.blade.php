@@ -7,7 +7,10 @@
 
         @if(auth()->user())
 
-                <subscription-form stripe-key="{{ config('services.stripe.key') }}" plans_="{{ $plans }}"></subscription-form>
+            <subscription-form stripe-key="{{ config('services.stripe.key') }}"
+                               plans_="{{ $plans }}"
+                               user_="{{ auth()->user() }}">
+            </subscription-form>
 
         @endif
 
