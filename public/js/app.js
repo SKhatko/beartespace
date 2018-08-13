@@ -20124,6 +20124,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -20147,24 +20162,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             user: {
                 technique: []
             },
+            profileSaved: false,
             rules: {
                 first_name: [{ required: true }],
                 last_name: [{ required: true, message: 'Please enter last name', trigger: 'blur' }]
             },
+            csrf: '',
             countries: [],
             profileEditorToolbar: [[{ 'size': ['small', false, 'large', 'huge'] }], ['bold', 'italic', 'underline', 'strike'], [{ 'align': '' }, { 'align': 'center' }, { 'align': 'right' }, { 'align': 'justify' }], ['blockquote'], [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'list': 'check' }], [{ 'indent': '-1' }, { 'indent': '+1' }]]
         };
     },
     mounted: function mounted() {
+        this.csrf = window.csrf;
 
         if (this.user_) {
-            this.user = this.user_;
+            this.user = JSON.parse(this.user_);
         }
 
         console.log(this.user);
 
         if (this.countries_) {
-            this.countries = this.countries_;
+            this.countries = JSON.parse(this.countries_);
         }
 
         if (!this.user_.technique) {
@@ -20174,6 +20192,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
     methods: {
+        handleAvatarSuccess: function handleAvatarSuccess(response, file) {
+            console.log(response);
+            this.user.avatar = response.data;
+            this.$message({
+                showClose: true,
+                message: response.message,
+                type: response.status
+            });
+            // console.log(res.data);
+            // console.log(file);
+        },
+        beforeAvatarUpload: function beforeAvatarUpload(file) {
+            console.log(file);
+            // const isJPG = file.type === 'image/jpeg';
+            // const isLt2M = file.size / 1024 / 1024 < 2;
+            //
+            // if (!isJPG) {
+            //     this.$message.error('Avatar picture must be JPG format!');
+            // }
+            // if (!isLt2M) {
+            //     this.$message.error('Avatar picture size can not exceed 2MB!');
+            // }
+            // return isJPG && isLt2M;
+        },
         submitFile: function submitFile() {
             /*
                     Initialize the form data
@@ -20239,9 +20281,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         handleImageSuccess: function handleImageSuccess(res, file) {
             this.user.image = res.data;
         },
-        beforeAvatarUpload: function beforeAvatarUpload(file) {
-            console.log('beforeAvatarUpload');
-        },
         save: function save() {
             var _this = this;
 
@@ -20253,6 +20292,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         message: response.data.message,
                         type: response.data.status
                     });
+                    _this.profileSaved = true;
                 } else {
                     console.log(response.data);
                 }
@@ -21745,7 +21785,7 @@ for (var i = 0; i < DOMIterables.length; i++) {
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(66)();
-exports.push([module.i, "\n.profile-avatar-cropper {\n  line-height: initial;\n  margin-bottom: 10px;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-align: start;\n      align-items: flex-start;\n  position: relative;\n}\n.profile-avatar-cropper .croppa-container {\n    border: 1px dashed #379797;\n}\n.profile-avatar-save {\n  position: absolute;\n  bottom: 10px;\n  left: 110px;\n}\n", ""]);
+exports.push([module.i, "\n.profile-avatar-cropper {\n  line-height: initial;\n  margin-bottom: 10px;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-align: start;\n      align-items: flex-start;\n  position: relative;\n}\n.profile-avatar-cropper .croppa-container {\n    border: 1px dashed #379797;\n}\n.profile-avatar-save {\n  position: absolute;\n  bottom: 10px;\n  left: 110px;\n}\n.avatar-uploader .el-upload {\n  border: 1px dashed #d9d9d9;\n  border-radius: 6px;\n  cursor: pointer;\n  position: relative;\n  overflow: hidden;\n}\n.avatar-uploader .el-upload:hover {\n  border-color: #409EFF;\n}\n.avatar-uploader-icon {\n  font-size: 28px;\n  color: #8c939d;\n  width: 178px;\n  height: 178px;\n  line-height: 178px;\n  text-align: center;\n}\n.avatar {\n  width: 178px;\n  height: 178px;\n  display: block;\n}\n", ""]);
 
 /***/ }),
 /* 173 */
@@ -75131,8 +75171,31 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "label": _vm.user.user_type === 'gallery' ? 'Upload logo' : 'Upload avatar'
     }
-  }, [_c('div', {
-    staticClass: "profile-avatar-cropper"
+  }, [_c('el-upload', {
+    staticClass: "avatar-uploader",
+    attrs: {
+      "action": "/api/upload/user-avatar",
+      "headers": {
+        'X-Requested-With': 'XMLHttpRequest',
+        'X-CSRF-TOKEN': _vm.csrf
+      },
+      "show-file-list": false,
+      "accept": "image/*",
+      "on-success": _vm.handleAvatarSuccess,
+      "before-upload": _vm.beforeAvatarUpload
+    }
+  }, [(_vm.user.avatar) ? _c('img', {
+    staticClass: "avatar",
+    attrs: {
+      "src": _vm.user.avatar.url
+    }
+  }) : _c('i', {
+    staticClass: "el-icon-plus avatar-uploader-icon"
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "profile-avatar-cropper",
+    staticStyle: {
+      "display": "none"
+    }
   }, [_c('cropper', {
     attrs: {
       "placeholder": "Click to upload",
@@ -75182,7 +75245,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.uploadAvatar
     }
-  }, [_vm._v("\n                    Save\n                ")]) : _vm._e()], 1)])], 1), _vm._v(" "), _c('el-form', {
+  }, [_vm._v("\n                    Save\n                ")]) : _vm._e()], 1)], 1)], 1), _vm._v(" "), _c('el-form', {
     ref: "profile",
     attrs: {
       "label-position": "top",
@@ -75655,7 +75718,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "href": '/artist/' + _vm.user.id,
       "target": "_blank"
     }
-  }, [_vm._v("Preview")])]) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-button', {
+  }, [_vm._v("Preview")])]) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'user' && _vm.profileSaved) ? _c('el-button', {
+    staticStyle: {
+      "margin-top": "20px"
+    },
+    attrs: {
+      "type": "text"
+    }
+  }, [_c('a', {
+    attrs: {
+      "href": "/artworks"
+    }
+  }, [_vm._v("Show Artworks")])]) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-button', {
     attrs: {
       "type": "success"
     }

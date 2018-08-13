@@ -7,8 +7,8 @@
     @include('partials.back')
 
     <profile
-            :user_="{{ $user }}"
-            :countries_="{{ $countries }}">
+            user_="{{ $user }}"
+            countries_="{{ $countries }}">
     </profile>
 
 @endsection

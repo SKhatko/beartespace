@@ -13,7 +13,19 @@
 
             <el-form-item :label="user.user_type === 'gallery' ? 'Upload logo' : 'Upload avatar'">
 
-                <div class="profile-avatar-cropper">
+                <el-upload
+                        class="avatar-uploader"
+                        action="/api/upload/user-avatar"
+                        :headers="{'X-Requested-With': 'XMLHttpRequest', 'X-CSRF-TOKEN' : csrf}"
+                        :show-file-list="false"
+                        accept="image/*"
+                        :on-success="handleAvatarSuccess"
+                        :before-upload="beforeAvatarUpload">
+                    <img v-if="user.avatar" :src="user.avatar.url" class="avatar">
+                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                </el-upload>
+
+                <div class="profile-avatar-cropper" style="display: none;">
                     <cropper v-model="avatarCropper"
                              placeholder="Click to upload"
                              canvas-color="#ffffff"
@@ -247,13 +259,16 @@
                 <a :href="'/artist/' + user.id" target="_blank">Preview</a>
             </el-button>
 
+            <el-button style="margin-top: 20px" v-if="user.user_type === 'user' && profileSaved" type="text">
+                <a href="/artworks">Show Artworks</a>
+            </el-button>
+
             <el-button v-if="user.user_type === 'artist'" type="success">
                 <a href="/dashboard/artwork/create">Upload
                     Artwork</a>
             </el-button>
 
         </el-form>
-
 
     </el-card>
 
@@ -282,6 +297,7 @@
                 user: {
                     technique: [],
                 },
+                profileSaved: false,
                 rules: {
                     first_name: [
                         {required: true}
@@ -290,6 +306,7 @@
                         {required: true, message: 'Please enter last name', trigger: 'blur'}
                     ],
                 },
+                csrf: '',
                 countries: [],
                 profileEditorToolbar: [
                     [{'size': ['small', false, 'large', 'huge']}],
@@ -303,15 +320,16 @@
         },
 
         mounted() {
+            this.csrf = window.csrf;
 
             if (this.user_) {
-                this.user = this.user_;
+                this.user = JSON.parse(this.user_);
             }
 
             console.log(this.user);
 
             if (this.countries_) {
-                this.countries = this.countries_;
+                this.countries = JSON.parse(this.countries_);
             }
 
             if (!this.user_.technique) {
@@ -321,6 +339,30 @@
         },
 
         methods: {
+            handleAvatarSuccess(response, file) {
+                console.log(response);
+                this.user.avatar = response.data;
+                this.$message({
+                    showClose: true,
+                    message: response.message,
+                    type: response.status
+                });
+                // console.log(res.data);
+                // console.log(file);
+            },
+            beforeAvatarUpload(file) {
+                console.log(file);
+                // const isJPG = file.type === 'image/jpeg';
+                // const isLt2M = file.size / 1024 / 1024 < 2;
+                //
+                // if (!isJPG) {
+                //     this.$message.error('Avatar picture must be JPG format!');
+                // }
+                // if (!isLt2M) {
+                //     this.$message.error('Avatar picture size can not exceed 2MB!');
+                // }
+                // return isJPG && isLt2M;
+            },
             submitFile() {
                 /*
                         Initialize the form data
@@ -391,9 +433,6 @@
             handleImageSuccess(res, file) {
                 this.user.image = res.data;
             },
-            beforeAvatarUpload(file) {
-                console.log('beforeAvatarUpload');
-            },
 
             save() {
                 axios.post('/api/profile/', this.user)
@@ -405,6 +444,7 @@
                                 message: response.data.message,
                                 type: response.data.status
                             });
+                            this.profileSaved = true;
                         } else {
                             console.log(response.data);
                         }
@@ -480,6 +520,33 @@
         position: absolute;
         bottom: 10px;
         left: 110px;
+    }
+
+    .avatar-uploader .el-upload {
+        border: 1px dashed #d9d9d9;
+        border-radius: 6px;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .avatar-uploader .el-upload:hover {
+        border-color: #409EFF;
+    }
+
+    .avatar-uploader-icon {
+        font-size: 28px;
+        color: #8c939d;
+        width: 178px;
+        height: 178px;
+        line-height: 178px;
+        text-align: center;
+    }
+
+    .avatar {
+        width: 178px;
+        height: 178px;
+        display: block;
     }
 
 
