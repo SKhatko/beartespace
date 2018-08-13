@@ -20813,15 +20813,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     mounted: function mounted() {
         var _this = this;
 
-        console.log(window.cfg);
         if (this.user_) {
             this.user = JSON.parse(this.user_);
         }
 
         if (this.plans_) {
             this.plans = JSON.parse(this.plans_);
-            console.log(this.plans);
         }
+        console.log(this.plans);
 
         console.log(this.activePlan[this.selectedPeriod + '_price'] * 100);
 
