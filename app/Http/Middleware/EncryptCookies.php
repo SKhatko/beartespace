@@ -10,6 +10,9 @@ class EncryptCookies extends BaseEncrypter {
 	 *
 	 * @var array
 	 */
+	// TODO remove it, it's a workaround bug in laravel 5.6.30
+	protected static $serialize = true;
+
 	protected $except = [
 		//
 	];

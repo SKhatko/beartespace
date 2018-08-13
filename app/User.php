@@ -9,7 +9,7 @@ use Laravel\Passport\HasApiTokens;
 use Laravel\Cashier\Billable;
 
 class User extends Authenticatable {
-	use Billable,Notifiable, SoftDeletes, HasApiTokens;
+	use HasApiTokens, Billable, Notifiable, SoftDeletes;
 
 	protected $dates = [ 'deleted_at' ];
 
@@ -59,11 +59,11 @@ class User extends Authenticatable {
 	}
 
 	public function avatar() {
-		return $this->hasOne( Media::class, 'avatar_id');
+		return $this->hasOne( Media::class, 'avatar_id' );
 	}
 
 	public function image() {
-		return $this->hasOne( Media::class, 'image_id');
+		return $this->hasOne( Media::class, 'image_id' );
 	}
 
 
@@ -96,12 +96,8 @@ class User extends Authenticatable {
 	}
 
 	public function plans() {
-		return $this->hasMany(Plan::class, 'user_type', 'user_type');
+		return $this->hasMany( Plan::class, 'user_type', 'user_type' );
 	}
-
-
-
-
 
 
 	/**
