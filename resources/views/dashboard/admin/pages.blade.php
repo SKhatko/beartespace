@@ -4,9 +4,6 @@
 
 @section('admin-content')
 
-    <pages
-            :languages_="{{ $languages }}"
-            :pages_="{{ $pages }}">
-    </pages>
+    <pages languages_="{{ $languages }}" pages_="{{ $pages }}"></pages>
 
 @endsection

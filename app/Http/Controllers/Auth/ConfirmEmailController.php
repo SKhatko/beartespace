@@ -26,8 +26,9 @@ class ConfirmEmailController extends Controller
 
 		$user->save();
 
-//		auth()->login($user);
-		return redirect()->route('login');
+		auth()->logout();
+
+		return redirect()->route('dashboard.profile');
 
 		return redirect()->route('dashboard.profile')->with('alert', [
 			'title'   => 'Email address confirmed',

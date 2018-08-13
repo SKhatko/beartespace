@@ -38,7 +38,7 @@ Vue.use(VueAwesomeSwiper, {
     slidesPerView: 'auto',
     spaceBetween: 30
 });
-
+Vue.component('subscription-form', require('./components/payment/SubscriptionForm.vue'));
 Vue.component('partials-artwork', require('./components/partials/Artwork.vue'));
 Vue.component('signup-dialog', require('./components/auth/SignupDialog.vue'));
 
@@ -104,9 +104,9 @@ const app = new Vue({
             this.$store.commit('setInitialCart', window.cart);
         }
         //
-        // axios.get('/api/profile').then(response => {
-        //     console.log('profile', response.data);
-        // })
+        axios.get('/api/profile').then(response => {
+            console.log('profile', response.data);
+        })
         //     .catch(error => {
         //         if(error.response.status === 401) {
         //             // window.location.href = '/login';

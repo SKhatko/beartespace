@@ -2,10 +2,8 @@
 
 namespace App\Providers;
 
-use App\Country;
-use App\Post;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Cashier\Cashier;
 
 class AppServiceProvider extends ServiceProvider {
 	/**
@@ -32,6 +30,8 @@ class AppServiceProvider extends ServiceProvider {
 //				'current_lang' => $current_lang,
 			] );
 		} );
+
+		Cashier::useCurrency('eur', '€');
 
 	}
 

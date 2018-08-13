@@ -16,7 +16,6 @@ $factory->define( App\User::class, function ( Faker $faker ) {
 		'phone'            => $faker->phoneNumber,
 		'address'          => $faker->address,
 		'address_2'        => $faker->address,
-		'website'          => $faker->domainName,
 		'education'        => $faker->company,
 		'education_title'  => $faker->jobTitle,
 		'inspiration'      => $faker->paragraph,

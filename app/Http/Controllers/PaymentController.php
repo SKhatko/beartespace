@@ -11,12 +11,6 @@ use Illuminate\Support\Facades\Auth;
 
 class PaymentController extends Controller
 {
-
-	public function updatePlan() {
-
-		return view('payment.plan-update');
-	}
-    
     public function index(){
 
 	    $user = Auth::user();

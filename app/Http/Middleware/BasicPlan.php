@@ -16,7 +16,7 @@ class BasicPlan
     public function handle($request, Closure $next)
     {
 	    if(auth()->user()->user_plan == 'basic' ) {
-		    return redirect()->route('payment.plan.update');
+		    return redirect()->route('subscription.update');
 	    }
 
         return $next($request);

@@ -60,7 +60,8 @@
 
 
                 <el-col :sm="12" v-if="user.user_type === 'artist'">
-                    <el-form-item label="Profile name ( Name that will be used as link to your profile )" prop="user_name">
+                    <el-form-item label="Profile name ( Name that will be used as link to your profile )"
+                                  prop="user_name">
                         <el-input v-model="user.user_name"></el-input>
                     </el-form-item>
                 </el-col>
@@ -125,16 +126,11 @@
                                 v-model="user.dob"
                                 type="date"
                                 value-format="yyyy-MM-dd"
-                                placeholder="Date of birth">
+                                placeholder="yyyy-mm-dd">
                         </el-date-picker>
                     </el-form-item>
                 </el-col>
 
-                <el-col :sm="8" v-if="user.user_type === 'artist' || user.user_type === 'gallery' ">
-                    <el-form-item label="Website" prop="website">
-                        <el-input placeholder="Website" v-model="user.website"></el-input>
-                    </el-form-item>
-                </el-col>
 
                 <el-col :sm="8" v-if="user.user_type === 'artist' || user.user_type === 'gallery' ">
                     <el-form-item label="Phone" prop="phone">
@@ -143,7 +139,7 @@
                 </el-col>
 
                 <el-col :sm="12" v-if="user.user_type === 'artist' ">
-                    <el-form-item label="Education" prop="education">
+                    <el-form-item label="Name of the high school " prop="education">
                         <el-input v-model="user.education"></el-input>
                     </el-form-item>
                 </el-col>
@@ -166,24 +162,22 @@
 
                 <el-col :sm="12" v-if="user.user_type === 'artist'">
                     <el-form-item label="Inspiration" prop="inspiration">
-                        <el-input
-                                type="textarea"
-                                :rows="2"
-                                placeholder="Things that inspire you"
-                                v-model="user.inspiration">
-                        </el-input>
+                        <vue-editor id="inspiration" v-model="user.inspiration"
+                                    :editorToolbar="profileEditorToolbar"></vue-editor>
                     </el-form-item>
                 </el-col>
 
+
                 <el-col :sm="12" v-if="user.user_type === 'artist' || user.user_type === 'gallery' ">
                     <el-form-item label="Exhibitions" prop="exhibition">
-                        <el-input type="textarea" :rows="2" v-model="user.exhibition"></el-input>
+                        <vue-editor id="exhibition" v-model="user.exhibition"
+                                    :editorToolbar="profileEditorToolbar"></vue-editor>
                     </el-form-item>
                 </el-col>
 
             </el-row>
 
-            <div v-if="user.user_type === 'artist'">
+            <div v-if="user.user_type === 'artist'" style="display: none;">
 
 
                 <el-form-item label="Upload profile image">
@@ -253,6 +247,11 @@
                 <a :href="'/artist/' + user.id" target="_blank">Preview</a>
             </el-button>
 
+            <el-button v-if="user.user_type === 'artist'" type="success">
+                <a href="/dashboard/artwork/create">Upload
+                    Artwork</a>
+            </el-button>
+
         </el-form>
 
 
@@ -261,6 +260,7 @@
 </template>
 
 <script>
+    import {VueEditor} from 'vue2-editor'
 
     export default {
 
@@ -291,6 +291,14 @@
                     ],
                 },
                 countries: [],
+                profileEditorToolbar: [
+                    [{'size': ['small', false, 'large', 'huge']}],
+                    ['bold', 'italic', 'underline', 'strike'],
+                    [{'align': ''}, {'align': 'center'}, {'align': 'right'}, {'align': 'justify'}],
+                    ['blockquote'],
+                    [{'list': 'ordered'}, {'list': 'bullet'}, {'list': 'check'}],
+                    [{'indent': '-1'}, {'indent': '+1'}],
+                ]
             }
         },
 

@@ -41,7 +41,6 @@
 
                             <el-tab-pane :label="language.name">
 
-                                <!--<froala :tag="'textarea'" :config="{}" v-model="page.content[language.code]"></froala>-->
                                 <vue-editor v-model="page.content[language.code]"></vue-editor>
 
                             </el-tab-pane>

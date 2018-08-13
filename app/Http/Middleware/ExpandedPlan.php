@@ -16,7 +16,7 @@ class ExpandedPlan
     public function handle($request, Closure $next)
     {
 	    if(auth()->user()->user_plan == 'expanded' ) {
-		    return redirect()->route('payment.plan.update');
+		    return redirect()->route('subscription.update');
 	    }
 
         return $next($request);

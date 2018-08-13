@@ -17,7 +17,7 @@ class TrialPlan
     public function handle($request, Closure $next)
     {
     	if(auth()->user()->user_plan == 'trial' && auth()->user()->created_at >= Carbon::now()->addDays(30)->toDateTimeString()) {
-		    return redirect()->route('payment.plan.update');
+		    return redirect()->route('subscription.update');
 	    }
 
         return $next($request);

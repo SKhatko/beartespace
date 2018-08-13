@@ -17,9 +17,10 @@ Route::group( [ 'middleware' => 'web' ], function () {
 
 	Route::get( 'confirm-email/activate/{token}', 'Auth\ConfirmEmailController@confirm' )->name( 'confirm-email.activate' );
 	Route::get( 'confirm-email/verify', 'Auth\ConfirmEmailController@verify' )->name( 'confirm-email.verify' )->middleware( 'auth' );
-	Route::get( 'confirm-email/resend', 'Auth\ConfirmEmailController@resend' )->name( 'confirm-email.resend' );
+	Route::get( 'confirm-email/resend', 'Auth\ConfirmEmailController@resend' )->name( 'confirm-email.resend' )->middleware( 'auth' );
 
-	Route::get( 'payment/plan/update', 'PaymentController@updatePlan' )->name( 'payment.plan.update' );
+	Route::get( 'subscription/update', 'SubscriptionController@updatePlan' )->name( 'subscription.update' )->middleware( 'auth' );
+	Route::post( 'subscription/stripe', 'SubscriptionController@payWithStripe' )->name( 'subscription.stripe' )->middleware( 'auth' );
 
 	Route::group( [ 'prefix' => 'login' ], function () {
 		//Social login route
@@ -84,10 +85,10 @@ Route::group( [ 'middleware' => 'web' ], function () {
 		'middleware' => [
 			'dashboard',
 			'confirmed-email',
-			'has-profile-avatar',
 			'trial-plan',
 			'basic-plan',
-			'expanded-plan'
+			'expanded-plan',
+			'has-profile-avatar',
 		]
 	], function () {
 

@@ -6,9 +6,10 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Passport\HasApiTokens;
+use Laravel\Cashier\Billable;
 
 class User extends Authenticatable {
-	use Notifiable, SoftDeletes, HasApiTokens;
+	use Billable,Notifiable, SoftDeletes, HasApiTokens;
 
 	protected $dates = [ 'deleted_at' ];
 
@@ -92,6 +93,10 @@ class User extends Authenticatable {
 
 	public function setNameAttribute() {
 		return trim( $this->first_name ) . ' ' . trim( $this->last_name );
+	}
+
+	public function plans() {
+		return $this->hasMany(Plan::class, 'user_type', 'user_type');
 	}
 
 
