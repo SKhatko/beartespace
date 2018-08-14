@@ -20105,13 +20105,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -20123,10 +20116,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     data: function data() {
+        var userNameValidator = function userNameValidator(rule, value, callback) {
+
+            if (value === '') {
+                callback(new Error('Please input the password again'));
+            } else if (value !== 'test') {
+                callback(new Error('Two inputs don\'t match!'));
+            } else {
+                callback();
+            }
+        };
         return {
-            file: '',
-            showPreview: false,
-            imagePreview: '',
+            saving: false,
 
             avatarCropper: {},
             avatarChanged: false,
@@ -20137,8 +20138,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             },
             profileSaved: false,
             rules: {
-                first_name: [{ required: true }],
-                last_name: [{ required: true, message: 'Please enter last name', trigger: 'blur' }]
+                first_name: [{ required: true, message: 'Please enter first name', trigger: 'blur' }],
+                last_name: [{ required: true, message: 'Please enter last name', trigger: 'blur' }],
+                user_name: [
+                    // {validator: userNameValidator, trigger: ['blur', 'change']}
+                    // {required: true, message: 'user name is required'}
+                ]
             },
             csrf: '',
             countries: [],
@@ -20192,17 +20197,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         save: function save() {
             var _this = this;
 
-            axios.post('/api/profile/', this.user).then(function (response) {
-                if (response.data) {
-                    console.log(response.data);
-                    _this.$message({
-                        showClose: true,
-                        message: response.data.message,
-                        type: response.data.status
+            this.$refs['profile'].validate(function (valid) {
+                if (valid) {
+                    _this.saving = true;
+                    axios.post('/api/profile/', _this.user).then(function (response) {
+                        if (response.data) {
+                            console.log(response.data);
+                            _this.$message({
+                                showClose: true,
+                                message: response.data.message,
+                                type: response.data.status
+                            });
+                            _this.profileSaved = true;
+                            _this.saving = false;
+                        } else {
+                            console.log(response.data);
+                        }
                     });
-                    _this.profileSaved = true;
-                } else {
-                    console.log(response.data);
                 }
             });
         },
@@ -75154,6 +75165,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "label-position": "top",
       "model": _vm.user,
+      "status-icon": "",
       "rules": _vm.rules
     }
   }, [_c('el-row', {
@@ -75194,19 +75206,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.last_name"
     }
-  })], 1)], 1), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('div', [_c('el-form-item', {
+  })], 1)], 1), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-col', [_c('el-form-item', {
     attrs: {
       "label": "Your public username",
       "prop": "user_name"
     }
-  }, [_c('el-col', {
-    attrs: {
-      "el-col": "",
-      "sm": 12
-    }
   }, [_c('el-input', {
-    on: {
-      "input": _vm.checkUserName
+    staticStyle: {
+      "max-width": "290px",
+      "margin-right": "20px"
     },
     model: {
       value: (_vm.user.user_name),
@@ -75215,29 +75223,25 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.user_name"
     }
-  })], 1), _vm._v(" "), _c('el-col', {
-    attrs: {
-      "el-col": "",
-      "sm": 12
-    }
-  }, [_c('el-button', {
+  }), _vm._v(" "), _c('el-button', {
     attrs: {
       "type": "text"
     }
   }, [_c('a', {
     attrs: {
-      "href": "#"
+      "href": _vm.userName,
+      "target": "_blank"
     }
-  }, [_vm._v("\n                                " + _vm._s(_vm.userName) + "\n                            ")])])], 1)], 1)], 1) : _vm._e(), _vm._v(" "), _c('el-col', {
-    attrs: {
-      "sm": 12
-    }
-  }, [_c('el-form-item', {
+  }, [_vm._v("\n                            " + _vm._s(_vm.userName) + "\n                        ")])])], 1)], 1) : _vm._e(), _vm._v(" "), _c('el-col', [_c('el-form-item', {
     attrs: {
       "label": "Email",
       "prop": "email"
     }
   }, [_c('el-input', {
+    staticStyle: {
+      "max-width": "290px",
+      "margin-right": "20px"
+    },
     attrs: {
       "disabled": ""
     },
@@ -75248,7 +75252,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.email"
     }
-  })], 1)], 1), _vm._v(" "), _c('el-col', {
+  }), _vm._v(" "), _c('el-button', {
+    attrs: {
+      "type": "text"
+    }
+  }, [_vm._v("Change Email")])], 1)], 1), _vm._v(" "), _c('el-col', {
     attrs: {
       "sm": 8
     }
@@ -75571,7 +75579,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     },
     attrs: {
       "type": "primary",
-      "size": "big"
+      "size": "big",
+      "loading": _vm.saving
     },
     on: {
       "click": function($event) {

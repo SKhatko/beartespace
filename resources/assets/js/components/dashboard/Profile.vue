@@ -54,7 +54,7 @@
 
         </el-form>
 
-        <el-form label-position="top" :model="user" :rules="rules" ref="profile">
+        <el-form label-position="top" :model="user" status-icon :rules="rules" ref="profile">
 
             <el-row :gutter="20">
 
@@ -70,28 +70,23 @@
                 </el-col>
 
 
-                <div v-if="user.user_type === 'artist'">
-                    <el-form-item label="Your public username"
-                                  prop="user_name">
-                        <el-col el-col :sm="12">
-                            <el-input v-model="user.user_name" @input="checkUserName"></el-input>
+                <el-col v-if="user.user_type === 'artist'">
+                    <el-form-item label="Your public username" prop="user_name">
+                        <el-input v-model="user.user_name" style="max-width: 290px; margin-right: 20px;"></el-input>
 
-                        </el-col>
-                        <el-col el-col :sm="12">
-                            <el-button type="text">
-                                <a href="#">
-                                    {{ userName }}
-                                </a>
-                            </el-button>
-                        </el-col>
-
+                        <el-button type="text">
+                            <a :href="userName" target="_blank">
+                                {{ userName }}
+                            </a>
+                        </el-button>
                     </el-form-item>
-                </div>
+                </el-col>
 
 
-                <el-col :sm="12">
+                <el-col>
                     <el-form-item label="Email" prop="email">
-                        <el-input v-model="user.email" disabled></el-input>
+                        <el-input v-model="user.email" disabled style="max-width: 290px;margin-right: 20px;"></el-input>
+                        <el-button type="text">Change Email</el-button>
                     </el-form-item>
                 </el-col>
 
@@ -154,7 +149,6 @@
                     </el-form-item>
                 </el-col>
 
-
                 <el-col :sm="8" v-if="user.user_type === 'artist' || user.user_type === 'gallery' ">
                     <el-form-item label="Phone" prop="phone">
                         <el-input v-model="user.phone"></el-input>
@@ -202,7 +196,6 @@
 
             <div v-if="user.user_type === 'artist'" style="display: none;">
 
-
                 <el-form-item label="Upload profile image">
                     <div class="profile-image-cropper">
                         <cropper v-model="imageCropper"
@@ -230,7 +223,7 @@
 
             <el-button type="primary" style="margin-top: 20px"
                        size="big"
-                       @click="save()">
+                       @click="save()" :loading="saving">
                 Save
             </el-button>
 
@@ -264,10 +257,18 @@
         },
 
         data() {
+            let userNameValidator = (rule, value, callback) => {
+
+                if (value === '') {
+                    callback(new Error('Please input the password again'));
+                } else if (value !== 'test') {
+                    callback(new Error('Two inputs don\'t match!'));
+                } else {
+                    callback();
+                }
+            };
             return {
-                file: '',
-                showPreview: false,
-                imagePreview: '',
+                saving: false,
 
                 avatarCropper: {},
                 avatarChanged: false,
@@ -279,10 +280,14 @@
                 profileSaved: false,
                 rules: {
                     first_name: [
-                        {required: true}
+                        {required: true, message: 'Please enter first name', trigger: 'blur'}
                     ],
                     last_name: [
                         {required: true, message: 'Please enter last name', trigger: 'blur'}
+                    ],
+                    user_name: [
+                        // {validator: userNameValidator, trigger: ['blur', 'change']}
+                        // {required: true, message: 'user name is required'}
                     ],
                 },
                 csrf: '',
@@ -344,22 +349,27 @@
             },
 
             save() {
-                axios.post('/api/profile/', this.user)
-                    .then((response) => {
-                        if (response.data) {
-                            console.log(response.data);
-                            this.$message({
-                                showClose: true,
-                                message: response.data.message,
-                                type: response.data.status
+                this.$refs['profile'].validate((valid) => {
+                    if (valid) {
+                        this.saving = true;
+                        axios.post('/api/profile/', this.user)
+                            .then((response) => {
+                                if (response.data) {
+                                    console.log(response.data);
+                                    this.$message({
+                                        showClose: true,
+                                        message: response.data.message,
+                                        type: response.data.status
+                                    });
+                                    this.profileSaved = true;
+                                    this.saving = false;
+                                } else {
+                                    console.log(response.data);
+                                }
                             });
-                            this.profileSaved = true;
-                        } else {
-                            console.log(response.data);
-                        }
-                    });
+                    }
+                });
             },
-
 
             uploadAvatar() {
 
