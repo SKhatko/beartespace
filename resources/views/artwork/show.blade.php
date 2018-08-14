@@ -13,15 +13,16 @@
 
                     <div class="artwork-images">
                         <el-carousel indicator-position="outside">
-                            <el-carousel-item v-for="item in 4" :key="item">
-                                <h3>@{{ item }}</h3>
-                            </el-carousel-item>
+                            @foreach($artwork->images as $image)
+                                <el-carousel-item key="{{ $loop->index }}">
+                                    <div class="artwork-image">
+                                        <img src="{{ $image->url }}" alt="{{ $image->name }}">
+                                    </div>
+                                </el-carousel-item>
+                            @endforeach
+
                         </el-carousel>
-                        @foreach($artwork->images as $image)
-                            <div class="artwork-image">
-                                <img src="{{ $image->url }}" alt="{{ $image->name }}">
-                            </div>
-                        @endforeach
+
                     </div>
 
                     <div class="artwork-description">

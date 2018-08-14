@@ -548,9 +548,14 @@ body, html {
 
       &-images {
         flex: 1;
+        margin-right: 20px;
       }
 
       &-image {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
         img {
           width: 100%;
         }

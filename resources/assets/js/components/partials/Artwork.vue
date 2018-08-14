@@ -3,7 +3,7 @@
     <el-card class="artwork" v-if="artwork">
 
         <div class="artwork-top">
-            <a :href="'/artworks/' + artwork.id" class="artwork-image" v-if="artwork.images">
+            <a :href="'/artwork/' + artwork.id" class="artwork-image" v-if="artwork.images">
                 <img :src="artwork.images[0].url" :alt="artwork.images[0].name">
             </a>
 
@@ -17,7 +17,7 @@
             </div>
         </div>
 
-        <a :href="'/artworks/' + artwork.id" class="artwork-title">
+        <a :href="'/artwork/' + artwork.id" class="artwork-title">
             {{ artwork.title }}
         </a>
 
@@ -27,8 +27,8 @@
                 <div class="h5">{{ artwork.user.country.country_name }}</div>
             </div>
 
-            <div class="artwork-price" v-if="price_">
-                {{ price_ }}
+            <div class="artwork-price">
+                {{ artwork.formatted_price }}
             </div>
         </div>
 
@@ -44,7 +44,6 @@
 
         props: {
             artwork_: {},
-            price_: '',
         },
 
         data() {
@@ -55,7 +54,7 @@
 
         mounted() {
             if (this.artwork_) {
-                this.artwork = this.artwork_;
+                this.artwork = JSON.parse(this.artwork_);
             }
         },
 

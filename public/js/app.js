@@ -20588,8 +20588,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
 
     props: {
-        artwork_: {},
-        price_: ''
+        artwork_: {}
     },
 
     data: function data() {
@@ -20599,7 +20598,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     mounted: function mounted() {
         if (this.artwork_) {
-            this.artwork = this.artwork_;
+            this.artwork = JSON.parse(this.artwork_);
         }
     },
 
@@ -76560,7 +76559,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [(_vm.artwork.images) ? _c('a', {
     staticClass: "artwork-image",
     attrs: {
-      "href": '/artworks/' + _vm.artwork.id
+      "href": '/artwork/' + _vm.artwork.id
     }
   }, [_c('img', {
     attrs: {
@@ -76594,7 +76593,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })], 1)]), _vm._v(" "), _c('a', {
     staticClass: "artwork-title",
     attrs: {
-      "href": '/artworks/' + _vm.artwork.id
+      "href": '/artwork/' + _vm.artwork.id
     }
   }, [_vm._v("\n        " + _vm._s(_vm.artwork.title) + "\n    ")]), _vm._v(" "), _c('div', {
     staticClass: "artwork-bottom"
@@ -76604,9 +76603,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "h4"
   }, [_vm._v(_vm._s(_vm.artwork.user.name))]), _vm._v(" "), _c('div', {
     staticClass: "h5"
-  }, [_vm._v(_vm._s(_vm.artwork.user.country.country_name))])]) : _vm._e(), _vm._v(" "), (_vm.price_) ? _c('div', {
+  }, [_vm._v(_vm._s(_vm.artwork.user.country.country_name))])]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "artwork-price"
-  }, [_vm._v("\n            " + _vm._s(_vm.price_) + "\n        ")]) : _vm._e()])]) : _vm._e()
+  }, [_vm._v("\n            " + _vm._s(_vm.artwork.formatted_price) + "\n        ")])])]) : _vm._e()
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

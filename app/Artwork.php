@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 class Artwork extends Model {
 	protected $guarded = [];
 
+	protected $appends = ['formatted_price'];
+
 	protected $casts = [
 		'medium'    => 'array',
 		'direction' => 'array',
@@ -44,6 +46,10 @@ class Artwork extends Model {
 
 	public function getAuctionStatusAttribute($value) {
 		return !!$value;
+	}
+
+	public function getFormattedPriceAttribute() {
+		return currency($this->attributes['price'], null, session('currency'));
 	}
 
 	public function bids() {
