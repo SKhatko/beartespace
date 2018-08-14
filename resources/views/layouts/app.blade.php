@@ -56,8 +56,7 @@
 
             <div class="app-header--top">
 
-                <a href="{{ route('page', 'freight')}}">Always free shipping ( {{ geoip(request()->ip())->iso_code }}
-                    )</a>
+                <a href="{{ route('page', 'freight')}}">Always free shipping ( {{ geoip(request()->ip())->country }})</a>
                 <a href="{{ route('page', 'right-of-cancellation')}}">14-days return right</a>
                 <a href="{{ route('selections')}}">Best art selection</a>
 
@@ -76,8 +75,8 @@
                     @else
 
                         <div class="app-header-invites">
-                            <a href="{{ route('invite.artist') }}">For Artists</a>|
-                            <a href="{{ route('invite.gallery') }}">For Galleries</a>|
+                            <a href="{{ route('invite.artist') }}">For Artists</a>| &nbsp;
+                            <a href="{{ route('invite.gallery') }}">For Galleries</a>| &nbsp;
                             <a href="{{ route('invite.writer') }}">For Art Writers</a>
                         </div>
 

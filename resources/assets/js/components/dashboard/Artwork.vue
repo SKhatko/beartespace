@@ -36,7 +36,6 @@
                     </el-col>
                 </el-row>
 
-
                 <el-form :inline="true" label-position="top">
                     <el-form-item label="Width">
                         <el-input-number v-model="artwork.width"></el-input-number>
@@ -143,7 +142,6 @@
                     </el-col>
                 </el-row>
 
-
                 <el-row :gutter="20">
                     <el-col :sm="12">
                         <el-form-item label="Date of completion Artwork">
@@ -157,9 +155,15 @@
                         </el-form-item>
                     </el-col>
                     <el-col :sm="12">
-                        <el-form-item label="Price ( EUR )">
+                        <el-form-item label="Price">
                             <el-input-number value="2" v-model="artwork.price" :min="1" :max="50000"></el-input-number>
+
+                            <el-select value="" v-model="artwork.currency" placeholder="Select currency" style="max-width: 200px;margin-left: 20px;">
+                                <el-option v-for="(label, value) in currencies" :key="value" :value="value"
+                                           :label="value"></el-option>
+                            </el-select>
                         </el-form-item>
+
                     </el-col>
                 </el-row>
 
@@ -189,7 +193,6 @@
 
                 </el-row>
 
-
                 <el-button type="primary" style="margin-top: 20px"
                            size="big"
                            @click="saveArtwork()" icon="el-icon-arrow-right">
@@ -200,8 +203,6 @@
 
 
             <template v-if="activeStep === 1">
-
-                {{ artwork.images }}
 
                 <label class="el-form-item__label">Upload images of back side, signature, or artwork from side. Up to 3
                     Photos of Your Artwork allowed( jpg/png files accepted)</label>
@@ -279,12 +280,13 @@
 
         props: {
             artwork_: {},
-            user_: {},
+            currencies_: {},
         },
 
         data() {
             return {
                 csrf: window.csrf,
+                currencies: [],
                 artwork: {
                     id: 0,
                     user_id: '',
@@ -301,6 +303,7 @@
                     inspiration: '',
                     date_of_completion: '',
                     price: '',
+                    currency: '',
                     category: '',
                     medium: [],
                     direction: [],
@@ -327,13 +330,12 @@
                 this.artwork = JSON.parse(this.artwork_);
             }
 
-            if (!this.artwork.user_id) {
-                this.artwork.user_id = JSON.parse(this.user_).id
+            if(this.currencies_) {
+                this.currencies = JSON.parse(this.currencies_);
             }
 
+            console.log(this.currencies);
             console.log(this.artwork);
-            console.log(this.user);
-
         },
 
         methods: {

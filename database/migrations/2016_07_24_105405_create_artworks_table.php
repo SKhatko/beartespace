@@ -30,6 +30,7 @@ class CreateArtworksTable extends Migration
             $table->decimal('b_weight', 5, 3)->nullable();
             $table->timestamp('date_of_completion')->nullable();
 	        $table->decimal('price', 12,2)->nullable();
+	        $table->string('currency')->nullable();
             $table->string('category')->nullable();
             $table->json('medium')->nullable();
             $table->json('direction')->nullable();

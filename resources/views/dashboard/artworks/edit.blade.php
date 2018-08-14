@@ -6,6 +6,8 @@
 
     @include('partials.errors')
 
-    <artwork artwork_="{{ $artwork }}"></artwork>
+{{--    @dd(currency()->all())--}}
+
+    <artwork artwork_="{{ $artwork }}" currencies_="{{ json_encode(currency()->all()) }}"></artwork>
 
 @endsection

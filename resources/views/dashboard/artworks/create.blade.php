@@ -6,6 +6,6 @@
 
     @include('partials.errors')
 
-    <artwork user_="{{ auth()->user() }}"></artwork>
+    <artwork user_="{{ auth()->user() }}" currencies_="{{ json_encode(currency()->all()) }}"></artwork>
 
 @endsection

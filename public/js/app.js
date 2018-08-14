@@ -19401,18 +19401,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
     props: {
         artwork_: {},
-        user_: {}
+        currencies_: {}
     },
 
     data: function data() {
         return {
             csrf: window.csrf,
+            currencies: [],
             artwork: {
                 id: 0,
                 user_id: '',
@@ -19429,6 +19431,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 inspiration: '',
                 date_of_completion: '',
                 price: '',
+                currency: '',
                 category: '',
                 medium: [],
                 direction: [],
@@ -19453,12 +19456,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.artwork = JSON.parse(this.artwork_);
         }
 
-        if (!this.artwork.user_id) {
-            this.artwork.user_id = JSON.parse(this.user_).id;
+        if (this.currencies_) {
+            this.currencies = JSON.parse(this.currencies_);
         }
 
+        console.log(this.currencies);
         console.log(this.artwork);
-        console.log(this.user);
     },
 
 
@@ -77165,7 +77168,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('el-form-item', {
     attrs: {
-      "label": "Price ( EUR )"
+      "label": "Price"
     }
   }, [_c('el-input-number', {
     attrs: {
@@ -77180,7 +77183,31 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "artwork.price"
     }
-  })], 1)], 1)], 1), _vm._v(" "), _c('el-row', {
+  }), _vm._v(" "), _c('el-select', {
+    staticStyle: {
+      "max-width": "200px",
+      "margin-left": "20px"
+    },
+    attrs: {
+      "value": "",
+      "placeholder": "Select currency"
+    },
+    model: {
+      value: (_vm.artwork.currency),
+      callback: function($$v) {
+        _vm.$set(_vm.artwork, "currency", $$v)
+      },
+      expression: "artwork.currency"
+    }
+  }, _vm._l((_vm.currencies), function(label, value) {
+    return _c('el-option', {
+      key: value,
+      attrs: {
+        "value": value,
+        "label": value
+      }
+    })
+  }))], 1)], 1)], 1), _vm._v(" "), _c('el-row', {
     attrs: {
       "gutter": 20
     }
@@ -77259,7 +77286,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.saveArtwork()
       }
     }
-  }, [_vm._v("\n                Next\n            ")])] : _vm._e(), _vm._v(" "), (_vm.activeStep === 1) ? [_vm._v("\n\n            " + _vm._s(_vm.artwork.images) + "\n\n            "), _c('label', {
+  }, [_vm._v("\n                Next\n            ")])] : _vm._e(), _vm._v(" "), (_vm.activeStep === 1) ? [_c('label', {
     staticClass: "el-form-item__label"
   }, [_vm._v("Upload images of back side, signature, or artwork from side. Up to 3\n                Photos of Your Artwork allowed( jpg/png files accepted)")]), _vm._v(" "), _c('el-form-item', [_c('el-upload', {
     attrs: {

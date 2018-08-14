@@ -72,7 +72,7 @@ body, html {
       color: lightgrey;
 
       & a {
-        padding: 0 10px;
+        margin-right: 10px;
         color: black;
       }
 
@@ -81,7 +81,7 @@ body, html {
     &-auth {
       display: flex;
       align-items: center;
-      margin: 0 15px;
+      margin: 0 0 0 15px;
       cursor: pointer;
 
       &-name {
@@ -161,6 +161,7 @@ body, html {
     }
 
     &-subscribe {
+      margin-left: 15px;
       font-weight: 700;
       cursor: pointer;
     }
