@@ -56,7 +56,8 @@
 
             <div class="app-header--top">
 
-                <a href="{{ route('page', 'freight')}}">Always free shipping ( {{ geoip(request()->ip())->iso_code }} )</a>
+                <a href="{{ route('page', 'freight')}}">Always free shipping ( {{ geoip(request()->ip())->iso_code }}
+                    )</a>
                 <a href="{{ route('page', 'right-of-cancellation')}}">14-days return right</a>
                 <a href="{{ route('selections')}}">Best art selection</a>
 
@@ -86,7 +87,7 @@
 
 
                 <div class="app-header-currencies">
-                    <el-dropdown trigger="hover">
+                    <el-dropdown trigger="click">
                       <span class="el-dropdown-link">
                           {{ getCurrentCurrency() }}
                           <i class="el-icon-arrow-down el-icon--right"></i>
@@ -104,7 +105,7 @@
                 </div>
 
                 <div class="app-header-languages">
-                    <el-dropdown trigger="hover">
+                    <el-dropdown trigger="click">
                       <span class="el-dropdown-link">
                           {{ currentLanguage()->name ?? 'en' }}
                           <i class="el-icon-arrow-down el-icon--right"></i>
@@ -122,16 +123,19 @@
                 </div>
 
 
-
                 <div class="app-header-auth">
                     @if (Auth::guest())
                         <a href="{{ route('login') }}">@lang('portal.login')</a>&nbsp; | &nbsp;
                         <signup-dialog type_="link"></signup-dialog>&nbsp; |
                     @else
-                        <el-dropdown trigger="hover">
-                      <span class="el-dropdown-link">
-                         {{ auth()->user()->name }}
-                          {{--                          <img src="{{auth()->user()->get_gravatar()}}" class="app-header-auth__photo"/>--}}
+                        <el-dropdown trigger="click">
+                      <span class="app-header-auth-name">
+                          @if(auth()->user()->avatar)
+                              <span class="app-header-auth-avatar">
+                                  <img src="/imagecache/mini-avatar/{{ auth()->user()->avatar->url}}"/>
+                              </span>
+                          @endif
+                          {{ auth()->user()->name }}
 
                           <i class="el-icon-arrow-down el-icon--right"></i>
                       </span>
@@ -453,7 +457,7 @@
 
                                 <div class="app-footer-currencies">
                                     Currency:
-                                    <el-dropdown trigger="hover">
+                                    <el-dropdown trigger="click">
                                           <span class="el-dropdown-link">
                                               {{ getCurrentCurrency() }}
                                               <i class="el-icon-arrow-down el-icon--right"></i>
@@ -472,7 +476,7 @@
 
                                 <div class="app-footer-languages">
                                     Language:
-                                    <el-dropdown trigger="hover">
+                                    <el-dropdown trigger="click">
                                           <span class="el-dropdown-link">
                                               {{ currentLanguage()->name ?? 'en' }}
                                               <i class="el-icon-arrow-down el-icon--right"></i>
