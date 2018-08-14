@@ -23,7 +23,7 @@ Route::group( [ 'middleware' => 'web' ], function () {
 	Route::post( 'subscription/stripe', 'SubscriptionController@payWithStripe' )->name( 'subscription.stripe' )->middleware( 'auth' );
 
 	// Search
-	Route::get( 'search/{query?}', 'HomeController@search' )->name( 'search' )->middleware('auth');
+	Route::get( 'search/{query?}', 'HomeController@search' )->name( 'search' )->middleware( 'auth' );
 
 	Route::group( [ 'prefix' => 'login' ], function () {
 		//Social login route
@@ -40,14 +40,14 @@ Route::group( [ 'middleware' => 'web' ], function () {
 
 	Route::get( '/', 'HomeController@index' )->name( 'home' );
 	Route::get( '/home', 'HomeController@index' );
-	Route::get( '/auctions', 'HomeController@auctions' )->name( 'auctions' );
-	Route::get( '/auctions/{id}', 'HomeController@auctions' )->name( 'auction' );
-	Route::get( '/artworks', 'HomeController@artworks' )->name( 'artworks' );
-	Route::get( '/artworks/{id}', 'HomeController@artwork' )->name( 'artwork' );
-	Route::get( '/selections', 'HomeController@selections' )->name( 'selections' );
-	Route::get( '/selections/{id}', 'HomeController@selection' )->name( 'selection' );
-	Route::get( '/artists', 'HomeController@artists' )->name( 'artists' );
-	Route::get( '/artists/{id}', 'HomeController@artist' )->name( 'artist' );
+	Route::get( '/auction', 'HomeController@auctions' )->name( 'auctions' );
+	Route::get( '/auction/{id}', 'HomeController@auctions' )->name( 'auction' );
+	Route::get( '/artwork', 'HomeController@artworks' )->name( 'artworks' );
+	Route::get( '/artwork/{id}', 'HomeController@artwork' )->name( 'artwork' );
+	Route::get( '/selection', 'HomeController@selections' )->name( 'selections' );
+	Route::get( '/selection/{id}', 'HomeController@selection' )->name( 'selection' );
+	Route::get( '/artist', 'HomeController@artists' )->name( 'artists' );
+	Route::get( '/artist/{id}', 'HomeController@artist' )->name( 'artist' );
 
 	// Invites
 	Route::get( '/invite/artist', 'HomeController@inviteArtist' )->name( 'invite.artist' );
@@ -64,8 +64,8 @@ Route::group( [ 'middleware' => 'web' ], function () {
 	// Page
 	Route::get( 'page/{slug}', 'PageController@show' )->name( 'page' );
 
-	Route::get( '/language/{lang}', 'LanguageController@switchLang' )->name( 'switch-language' );
-	Route::get( '/currency/{code}', 'CurrencyController@switchCurrency' )->name( 'switch-currency' );
+	Route::get( 'language/{lang}', 'LanguageController@switchLang' )->name( 'switch-language' );
+	Route::get( 'currency/{code}', 'CurrencyController@switchCurrency' )->name( 'switch-currency' );
 
 	// Shopping
 	Route::get( 'shopping-cart', 'CartController@index' )->name( 'shopping-cart' );
@@ -78,6 +78,8 @@ Route::group( [ 'middleware' => 'web' ], function () {
 	Route::get( 'about', 'HomeController@about' )->name( 'about' );
 	Route::get( 'rules', 'HomeController@rules' )->name( 'rules' );
 	Route::get( 'shipping', 'HomeController@shipping' )->name( 'shipping' );
+
+	Route::get( '{artist}', 'HomeController@artistProfile' )->name( 'artist-profile' );
 
 	//Dashboard Route
 	Route::group( [

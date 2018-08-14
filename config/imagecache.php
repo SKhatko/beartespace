@@ -31,7 +31,7 @@ return array(
     */
     
     'paths' => array(
-        public_path('upload'),
+        public_path('storage'),
         public_path('images')
     ),
 
@@ -55,6 +55,7 @@ return array(
         'small' => 'Intervention\Image\Templates\Small',
         'medium' => 'Intervention\Image\Templates\Medium',
         'large' => 'Intervention\Image\Templates\Large',
+	    'avatar' => 'App\Filters\Avatar'
     ),
 
     /*

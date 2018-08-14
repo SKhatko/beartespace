@@ -18,18 +18,22 @@
 
                         <div class="artist">
 
-                            <a href="{{ route('artist', $artist->id) }}" class="artist-avatar">
-                                <img src="{{ $artist->avatar->url }}" alt="{{ $artist->avatar->name }}">
-                            </a>
+                            @if($artist->avatar)
+                                <a href="{{ route('artist', $artist->id) }}" class="artist-avatar">
+                                    <img src="{{ $artist->avatar->url }}" alt="{{ $artist->avatar->name }}">
+                                </a>
+                            @endif
 
                             <div class="artist-artworks">
 
                                 @foreach($artist->artworks->random(3) as $artwork)
 
-                                    <a href="{{ route('artwork', $artwork->id) }}" class="artist-artwork">
-                                        <img src="{{ $artwork->images->first()->url }}"
-                                             alt="{{ $artwork->images->first()->name }}">
-                                    </a>
+                                    @if($artwork->images->first())
+                                        <a href="{{ route('artwork', $artwork->id) }}" class="artist-artwork">
+                                            <img src="{{ $artwork->images->first()->url }}"
+                                                 alt="{{ $artwork->images->first()->name }}">
+                                        </a>
+                                    @endif
 
                                 @endforeach
 

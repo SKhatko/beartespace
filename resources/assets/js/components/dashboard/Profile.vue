@@ -21,7 +21,7 @@
                         accept="image/*"
                         :on-success="handleAvatarSuccess"
                         :before-upload="beforeAvatarUpload">
-                    <img v-if="user.avatar" :src="user.avatar.url" class="avatar">
+                    <img v-if="user.avatar" :src="'/imagecache/avatar' + user.avatar.url" class="avatar">
                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
 
@@ -36,7 +36,6 @@
                              @image-remove="avatarChanged = true"
                              @move="avatarChanged = true"
                              @zoom="avatarChanged = true"
-                             @init="initAvatarCropper"
                              prevent-white-space
                              remove-button-color="#379797">
 
@@ -71,12 +70,24 @@
                 </el-col>
 
 
-                <el-col :sm="12" v-if="user.user_type === 'artist'">
-                    <el-form-item label="Profile name ( Name that will be used as link to your profile )"
+                <div v-if="user.user_type === 'artist'">
+                    <el-form-item label="Your public username"
                                   prop="user_name">
-                        <el-input v-model="user.user_name"></el-input>
+                        <el-col el-col :sm="12">
+                            <el-input v-model="user.user_name" @input="checkUserName"></el-input>
+
+                        </el-col>
+                        <el-col el-col :sm="12">
+                            <el-button type="text">
+                                <a href="#">
+                                    {{ userName }}
+                                </a>
+                            </el-button>
+                        </el-col>
+
                     </el-form-item>
-                </el-col>
+                </div>
+
 
                 <el-col :sm="12">
                     <el-form-item label="Email" prop="email">
@@ -215,38 +226,6 @@
                     </div>
                 </el-form-item>
 
-                <el-form-item>
-                    <el-upload
-                            class="avatar-uploader"
-                            :action="'/api/upload/user-image'"
-                            :show-file-list="false"
-                            :headers="{'Accept': 'application/json'}"
-                            with-credentials
-                            accept=".jpg, .jpeg, .png"
-                            :on-success="handleImageSuccess"
-                            :before-upload="beforeAvatarUpload">
-                        <div v-if="user.image">
-                            <img :src="user.image.url" style="width: 290px">
-
-                            <!--<el-button type="info" plain>-->
-                            <!--<i class="el-icon-upload"></i>-->
-                            <!--Change image-->
-                            <!--</el-button>-->
-                        </div>
-                        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                    </el-upload>
-                </el-form-item>
-
-                <el-form-item>
-                    <div class="large-12 medium-12 small-12 cell">
-                        <label>File Preview
-                            <input type="file" id="file" ref="file" accept="image/*" v-on:change="handleFileUpload()"/>
-                        </label>
-                        <img v-bind:src="imagePreview" v-show="showPreview"/>
-                        <button v-on:click="submitFile()">Submit</button>
-                    </div>
-                </el-form-item>
-
             </div>
 
             <el-button type="primary" style="margin-top: 20px"
@@ -260,7 +239,7 @@
             </el-button>
 
             <el-button style="margin-top: 20px" v-if="user.user_type === 'user' && profileSaved" type="text">
-                <a href="/artworks">Show Artworks</a>
+                <a href="/artwork">Show Artworks</a>
             </el-button>
 
             <el-button v-if="user.user_type === 'artist'" type="success">
@@ -363,76 +342,6 @@
                 // }
                 // return isJPG && isLt2M;
             },
-            submitFile() {
-                /*
-                        Initialize the form data
-                    */
-                let formData = new FormData();
-
-                /*
-                    Add the form data we need to submit
-                */
-                formData.append('file', this.file);
-
-                /*
-                  Make the request to the POST /single-file URL
-                */
-                axios.post('/api/upload/user-image',
-                    formData,
-                    {
-                        headers: {
-                            'Content-Type': 'multipart/form-data'
-                        }
-                    }
-                ).then(function () {
-                    console.log('SUCCESS!!');
-                })
-                    .catch(function () {
-                        console.log('FAILURE!!');
-                    });
-            },
-            handleFileUpload() {
-                /*
-                  Set the local file variable to what the user has selected.
-                */
-                this.file = this.$refs.file.files[0];
-
-                /*
-                  Initialize a File Reader object
-                */
-                let reader = new FileReader();
-
-                /*
-                  Add an event listener to the reader that when the file
-                  has been loaded, we flag the show preview as true and set the
-                  image to be what was read from the reader.
-                */
-                reader.addEventListener("load", function () {
-                    this.showPreview = true;
-                    this.imagePreview = reader.result;
-                }.bind(this), false);
-
-                /*
-                  Check to see if the file is not empty.
-                */
-                if (this.file) {
-                    /*
-                      Ensure the file is an image file.
-                    */
-                    if (/\.(jpe?g)$/i.test(this.file.name)) {
-                        /*
-                          Fire the readAsDataURL method which will read the file in and
-                          upon completion fire a 'load' event which we will listen to and
-                          display the image in the preview.
-                        */
-                        reader.readAsDataURL(this.file);
-                    }
-                }
-            },
-
-            handleImageSuccess(res, file) {
-                this.user.image = res.data;
-            },
 
             save() {
                 axios.post('/api/profile/', this.user)
@@ -451,21 +360,6 @@
                     });
             },
 
-            initAvatarCropper() {
-                // this.avatarCropper.addClipPlugin(function (ctx, x, y, w, h) {
-                //     /*
-                //      * ctx: canvas context
-                //      * x: start point (top-left corner) x coordination
-                //      * y: start point (top-left corner) y coordination
-                //      * w: croppa width
-                //      * h: croppa height
-                //     */
-                //     console.log(ctx, x, y, w, h);
-                //     ctx.beginPath();
-                //     ctx.arc(x + w / 2, y + h / 2, w / 2, 0, 2 * Math.PI, true);
-                //     ctx.closePath()
-                // })
-            },
 
             uploadAvatar() {
 
@@ -483,6 +377,16 @@
                     });
             },
 
+            checkUserName($username) {
+                if ($username) {
+                    axios.get('/api/user/check-username/' + $username).then(response => {
+                        console.log(response.data);
+                    });
+                    console.log($username);
+                }
+
+            },
+
             uploadImage() {
 
                 let imageSrc = this.imageCropper.generateDataUrl('image/jpeg');
@@ -497,6 +401,11 @@
                             type: response.data.status
                         });
                     });
+            }
+        },
+        computed: {
+            userName() {
+                return window.location.origin + '/' + this.user.user_name;
             }
         }
     }

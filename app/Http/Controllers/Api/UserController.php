@@ -14,6 +14,12 @@ class UserController extends Controller {
 		return auth()->user();
 	}
 
+	public function checkUsername($username) {
+		$user = User::where('user_name', $username)->first();
+
+		return $user;
+	}
+
 	public function store( Request $request ) {
 
 		$user = auth()->user();

@@ -20112,27 +20112,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -20210,71 +20189,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             // }
             // return isJPG && isLt2M;
         },
-        submitFile: function submitFile() {
-            /*
-                    Initialize the form data
-                */
-            var formData = new FormData();
-
-            /*
-                Add the form data we need to submit
-            */
-            formData.append('file', this.file);
-
-            /*
-              Make the request to the POST /single-file URL
-            */
-            axios.post('/api/upload/user-image', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            }).then(function () {
-                console.log('SUCCESS!!');
-            }).catch(function () {
-                console.log('FAILURE!!');
-            });
-        },
-        handleFileUpload: function handleFileUpload() {
-            /*
-              Set the local file variable to what the user has selected.
-            */
-            this.file = this.$refs.file.files[0];
-
-            /*
-              Initialize a File Reader object
-            */
-            var reader = new FileReader();
-
-            /*
-              Add an event listener to the reader that when the file
-              has been loaded, we flag the show preview as true and set the
-              image to be what was read from the reader.
-            */
-            reader.addEventListener("load", function () {
-                this.showPreview = true;
-                this.imagePreview = reader.result;
-            }.bind(this), false);
-
-            /*
-              Check to see if the file is not empty.
-            */
-            if (this.file) {
-                /*
-                  Ensure the file is an image file.
-                */
-                if (/\.(jpe?g)$/i.test(this.file.name)) {
-                    /*
-                      Fire the readAsDataURL method which will read the file in and
-                      upon completion fire a 'load' event which we will listen to and
-                      display the image in the preview.
-                    */
-                    reader.readAsDataURL(this.file);
-                }
-            }
-        },
-        handleImageSuccess: function handleImageSuccess(res, file) {
-            this.user.image = res.data;
-        },
         save: function save() {
             var _this = this;
 
@@ -20292,21 +20206,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
             });
         },
-        initAvatarCropper: function initAvatarCropper() {
-            // this.avatarCropper.addClipPlugin(function (ctx, x, y, w, h) {
-            //     /*
-            //      * ctx: canvas context
-            //      * x: start point (top-left corner) x coordination
-            //      * y: start point (top-left corner) y coordination
-            //      * w: croppa width
-            //      * h: croppa height
-            //     */
-            //     console.log(ctx, x, y, w, h);
-            //     ctx.beginPath();
-            //     ctx.arc(x + w / 2, y + h / 2, w / 2, 0, 2 * Math.PI, true);
-            //     ctx.closePath()
-            // })
-        },
         uploadAvatar: function uploadAvatar() {
             var _this2 = this;
 
@@ -20322,6 +20221,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 });
             });
         },
+        checkUserName: function checkUserName($username) {
+            if ($username) {
+                axios.get('/api/user/check-username/' + $username).then(function (response) {
+                    console.log(response.data);
+                });
+                console.log($username);
+            }
+        },
         uploadImage: function uploadImage() {
             var _this3 = this;
 
@@ -20336,6 +20243,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     type: response.data.status
                 });
             });
+        }
+    },
+    computed: {
+        userName: function userName() {
+            return window.location.origin + '/' + this.user.user_name;
         }
     }
 });
@@ -75180,7 +75092,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [(_vm.user.avatar) ? _c('img', {
     staticClass: "avatar",
     attrs: {
-      "src": _vm.user.avatar.url
+      "src": '/imagecache/avatar' + _vm.user.avatar.url
     }
   }) : _c('i', {
     staticClass: "el-icon-plus avatar-uploader-icon"
@@ -75211,8 +75123,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       "zoom": function($event) {
         _vm.avatarChanged = true
-      },
-      "init": _vm.initAvatarCropper
+      }
     },
     model: {
       value: (_vm.avatarCropper),
@@ -75283,16 +75194,20 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.last_name"
     }
-  })], 1)], 1), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-col', {
+  })], 1)], 1), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('div', [_c('el-form-item', {
     attrs: {
-      "sm": 12
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Profile name ( Name that will be used as link to your profile )",
+      "label": "Your public username",
       "prop": "user_name"
     }
+  }, [_c('el-col', {
+    attrs: {
+      "el-col": "",
+      "sm": 12
+    }
   }, [_c('el-input', {
+    on: {
+      "input": _vm.checkUserName
+    },
     model: {
       value: (_vm.user.user_name),
       callback: function($$v) {
@@ -75300,7 +75215,20 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.user_name"
     }
-  })], 1)], 1) : _vm._e(), _vm._v(" "), _c('el-col', {
+  })], 1), _vm._v(" "), _c('el-col', {
+    attrs: {
+      "el-col": "",
+      "sm": 12
+    }
+  }, [_c('el-button', {
+    attrs: {
+      "type": "text"
+    }
+  }, [_c('a', {
+    attrs: {
+      "href": "#"
+    }
+  }, [_vm._v("\n                                " + _vm._s(_vm.userName) + "\n                            ")])])], 1)], 1)], 1) : _vm._e(), _vm._v(" "), _c('el-col', {
     attrs: {
       "sm": 12
     }
@@ -75637,59 +75565,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.uploadImage
     }
-  }, [_vm._v("Save image\n                    ")]) : _vm._e()], 1)]), _vm._v(" "), _c('el-form-item', [_c('el-upload', {
-    staticClass: "avatar-uploader",
-    attrs: {
-      "action": '/api/upload/user-image',
-      "show-file-list": false,
-      "headers": {
-        'Accept': 'application/json'
-      },
-      "with-credentials": "",
-      "accept": ".jpg, .jpeg, .png",
-      "on-success": _vm.handleImageSuccess,
-      "before-upload": _vm.beforeAvatarUpload
-    }
-  }, [(_vm.user.image) ? _c('div', [_c('img', {
-    staticStyle: {
-      "width": "290px"
-    },
-    attrs: {
-      "src": _vm.user.image.url
-    }
-  })]) : _c('i', {
-    staticClass: "el-icon-plus avatar-uploader-icon"
-  })])], 1), _vm._v(" "), _c('el-form-item', [_c('div', {
-    staticClass: "large-12 medium-12 small-12 cell"
-  }, [_c('label', [_vm._v("File Preview\n                        "), _c('input', {
-    ref: "file",
-    attrs: {
-      "type": "file",
-      "id": "file",
-      "accept": "image/*"
-    },
-    on: {
-      "change": function($event) {
-        _vm.handleFileUpload()
-      }
-    }
-  })]), _vm._v(" "), _c('img', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: (_vm.showPreview),
-      expression: "showPreview"
-    }],
-    attrs: {
-      "src": _vm.imagePreview
-    }
-  }), _vm._v(" "), _c('button', {
-    on: {
-      "click": function($event) {
-        _vm.submitFile()
-      }
-    }
-  }, [_vm._v("Submit")])])])], 1) : _vm._e(), _vm._v(" "), _c('el-button', {
+  }, [_vm._v("Save image\n                    ")]) : _vm._e()], 1)])], 1) : _vm._e(), _vm._v(" "), _c('el-button', {
     staticStyle: {
       "margin-top": "20px"
     },
@@ -75720,7 +75596,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('a', {
     attrs: {
-      "href": "/artworks"
+      "href": "/artwork"
     }
   }, [_vm._v("Show Artworks")])]) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-button', {
     attrs: {
