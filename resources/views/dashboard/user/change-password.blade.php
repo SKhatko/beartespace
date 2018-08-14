@@ -34,6 +34,8 @@
 
             <el-form-item>
                 <el-button type="primary" native-type="submit">Save</el-button>
+
+                <el-button type="text"><a href="/">Return to home page</a></el-button>
             </el-form-item>
 
         </el-form>
