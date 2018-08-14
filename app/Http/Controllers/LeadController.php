@@ -14,11 +14,11 @@ class LeadController extends Controller {
 
 		Lead::updateOrCreate( [ 'email' => $request->input( 'email' ) ] );
 
-		$cookie = cookie( 'email_subscription', true, 5 );
+		$cookie = cookie( 'email_lead_subscription', true, 60 * 24 * 365 );
 
-//		60 * 24 * 365
-
-		return back()->cookie( $cookie );
-
+		return back()->cookie( $cookie )->with('alert', [
+			'title'   => 'Thank you for email subscription',
+			'message' => 'You successfully subscribed for our newsletters'
+		]);
 	}
 }

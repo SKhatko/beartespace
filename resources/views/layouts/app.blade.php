@@ -24,6 +24,10 @@
 
         };
 
+        window.bus = {
+            'alert': {!! json_encode(session('alert')?? '') !!},
+        };
+
         window.trans = {!! $translations !!};
 
         window.notify = {!! json_encode(session('notify') ?? '') !!};
@@ -37,8 +41,6 @@
         window.cart = {!! json_encode(session( 'cart' ) ?? '') !!};
 
         window.favourites = '';
-
-        window.alert = {!! json_encode(session('alert')?? '') !!};
 
     </script>
 
@@ -222,7 +224,7 @@
                     @endif
                 </div>
 
-                @if(!Cookie::get('email_subscription'))
+                @if(!Cookie::get('email_lead_subscription'))
                     <div class="app-header-subscribe">
                         <el-popover
                                 placement="bottom"
@@ -495,7 +497,7 @@
 
                                 <div class="h4">Stay connected</div>
 
-                                @if(!Cookie::get('email_subscription'))
+                                @if(!Cookie::get('email_lead_subscription'))
                                     <div class="app-footer-subscribe">
                                         <el-form inline label-position="top" method="POST"
                                                  action="{{ route('add-lead') }}">

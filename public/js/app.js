@@ -16195,8 +16195,8 @@ var app = new Vue({
     },
     mounted: function mounted() {
 
-        if (window.alert) {
-            this.$alert(window.alert.message, window.alert.title, {
+        if (window.bus.alert) {
+            this.$alert(window.bus.alert.message, window.bus.alert.title, {
                 confirmButtonText: 'OK'
             });
         }
