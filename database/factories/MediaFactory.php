@@ -8,7 +8,7 @@ $factory->define( App\Media::class, function ( Faker $faker ) {
 		'artwork_id' => '',
 		'name'       => '',
 		'slug'       => $faker->slug,
-		'url'        => 'https://picsum.photos/' . random_int(1, 1920) . '/' . random_int(1, 1920),
+		'url'        => 'https://picsum.photos/' . random_int(500, 1920) . '/' . random_int(500, 1920),
 		'folder'     => '',
 	];
 } );
