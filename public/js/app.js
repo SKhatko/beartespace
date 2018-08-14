@@ -19407,12 +19407,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     props: {
         artwork_: {},
-        user_: {},
-        images_: {}
+        user_: {}
     },
 
     data: function data() {
         return {
+            csrf: window.csrf,
             artwork: {
                 id: 0,
                 user_id: '',
@@ -19437,34 +19437,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 auction_status: true,
                 auction_price: '',
                 auction_start: '',
-                auction_end: ''
+                auction_end: '',
+                images: []
             },
-
-            images: [],
 
             activeStep: 0,
 
             dialogImageUrl: '',
             dialogVisible: false
-
         };
     },
     mounted: function mounted() {
-        console.log(this.artwork_);
-        console.log(this.user_);
-        console.log(this.images_);
 
         if (this.artwork_) {
-            this.artwork = this.artwork_;
+            this.artwork = JSON.parse(this.artwork_);
         }
 
         if (!this.artwork.user_id) {
-            this.artwork.user_id = this.user_.id;
+            this.artwork.user_id = JSON.parse(this.user_).id;
         }
 
-        if (this.images_) {
-            this.images = this.images_;
-        }
+        console.log(this.artwork);
+        console.log(this.user);
     },
 
 
@@ -19514,7 +19508,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         type: response.data.status
                     });
 
-                    _this2.images = response.data.data;
+                    _this2.artwork.images = response.data.data;
                 } else {
                     console.log(response.data);
                 }
@@ -19527,7 +19521,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.dialogVisible = true;
         },
         handleSuccess: function handleSuccess(response, file, fileList) {
-            this.images.push({
+            this.artwork.images.push({
                 name: file.name,
                 url: file.url
             });
@@ -77381,12 +77375,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.saveArtwork()
       }
     }
-  }, [_vm._v("\n                Next\n            ")])] : _vm._e(), _vm._v(" "), (_vm.activeStep === 1) ? [_c('label', {
+  }, [_vm._v("\n                Next\n            ")])] : _vm._e(), _vm._v(" "), (_vm.activeStep === 1) ? [_vm._v("\n\n            " + _vm._s(_vm.artwork.images) + "\n\n            "), _c('label', {
     staticClass: "el-form-item__label"
   }, [_vm._v("Upload images of back side, signature, or artwork from side. Up to 3\n                Photos of Your Artwork allowed( jpg/png files accepted)")]), _vm._v(" "), _c('el-form-item', [_c('el-upload', {
     attrs: {
       "action": '/api/upload/artwork-image/' + _vm.artwork.id,
-      "file-list": _vm.images,
+      "file-list": _vm.artwork.images,
+      "headers": {
+        'X-Requested-With': 'XMLHttpRequest',
+        'X-CSRF-TOKEN': _vm.csrf
+      },
       "on-preview": _vm.handlePictureCardPreview,
       "on-remove": _vm.handleRemove,
       "on-success": _vm.handleSuccess,
@@ -77453,7 +77451,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('a', {
     attrs: {
-      "href": "/dashboard",
+      "href": '/artworks/' + _vm.artwork.id,
       "target": "_blank"
     }
   }, [_vm._v("\n                        Preview\n                    ")])]), _vm._v(" "), _c('el-button', {

@@ -12,13 +12,12 @@ class ArtworkController extends Controller {
 
 	public function store( Request $request ) {
 
-		$artwork = Artwork::updateOrCreate( [ 'id' => $request->input( 'id' ) ], $request->except( 'images' ) );
+		$user = auth()->user();
 
-//		return array_pluck($request->input('images'), 'name');
-//		$artworkImageIds = array_pluck($request->input('images'), 'name');
 
-//		Media::whereArtworkId($request->input( 'id' ))->whereNotIn('id', $artworkImageIds)->delete();
+		$artwork = Artwork::updateOrCreate( [ 'id' => $request->input( 'id' ), 'user_id' => $user->id ], $request->except( 'images' ) );
 
+		$artwork = $artwork->whereId($artwork->id)->with('images')->first();
 
 		return [ 'status' => 'success', 'message' => 'Saved', 'data' => $artwork ];
 	}

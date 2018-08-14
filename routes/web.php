@@ -22,6 +22,9 @@ Route::group( [ 'middleware' => 'web' ], function () {
 	Route::get( 'subscription/update', 'SubscriptionController@updatePlan' )->name( 'subscription.update' )->middleware( 'auth' );
 	Route::post( 'subscription/stripe', 'SubscriptionController@payWithStripe' )->name( 'subscription.stripe' )->middleware( 'auth' );
 
+	// Search
+	Route::get( 'search/{query?}', 'HomeController@search' )->name( 'search' )->middleware('auth');
+
 	Route::group( [ 'prefix' => 'login' ], function () {
 		//Social login route
 		Route::get( 'facebook', 'SocialLogin@redirectFacebook' )->name( 'facebook_redirect' );
@@ -54,9 +57,6 @@ Route::group( [ 'middleware' => 'web' ], function () {
 	// Contact us page
 	Route::get( 'contact-form', 'HomeController@contactForm' )->name( 'contact-form' );
 	Route::post( 'contact-form', 'HomeController@contactFormPost' )->name( 'contact-form' );
-
-	// Search
-	Route::post( 'search/{query?}', 'HomeController@search' )->name( 'search' );
 
 	// Leads
 	Route::post( 'add-lead', 'LeadController@addLead' )->name( 'add-lead' );

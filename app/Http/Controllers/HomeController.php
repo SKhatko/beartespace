@@ -197,9 +197,9 @@ class HomeController extends Controller {
 		                   ->orWhereRaw( 'LOWER(color) LIKE ?', '%' . $query . '%' )
 		                   ->get();
 
-		return $artworks;
+//		return $artworks;
 
-		return view( 'search', compact( 'artworks', 'artists' ) );
+		return view( 'search.index', compact( 'artworks', 'artists' ) );
 	}
 
 }

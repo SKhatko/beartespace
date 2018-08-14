@@ -11,8 +11,9 @@
 
             <h2>{{ $artwork->id . '. ' . $artwork->title }}</h2>
 
-            <img src="{{ $artwork->images()->first()->name }}" alt="" style="max-width: 200px; max-height: 200px">
-
+            @if($artwork->images()->first())
+                <img src="{{ $artwork->images()->first()->url }}" alt="" style="max-width: 200px; max-height: 200px">
+            @endif
 
             <div class="d">
                 <el-button type="success">

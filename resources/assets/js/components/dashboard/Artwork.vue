@@ -1,8 +1,5 @@
 <template>
-
-
     <el-card>
-
 
         <h2 v-if="artwork_">Edit Artwork</h2>
         <h2 v-else>Upload Artwork</h2>
@@ -204,12 +201,15 @@
 
             <template v-if="activeStep === 1">
 
+                {{ artwork.images }}
+
                 <label class="el-form-item__label">Upload images of back side, signature, or artwork from side. Up to 3
                     Photos of Your Artwork allowed( jpg/png files accepted)</label>
                 <el-form-item>
                     <el-upload
                             :action="'/api/upload/artwork-image/' + artwork.id"
-                            :file-list="images"
+                            :file-list="artwork.images"
+                            :headers="{'X-Requested-With': 'XMLHttpRequest', 'X-CSRF-TOKEN' : csrf}"
                             :on-preview="handlePictureCardPreview"
                             :on-remove="handleRemove"
                             :on-success="handleSuccess"
@@ -254,7 +254,7 @@
                     <el-button type="primary" style="margin-top: 20px"
                                size="big"
                                @click="activeStep++">
-                        <a href="/dashboard" target="_blank">
+                        <a :href="'/artworks/' + artwork.id" target="_blank">
                             Preview
                         </a>
                     </el-button>
@@ -280,11 +280,11 @@
         props: {
             artwork_: {},
             user_: {},
-            images_: {},
         },
 
         data() {
             return {
+                csrf: window.csrf,
                 artwork: {
                     id: 0,
                     user_id: '',
@@ -310,35 +310,29 @@
                     auction_price: '',
                     auction_start: '',
                     auction_end: '',
+                    images: [],
                 },
-
-                images: [],
 
                 activeStep: 0,
 
                 dialogImageUrl: '',
                 dialogVisible: false
-
             }
         },
 
 
         mounted() {
-            console.log(this.artwork_);
-            console.log(this.user_);
-            console.log(this.images_);
 
             if (this.artwork_) {
-                this.artwork = this.artwork_;
+                this.artwork = JSON.parse(this.artwork_);
             }
 
             if (!this.artwork.user_id) {
-                this.artwork.user_id = this.user_.id
+                this.artwork.user_id = JSON.parse(this.user_).id
             }
 
-            if (this.images_) {
-                this.images = this.images_;
-            }
+            console.log(this.artwork);
+            console.log(this.user);
 
         },
 
@@ -387,7 +381,7 @@
                                 type: response.data.status
                             });
 
-                            this.images = response.data.data;
+                            this.artwork.images = response.data.data;
                         } else {
                             console.log(response.data);
                         }
@@ -401,7 +395,7 @@
             },
 
             handleSuccess(response, file, fileList) {
-                this.images.push({
+                this.artwork.images.push({
                     name: file.name,
                     url: file.url
                 });

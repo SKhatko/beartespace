@@ -17,7 +17,7 @@ class ArtworkController extends Controller {
 
 		$user = Auth::user();
 
-		$artworks = $user->artworks()->orderBy( 'id', 'desc' )->get();
+		$artworks = $user->artworks()->orderBy( 'id', 'desc' )->with( 'images' )->get();
 
 		return view( 'dashboard.artworks.index', compact( 'title', 'artworks' ) );
 	}
@@ -90,8 +90,9 @@ class ArtworkController extends Controller {
 
 		$title = 'Edit Artwork';
 
-		$artwork = Artwork::find( $id );
-		$user    = auth()->user();
+		$artwork = Artwork::whereId( $id )->with( 'images' )->first();
+
+		$user = auth()->user();
 
 		if ( $artwork->user_id === $user->id || $user->isAdmin() ) {
 			return view( 'dashboard.artworks.edit', compact( 'title', 'artwork' ) );

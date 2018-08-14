@@ -270,7 +270,7 @@
                     </div>
 
                     <div class="app-header-search">
-                        <form action="{{ route('search') }}" method="POST">
+                        <form action="{{ route('search') }}">
                             {{ csrf_field() }}
 
                             <el-input required

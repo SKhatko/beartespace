@@ -317,6 +317,7 @@ body, html {
 
           img {
             height: 300px;
+            max-width: 400px
           }
         }
 
@@ -373,6 +374,16 @@ body, html {
 
     }
 
+  }
+
+  &-search {
+    width: 100%;
+    padding: 30px 15px;
+
+    .artwork {
+      margin-bottom: 20px;
+
+    }
   }
 
   &-invite {
@@ -523,11 +534,33 @@ body, html {
   &-artworks {
     padding: 15px;
 
-
     main {
       flex: 1;
     }
 
+  }
+
+  &-artwork {
+    padding: 50px 15px;
+
+    .artwork {
+      display: flex;
+
+      &-images {
+        flex: 1;
+      }
+
+      &-image {
+        img {
+          width: 100%;
+        }
+      }
+
+      &-description {
+        width: 400px;
+      }
+
+    }
   }
 
   &-artworks-list {

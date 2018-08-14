@@ -47,25 +47,28 @@
 
                     @foreach($auctions as $auction)
 
-                        <div class="auction">
-                            <a href="{{ route('auction', $auction->id) }}" class="auction-image">
-                                <img src="{{ $auction->images->first()->url }}"
-                                     alt="{{ $auction->images->first()->name }}">
-                            </a>
+                        @if($auction->images->first())
 
-                            <a href="{{ route('auction', $auction->id) }}" class="auction-title">
-                                {{ $auction->title }}
-                            </a>
+                            <div class="auction">
+                                <a href="{{ route('auction', $auction->id) }}" class="auction-image">
+                                    <img src="{{ $auction->images->first()->url }}"
+                                         alt="{{ $auction->images->first()->name }}">
+                                </a>
 
-                            <div class="auction-artist">
-                                {{ $auction->user->name }}
+                                <a href="{{ route('auction', $auction->id) }}" class="auction-title">
+                                    {{ $auction->title }}
+                                </a>
+
+                                <div class="auction-artist">
+                                    {{ $auction->user->name }}
+                                </div>
+
+                                <div class="auction-ends">
+                                    Ends {{ date('F jS\. Y', strtotime($auction->auction_end)) }}
+                                    {{--Ends August 6th. 2018--}}
+                                </div>
                             </div>
-
-                            <div class="auction-ends">
-                                Ends {{ date('F jS\. Y', strtotime($auction->auction_end)) }}
-                                {{--Ends August 6th. 2018--}}
-                            </div>
-                        </div>
+                        @endif
 
                     @endforeach
 
@@ -125,12 +128,14 @@
 
                     @foreach($auctions as $artwork)
 
+                        @if($artwork->images->first())
                         <div class="artwork">
                             <a href="{{ route('artwork', $artwork->id) }}" class="artwork-image">
                                 <img src="{{ $artwork->images->first()->url }}"
                                      alt="{{ $artwork->images->first()->name }}">
                             </a>
                         </div>
+                        @endif
 
                     @endforeach
 
