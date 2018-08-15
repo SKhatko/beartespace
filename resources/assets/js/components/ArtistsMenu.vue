@@ -9,11 +9,9 @@
                 <el-input v-model="artistFilters.artist" placeholder="Filter by artist name"></el-input>
             </el-form-item>
 
-
-            <!--<el-form-item>-->
-                <!--<el-button>Show</el-button>-->
-
-            <!--</el-form-item>-->
+            <el-form-item v-if="artistFilters.artist">
+                <el-button @click="filterArtists">Show</el-button>
+            </el-form-item>
         </el-form>
 
 
@@ -47,6 +45,9 @@
         },
 
         methods: {
+            filterArtists() {
+
+            }
 
         }
     }

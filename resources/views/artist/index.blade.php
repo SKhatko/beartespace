@@ -8,7 +8,7 @@
 
         <div class="app-artists">
 
-            <artists-menu :artists_="{{ $artists }}"></artists-menu>
+            <artists-menu artists_="{{ $artists }}"></artists-menu>
 
             <div class="artists">
 
