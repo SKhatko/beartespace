@@ -104,6 +104,20 @@
                     </el-form-item>
                 </el-col>
 
+                <el-col :sm="8" v-if="user.user_type === 'artist'">
+                    <el-form-item label="Nationality" prop="nationality_id">
+                        <el-select filterable value="user.nationality_id" v-model="user.nationality_id"
+                                   placeholder="Select your nationality">
+                            <el-option
+                                    v-for="country in countries"
+                                    :key="country.id"
+                                    :label="country.citizenship"
+                                    :value="country.id">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                </el-col>
+
 
                 <el-col :sm="12">
                     <el-form-item label="City" prop="city">

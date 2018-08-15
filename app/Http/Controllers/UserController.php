@@ -42,7 +42,7 @@ class UserController extends Controller {
 
 //		return $user->getAvatar();
 
-		$countries = Country::all( 'country_name', 'id' );
+		$countries = Country::all( 'country_name', 'id', 'citizenship' );
 
 		return view( 'dashboard.user.profile', compact( 'title', 'user', 'countries' ) );
 	}

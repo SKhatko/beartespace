@@ -20108,6 +20108,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -75292,7 +75306,37 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "value": country.id
       }
     })
-  }))], 1)], 1), _vm._v(" "), _c('el-col', {
+  }))], 1)], 1), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Nationality",
+      "prop": "nationality_id"
+    }
+  }, [_c('el-select', {
+    attrs: {
+      "filterable": "",
+      "value": "user.nationality_id",
+      "placeholder": "Select your nationality"
+    },
+    model: {
+      value: (_vm.user.nationality_id),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "nationality_id", $$v)
+      },
+      expression: "user.nationality_id"
+    }
+  }, _vm._l((_vm.countries), function(country) {
+    return _c('el-option', {
+      key: country.id,
+      attrs: {
+        "label": country.citizenship,
+        "value": country.id
+      }
+    })
+  }))], 1)], 1) : _vm._e(), _vm._v(" "), _c('el-col', {
     attrs: {
       "sm": 12
     }
