@@ -85,6 +85,7 @@ Route::group( [ 'middleware' => 'web' ], function () {
 	Route::group( [
 		'prefix'     => 'dashboard',
 		'middleware' => [
+			'auth',
 			'dashboard',
 			'confirmed-email',
 			'trial-plan',

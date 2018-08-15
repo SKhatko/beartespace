@@ -13,6 +13,8 @@ class User extends Authenticatable {
 
 	protected $dates = [ 'deleted_at' ];
 
+	protected $appends = ['avatar_url', 'image_url'];
+
 	/**
 	 * The attributes that are mass assignable.
 	 *
@@ -99,10 +101,18 @@ class User extends Authenticatable {
 		return $this->hasMany( Plan::class, 'user_type', 'user_type' );
 	}
 
-	public function getAvatar() {
-
-		if ( file_exists( public_path( 'storage' . $this->avatar->url ) ) ) {
+	public function getAvatarUrlAttribute() {
+		if ( $this->avatar && file_exists( public_path( 'storage' . $this->avatar->url ) ) ) {
 			return $this->avatar->url;
+		} else {
+//			file_exists(public_path('images/avatar-placeholder.png'));
+			return 'avatar-placeholder.png';
+		}
+	}
+
+	public function getImageUrlAttribute() {
+		if ( $this->image && file_exists( public_path( 'storage' . $this->image->url ) ) ) {
+			return $this->image->url;
 		} else {
 //			file_exists(public_path('images/avatar-placeholder.png'));
 			return 'avatar-placeholder.png';

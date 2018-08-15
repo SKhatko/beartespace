@@ -21,8 +21,7 @@
                         accept="image/*"
                         :on-success="handleAvatarSuccess"
                         :before-upload="beforeAvatarUpload">
-                    <img v-if="user.avatar" :src="'/imagecache/avatar' + user.avatar.url" class="avatar">
-                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                    <img :src="'/imagecache/avatar/' + user.avatar_url" class="avatar">
                 </el-upload>
 
                 <div class="profile-avatar-cropper" style="display: none;">
@@ -49,6 +48,21 @@
                     </el-button>
 
                 </div>
+
+            </el-form-item>
+
+            <el-form-item label="Upload profile background image" v-if="user.user_type === 'artist' || user.user_type === 'gallery'">
+
+                <el-upload
+                        class="image-uploader"
+                        action="/api/upload/user-image"
+                        :headers="{'X-Requested-With': 'XMLHttpRequest', 'X-CSRF-TOKEN' : csrf}"
+                        :show-file-list="false"
+                        accept="image/*"
+                        :on-success="handleImageSuccess"
+                        :before-upload="beforeImageUpload">
+                    <img :src="'/imagecache/avatar/' + user.image_url" class="image">
+                </el-upload>
 
             </el-form-item>
 
@@ -337,29 +351,53 @@
         },
 
         methods: {
+
             handleAvatarSuccess(response, file) {
                 console.log(response);
-                this.user.avatar = response.data;
+                this.user.avatar_url = response.data;
                 this.$message({
                     showClose: true,
                     message: response.message,
                     type: response.status
                 });
-                // console.log(res.data);
-                // console.log(file);
             },
+
+            handleImageSuccess(response, file) {
+                console.log(response);
+                this.user.image_url = response.data;
+                this.$message({
+                    showClose: true,
+                    message: response.message,
+                    type: response.status
+                });
+            },
+
             beforeAvatarUpload(file) {
                 console.log(file);
-                // const isJPG = file.type === 'image/jpeg';
-                // const isLt2M = file.size / 1024 / 1024 < 2;
-                //
-                // if (!isJPG) {
-                //     this.$message.error('Avatar picture must be JPG format!');
-                // }
-                // if (!isLt2M) {
-                //     this.$message.error('Avatar picture size can not exceed 2MB!');
-                // }
-                // return isJPG && isLt2M;
+                const isJPG = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/jpg';
+                const isLt2M = file.size / 1024 / 1024 < 2;
+
+                if (!isJPG) {
+                    this.$message.error('Avatar picture must be JPG, JPEG, or PNG format!');
+                }
+                if (!isLt2M) {
+                    this.$message.error('Avatar picture size can not exceed 2MB!');
+                }
+                return isJPG && isLt2M;
+            },
+
+            beforeImageUpload(file) {
+                console.log(file);
+                const isJPG = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/jpg';
+                const isLt2M = file.size / 1024 / 1024 < 2;
+
+                if (!isJPG) {
+                    this.$message.error('Image picture must be JPG, JPEG, or PNG format!');
+                }
+                if (!isLt2M) {
+                    this.$message.error('Image picture size can not exceed 2MB!');
+                }
+                return isJPG && isLt2M;
             },
 
             save() {
@@ -429,7 +467,7 @@
         },
         computed: {
             userName() {
-                return window.location.origin + '/' + this.user.user_name;
+                return window.location.origin + '/' + this.user.user_name ? this.user.user_name : 'artist/' + this.user.id;
             }
         }
     }
@@ -455,29 +493,26 @@
         left: 110px;
     }
 
-    .avatar-uploader .el-upload {
+    .avatar-uploader .el-upload, .image-uploader .el-upload {
         border: 1px dashed #d9d9d9;
         border-radius: 6px;
         cursor: pointer;
         position: relative;
         overflow: hidden;
-    }
 
-    .avatar-uploader .el-upload:hover {
-        border-color: #409EFF;
-    }
-
-    .avatar-uploader-icon {
-        font-size: 28px;
-        color: #8c939d;
-        width: 178px;
-        height: 178px;
-        line-height: 178px;
-        text-align: center;
+        &:hover {
+            border-color: #409EFF;
+        }
     }
 
     .avatar {
         width: 178px;
+        height: 178px;
+        display: block;
+    }
+    .image {
+        /*width: 178px;*/
+
         height: 178px;
         display: block;
     }

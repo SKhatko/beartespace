@@ -20122,6 +20122,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -20189,27 +20203,47 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         handleAvatarSuccess: function handleAvatarSuccess(response, file) {
             console.log(response);
-            this.user.avatar = response.data;
+            this.user.avatar_url = response.data;
             this.$message({
                 showClose: true,
                 message: response.message,
                 type: response.status
             });
-            // console.log(res.data);
-            // console.log(file);
+        },
+        handleImageSuccess: function handleImageSuccess(response, file) {
+            console.log(response);
+            this.user.image_url = response.data;
+            this.$message({
+                showClose: true,
+                message: response.message,
+                type: response.status
+            });
         },
         beforeAvatarUpload: function beforeAvatarUpload(file) {
             console.log(file);
-            // const isJPG = file.type === 'image/jpeg';
-            // const isLt2M = file.size / 1024 / 1024 < 2;
-            //
-            // if (!isJPG) {
-            //     this.$message.error('Avatar picture must be JPG format!');
-            // }
-            // if (!isLt2M) {
-            //     this.$message.error('Avatar picture size can not exceed 2MB!');
-            // }
-            // return isJPG && isLt2M;
+            var isJPG = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/jpg';
+            var isLt2M = file.size / 1024 / 1024 < 2;
+
+            if (!isJPG) {
+                this.$message.error('Avatar picture must be JPG, JPEG, or PNG format!');
+            }
+            if (!isLt2M) {
+                this.$message.error('Avatar picture size can not exceed 2MB!');
+            }
+            return isJPG && isLt2M;
+        },
+        beforeImageUpload: function beforeImageUpload(file) {
+            console.log(file);
+            var isJPG = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/jpg';
+            var isLt2M = file.size / 1024 / 1024 < 2;
+
+            if (!isJPG) {
+                this.$message.error('Image picture must be JPG, JPEG, or PNG format!');
+            }
+            if (!isLt2M) {
+                this.$message.error('Image picture size can not exceed 2MB!');
+            }
+            return isJPG && isLt2M;
         },
         save: function save() {
             var _this = this;
@@ -20275,7 +20309,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     computed: {
         userName: function userName() {
-            return window.location.origin + '/' + this.user.user_name;
+            return window.location.origin + '/' + this.user.user_name ? this.user.user_name : 'artist/' + this.user.id;
         }
     }
 });
@@ -21717,7 +21751,7 @@ for (var i = 0; i < DOMIterables.length; i++) {
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(66)();
-exports.push([module.i, "\n.profile-avatar-cropper {\n  line-height: initial;\n  margin-bottom: 10px;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-align: start;\n      align-items: flex-start;\n  position: relative;\n}\n.profile-avatar-cropper .croppa-container {\n    border: 1px dashed #379797;\n}\n.profile-avatar-save {\n  position: absolute;\n  bottom: 10px;\n  left: 110px;\n}\n.avatar-uploader .el-upload {\n  border: 1px dashed #d9d9d9;\n  border-radius: 6px;\n  cursor: pointer;\n  position: relative;\n  overflow: hidden;\n}\n.avatar-uploader .el-upload:hover {\n  border-color: #409EFF;\n}\n.avatar-uploader-icon {\n  font-size: 28px;\n  color: #8c939d;\n  width: 178px;\n  height: 178px;\n  line-height: 178px;\n  text-align: center;\n}\n.avatar {\n  width: 178px;\n  height: 178px;\n  display: block;\n}\n", ""]);
+exports.push([module.i, "\n.profile-avatar-cropper {\n  line-height: initial;\n  margin-bottom: 10px;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-align: start;\n      align-items: flex-start;\n  position: relative;\n}\n.profile-avatar-cropper .croppa-container {\n    border: 1px dashed #379797;\n}\n.profile-avatar-save {\n  position: absolute;\n  bottom: 10px;\n  left: 110px;\n}\n.avatar-uploader .el-upload, .image-uploader .el-upload {\n  border: 1px dashed #d9d9d9;\n  border-radius: 6px;\n  cursor: pointer;\n  position: relative;\n  overflow: hidden;\n}\n.avatar-uploader .el-upload:hover, .image-uploader .el-upload:hover {\n    border-color: #409EFF;\n}\n.avatar {\n  width: 178px;\n  height: 178px;\n  display: block;\n}\n.image {\n  /*width: 178px;*/\n  height: 178px;\n  display: block;\n}\n", ""]);
 
 /***/ }),
 /* 173 */
@@ -75120,13 +75154,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "on-success": _vm.handleAvatarSuccess,
       "before-upload": _vm.beforeAvatarUpload
     }
-  }, [(_vm.user.avatar) ? _c('img', {
+  }, [_c('img', {
     staticClass: "avatar",
     attrs: {
-      "src": '/imagecache/avatar' + _vm.user.avatar.url
+      "src": '/imagecache/avatar/' + _vm.user.avatar_url
     }
-  }) : _c('i', {
-    staticClass: "el-icon-plus avatar-uploader-icon"
   })]), _vm._v(" "), _c('div', {
     staticClass: "profile-avatar-cropper",
     staticStyle: {
@@ -75180,7 +75212,29 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.uploadAvatar
     }
-  }, [_vm._v("\n                    Save\n                ")]) : _vm._e()], 1)], 1)], 1), _vm._v(" "), _c('el-form', {
+  }, [_vm._v("\n                    Save\n                ")]) : _vm._e()], 1)], 1), _vm._v(" "), (_vm.user.user_type === 'artist' || _vm.user.user_type === 'gallery') ? _c('el-form-item', {
+    attrs: {
+      "label": "Upload profile background image"
+    }
+  }, [_c('el-upload', {
+    staticClass: "image-uploader",
+    attrs: {
+      "action": "/api/upload/user-image",
+      "headers": {
+        'X-Requested-With': 'XMLHttpRequest',
+        'X-CSRF-TOKEN': _vm.csrf
+      },
+      "show-file-list": false,
+      "accept": "image/*",
+      "on-success": _vm.handleImageSuccess,
+      "before-upload": _vm.beforeImageUpload
+    }
+  }, [_c('img', {
+    staticClass: "image",
+    attrs: {
+      "src": '/imagecache/avatar/' + _vm.user.image_url
+    }
+  })])], 1) : _vm._e()], 1), _vm._v(" "), _c('el-form', {
     ref: "profile",
     attrs: {
       "label-position": "top",

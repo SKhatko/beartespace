@@ -11,15 +11,13 @@
             <div class="artist">
 
                 <div class="artist-image"
-                     style="background-image: url({{ $artist->image->url }});">
+                     style="background-image: url({{ '/imagecache/original' .  $artist->image_url }});">
 
                     <div class="artist-image--fade">
 
-                        @if($artist->avatar)
                             <div class="artist-avatar">
-                                <img src="{{ $artist->avatar->url }}" alt="{{ $artist->avatar->name }}">
+                                <img src="/imagecache/avatar{{ $artist->avatar_url }}" alt="{{ $artist->avatar->name }}">
                             </div>
-                        @endif
 
                         <div class="artist-name">{{ $artist->name }} </div>
                         <div class="artist-dob">{{ $artist->dob }}</div>
@@ -38,8 +36,8 @@
                         <div class="artist-website">{{ $artist->website }}</div>
                         <div class="artist-education">{{ $artist->education }}</div>
                         <div class="artist-education-title">{{ $artist->education_title }}</div>
-                        <div class="artist-inspiration">{{ $artist->inspiration }}</div>
-                        <div class="artist-exhibition">{{ $artist->exhibition }}</div>
+                        <div class="artist-inspiration">{!! $artist->inspiration !!}</div>
+                        <div class="artist-exhibition">{!! $artist->exhibition !!}</div>
                         <div class="artist-technique">
 
                             @if($artist->technique)

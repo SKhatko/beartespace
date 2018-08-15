@@ -131,7 +131,7 @@
                         <el-dropdown trigger="click">
                       <span class="app-header-auth-name">
                               <span class="app-header-auth-avatar">
-                                  <img src="/imagecache/mini-avatar/{{ auth()->user()->getAvatar()}}"/>
+                                  <img src="/imagecache/mini-avatar/{{ auth()->user()->avatar_url}}"/>
                               </span>
                           {{ auth()->user()->name }}
 

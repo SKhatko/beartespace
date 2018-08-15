@@ -38,9 +38,7 @@ class UserController extends Controller {
 
 		$title = trans( 'portal.profile' );
 
-		$user = auth()->user()->load( 'avatar', 'image' );
-
-//		return $user->getAvatar();
+		$user = auth()->user();
 
 		$countries = Country::all( 'country_name', 'id', 'citizenship' );
 

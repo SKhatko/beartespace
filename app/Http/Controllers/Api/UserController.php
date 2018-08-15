@@ -14,8 +14,8 @@ class UserController extends Controller {
 		return auth()->user();
 	}
 
-	public function checkUsername($username) {
-		$user = User::where('user_name', $username)->first();
+	public function checkUsername( $username ) {
+		$user = User::where( 'user_name', $username )->first();
 
 		return $user;
 	}
@@ -24,7 +24,7 @@ class UserController extends Controller {
 
 		$user = auth()->user();
 
-		$user->update( $request->except( [ 'image', 'avatar' ] ) );
+		$user->update( $request->except( [ 'avatar_url', 'image_url' ] ) );
 
 		return [ 'status' => 'success', 'message' => 'Saved', 'data' => $user ];
 	}
@@ -38,14 +38,16 @@ class UserController extends Controller {
 		$user->favouriteArtworks()->toggle( $id );
 
 		if ( $user->favouriteArtworks()->count() > $artworksCount ) {
-			return [ 'status'  => 'success',
-			         'message' => 'Artwork Added to Favourites',
-			         'data'    => $user->favouriteArtworks
+			return [
+				'status'  => 'success',
+				'message' => 'Artwork Added to Favourites',
+				'data'    => $user->favouriteArtworks
 			];
 		} else {
-			return [ 'status'  => 'success',
-			         'message' => 'Artwork Removed from Favourites',
-			         'data'    => $user->favouriteArtworks
+			return [
+				'status'  => 'success',
+				'message' => 'Artwork Removed from Favourites',
+				'data'    => $user->favouriteArtworks
 			];
 		}
 	}
@@ -53,27 +55,16 @@ class UserController extends Controller {
 	public function uploadUserAvatar( Request $request ) {
 
 		// validate the uploaded file
-		$validation = $request->validate([
+		$validation = $request->validate( [
 			'file' => 'required|image|mimes:jpeg,jpg,png|max:2048'
-		]);
+		] );
 
 		$user = auth()->user();
 
 		$file      = $validation['file']; // get the validated file
 		$extension = $file->getClientOriginalExtension();
 		$filename  = 'avatar-' . time() . '.' . $extension;
-		$path      = $file->storeAs('public/user/' . $user->id, $filename);
-
-//		return $path;
-
-//		$img = Image::make($path)
-//		            ->resize(320, 240)->save();
-//		            ->save(storage_path('public/user/' . $user->id . '/' . $filename));
-//		$image = Image::make($path)->resize(300, 200);
-
-//		$image = Image::make(storage_path($path))->resize(300, 200);
-//		$image->save($path);
-
+		$file->storeAs( 'public/user/' . $user->id, $filename );
 
 		$user->avatar()->updateOrCreate( [ 'avatar_id' => $user->id ], [
 			'name'    => $filename,
@@ -82,31 +73,7 @@ class UserController extends Controller {
 			'url'     => null
 		] );
 
-//		return $path;
-		return [ 'status' => 'success', 'message' => 'Profile avatar saved', 'data' => $user->avatar ];
-
-
-		if ( $request->file( 'file' ) ) {
-
-
-
-//			$file->storeAs('/public/user/' . $user->id, 'avatar.jpg');
-//
-//			$pathtoimage = 'public/user/'.$user->id.'/avatar.jpg';
-//
-//			$img = Image::make(request()->file('file')->getRealPath());
-//			$img->sharpen(9);
-//			$img->resize(null, 290, function ($constraint) {
-//				$constraint->aspectRatio();
-//			});
-//			$img->crop(290,290);
-//			$img->save($pathtoimage);
-
-
-
-//			$request->file( 'file' )->storeAs( '/public/user/' . $user->id, $request->file( 'file' )->getClientOriginalName() );
-
-		}
+		return [ 'status' => 'success', 'message' => 'Profile avatar saved', 'data' => $user->avatar_url ];
 
 //		$base64 = $request->input( 'avatar' );
 //
@@ -135,20 +102,42 @@ class UserController extends Controller {
 
 	public function uploadUserImage( Request $request ) {
 
-		if ( $request->file( 'file' ) ) {
+		// validate the uploaded file
+		$validation = $request->validate( [
+			'file' => 'required|image|mimes:jpeg,jpg,png|max:2048'
+		] );
 
-			$user = auth()->user();
+		$user = auth()->user();
 
-			$user->image()->updateOrCreate( [ 'image_id' => $user->id ], [
-				'name'    => $request->file( 'file' )->getClientOriginalName(),
-				'user_id' => $user->id,
-				'folder'  => '/user',
-				'url'     => null
-			] );
+		$file      = $validation['file']; // get the validated file
+		$extension = $file->getClientOriginalExtension();
+		$filename  = 'image-' . time() . '.' . $extension;
+		$file->storeAs( 'public/user/' . $user->id, $filename );
 
-			$request->file( 'file' )->storeAs( '/public/user/' . $user->id, $request->file( 'file' )->getClientOriginalName() );
+		$user->image()->updateOrCreate( [ 'image_id' => $user->id ], [
+			'name'    => $filename,
+			'user_id' => $user->id,
+			'folder'  => '/user',
+			'url'     => null
+		] );
 
-			return [ 'status' => 'success', 'message' => 'Profile image saved', 'data' => $user->image ];
-		}
+		return [ 'status' => 'success', 'message' => 'Profile image saved', 'data' => $user->image_url ];
+
+
+//		if ( $request->file( 'file' ) ) {
+//
+//			$user = auth()->user();
+//
+//			$user->image()->updateOrCreate( [ 'image_id' => $user->id ], [
+//				'name'    => $request->file( 'file' )->getClientOriginalName(),
+//				'user_id' => $user->id,
+//				'folder'  => '/user',
+//				'url'     => null
+//			] );
+//
+//			$request->file( 'file' )->storeAs( '/public/user/' . $user->id, $request->file( 'file' )->getClientOriginalName() );
+//
+//			return [ 'status' => 'success', 'message' => 'Profile image saved', 'data' => $user->image ];
+//		}
 	}
 }
