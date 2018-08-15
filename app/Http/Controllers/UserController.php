@@ -40,6 +40,8 @@ class UserController extends Controller {
 
 		$user = auth()->user()->load( 'avatar', 'image' );
 
+//		return $user->getAvatar();
+
 		$countries = Country::all( 'country_name', 'id' );
 
 		return view( 'dashboard.user.profile', compact( 'title', 'user', 'countries' ) );

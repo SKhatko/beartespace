@@ -56,7 +56,8 @@
 
             <div class="app-header--top">
 
-                <a href="{{ route('page', 'freight')}}">Always free shipping ( {{ geoip(request()->ip())->country }})</a>
+                <a href="{{ route('page', 'freight')}}">Always free shipping ( {{ geoip(request()->ip())->country }}
+                    )</a>
                 <a href="{{ route('page', 'right-of-cancellation')}}">14-days return right</a>
                 <a href="{{ route('selections')}}">Best art selection</a>
 
@@ -129,11 +130,9 @@
                     @else
                         <el-dropdown trigger="click">
                       <span class="app-header-auth-name">
-                          @if(auth()->user()->avatar)
                               <span class="app-header-auth-avatar">
-                                  <img src="/imagecache/mini-avatar/{{ auth()->user()->avatar->url}}"/>
+                                  <img src="/imagecache/mini-avatar/{{ auth()->user()->getAvatar()}}"/>
                               </span>
-                          @endif
                           {{ auth()->user()->name }}
 
                           <i class="el-icon-arrow-down el-icon--right"></i>
@@ -173,33 +172,27 @@
                                 @if(auth()->user()->isAdmin())
 
                                     <el-dropdown-item>
-                                        <i class="el-icon-message"></i>
-                                        <a href="{{route('admin.messages')}}" class="el-dropdown-link">Messages</a>
+                                        <a href="{{route('admin.messages')}}" class="el-dropdown-link"><i class="el-icon-message"></i> Messages</a>
                                     </el-dropdown-item>
 
                                     <el-dropdown-item>
-                                        <i class="icon-user-outline"></i>
-                                        <a href="{{ route('admin.users') }}">Users</a>
+                                        <a href="{{ route('admin.users') }}"><i class="icon-user-outline"></i> Users</a>
                                     </el-dropdown-item>
 
                                     <el-dropdown-item>
-                                        <i class="el-icon-tickets"></i>
-                                        <a href="{{ route('admin.translations') }}">Translations</a>
+                                        <a href="{{ route('admin.translations') }}"><i class="el-icon-tickets"></i> Translations</a>
                                     </el-dropdown-item>
 
                                     <el-dropdown-item>
-                                        <i class="el-icon-setting"></i>
-                                        <a href="{{ route('admin.languages') }}">Languages</a>
+                                        <a href="{{ route('admin.languages') }}"><i class="el-icon-setting"></i> Languages</a>
                                     </el-dropdown-item>
 
                                     <el-dropdown-item>
-                                        <i class="el-icon-setting"></i>
-                                        <a href="{{ route('admin.settings') }}">Settings</a>
+                                        <a href="{{ route('admin.settings') }}"><i class="el-icon-setting"></i> Settings</a>
                                     </el-dropdown-item>
 
                                     <el-dropdown-item>
-                                        <i class="el-icon-document"></i>
-                                        <a href="{{ route('admin.pages') }}">Pages</a>
+                                        <a href="{{ route('admin.pages') }}"><i class="el-icon-document"></i> Pages</a>
                                     </el-dropdown-item>
 
                                 @endif

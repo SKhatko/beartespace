@@ -99,7 +99,15 @@ class User extends Authenticatable {
 		return $this->hasMany( Plan::class, 'user_type', 'user_type' );
 	}
 
+	public function getAvatar() {
 
+		if ( file_exists( public_path( 'storage' . $this->avatar->url ) ) ) {
+			return $this->avatar->url;
+		} else {
+//			file_exists(public_path('images/avatar-placeholder.png'));
+			return 'avatar-placeholder.png';
+		}
+	}
 
 
 	public function status_context() {
