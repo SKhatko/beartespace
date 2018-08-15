@@ -24,7 +24,7 @@ class UserController extends Controller {
 
 		$user = auth()->user();
 
-		$user->update( $request->except( [ 'avatar_url', 'image_url' ] ) );
+		$user->update( $request->except( [ 'avatar', 'image', 'avatar_url', 'image_url' ] ) );
 
 		return [ 'status' => 'success', 'message' => 'Saved', 'data' => $user ];
 	}

@@ -20188,15 +20188,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.user = JSON.parse(this.user_);
         }
 
-        console.log(this.user);
+        console.log(this.user.avatar_url);
 
         if (this.countries_) {
             this.countries = JSON.parse(this.countries_);
         }
 
-        if (!this.user_.technique) {
-            this.user.technique = [];
-        }
+        // if (!this.user_.technique) {
+        //     this.user.technique = [];
+        // }
     },
 
 
@@ -75195,14 +75195,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "avatarCropper"
     }
-  }, [(_vm.user.avatar) ? _c('img', {
-    attrs: {
-      "slot": "initial",
-      "crossOrigin": "anonymous",
-      "src": _vm.user.avatar.url
-    },
-    slot: "initial"
-  }) : _vm._e()]), _vm._v(" "), (_vm.avatarChanged) ? _c('el-button', {
+  }), _vm._v(" "), (_vm.avatarChanged) ? _c('el-button', {
     staticClass: "profile-avatar-save",
     attrs: {
       "type": "primary",

@@ -38,7 +38,7 @@
                              prevent-white-space
                              remove-button-color="#379797">
 
-                        <img v-if="user.avatar" crossOrigin="anonymous" slot="initial" :src="user.avatar.url"/>
+                        <!--<img v-if="user.avatar" crossOrigin="anonymous" slot="initial" :src="user.avatar.url"/>-->
                         <!--<img slot="placeholder" src="/images/user-placeholder-image.png"/>-->
                     </cropper>
 
@@ -338,15 +338,15 @@
                 this.user = JSON.parse(this.user_);
             }
 
-            console.log(this.user);
+            console.log(this.user.avatar_url);
 
             if (this.countries_) {
                 this.countries = JSON.parse(this.countries_);
             }
 
-            if (!this.user_.technique) {
-                this.user.technique = [];
-            }
+            // if (!this.user_.technique) {
+            //     this.user.technique = [];
+            // }
 
         },
 
