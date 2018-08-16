@@ -7,6 +7,7 @@
         <template>
 
             <el-table
+                    v-if="users.length"
                     :data="users"
                     style="width: 100%">
                 <el-table-column type="expand">
@@ -53,6 +54,18 @@
                         <!--<el-checkbox v-model="languages[scope.$index].active"></el-checkbox>-->
                     </template>
                 </el-table-column>
+                <el-table-column
+                        label="">
+                    <template slot-scope="scope">
+                        <el-button
+                                v-if="scope.row.user_type !== 'admin'"
+                                type="danger"
+                                icon="el-icon-delete"
+                                circle
+
+                                   @click.native.prevent="deleteUser(scope.$index, users)"></el-button>
+                    </template>
+                </el-table-column>
 
             </el-table>
 
@@ -72,21 +85,40 @@
 
         data() {
             return {
-                users: [],
+                users: {},
             }
         },
 
 
         mounted() {
-            if (this.users_) {
-                this.users = this.users_;
 
+            if (this.users_) {
+                this.users = JSON.parse(this.users_);
             }
 
-            console.log(this.users_);
+            console.log(this.users);
         },
 
         methods: {
+            deleteUser(index, rows) {
+
+                this.$confirm('This will permanently delete user. Continue?', 'Warning', {
+                    confirmButtonText: 'OK',
+                    cancelButtonText: 'Cancel',
+                    type: 'warning'
+                }).then(() => {
+                    let user = rows[index];
+
+                    axios.post('/api/user', user).then(response => {
+                        this.$message({
+                            type: response.data.type,
+                            message: response.data.message
+                        });
+
+                        rows.splice(index, 1);
+                    });
+                })
+            },
 
             filterTag(value, row, column) {
                 console.log(value);

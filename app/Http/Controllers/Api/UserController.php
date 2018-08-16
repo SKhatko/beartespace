@@ -52,6 +52,19 @@ class UserController extends Controller {
 		}
 	}
 
+	public function destroy(Request $request) {
+
+		$user = User::findOrFail($request->id);
+		$userName = $user->name;
+		$user->forceDelete();
+
+		return [
+			'status'  => 'success',
+			'message' => $userName . ' Removed from beartespace',
+			'data'    => $user
+		];
+	}
+
 	public function uploadUserAvatar( Request $request ) {
 
 		// validate the uploaded file

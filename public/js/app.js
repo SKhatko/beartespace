@@ -18556,8 +18556,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
 
         console.log(window.location.search);
-        console.log(this.getQueryVariable('artist'));
-        this.setFilters();
+        if (window.location.search) {
+            this.setFilters();
+        }
     },
 
 
@@ -20565,6 +20566,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -20575,19 +20589,40 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     data: function data() {
         return {
-            users: []
+            users: {}
         };
     },
     mounted: function mounted() {
+
         if (this.users_) {
-            this.users = this.users_;
+            this.users = JSON.parse(this.users_);
         }
 
-        console.log(this.users_);
+        console.log(this.users);
     },
 
 
     methods: {
+        deleteUser: function deleteUser(index, rows) {
+            var _this = this;
+
+            this.$confirm('This will permanently delete user. Continue?', 'Warning', {
+                confirmButtonText: 'OK',
+                cancelButtonText: 'Cancel',
+                type: 'warning'
+            }).then(function () {
+                var user = rows[index];
+
+                axios.post('/api/user', user).then(function (response) {
+                    _this.$message({
+                        type: response.data.type,
+                        message: response.data.message
+                    });
+
+                    rows.splice(index, 1);
+                });
+            });
+        },
         filterTag: function filterTag(value, row, column) {
             console.log(value);
             console.log(row);
@@ -76308,7 +76343,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return (_vm.users) ? _c('div', [_c('h2', [_vm._v("Users")]), _vm._v(" "), [_c('el-table', {
+  return (_vm.users) ? _c('div', [_c('h2', [_vm._v("Users")]), _vm._v(" "), [(_vm.users.length) ? _c('el-table', {
     staticStyle: {
       "width": "100%"
     },
@@ -76394,7 +76429,29 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         return [_vm._v("\n                    " + _vm._s(scope.row.active_status) + "\n                    ")]
       }
     }])
-  })], 1)]], 2) : _vm._e()
+  }), _vm._v(" "), _c('el-table-column', {
+    attrs: {
+      "label": ""
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function(scope) {
+        return [(scope.row.user_type !== 'admin') ? _c('el-button', {
+          attrs: {
+            "type": "danger",
+            "icon": "el-icon-delete",
+            "circle": ""
+          },
+          nativeOn: {
+            "click": function($event) {
+              $event.preventDefault();
+              _vm.deleteUser(scope.$index, _vm.users)
+            }
+          }
+        }) : _vm._e()]
+      }
+    }])
+  })], 1) : _vm._e()]], 2) : _vm._e()
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

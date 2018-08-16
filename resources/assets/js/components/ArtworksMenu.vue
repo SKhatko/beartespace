@@ -186,8 +186,9 @@
             }
 
             console.log(window.location.search);
-            console.log(this.getQueryVariable('artist'));
-            this.setFilters();
+            if(window.location.search) {
+                this.setFilters();
+            }
         },
 
         methods: {

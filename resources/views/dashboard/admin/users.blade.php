@@ -4,8 +4,6 @@
 
 @section('admin-content')
 
-    <users
-            :users_="{{ $users }}">
-    </users>
+    <users users_="{{ $users }}"></users>
 
 @endsection

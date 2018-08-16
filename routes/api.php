@@ -25,6 +25,7 @@ Route::group( [ 'middleware' => 'auth:api' ], function () {
 	Route::put( 'favourites/{id}/toggle', 'Api\UserController@toggleFavouriteArtwork' );
 
 	Route::get( 'user/check-username/{username}', 'Api\UserController@checkUsername' );
+	Route::post( 'user', 'Api\UserController@destroy' )->middleware('admin');
 
 
 	// Upload files
