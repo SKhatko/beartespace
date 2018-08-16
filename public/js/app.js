@@ -18514,11 +18514,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
-    props: {},
+    props: {
+        countries_: {}
+    },
 
     data: function data() {
         return {
@@ -18549,6 +18552,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     mounted: function mounted() {
         var filters = ['category', 'direction', 'medium', 'theme', 'color'];
+
+        if (this.countries_) {
+            this.countries = JSON.parse(this.countries_);
+        }
 
         // filters.map(filter => {
         //     // console.log(filter);
@@ -20136,6 +20143,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -20188,15 +20196,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.user = JSON.parse(this.user_);
         }
 
-        console.log(this.user.avatar_url);
-
         if (this.countries_) {
             this.countries = JSON.parse(this.countries_);
         }
 
-        // if (!this.user_.technique) {
-        //     this.user.technique = [];
-        // }
+        if (!this.user.technique) {
+            this.user.technique = [];
+        }
     },
 
 
@@ -76075,12 +76081,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "artworkFilters.country"
     }
-  }, _vm._l((_vm.countries), function(country, key) {
+  }, _vm._l((_vm.countries), function(country) {
     return _c('el-option', {
-      key: key,
+      key: country.id,
       attrs: {
-        "label": country,
-        "value": key
+        "label": country.country_name,
+        "value": country.id
       }
     })
   }))], 1), _vm._v(" "), _c('el-form-item', [_c('el-select', {
@@ -76189,7 +76195,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "label": "Up to 30000",
       "value": 30000
     }
-  })], 1)], 1)], 1)], 1)
+  })], 1)], 1)], 1), _vm._v(" "), _c('el-button', {
+    staticStyle: {
+      "margin-bottom": "20px"
+    }
+  }, [_vm._v("Filter")])], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

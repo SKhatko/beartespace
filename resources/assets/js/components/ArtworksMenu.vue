@@ -73,10 +73,10 @@
                 <el-select value="" v-model="artworkFilters.country" filterable multiple collapse-tags
                            placeholder="Filter by country">
                     <el-option
-                            v-for="(country, key) in countries"
-                            :key="key"
-                            :label="country"
-                            :value="key">
+                            v-for="country in countries"
+                            :key="country.id"
+                            :label="country.country_name"
+                            :value="country.id">
                     </el-option>
                 </el-select>
 
@@ -134,10 +134,11 @@
             </el-form-item>
 
 
+
         </el-form>
 
 
-        <!--<el-button>Filter</el-button>-->
+        <el-button style="margin-bottom: 20px;">Filter</el-button>
 
     </div>
 
@@ -147,7 +148,9 @@
 
     export default {
 
-        props: {},
+        props: {
+            countries_: {}
+        },
 
         data() {
             return {
@@ -179,6 +182,10 @@
 
         mounted() {
             let filters = ['category', 'direction', 'medium', 'theme', 'color'];
+
+            if (this.countries_) {
+                this.countries = JSON.parse(this.countries_);
+            }
 
             // filters.map(filter => {
             //     // console.log(filter);

@@ -8,7 +8,7 @@
 
         <div class="app-artworks">
 
-            <artworks-menu></artworks-menu>
+            <artworks-menu countries_="{{ $countries }}"></artworks-menu>
 
             <main>
 

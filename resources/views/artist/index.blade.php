@@ -26,7 +26,7 @@
 
                             <div class="artist-artworks">
 
-                                @foreach($artist->artworks->random(3) as $artwork)
+                                @foreach($artist->artworks->take(3) as $artwork)
 
                                     @if($artwork->images->first())
                                         <a href="{{ route('artwork', $artwork->id) }}" class="artist-artwork">

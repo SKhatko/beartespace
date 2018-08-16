@@ -51,7 +51,8 @@
 
             </el-form-item>
 
-            <el-form-item label="Upload profile background image" v-if="user.user_type === 'artist' || user.user_type === 'gallery'">
+            <el-form-item label="Upload profile background image"
+                          v-if="user.user_type === 'artist' || user.user_type === 'gallery'">
 
                 <el-upload
                         class="image-uploader"
@@ -338,15 +339,14 @@
                 this.user = JSON.parse(this.user_);
             }
 
-            console.log(this.user.avatar_url);
-
             if (this.countries_) {
                 this.countries = JSON.parse(this.countries_);
             }
 
-            // if (!this.user_.technique) {
-            //     this.user.technique = [];
-            // }
+
+            if (!this.user.technique) {
+                this.user.technique = [];
+            }
 
         },
 
@@ -510,6 +510,7 @@
         height: 178px;
         display: block;
     }
+
     .image {
         /*width: 178px;*/
 

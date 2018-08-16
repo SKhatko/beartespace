@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Artwork;
 use App\Article;
 use App\Contact_query;
+use App\Country;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -52,6 +53,10 @@ class HomeController extends Controller {
 	public function artists() {
 
 		$artists = User::artist()->limit( 20 )->get();
+
+		$artist = User::find(4);
+
+//		return $artist->artworks->take(3);
 
 		return view( 'artist.index', compact( 'artists' ) );
 	}
@@ -122,9 +127,11 @@ class HomeController extends Controller {
 			$artworks = Artwork::limit( 20 )->with( 'images', 'user.country' );
 		}
 
+		$countries = Country::all( 'country_name', 'id', 'citizenship' );
+
 		$artworks = $artworks->limit( 20 )->with( 'images', 'user.country' )->get();
 
-		return view( 'artwork.index', compact( 'artworks' ) );
+		return view( 'artwork.index', compact( 'artworks', 'countries' ) );
 	}
 
 	public function artwork( $id ) {

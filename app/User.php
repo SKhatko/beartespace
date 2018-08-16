@@ -106,7 +106,7 @@ class User extends Authenticatable {
 			return $this->avatar->url;
 		} else {
 //			file_exists(public_path('images/avatar-placeholder.png'));
-			return 'avatar-placeholder.png';
+			return '/avatar-placeholder.png';
 		}
 	}
 
@@ -115,7 +115,7 @@ class User extends Authenticatable {
 			return $this->image->url;
 		} else {
 //			file_exists(public_path('images/avatar-placeholder.png'));
-			return 'avatar-placeholder.png';
+			return '/avatar-placeholder.png';
 		}
 	}
 
