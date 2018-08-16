@@ -54,7 +54,7 @@ class HomeController extends Controller {
 
 		$artists = User::artist()->limit( 20 )->get();
 
-		$artist = User::find(4);
+		$artist = User::find( 4 );
 
 //		return $artist->artworks->take(3);
 
@@ -68,7 +68,7 @@ class HomeController extends Controller {
 		return view( 'artist.show', compact( 'artist' ) );
 	}
 
-	public function artistProfile($artist) {
+	public function artistProfile( $artist ) {
 
 		$artist = User::where( 'user_name', $artist )->with( 'image', 'avatar', 'artworks.images' )->firstOrFail();
 
@@ -81,51 +81,65 @@ class HomeController extends Controller {
 		$artworks = Artwork::query();
 
 		if ( $request->all() ) {
-			if ( $request->input( 'category' ) ) {
-				$queries = explode( ',', $request->input( 'category' ) );
-				foreach ( $queries as $query ) {
-					$artworks->whereRaw( 'LOWER(category) LIKE ?', '%' . $query . '%' );
-				}
+			if ( $request->input( 'artist' ) ) {
+				$artist = $request->input( 'artist' );
+
+				$artworks->with( 'user' )->whereHas( 'user', function ( $user ) use ( $artist ) {
+					$userNameArray = explode( ' ', $artist );
+					foreach ( $userNameArray as $userNamePart ) {
+						$user->whereRaw( 'LOWER(first_name) LIKE ?', '%' . $userNamePart . '%' )
+						     ->orWhereRaw( 'LOWER(last_name) LIKE ?', '%' . $userNamePart . '%' );
+					}
+				} );
 			}
 
-			if ( $request->input( 'direction' ) ) {
-				$queries = explode( ',', $request->input( 'direction' ) );
-				foreach ( $queries as $query ) {
-					$artworks->whereRaw( 'LOWER(direction) LIKE ?', '%' . $query . '%' );
-				}
-
-			}
-
-			if ( $request->input( 'medium' ) ) {
-				$queries = explode( ',', $request->input( 'medium' ) );
-				foreach ( $queries as $query ) {
-					$artworks->whereRaw( 'LOWER(medium) LIKE ?', '%' . $query . '%' );
-				}
-			}
-
-			if ( $request->input( 'theme' ) ) {
-				$queries = explode( ',', $request->input( 'theme' ) );
-				foreach ( $queries as $query ) {
-					$artworks->whereRaw( 'LOWER(theme) LIKE ?', '%' . $query . '%' );
-				}
-			}
-
-			if ( $request->input( 'color' ) ) {
-				$queries = explode( ',', $request->input( 'color' ) );
-				foreach ( $queries as $query ) {
-					$artworks->whereRaw( 'LOWER(color) LIKE ?', '%' . $query . '%' );
-				}
-			}
-
-			if ( $request->input( 'price' ) ) {
-				$queries = explode( ',', $request->input( 'price' ) );
-				foreach ( $queries as $query ) {
-					$artworks->whereRaw( 'LOWER(color) LIKE ?', '%' . $query . '%' );
-				}
-			}
+//			if ( $request->input( 'category' ) ) {
+//				$queries = explode( ',', $request->input( 'category' ) );
+//				foreach ( $queries as $query ) {
+//					$artworks->whereRaw( 'LOWER(category) LIKE ?', '%' . $query . '%' );
+//				}
+//			}
+//
+//			if ( $request->input( 'direction' ) ) {
+//				$queries = explode( ',', $request->input( 'direction' ) );
+//				foreach ( $queries as $query ) {
+//					$artworks->whereRaw( 'LOWER(direction) LIKE ?', '%' . $query . '%' );
+//				}
+//
+//			}
+//
+//			if ( $request->input( 'medium' ) ) {
+//				$queries = explode( ',', $request->input( 'medium' ) );
+//				foreach ( $queries as $query ) {
+//					$artworks->whereRaw( 'LOWER(medium) LIKE ?', '%' . $query . '%' );
+//				}
+//			}
+//
+//			if ( $request->input( 'theme' ) ) {
+//				$queries = explode( ',', $request->input( 'theme' ) );
+//				foreach ( $queries as $query ) {
+//					$artworks->whereRaw( 'LOWER(theme) LIKE ?', '%' . $query . '%' );
+//				}
+//			}
+//
+//			if ( $request->input( 'color' ) ) {
+//				$queries = explode( ',', $request->input( 'color' ) );
+//				foreach ( $queries as $query ) {
+//					$artworks->whereRaw( 'LOWER(color) LIKE ?', '%' . $query . '%' );
+//				}
+//			}
+//
+//			if ( $request->input( 'price' ) ) {
+//				$queries = explode( ',', $request->input( 'price' ) );
+//				foreach ( $queries as $query ) {
+//					$artworks->whereRaw( 'LOWER(color) LIKE ?', '%' . $query . '%' );
+//				}
+//			}
 		} else {
 			$artworks = Artwork::limit( 20 )->with( 'images', 'user.country' );
 		}
+
+//		return $artworks->with( 'user' )->get();
 
 		$countries = Country::all( 'country_name', 'id', 'citizenship' );
 

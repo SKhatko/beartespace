@@ -18514,7 +18514,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -18551,31 +18550,46 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
     mounted: function mounted() {
-        var filters = ['category', 'direction', 'medium', 'theme', 'color'];
 
         if (this.countries_) {
             this.countries = JSON.parse(this.countries_);
         }
 
-        // filters.map(filter => {
-        //     // console.log(filter);
-        //
-        //     this.artworkFilters.push({
-        //         key: filter,
-        //         label: this.trans('portal')[filter],
-        //         children: Object.entries(this.trans(filter)).map(function (item) {
-        //             // console.log(item);
-        //             return {
-        //                 key: filter + '--' + item[0],
-        //                 label: item[1],
-        //             }
-        //         })
-        //     })
-        // });
+        console.log(window.location.search);
+        console.log(this.getQueryVariable('artist'));
+        this.setFilters();
     },
 
 
-    methods: {}
+    methods: {
+        setFilters: function setFilters() {
+            for (var filter in this.artworkFilters) {
+                console.log(filter);
+                this.artworkFilters[filter] = this.getQueryVariable(filter);
+            }
+        },
+        setSearchQuery: function setSearchQuery() {
+            var query = '?';
+            for (var filter in this.artworkFilters) {
+                query += filter + '=' + this.artworkFilters[filter] + '&';
+                console.log(filter);
+            }
+            console.log(query);
+
+            window.location.search = query;
+        },
+        getQueryVariable: function getQueryVariable(variable) {
+            var query = window.location.search.substring(1);
+            var vars = query.split('&');
+            for (var i = 0; i < vars.length; i++) {
+                var pair = vars[i].split('=');
+                if (decodeURIComponent(pair[0]) === variable) {
+                    return decodeURIComponent(pair[1]);
+                }
+            }
+            console.log('Query variable %s not found', variable);
+        }
+    }
 });
 
 /***/ }),
@@ -76195,11 +76209,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "label": "Up to 30000",
       "value": 30000
     }
-  })], 1)], 1)], 1), _vm._v(" "), _c('el-button', {
+  })], 1)], 1), _vm._v(" "), _c('el-button', {
     staticStyle: {
       "margin-bottom": "20px"
+    },
+    on: {
+      "click": _vm.setSearchQuery
     }
-  }, [_vm._v("Filter")])], 1)
+  }, [_vm._v("Filter")])], 1)], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

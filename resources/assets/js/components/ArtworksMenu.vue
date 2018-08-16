@@ -133,12 +133,11 @@
 
             </el-form-item>
 
+            <el-button style="margin-bottom: 20px;" @click="setSearchQuery">Filter</el-button>
 
 
         </el-form>
 
-
-        <el-button style="margin-bottom: 20px;">Filter</el-button>
 
     </div>
 
@@ -181,29 +180,45 @@
         },
 
         mounted() {
-            let filters = ['category', 'direction', 'medium', 'theme', 'color'];
 
             if (this.countries_) {
                 this.countries = JSON.parse(this.countries_);
             }
 
-            // filters.map(filter => {
-            //     // console.log(filter);
-            //
-            //     this.artworkFilters.push({
-            //         key: filter,
-            //         label: this.trans('portal')[filter],
-            //         children: Object.entries(this.trans(filter)).map(function (item) {
-            //             // console.log(item);
-            //             return {
-            //                 key: filter + '--' + item[0],
-            //                 label: item[1],
-            //             }
-            //         })
-            //     })
-            // });
+            console.log(window.location.search);
+            console.log(this.getQueryVariable('artist'));
+            this.setFilters();
         },
 
-        methods: {}
+        methods: {
+            setFilters() {
+                for(let filter in this.artworkFilters) {
+                    console.log(filter);
+                    this.artworkFilters[filter] = this.getQueryVariable(filter);
+                }
+
+            },
+            setSearchQuery() {
+                let query = '?';
+                for(let filter in this.artworkFilters) {
+                    query += filter + '=' + this.artworkFilters[filter] + '&';
+                    console.log(filter);
+                }
+                console.log(query);
+
+                window.location.search = query;
+            },
+            getQueryVariable(variable) {
+                let query = window.location.search.substring(1);
+                let vars = query.split('&');
+                for (let i = 0; i < vars.length; i++) {
+                    let pair = vars[i].split('=');
+                    if (decodeURIComponent(pair[0]) === variable) {
+                        return decodeURIComponent(pair[1]);
+                    }
+                }
+                console.log('Query variable %s not found', variable);
+            }
+        }
     }
 </script>
