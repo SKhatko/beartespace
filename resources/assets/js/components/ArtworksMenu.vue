@@ -133,8 +133,9 @@
 
             </el-form-item>
 
-            <el-button style="margin-bottom: 20px;" @click="setSearchQuery">Filter</el-button>
+            <el-button style="margin-bottom: 20px;" @click="setSearchQuery" type="success">Filter</el-button>
 
+            <el-button type="warning" @click="clearFilters">Clear filters</el-button>
 
         </el-form>
 
@@ -173,9 +174,7 @@
                     price: '',
                 },
 
-                // TODO countries
                 countries: '',
-
             }
         },
 
@@ -193,10 +192,35 @@
 
         methods: {
             setFilters() {
-                for(let filter in this.artworkFilters) {
-                    console.log(filter);
-                    this.artworkFilters[filter] = this.getQueryVariable(filter);
-                }
+                    let artist = this.getQueryVariable('artist');
+                    if(artist) {
+                        this.artworkFilters['artist'] = artist;
+                    }
+
+                    let artwork = this.getQueryVariable('artwork');
+                    if(artwork) {
+                        this.artworkFilters['artwork'] = artwork;
+                    }
+
+                    let medium = this.getQueryVariable('medium');
+                    if(medium) {
+                        this.artworkFilters['medium'] = medium.split(',');
+                    }
+
+                    let category = this.getQueryVariable('category');
+                    if(category) {
+                        this.artworkFilters['category'] = category.split(',');
+                    }
+
+                    let theme = this.getQueryVariable('theme');
+                    if(theme) {
+                        this.artworkFilters['theme'] = theme.split(',');
+                    }
+
+                    let direction = this.getQueryVariable('direction');
+                    if(direction) {
+                        this.artworkFilters['direction'] = direction.split(',');
+                    }
 
             },
             setSearchQuery() {
@@ -219,6 +243,11 @@
                     }
                 }
                 console.log('Query variable %s not found', variable);
+            },
+            clearFilters() {
+                for(let filter in this.artworkFilters) {
+                    this.artworkFilters[filter] = '';
+                }
             }
         }
     }

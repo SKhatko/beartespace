@@ -18514,6 +18514,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -18544,9 +18545,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 price: ''
             },
 
-            // TODO countries
             countries: ''
-
         };
     },
     mounted: function mounted() {
@@ -18564,9 +18563,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         setFilters: function setFilters() {
-            for (var filter in this.artworkFilters) {
-                console.log(filter);
-                this.artworkFilters[filter] = this.getQueryVariable(filter);
+            var artist = this.getQueryVariable('artist');
+            if (artist) {
+                this.artworkFilters['artist'] = artist;
+            }
+
+            var artwork = this.getQueryVariable('artwork');
+            if (artwork) {
+                this.artworkFilters['artwork'] = artwork;
+            }
+
+            var medium = this.getQueryVariable('medium');
+            if (medium) {
+                this.artworkFilters['medium'] = medium.split(',');
+            }
+
+            var category = this.getQueryVariable('category');
+            if (category) {
+                this.artworkFilters['category'] = category.split(',');
+            }
+
+            var theme = this.getQueryVariable('theme');
+            if (theme) {
+                this.artworkFilters['theme'] = theme.split(',');
+            }
+
+            var direction = this.getQueryVariable('direction');
+            if (direction) {
+                this.artworkFilters['direction'] = direction.split(',');
             }
         },
         setSearchQuery: function setSearchQuery() {
@@ -18589,6 +18613,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
             }
             console.log('Query variable %s not found', variable);
+        },
+        clearFilters: function clearFilters() {
+            for (var filter in this.artworkFilters) {
+                this.artworkFilters[filter] = '';
+            }
         }
     }
 });
@@ -76248,10 +76277,20 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "margin-bottom": "20px"
     },
+    attrs: {
+      "type": "success"
+    },
     on: {
       "click": _vm.setSearchQuery
     }
-  }, [_vm._v("Filter")])], 1)], 1)
+  }, [_vm._v("Filter")]), _vm._v(" "), _c('el-button', {
+    attrs: {
+      "type": "warning"
+    },
+    on: {
+      "click": _vm.clearFilters
+    }
+  }, [_vm._v("Clear filters")])], 1)], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

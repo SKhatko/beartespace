@@ -93,34 +93,46 @@ class HomeController extends Controller {
 				} );
 			}
 
-//			if ( $request->input( 'category' ) ) {
-//				$queries = explode( ',', $request->input( 'category' ) );
-//				foreach ( $queries as $query ) {
-//					$artworks->whereRaw( 'LOWER(category) LIKE ?', '%' . $query . '%' );
-//				}
-//			}
-//
-//			if ( $request->input( 'direction' ) ) {
-//				$queries = explode( ',', $request->input( 'direction' ) );
-//				foreach ( $queries as $query ) {
-//					$artworks->whereRaw( 'LOWER(direction) LIKE ?', '%' . $query . '%' );
-//				}
-//
-//			}
-//
-//			if ( $request->input( 'medium' ) ) {
-//				$queries = explode( ',', $request->input( 'medium' ) );
-//				foreach ( $queries as $query ) {
-//					$artworks->whereRaw( 'LOWER(medium) LIKE ?', '%' . $query . '%' );
-//				}
-//			}
-//
-//			if ( $request->input( 'theme' ) ) {
-//				$queries = explode( ',', $request->input( 'theme' ) );
-//				foreach ( $queries as $query ) {
-//					$artworks->whereRaw( 'LOWER(theme) LIKE ?', '%' . $query . '%' );
-//				}
-//			}
+			if ( $request->input( 'artwork' ) ) {
+				$artwork = $request->input( 'artwork' );
+				$artworks->whereRaw( 'LOWER(title) LIKE ?', '%' . $artwork . '%' );
+			}
+
+			if ( $request->input( 'category' ) ) {
+				$queries = explode( ',', $request->input( 'category' ) );
+				foreach ( $queries as $query ) {
+					$artworks->whereRaw( 'LOWER(category) LIKE ?', '%' . $query . '%' );
+				}
+			}
+
+			if ( $request->input( 'medium' ) ) {
+				$queries = explode( ',', $request->input( 'medium' ) );
+				foreach ( $queries as $query ) {
+					$artworks->whereRaw( 'LOWER(medium) LIKE ?', '%' . $query . '%' );
+				}
+			}
+
+			if ( $request->input( 'direction' ) ) {
+				$queries = explode( ',', $request->input( 'direction' ) );
+				foreach ( $queries as $query ) {
+					$artworks->whereRaw( 'LOWER(direction) LIKE ?', '%' . $query . '%' );
+				}
+
+			}
+
+			if ( $request->input( 'theme' ) ) {
+				$queries = explode( ',', $request->input( 'theme' ) );
+				foreach ( $queries as $query ) {
+					$artworks->whereRaw( 'LOWER(theme) LIKE ?', '%' . $query . '%' );
+				}
+			}
+
+			if ( $request->input( 'country' ) ) {
+				$queries = explode( ',', $request->input( 'country' ) );
+				foreach ( $queries as $query ) {
+					$artworks->where('country_id', $query);
+				}
+			}
 //
 //			if ( $request->input( 'color' ) ) {
 //				$queries = explode( ',', $request->input( 'color' ) );
