@@ -12217,7 +12217,7 @@ var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(136),
   /* template */
-  __webpack_require__(235),
+  __webpack_require__(236),
   /* scopeId */
   null,
   /* cssModules */
@@ -16182,7 +16182,7 @@ Vue.component('translations', __webpack_require__(218));
 Vue.component('languages', __webpack_require__(215));
 Vue.component('users', __webpack_require__(219));
 Vue.component('profile', __webpack_require__(217));
-Vue.component('artwork', __webpack_require__(214));
+Vue.component('artwork-form', __webpack_require__(214));
 Vue.component('pages', __webpack_require__(216));
 
 var app = new Vue({
@@ -19434,25 +19434,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -19467,35 +19448,45 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             csrf: window.csrf,
             currencies: [],
             artwork: {
-                id: 0,
-                user_id: '',
-                title: '',
-                description: '',
-                height: '',
-                b_height: '',
-                width: '',
-                b_width: '',
-                depth: '',
-                b_depth: '',
-                weight: '',
-                b_weight: '',
-                inspiration: '',
-                date_of_completion: '',
-                price: '',
-                currency: '',
-                category: '',
+                // id: 0,
+                // user_id: '',
+                // title: '',
+                // description: '',
+                // height: '',
+                // b_height: '',
+                // width: '',
+                // b_width: '',
+                // depth: '',
+                // b_depth: '',
+                // weight: '',
+                // b_weight: '',
+                // inspiration: '',
+                // date_of_completion: '',
+                // price: '',
+                // currency: '',
+                // category: '',
                 medium: [],
                 direction: [],
                 theme: [],
                 color: [],
-                auction_status: true,
-                auction_price: '',
-                auction_start: '',
-                auction_end: '',
+                // auction_status: true,
+                // auction_price: '',
+                // auction_start: '',
+                // auction_end: '',
                 images: []
             },
+            updateArtworkRules: {
+                title: [{ required: true, message: 'Please input title of artwork', trigger: 'blur' }],
+                category: [{ required: true, message: 'Please select category', trigger: 'blur' }]
+            },
+            createArtworkRules: {
+                title: [{ required: true, message: 'Please input title of artwork', trigger: 'blur' }],
+                category: [{ required: true, message: 'Please select category', trigger: 'blur' }]
 
-            activeStep: 0,
+            },
+
+            artworkSaved: false,
+            loading: false,
 
             dialogImageUrl: '',
             dialogVisible: false
@@ -19510,9 +19501,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         if (this.currencies_) {
             this.currencies = JSON.parse(this.currencies_);
         }
-
-        console.log(this.currencies);
-        console.log(this.artwork);
     },
 
 
@@ -19520,21 +19508,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         saveArtwork: function saveArtwork() {
             var _this = this;
 
-            axios.post('/api/artwork/', this.artwork).then(function (response) {
-                if (response.data) {
-                    console.log(response.data);
-                    _this.$message({
-                        showClose: true,
-                        message: response.data.message,
-                        type: response.data.status
+            var redirect = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+
+            this.$refs['artwork'].validate(function (valid) {
+                if (valid) {
+                    _this.loading = true;
+                    axios.post('/api/artwork/', _this.artwork).then(function (response) {
+                        if (response.data.data) {
+                            console.log(response.data);
+
+                            if (redirect) {
+                                window.location.pathname = '/dashboard/artwork/' + response.data.data.id + '/edit';
+                            } else {
+                                _this.$message({
+                                    showClose: true,
+                                    message: response.data.message,
+                                    type: response.data.status
+                                });
+
+                                _this.artwork = response.data.data;
+                                _this.loading = false;
+                            }
+                        } else {
+                            console.log(response.data);
+                        }
                     });
-
-                    _this.artwork = response.data.data;
-
-                    if (response.data.status = 'success') _this.activeStep++;
-                    // window.location.reload();
-                } else {
-                    console.log(response.data);
                 }
             });
         },
@@ -19571,6 +19569,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             // this.images = fileList;
         },
         handlePictureCardPreview: function handlePictureCardPreview(file) {
+            console.log(file);
             this.dialogImageUrl = file.url;
             this.dialogVisible = true;
         },
@@ -74084,7 +74083,7 @@ var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(122),
   /* template */
-  __webpack_require__(226),
+  __webpack_require__(227),
   /* scopeId */
   null,
   /* cssModules */
@@ -74118,7 +74117,7 @@ var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(123),
   /* template */
-  __webpack_require__(229),
+  __webpack_require__(230),
   /* scopeId */
   null,
   /* cssModules */
@@ -74186,7 +74185,7 @@ var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(125),
   /* template */
-  __webpack_require__(230),
+  __webpack_require__(231),
   /* scopeId */
   null,
   /* cssModules */
@@ -74220,7 +74219,7 @@ var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(126),
   /* template */
-  __webpack_require__(232),
+  __webpack_require__(233),
   /* scopeId */
   null,
   /* cssModules */
@@ -74254,7 +74253,7 @@ var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(127),
   /* template */
-  __webpack_require__(228),
+  __webpack_require__(229),
   /* scopeId */
   null,
   /* cssModules */
@@ -74292,7 +74291,7 @@ var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(128),
   /* template */
-  __webpack_require__(236),
+  __webpack_require__(237),
   /* scopeId */
   null,
   /* cssModules */
@@ -74326,15 +74325,15 @@ var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(129),
   /* template */
-  __webpack_require__(237),
+  __webpack_require__(225),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/skhatko/code/larabid/resources/assets/js/components/dashboard/Artwork.vue"
+Component.options.__file = "/Users/skhatko/code/larabid/resources/assets/js/components/dashboard/ArtworkForm.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] Artwork.vue: functional components are not supported with templates, they should use render functions.")}
+if (Component.options.functional) {console.error("[vue-loader] ArtworkForm.vue: functional components are not supported with templates, they should use render functions.")}
 
 /* hot reload */
 if (false) {(function () {
@@ -74343,9 +74342,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-c743e7f0", Component.options)
+    hotAPI.createRecord("data-v-2d2242ec", Component.options)
   } else {
-    hotAPI.reload("data-v-c743e7f0", Component.options)
+    hotAPI.reload("data-v-2d2242ec", Component.options)
   }
 })()}
 
@@ -74394,7 +74393,7 @@ var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(131),
   /* template */
-  __webpack_require__(225),
+  __webpack_require__(226),
   /* scopeId */
   null,
   /* cssModules */
@@ -74432,7 +74431,7 @@ var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(132),
   /* template */
-  __webpack_require__(227),
+  __webpack_require__(228),
   /* scopeId */
   null,
   /* cssModules */
@@ -74466,7 +74465,7 @@ var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(133),
   /* template */
-  __webpack_require__(233),
+  __webpack_require__(234),
   /* scopeId */
   null,
   /* cssModules */
@@ -74500,7 +74499,7 @@ var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(134),
   /* template */
-  __webpack_require__(231),
+  __webpack_require__(232),
   /* scopeId */
   null,
   /* cssModules */
@@ -74534,7 +74533,7 @@ var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(135),
   /* template */
-  __webpack_require__(234),
+  __webpack_require__(235),
   /* scopeId */
   null,
   /* cssModules */
@@ -75059,6 +75058,656 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('el-card', [(_vm.artwork_) ? _c('h2', [_vm._v("Edit Artwork")]) : _c('h2', [_vm._v("Upload Artwork")]), _vm._v(" "), (_vm.artwork_) ? _c('el-form', {
+    ref: "artwork",
+    attrs: {
+      "label-position": "top",
+      "model": _vm.artwork,
+      "rules": _vm.updateArtworkRules
+    }
+  }, [_c('el-row', {
+    attrs: {
+      "gutter": 20
+    }
+  }, [_c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Artwork Name (Title)"
+    }
+  }, [_c('el-input', {
+    attrs: {
+      "placeholder": "Please input"
+    },
+    model: {
+      value: (_vm.artwork.title),
+      callback: function($$v) {
+        _vm.$set(_vm.artwork, "title", $$v)
+      },
+      expression: "artwork.title"
+    }
+  })], 1)], 1), _vm._v(" "), _c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Select Category"
+    }
+  }, [_c('el-select', {
+    attrs: {
+      "value": "",
+      "placeholder": "Select"
+    },
+    model: {
+      value: (_vm.artwork.category),
+      callback: function($$v) {
+        _vm.$set(_vm.artwork, "category", $$v)
+      },
+      expression: "artwork.category"
+    }
+  }, _vm._l((_vm.trans('category')), function(label, value) {
+    return _c('el-option', {
+      key: value,
+      attrs: {
+        "value": value,
+        "label": label
+      }
+    })
+  }))], 1)], 1)], 1), _vm._v(" "), _c('el-form', {
+    attrs: {
+      "inline": true,
+      "label-position": "top"
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Width"
+    }
+  }, [_c('el-input-number', {
+    model: {
+      value: (_vm.artwork.width),
+      callback: function($$v) {
+        _vm.$set(_vm.artwork, "width", $$v)
+      },
+      expression: "artwork.width"
+    }
+  })], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "label": "Height"
+    }
+  }, [_c('el-input-number', {
+    model: {
+      value: (_vm.artwork.height),
+      callback: function($$v) {
+        _vm.$set(_vm.artwork, "height", $$v)
+      },
+      expression: "artwork.height"
+    }
+  })], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "label": "Depth"
+    }
+  }, [_c('el-input-number', {
+    model: {
+      value: (_vm.artwork.depth),
+      callback: function($$v) {
+        _vm.$set(_vm.artwork, "depth", $$v)
+      },
+      expression: "artwork.depth"
+    }
+  })], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "label": "Weight"
+    }
+  }, [_c('el-input-number', {
+    model: {
+      value: (_vm.artwork.weight),
+      callback: function($$v) {
+        _vm.$set(_vm.artwork, "weight", $$v)
+      },
+      expression: "artwork.weight"
+    }
+  })], 1)], 1), _vm._v(" "), _c('el-form-item', [(_vm.artwork.category === 'painting') ? _c('el-checkbox', {
+    model: {
+      value: (_vm.artwork.optional_size),
+      callback: function($$v) {
+        _vm.$set(_vm.artwork, "optional_size", $$v)
+      },
+      expression: "artwork.optional_size"
+    }
+  }, [_vm._v("Has frame\n            ")]) : _vm._e(), _vm._v(" "), (_vm.artwork.category === 'sculpture') ? _c('el-checkbox', {
+    model: {
+      value: (_vm.artwork.optional_size),
+      callback: function($$v) {
+        _vm.$set(_vm.artwork, "optional_size", $$v)
+      },
+      expression: "artwork.optional_size"
+    }
+  }, [_vm._v("Has base\n            ")]) : _vm._e()], 1), _vm._v(" "), (_vm.artwork.optional_size) ? _c('el-form', {
+    attrs: {
+      "inline": true,
+      "label-position": "top"
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Total Width"
+    }
+  }, [_c('el-input-number', {
+    model: {
+      value: (_vm.artwork.b_width),
+      callback: function($$v) {
+        _vm.$set(_vm.artwork, "b_width", $$v)
+      },
+      expression: "artwork.b_width"
+    }
+  })], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "label": "Total Height"
+    }
+  }, [_c('el-input-number', {
+    model: {
+      value: (_vm.artwork.b_height),
+      callback: function($$v) {
+        _vm.$set(_vm.artwork, "b_height", $$v)
+      },
+      expression: "artwork.b_height"
+    }
+  })], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "label": "Total Depth"
+    }
+  }, [_c('el-input-number', {
+    model: {
+      value: (_vm.artwork.b_depth),
+      callback: function($$v) {
+        _vm.$set(_vm.artwork, "b_depth", $$v)
+      },
+      expression: "artwork.b_depth"
+    }
+  })], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "label": "Total Weight"
+    }
+  }, [_c('el-input-number', {
+    model: {
+      value: (_vm.artwork.b_weight),
+      callback: function($$v) {
+        _vm.$set(_vm.artwork, "b_weight", $$v)
+      },
+      expression: "artwork.b_weight"
+    }
+  })], 1)], 1) : _vm._e(), _vm._v(" "), _c('el-row', {
+    attrs: {
+      "gutter": 20
+    }
+  }, [_c('el-col', {
+    attrs: {
+      "sm": 6
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Medium"
+    }
+  }, [_c('el-select', {
+    attrs: {
+      "value": "",
+      "multiple": "",
+      "filterable": "",
+      "allow-create": "",
+      "default-first-option": "",
+      "placeholder": "Select material"
+    },
+    model: {
+      value: (_vm.artwork.medium),
+      callback: function($$v) {
+        _vm.$set(_vm.artwork, "medium", $$v)
+      },
+      expression: "artwork.medium"
+    }
+  }, _vm._l((_vm.options('medium')), function(medium) {
+    return _c('el-option', {
+      key: medium.value,
+      attrs: {
+        "label": medium.label,
+        "value": medium.value
+      }
+    })
+  }))], 1)], 1), _vm._v(" "), _c('el-col', {
+    attrs: {
+      "sm": 6
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Art direction"
+    }
+  }, [_c('el-select', {
+    attrs: {
+      "value": "",
+      "multiple": "",
+      "filterable": "",
+      "allow-create": "",
+      "default-first-option": "",
+      "placeholder": "Select"
+    },
+    model: {
+      value: (_vm.artwork.direction),
+      callback: function($$v) {
+        _vm.$set(_vm.artwork, "direction", $$v)
+      },
+      expression: "artwork.direction"
+    }
+  }, _vm._l((_vm.options('direction')), function(direction) {
+    return _c('el-option', {
+      key: direction.value,
+      attrs: {
+        "label": direction.label,
+        "value": direction.value
+      }
+    })
+  }))], 1)], 1), _vm._v(" "), _c('el-col', {
+    attrs: {
+      "sm": 6
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Theme"
+    }
+  }, [_c('el-select', {
+    attrs: {
+      "value": "",
+      "multiple": "",
+      "filterable": "",
+      "allow-create": "",
+      "default-first-option": "",
+      "placeholder": "Select"
+    },
+    model: {
+      value: (_vm.artwork.theme),
+      callback: function($$v) {
+        _vm.$set(_vm.artwork, "theme", $$v)
+      },
+      expression: "artwork.theme"
+    }
+  }, _vm._l((_vm.options('theme')), function(theme) {
+    return _c('el-option', {
+      key: theme.value,
+      attrs: {
+        "label": theme.label,
+        "value": theme.value
+      }
+    })
+  }))], 1)], 1), _vm._v(" "), _c('el-col', {
+    attrs: {
+      "sm": 6
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Main colors"
+    }
+  }, [_c('el-select', {
+    attrs: {
+      "value": "",
+      "multiple": "",
+      "filterable": "",
+      "allow-create": "",
+      "default-first-option": "",
+      "placeholder": "Select"
+    },
+    model: {
+      value: (_vm.artwork.color),
+      callback: function($$v) {
+        _vm.$set(_vm.artwork, "color", $$v)
+      },
+      expression: "artwork.color"
+    }
+  }, _vm._l((_vm.options('color')), function(color) {
+    return _c('el-option', {
+      key: color.value,
+      attrs: {
+        "label": color.label,
+        "value": color.value
+      }
+    })
+  }))], 1)], 1)], 1), _vm._v(" "), _c('el-row', {
+    attrs: {
+      "gutter": 20
+    }
+  }, [_c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Artwork Description"
+    }
+  }, [_c('el-input', {
+    attrs: {
+      "type": "textarea",
+      "rows": 2,
+      "placeholder": "Description"
+    },
+    model: {
+      value: (_vm.artwork.description),
+      callback: function($$v) {
+        _vm.$set(_vm.artwork, "description", $$v)
+      },
+      expression: "artwork.description"
+    }
+  })], 1)], 1), _vm._v(" "), _c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Inspiration"
+    }
+  }, [_c('el-input', {
+    attrs: {
+      "type": "textarea",
+      "rows": 2,
+      "placeholder": "Things that inspire you"
+    },
+    model: {
+      value: (_vm.artwork.inspiration),
+      callback: function($$v) {
+        _vm.$set(_vm.artwork, "inspiration", $$v)
+      },
+      expression: "artwork.inspiration"
+    }
+  })], 1)], 1)], 1), _vm._v(" "), _c('el-row', {
+    attrs: {
+      "gutter": 20
+    }
+  }, [_c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Date of completion Artwork"
+    }
+  }, [_c('el-date-picker', {
+    attrs: {
+      "type": "year",
+      "value-format": "yyyy-MM-dd HH:mm:ss",
+      "placeholder": "Pick a year"
+    },
+    model: {
+      value: (_vm.artwork.date_of_completion),
+      callback: function($$v) {
+        _vm.$set(_vm.artwork, "date_of_completion", $$v)
+      },
+      expression: "artwork.date_of_completion"
+    }
+  })], 1)], 1), _vm._v(" "), _c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Price"
+    }
+  }, [_c('el-input-number', {
+    attrs: {
+      "value": "2",
+      "min": 1,
+      "max": 50000
+    },
+    model: {
+      value: (_vm.artwork.price),
+      callback: function($$v) {
+        _vm.$set(_vm.artwork, "price", $$v)
+      },
+      expression: "artwork.price"
+    }
+  }), _vm._v(" "), _c('el-select', {
+    staticStyle: {
+      "max-width": "200px",
+      "margin-left": "20px"
+    },
+    attrs: {
+      "value": "",
+      "placeholder": "Select currency"
+    },
+    model: {
+      value: (_vm.artwork.currency),
+      callback: function($$v) {
+        _vm.$set(_vm.artwork, "currency", $$v)
+      },
+      expression: "artwork.currency"
+    }
+  }, _vm._l((_vm.currencies), function(label, value) {
+    return _c('el-option', {
+      key: value,
+      attrs: {
+        "value": value,
+        "label": value
+      }
+    })
+  }))], 1)], 1)], 1), _vm._v(" "), _c('el-row', {
+    attrs: {
+      "gutter": 20
+    }
+  }, [_c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Your artworks can be sold on auction"
+    }
+  }, [_c('el-checkbox', {
+    attrs: {
+      "border": ""
+    },
+    model: {
+      value: (_vm.artwork.auction_status),
+      callback: function($$v) {
+        _vm.$set(_vm.artwork, "auction_status", $$v)
+      },
+      expression: "artwork.auction_status"
+    }
+  }, [_vm._v("Place for auction")])], 1)], 1), _vm._v(" "), _c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Auction end date"
+    }
+  }, [_c('el-date-picker', {
+    attrs: {
+      "type": "datetime",
+      "value-format": "yyyy-MM-dd HH:mm:ss",
+      "placeholder": "Select date and time"
+    },
+    model: {
+      value: (_vm.artwork.auction_end),
+      callback: function($$v) {
+        _vm.$set(_vm.artwork, "auction_end", $$v)
+      },
+      expression: "artwork.auction_end"
+    }
+  })], 1)], 1), _vm._v(" "), (_vm.artwork.auction_status) ? _c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Starting price on auction ( EUR )"
+    }
+  }, [_c('el-input-number', {
+    attrs: {
+      "value": "2",
+      "min": 1,
+      "max": 50000
+    },
+    model: {
+      value: (_vm.artwork.auction_price),
+      callback: function($$v) {
+        _vm.$set(_vm.artwork, "auction_price", $$v)
+      },
+      expression: "artwork.auction_price"
+    }
+  })], 1)], 1) : _vm._e()], 1), _vm._v(" "), _c('label', {
+    staticClass: "el-form-item__label"
+  }, [_vm._v("Upload images of back side, signature, or artwork from side. Up to 3\n            Photos of Your Artwork allowed( jpg/png files accepted)")]), _vm._v(" "), _c('el-form-item', [_c('el-upload', {
+    attrs: {
+      "action": '/api/upload/artwork-image/' + _vm.artwork.id,
+      "file-list": _vm.artwork.images,
+      "headers": {
+        'X-Requested-With': 'XMLHttpRequest',
+        'X-CSRF-TOKEN': _vm.csrf
+      },
+      "on-preview": _vm.handlePictureCardPreview,
+      "on-remove": _vm.handleRemove,
+      "on-success": _vm.handleSuccess,
+      "limit": 3,
+      "on-exceed": _vm.handleExceed,
+      "accept": ".jpg, .jpeg, .png"
+    }
+  }, [_c('el-button', {
+    attrs: {
+      "type": "info",
+      "plain": ""
+    }
+  }, [_c('i', {
+    staticClass: "el-icon-upload"
+  }), _vm._v("\n                    Upload images\n                ")])], 1), _vm._v(" "), _c('el-dialog', {
+    attrs: {
+      "visible": _vm.dialogVisible
+    },
+    on: {
+      "update:visible": function($event) {
+        _vm.dialogVisible = $event
+      }
+    }
+  }, [_c('img', {
+    attrs: {
+      "width": "100%",
+      "src": '/' + _vm.dialogImageUrl,
+      "alt": ""
+    }
+  })])], 1), _vm._v(" "), _c('el-button', {
+    staticStyle: {
+      "margin-top": "20px"
+    },
+    attrs: {
+      "type": "primary",
+      "size": "big",
+      "loading": _vm.loading,
+      "icon": "el-icon-arrow-right"
+    },
+    on: {
+      "click": function($event) {
+        _vm.saveArtwork()
+      }
+    }
+  }, [_vm._v("\n            Save\n        ")]), _vm._v(" "), (_vm.artworkSaved) ? _c('el-button', {
+    staticStyle: {
+      "margin-top": "20px"
+    },
+    attrs: {
+      "type": "primary",
+      "size": "big"
+    }
+  }, [_c('a', {
+    attrs: {
+      "href": '/artworks/' + _vm.artwork.id,
+      "target": "_blank"
+    }
+  }, [_vm._v("\n                Preview\n            ")])]) : _vm._e()], 1) : _c('el-form', {
+    ref: "artwork",
+    attrs: {
+      "label-position": "top",
+      "model": _vm.artwork,
+      "rules": _vm.createArtworkRules
+    }
+  }, [_c('el-row', {
+    attrs: {
+      "gutter": 20
+    }
+  }, [_c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Artwork Name (Title)",
+      "prop": "title"
+    }
+  }, [_c('el-input', {
+    attrs: {
+      "placeholder": "Please input"
+    },
+    model: {
+      value: (_vm.artwork.title),
+      callback: function($$v) {
+        _vm.$set(_vm.artwork, "title", $$v)
+      },
+      expression: "artwork.title"
+    }
+  })], 1)], 1), _vm._v(" "), _c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Select Category",
+      "prop": "category"
+    }
+  }, [_c('el-select', {
+    attrs: {
+      "value": "",
+      "placeholder": "Select"
+    },
+    model: {
+      value: (_vm.artwork.category),
+      callback: function($$v) {
+        _vm.$set(_vm.artwork, "category", $$v)
+      },
+      expression: "artwork.category"
+    }
+  }, _vm._l((_vm.trans('category')), function(label, value) {
+    return _c('el-option', {
+      key: value,
+      attrs: {
+        "value": value,
+        "label": label
+      }
+    })
+  }))], 1)], 1)], 1), _vm._v(" "), (!_vm.artwork_) ? _c('el-button', {
+    staticStyle: {
+      "margin-top": "20px"
+    },
+    attrs: {
+      "type": "primary",
+      "size": "big",
+      "loading": _vm.loading,
+      "icon": "el-icon-arrow-right"
+    },
+    on: {
+      "click": function($event) {
+        _vm.saveArtwork(true)
+      }
+    }
+  }, [_vm._v("\n            Create\n        ")]) : _vm._e()], 1)], 1)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-2d2242ec", module.exports)
+  }
+}
+
+/***/ }),
+/* 226 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('el-card', [_c('h2', [_vm._v("Pages")]), _vm._v(" "), _c('el-button', {
     staticStyle: {
       "margin-bottom": "20px"
@@ -75177,7 +75826,7 @@ if (false) {
 }
 
 /***/ }),
-/* 226 */
+/* 227 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -75213,7 +75862,7 @@ if (false) {
 }
 
 /***/ }),
-/* 227 */
+/* 228 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -75807,7 +76456,7 @@ if (false) {
 }
 
 /***/ }),
-/* 228 */
+/* 229 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -76020,7 +76669,7 @@ if (false) {
 }
 
 /***/ }),
-/* 229 */
+/* 230 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -76301,7 +76950,7 @@ if (false) {
 }
 
 /***/ }),
-/* 230 */
+/* 231 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -76378,7 +77027,7 @@ if (false) {
 }
 
 /***/ }),
-/* 231 */
+/* 232 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -76501,7 +77150,7 @@ if (false) {
 }
 
 /***/ }),
-/* 232 */
+/* 233 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -76614,7 +77263,7 @@ if (false) {
 }
 
 /***/ }),
-/* 233 */
+/* 234 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -76769,7 +77418,7 @@ if (false) {
 }
 
 /***/ }),
-/* 234 */
+/* 235 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -76837,7 +77486,7 @@ if (false) {
 }
 
 /***/ }),
-/* 235 */
+/* 236 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -76866,7 +77515,7 @@ if (false) {
 }
 
 /***/ }),
-/* 236 */
+/* 237 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -76970,635 +77619,6 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
      require("vue-hot-reload-api").rerender("data-v-b4db9954", module.exports)
-  }
-}
-
-/***/ }),
-/* 237 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('el-card', [(_vm.artwork_) ? _c('h2', [_vm._v("Edit Artwork")]) : _c('h2', [_vm._v("Upload Artwork")]), _vm._v(" "), _c('el-form', {
-    attrs: {
-      "label-position": "top"
-    }
-  }, [_c('el-form-item', [_c('el-steps', {
-    attrs: {
-      "active": _vm.activeStep,
-      "process-status": "process",
-      "finish-status": "success",
-      "align-center": ""
-    }
-  }, [_c('el-step', {
-    attrs: {
-      "title": "Add description",
-      "icon": "el-icon-edit"
-    }
-  }), _vm._v(" "), _c('el-step', {
-    attrs: {
-      "title": "Upload Images",
-      "icon": "el-icon-picture"
-    }
-  }), _vm._v(" "), _c('el-step', {
-    attrs: {
-      "title": "Done",
-      "icon": "el-icon-star-off"
-    }
-  })], 1)], 1), _vm._v(" "), (_vm.activeStep === 0) ? [_c('el-row', {
-    attrs: {
-      "gutter": 20
-    }
-  }, [_c('el-col', {
-    attrs: {
-      "sm": 12
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Artwork Name (Title)"
-    }
-  }, [_c('el-input', {
-    attrs: {
-      "placeholder": "Please input"
-    },
-    model: {
-      value: (_vm.artwork.title),
-      callback: function($$v) {
-        _vm.$set(_vm.artwork, "title", $$v)
-      },
-      expression: "artwork.title"
-    }
-  })], 1)], 1), _vm._v(" "), _c('el-col', {
-    attrs: {
-      "sm": 12
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Select Category"
-    }
-  }, [_c('el-select', {
-    attrs: {
-      "value": "",
-      "placeholder": "Select"
-    },
-    model: {
-      value: (_vm.artwork.category),
-      callback: function($$v) {
-        _vm.$set(_vm.artwork, "category", $$v)
-      },
-      expression: "artwork.category"
-    }
-  }, _vm._l((_vm.trans('category')), function(label, value) {
-    return _c('el-option', {
-      key: value,
-      attrs: {
-        "value": value,
-        "label": label
-      }
-    })
-  }))], 1)], 1)], 1), _vm._v(" "), _c('el-form', {
-    attrs: {
-      "inline": true,
-      "label-position": "top"
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Width"
-    }
-  }, [_c('el-input-number', {
-    model: {
-      value: (_vm.artwork.width),
-      callback: function($$v) {
-        _vm.$set(_vm.artwork, "width", $$v)
-      },
-      expression: "artwork.width"
-    }
-  })], 1), _vm._v(" "), _c('el-form-item', {
-    attrs: {
-      "label": "Height"
-    }
-  }, [_c('el-input-number', {
-    model: {
-      value: (_vm.artwork.height),
-      callback: function($$v) {
-        _vm.$set(_vm.artwork, "height", $$v)
-      },
-      expression: "artwork.height"
-    }
-  })], 1), _vm._v(" "), _c('el-form-item', {
-    attrs: {
-      "label": "Depth"
-    }
-  }, [_c('el-input-number', {
-    model: {
-      value: (_vm.artwork.depth),
-      callback: function($$v) {
-        _vm.$set(_vm.artwork, "depth", $$v)
-      },
-      expression: "artwork.depth"
-    }
-  })], 1), _vm._v(" "), _c('el-form-item', {
-    attrs: {
-      "label": "Weight"
-    }
-  }, [_c('el-input-number', {
-    model: {
-      value: (_vm.artwork.weight),
-      callback: function($$v) {
-        _vm.$set(_vm.artwork, "weight", $$v)
-      },
-      expression: "artwork.weight"
-    }
-  })], 1)], 1), _vm._v(" "), _c('el-form-item', [(_vm.artwork.category === 'painting') ? _c('el-checkbox', {
-    model: {
-      value: (_vm.artwork.optional_size),
-      callback: function($$v) {
-        _vm.$set(_vm.artwork, "optional_size", $$v)
-      },
-      expression: "artwork.optional_size"
-    }
-  }, [_vm._v("Has frame")]) : _vm._e(), _vm._v(" "), (_vm.artwork.category === 'sculpture') ? _c('el-checkbox', {
-    model: {
-      value: (_vm.artwork.optional_size),
-      callback: function($$v) {
-        _vm.$set(_vm.artwork, "optional_size", $$v)
-      },
-      expression: "artwork.optional_size"
-    }
-  }, [_vm._v("Has base")]) : _vm._e()], 1), _vm._v(" "), (_vm.artwork.optional_size) ? _c('el-form', {
-    attrs: {
-      "inline": true,
-      "label-position": "top"
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Total Width"
-    }
-  }, [_c('el-input-number', {
-    model: {
-      value: (_vm.artwork.b_width),
-      callback: function($$v) {
-        _vm.$set(_vm.artwork, "b_width", $$v)
-      },
-      expression: "artwork.b_width"
-    }
-  })], 1), _vm._v(" "), _c('el-form-item', {
-    attrs: {
-      "label": "Total Height"
-    }
-  }, [_c('el-input-number', {
-    model: {
-      value: (_vm.artwork.b_height),
-      callback: function($$v) {
-        _vm.$set(_vm.artwork, "b_height", $$v)
-      },
-      expression: "artwork.b_height"
-    }
-  })], 1), _vm._v(" "), _c('el-form-item', {
-    attrs: {
-      "label": "Total Depth"
-    }
-  }, [_c('el-input-number', {
-    model: {
-      value: (_vm.artwork.b_depth),
-      callback: function($$v) {
-        _vm.$set(_vm.artwork, "b_depth", $$v)
-      },
-      expression: "artwork.b_depth"
-    }
-  })], 1), _vm._v(" "), _c('el-form-item', {
-    attrs: {
-      "label": "Total Weight"
-    }
-  }, [_c('el-input-number', {
-    model: {
-      value: (_vm.artwork.b_weight),
-      callback: function($$v) {
-        _vm.$set(_vm.artwork, "b_weight", $$v)
-      },
-      expression: "artwork.b_weight"
-    }
-  })], 1)], 1) : _vm._e(), _vm._v(" "), _c('el-row', {
-    attrs: {
-      "gutter": 20
-    }
-  }, [_c('el-col', {
-    attrs: {
-      "sm": 6
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Medium"
-    }
-  }, [_c('el-select', {
-    attrs: {
-      "value": "",
-      "multiple": "",
-      "filterable": "",
-      "allow-create": "",
-      "default-first-option": "",
-      "placeholder": "Select material"
-    },
-    model: {
-      value: (_vm.artwork.medium),
-      callback: function($$v) {
-        _vm.$set(_vm.artwork, "medium", $$v)
-      },
-      expression: "artwork.medium"
-    }
-  }, _vm._l((_vm.options('medium')), function(medium) {
-    return _c('el-option', {
-      key: medium.value,
-      attrs: {
-        "label": medium.label,
-        "value": medium.value
-      }
-    })
-  }))], 1)], 1), _vm._v(" "), _c('el-col', {
-    attrs: {
-      "sm": 6
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Art direction"
-    }
-  }, [_c('el-select', {
-    attrs: {
-      "value": "",
-      "multiple": "",
-      "filterable": "",
-      "allow-create": "",
-      "default-first-option": "",
-      "placeholder": "Select"
-    },
-    model: {
-      value: (_vm.artwork.direction),
-      callback: function($$v) {
-        _vm.$set(_vm.artwork, "direction", $$v)
-      },
-      expression: "artwork.direction"
-    }
-  }, _vm._l((_vm.options('direction')), function(direction) {
-    return _c('el-option', {
-      key: direction.value,
-      attrs: {
-        "label": direction.label,
-        "value": direction.value
-      }
-    })
-  }))], 1)], 1), _vm._v(" "), _c('el-col', {
-    attrs: {
-      "sm": 6
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Theme"
-    }
-  }, [_c('el-select', {
-    attrs: {
-      "value": "",
-      "multiple": "",
-      "filterable": "",
-      "allow-create": "",
-      "default-first-option": "",
-      "placeholder": "Select"
-    },
-    model: {
-      value: (_vm.artwork.theme),
-      callback: function($$v) {
-        _vm.$set(_vm.artwork, "theme", $$v)
-      },
-      expression: "artwork.theme"
-    }
-  }, _vm._l((_vm.options('theme')), function(theme) {
-    return _c('el-option', {
-      key: theme.value,
-      attrs: {
-        "label": theme.label,
-        "value": theme.value
-      }
-    })
-  }))], 1)], 1), _vm._v(" "), _c('el-col', {
-    attrs: {
-      "sm": 6
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Main colors"
-    }
-  }, [_c('el-select', {
-    attrs: {
-      "value": "",
-      "multiple": "",
-      "filterable": "",
-      "allow-create": "",
-      "default-first-option": "",
-      "placeholder": "Select"
-    },
-    model: {
-      value: (_vm.artwork.color),
-      callback: function($$v) {
-        _vm.$set(_vm.artwork, "color", $$v)
-      },
-      expression: "artwork.color"
-    }
-  }, _vm._l((_vm.options('color')), function(color) {
-    return _c('el-option', {
-      key: color.value,
-      attrs: {
-        "label": color.label,
-        "value": color.value
-      }
-    })
-  }))], 1)], 1)], 1), _vm._v(" "), _c('el-row', {
-    attrs: {
-      "gutter": 20
-    }
-  }, [_c('el-col', {
-    attrs: {
-      "sm": 12
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Artwork Description"
-    }
-  }, [_c('el-input', {
-    attrs: {
-      "type": "textarea",
-      "rows": 2,
-      "placeholder": "Description"
-    },
-    model: {
-      value: (_vm.artwork.description),
-      callback: function($$v) {
-        _vm.$set(_vm.artwork, "description", $$v)
-      },
-      expression: "artwork.description"
-    }
-  })], 1)], 1), _vm._v(" "), _c('el-col', {
-    attrs: {
-      "sm": 12
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Inspiration"
-    }
-  }, [_c('el-input', {
-    attrs: {
-      "type": "textarea",
-      "rows": 2,
-      "placeholder": "Things that inspire you"
-    },
-    model: {
-      value: (_vm.artwork.inspiration),
-      callback: function($$v) {
-        _vm.$set(_vm.artwork, "inspiration", $$v)
-      },
-      expression: "artwork.inspiration"
-    }
-  })], 1)], 1)], 1), _vm._v(" "), _c('el-row', {
-    attrs: {
-      "gutter": 20
-    }
-  }, [_c('el-col', {
-    attrs: {
-      "sm": 12
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Date of completion Artwork"
-    }
-  }, [_c('el-date-picker', {
-    attrs: {
-      "type": "year",
-      "value-format": "yyyy-MM-dd HH:mm:ss",
-      "placeholder": "Pick a year"
-    },
-    model: {
-      value: (_vm.artwork.date_of_completion),
-      callback: function($$v) {
-        _vm.$set(_vm.artwork, "date_of_completion", $$v)
-      },
-      expression: "artwork.date_of_completion"
-    }
-  })], 1)], 1), _vm._v(" "), _c('el-col', {
-    attrs: {
-      "sm": 12
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Price"
-    }
-  }, [_c('el-input-number', {
-    attrs: {
-      "value": "2",
-      "min": 1,
-      "max": 50000
-    },
-    model: {
-      value: (_vm.artwork.price),
-      callback: function($$v) {
-        _vm.$set(_vm.artwork, "price", $$v)
-      },
-      expression: "artwork.price"
-    }
-  }), _vm._v(" "), _c('el-select', {
-    staticStyle: {
-      "max-width": "200px",
-      "margin-left": "20px"
-    },
-    attrs: {
-      "value": "",
-      "placeholder": "Select currency"
-    },
-    model: {
-      value: (_vm.artwork.currency),
-      callback: function($$v) {
-        _vm.$set(_vm.artwork, "currency", $$v)
-      },
-      expression: "artwork.currency"
-    }
-  }, _vm._l((_vm.currencies), function(label, value) {
-    return _c('el-option', {
-      key: value,
-      attrs: {
-        "value": value,
-        "label": value
-      }
-    })
-  }))], 1)], 1)], 1), _vm._v(" "), _c('el-row', {
-    attrs: {
-      "gutter": 20
-    }
-  }, [_c('el-col', {
-    attrs: {
-      "sm": 8
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Your artworks can be sold on auction"
-    }
-  }, [_c('el-checkbox', {
-    attrs: {
-      "border": ""
-    },
-    model: {
-      value: (_vm.artwork.auction_status),
-      callback: function($$v) {
-        _vm.$set(_vm.artwork, "auction_status", $$v)
-      },
-      expression: "artwork.auction_status"
-    }
-  }, [_vm._v("Place for auction")])], 1)], 1), _vm._v(" "), _c('el-col', {
-    attrs: {
-      "sm": 8
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Auction end date"
-    }
-  }, [_c('el-date-picker', {
-    attrs: {
-      "type": "datetime",
-      "value-format": "yyyy-MM-dd HH:mm:ss",
-      "placeholder": "Select date and time"
-    },
-    model: {
-      value: (_vm.artwork.auction_end),
-      callback: function($$v) {
-        _vm.$set(_vm.artwork, "auction_end", $$v)
-      },
-      expression: "artwork.auction_end"
-    }
-  })], 1)], 1), _vm._v(" "), (_vm.artwork.auction_status) ? _c('el-col', {
-    attrs: {
-      "sm": 8
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Starting price on auction ( EUR )"
-    }
-  }, [_c('el-input-number', {
-    attrs: {
-      "value": "2",
-      "min": 1,
-      "max": 50000
-    },
-    model: {
-      value: (_vm.artwork.auction_price),
-      callback: function($$v) {
-        _vm.$set(_vm.artwork, "auction_price", $$v)
-      },
-      expression: "artwork.auction_price"
-    }
-  })], 1)], 1) : _vm._e()], 1), _vm._v(" "), _c('el-button', {
-    staticStyle: {
-      "margin-top": "20px"
-    },
-    attrs: {
-      "type": "primary",
-      "size": "big",
-      "icon": "el-icon-arrow-right"
-    },
-    on: {
-      "click": function($event) {
-        _vm.saveArtwork()
-      }
-    }
-  }, [_vm._v("\n                Next\n            ")])] : _vm._e(), _vm._v(" "), (_vm.activeStep === 1) ? [_c('label', {
-    staticClass: "el-form-item__label"
-  }, [_vm._v("Upload images of back side, signature, or artwork from side. Up to 3\n                Photos of Your Artwork allowed( jpg/png files accepted)")]), _vm._v(" "), _c('el-form-item', [_c('el-upload', {
-    attrs: {
-      "action": '/api/upload/artwork-image/' + _vm.artwork.id,
-      "file-list": _vm.artwork.images,
-      "headers": {
-        'X-Requested-With': 'XMLHttpRequest',
-        'X-CSRF-TOKEN': _vm.csrf
-      },
-      "on-preview": _vm.handlePictureCardPreview,
-      "on-remove": _vm.handleRemove,
-      "on-success": _vm.handleSuccess,
-      "limit": 3,
-      "on-exceed": _vm.handleExceed,
-      "accept": ".jpg, .jpeg, .png"
-    }
-  }, [_c('el-button', {
-    attrs: {
-      "type": "info",
-      "plain": ""
-    }
-  }, [_c('i', {
-    staticClass: "el-icon-upload"
-  }), _vm._v("\n                        Upload images\n                    ")])], 1), _vm._v(" "), _c('el-dialog', {
-    attrs: {
-      "visible": _vm.dialogVisible
-    },
-    on: {
-      "update:visible": function($event) {
-        _vm.dialogVisible = $event
-      }
-    }
-  }, [_c('img', {
-    attrs: {
-      "width": "100%",
-      "src": _vm.dialogImageUrl,
-      "alt": ""
-    }
-  })])], 1), _vm._v(" "), _c('el-form-item', [_c('el-button', {
-    attrs: {
-      "type": "primary",
-      "size": "big",
-      "icon": "el-icon-arrow-right"
-    },
-    on: {
-      "click": function($event) {
-        _vm.saveArtwork(true)
-      }
-    }
-  }, [_vm._v("\n                    Next\n                ")]), _vm._v(" "), _c('el-button', {
-    attrs: {
-      "type": "text"
-    },
-    on: {
-      "click": function($event) {
-        _vm.activeStep--
-      }
-    }
-  }, [_vm._v("Back to edit artwork")])], 1)] : _vm._e(), _vm._v(" "), (_vm.activeStep === 2) ? [_c('div', {
-    staticClass: "text-center"
-  }, [_vm._v("\n                Your work being approved. You'll get email once it's published.\n            ")]), _vm._v(" "), _c('el-form-item', [_c('el-button', {
-    staticStyle: {
-      "margin-top": "20px"
-    },
-    attrs: {
-      "type": "primary",
-      "size": "big"
-    },
-    on: {
-      "click": function($event) {
-        _vm.activeStep++
-      }
-    }
-  }, [_c('a', {
-    attrs: {
-      "href": '/artworks/' + _vm.artwork.id,
-      "target": "_blank"
-    }
-  }, [_vm._v("\n                        Preview\n                    ")])]), _vm._v(" "), _c('el-button', {
-    attrs: {
-      "type": "text"
-    },
-    on: {
-      "click": function($event) {
-        _vm.activeStep--
-      }
-    }
-  }, [_vm._v("Back to edit artwork")])], 1)] : _vm._e()], 2)], 1)
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-c743e7f0", module.exports)
   }
 }
 

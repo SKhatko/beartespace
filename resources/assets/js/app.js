@@ -54,7 +54,7 @@ Vue.component('translations', require('./components/dashboard/Translations.vue')
 Vue.component('languages', require('./components/dashboard/Languages.vue'));
 Vue.component('users', require('./components/dashboard/Users.vue'));
 Vue.component('profile', require('./components/dashboard/Profile.vue'));
-Vue.component('artwork', require('./components/dashboard/Artwork.vue'));
+Vue.component('artwork-form', require('./components/dashboard/ArtworkForm.vue'));
 Vue.component('pages', require('./components/dashboard/Pages.vue'));
 
 const app = new Vue({
