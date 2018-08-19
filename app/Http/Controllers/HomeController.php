@@ -24,9 +24,16 @@ class HomeController extends Controller {
 
 	public function auctions() {
 
-		$auctions = Artwork::auction()->get();
+		$countries = Country::all( 'country_name', 'id', 'citizenship' );
 
-		return view( 'auction.index', compact( 'auctions' ) );
+		$artworks = Artwork::auction()->get();
+
+		return view( 'auction.index', compact( 'artworks', 'countries' ) );
+
+
+//		$artworks = $artworks->limit( 20 )->with( 'images', 'user.country' )->get();
+
+//		return view( 'artwork.index', compact( 'artworks', 'countries' ) );
 	}
 
 	public function auction( $id ) {
@@ -150,8 +157,6 @@ class HomeController extends Controller {
 		} else {
 			$artworks = Artwork::limit( 20 )->with( 'images', 'user.country' );
 		}
-
-//		return $artworks->with( 'user' )->get();
 
 		$countries = Country::all( 'country_name', 'id', 'citizenship' );
 

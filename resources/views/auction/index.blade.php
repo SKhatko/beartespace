@@ -1,28 +1,22 @@
 @extends('layouts.app')
 
+@section('title') @if( ! empty($title)) {{ $title }} | @endif @parent @endsection
 
 @section('content')
 
     <div class="app--wrapper">
-        <h2>Auctions</h2>
 
-        @foreach($auctions as $auction)
+        <div class="app-artworks">
 
-            <div class="auction" style="display: flex">
+            <artworks-menu countries_="{{ $countries }}"></artworks-menu>
 
-                <div>
-                    Title {{ $auction->title }} <br>
-                    Autor {{ $auction->user['name'] }} <br>
-                    Country {{ $auction->user->country['country_name'] }} <br>
-                </div>
+            <main>
 
-                <img src="{{ $auction->image }}" alt="" style="max-height: 400px">
+                @include('partials.artworks', $artworks)
 
-            </div>
+            </main>
+        </div>
 
-            <hr>
-
-        @endforeach
     </div>
 
 @endsection
