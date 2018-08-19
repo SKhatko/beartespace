@@ -126,7 +126,7 @@
                 <div class="app-header-auth">
                     @if (Auth::guest())
                         <a href="{{ route('login') }}">@lang('portal.login')</a>&nbsp; | &nbsp;
-                        <signup-dialog type_="link"></signup-dialog>&nbsp; |
+                        <signup-dialog type_="link"></signup-dialog>
                     @else
                         <el-dropdown trigger="click">
                       <span class="app-header-auth-name">
@@ -172,7 +172,8 @@
                                 @if(auth()->user()->isAdmin())
 
                                     <el-dropdown-item>
-                                        <a href="{{route('admin.messages')}}" class="el-dropdown-link"><i class="el-icon-message"></i> Messages</a>
+                                        <a href="{{route('admin.messages')}}" class="el-dropdown-link"><i
+                                                    class="el-icon-message"></i> Messages</a>
                                     </el-dropdown-item>
 
                                     <el-dropdown-item>
@@ -180,11 +181,13 @@
                                     </el-dropdown-item>
 
                                     <el-dropdown-item>
-                                        <a href="{{ route('admin.translations') }}"><i class="el-icon-tickets"></i> Translations</a>
+                                        <a href="{{ route('admin.translations') }}"><i class="el-icon-tickets"></i>
+                                            Translations</a>
                                     </el-dropdown-item>
 
                                     <el-dropdown-item>
-                                        <a href="{{ route('admin.languages') }}"><i class="el-icon-setting"></i> Languages</a>
+                                        <a href="{{ route('admin.languages') }}"><i class="el-icon-setting"></i>
+                                            Languages</a>
                                     </el-dropdown-item>
 
                                     <el-dropdown-item>
@@ -220,7 +223,8 @@
                     @endif
                 </div>
 
-                @if(!Cookie::get('email_lead_subscription'))
+                @if(!auth()->user() ? !Cookie::get('email_lead_subscription') : null)
+                    &nbsp; |
                     <div class="app-header-subscribe">
                         <el-popover
                                 placement="bottom"
@@ -247,6 +251,12 @@
                 <a href="{{ route('shopping-cart') }}" class="app-header-cart" v-if="$store.state.cartCount">
                     <i class="el-icon-goods"></i><sup>@{{ $store.state.cartCount }}</sup>
                 </a>
+
+                @if(auth()->user() && auth()->user()->user_type === 'artist')
+                    <el-button type="success" size="mini" plain style="margin-left:10px;"><a href="{{ route('dashboard.artwork.create') }}">
+                            Upload Artwork
+                        </a></el-button>
+                @endif
 
             </div>
 
@@ -493,7 +503,7 @@
 
                                 <div class="h4">Stay connected</div>
 
-                                @if(!Cookie::get('email_lead_subscription'))
+                                @if(!auth()->user() ? !Cookie::get('email_lead_subscription') : null)
                                     <div class="app-footer-subscribe">
                                         <el-form inline label-position="top" method="POST"
                                                  action="{{ route('add-lead') }}">
