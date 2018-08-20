@@ -79,7 +79,6 @@ Route::group( [ 'middleware' => 'web' ], function () {
 	Route::get( 'rules', 'HomeController@rules' )->name( 'rules' );
 	Route::get( 'shipping', 'HomeController@shipping' )->name( 'shipping' );
 
-	Route::get( '{artist}', 'HomeController@artistProfile' )->name( 'artist-profile' );
 
 	//Dashboard Route
 	Route::group( [
@@ -151,6 +150,10 @@ Route::group( [ 'middleware' => 'web' ], function () {
 		} );
 
 	} );
+
+	// Global artist profile search
+	Route::get( '{artist}', 'HomeController@artistProfile' )->name( 'artist-profile' );
+
 
 } );
 

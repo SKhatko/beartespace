@@ -8,7 +8,14 @@
 
             <el-col :span="8">
                 <el-card shadow="hover">
-                    <div class="huge">{{ $approved_ads }}</div>
+                    <div class="text-center">{{ currency($user->balance) }}</div>
+                    <div>@lang('app.approved_ads')</div>
+                </el-card>
+            </el-col>
+
+            <el-col :span="8">
+                <el-card shadow="hover">
+                    <div class="text-center">{{ $approved_ads }}</div>
                     <div>@lang('app.approved_ads')</div>
                 </el-card>
             </el-col>

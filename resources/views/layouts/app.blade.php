@@ -253,7 +253,7 @@
                 </a>
 
                 @if(auth()->user() && auth()->user()->user_type === 'artist')
-                    <el-button type="success" size="mini" plain style="margin-left:10px;"><a href="{{ route('dashboard.artwork.create') }}">
+                    <el-button type="success" size="mini"  style="margin-left:10px;"><a href="{{ route('dashboard.artwork.create') }}">
                             Upload Artwork
                         </a></el-button>
                 @endif
