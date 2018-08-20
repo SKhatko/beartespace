@@ -6,10 +6,10 @@
 
         <el-row :gutter="10" style="margin-bottom:10px;">
 
-            <el-col :span="8">
+            <el-col style="margin-bottom: 10px;">
                 <el-card shadow="hover">
-                    <div class="text-center">{{ currency($user->balance) }}</div>
-                    <div>@lang('app.approved_ads')</div>
+                    <div style="text-align: center;" class="h1">{{ currency($user->balance) }}</div>
+                    <div style="text-align: center;" class="h3">Account Balance</div>
                 </el-card>
             </el-col>
 

@@ -19422,18 +19422,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -19476,13 +19464,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 images: []
             },
             updateArtworkRules: {
-                title: [{ required: true, message: 'Please input title of artwork', trigger: 'blur' }],
-                category: [{ required: true, message: 'Please select category', trigger: 'blur' }]
-            },
-            createArtworkRules: {
-                title: [{ required: true, message: 'Please input title of artwork', trigger: 'blur' }],
-                category: [{ required: true, message: 'Please select category', trigger: 'blur' }]
-
+                title: [{ required: true, message: 'Please input title of artwork', trigger: ['blur', 'change'] }],
+                category: [{ required: true, message: 'Please select category', trigger: ['blur', 'change'] }],
+                width: [{ required: true, message: 'Please select width', trigger: ['blur', 'change'] }],
+                height: [{ required: true, message: 'Please select height', trigger: ['blur', 'change'] }],
+                depth: [{ required: true, message: 'Please select depth', trigger: ['blur', 'change'] }],
+                weight: [{ required: true, message: 'Please select weight', trigger: ['blur', 'change'] }]
             },
 
             artworkSaved: false,
@@ -75058,7 +75045,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('el-card', [(_vm.artwork_) ? _c('h2', [_vm._v("Edit Artwork")]) : _c('h2', [_vm._v("Upload Artwork")]), _vm._v(" "), (_vm.artwork_) ? _c('el-form', {
+  return _c('el-card', [(_vm.artwork_) ? _c('h2', [_vm._v("Edit Artwork")]) : _c('h2', [_vm._v("Upload Artwork")]), _vm._v(" "), _c('el-form', {
     ref: "artwork",
     attrs: {
       "label-position": "top",
@@ -75075,7 +75062,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('el-form-item', {
     attrs: {
-      "label": "Artwork Name (Title)"
+      "label": "Artwork Name (Title)",
+      "prop": "title"
     }
   }, [_c('el-input', {
     attrs: {
@@ -75094,7 +75082,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('el-form-item', {
     attrs: {
-      "label": "Select Category"
+      "label": "Select Category",
+      "prop": "category"
     }
   }, [_c('el-select', {
     attrs: {
@@ -75123,7 +75112,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('el-form-item', {
     attrs: {
-      "label": "Width"
+      "label": "Width",
+      "prop": "width"
     }
   }, [_c('el-input-number', {
     model: {
@@ -75135,7 +75125,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1), _vm._v(" "), _c('el-form-item', {
     attrs: {
-      "label": "Height"
+      "label": "Height",
+      "prop": "height"
     }
   }, [_c('el-input-number', {
     model: {
@@ -75147,7 +75138,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1), _vm._v(" "), _c('el-form-item', {
     attrs: {
-      "label": "Depth"
+      "label": "Depth",
+      "prop": "depth"
     }
   }, [_c('el-input-number', {
     model: {
@@ -75159,7 +75151,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1), _vm._v(" "), _c('el-form-item', {
     attrs: {
-      "label": "Weight"
+      "label": "Weight",
+      "prop": "weight"
     }
   }, [_c('el-input-number', {
     model: {
@@ -75238,7 +75231,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "artwork.b_weight"
     }
-  })], 1)], 1) : _vm._e(), _vm._v(" "), _c('el-row', {
+  })], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.artwork_) ? [_c('el-row', {
     attrs: {
       "gutter": 20
     }
@@ -75553,7 +75546,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1)], 1) : _vm._e()], 1), _vm._v(" "), _c('label', {
     staticClass: "el-form-item__label"
-  }, [_vm._v("Upload images of back side, signature, or artwork from side. Up to 3\n            Photos of Your Artwork allowed( jpg/png files accepted)")]), _vm._v(" "), _c('el-form-item', [_c('el-upload', {
+  }, [_vm._v("Upload images of back side, signature, or artwork from side. Up to 3\n                Photos of Your Artwork allowed( jpg/png files accepted)")]), _vm._v(" "), _c('el-form-item', [_c('el-upload', {
     attrs: {
       "action": '/api/upload/artwork-image/' + _vm.artwork.id,
       "file-list": _vm.artwork.images,
@@ -75575,7 +75568,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('i', {
     staticClass: "el-icon-upload"
-  }), _vm._v("\n                    Upload images\n                ")])], 1), _vm._v(" "), _c('el-dialog', {
+  }), _vm._v("\n                        Upload images\n                    ")])], 1), _vm._v(" "), _c('el-dialog', {
     attrs: {
       "visible": _vm.dialogVisible
     },
@@ -75605,7 +75598,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.saveArtwork()
       }
     }
-  }, [_vm._v("\n            Save\n        ")]), _vm._v(" "), (_vm.artworkSaved) ? _c('el-button', {
+  }, [_vm._v("\n                Save\n            ")]), _vm._v(" "), (_vm.artworkSaved) ? _c('el-button', {
     staticStyle: {
       "margin-top": "20px"
     },
@@ -75618,67 +75611,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "href": '/artworks/' + _vm.artwork.id,
       "target": "_blank"
     }
-  }, [_vm._v("\n                Preview\n            ")])]) : _vm._e()], 1) : _c('el-form', {
-    ref: "artwork",
-    attrs: {
-      "label-position": "top",
-      "model": _vm.artwork,
-      "rules": _vm.createArtworkRules
-    }
-  }, [_c('el-row', {
-    attrs: {
-      "gutter": 20
-    }
-  }, [_c('el-col', {
-    attrs: {
-      "sm": 12
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Artwork Name (Title)",
-      "prop": "title"
-    }
-  }, [_c('el-input', {
-    attrs: {
-      "placeholder": "Please input"
-    },
-    model: {
-      value: (_vm.artwork.title),
-      callback: function($$v) {
-        _vm.$set(_vm.artwork, "title", $$v)
-      },
-      expression: "artwork.title"
-    }
-  })], 1)], 1), _vm._v(" "), _c('el-col', {
-    attrs: {
-      "sm": 12
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Select Category",
-      "prop": "category"
-    }
-  }, [_c('el-select', {
-    attrs: {
-      "value": "",
-      "placeholder": "Select"
-    },
-    model: {
-      value: (_vm.artwork.category),
-      callback: function($$v) {
-        _vm.$set(_vm.artwork, "category", $$v)
-      },
-      expression: "artwork.category"
-    }
-  }, _vm._l((_vm.trans('category')), function(label, value) {
-    return _c('el-option', {
-      key: value,
-      attrs: {
-        "value": value,
-        "label": label
-      }
-    })
-  }))], 1)], 1)], 1), _vm._v(" "), (!_vm.artwork_) ? _c('el-button', {
+  }, [_vm._v("\n                    Preview\n                ")])]) : _vm._e()] : [_c('el-button', {
     staticStyle: {
       "margin-top": "20px"
     },
@@ -75693,7 +75626,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.saveArtwork(true)
       }
     }
-  }, [_vm._v("\n            Create\n        ")]) : _vm._e()], 1)], 1)
+  }, [_vm._v("\n                Create\n            ")])]], 2)], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
