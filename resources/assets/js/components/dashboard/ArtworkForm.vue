@@ -22,54 +22,60 @@
                 </el-col>
             </el-row>
 
-            <el-form :inline="true" label-position="top">
-                <el-form-item label="Width" prop="width">
-                    <el-input-number v-model="artwork.width"></el-input-number>
-                </el-form-item>
+            <el-row>
+                <el-col :sm="5">
+                    <el-form-item label="Width, cm" prop="width">
+                        <el-input-number v-model="artwork.width" :min="0.1" :max="200" size="small" precision="1"></el-input-number>
+                    </el-form-item>
+                </el-col>
+                <el-col :sm="5">
+                    <el-form-item label="Height, cm" prop="height">
+                        <el-input-number v-model="artwork.height" :min="0.1" :max="200" size="small" precision="1"></el-input-number>
+                    </el-form-item>
+                </el-col>
+                <el-col :sm="5">
+                    <el-form-item label="Depth,cm" prop="depth">
+                        <el-input-number v-model="artwork.depth" :min="0.1" :max="200" size="small" precision="1"></el-input-number>
+                    </el-form-item>
+                </el-col>
+                <el-col :sm="5">
+                    <el-form-item label="Weight, g" prop="weight">
+                        <el-input-number v-model="artwork.weight" :min="1" :max="10000" size="small" precision="0"></el-input-number>
+                    </el-form-item>
+                </el-col>
+                <el-col :sm="4" style="margin-top: 50px;">
+                    <el-form-item>
+                        <el-checkbox v-model="artwork.optional_size" v-if="artwork.category === 'painting'">Has frame
+                        </el-checkbox>
+                        <el-checkbox v-model="artwork.optional_size" v-if="artwork.category === 'sculpture'">Has base
+                        </el-checkbox>
+                    </el-form-item>
+                </el-col>
+            </el-row>
 
-                <el-form-item label="Height" prop="height">
-                    <el-input-number v-model="artwork.height"></el-input-number>
-                </el-form-item>
 
-                <el-form-item label="Depth" prop="depth">
-                    <el-input-number v-model="artwork.depth"></el-input-number>
-                </el-form-item>
-
-                <el-form-item label="Weight" prop="weight">
-                    <el-input-number v-model="artwork.weight"></el-input-number>
-                </el-form-item>
-            </el-form>
-
-            <el-form-item>
-
-                <el-checkbox v-model="artwork.optional_size" v-if="artwork.category === 'painting'">Has frame
-                </el-checkbox>
-                <el-checkbox v-model="artwork.optional_size" v-if="artwork.category === 'sculpture'">Has base
-                </el-checkbox>
-
-            </el-form-item>
-
-            <el-form :inline="true" label-position="top" v-if="artwork.optional_size">
-                <el-form-item label="Total Width">
+            <template v-if="artwork.optional_size">
+                <el-form-item label="Total Width" prop="b_width">
                     <el-input-number v-model="artwork.b_width"></el-input-number>
                 </el-form-item>
 
-                <el-form-item label="Total Height">
+                <el-form-item label="Total Height" prop="b_height">
                     <el-input-number v-model="artwork.b_height"></el-input-number>
                 </el-form-item>
 
-                <el-form-item label="Total Depth">
+                <el-form-item label="Total Depth" prop="b_depth">
                     <el-input-number v-model="artwork.b_depth"></el-input-number>
                 </el-form-item>
 
-                <el-form-item label="Total Weight">
+                <el-form-item label="Total Weight" prop="b_weight">
                     <el-input-number v-model="artwork.b_weight"></el-input-number>
                 </el-form-item>
-            </el-form>
+            </template>
+
 
             <template v-if="artwork_">
 
-
+                // Medium, color, theme, art direction
                 <el-row :gutter="20">
                     <el-col :sm="6">
                         <el-form-item label="Medium">
@@ -110,6 +116,7 @@
                     </el-col>
                 </el-row>
 
+                // Description, Inspiration
                 <el-row :gutter="20">
                     <el-col :sm="12">
                         <el-form-item label="Artwork Description">
@@ -133,6 +140,7 @@
                     </el-col>
                 </el-row>
 
+                // Date of compleation, price
                 <el-row :gutter="20">
                     <el-col :sm="12">
                         <el-form-item label="Date of completion Artwork">
@@ -294,13 +302,25 @@
                     width: [
                         {required: true, message: 'Please select width', trigger: ['blur', 'change']}
                     ],
+                    b_width: [
+                        {required: true, message: 'Please select width', trigger: ['blur', 'change']}
+                    ],
                     height: [
+                        {required: true, message: 'Please select height', trigger: ['blur', 'change']}
+                    ],
+                    b_height: [
                         {required: true, message: 'Please select height', trigger: ['blur', 'change']}
                     ],
                     depth: [
                         {required: true, message: 'Please select depth', trigger: ['blur', 'change']}
                     ],
+                    b_depth: [
+                        {required: true, message: 'Please select depth', trigger: ['blur', 'change']}
+                    ],
                     weight: [
+                        {required: true, message: 'Please select weight', trigger: ['blur', 'change']}
+                    ],
+                    b_weight: [
                         {required: true, message: 'Please select weight', trigger: ['blur', 'change']}
                     ],
                 },
@@ -324,6 +344,8 @@
                 this.currencies = JSON.parse(this.currencies_);
             }
 
+            console.log(this.$refs['artwork']);
+
         },
 
         methods: {
@@ -331,6 +353,8 @@
             saveArtwork(redirect = false) {
                 this.$refs['artwork'].validate((valid) => {
                     if (valid) {
+                        console.log(1);
+                        return 1;
                         this.loading = true;
                         axios.post('/api/artwork/', this.artwork)
                             .then((response) => {

@@ -19422,6 +19422,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -19467,9 +19475,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 title: [{ required: true, message: 'Please input title of artwork', trigger: ['blur', 'change'] }],
                 category: [{ required: true, message: 'Please select category', trigger: ['blur', 'change'] }],
                 width: [{ required: true, message: 'Please select width', trigger: ['blur', 'change'] }],
+                b_width: [{ required: true, message: 'Please select width', trigger: ['blur', 'change'] }],
                 height: [{ required: true, message: 'Please select height', trigger: ['blur', 'change'] }],
+                b_height: [{ required: true, message: 'Please select height', trigger: ['blur', 'change'] }],
                 depth: [{ required: true, message: 'Please select depth', trigger: ['blur', 'change'] }],
-                weight: [{ required: true, message: 'Please select weight', trigger: ['blur', 'change'] }]
+                b_depth: [{ required: true, message: 'Please select depth', trigger: ['blur', 'change'] }],
+                weight: [{ required: true, message: 'Please select weight', trigger: ['blur', 'change'] }],
+                b_weight: [{ required: true, message: 'Please select weight', trigger: ['blur', 'change'] }]
             },
 
             artworkSaved: false,
@@ -19488,6 +19500,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         if (this.currencies_) {
             this.currencies = JSON.parse(this.currencies_);
         }
+
+        console.log(this.$refs['artwork']);
     },
 
 
@@ -19499,6 +19513,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.$refs['artwork'].validate(function (valid) {
                 if (valid) {
+                    console.log(1);
+                    return 1;
                     _this.loading = true;
                     axios.post('/api/artwork/', _this.artwork).then(function (response) {
                         if (response.data.data) {
@@ -75105,17 +75121,22 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "label": label
       }
     })
-  }))], 1)], 1)], 1), _vm._v(" "), _c('el-form', {
+  }))], 1)], 1)], 1), _vm._v(" "), _c('el-row', [_c('el-col', {
     attrs: {
-      "inline": true,
-      "label-position": "top"
+      "sm": 5
     }
   }, [_c('el-form-item', {
     attrs: {
-      "label": "Width",
+      "label": "Width, cm",
       "prop": "width"
     }
   }, [_c('el-input-number', {
+    attrs: {
+      "min": 0.1,
+      "max": 200,
+      "size": "small",
+      "precision": "1"
+    },
     model: {
       value: (_vm.artwork.width),
       callback: function($$v) {
@@ -75123,12 +75144,22 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "artwork.width"
     }
-  })], 1), _vm._v(" "), _c('el-form-item', {
+  })], 1)], 1), _vm._v(" "), _c('el-col', {
     attrs: {
-      "label": "Height",
+      "sm": 5
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Height, cm",
       "prop": "height"
     }
   }, [_c('el-input-number', {
+    attrs: {
+      "min": 0.1,
+      "max": 200,
+      "size": "small",
+      "precision": "1"
+    },
     model: {
       value: (_vm.artwork.height),
       callback: function($$v) {
@@ -75136,12 +75167,22 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "artwork.height"
     }
-  })], 1), _vm._v(" "), _c('el-form-item', {
+  })], 1)], 1), _vm._v(" "), _c('el-col', {
     attrs: {
-      "label": "Depth",
+      "sm": 5
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Depth,cm",
       "prop": "depth"
     }
   }, [_c('el-input-number', {
+    attrs: {
+      "min": 0.1,
+      "max": 200,
+      "size": "small",
+      "precision": "1"
+    },
     model: {
       value: (_vm.artwork.depth),
       callback: function($$v) {
@@ -75149,12 +75190,22 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "artwork.depth"
     }
-  })], 1), _vm._v(" "), _c('el-form-item', {
+  })], 1)], 1), _vm._v(" "), _c('el-col', {
     attrs: {
-      "label": "Weight",
+      "sm": 5
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Weight, g",
       "prop": "weight"
     }
   }, [_c('el-input-number', {
+    attrs: {
+      "min": 1,
+      "max": 10000,
+      "size": "small",
+      "precision": "0"
+    },
     model: {
       value: (_vm.artwork.weight),
       callback: function($$v) {
@@ -75162,7 +75213,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "artwork.weight"
     }
-  })], 1)], 1), _vm._v(" "), _c('el-form-item', [(_vm.artwork.category === 'painting') ? _c('el-checkbox', {
+  })], 1)], 1), _vm._v(" "), _c('el-col', {
+    staticStyle: {
+      "margin-top": "50px"
+    },
+    attrs: {
+      "sm": 4
+    }
+  }, [_c('el-form-item', [(_vm.artwork.category === 'painting') ? _c('el-checkbox', {
     model: {
       value: (_vm.artwork.optional_size),
       callback: function($$v) {
@@ -75170,7 +75228,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "artwork.optional_size"
     }
-  }, [_vm._v("Has frame\n            ")]) : _vm._e(), _vm._v(" "), (_vm.artwork.category === 'sculpture') ? _c('el-checkbox', {
+  }, [_vm._v("Has frame\n                    ")]) : _vm._e(), _vm._v(" "), (_vm.artwork.category === 'sculpture') ? _c('el-checkbox', {
     model: {
       value: (_vm.artwork.optional_size),
       callback: function($$v) {
@@ -75178,14 +75236,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "artwork.optional_size"
     }
-  }, [_vm._v("Has base\n            ")]) : _vm._e()], 1), _vm._v(" "), (_vm.artwork.optional_size) ? _c('el-form', {
+  }, [_vm._v("Has base\n                    ")]) : _vm._e()], 1)], 1)], 1), _vm._v(" "), (_vm.artwork.optional_size) ? [_c('el-form-item', {
     attrs: {
-      "inline": true,
-      "label-position": "top"
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Total Width"
+      "label": "Total Width",
+      "prop": "b_width"
     }
   }, [_c('el-input-number', {
     model: {
@@ -75197,7 +75251,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1), _vm._v(" "), _c('el-form-item', {
     attrs: {
-      "label": "Total Height"
+      "label": "Total Height",
+      "prop": "b_height"
     }
   }, [_c('el-input-number', {
     model: {
@@ -75209,7 +75264,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1), _vm._v(" "), _c('el-form-item', {
     attrs: {
-      "label": "Total Depth"
+      "label": "Total Depth",
+      "prop": "b_depth"
     }
   }, [_c('el-input-number', {
     model: {
@@ -75221,7 +75277,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1), _vm._v(" "), _c('el-form-item', {
     attrs: {
-      "label": "Total Weight"
+      "label": "Total Weight",
+      "prop": "b_weight"
     }
   }, [_c('el-input-number', {
     model: {
@@ -75231,7 +75288,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "artwork.b_weight"
     }
-  })], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.artwork_) ? [_c('el-row', {
+  })], 1)] : _vm._e(), _vm._v(" "), (_vm.artwork_) ? [_vm._v("\n\n            // Medium, color, theme, art direction\n            "), _c('el-row', {
     attrs: {
       "gutter": 20
     }
@@ -75363,7 +75420,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "value": color.value
       }
     })
-  }))], 1)], 1)], 1), _vm._v(" "), _c('el-row', {
+  }))], 1)], 1)], 1), _vm._v("\n\n            // Description, Inspiration\n            "), _c('el-row', {
     attrs: {
       "gutter": 20
     }
@@ -75409,7 +75466,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "artwork.inspiration"
     }
-  })], 1)], 1)], 1), _vm._v(" "), _c('el-row', {
+  })], 1)], 1)], 1), _vm._v("\n\n            // Date of compleation, price\n            "), _c('el-row', {
     attrs: {
       "gutter": 20
     }
