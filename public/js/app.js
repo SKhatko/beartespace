@@ -18336,9 +18336,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -19913,6 +19910,13 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue2_editor__ = __webpack_require__(78);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue2_editor___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue2_editor__);
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -76104,6 +76108,33 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "label": country.citizenship,
         "value": country.id
+      }
+    })
+  }))], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "label": "Profession",
+      "prop": "profession"
+    }
+  }, [_c('el-select', {
+    attrs: {
+      "value": "",
+      "filterable": "",
+      "default-first-option": "",
+      "placeholder": "What is your profession?"
+    },
+    model: {
+      value: (_vm.user.profession),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "profession", $$v)
+      },
+      expression: "user.profession"
+    }
+  }, _vm._l((_vm.options('profession')), function(profession) {
+    return _c('el-option', {
+      key: profession.value,
+      attrs: {
+        "label": profession.label,
+        "value": profession.value
       }
     })
   }))], 1)], 1) : _vm._e(), _vm._v(" "), _c('el-col', {

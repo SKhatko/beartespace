@@ -80,6 +80,12 @@ class TranslationsTableSeeder extends Seeder {
 			'color'     => [
 				[ 'Yellow', 'Gule' ]
 			],
+			'profession'     => [
+				[ 'Sculptor', 'Sculpturer' ],
+				[ 'Cartoonist', '' ],
+				[ 'Illustrator', '' ],
+				[ 'Painter', 'Painter' ]
+			],
 		];
 
 		foreach ( $translations as $medium => $trans ) {

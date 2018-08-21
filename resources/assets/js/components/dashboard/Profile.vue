@@ -131,6 +131,13 @@
                             </el-option>
                         </el-select>
                     </el-form-item>
+
+                    <el-form-item label="Profession" prop="profession">
+                        <el-select value="" v-model="user.profession" filterable default-first-option placeholder="What is your profession?">
+                            <el-option v-for="profession in options('profession')" :key="profession.value" :label="profession.label"
+                                       :value="profession.value"></el-option>
+                        </el-select>
+                    </el-form-item>
                 </el-col>
 
 

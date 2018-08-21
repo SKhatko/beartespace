@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration {
 			$table->string( 'email' )->unique()->nullable();
 			$table->string( 'password' )->nullable();
 			$table->integer('balance')->default(0);
+			$table->string('profession')->nullable();
 
 			$table->date('dob')->nullable();
 			$table->integer( 'country_id' )->nullable();

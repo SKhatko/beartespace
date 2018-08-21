@@ -2,7 +2,6 @@
 
     <div class="artists-menu">
 
-
         <el-form inline>
 
             <el-form-item>
@@ -13,8 +12,6 @@
                 <el-button @click="filterArtists">Show</el-button>
             </el-form-item>
         </el-form>
-
-
 
     </div>
 
