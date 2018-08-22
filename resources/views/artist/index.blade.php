@@ -8,9 +8,15 @@
 
     <div class="app-artists">
 
-        <artists-menu artists_="{{ $artists }}"></artists-menu>
+        <el-breadcrumb separator-class="el-icon-arrow-right" style="margin: 30px 0;">
+            <el-breadcrumb-item><a href="/">Home</a></el-breadcrumb-item>
+            <el-breadcrumb-item>Artists</el-breadcrumb-item>
+        </el-breadcrumb>
+
+        <artists-menu></artists-menu>
 
         <div class="artists">
+
 
             @foreach($artists as $artist)
 
@@ -52,6 +58,9 @@
 
 
                     <div class="artist-footer">
+                        <el-button type="success" plain size="small"><a href="{{ route('artist', $artist->id) }}">
+                                See more
+                            </a></el-button>
                         <el-button type="primary" plain size="small">Follow</el-button>
                     </div>
 
@@ -59,6 +68,17 @@
                 </el-card>
 
             @endforeach
+
+            <div class="artists-footer" style="text-align: center;margin-bottom: 50px;">
+                @if($artists->hasMorePages())
+                    <el-button><a href="{{  $artists->nextPageUrl() }}">See more Artists</a></el-button>
+                @endif
+                <el-button><a href="{{ route('artworks') }}">Go to Artworks</a></el-button>
+                <el-button><a href="{{ route('auctions') }}">Go to Auctions</a></el-button>
+            </div>
+
+            {{ $artists->links() }}
+
 
         </div>
 

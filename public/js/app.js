@@ -16166,6 +16166,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_4_vue_awesome_swiper___default.a, {
     slidesPerView: 'auto',
     spaceBetween: 30
 });
+
 Vue.component('subscription-form', __webpack_require__(221));
 Vue.component('partials-artwork', __webpack_require__(220));
 Vue.component('signup-dialog', __webpack_require__(213));
@@ -16185,13 +16186,14 @@ Vue.component('profile', __webpack_require__(217));
 Vue.component('artwork-form', __webpack_require__(214));
 Vue.component('pages', __webpack_require__(216));
 
+Vue.component('pagination', __webpack_require__(253));
+
 var app = new Vue({
     el: '#app',
     store: new Vuex.Store(__WEBPACK_IMPORTED_MODULE_1__store_js__["a" /* default */]),
     components: {},
     data: {
         showRegisterDialog: false
-
     },
     mounted: function mounted() {
 
@@ -16246,7 +16248,9 @@ var app = new Vue({
         //
         //         }
         //     });
-    }
+    },
+
+    methods: {}
 });
 
 /***/ }),
@@ -18317,6 +18321,10 @@ function mergeFn (a, b) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
 //
 //
 //
@@ -75830,7 +75838,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "inline": ""
     }
-  }, [_c('el-form-item', [_c('el-input', {
+  }, [_c('el-form-item', [_c('el-button', {
+    attrs: {
+      "type": "text"
+    }
+  }, [_vm._v("See artists of the week")])], 1), _vm._v(" "), _c('el-form-item', [_c('el-input', {
     attrs: {
       "placeholder": "Filter by artist name"
     },
@@ -78681,6 +78693,181 @@ var index_esm = {
 __webpack_require__(79);
 module.exports = __webpack_require__(80);
 
+
+/***/ }),
+/* 243 */,
+/* 244 */,
+/* 245 */,
+/* 246 */,
+/* 247 */,
+/* 248 */,
+/* 249 */,
+/* 250 */,
+/* 251 */,
+/* 252 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+// {{ $paginator->currentPage() }}
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+
+    props: {
+        paginator_: {}
+    },
+
+    data: function data() {
+        return {
+            paginator: {}
+        };
+    },
+    mounted: function mounted() {
+
+        if (this.paginator_) {
+            this.paginator = JSON.parse(this.paginator_);
+            console.log(this.paginator);
+        }
+    },
+
+
+    methods: {
+        changeSize: function changeSize(items) {
+            if (items) {
+                this.setQueryVariable('items', items);
+            }
+        },
+        setQueryVariable: function setQueryVariable(variable, value) {
+            window.location.search = '?' + variable + '=' + value;
+
+            var oldQuery = window.location.search.substring(1);
+            var newQuery = '?';
+            var vars = oldQuery.split('&');
+            console.log(vars);
+            for (var i = 0; i < vars.length; i++) {
+                var pair = vars[i].split('=');
+                if (decodeURIComponent(pair[0]) === variable) {
+                    newQuery += pair[0] + '=' + value;
+                    continue;
+                }
+
+                // if(pair[0]) {
+                //     newQuery += pair[0] + '=' + pair[1] + '&';
+                // }
+            }
+
+            console.log(newQuery);
+
+            if (newQuery.length > 1) {
+                // window.location.search = newQuery;
+            }
+        },
+        getQueryVariable: function getQueryVariable(variable) {
+            var query = window.location.search.substring(1);
+            var vars = query.split('&');
+            for (var i = 0; i < vars.length; i++) {
+                var pair = vars[i].split('=');
+                if (decodeURIComponent(pair[0]) === variable) {
+                    return decodeURIComponent(pair[1]);
+                }
+            }
+            console.log('Query variable %s not found', variable);
+        },
+        changePage: function changePage(page) {
+            console.log(page);
+            if (page) {
+                this.setQueryVariable('page', page);
+            }
+        }
+    }
+});
+
+/***/ }),
+/* 253 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(252),
+  /* template */
+  __webpack_require__(254),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/skhatko/code/larabid/resources/assets/js/components/global/Pagination.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Pagination.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-3d3127d5", Component.options)
+  } else {
+    hotAPI.reload("data-v-3d3127d5", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 254 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "app-pagination",
+    staticStyle: {
+      "text-align": "center",
+      "margin": "40px 0"
+    }
+  }, [_c('el-pagination', {
+    attrs: {
+      "background": "",
+      "current-page": _vm.paginator.current_page,
+      "page-sizes": [3, 15, 30, 50],
+      "page-size": _vm.paginator.per_page,
+      "layout": "sizes, prev, pager, next",
+      "total": 50
+    },
+    on: {
+      "current-change": _vm.changePage,
+      "size-change": _vm.changeSize
+    }
+  })], 1)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-3d3127d5", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

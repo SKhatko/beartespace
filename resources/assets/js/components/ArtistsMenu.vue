@@ -5,6 +5,10 @@
         <el-form inline>
 
             <el-form-item>
+                <el-button type="text">See artists of the week</el-button>
+            </el-form-item>
+
+            <el-form-item>
                 <el-input v-model="artistFilters.artist" placeholder="Filter by artist name"></el-input>
             </el-form-item>
 

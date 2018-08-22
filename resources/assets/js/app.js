@@ -38,6 +38,7 @@ Vue.use(VueAwesomeSwiper, {
     slidesPerView: 'auto',
     spaceBetween: 30
 });
+
 Vue.component('subscription-form', require('./components/payment/SubscriptionForm.vue'));
 Vue.component('partials-artwork', require('./components/partials/Artwork.vue'));
 Vue.component('signup-dialog', require('./components/auth/SignupDialog.vue'));
@@ -57,13 +58,16 @@ Vue.component('profile', require('./components/dashboard/Profile.vue'));
 Vue.component('artwork-form', require('./components/dashboard/ArtworkForm.vue'));
 Vue.component('pages', require('./components/dashboard/Pages.vue'));
 
+Vue.component('pagination', require('./components/global/Pagination.vue'));
+
+
+
 const app = new Vue({
     el: '#app',
     store: new Vuex.Store(store),
     components: {},
     data: {
         showRegisterDialog: false
-
     },
     mounted() {
 
@@ -118,6 +122,9 @@ const app = new Vue({
         //         }
         //     });
     },
+    methods: {
+
+    }
 });
 
 

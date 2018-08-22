@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Laravel\Cashier\Cashier;
+use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider {
 	/**
@@ -32,6 +33,10 @@ class AppServiceProvider extends ServiceProvider {
 		} );
 
 		Cashier::useCurrency('eur', '€');
+
+		Paginator::defaultView('pagination::vue');
+
+		Paginator::defaultSimpleView('pagination::vue');
 
 	}
 

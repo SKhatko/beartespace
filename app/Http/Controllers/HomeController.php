@@ -57,14 +57,17 @@ class HomeController extends Controller {
 		return view( 'artwork.show', compact( 'artwork' ) );
 	}
 
-	public function artists() {
+	public function artists( Request $request ) {
 
-		$artists = User::artist()->limit( 20 )->get();
+		$items = 3;
 
-		$artist = User::find( 4 );
+		if ( $request->has( 'items' ) && (int) $request->input( 'items' ) ) {
+			$items = $request->get( 'items' );
+		}
 
-//		return $artist->artworks->take(3);
+		$artists = User::artist()->paginate( $items );
 
+//		return $artists;
 		return view( 'artist.index', compact( 'artists' ) );
 	}
 
@@ -137,7 +140,7 @@ class HomeController extends Controller {
 			if ( $request->input( 'country' ) ) {
 				$queries = explode( ',', $request->input( 'country' ) );
 				foreach ( $queries as $query ) {
-					$artworks->where('country_id', $query);
+					$artworks->where( 'country_id', $query );
 				}
 			}
 //
