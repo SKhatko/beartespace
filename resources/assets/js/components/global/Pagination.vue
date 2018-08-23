@@ -9,7 +9,7 @@
                 :page-sizes="[3, 15, 30, 50]"
                 :page-size="paginator.per_page"
                 layout="sizes, prev, pager, next"
-                :total="50">
+                :total="paginator.total">
         </el-pagination>
     </div>
 

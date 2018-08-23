@@ -78853,7 +78853,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "page-sizes": [3, 15, 30, 50],
       "page-size": _vm.paginator.per_page,
       "layout": "sizes, prev, pager, next",
-      "total": 50
+      "total": _vm.paginator.total
     },
     on: {
       "current-change": _vm.changePage,
