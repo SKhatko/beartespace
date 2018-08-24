@@ -42,34 +42,38 @@
 
         methods: {
             changeSize(items) {
-                if (items) {
-                    this.setQueryVariable('items', items);
-                }
+                this.setQueryVariable('items', items);
             },
-            setQueryVariable(variable, value) {
-                window.location.search = '?' + variable + '=' + value;
 
-                // TODO change url parsing
-                let oldQuery = window.location.search.substring(1);
-                let newQuery = '?';
-                let vars = oldQuery.split('&');
-                console.log(vars);
-                for (let i = 0; i < vars.length; i++) {
-                    let pair = vars[i].split('=');
-                    if (decodeURIComponent(pair[0]) === variable) {
-                        newQuery += pair[0] + '=' + value;
-                        continue;
+            changePage(page) {
+                this.setQueryVariable('page', page);
+            },
+
+            setQueryVariable(variable, value) {
+
+                let oldData = this.getQueryVariable(variable);
+
+                if(oldData) {
+
+                    let oldQuery = window.location.search.substring(1);
+                    let newQuery = '?';
+                    let vars = oldQuery.split('&');
+
+                    for (let i = 0; i < vars.length; i++) {
+                        let pair = vars[i].split('=');
+                        if (decodeURIComponent(pair[0]) === variable) {
+                            newQuery += pair[0] + '=' + value + '&';
+                        } else {
+                            newQuery += pair[0] + '=' + pair[1] + '&';
+                        }
                     }
 
-                    // if(pair[0]) {
-                    //     newQuery += pair[0] + '=' + pair[1] + '&';
-                    // }
-                }
+                    window.location.search = newQuery;
 
-                console.log(newQuery);
-
-                if (newQuery.length > 1) {
-                    // window.location.search = newQuery;
+                } else {
+                    let query = window.location.search.substring(1);
+                    query += variable + '=' + value + '&';
+                    window.location.search = query;
                 }
             },
             getQueryVariable(variable) {
@@ -82,13 +86,6 @@
                     }
                 }
                 console.log('Query variable %s not found', variable);
-            },
-
-            changePage(page) {
-                console.log(page);
-                if (page) {
-                    this.setQueryVariable('page', page);
-                }
             }
 
         }

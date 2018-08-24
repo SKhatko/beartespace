@@ -33,7 +33,8 @@ class User extends Authenticatable {
 	];
 
 	protected $casts = [
-		'technique' => 'array',
+		'medium' => 'array',
+		'direction' => 'array',
 	];
 
 	public function country() {
@@ -116,6 +117,22 @@ class User extends Authenticatable {
 		} else {
 //			file_exists(public_path('images/avatar-placeholder.png'));
 			return '/avatar-placeholder.png';
+		}
+	}
+
+	public function getMediumAttribute() {
+		if($this->attributes['medium']) {
+			return json_decode($this->attributes['medium']);
+		} else {
+			return [];
+		}
+	}
+
+	public function getDirectionAttribute() {
+		if($this->attributes['direction']) {
+			return json_decode($this->attributes['direction']);
+		} else {
+			return [];
 		}
 	}
 

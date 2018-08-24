@@ -42,31 +42,77 @@ class HomeController extends Controller {
 
 	public function selectedArtists() {
 
-		$artists = User::whereIn('id', Setting::first()->artists_of_the_week)->paginate(15);
+		$artists = User::whereIn( 'id', Setting::first()->artists_of_the_week )->paginate( 15 );
 
-		return view('artist.index', compact('artists'));
+		return view( 'artist.index', compact( 'artists' ) );
 	}
 
 	public function selectedArtworks() {
 
 		$countries = Country::all( 'country_name', 'id', 'citizenship' );
 
-		$artworks = Artwork::whereIn('id', Setting::first()->artworks_of_the_week)->with( 'images', 'user.country' )->paginate();
+		$artworks = Artwork::whereIn( 'id', Setting::first()->artworks_of_the_week )->with( 'images', 'user.country' )->paginate();
 
 		return view( 'artwork.index', compact( 'artworks', 'countries' ) );
 	}
 
 	public function artists( Request $request ) {
 
+		$artists = User::query()->artist();
+
+		foreach ( $artists->get() as $artist ) {
+//			dump( $artist->direction );
+		}
+
+		if ( $request->all() ) {
+
+			if ( $request->input( 'artist' ) ) {
+				$artist        = $request->input( 'artist' );
+				$userNameArray = explode( ' ', $artist );
+
+				foreach ( $userNameArray as $userNamePart ) {
+					$artists->whereRaw( 'LOWER(first_name) LIKE ?', '%' . $userNamePart . '%' )
+					        ->orWhereRaw( 'LOWER(last_name) LIKE ?', '%' . $userNamePart . '%' );
+				}
+			}
+
+
+			if ( $request->input( 'country' ) ) {
+				$queries = explode( ',', $request->input( 'country' ) );
+				$artists->whereIn( 'country_id', $queries );
+			}
+
+			if ( $request->input( 'profession' ) ) {
+				$queries = explode( ',', $request->input( 'profession' ) );
+				foreach ( $queries as $query ) {
+					$artists->whereRaw( 'LOWER(profession) LIKE ?', '%' . $query . '%' );
+				}
+			}
+
+			if ( $request->input( 'medium' ) ) {
+				$queries = explode( ',', $request->input( 'medium' ) );
+
+				foreach ( $queries as $query ) {
+					$artists->whereRaw( 'LOWER(medium) LIKE ?', '%' . $query . '%' );
+				}
+			}
+
+			if ( $request->input( 'direction' ) ) {
+				$queries = explode( ',', $request->input( 'direction' ) );
+				foreach ( $queries as $query ) {
+					$artists->whereRaw( 'LOWER(direction) LIKE ?', '%' . $query . '%' );
+				}
+			}
+		}
+
 		$items = 3;
 
-		if ( $request->has( 'items' ) && (int) $request->input( 'items' ) ) {
+		if ( $request->has( 'items' ) && $request->input( 'items' ) > 1 ) {
 			$items = $request->get( 'items' );
 		}
 
-		$artists = User::artist()->paginate( $items );
+		$artists = $artists->paginate( $items );
 
-//		return $artists;
 		return view( 'artist.index', compact( 'artists' ) );
 	}
 

@@ -68,6 +68,9 @@
             @endforeach
 
             <div class="artists-footer" style="text-align: center;margin-bottom: 50px;">
+
+                <el-button><a href="/selection/artist">See artists of the week</a></el-button>
+
                 @if($artists->hasMorePages())
                     <el-button><a href="{{  $artists->nextPageUrl() }}">See more Artists</a></el-button>
                 @endif

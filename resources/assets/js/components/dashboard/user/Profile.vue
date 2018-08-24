@@ -133,8 +133,10 @@
                     </el-form-item>
 
                     <el-form-item label="Profession" prop="profession">
-                        <el-select value="" v-model="user.profession" filterable default-first-option placeholder="What is your profession?">
-                            <el-option v-for="profession in options('profession')" :key="profession.value" :label="profession.label"
+                        <el-select value="" v-model="user.profession" filterable default-first-option
+                                   placeholder="What is your profession?">
+                            <el-option v-for="profession in options('profession')" :key="profession.value"
+                                       :label="profession.label"
                                        :value="profession.value"></el-option>
                         </el-select>
                     </el-form-item>
@@ -203,15 +205,30 @@
                     </el-form-item>
                 </el-col>
 
-                <el-col v-if="user.user_type === 'artist' ">
+
+
+                <el-col :sm="12" v-if="user.user_type === 'artist' ">
                     <el-form-item label="Technique" prop="technique">
-                        <el-select value="" v-model="user.technique" multiple filterable allow-create
+                        <el-select value="" v-model="user.medium" multiple filterable allow-create
                                    default-first-option placeholder="What do you work with?">
                             <el-option v-for="medium in options('medium')" :key="medium.value" :label="medium.label"
                                        :value="medium.value"></el-option>
                         </el-select>
                     </el-form-item>
                 </el-col>
+
+                <el-col :sm="12" v-if="user.user_type === 'artist' ">
+                    <el-form-item label="Art Direction" prop="direction">
+                        <el-select value="" v-model="user.direction" multiple filterable allow-create
+                                   default-first-option placeholder="What is your Art direction?">
+                            <el-option v-for="direction in options('direction')" :key="direction.value"
+                                       :label="direction.label"
+                                       :value="direction.value"></el-option>
+                        </el-select>
+                    </el-form-item>
+
+                </el-col>
+
 
                 <el-col :sm="12" v-if="user.user_type === 'artist'">
                     <el-form-item label="Inspiration" prop="inspiration">
@@ -310,9 +327,7 @@
                 avatarChanged: false,
                 imageCropper: {},
                 imageChanged: false,
-                user: {
-                    technique: [],
-                },
+                user: {},
                 profileSaved: false,
                 rules: {
                     first_name: [
@@ -350,10 +365,6 @@
                 this.countries = JSON.parse(this.countries_);
             }
 
-
-            if (!this.user.technique) {
-                this.user.technique = [];
-            }
 
         },
 

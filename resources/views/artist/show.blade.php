@@ -40,8 +40,8 @@
                         <div class="artist-exhibition">{!! $artist->exhibition !!}</div>
                         <div class="artist-technique">
 
-                            @if($artist->technique)
-                                @foreach($artist->technique as $medium)
+                            @if($artist->medium)
+                                @foreach($artist->medium as $medium)
                                     {{ trans('medium.' . $medium) && strpos(trans('medium.' . $medium), 'medium') !== false ? $medium : trans('medium.' . $medium)}}
                                 @endforeach
                             @endif

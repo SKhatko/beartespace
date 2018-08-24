@@ -88,13 +88,13 @@ class TranslationsTableSeeder extends Seeder {
 			],
 		];
 
-		foreach ( $translations as $medium => $trans ) {
+		foreach ( $translations as $group => $trans ) {
 
 			foreach ( $trans as $tran ) {
 				$key = str_slug( $tran[0], '-' );
 
 				LanguageLine::create( [
-					'group' => $medium,
+					'group' => $group,
 					'key'   => $key,
 					'text'  => [ 'en' => $tran[0], 'da' => $tran[1] ],
 				] );

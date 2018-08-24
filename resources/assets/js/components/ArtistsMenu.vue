@@ -1,21 +1,69 @@
 <template>
 
-    <div class="artists-menu">
+    <div class="app-artists-menu" style="text-align: center;margin: 40px 0;">
 
         <el-form inline>
-
-            <el-form-item>
-                <el-button type="text"><a href="/selection/artist">See artists of the week</a></el-button>
-            </el-form-item>
 
             <el-form-item>
                 <el-input v-model="artistFilters.artist" placeholder="Filter by artist name"></el-input>
             </el-form-item>
 
-            <el-form-item v-if="artistFilters.artist">
-                <el-button @click="filterArtists">Show</el-button>
+            <el-form-item>
+                <el-select value="" v-model="artistFilters.country" filterable multiple collapse-tags
+                           placeholder="Filter by country">
+                    <el-option
+                            v-for="country in countries"
+                            :key="country.id"
+                            :label="country.country_name"
+                            :value="country.id">
+                    </el-option>
+                </el-select>
             </el-form-item>
+
+            <el-form-item>
+                <el-select value="" v-model="artistFilters.profession" allow-create filterable multiple collapse-tags
+                           placeholder="Filter by profession">
+                    <el-option
+                            v-for="(profession, key) in trans('profession')"
+                            :key="key"
+                            :label="profession"
+                            :value="key">
+                    </el-option>
+                </el-select>
+            </el-form-item>
+
+            <el-form-item>
+                <el-select value="" v-model="artistFilters.medium" allow-create filterable multiple collapse-tags
+                           placeholder="Filter by medium">
+                    <el-option
+                            v-for="(medium, key) in trans('medium')"
+                            :key="key"
+                            :label="medium"
+                            :value="key">
+                    </el-option>
+                </el-select>
+            </el-form-item>
+
+            <el-form-item>
+                <el-select value="" v-model="artistFilters.direction" allow-create filterable multiple collapse-tags
+                           placeholder="Filter by direction">
+                    <el-option
+                            v-for="(direction, key) in trans('direction')"
+                            :key="key"
+                            :label="direction"
+                            :value="key">
+                    </el-option>
+                </el-select>
+            </el-form-item>
+
+
+            <el-button style="margin-bottom: 20px;" @click="setSearchQuery" type="success">Filter</el-button>
+
+            <el-button type="warning" @click="clearFilters">Clear filters</el-button>
+
         </el-form>
+
+
 
     </div>
 
@@ -25,31 +73,100 @@
 
     export default {
 
-        props: {
-            'artists_': {}
-        },
-
         data() {
             return {
                 artistFilters: {
                     artist: '',
+                    country: '',
+                    profession: '',
+                    medium: [],
+                    direction: [],
                 },
 
-
+                countries: '',
             }
         },
 
         mounted() {
 
+            axios.get('/api/countries').then(response => {
+                this.countries = response.data;
+            });
 
-
+            console.log(window.location.search);
+            if (window.location.search) {
+                this.setFilters();
+            }
         },
 
         methods: {
-            filterArtists() {
+            setFilters() {
 
+                // Parse artist name from url
+                let artist = this.getQueryVariable('artist');
+                if (artist) {
+                    this.artistFilters['artist'] = artist;
+                }
+
+                // Parse country from url
+                let country = this.getQueryVariable('country');
+                if (country) {
+                    let countries = country.split(',');
+
+                    countries = countries.map($country=> {
+                        return Number($country);
+                    });
+
+                    this.artistFilters['country'] = countries
+                }
+
+                // Parse profession from url
+                let profession = this.getQueryVariable('profession');
+                if (profession) {
+                    this.artistFilters['profession'] = profession.split(',');
+                }
+
+                // Parse medium from url
+                let medium = this.getQueryVariable('medium');
+                if (medium) {
+                    this.artistFilters['medium'] = medium.split(',');
+                }
+
+                // Parse art direction
+                let direction = this.getQueryVariable('direction');
+                if (direction) {
+                    this.artistFilters['direction'] = direction.split(',');
+                }
+
+            },
+            setSearchQuery() {
+                let query = '?';
+                for (let filter in this.artistFilters) {
+                    query += filter + '=' + this.artistFilters[filter] + '&';
+                    console.log(filter);
+                }
+                console.log(query);
+
+                window.location.search = query;
+            },
+            getQueryVariable(variable) {
+                let query = window.location.search.substring(1);
+                let vars = query.split('&');
+                for (let i = 0; i < vars.length; i++) {
+                    let pair = vars[i].split('=');
+                    if (decodeURIComponent(pair[0]) === variable) {
+                        return decodeURIComponent(pair[1]);
+                    }
+                }
+                // console.log('Query variable %s not found', variable);
+            },
+            clearFilters() {
+                for (let filter in this.artistFilters) {
+                    this.artistFilters[filter] = '';
+                }
+
+                this.setSearchQuery();
             }
-
         }
     }
 </script>

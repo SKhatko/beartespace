@@ -37,7 +37,8 @@ class CreateUsersTable extends Migration {
 			$table->string( 'education_title' )->nullable();
 			$table->text('inspiration')->nullable();
 			$table->text('exhibition')->nullable();
-			$table->json('technique')->nullable();
+			$table->json('direction')->nullable();
+			$table->json('medium')->nullable();
 
 			$table->enum( 'user_type', [ 'user', 'admin', 'artist', 'gallery' ] )->nullable();
 			$table->enum( 'user_plan', [ 'trial', 'basic', 'expanded' ] )->nullable();

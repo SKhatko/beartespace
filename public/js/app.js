@@ -18350,27 +18350,151 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-
-    props: {
-        'artists_': {}
-    },
-
     data: function data() {
         return {
             artistFilters: {
-                artist: ''
-            }
+                artist: '',
+                country: '',
+                profession: '',
+                medium: [],
+                direction: []
+            },
 
+            countries: ''
         };
     },
-    mounted: function mounted() {},
+    mounted: function mounted() {
+        var _this = this;
+
+        axios.get('/api/countries').then(function (response) {
+            _this.countries = response.data;
+        });
+
+        console.log(window.location.search);
+        if (window.location.search) {
+            this.setFilters();
+        }
+    },
 
 
     methods: {
-        filterArtists: function filterArtists() {}
+        setFilters: function setFilters() {
+
+            // Parse artist name from url
+            var artist = this.getQueryVariable('artist');
+            if (artist) {
+                this.artistFilters['artist'] = artist;
+            }
+
+            // Parse country from url
+            var country = this.getQueryVariable('country');
+            if (country) {
+                var countries = country.split(',');
+
+                countries = countries.map(function ($country) {
+                    return Number($country);
+                });
+
+                this.artistFilters['country'] = countries;
+            }
+
+            // Parse profession from url
+            var profession = this.getQueryVariable('profession');
+            if (profession) {
+                this.artistFilters['profession'] = profession.split(',');
+            }
+
+            // Parse medium from url
+            var medium = this.getQueryVariable('medium');
+            if (medium) {
+                this.artistFilters['medium'] = medium.split(',');
+            }
+
+            // Parse art direction
+            var direction = this.getQueryVariable('direction');
+            if (direction) {
+                this.artistFilters['direction'] = direction.split(',');
+            }
+        },
+        setSearchQuery: function setSearchQuery() {
+            var query = '?';
+            for (var filter in this.artistFilters) {
+                query += filter + '=' + this.artistFilters[filter] + '&';
+                console.log(filter);
+            }
+            console.log(query);
+
+            window.location.search = query;
+        },
+        getQueryVariable: function getQueryVariable(variable) {
+            var query = window.location.search.substring(1);
+            var vars = query.split('&');
+            for (var i = 0; i < vars.length; i++) {
+                var pair = vars[i].split('=');
+                if (decodeURIComponent(pair[0]) === variable) {
+                    return decodeURIComponent(pair[1]);
+                }
+            }
+            // console.log('Query variable %s not found', variable);
+        },
+        clearFilters: function clearFilters() {
+            for (var filter in this.artistFilters) {
+                this.artistFilters[filter] = '';
+            }
+
+            this.setSearchQuery();
+        }
     }
 });
 
@@ -20612,6 +20736,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -20640,9 +20781,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             avatarChanged: false,
             imageCropper: {},
             imageChanged: false,
-            user: {
-                technique: []
-            },
+            user: {},
             profileSaved: false,
             rules: {
                 first_name: [{ required: true, message: 'Please enter first name', trigger: 'blur' }],
@@ -20666,10 +20805,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         if (this.countries_) {
             this.countries = JSON.parse(this.countries_);
-        }
-
-        if (!this.user.technique) {
-            this.user.technique = [];
         }
     },
 
@@ -20837,34 +20972,35 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         changeSize: function changeSize(items) {
-            if (items) {
-                this.setQueryVariable('items', items);
-            }
+            this.setQueryVariable('items', items);
+        },
+        changePage: function changePage(page) {
+            this.setQueryVariable('page', page);
         },
         setQueryVariable: function setQueryVariable(variable, value) {
-            window.location.search = '?' + variable + '=' + value;
 
-            // TODO change url parsing
-            var oldQuery = window.location.search.substring(1);
-            var newQuery = '?';
-            var vars = oldQuery.split('&');
-            console.log(vars);
-            for (var i = 0; i < vars.length; i++) {
-                var pair = vars[i].split('=');
-                if (decodeURIComponent(pair[0]) === variable) {
-                    newQuery += pair[0] + '=' + value;
-                    continue;
+            var oldData = this.getQueryVariable(variable);
+
+            if (oldData) {
+
+                var oldQuery = window.location.search.substring(1);
+                var newQuery = '?';
+                var vars = oldQuery.split('&');
+
+                for (var i = 0; i < vars.length; i++) {
+                    var pair = vars[i].split('=');
+                    if (decodeURIComponent(pair[0]) === variable) {
+                        newQuery += pair[0] + '=' + value + '&';
+                    } else {
+                        newQuery += pair[0] + '=' + pair[1] + '&';
+                    }
                 }
 
-                // if(pair[0]) {
-                //     newQuery += pair[0] + '=' + pair[1] + '&';
-                // }
-            }
-
-            console.log(newQuery);
-
-            if (newQuery.length > 1) {
-                // window.location.search = newQuery;
+                window.location.search = newQuery;
+            } else {
+                var query = window.location.search.substring(1);
+                query += variable + '=' + value + '&';
+                window.location.search = query;
             }
         },
         getQueryVariable: function getQueryVariable(variable) {
@@ -20877,12 +21013,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
             }
             console.log('Query variable %s not found', variable);
-        },
-        changePage: function changePage(page) {
-            console.log(page);
-            if (page) {
-                this.setQueryVariable('page', page);
-            }
         }
     }
 });
@@ -75610,7 +75740,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.education_title"
     }
-  })], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-col', [_c('el-form-item', {
+  })], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', {
     attrs: {
       "label": "Technique",
       "prop": "technique"
@@ -75625,11 +75759,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "placeholder": "What do you work with?"
     },
     model: {
-      value: (_vm.user.technique),
+      value: (_vm.user.medium),
       callback: function($$v) {
-        _vm.$set(_vm.user, "technique", $$v)
+        _vm.$set(_vm.user, "medium", $$v)
       },
-      expression: "user.technique"
+      expression: "user.medium"
     }
   }, _vm._l((_vm.options('medium')), function(medium) {
     return _c('el-option', {
@@ -75637,6 +75771,39 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "label": medium.label,
         "value": medium.value
+      }
+    })
+  }))], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Art Direction",
+      "prop": "direction"
+    }
+  }, [_c('el-select', {
+    attrs: {
+      "value": "",
+      "multiple": "",
+      "filterable": "",
+      "allow-create": "",
+      "default-first-option": "",
+      "placeholder": "What is your Art direction?"
+    },
+    model: {
+      value: (_vm.user.direction),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "direction", $$v)
+      },
+      expression: "user.direction"
+    }
+  }, _vm._l((_vm.options('direction')), function(direction) {
+    return _c('el-option', {
+      key: direction.value,
+      attrs: {
+        "label": direction.label,
+        "value": direction.value
       }
     })
   }))], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-col', {
@@ -76672,20 +76839,16 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "artists-menu"
+    staticClass: "app-artists-menu",
+    staticStyle: {
+      "text-align": "center",
+      "margin": "40px 0"
+    }
   }, [_c('el-form', {
     attrs: {
       "inline": ""
     }
-  }, [_c('el-form-item', [_c('el-button', {
-    attrs: {
-      "type": "text"
-    }
-  }, [_c('a', {
-    attrs: {
-      "href": "/selection/artist"
-    }
-  }, [_vm._v("See artists of the week")])])], 1), _vm._v(" "), _c('el-form-item', [_c('el-input', {
+  }, [_c('el-form-item', [_c('el-input', {
     attrs: {
       "placeholder": "Filter by artist name"
     },
@@ -76696,11 +76859,119 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "artistFilters.artist"
     }
-  })], 1), _vm._v(" "), (_vm.artistFilters.artist) ? _c('el-form-item', [_c('el-button', {
-    on: {
-      "click": _vm.filterArtists
+  })], 1), _vm._v(" "), _c('el-form-item', [_c('el-select', {
+    attrs: {
+      "value": "",
+      "filterable": "",
+      "multiple": "",
+      "collapse-tags": "",
+      "placeholder": "Filter by country"
+    },
+    model: {
+      value: (_vm.artistFilters.country),
+      callback: function($$v) {
+        _vm.$set(_vm.artistFilters, "country", $$v)
+      },
+      expression: "artistFilters.country"
     }
-  }, [_vm._v("Show")])], 1) : _vm._e()], 1)], 1)
+  }, _vm._l((_vm.countries), function(country) {
+    return _c('el-option', {
+      key: country.id,
+      attrs: {
+        "label": country.country_name,
+        "value": country.id
+      }
+    })
+  }))], 1), _vm._v(" "), _c('el-form-item', [_c('el-select', {
+    attrs: {
+      "value": "",
+      "allow-create": "",
+      "filterable": "",
+      "multiple": "",
+      "collapse-tags": "",
+      "placeholder": "Filter by profession"
+    },
+    model: {
+      value: (_vm.artistFilters.profession),
+      callback: function($$v) {
+        _vm.$set(_vm.artistFilters, "profession", $$v)
+      },
+      expression: "artistFilters.profession"
+    }
+  }, _vm._l((_vm.trans('profession')), function(profession, key) {
+    return _c('el-option', {
+      key: key,
+      attrs: {
+        "label": profession,
+        "value": key
+      }
+    })
+  }))], 1), _vm._v(" "), _c('el-form-item', [_c('el-select', {
+    attrs: {
+      "value": "",
+      "allow-create": "",
+      "filterable": "",
+      "multiple": "",
+      "collapse-tags": "",
+      "placeholder": "Filter by medium"
+    },
+    model: {
+      value: (_vm.artistFilters.medium),
+      callback: function($$v) {
+        _vm.$set(_vm.artistFilters, "medium", $$v)
+      },
+      expression: "artistFilters.medium"
+    }
+  }, _vm._l((_vm.trans('medium')), function(medium, key) {
+    return _c('el-option', {
+      key: key,
+      attrs: {
+        "label": medium,
+        "value": key
+      }
+    })
+  }))], 1), _vm._v(" "), _c('el-form-item', [_c('el-select', {
+    attrs: {
+      "value": "",
+      "allow-create": "",
+      "filterable": "",
+      "multiple": "",
+      "collapse-tags": "",
+      "placeholder": "Filter by direction"
+    },
+    model: {
+      value: (_vm.artistFilters.direction),
+      callback: function($$v) {
+        _vm.$set(_vm.artistFilters, "direction", $$v)
+      },
+      expression: "artistFilters.direction"
+    }
+  }, _vm._l((_vm.trans('direction')), function(direction, key) {
+    return _c('el-option', {
+      key: key,
+      attrs: {
+        "label": direction,
+        "value": key
+      }
+    })
+  }))], 1), _vm._v(" "), _c('el-button', {
+    staticStyle: {
+      "margin-bottom": "20px"
+    },
+    attrs: {
+      "type": "success"
+    },
+    on: {
+      "click": _vm.setSearchQuery
+    }
+  }, [_vm._v("Filter")]), _vm._v(" "), _c('el-button', {
+    attrs: {
+      "type": "warning"
+    },
+    on: {
+      "click": _vm.clearFilters
+    }
+  }, [_vm._v("Clear filters")])], 1)], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
