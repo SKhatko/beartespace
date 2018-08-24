@@ -8,7 +8,7 @@ use Spatie\TranslationLoader\LanguageLine;
 
 class TranslationController extends Controller
 {
-    public function store(Request $request)
+    public function update(Request $request)
     {
 
     	foreach ($request->all() as $group => $translations) {

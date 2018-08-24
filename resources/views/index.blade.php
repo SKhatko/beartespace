@@ -90,9 +90,12 @@
                     @foreach($articles as $article)
 
                         <a href="{{ route('artwork', $article->id) }}" class="article">
-                            <div class="article-image">
-                                <img src="{{ $article->image->url }}" alt="{{ $article->image->name }}">
-                            </div>
+                            @if($article->image_url)
+                                <div class="article-image">
+                                    <img src="/imagecache/avatar{{ $article->image_url }}"
+                                         alt="{{ $article->image->name }}">
+                                </div>
+                            @endif
                             <div class="article-content">
                                 <div class="h2">{{ $article->title }}</div>
                                 <div class="h5">{{ $article->content }}</div>
@@ -129,12 +132,12 @@
                     @foreach($auctions as $artwork)
 
                         @if($artwork->images->first())
-                        <div class="artwork">
-                            <a href="{{ route('artwork', $artwork->id) }}" class="artwork-image">
-                                <img src="{{ $artwork->images->first()->url }}"
-                                     alt="{{ $artwork->images->first()->name }}">
-                            </a>
-                        </div>
+                            <div class="artwork">
+                                <a href="{{ route('artwork', $artwork->id) }}" class="artwork-image">
+                                    <img src="{{ $artwork->images->first()->url }}"
+                                         alt="{{ $artwork->images->first()->name }}">
+                                </a>
+                            </div>
                         @endif
 
                     @endforeach
@@ -142,7 +145,7 @@
                 </div>
 
                 <div class="artworks-bottom">
-                    <a href="{{ route('selections') }}" class="artworks-bottom-link">The full selection from our
+                    <a href="{{ route('selected-artworks') }}" class="artworks-bottom-link">The full selection from our
                         curator</a>
                 </div>
 

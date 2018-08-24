@@ -49,7 +49,7 @@ let store = {
 
         setInitialCart(state, cart) {
             console.log(cart);
-            // state.cartCount = count;
+            state.cartCount = cart.totalQuantity;
         }
     }
 };

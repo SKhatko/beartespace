@@ -17,18 +17,16 @@
 
         <div class="artists">
 
-
             @foreach($artists as $artist)
 
                 <el-card style="margin-bottom: 50px">
 
                     <div class="artist">
                         <div class="artist-header">
-                            @if($artist->avatar)
-                                <a href="{{ route('artist', $artist->id) }}" class="artist-avatar">
-                                    <img src="{{ $artist->avatar->url }}" alt="{{ $artist->avatar->name }}">
-                                </a>
-                            @endif
+                            <a href="{{ route('artist', $artist->id) }}" class="artist-avatar">
+                                <img src="/imagecache/avatar{{ $artist->avatar_url }}"
+                                     alt="{{ $artist->avatar->name }}">
+                            </a>
 
                             <div class="artist-info">
 
@@ -78,7 +76,6 @@
             </div>
 
             {{ $artists->links() }}
-
 
         </div>
 

@@ -44,10 +44,10 @@ Route::group( [ 'middleware' => 'web' ], function () {
 	Route::get( '/auction/{id}', 'HomeController@auctions' )->name( 'auction' );
 	Route::get( '/artwork', 'HomeController@artworks' )->name( 'artworks' );
 	Route::get( '/artwork/{id}', 'HomeController@artwork' )->name( 'artwork' );
-	Route::get( '/selection', 'HomeController@selections' )->name( 'selections' );
-	Route::get( '/selection/{id}', 'HomeController@selection' )->name( 'selection' );
 	Route::get( '/artist', 'HomeController@artists' )->name( 'artists' );
 	Route::get( '/artist/{id}', 'HomeController@artist' )->name( 'artist' );
+	Route::get( '/selection/artist', 'HomeController@selectedArtists')->name('selected-artists');
+	Route::get( '/selection/artwork', 'HomeController@selectedArtworks')->name('selected-artworks');
 
 	// Invites
 	Route::get( '/invite/artist', 'HomeController@inviteArtist' )->name( 'invite.artist' );

@@ -5,7 +5,7 @@
         <el-form inline>
 
             <el-form-item>
-                <el-button type="text">See artists of the week</el-button>
+                <el-button type="text"><a href="/selection/artist">See artists of the week</a></el-button>
             </el-form-item>
 
             <el-form-item>

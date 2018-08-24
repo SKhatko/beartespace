@@ -46,18 +46,24 @@ Vue.component('signup-dialog', require('./components/auth/SignupDialog.vue'));
 Vue.component('artworks-menu', require('./components/ArtworksMenu.vue'));
 Vue.component('artists-menu', require('./components/ArtistsMenu.vue'));
 
+// Auth
 Vue.component('password-reset-new-password', require('./components/auth/PasswordResetNewPassword.vue'));
 Vue.component('register-form', require('./components/auth/RegisterForm.vue'));
 Vue.component('password-reset-form', require('./components/auth/PasswordResetForm.vue'));
 Vue.component('login-form', require('./components/auth/LoginForm.vue'));
 
-Vue.component('translations', require('./components/dashboard/Translations.vue'));
-Vue.component('languages', require('./components/dashboard/Languages.vue'));
-Vue.component('users', require('./components/dashboard/Users.vue'));
-Vue.component('profile', require('./components/dashboard/Profile.vue'));
-Vue.component('artwork-form', require('./components/dashboard/ArtworkForm.vue'));
-Vue.component('pages', require('./components/dashboard/Pages.vue'));
+// Admin
+Vue.component('settings', require('./components/dashboard/admin/Settings'));
+Vue.component('translations', require('./components/dashboard/admin/Translations.vue'));
+Vue.component('languages', require('./components/dashboard/admin/Languages.vue'));
+Vue.component('pages', require('./components/dashboard/admin/Pages.vue'));
+Vue.component('users', require('./components/dashboard/admin/Users.vue'));
 
+// User
+Vue.component('profile', require('./components/dashboard/user/Profile.vue'));
+Vue.component('artwork-form', require('./components/dashboard/ArtworkForm.vue'));
+
+// Global components
 Vue.component('pagination', require('./components/global/Pagination.vue'));
 
 

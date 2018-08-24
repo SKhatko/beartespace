@@ -5,7 +5,7 @@
 
 @section('admin-content')
 
-    Settings page
+    <settings artists_="{{ $artists }}" settings_="{{ $settings }}" artworks_="{{ $artworks }}"></settings>
 
 @endsection
 

@@ -16,7 +16,8 @@ use Illuminate\Http\Request;
 Route::group( [ 'middleware' => 'auth:api' ], function () {
 	Route::get( 'profile', 'Api\UserController@show' );
 
-	Route::post( 'translations', 'Api\TranslationController@store' );
+	Route::post( 'settings', 'Api\SettingController@update' );
+	Route::post( 'translations', 'Api\TranslationController@update' );
 	Route::post( 'languages', 'Api\LanguageController@store' );
 	Route::post( 'profile', 'Api\UserController@store' );
 	Route::post( 'artwork', 'Api\ArtworkController@store' );

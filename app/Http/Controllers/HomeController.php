@@ -8,6 +8,7 @@ use App\Contact_query;
 use App\Country;
 use App\User;
 use Illuminate\Http\Request;
+use App\Setting;
 
 class HomeController extends Controller {
 
@@ -30,10 +31,6 @@ class HomeController extends Controller {
 
 		return view( 'auction.index', compact( 'artworks', 'countries' ) );
 
-
-//		$artworks = $artworks->limit( 20 )->with( 'images', 'user.country' )->get();
-
-//		return view( 'artwork.index', compact( 'artworks', 'countries' ) );
 	}
 
 	public function auction( $id ) {
@@ -43,18 +40,20 @@ class HomeController extends Controller {
 		return view( 'auction.show', compact( 'auction' ) );
 	}
 
-	public function selections() {
+	public function selectedArtists() {
 
-		$artworks = Artwork::active()->limit( 20 )->get();
+		$artists = User::whereIn('id', Setting::first()->artists_of_the_week)->paginate(15);
 
-		return view( 'artwork.index', compact( 'artworks' ) );
+		return view('artist.index', compact('artists'));
 	}
 
-	public function selection( $id ) {
+	public function selectedArtworks() {
 
-		$artwork = Artwork::find( $id );
+		$countries = Country::all( 'country_name', 'id', 'citizenship' );
 
-		return view( 'artwork.show', compact( 'artwork' ) );
+		$artworks = Artwork::whereIn('id', Setting::first()->artworks_of_the_week)->with( 'images', 'user.country' )->paginate();
+
+		return view( 'artwork.index', compact( 'artworks', 'countries' ) );
 	}
 
 	public function artists( Request $request ) {
