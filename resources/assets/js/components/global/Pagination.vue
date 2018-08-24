@@ -17,7 +17,6 @@
 
 
 <script>
-    // {{ $paginator->currentPage() }}
 
     export default {
 
@@ -35,8 +34,10 @@
 
             if (this.paginator_) {
                 this.paginator = JSON.parse(this.paginator_);
-                console.log(this.paginator);
             }
+
+            console.log(this.paginator);
+
         },
 
         methods: {
@@ -48,7 +49,7 @@
             setQueryVariable(variable, value) {
                 window.location.search = '?' + variable + '=' + value;
 
-
+                // TODO change url parsing
                 let oldQuery = window.location.search.substring(1);
                 let newQuery = '?';
                 let vars = oldQuery.split('&');

@@ -78728,7 +78728,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
-// {{ $paginator->currentPage() }}
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
@@ -78745,8 +78744,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         if (this.paginator_) {
             this.paginator = JSON.parse(this.paginator_);
-            console.log(this.paginator);
         }
+
+        console.log(this.paginator);
     },
 
 
@@ -78759,6 +78759,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         setQueryVariable: function setQueryVariable(variable, value) {
             window.location.search = '?' + variable + '=' + value;
 
+            // TODO change url parsing
             var oldQuery = window.location.search.substring(1);
             var newQuery = '?';
             var vars = oldQuery.split('&');
