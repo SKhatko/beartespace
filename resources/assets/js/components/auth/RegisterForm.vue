@@ -11,8 +11,6 @@
 
                 <input type="hidden" name="_token" :value="csrf">
                 <input type="hidden" name="user_type" v-model="user.user_type">
-                <input type="hidden" name="user_plan" v-model="user.user_plan">
-
 
                 <!--<el-row :gutter="20">-->
                     <!--<el-col>-->
@@ -132,16 +130,11 @@
         mounted() {
             this.csrf = window.csrf;
 
-            if(this.userType) {
+            if(this.userType && (this.userType == 'artist' || this.userType == 'gallery')) {
                 this.user.user_type = this.userType;
             }
 
-            if(this.userPlan) {
-                this.user.user_plan = this.userPlan;
-            }
-
-            console.log(this.user.user_type);
-            console.log(this.user.user_plan);
+            console.log(this.user.user_type, 'usertype');
         },
 
         methods: {

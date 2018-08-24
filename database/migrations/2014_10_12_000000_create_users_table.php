@@ -41,7 +41,6 @@ class CreateUsersTable extends Migration {
 			$table->json('medium')->nullable();
 
 			$table->enum( 'user_type', [ 'user', 'admin', 'artist', 'gallery' ] )->nullable();
-			$table->enum( 'user_plan', [ 'trial', 'basic', 'expanded' ] )->nullable();
 			$table->string('activation_token')->nullable();
 			//active_status 0:pending, 1:active, 2:block;
 			$table->enum( 'active', [ 0, 1, 2 ] )->default(0)->nullable;

@@ -12,7 +12,7 @@
             <div class="register">
                 <el-row :gutter="20" style="margin-bottom: 20px">
                     <el-col>
-                        <a href="/invite/customer">
+                        <a href="/register">
 
                             <el-card shadow="hover">
                                 <i class="icon icon-user-outline"></i>
@@ -28,7 +28,7 @@
                 <el-row :gutter="20" style="margin-bottom: 20px">
 
                     <el-col>
-                        <a href="/invite/artist">
+                        <a href="/register?u=artist">
                             <el-card shadow="hover">
                                 <i class="icon icon-art-gallery"></i>
                                 <p> I am an artist. I want to sell my artworks</p>
@@ -43,7 +43,7 @@
                 <el-row :gutter="20">
 
                     <el-col>
-                        <a href="/invite/gallery">
+                        <a href="/register?u=gallery">
                             <el-card shadow="hover">
                                 <i class="icon icon-picture"></i>
                                 <p> I am a Gallery. I want to buy and sell art</p>

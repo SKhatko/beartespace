@@ -7,7 +7,7 @@
     <div class="app--wrapper">
         Customer invitation and registration
 
-        <register-form user-type="user"></register-form>
+        {{--<register-form user-type="user"></register-form>--}}
 
     </div>
 

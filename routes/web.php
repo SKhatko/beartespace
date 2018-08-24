@@ -87,9 +87,6 @@ Route::group( [ 'middleware' => 'web' ], function () {
 			'auth',
 			'dashboard',
 			'confirmed-email',
-			'trial-plan',
-			'basic-plan',
-			'expanded-plan',
 			'has-profile-avatar',
 		]
 	], function () {
