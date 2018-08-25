@@ -20758,6 +20758,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -65852,7 +65856,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.profileInspirationDialog = $event
       }
     }
-  }, [_c('p', [_vm._v("What is inspiring you, why you are the Artist? It is very important to attract customers.")]), _vm._v(" "), _c('p', [_vm._v(" Sent us key-word and we will write a short story about what inspires you, why you create the art, why\n                            you are\n                            the unique artist. The best is write your inspiration in English.")]), _vm._v(" "), _c('p', [_vm._v("You can add this feature to your personal profile for 2 EUR")]), _vm._v(" "), _c('span', {
+  }, [_c('p', [_vm._v("What is inspiring you, why you are the Artist? It is very important to attract\n                            customers.")]), _vm._v(" "), _c('p', [_vm._v("Sent us key-word and we will write a short story about what inspires you, why you create\n                            the art, why you are the unique artist. The best is write your inspiration in\n                            English.")]), _vm._v(" "), _c('p', [_vm._v("You can add this feature to your personal profile for 2 EUR")]), _vm._v(" "), _c('span', {
     staticClass: "dialog-footer",
     attrs: {
       "slot": "footer"
@@ -66207,7 +66211,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.phone"
     }
-  })], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-col', {
+  })], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.profile_education && _vm.user.user_type === 'artist') ? [_c('el-col', {
     attrs: {
       "sm": 12
     }
@@ -66224,7 +66228,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.education"
     }
-  })], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-col', {
+  })], 1)], 1), _vm._v(" "), _c('el-col', {
     attrs: {
       "sm": 12
     }
@@ -66241,7 +66245,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.education_title"
     }
-  })], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-col', {
+  })], 1)], 1)] : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-col', {
     attrs: {
       "sm": 12
     }
@@ -66349,7 +66353,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.exhibition"
     }
-  })], 1)], 1) : _vm._e()], 1), _vm._v(" "), _c('el-button', {
+  })], 1)], 1) : _vm._e()], 2), _vm._v(" "), _c('el-button', {
     staticStyle: {
       "margin-top": "20px"
     },

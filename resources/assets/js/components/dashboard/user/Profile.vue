@@ -48,8 +48,10 @@
                             <p>Save 1 month by selecting annually plan</p>
 
                             <span slot="footer" class="dialog-footer">
-                                <el-button type="success" @click="confirmProfileUpgrade('profile-website', 30, 'monthly')">Confirm Monthly</el-button>
-                                <el-button type="primary" @click="confirmProfileUpgrade('profile-website', 279, 'annually')">Confirm Annually</el-button>
+                                <el-button type="success"
+                                           @click="confirmProfileUpgrade('profile-website', 30, 'monthly')">Confirm Monthly</el-button>
+                                <el-button type="primary"
+                                           @click="confirmProfileUpgrade('profile-website', 279, 'annually')">Confirm Annually</el-button>
                               </span>
                         </el-dialog>
 
@@ -79,10 +81,11 @@
                                 title="Upgrade Your profile"
                                 :visible.sync="profileInspirationDialog"
                                 width="30%">
-                            <p>What is inspiring you, why you are the Artist? It is very important to attract customers.</p>
-                            <p> Sent us key-word and we will write a short story about what inspires you, why you create the art, why
-                                you are
-                                the unique artist. The best is write your inspiration in English.</p>
+                            <p>What is inspiring you, why you are the Artist? It is very important to attract
+                                customers.</p>
+                            <p>Sent us key-word and we will write a short story about what inspires you, why you create
+                                the art, why you are the unique artist. The best is write your inspiration in
+                                English.</p>
                             <p>You can add this feature to your personal profile for 2 EUR</p>
                             <span slot="footer" class="dialog-footer">
                 <el-button type="primary"
@@ -242,18 +245,19 @@
                     </el-form-item>
                 </el-col>
 
-                <el-col :sm="12" v-if="user.user_type === 'artist' ">
-                    <el-form-item label="Name of the high school " prop="education">
-                        <el-input v-model="user.education"></el-input>
-                    </el-form-item>
-                </el-col>
+                <template v-if="user.profile_education && user.user_type === 'artist' ">
+                    <el-col :sm="12">
+                        <el-form-item label="Name of the high school " prop="education">
+                            <el-input v-model="user.education"></el-input>
+                        </el-form-item>
+                    </el-col>
 
-                <el-col :sm="12" v-if="user.user_type === 'artist' ">
-                    <el-form-item label="University educational title" prop="education_title">
-                        <el-input v-model="user.education_title"></el-input>
-                    </el-form-item>
-                </el-col>
-
+                    <el-col :sm="12">
+                        <el-form-item label="University educational title" prop="education_title">
+                            <el-input v-model="user.education_title"></el-input>
+                        </el-form-item>
+                    </el-col>
+                </template>
 
                 <el-col :sm="12" v-if="user.user_type === 'artist' ">
                     <el-form-item label="Technique" prop="technique">
