@@ -28,9 +28,8 @@ class RegisterController extends Controller {
 	public function showRegistrationForm(Request $request)
 	{
 		$userType = $request->input('u');
-		$userPlan = $request->input('p');
 
-		return view('auth.register', compact('userType', 'userPlan'));
+		return view('auth.register', compact('userType'));
 	}
 
 	/**

@@ -4,6 +4,7 @@ let store = {
         cartCount: 0,
         favourites: [],
         favouritesCount: 0,
+        errors: [],
     },
     mutations: {
 
@@ -50,6 +51,11 @@ let store = {
         setInitialCart(state, cart) {
             console.log(cart);
             state.cartCount = cart.totalQuantity;
+        },
+
+        setErrors(state, errors) {
+            console.log(errors);
+            state.errors = errors;
         }
     }
 };

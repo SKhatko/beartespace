@@ -16182,6 +16182,7 @@ Vue.component('artwork-form', __webpack_require__(213));
 
 // Global components
 Vue.component('pagination', __webpack_require__(220));
+Vue.component('errors', __webpack_require__(26));
 
 var app = new Vue({
     el: '#app',
@@ -20716,6 +20717,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -20726,6 +20751,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     data: function data() {
+        var _this = this;
+
         var userNameValidator = function userNameValidator(rule, value, callback) {
 
             if (value === '') {
@@ -20736,8 +20763,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 callback();
             }
         };
+        var emailValidator = function emailValidator(rule, value, callback) {
+            if (value === '') {
+                callback(new Error('Please confirm email'));
+            } else if (value !== _this.newEmail.email) {
+                callback(new Error('Two inputs don\'t match!'));
+            } else {
+                callback();
+            }
+        };
         return {
-            saving: false,
+            loading: false,
             user: {},
             profileSaved: false,
             rules: {
@@ -20752,11 +20788,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             countries: [],
             profileEditorToolbar: [[{ 'size': ['small', false, 'large', 'huge'] }], ['bold', 'italic', 'underline', 'strike'], [{ 'align': '' }, { 'align': 'center' }, { 'align': 'right' }, { 'align': 'justify' }], ['blockquote'], [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'list': 'check' }], [{ 'indent': '-1' }, { 'indent': '+1' }]],
             profileBackgroundImageDialog: false,
-            showChangeEmailForm: false
+            showChangeEmailForm: false,
+            newEmail: {
+                email: '',
+                email_confirmation: '',
+                password: ''
+            },
+            passwordType: 'password',
+            newEmailRules: {
+                email: [{ type: 'email', required: true, message: 'Please enter email', trigger: 'blur' }],
+                email_confirmation: [{ validator: emailValidator, trigger: 'blur' }],
+
+                password: [{ required: true, message: 'Please enter password', trigger: 'blur' }]
+            }
         };
     },
     mounted: function mounted() {
-        var _this = this;
+        var _this2 = this;
 
         this.csrf = window.csrf;
 
@@ -20765,24 +20813,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
 
         axios.get('/api/countries').then(function (response) {
-            _this.countries = response.data;
+            _this2.countries = response.data;
         });
     },
 
 
     methods: {
         confirmProfileUpgrade: function confirmProfileUpgrade(name, price) {
-            var _this2 = this;
+            var _this3 = this;
 
             axios.get('/api/user-add/' + name + '/' + price).then(function (response) {
                 console.log(response.data);
-                _this2.profileBackgroundImageDialog = false;
-                _this2.user = response.data.data;
-                _this2.$message({
-                    showClose: true,
-                    message: response.data.message,
-                    type: response.data.status
+                _this3.profileBackgroundImageDialog = false;
+                _this3.user = response.data.data;
+
+                _this3.$alert(null, response.data.message, {
+                    confirmButtonText: 'OK'
                 });
+                // this.$message({
+                //     showClose: true,
+                //     message: response.data.message,
+                //     type: response.data.status
+                // });
             });
         },
         handleAvatarSuccess: function handleAvatarSuccess(response, file) {
@@ -20830,21 +20882,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return isJPG && isLt2M;
         },
         save: function save() {
-            var _this3 = this;
+            var _this4 = this;
 
             this.$refs['profile'].validate(function (valid) {
                 if (valid) {
-                    _this3.saving = true;
-                    axios.post('/api/profile/', _this3.user).then(function (response) {
+                    _this4.loading = true;
+                    axios.post('/api/profile/', _this4.user).then(function (response) {
                         if (response.data) {
                             console.log(response.data);
-                            _this3.$message({
+                            _this4.$message({
                                 showClose: true,
                                 message: response.data.message,
                                 type: response.data.status
                             });
-                            _this3.profileSaved = true;
-                            _this3.saving = false;
+                            _this4.profileSaved = true;
+                            _this4.loading = false;
                         } else {
                             console.log(response.data);
                         }
@@ -20852,7 +20904,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
             });
         },
-        changeEmail: function changeEmail() {},
+        changeEmail: function changeEmail() {
+            var _this5 = this;
+
+            this.$refs['newEmail'].validate(function (valid) {
+                if (valid) {
+                    _this5.loading = true;
+
+                    axios.post('/api/change-email', _this5.newEmail).then(function (response) {
+                        console.log(response.data);
+                        window.location.reload();
+                    }).catch(function (error) {
+                        _this5.$store.commit('setErrors', error.response.data.errors);
+                    });
+                    // this.$refs['user'].$el.submit();
+                }
+            });
+        },
+        togglePasswordView: function togglePasswordView() {
+            this.passwordType = this.passwordType === 'password' ? 'text' : 'password';
+        },
         checkUserName: function checkUserName($username) {
             if ($username) {
                 axios.get('/api/user/check-username/' + $username).then(function (response) {
@@ -21050,6 +21121,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -21062,11 +21143,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
     mounted: function mounted() {
-        this.errors = window.errors;
+        this.errors = window.bus.errors;
     },
 
 
-    methods: {}
+    computed: {
+        validationErrors: function validationErrors() {
+            return this.$store.state.errors;
+        }
+    }
 });
 
 /***/ }),
@@ -21291,7 +21376,8 @@ var store = {
         cart: [],
         cartCount: 0,
         favourites: [],
-        favouritesCount: 0
+        favouritesCount: 0,
+        errors: []
     },
     mutations: {
         toggleFavourites: function toggleFavourites(state, item) {
@@ -21334,6 +21420,10 @@ var store = {
         setInitialCart: function setInitialCart(state, cart) {
             console.log(cart);
             state.cartCount = cart.totalQuantity;
+        },
+        setErrors: function setErrors(state, errors) {
+            console.log(errors);
+            state.errors = errors;
         }
     }
 };
@@ -65685,7 +65775,85 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.showChangeEmailForm = $event
       }
     }
-  }, [_c('span', {
+  }, [_c('el-form', {
+    ref: "newEmail",
+    attrs: {
+      "model": _vm.newEmail,
+      "rules": _vm.newEmailRules
+    }
+  }, [_c('errors'), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "_token"
+    },
+    domProps: {
+      "value": _vm.csrf
+    }
+  }), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "label": "Enter new E-Mail Address",
+      "prop": "email"
+    }
+  }, [_c('el-input', {
+    attrs: {
+      "type": "email",
+      "placeholder": "Email",
+      "name": "email",
+      "autofocus": ""
+    },
+    model: {
+      value: (_vm.newEmail.email),
+      callback: function($$v) {
+        _vm.$set(_vm.newEmail, "email", $$v)
+      },
+      expression: "newEmail.email"
+    }
+  })], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "label": "Confirm new E-Mail Address",
+      "prop": "email_confirmation"
+    }
+  }, [_c('el-input', {
+    attrs: {
+      "type": "email",
+      "placeholder": "Email",
+      "name": "email_confirmation"
+    },
+    model: {
+      value: (_vm.newEmail.email_confirmation),
+      callback: function($$v) {
+        _vm.$set(_vm.newEmail, "email_confirmation", $$v)
+      },
+      expression: "newEmail.email_confirmation"
+    }
+  })], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "label": "Password",
+      "prop": "password"
+    }
+  }, [_c('el-input', {
+    attrs: {
+      "type": _vm.passwordType,
+      "placeholder": "Password",
+      "name": "password"
+    },
+    model: {
+      value: (_vm.newEmail.password),
+      callback: function($$v) {
+        _vm.$set(_vm.newEmail, "password", $$v)
+      },
+      expression: "newEmail.password"
+    }
+  }, [_c('el-button', {
+    attrs: {
+      "slot": "append",
+      "icon": "el-icon-view"
+    },
+    on: {
+      "click": _vm.togglePasswordView
+    },
+    slot: "append"
+  })], 1)], 1)], 1), _vm._v(" "), _c('span', {
     staticClass: "dialog-footer",
     attrs: {
       "slot": "footer"
@@ -65693,12 +65861,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     slot: "footer"
   }, [_c('el-button', {
     attrs: {
-      "type": "primary"
+      "type": "primary",
+      "loading": _vm.loading
     },
     on: {
       "click": _vm.changeEmail
     }
-  }, [_vm._v("Confirm")])], 1)]), _vm._v(" "), _c('el-form', {
+  }, [_vm._v("Confirm")])], 1)], 1), _vm._v(" "), _c('el-form', {
     attrs: {
       "label-position": "top"
     }
@@ -65741,7 +65910,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.profileBackgroundImageDialog = true
       }
     }
-  }, [_vm._v("Add background image for your personal\n                        profile\n                    ")]) : _vm._e()], 1)], 1), _vm._v(" "), (_vm.user.user_type === 'artist' || _vm.user.user_type === 'gallery') ? _c('el-col', {
+  }, [_vm._v("Add background\n                        image for your personal\n                        profile\n                    ")]) : _vm._e()], 1)], 1), _vm._v(" "), (_vm.user.user_type === 'artist' || _vm.user.user_type === 'gallery') ? _c('el-col', {
     attrs: {
       "sm": 12
     }
@@ -66239,7 +66408,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "primary",
       "size": "big",
-      "loading": _vm.saving
+      "loading": _vm.loading
     },
     on: {
       "click": function($event) {
@@ -68330,7 +68499,7 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "error"
-  }, _vm._l((_vm.errors), function(error) {
+  }, [_vm._l((_vm.errors), function(error) {
     return _c('el-alert', {
       key: error,
       staticStyle: {
@@ -68342,7 +68511,20 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "show-icon": ""
       }
     })
-  }))
+  }), _vm._v(" "), _vm._l((_vm.validationErrors), function(error) {
+    return _c('el-alert', {
+      key: error[0],
+      staticStyle: {
+        "margin-bottom": "5px"
+      },
+      attrs: {
+        "title": error[0],
+        "type": "error",
+        "show-icon": "",
+        "closable": false
+      }
+    })
+  })], 2)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

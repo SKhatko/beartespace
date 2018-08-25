@@ -26,6 +26,8 @@
 
         window.bus = {
             'alert': {!! json_encode(session('alert')?? '') !!},
+            'errors': {!! json_encode($errors->all()) !!},
+
         };
 
         window.trans = {!! $translations !!};
@@ -35,8 +37,6 @@
         window.status = {!! json_encode(session('status') ?? '') !!};
 
         window.error = {!! json_encode(session('error') ?? '') !!};
-
-        window.errors = {!! json_encode($errors->all()) !!};
 
         window.cart = {!! json_encode(session( 'cart' ) ?? '') !!};
 

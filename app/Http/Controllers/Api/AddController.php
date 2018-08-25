@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class AddController extends Controller {
+
 	public function createUserAdd( $name, $price ) {
 
 		$user = auth()->user();
@@ -16,7 +17,7 @@ class AddController extends Controller {
 
 		return [
 			'status'  => 'success',
-			'message' => currency( $price ) . 'added to your balance',
+			'message' => currency( $price ) . ' deducted from your balance',
 			'data'    => $user
 		];
 	}
