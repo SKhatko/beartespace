@@ -11,7 +11,7 @@
 
         <el-dialog
                 title="Upgrade Your profile"
-                :visible.sync="upgradeProfileDialog"
+                :visible.sync="profileBackgroundImageDialog"
                 width="30%">
             <div>You can upload background image to your personal profile page for 1 EUR</div>
             <span slot="footer" class="dialog-footer">
@@ -20,12 +20,21 @@
               </span>
         </el-dialog>
 
+        <el-dialog
+                title="Change Email"
+                :visible.sync="showChangeEmailForm"
+                width="30%">
+            <span slot="footer" class="dialog-footer">
+                <el-button type="primary"
+                           @click="changeEmail">Confirm</el-button>
+              </span>
+        </el-dialog>
+
 
         <el-form label-position="top">
 
-            {{ user.adds }}
-
             <el-row :gutter="20">
+
                 <el-col :sm="12">
                     <el-form-item :label="user.user_type === 'gallery' ? 'Upload logo' : 'Upload avatar'">
 
@@ -40,10 +49,14 @@
                             <img :src="'/imagecache/avatar/' + user.avatar_url" class="avatar">
                         </el-upload>
 
+                        <el-button type="text" @click="profileBackgroundImageDialog = true" v-if="!user.profile_background_image && user.user_type === 'artist'">Add background image for your personal
+                            profile
+                        </el-button>
+
                     </el-form-item>
                 </el-col>
-                <el-col :sm="12" v-if="user.user_type === 'artist' || user.user_type === 'gallery'">
 
+                <el-col :sm="12" v-if="user.user_type === 'artist' || user.user_type === 'gallery'">
                     <el-form-item label="Upload profile background image" v-if="user.profile_background_image">
                         <el-upload
                                 class="image-uploader"
@@ -56,12 +69,8 @@
                             <img :src="'/imagecache/avatar/' + user.image_url" class="image">
                         </el-upload>
                     </el-form-item>
-
-                    <el-button type="text" @click="openUpgradeProfileForm" v-else>Add background image for your personal
-                        profile
-                    </el-button>
-
                 </el-col>
+
             </el-row>
 
 
@@ -83,7 +92,7 @@
                 </el-col>
 
 
-                <el-col v-if="user.user_type === 'artist'">
+                <el-col v-if="user.user_type === 'artist'" style="display: none;">
                     <el-form-item label="Your public username" prop="user_name">
                         <el-input v-model="user.user_name" style="max-width: 290px; margin-right: 20px;"></el-input>
 
@@ -99,7 +108,7 @@
                 <el-col>
                     <el-form-item label="Email" prop="email">
                         <el-input v-model="user.email" disabled style="max-width: 290px;margin-right: 20px;"></el-input>
-                        <el-button type="text">Change Email</el-button>
+                        <el-button type="text" @click="showChangeEmailForm = true">Change Email</el-button>
                     </el-form-item>
                 </el-col>
 
@@ -130,6 +139,9 @@
                         </el-select>
                     </el-form-item>
 
+
+                </el-col>
+                <el-col :sm="8">
                     <el-form-item label="Profession" prop="profession">
                         <el-select value="" v-model="user.profession" filterable default-first-option
                                    placeholder="What is your profession?">
@@ -139,7 +151,6 @@
                         </el-select>
                     </el-form-item>
                 </el-col>
-
 
                 <el-col :sm="12">
                     <el-form-item label="City" prop="city">
@@ -291,11 +302,6 @@
             };
             return {
                 saving: false,
-
-                avatarCropper: {},
-                avatarChanged: false,
-                imageCropper: {},
-                imageChanged: false,
                 user: {},
                 profileSaved: false,
                 rules: {
@@ -320,7 +326,8 @@
                     [{'list': 'ordered'}, {'list': 'bullet'}, {'list': 'check'}],
                     [{'indent': '-1'}, {'indent': '+1'}],
                 ],
-                upgradeProfileDialog: false,
+                profileBackgroundImageDialog: false,
+                showChangeEmailForm: false,
             }
         },
 
@@ -341,7 +348,7 @@
             confirmProfileUpgrade(name, price) {
                 axios.get('/api/user-add/' + name + '/' + price).then(response => {
                     console.log(response.data);
-                    this.upgradeProfileDialog = false;
+                    this.profileBackgroundImageDialog = false;
                     this.user = response.data.data;
                     this.$message({
                         showClose: true,
@@ -349,10 +356,6 @@
                         type: response.data.status
                     });
                 })
-            },
-
-            openUpgradeProfileForm() {
-                this.upgradeProfileDialog = true
             },
 
             handleAvatarSuccess(response, file) {
@@ -426,20 +429,8 @@
                 });
             },
 
-            uploadAvatar() {
+            changeEmail() {
 
-                let avatarSrc = this.avatarCropper.generateDataUrl('image/jpeg');
-
-                axios.post('/api/upload/user-avatar', {avatar: avatarSrc})
-                    .then((response) => {
-                        console.log(response.data);
-                        this.user.avatar = response.data.data;
-                        this.$message({
-                            showClose: true,
-                            message: response.data.message,
-                            type: response.data.status
-                        });
-                    });
             },
 
             checkUserName($username) {
@@ -449,23 +440,6 @@
                     });
                     console.log($username);
                 }
-
-            },
-
-            uploadImage() {
-
-                let imageSrc = this.imageCropper.generateDataUrl('image/jpeg');
-
-                axios.post('/api/upload/user-image', {avatar: imageSrc})
-                    .then((response) => {
-                        console.log(response.data);
-                        this.user.avatar = response.data.data;
-                        this.$message({
-                            showClose: true,
-                            message: response.data.message,
-                            type: response.data.status
-                        });
-                    });
             }
         },
         computed: {

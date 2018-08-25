@@ -20705,6 +20705,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -20727,11 +20738,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
         return {
             saving: false,
-
-            avatarCropper: {},
-            avatarChanged: false,
-            imageCropper: {},
-            imageChanged: false,
             user: {},
             profileSaved: false,
             rules: {
@@ -20745,7 +20751,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             csrf: '',
             countries: [],
             profileEditorToolbar: [[{ 'size': ['small', false, 'large', 'huge'] }], ['bold', 'italic', 'underline', 'strike'], [{ 'align': '' }, { 'align': 'center' }, { 'align': 'right' }, { 'align': 'justify' }], ['blockquote'], [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'list': 'check' }], [{ 'indent': '-1' }, { 'indent': '+1' }]],
-            upgradeProfileDialog: false
+            profileBackgroundImageDialog: false,
+            showChangeEmailForm: false
         };
     },
     mounted: function mounted() {
@@ -20769,7 +20776,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             axios.get('/api/user-add/' + name + '/' + price).then(function (response) {
                 console.log(response.data);
-                _this2.upgradeProfileDialog = false;
+                _this2.profileBackgroundImageDialog = false;
                 _this2.user = response.data.data;
                 _this2.$message({
                     showClose: true,
@@ -20777,9 +20784,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     type: response.data.status
                 });
             });
-        },
-        openUpgradeProfileForm: function openUpgradeProfileForm() {
-            this.upgradeProfileDialog = true;
         },
         handleAvatarSuccess: function handleAvatarSuccess(response, file) {
             console.log(response);
@@ -20848,21 +20852,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
             });
         },
-        uploadAvatar: function uploadAvatar() {
-            var _this4 = this;
-
-            var avatarSrc = this.avatarCropper.generateDataUrl('image/jpeg');
-
-            axios.post('/api/upload/user-avatar', { avatar: avatarSrc }).then(function (response) {
-                console.log(response.data);
-                _this4.user.avatar = response.data.data;
-                _this4.$message({
-                    showClose: true,
-                    message: response.data.message,
-                    type: response.data.status
-                });
-            });
-        },
+        changeEmail: function changeEmail() {},
         checkUserName: function checkUserName($username) {
             if ($username) {
                 axios.get('/api/user/check-username/' + $username).then(function (response) {
@@ -20870,21 +20860,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 });
                 console.log($username);
             }
-        },
-        uploadImage: function uploadImage() {
-            var _this5 = this;
-
-            var imageSrc = this.imageCropper.generateDataUrl('image/jpeg');
-
-            axios.post('/api/upload/user-image', { avatar: imageSrc }).then(function (response) {
-                console.log(response.data);
-                _this5.user.avatar = response.data.data;
-                _this5.$message({
-                    showClose: true,
-                    message: response.data.message,
-                    type: response.data.status
-                });
-            });
         }
     },
     computed: {
@@ -65679,12 +65654,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return (_vm.user) ? _c('el-card', [(_vm.user.user_type === 'user') ? _c('div', [_vm._v("User")]) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('div', [_vm._v("Artist")]) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'gallery') ? _c('div', [_vm._v("Gallery")]) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'admin') ? _c('div', [_vm._v("Admin")]) : _vm._e(), _vm._v(" "), _c('h2', [_vm._v("Profile information")]), _vm._v(" "), _c('el-dialog', {
     attrs: {
       "title": "Upgrade Your profile",
-      "visible": _vm.upgradeProfileDialog,
+      "visible": _vm.profileBackgroundImageDialog,
       "width": "30%"
     },
     on: {
       "update:visible": function($event) {
-        _vm.upgradeProfileDialog = $event
+        _vm.profileBackgroundImageDialog = $event
       }
     }
   }, [_c('div', [_vm._v("You can upload background image to your personal profile page for 1 EUR")]), _vm._v(" "), _c('span', {
@@ -65702,11 +65677,35 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.confirmProfileUpgrade('profile-background-image', 1)
       }
     }
+  }, [_vm._v("Confirm")])], 1)]), _vm._v(" "), _c('el-dialog', {
+    attrs: {
+      "title": "Change Email",
+      "visible": _vm.showChangeEmailForm,
+      "width": "30%"
+    },
+    on: {
+      "update:visible": function($event) {
+        _vm.showChangeEmailForm = $event
+      }
+    }
+  }, [_c('span', {
+    staticClass: "dialog-footer",
+    attrs: {
+      "slot": "footer"
+    },
+    slot: "footer"
+  }, [_c('el-button', {
+    attrs: {
+      "type": "primary"
+    },
+    on: {
+      "click": _vm.changeEmail
+    }
   }, [_vm._v("Confirm")])], 1)]), _vm._v(" "), _c('el-form', {
     attrs: {
       "label-position": "top"
     }
-  }, [_vm._v("\n\n        " + _vm._s(_vm.user.adds) + "\n\n        "), _c('el-row', {
+  }, [_c('el-row', {
     attrs: {
       "gutter": 20
     }
@@ -65736,7 +65735,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "src": '/imagecache/avatar/' + _vm.user.avatar_url
     }
-  })])], 1)], 1), _vm._v(" "), (_vm.user.user_type === 'artist' || _vm.user.user_type === 'gallery') ? _c('el-col', {
+  })]), _vm._v(" "), (!_vm.user.profile_background_image && _vm.user.user_type === 'artist') ? _c('el-button', {
+    attrs: {
+      "type": "text"
+    },
+    on: {
+      "click": function($event) {
+        _vm.profileBackgroundImageDialog = true
+      }
+    }
+  }, [_vm._v("Add background image for your personal\n                        profile\n                    ")]) : _vm._e()], 1)], 1), _vm._v(" "), (_vm.user.user_type === 'artist' || _vm.user.user_type === 'gallery') ? _c('el-col', {
     attrs: {
       "sm": 12
     }
@@ -65762,14 +65770,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "src": '/imagecache/avatar/' + _vm.user.image_url
     }
-  })])], 1) : _c('el-button', {
-    attrs: {
-      "type": "text"
-    },
-    on: {
-      "click": _vm.openUpgradeProfileForm
-    }
-  }, [_vm._v("Add background image for your personal\n                    profile\n                ")])], 1) : _vm._e()], 1)], 1), _vm._v(" "), _c('el-form', {
+  })])], 1) : _vm._e()], 1) : _vm._e()], 1)], 1), _vm._v(" "), _c('el-form', {
     ref: "profile",
     attrs: {
       "label-position": "top",
@@ -65815,7 +65816,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.last_name"
     }
-  })], 1)], 1), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-col', [_c('el-form-item', {
+  })], 1)], 1), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-col', {
+    staticStyle: {
+      "display": "none"
+    }
+  }, [_c('el-form-item', {
     attrs: {
       "label": "Your public username",
       "prop": "user_name"
@@ -65864,6 +65869,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v(" "), _c('el-button', {
     attrs: {
       "type": "text"
+    },
+    on: {
+      "click": function($event) {
+        _vm.showChangeEmailForm = true
+      }
     }
   }, [_vm._v("Change Email")])], 1)], 1), _vm._v(" "), _c('el-col', {
     attrs: {
@@ -65925,7 +65935,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "value": country.id
       }
     })
-  }))], 1), _vm._v(" "), _c('el-form-item', {
+  }))], 1)], 1) : _vm._e(), _vm._v(" "), _c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
     attrs: {
       "label": "Profession",
       "prop": "profession"
@@ -65952,7 +65966,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "value": profession.value
       }
     })
-  }))], 1)], 1) : _vm._e(), _vm._v(" "), _c('el-col', {
+  }))], 1)], 1), _vm._v(" "), _c('el-col', {
     attrs: {
       "sm": 12
     }

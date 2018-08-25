@@ -126,7 +126,7 @@ class User extends Authenticatable {
 
 	public function deductFromBalance($price) {
 		$this->attributes['balance'] -= $price;
-		dd($this->attributes['balance']);
+		$this->save();
 	}
 
 	public function getProfileBackgroundImageAttribute() {
