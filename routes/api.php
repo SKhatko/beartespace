@@ -35,6 +35,9 @@ Route::group( [ 'middleware' => 'auth:api' ], function () {
 	Route::any( 'upload/artwork-image/{id}', 'Api\ArtworkController@uploadArtworkImage' );
 	Route::any( 'remove/artwork-image/{id}', 'Api\ArtworkController@removeArtworkImage' );
 
+	// Adds
+	Route::get( 'user-add/{name}/{price}', 'Api\AddController@createUserAdd');
+
 } );
 
 Route::get( 'countries', 'Api\DataController@countries');

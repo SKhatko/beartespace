@@ -16,9 +16,6 @@ require('./bootstrap');
 import ElementUI from 'element-ui';
 import store from './store.js';
 import locale from 'element-ui/lib/locale/lang/en'
-import Croppa from 'vue-croppa';
-import VueAwesomeSwiper from 'vue-awesome-swiper'
-
 
 Vue.prototype.trans = (key) => {
     return get(window.trans, key, key);
@@ -33,11 +30,6 @@ Vue.prototype.options = (key) => {
 
 Vue.use(Vuex);
 Vue.use(ElementUI, {locale});
-Vue.use(Croppa, {componentName: 'cropper'});
-Vue.use(VueAwesomeSwiper, {
-    slidesPerView: 'auto',
-    spaceBetween: 30
-});
 
 Vue.component('subscription-form', require('./components/payment/SubscriptionForm.vue'));
 Vue.component('partials-artwork', require('./components/partials/Artwork.vue'));
@@ -65,7 +57,6 @@ Vue.component('artwork-form', require('./components/dashboard/ArtworkForm.vue'))
 
 // Global components
 Vue.component('pagination', require('./components/global/Pagination.vue'));
-
 
 
 const app = new Vue({
@@ -114,10 +105,13 @@ const app = new Vue({
             this.$store.commit('setInitialCart', window.cart);
         }
         //
-        axios.get('/api/profile').then(response => {
-            console.log('profile', response.data);
-        }).catch(error => {
-            console.log(error.response);})
+        axios.get('/api/profile')
+            .then(response => {
+                console.log('profile', response.data);
+            })
+            .catch(error => {
+                console.log(error.response);
+            })
         //     .catch(error => {
         //         if(error.response.status === 401) {
         //             // window.location.href = '/login';
@@ -128,9 +122,7 @@ const app = new Vue({
         //         }
         //     });
     },
-    methods: {
-
-    }
+    methods: {}
 });
 
 

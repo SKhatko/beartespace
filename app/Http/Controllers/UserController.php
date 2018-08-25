@@ -40,9 +40,7 @@ class UserController extends Controller {
 
 		$user = auth()->user();
 
-		$countries = Country::all( 'country_name', 'id', 'citizenship' );
-
-		return view( 'dashboard.user.profile', compact( 'title', 'user', 'countries' ) );
+		return view( 'dashboard.user.profile', compact( 'title', 'user' ) );
 	}
 
 	public function favoriteArtworks() {

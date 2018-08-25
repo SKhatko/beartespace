@@ -9,63 +9,61 @@
 
         <h2>Profile information</h2>
 
+        <el-dialog
+                title="Upgrade Your profile"
+                :visible.sync="upgradeProfileDialog"
+                width="30%">
+            <div>You can upload background image to your personal profile page for 1 EUR</div>
+            <span slot="footer" class="dialog-footer">
+                <el-button type="primary"
+                           @click="confirmProfileUpgrade('profile-background-image', 1)">Confirm</el-button>
+              </span>
+        </el-dialog>
+
+
         <el-form label-position="top">
 
-            <el-form-item :label="user.user_type === 'gallery' ? 'Upload logo' : 'Upload avatar'">
+            {{ user.adds }}
 
-                <el-upload
-                        class="avatar-uploader"
-                        action="/api/upload/user-avatar"
-                        :headers="{'X-Requested-With': 'XMLHttpRequest', 'X-CSRF-TOKEN' : csrf}"
-                        :show-file-list="false"
-                        accept="image/*"
-                        :on-success="handleAvatarSuccess"
-                        :before-upload="beforeAvatarUpload">
-                    <img :src="'/imagecache/avatar/' + user.avatar_url" class="avatar">
-                </el-upload>
+            <el-row :gutter="20">
+                <el-col :sm="12">
+                    <el-form-item :label="user.user_type === 'gallery' ? 'Upload logo' : 'Upload avatar'">
 
-                <div class="profile-avatar-cropper" style="display: none;">
-                    <cropper v-model="avatarCropper"
-                             placeholder="Click to upload"
-                             canvas-color="#ffffff"
-                             :quality="1"
-                             :width="290"
-                             :height="290"
-                             @new-image="avatarChanged = true"
-                             @image-remove="avatarChanged = true"
-                             @move="avatarChanged = true"
-                             @zoom="avatarChanged = true"
-                             prevent-white-space
-                             remove-button-color="#379797">
+                        <el-upload
+                                class="avatar-uploader"
+                                action="/api/upload/user-avatar"
+                                :headers="{'X-Requested-With': 'XMLHttpRequest', 'X-CSRF-TOKEN' : csrf}"
+                                :show-file-list="false"
+                                accept="image/*"
+                                :on-success="handleAvatarSuccess"
+                                :before-upload="beforeAvatarUpload">
+                            <img :src="'/imagecache/avatar/' + user.avatar_url" class="avatar">
+                        </el-upload>
 
-                        <!--<img v-if="user.avatar" crossOrigin="anonymous" slot="initial" :src="user.avatar.url"/>-->
-                        <!--<img slot="placeholder" src="/images/user-placeholder-image.png"/>-->
-                    </cropper>
+                    </el-form-item>
+                </el-col>
+                <el-col :sm="12" v-if="user.user_type === 'artist' || user.user_type === 'gallery'">
 
-                    <el-button @click="uploadAvatar" v-if="avatarChanged" type="primary" plain
-                               class="profile-avatar-save" round>
-                        Save
+                    <el-form-item label="Upload profile background image" v-if="user.profile_background_image">
+                        <el-upload
+                                class="image-uploader"
+                                action="/api/upload/user-image"
+                                :headers="{'X-Requested-With': 'XMLHttpRequest', 'X-CSRF-TOKEN' : csrf}"
+                                :show-file-list="false"
+                                accept="image/*"
+                                :on-success="handleImageSuccess"
+                                :before-upload="beforeImageUpload">
+                            <img :src="'/imagecache/avatar/' + user.image_url" class="image">
+                        </el-upload>
+                    </el-form-item>
+
+                    <el-button type="text" @click="openUpgradeProfileForm" v-else>Add background image for your personal
+                        profile
                     </el-button>
 
-                </div>
+                </el-col>
+            </el-row>
 
-            </el-form-item>
-
-            <el-form-item label="Upload profile background image"
-                          v-if="user.user_type === 'artist' || user.user_type === 'gallery'">
-
-                <el-upload
-                        class="image-uploader"
-                        action="/api/upload/user-image"
-                        :headers="{'X-Requested-With': 'XMLHttpRequest', 'X-CSRF-TOKEN' : csrf}"
-                        :show-file-list="false"
-                        accept="image/*"
-                        :on-success="handleImageSuccess"
-                        :before-upload="beforeImageUpload">
-                    <img :src="'/imagecache/avatar/' + user.image_url" class="image">
-                </el-upload>
-
-            </el-form-item>
 
         </el-form>
 
@@ -206,7 +204,6 @@
                 </el-col>
 
 
-
                 <el-col :sm="12" v-if="user.user_type === 'artist' ">
                     <el-form-item label="Technique" prop="technique">
                         <el-select value="" v-model="user.medium" multiple filterable allow-create
@@ -247,33 +244,6 @@
 
             </el-row>
 
-            <div v-if="user.user_type === 'artist'" style="display: none;">
-
-                <el-form-item label="Upload profile image">
-                    <div class="profile-image-cropper">
-                        <cropper v-model="imageCropper"
-                                 placeholder="Click to upload"
-                                 canvas-color="#ffffff"
-                                 :quality="1"
-                                 @new-image="imageChanged = true"
-                                 @image-remove="imageChanged = true"
-                                 @move="imageChanged = true"
-                                 @zoom="imageChanged = true"
-                                 prevent-white-space
-                                 remove-button-color="gray">
-
-                            <img v-if="user.image" crossOrigin="anonymous" slot="initial" :src="user.image.url"/>
-                        </cropper>
-
-                        <el-button @click="uploadImage" v-if="imageChanged" type="primary" class="profile-image-save"
-                                   round>Save image
-                        </el-button>
-
-                    </div>
-                </el-form-item>
-
-            </div>
-
             <el-button type="primary" style="margin-top: 20px"
                        size="big"
                        @click="save()" :loading="saving">
@@ -306,7 +276,6 @@
 
         props: {
             user_: {},
-            countries_: {}
         },
 
         data() {
@@ -350,7 +319,8 @@
                     ['blockquote'],
                     [{'list': 'ordered'}, {'list': 'bullet'}, {'list': 'check'}],
                     [{'indent': '-1'}, {'indent': '+1'}],
-                ]
+                ],
+                upgradeProfileDialog: false,
             }
         },
 
@@ -361,14 +331,29 @@
                 this.user = JSON.parse(this.user_);
             }
 
-            if (this.countries_) {
-                this.countries = JSON.parse(this.countries_);
-            }
-
-
+            axios.get('/api/countries').then(response => {
+                this.countries = response.data;
+            });
         },
 
         methods: {
+
+            confirmProfileUpgrade(name, price) {
+                axios.get('/api/user-add/' + name + '/' + price).then(response => {
+                    console.log(response.data);
+                    this.upgradeProfileDialog = false;
+                    this.user = response.data.data;
+                    this.$message({
+                        showClose: true,
+                        message: response.data.message,
+                        type: response.data.status
+                    });
+                })
+            },
+
+            openUpgradeProfileForm() {
+                this.upgradeProfileDialog = true
+            },
 
             handleAvatarSuccess(response, file) {
                 console.log(response);
@@ -492,24 +477,6 @@
 </script>
 
 <style lang="scss">
-
-    .profile-avatar-cropper {
-        line-height: initial;
-        margin-bottom: 10px;
-        display: flex;
-        align-items: flex-start;
-        position: relative;
-
-        .croppa-container {
-            border: 1px dashed #379797
-        }
-    }
-
-    .profile-avatar-save {
-        position: absolute;
-        bottom: 10px;
-        left: 110px;
-    }
 
     .avatar-uploader .el-upload, .image-uploader .el-upload {
         border: 1px dashed #d9d9d9;

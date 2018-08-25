@@ -13,7 +13,7 @@ class User extends Authenticatable {
 
 	protected $dates = [ 'deleted_at' ];
 
-	protected $appends = ['avatar_url', 'image_url'];
+	protected $appends = [ 'avatar_url', 'image_url', 'profile_background_image' ];
 
 	/**
 	 * The attributes that are mass assignable.
@@ -33,7 +33,7 @@ class User extends Authenticatable {
 	];
 
 	protected $casts = [
-		'medium' => 'array',
+		'medium'    => 'array',
 		'direction' => 'array',
 	];
 
@@ -67,6 +67,10 @@ class User extends Authenticatable {
 
 	public function image() {
 		return $this->hasOne( Media::class, 'image_id' );
+	}
+
+	public function adds() {
+		return $this->hasMany( Add::class, 'user_id' );
 	}
 
 
@@ -116,21 +120,30 @@ class User extends Authenticatable {
 			return $this->image->url;
 		} else {
 //			file_exists(public_path('images/avatar-placeholder.png'));
-			return '/avatar-placeholder.png';
+			return '/no-image-placeholder.png';
 		}
 	}
 
+	public function deductFromBalance($price) {
+		$this->attributes['balance'] -= $price;
+		dd($this->attributes['balance']);
+	}
+
+	public function getProfileBackgroundImageAttribute() {
+		return $this->adds()->whereName( 'profile-background-image' )->first();
+	}
+
 	public function getMediumAttribute() {
-		if($this->attributes['medium']) {
-			return json_decode($this->attributes['medium']);
+		if ( $this->attributes['medium'] ) {
+			return json_decode( $this->attributes['medium'] );
 		} else {
 			return [];
 		}
 	}
 
 	public function getDirectionAttribute() {
-		if($this->attributes['direction']) {
-			return json_decode($this->attributes['direction']);
+		if ( $this->attributes['direction'] ) {
+			return json_decode( $this->attributes['direction'] );
 		} else {
 			return [];
 		}
