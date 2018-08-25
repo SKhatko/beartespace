@@ -16168,6 +16168,7 @@ Vue.component('password-reset-new-password', __webpack_require__(210));
 Vue.component('register-form', __webpack_require__(211));
 Vue.component('password-reset-form', __webpack_require__(209));
 Vue.component('login-form', __webpack_require__(208));
+Vue.component('change-email-form', __webpack_require__(255));
 
 // Admin
 Vue.component('settings', __webpack_require__(216));
@@ -20741,6 +20742,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -20751,22 +20768,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     data: function data() {
-        var _this = this;
-
         var userNameValidator = function userNameValidator(rule, value, callback) {
 
             if (value === '') {
                 callback(new Error('Please input the password again'));
             } else if (value !== 'test') {
-                callback(new Error('Two inputs don\'t match!'));
-            } else {
-                callback();
-            }
-        };
-        var emailValidator = function emailValidator(rule, value, callback) {
-            if (value === '') {
-                callback(new Error('Please confirm email'));
-            } else if (value !== _this.newEmail.email) {
                 callback(new Error('Two inputs don\'t match!'));
             } else {
                 callback();
@@ -20787,24 +20793,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             csrf: '',
             countries: [],
             profileEditorToolbar: [[{ 'size': ['small', false, 'large', 'huge'] }], ['bold', 'italic', 'underline', 'strike'], [{ 'align': '' }, { 'align': 'center' }, { 'align': 'right' }, { 'align': 'justify' }], ['blockquote'], [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'list': 'check' }], [{ 'indent': '-1' }, { 'indent': '+1' }]],
-            profileBackgroundImageDialog: false,
-            showChangeEmailForm: false,
-            newEmail: {
-                email: '',
-                email_confirmation: '',
-                password: ''
-            },
-            passwordType: 'password',
-            newEmailRules: {
-                email: [{ type: 'email', required: true, message: 'Please enter email', trigger: 'blur' }],
-                email_confirmation: [{ validator: emailValidator, trigger: 'blur' }],
+            profileWebsiteDialog: false,
+            profileEducationDialog: false,
+            profileInspirationDialog: false
 
-                password: [{ required: true, message: 'Please enter password', trigger: 'blur' }]
-            }
         };
     },
     mounted: function mounted() {
-        var _this2 = this;
+        var _this = this;
 
         this.csrf = window.csrf;
 
@@ -20813,21 +20809,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
 
         axios.get('/api/countries').then(function (response) {
-            _this2.countries = response.data;
+            _this.countries = response.data;
         });
     },
 
 
     methods: {
         confirmProfileUpgrade: function confirmProfileUpgrade(name, price) {
-            var _this3 = this;
+            var _this2 = this;
 
             axios.get('/api/user-add/' + name + '/' + price).then(function (response) {
                 console.log(response.data);
-                _this3.profileBackgroundImageDialog = false;
-                _this3.user = response.data.data;
+                // this.profileBackgroundImageDialog = false;
+                _this2.user = response.data.data;
 
-                _this3.$alert(null, response.data.message, {
+                _this2.$alert(null, response.data.message, {
                     confirmButtonText: 'OK'
                 });
                 // this.$message({
@@ -20882,47 +20878,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return isJPG && isLt2M;
         },
         save: function save() {
-            var _this4 = this;
+            var _this3 = this;
 
             this.$refs['profile'].validate(function (valid) {
                 if (valid) {
-                    _this4.loading = true;
-                    axios.post('/api/profile/', _this4.user).then(function (response) {
+                    _this3.loading = true;
+                    axios.post('/api/profile/', _this3.user).then(function (response) {
                         if (response.data) {
                             console.log(response.data);
-                            _this4.$message({
+                            _this3.$message({
                                 showClose: true,
                                 message: response.data.message,
                                 type: response.data.status
                             });
-                            _this4.profileSaved = true;
-                            _this4.loading = false;
+                            _this3.profileSaved = true;
+                            _this3.loading = false;
                         } else {
                             console.log(response.data);
                         }
                     });
                 }
             });
-        },
-        changeEmail: function changeEmail() {
-            var _this5 = this;
-
-            this.$refs['newEmail'].validate(function (valid) {
-                if (valid) {
-                    _this5.loading = true;
-
-                    axios.post('/api/change-email', _this5.newEmail).then(function (response) {
-                        console.log(response.data);
-                        window.location.reload();
-                    }).catch(function (error) {
-                        _this5.$store.commit('setErrors', error.response.data.errors);
-                    });
-                    // this.$refs['user'].$el.submit();
-                }
-            });
-        },
-        togglePasswordView: function togglePasswordView() {
-            this.passwordType = this.passwordType === 'password' ? 'text' : 'password';
         },
         checkUserName: function checkUserName($username) {
             if ($username) {
@@ -65738,136 +65714,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return (_vm.user) ? _c('el-card', [(_vm.user.user_type === 'user') ? _c('div', [_vm._v("User")]) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('div', [_vm._v("Artist")]) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'gallery') ? _c('div', [_vm._v("Gallery")]) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'admin') ? _c('div', [_vm._v("Admin")]) : _vm._e(), _vm._v(" "), _c('h2', [_vm._v("Profile information")]), _vm._v(" "), _c('el-dialog', {
-    attrs: {
-      "title": "Upgrade Your profile",
-      "visible": _vm.profileBackgroundImageDialog,
-      "width": "30%"
-    },
-    on: {
-      "update:visible": function($event) {
-        _vm.profileBackgroundImageDialog = $event
-      }
-    }
-  }, [_c('div', [_vm._v("You can upload background image to your personal profile page for 1 EUR")]), _vm._v(" "), _c('span', {
-    staticClass: "dialog-footer",
-    attrs: {
-      "slot": "footer"
-    },
-    slot: "footer"
-  }, [_c('el-button', {
-    attrs: {
-      "type": "primary"
-    },
-    on: {
-      "click": function($event) {
-        _vm.confirmProfileUpgrade('profile-background-image', 1)
-      }
-    }
-  }, [_vm._v("Confirm")])], 1)]), _vm._v(" "), _c('el-dialog', {
-    attrs: {
-      "title": "Change Email",
-      "visible": _vm.showChangeEmailForm,
-      "width": "30%"
-    },
-    on: {
-      "update:visible": function($event) {
-        _vm.showChangeEmailForm = $event
-      }
-    }
-  }, [_c('el-form', {
-    ref: "newEmail",
-    attrs: {
-      "model": _vm.newEmail,
-      "rules": _vm.newEmailRules
-    }
-  }, [_c('errors'), _vm._v(" "), _c('input', {
-    attrs: {
-      "type": "hidden",
-      "name": "_token"
-    },
-    domProps: {
-      "value": _vm.csrf
-    }
-  }), _vm._v(" "), _c('el-form-item', {
-    attrs: {
-      "label": "Enter new E-Mail Address",
-      "prop": "email"
-    }
-  }, [_c('el-input', {
-    attrs: {
-      "type": "email",
-      "placeholder": "Email",
-      "name": "email",
-      "autofocus": ""
-    },
-    model: {
-      value: (_vm.newEmail.email),
-      callback: function($$v) {
-        _vm.$set(_vm.newEmail, "email", $$v)
-      },
-      expression: "newEmail.email"
-    }
-  })], 1), _vm._v(" "), _c('el-form-item', {
-    attrs: {
-      "label": "Confirm new E-Mail Address",
-      "prop": "email_confirmation"
-    }
-  }, [_c('el-input', {
-    attrs: {
-      "type": "email",
-      "placeholder": "Email",
-      "name": "email_confirmation"
-    },
-    model: {
-      value: (_vm.newEmail.email_confirmation),
-      callback: function($$v) {
-        _vm.$set(_vm.newEmail, "email_confirmation", $$v)
-      },
-      expression: "newEmail.email_confirmation"
-    }
-  })], 1), _vm._v(" "), _c('el-form-item', {
-    attrs: {
-      "label": "Password",
-      "prop": "password"
-    }
-  }, [_c('el-input', {
-    attrs: {
-      "type": _vm.passwordType,
-      "placeholder": "Password",
-      "name": "password"
-    },
-    model: {
-      value: (_vm.newEmail.password),
-      callback: function($$v) {
-        _vm.$set(_vm.newEmail, "password", $$v)
-      },
-      expression: "newEmail.password"
-    }
-  }, [_c('el-button', {
-    attrs: {
-      "slot": "append",
-      "icon": "el-icon-view"
-    },
-    on: {
-      "click": _vm.togglePasswordView
-    },
-    slot: "append"
-  })], 1)], 1)], 1), _vm._v(" "), _c('span', {
-    staticClass: "dialog-footer",
-    attrs: {
-      "slot": "footer"
-    },
-    slot: "footer"
-  }, [_c('el-button', {
-    attrs: {
-      "type": "primary",
-      "loading": _vm.loading
-    },
-    on: {
-      "click": _vm.changeEmail
-    }
-  }, [_vm._v("Confirm")])], 1)], 1), _vm._v(" "), _c('el-form', {
+  return (_vm.user) ? _c('el-card', [(_vm.user.user_type === 'user') ? _c('div', [_vm._v("User")]) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('div', [_vm._v("Artist")]) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'gallery') ? _c('div', [_vm._v("Gallery")]) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'admin') ? _c('div', [_vm._v("Admin")]) : _vm._e(), _vm._v(" "), _c('h2', [_vm._v("Profile information")]), _vm._v(" "), _c('el-form', {
     attrs: {
       "label-position": "top"
     }
@@ -65881,7 +65728,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('el-form-item', {
     attrs: {
-      "label": _vm.user.user_type === 'gallery' ? 'Upload logo' : 'Upload avatar'
+      "label": 'Click on image to upload ' + (_vm.user.user_type === 'gallery' ? 'logo' : 'avatar')
     }
   }, [_c('el-upload', {
     staticClass: "avatar-uploader",
@@ -65901,16 +65748,126 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "src": '/imagecache/avatar/' + _vm.user.avatar_url
     }
-  })]), _vm._v(" "), (!_vm.user.profile_background_image && _vm.user.user_type === 'artist') ? _c('el-button', {
+  })]), _vm._v(" "), (!_vm.user.profile_website && _vm.user.user_type === 'artist') ? _c('el-button', {
     attrs: {
       "type": "text"
     },
     on: {
       "click": function($event) {
-        _vm.profileBackgroundImageDialog = true
+        _vm.profileWebsiteDialog = true
       }
     }
-  }, [_vm._v("Add background\n                        image for your personal\n                        profile\n                    ")]) : _vm._e()], 1)], 1), _vm._v(" "), (_vm.user.user_type === 'artist' || _vm.user.user_type === 'gallery') ? _c('el-col', {
+  }, [_vm._v("\n                        Make your personal website\n                    ")]) : _vm._e(), _vm._v(" "), _c('el-dialog', {
+    attrs: {
+      "title": "Your own Web Site ",
+      "visible": _vm.profileWebsiteDialog,
+      "width": "30%"
+    },
+    on: {
+      "update:visible": function($event) {
+        _vm.profileWebsiteDialog = $event
+      }
+    }
+  }, [_c('p', [_vm._v("Have you thought about having your own website? You did not know how to deal with it?")]), _vm._v(" "), _c('p', [_vm._v("it seemed to be too difficult? With BeArte Space, it takes you just a few moments and you\n                            can start\n                            selling from your own site.")]), _vm._v(" "), _c('p', [_vm._v("You can personalize your web site and adjust to your desire. Choosing your\n                            own web site, you don’t have to pay for adds, they are already included to your account.\n                            See example\n                            "), _c('a', {
+    attrs: {
+      "href": "/",
+      "target": "_blank"
+    }
+  }, [_vm._v("here")])]), _vm._v(" "), _c('p', [_vm._v("Save 1 month by selecting annually plan")]), _vm._v(" "), _c('span', {
+    staticClass: "dialog-footer",
+    attrs: {
+      "slot": "footer"
+    },
+    slot: "footer"
+  }, [_c('el-button', {
+    attrs: {
+      "type": "success"
+    },
+    on: {
+      "click": function($event) {
+        _vm.confirmProfileUpgrade('profile-website', 30, 'monthly')
+      }
+    }
+  }, [_vm._v("Confirm Monthly")]), _vm._v(" "), _c('el-button', {
+    attrs: {
+      "type": "primary"
+    },
+    on: {
+      "click": function($event) {
+        _vm.confirmProfileUpgrade('profile-website', 279, 'annually')
+      }
+    }
+  }, [_vm._v("Confirm Annually")])], 1)]), _vm._v(" "), (!_vm.user.profile_inspiration && _vm.user.user_type === 'artist') ? _c('el-button', {
+    attrs: {
+      "type": "text"
+    },
+    on: {
+      "click": function($event) {
+        _vm.profileEducationDialog = true
+      }
+    }
+  }, [_vm._v("\n                        Add your education to attract more customers\n                    ")]) : _vm._e(), _vm._v(" "), _c('el-dialog', {
+    attrs: {
+      "title": "Upgrade Your profile",
+      "visible": _vm.profileEducationDialog,
+      "width": "30%"
+    },
+    on: {
+      "update:visible": function($event) {
+        _vm.profileEducationDialog = $event
+      }
+    }
+  }, [_c('p', [_vm._v("You can add title, and art school you finished to your personal profile for 1 EUR")]), _vm._v(" "), _c('span', {
+    staticClass: "dialog-footer",
+    attrs: {
+      "slot": "footer"
+    },
+    slot: "footer"
+  }, [_c('el-button', {
+    attrs: {
+      "type": "primary"
+    },
+    on: {
+      "click": function($event) {
+        _vm.confirmProfileUpgrade('profile-education', 1)
+      }
+    }
+  }, [_vm._v("Confirm")])], 1)]), _vm._v(" "), (!_vm.user.profile_inspiration && _vm.user.user_type === 'artist') ? _c('el-button', {
+    attrs: {
+      "type": "text"
+    },
+    on: {
+      "click": function($event) {
+        _vm.profileInspirationDialog = true
+      }
+    }
+  }, [_vm._v("\n                        Add your inspiration to attract more customers\n                    ")]) : _vm._e(), _vm._v(" "), _c('el-dialog', {
+    attrs: {
+      "title": "Upgrade Your profile",
+      "visible": _vm.profileInspirationDialog,
+      "width": "30%"
+    },
+    on: {
+      "update:visible": function($event) {
+        _vm.profileInspirationDialog = $event
+      }
+    }
+  }, [_c('p', [_vm._v("What is inspiring you, why you are the Artist? It is very important to attract customers.")]), _vm._v(" "), _c('p', [_vm._v(" Sent us key-word and we will write a short story about what inspires you, why you create the art, why\n                            you are\n                            the unique artist. The best is write your inspiration in English.")]), _vm._v(" "), _c('p', [_vm._v("You can add this feature to your personal profile for 2 EUR")]), _vm._v(" "), _c('span', {
+    staticClass: "dialog-footer",
+    attrs: {
+      "slot": "footer"
+    },
+    slot: "footer"
+  }, [_c('el-button', {
+    attrs: {
+      "type": "primary"
+    },
+    on: {
+      "click": function($event) {
+        _vm.confirmProfileUpgrade('profile-inspiration', 2)
+      }
+    }
+  }, [_vm._v("Confirm")])], 1)])], 1)], 1), _vm._v(" "), (_vm.user.user_type === 'artist' || _vm.user.user_type === 'gallery') ? _c('el-col', {
     attrs: {
       "sm": 12
     }
@@ -66032,16 +65989,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.email"
     }
-  }), _vm._v(" "), _c('el-button', {
-    attrs: {
-      "type": "text"
-    },
-    on: {
-      "click": function($event) {
-        _vm.showChangeEmailForm = true
-      }
-    }
-  }, [_vm._v("Change Email")])], 1)], 1), _vm._v(" "), _c('el-col', {
+  }), _vm._v(" "), _c('change-email-form')], 1)], 1), _vm._v(" "), _c('el-col', {
     attrs: {
       "sm": 8
     }
@@ -66359,7 +66307,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "value": direction.value
       }
     })
-  }))], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-col', {
+  }))], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.profile_website || _vm.user.profile_inspiration && _vm.user.user_type === 'artist') ? _c('el-col', {
     attrs: {
       "sm": 12
     }
@@ -66380,7 +66328,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.inspiration"
     }
-  })], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist' || _vm.user.user_type === 'gallery') ? _c('el-col', {
+  })], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.profile_website || _vm.user.profile_exhibitions && _vm.user.user_type === 'artist') ? _c('el-col', {
     attrs: {
       "sm": 12
     }
@@ -69835,6 +69783,310 @@ var index_esm = {
 __webpack_require__(79);
 module.exports = __webpack_require__(80);
 
+
+/***/ }),
+/* 246 */,
+/* 247 */,
+/* 248 */,
+/* 249 */,
+/* 250 */,
+/* 251 */,
+/* 252 */,
+/* 253 */,
+/* 254 */,
+/* 255 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+/* styles */
+__webpack_require__(259)
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(256),
+  /* template */
+  __webpack_require__(258),
+  /* scopeId */
+  "data-v-057c424a",
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/skhatko/code/larabid/resources/assets/js/components/auth/ChangeEmailForm.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] ChangeEmailForm.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-057c424a", Component.options)
+  } else {
+    hotAPI.reload("data-v-057c424a", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 256 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        var _this = this;
+
+        var emailValidator = function emailValidator(rule, value, callback) {
+            if (value === '') {
+                callback(new Error('Please confirm email'));
+            } else if (value !== _this.newEmail.email) {
+                callback(new Error('Two inputs don\'t match!'));
+            } else {
+                callback();
+            }
+        };
+
+        return {
+            loading: false,
+            showChangeEmailForm: false,
+            newEmail: {
+                email: '',
+                email_confirmation: '',
+                password: ''
+            },
+            passwordType: 'password',
+            newEmailRules: {
+                email: [{ type: 'email', required: true, message: 'Please enter email', trigger: 'blur' }],
+                email_confirmation: [{ validator: emailValidator, trigger: 'blur' }],
+
+                password: [{ required: true, message: 'Please enter password', trigger: 'blur' }]
+            }
+        };
+    },
+
+    methods: {
+        togglePasswordView: function togglePasswordView() {
+            this.passwordType = this.passwordType === 'password' ? 'text' : 'password';
+        },
+        changeEmail: function changeEmail() {
+            var _this2 = this;
+
+            this.$refs['newEmail'].validate(function (valid) {
+                if (valid) {
+                    _this2.loading = true;
+
+                    axios.post('/api/change-email', _this2.newEmail).then(function (response) {
+                        console.log(response.data);
+                        window.location.reload();
+                    }).catch(function (error) {
+                        _this2.$store.commit('setErrors', error.response.data.errors);
+                    });
+                    // this.$refs['user'].$el.submit();
+                }
+            });
+        }
+    }
+
+});
+
+/***/ }),
+/* 257 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(66)();
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+/***/ }),
+/* 258 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', [_c('el-button', {
+    attrs: {
+      "type": "text"
+    },
+    on: {
+      "click": function($event) {
+        _vm.showChangeEmailForm = true
+      }
+    }
+  }, [_vm._v("Change Email")]), _vm._v(" "), _c('el-dialog', {
+    attrs: {
+      "title": "Change Email",
+      "visible": _vm.showChangeEmailForm,
+      "width": "30%"
+    },
+    on: {
+      "update:visible": function($event) {
+        _vm.showChangeEmailForm = $event
+      }
+    }
+  }, [_c('el-form', {
+    ref: "newEmail",
+    attrs: {
+      "model": _vm.newEmail,
+      "rules": _vm.newEmailRules
+    }
+  }, [_c('errors'), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "label": "Enter new E-Mail Address",
+      "prop": "email"
+    }
+  }, [_c('el-input', {
+    attrs: {
+      "type": "email",
+      "placeholder": "Email",
+      "name": "email",
+      "autofocus": ""
+    },
+    model: {
+      value: (_vm.newEmail.email),
+      callback: function($$v) {
+        _vm.$set(_vm.newEmail, "email", $$v)
+      },
+      expression: "newEmail.email"
+    }
+  })], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "label": "Confirm new E-Mail Address",
+      "prop": "email_confirmation"
+    }
+  }, [_c('el-input', {
+    attrs: {
+      "type": "email",
+      "placeholder": "Email",
+      "name": "email_confirmation"
+    },
+    model: {
+      value: (_vm.newEmail.email_confirmation),
+      callback: function($$v) {
+        _vm.$set(_vm.newEmail, "email_confirmation", $$v)
+      },
+      expression: "newEmail.email_confirmation"
+    }
+  })], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "label": "Password",
+      "prop": "password"
+    }
+  }, [_c('el-input', {
+    attrs: {
+      "type": _vm.passwordType,
+      "placeholder": "Password",
+      "name": "password"
+    },
+    model: {
+      value: (_vm.newEmail.password),
+      callback: function($$v) {
+        _vm.$set(_vm.newEmail, "password", $$v)
+      },
+      expression: "newEmail.password"
+    }
+  }, [_c('el-button', {
+    attrs: {
+      "slot": "append",
+      "icon": "el-icon-view"
+    },
+    on: {
+      "click": _vm.togglePasswordView
+    },
+    slot: "append"
+  })], 1)], 1)], 1), _vm._v(" "), _c('span', {
+    staticClass: "dialog-footer",
+    attrs: {
+      "slot": "footer"
+    },
+    slot: "footer"
+  }, [_c('el-button', {
+    attrs: {
+      "type": "primary",
+      "loading": _vm.loading
+    },
+    on: {
+      "click": _vm.changeEmail
+    }
+  }, [_vm._v("Confirm")])], 1)], 1)], 1)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-057c424a", module.exports)
+  }
+}
+
+/***/ }),
+/* 259 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(257);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(77)("12134dc0", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-057c424a\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ChangeEmailForm.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-057c424a\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ChangeEmailForm.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
 
 /***/ })
 /******/ ]);

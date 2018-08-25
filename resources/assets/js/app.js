@@ -43,6 +43,7 @@ Vue.component('password-reset-new-password', require('./components/auth/Password
 Vue.component('register-form', require('./components/auth/RegisterForm.vue'));
 Vue.component('password-reset-form', require('./components/auth/PasswordResetForm.vue'));
 Vue.component('login-form', require('./components/auth/LoginForm.vue'));
+Vue.component('change-email-form', require('./components/auth/ChangeEmailForm.vue'));
 
 // Admin
 Vue.component('settings', require('./components/dashboard/admin/Settings'));

@@ -20,7 +20,7 @@
 
         window.cfg = {
             'currency': '{{ session('currency') }}',
-            'locale': '{{ session('locale') }}'
+            'locale': '{{ session('locale') }}',
 
         };
 

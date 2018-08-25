@@ -9,56 +9,13 @@
 
         <h2>Profile information</h2>
 
-        <el-dialog
-                title="Upgrade Your profile"
-                :visible.sync="profileBackgroundImageDialog"
-                width="30%">
-            <div>You can upload background image to your personal profile page for 1 EUR</div>
-            <span slot="footer" class="dialog-footer">
-                <el-button type="primary"
-                           @click="confirmProfileUpgrade('profile-background-image', 1)">Confirm</el-button>
-              </span>
-        </el-dialog>
-
-        <el-dialog
-                title="Change Email"
-                :visible.sync="showChangeEmailForm"
-                width="30%">
-            <el-form :model="newEmail" :rules="newEmailRules" ref="newEmail">
-
-                <errors></errors>
-
-                <input type="hidden" name="_token" :value="csrf">
-
-                <el-form-item label="Enter new E-Mail Address" prop="email">
-                    <el-input type="email" placeholder="Email" v-model="newEmail.email" name="email" autofocus></el-input>
-                </el-form-item>
-
-                <el-form-item label="Confirm new E-Mail Address" prop="email_confirmation">
-                    <el-input type="email" placeholder="Email" v-model="newEmail.email_confirmation" name="email_confirmation"></el-input>
-                </el-form-item>
-
-                <el-form-item label="Password" prop="password">
-                    <el-input :type="passwordType" placeholder="Password" v-model="newEmail.password" name="password">
-                        <el-button slot="append" icon="el-icon-view" @click="togglePasswordView"></el-button>
-                    </el-input>
-                </el-form-item>
-
-            </el-form>
-
-            <span slot="footer" class="dialog-footer">
-                <el-button type="primary" @click="changeEmail" :loading="loading">Confirm</el-button>
-              </span>
-
-        </el-dialog>
-
-
         <el-form label-position="top">
 
             <el-row :gutter="20">
 
                 <el-col :sm="12">
-                    <el-form-item :label="user.user_type === 'gallery' ? 'Upload logo' : 'Upload avatar'">
+                    <el-form-item
+                            :label="'Click on image to upload ' + (user.user_type === 'gallery' ? 'logo' : 'avatar')">
 
                         <el-upload
                                 class="avatar-uploader"
@@ -71,11 +28,67 @@
                             <img :src="'/imagecache/avatar/' + user.avatar_url" class="avatar">
                         </el-upload>
 
-                        <el-button type="text" @click="profileBackgroundImageDialog = true"
-                                   v-if="!user.profile_background_image && user.user_type === 'artist'">Add background
-                            image for your personal
-                            profile
+                        <el-button type="text" @click="profileWebsiteDialog = true"
+                                   v-if="!user.profile_website && user.user_type === 'artist'">
+                            Make your personal website
                         </el-button>
+
+                        <el-dialog
+                                title="Your own Web Site "
+                                :visible.sync="profileWebsiteDialog"
+                                width="30%">
+                            <p>Have you thought about having your own website? You did not know how to deal with it?</p>
+                            <p>it seemed to be too difficult? With BeArte Space, it takes you just a few moments and you
+                                can start
+                                selling from your own site.</p>
+                            <p>You can personalize your web site and adjust to your desire. Choosing your
+                                own web site, you don’t have to pay for adds, they are already included to your account.
+                                See example
+                                <a href="/" target="_blank">here</a></p>
+                            <p>Save 1 month by selecting annually plan</p>
+
+                            <span slot="footer" class="dialog-footer">
+                                <el-button type="success" @click="confirmProfileUpgrade('profile-website', 30, 'monthly')">Confirm Monthly</el-button>
+                                <el-button type="primary" @click="confirmProfileUpgrade('profile-website', 279, 'annually')">Confirm Annually</el-button>
+                              </span>
+                        </el-dialog>
+
+
+                        <el-button type="text" @click="profileEducationDialog = true"
+                                   v-if="!user.profile_inspiration && user.user_type === 'artist'">
+                            Add your education to attract more customers
+                        </el-button>
+
+                        <el-dialog
+                                title="Upgrade Your profile"
+                                :visible.sync="profileEducationDialog"
+                                width="30%">
+                            <p>You can add title, and art school you finished to your personal profile for 1 EUR</p>
+                            <span slot="footer" class="dialog-footer">
+                <el-button type="primary"
+                           @click="confirmProfileUpgrade('profile-education', 1)">Confirm</el-button>
+              </span>
+                        </el-dialog>
+
+                        <el-button type="text" @click="profileInspirationDialog = true"
+                                   v-if="!user.profile_inspiration && user.user_type === 'artist'">
+                            Add your inspiration to attract more customers
+                        </el-button>
+
+                        <el-dialog
+                                title="Upgrade Your profile"
+                                :visible.sync="profileInspirationDialog"
+                                width="30%">
+                            <p>What is inspiring you, why you are the Artist? It is very important to attract customers.</p>
+                            <p> Sent us key-word and we will write a short story about what inspires you, why you create the art, why
+                                you are
+                                the unique artist. The best is write your inspiration in English.</p>
+                            <p>You can add this feature to your personal profile for 2 EUR</p>
+                            <span slot="footer" class="dialog-footer">
+                <el-button type="primary"
+                           @click="confirmProfileUpgrade('profile-inspiration', 2)">Confirm</el-button>
+              </span>
+                        </el-dialog>
 
                     </el-form-item>
                 </el-col>
@@ -116,6 +129,7 @@
                 </el-col>
 
 
+                <!-- Username selection component -->
                 <el-col v-if="user.user_type === 'artist'" style="display: none;">
                     <el-form-item label="Your public username" prop="user_name">
                         <el-input v-model="user.user_name" style="max-width: 290px; margin-right: 20px;"></el-input>
@@ -132,7 +146,9 @@
                 <el-col>
                     <el-form-item label="Email" prop="email">
                         <el-input v-model="user.email" disabled style="max-width: 290px;margin-right: 20px;"></el-input>
-                        <el-button type="text" @click="showChangeEmailForm = true">Change Email</el-button>
+
+                        <change-email-form></change-email-form>
+
                     </el-form-item>
                 </el-col>
 
@@ -262,7 +278,7 @@
                 </el-col>
 
 
-                <el-col :sm="12" v-if="user.user_type === 'artist'">
+                <el-col :sm="12" v-if="user.profile_website || user.profile_inspiration && user.user_type === 'artist'">
                     <el-form-item label="Inspiration" prop="inspiration">
                         <vue-editor id="inspiration" v-model="user.inspiration"
                                     :editorToolbar="profileEditorToolbar"></vue-editor>
@@ -270,7 +286,7 @@
                 </el-col>
 
 
-                <el-col :sm="12" v-if="user.user_type === 'artist' || user.user_type === 'gallery' ">
+                <el-col :sm="12" v-if="user.profile_website || user.profile_exhibitions && user.user_type === 'artist'">
                     <el-form-item label="Exhibitions" prop="exhibition">
                         <vue-editor id="exhibition" v-model="user.exhibition"
                                     :editorToolbar="profileEditorToolbar"></vue-editor>
@@ -324,15 +340,6 @@
                     callback();
                 }
             };
-            var emailValidator = (rule, value, callback) => {
-                if (value === '') {
-                    callback(new Error('Please confirm email'));
-                } else if (value !== this.newEmail.email) {
-                    callback(new Error('Two inputs don\'t match!'));
-                } else {
-                    callback();
-                }
-            };
             return {
                 loading: false,
                 user: {},
@@ -359,26 +366,10 @@
                     [{'list': 'ordered'}, {'list': 'bullet'}, {'list': 'check'}],
                     [{'indent': '-1'}, {'indent': '+1'}],
                 ],
-                profileBackgroundImageDialog: false,
-                showChangeEmailForm: false,
-                newEmail: {
-                    email: '',
-                    email_confirmation: '',
-                    password: ''
-                },
-                passwordType: 'password',
-                newEmailRules: {
-                    email: [
-                        {type: 'email', required: true, message: 'Please enter email', trigger: 'blur'}
-                    ],
-                    email_confirmation: [
-                        { validator: emailValidator, trigger: 'blur' }
-                    ],
+                profileWebsiteDialog: false,
+                profileEducationDialog: false,
+                profileInspirationDialog: false,
 
-                    password: [
-                        {required: true, message: 'Please enter password', trigger: 'blur'}
-                    ],
-                },
             }
         },
 
@@ -399,7 +390,7 @@
             confirmProfileUpgrade(name, price) {
                 axios.get('/api/user-add/' + name + '/' + price).then(response => {
                     console.log(response.data);
-                    this.profileBackgroundImageDialog = false;
+                    // this.profileBackgroundImageDialog = false;
                     this.user = response.data.data;
 
                     this.$alert(null, response.data.message, {
@@ -482,29 +473,6 @@
                             });
                     }
                 });
-            },
-
-            changeEmail() {
-                this.$refs['newEmail'].validate((valid) => {
-                    if (valid) {
-                        this.loading = true;
-
-                        axios.post('/api/change-email', this.newEmail)
-                            .then(response => {
-                                console.log(response.data);
-                                window.location.reload();
-                            })
-                            .catch(error => {
-                                this.$store.commit('setErrors', error.response.data.errors);
-                            })
-                        // this.$refs['user'].$el.submit();
-                    }
-                });
-
-            },
-
-            togglePasswordView() {
-                this.passwordType = this.passwordType === 'password' ? 'text' : 'password'
             },
 
             checkUserName($username) {
