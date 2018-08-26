@@ -40,6 +40,7 @@ Route::group( [ 'middleware' => 'auth:api' ], function () {
 
 	// Adds
 	Route::get( 'user-add/{name}/{price}/{period?}', 'Api\AddController@createUserAdd');
+	Route::get( 'artwork-add/{id}/{name}/{price}/{period?}', 'Api\AddController@createArtworkAdd');
 
 } );
 

@@ -25,22 +25,22 @@
             <el-row>
                 <el-col :sm="5">
                     <el-form-item label="Width, cm" prop="width">
-                        <el-input-number v-model="artwork.width" :min="0.1" :max="200" size="small" precision="1"></el-input-number>
+                        <el-input-number v-model="artwork.width" :min="0.1" :max="200" size="small" :precision="1"></el-input-number>
                     </el-form-item>
                 </el-col>
                 <el-col :sm="5">
                     <el-form-item label="Height, cm" prop="height">
-                        <el-input-number v-model="artwork.height" :min="0.1" :max="200" size="small" precision="1"></el-input-number>
+                        <el-input-number v-model="artwork.height" :min="0.1" :max="200" size="small" :precision="1"></el-input-number>
                     </el-form-item>
                 </el-col>
                 <el-col :sm="5">
                     <el-form-item label="Depth,cm" prop="depth">
-                        <el-input-number v-model="artwork.depth" :min="0.1" :max="200" size="small" precision="1"></el-input-number>
+                        <el-input-number v-model="artwork.depth" :min="0.1" :max="200" size="small" :precision="1"></el-input-number>
                     </el-form-item>
                 </el-col>
                 <el-col :sm="5">
                     <el-form-item label="Weight, g" prop="weight">
-                        <el-input-number v-model="artwork.weight" :min="1" :max="10000" size="small" precision="0"></el-input-number>
+                        <el-input-number v-model="artwork.weight" :min="1" :max="10000" size="small" :precision="0"></el-input-number>
                     </el-form-item>
                 </el-col>
                 <el-col :sm="4" style="margin-top: 50px;">
@@ -53,30 +53,49 @@
                 </el-col>
             </el-row>
 
+            <el-row v-if="artwork.optional_size">
+                <el-col :sm="5">
+                    <el-form-item label="Total Width, cm" prop="b_width">
+                        <el-input-number v-model="artwork.b_width" :min="0.1" :max="200" size="small" :precision="1"></el-input-number>
+                    </el-form-item>
+                </el-col>
+                <el-col :sm="5">
+                    <el-form-item label="Total Height, cm" prop="b_height">
+                        <el-input-number v-model="artwork.b_height" :min="0.1" :max="200" size="small" :precision="1"></el-input-number>
+                    </el-form-item>
+                </el-col>
+                <el-col :sm="5">
+                    <el-form-item label="Total Depth,cm" prop="b_depth">
+                        <el-input-number v-model="artwork.b_depth" :min="0.1" :max="200" size="small" :precision="1"></el-input-number>
+                    </el-form-item>
+                </el-col>
+                <el-col :sm="5">
+                    <el-form-item label="Total Weight, g" prop="b_weight">
+                        <el-input-number v-model="artwork.b_weight" :min="1" :max="10000" size="small" :precision="0"></el-input-number>
+                    </el-form-item>
+                </el-col>
 
-            <template v-if="artwork.optional_size">
-                <el-form-item label="Total Width" prop="b_width">
-                    <el-input-number v-model="artwork.b_width"></el-input-number>
-                </el-form-item>
-
-                <el-form-item label="Total Height" prop="b_height">
-                    <el-input-number v-model="artwork.b_height"></el-input-number>
-                </el-form-item>
-
-                <el-form-item label="Total Depth" prop="b_depth">
-                    <el-input-number v-model="artwork.b_depth"></el-input-number>
-                </el-form-item>
-
-                <el-form-item label="Total Weight" prop="b_weight">
-                    <el-input-number v-model="artwork.b_weight"></el-input-number>
-                </el-form-item>
-            </template>
-
+            </el-row>
 
             <template v-if="artwork_">
 
-                // Medium, color, theme, art direction
-                <el-row :gutter="20">
+                <!--    Medium, color, theme, art direction -->
+                <el-dialog
+                        title="Upgrade Your Artwork"
+                        :visible.sync="artworkOptionsDialog"
+                        width="30%">
+                    <p>We offer you to give more descriptions for your artwork, so customers can find your artwork by medium (material), orientation, art direction or even basic colors.</p>
+                    <p>Add more search options for 1 EUR</p>
+                    <span slot="footer" class="dialog-footer">
+                <el-button type="primary" @click="confirmArtworkUpgrade('artwork_options', 1)">Confirm</el-button>
+              </span>
+                </el-dialog>
+
+                <el-button type="text" @click="artworkOptionsDialog = true" v-if="!!user.profile_website || !artwork.artwork_options">
+                    Add medium, orientation, art direction to attract more customers
+                </el-button>
+
+                <el-row :gutter="20" v-if="user.profile_website || artwork.artwork_options">
                     <el-col :sm="6">
                         <el-form-item label="Medium">
                             <el-select value="" v-model="artwork.medium" multiple filterable allow-create
@@ -114,9 +133,18 @@
                             </el-select>
                         </el-form-item>
                     </el-col>
+                    <el-col :sm="6">
+                        <el-form-item label="Artwork shape">
+                            <el-select value="" v-model="artwork.shape" filterable allow-create
+                                       default-first-option placeholder="Select shape">
+                                <el-option v-for="shape in options('shape')" :key="shape.value" :label="shape.label"
+                                           :value="shape.value"></el-option>
+                            </el-select>
+                        </el-form-item>
+                    </el-col>
                 </el-row>
 
-                // Description, Inspiration
+                <!-- Description, Inspiration -->
                 <el-row :gutter="20">
                     <el-col :sm="12">
                         <el-form-item label="Artwork Description">
@@ -140,7 +168,7 @@
                     </el-col>
                 </el-row>
 
-                // Date of compleation, price
+                <!--  Date of compleation, price -->
                 <el-row :gutter="20">
                     <el-col :sm="12">
                         <el-form-item label="Date of completion Artwork">
@@ -234,7 +262,6 @@
 
             </template>
 
-
             <template v-else>
 
                 <el-button type="primary" style="margin-top: 20px"
@@ -258,40 +285,22 @@
         props: {
             artwork_: {},
             currencies_: {},
+            user_: {}
         },
 
         data() {
-            return {
+            return{
+                user: {},
                 csrf: window.csrf,
                 currencies: [],
                 artwork: {
-                    // id: 0,
-                    // user_id: '',
-                    // title: '',
-                    // description: '',
-                    // height: '',
-                    // b_height: '',
-                    // width: '',
-                    // b_width: '',
-                    // depth: '',
-                    // b_depth: '',
-                    // weight: '',
-                    // b_weight: '',
-                    // inspiration: '',
-                    // date_of_completion: '',
-                    // price: '',
-                    // currency: '',
-                    // category: '',
                     medium: [],
                     direction: [],
                     theme: [],
                     color: [],
-                    // auction_status: true,
-                    // auction_price: '',
-                    // auction_start: '',
-                    // auction_end: '',
                     images: [],
                 },
+                artworkOptionsDialog: false,
                 updateArtworkRules: {
                     title: [
                         {required: true, message: 'Please input title of artwork', trigger: ['blur', 'change']},
@@ -344,6 +353,13 @@
                 this.currencies = JSON.parse(this.currencies_);
             }
 
+            if (this.user_) {
+                this.user = JSON.parse(this.user_);
+            }
+
+            console.log(this.user.profile_website);
+            console.log(this.artwork.artwork_options);
+
             console.log(this.$refs['artwork']);
 
         },
@@ -353,8 +369,6 @@
             saveArtwork(redirect = false) {
                 this.$refs['artwork'].validate((valid) => {
                     if (valid) {
-                        console.log(1);
-                        return 1;
                         this.loading = true;
                         axios.post('/api/artwork/', this.artwork)
                             .then((response) => {
@@ -423,7 +437,27 @@
                     name: file.name,
                     url: file.url
                 });
-            }
+            },
+
+            confirmArtworkUpgrade(name, price, period = null) {
+                axios.get('/api/artwork-add/' + this.artwork.id + '/' + name + '/' + price + '/' + period).then(response => {
+                    console.log(response.data);
+                    // this.user = response.data.data;
+
+                    this.$alert(null, response.data.message, {
+                        confirmButtonText: 'OK',
+                        callback: action => {
+                            // window.location.reload();
+                        }
+                    });
+                    // this.$message({
+                    //     showClose: true,
+                    //     message: response.data.message,
+                    //     type: response.data.status
+                    // });
+                })
+            },
+
         }
     }
 </script>

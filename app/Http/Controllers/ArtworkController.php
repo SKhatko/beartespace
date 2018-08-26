@@ -90,7 +90,9 @@ class ArtworkController extends Controller {
 
 		$title = 'Edit Artwork';
 
-		$artwork = Artwork::whereId( $id )->with( 'images' )->first();
+		$artwork = Artwork::whereId( $id )->with( 'images' )->firstOrFail();
+
+//		return $artwork->artwork_options;
 
 		$user = auth()->user();
 

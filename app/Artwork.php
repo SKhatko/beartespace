@@ -5,11 +5,12 @@ namespace App;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use App\Add;
 
 class Artwork extends Model {
 	protected $guarded = [];
 
-	protected $appends = ['formatted_price'];
+	protected $appends = [ 'formatted_price', 'artwork_options' ];
 
 	protected $casts = [
 		'medium'    => 'array',
@@ -31,25 +32,29 @@ class Artwork extends Model {
 		return $this->hasMany( Media::class );
 	}
 
+	public function adds() {
+		return $this->hasMany( Add::class );
+	}
+
 
 	public function scopeActive( $query ) {
 		return $query->whereStatus( '1' );
 	}
 
 	public function scopeAuction( $query ) {
-		return $query->whereAuctionStatus('1');
+		return $query->whereAuctionStatus( '1' );
 	}
 
-	public function getOptionalSizeAttribute($value) {
-		return !!$value;
+	public function getOptionalSizeAttribute( $value ) {
+		return ! ! $value;
 	}
 
-	public function getAuctionStatusAttribute($value) {
-		return !!$value;
+	public function getAuctionStatusAttribute( $value ) {
+		return ! ! $value;
 	}
 
 	public function getFormattedPriceAttribute() {
-		return currency($this->attributes['price'], null, session('currency'));
+		return currency( $this->attributes['price'], null, session( 'currency' ) );
 	}
 
 	public function bids() {
@@ -58,5 +63,9 @@ class Artwork extends Model {
 
 	public function size() {
 		return $this->width . ' x ' . $this->height . ' cm';
+	}
+
+	public function getArtworkOptionsAttribute() {
+		return $this->adds()->whereName( 'artwork_options' )->first();
 	}
 }

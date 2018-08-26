@@ -14,9 +14,11 @@ class ArtworkController extends Controller {
 
 		$user = auth()->user();
 
-		$artwork = Artwork::updateOrCreate( [ 'id' => $request->input( 'id' ), 'user_id' => $user->id ], array_merge($request->except( ['images', 'formatted_price' ]),['user_id' => $user->id]) );
+		$artwork = Artwork::updateOrCreate( [ 'id'      => $request->input( 'id' ),
+		                                      'user_id' => $user->id
+		], array_merge( $request->except( [ 'images', 'formatted_price', 'artwork_options' ] ), [ 'user_id' => $user->id ] ) );
 
-		$artwork = $artwork->whereId($artwork->id)->with('images')->first();
+		$artwork = $artwork->whereId( $artwork->id )->with( 'images' )->first();
 
 		return [ 'status' => 'success', 'message' => 'Saved', 'data' => $artwork ];
 	}

@@ -36,6 +36,7 @@ class CreateArtworksTable extends Migration
             $table->json('direction')->nullable();
             $table->json('theme')->nullable();
             $table->json('color')->nullable();
+            $table->string('shape')->nullable();
 
             //0 =pending for review, 1= published, 2=blocked, 3=archived
             $table->enum('status', [0,1,2,3])->nullable();
