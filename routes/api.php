@@ -39,7 +39,7 @@ Route::group( [ 'middleware' => 'auth:api' ], function () {
 	Route::post( 'change-email', 'Auth\ConfirmEmailController@changeEmail');
 
 	// Adds
-	Route::get( 'user-add/{name}/{price}', 'Api\AddController@createUserAdd');
+	Route::get( 'user-add/{name}/{price}/{period?}', 'Api\AddController@createUserAdd');
 
 } );
 

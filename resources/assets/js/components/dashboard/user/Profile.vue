@@ -49,15 +49,14 @@
 
                             <span slot="footer" class="dialog-footer">
                                 <el-button type="success"
-                                           @click="confirmProfileUpgrade('profile-website', 30, 'monthly')">Confirm Monthly</el-button>
+                                           @click="confirmProfileUpgrade('profile_website', 30, 'month')">Confirm Monthly</el-button>
                                 <el-button type="primary"
-                                           @click="confirmProfileUpgrade('profile-website', 279, 'annually')">Confirm Annually</el-button>
+                                           @click="confirmProfileUpgrade('profile_website', 279, 'year')">Confirm Annually</el-button>
                               </span>
                         </el-dialog>
 
-
                         <el-button type="text" @click="profileEducationDialog = true"
-                                   v-if="!user.profile_inspiration && user.user_type === 'artist'">
+                                   v-if="!user.profile_website && !user.profile_education && user.user_type === 'artist'">
                             Add your education to attract more customers
                         </el-button>
 
@@ -68,12 +67,12 @@
                             <p>You can add title, and art school you finished to your personal profile for 1 EUR</p>
                             <span slot="footer" class="dialog-footer">
                 <el-button type="primary"
-                           @click="confirmProfileUpgrade('profile-education', 1)">Confirm</el-button>
+                           @click="confirmProfileUpgrade('profile_education', 1)">Confirm</el-button>
               </span>
                         </el-dialog>
 
                         <el-button type="text" @click="profileInspirationDialog = true"
-                                   v-if="!user.profile_inspiration && user.user_type === 'artist'">
+                                   v-if="!user.profile_website && !user.profile_inspiration && user.user_type === 'artist'">
                             Add your inspiration to attract more customers
                         </el-button>
 
@@ -89,15 +88,15 @@
                             <p>You can add this feature to your personal profile for 2 EUR</p>
                             <span slot="footer" class="dialog-footer">
                 <el-button type="primary"
-                           @click="confirmProfileUpgrade('profile-inspiration', 2)">Confirm</el-button>
+                           @click="confirmProfileUpgrade('profile_inspiration', 2)">Confirm</el-button>
               </span>
                         </el-dialog>
 
                     </el-form-item>
                 </el-col>
 
-                <el-col :sm="12" v-if="user.user_type === 'artist' || user.user_type === 'gallery'">
-                    <el-form-item label="Upload profile background image" v-if="user.profile_background_image">
+                <el-col :sm="12" v-if="user.profile_website && user.user_type === 'artist'">
+                    <el-form-item label="Click on image to upload profile background image">
                         <el-upload
                                 class="image-uploader"
                                 action="/api/upload/user-image"
@@ -119,7 +118,6 @@
         <el-form label-position="top" :model="user" status-icon :rules="rules" ref="profile">
 
             <el-row :gutter="20">
-
                 <el-col :sm="12">
                     <el-form-item label="First name" prop="first_name">
                         <el-input v-model="user.first_name"></el-input>
@@ -130,11 +128,13 @@
                         <el-input v-model="user.last_name"></el-input>
                     </el-form-item>
                 </el-col>
+            </el-row>
 
 
-                <!-- Username selection component -->
-                <el-col v-if="user.user_type === 'artist'" style="display: none;">
-                    <el-form-item label="Your public username" prop="user_name">
+            <!-- Username selection component -->
+            <el-row :gutter="20">
+                <el-col v-if="user.profile_website && user.user_type === 'artist'">
+                    <el-form-item label="Your public username ( Personal website url )" prop="user_name">
                         <el-input v-model="user.user_name" style="max-width: 290px; margin-right: 20px;"></el-input>
 
                         <el-button type="text">
@@ -144,8 +144,10 @@
                         </el-button>
                     </el-form-item>
                 </el-col>
+            </el-row>
 
 
+            <el-row :gutter="20">
                 <el-col>
                     <el-form-item label="Email" prop="email">
                         <el-input v-model="user.email" disabled style="max-width: 290px;margin-right: 20px;"></el-input>
@@ -154,7 +156,10 @@
 
                     </el-form-item>
                 </el-col>
+            </el-row>
 
+
+            <el-row :gutter="20" v-if="user.user_type === 'artist'">
                 <el-col :sm="8">
                     <el-form-item label="Country" prop="country_id">
                         <el-select filterable value="user.country_id" v-model="user.country_id"
@@ -169,7 +174,7 @@
                     </el-form-item>
                 </el-col>
 
-                <el-col :sm="8" v-if="user.user_type === 'artist'">
+                <el-col :sm="8">
                     <el-form-item label="Nationality" prop="nationality_id">
                         <el-select filterable value="user.nationality_id" v-model="user.nationality_id"
                                    placeholder="Select your nationality">
@@ -181,8 +186,6 @@
                             </el-option>
                         </el-select>
                     </el-form-item>
-
-
                 </el-col>
                 <el-col :sm="8">
                     <el-form-item label="Profession" prop="profession">
@@ -194,41 +197,12 @@
                         </el-select>
                     </el-form-item>
                 </el-col>
+            </el-row>
 
-                <el-col :sm="12">
-                    <el-form-item label="City" prop="city">
-                        <el-input v-model="user.city"></el-input>
-                    </el-form-item>
-                </el-col>
 
-                <el-col :sm="12">
-                    <el-form-item label="Postcode" prop="postcode">
-                        <el-input v-model="user.postcode"></el-input>
-                    </el-form-item>
-                </el-col>
+            <el-row :gutter="20" v-if="user.user_type === 'artist'">
 
-                <el-col :sm="12">
-                    <el-form-item label="Address" prop="address">
-                        <el-input
-                                type="textarea"
-                                :rows="2"
-                                placeholder="Address"
-                                v-model="user.address">
-                        </el-input>
-                    </el-form-item>
-                </el-col>
-
-                <el-col :sm="8" v-if="user.user_type === 'artist' ">
-                    <el-form-item label="Gender" prop="gender">
-                        <el-select value="user.gender" v-model="user.gender">
-                            <el-option value="male">Male</el-option>
-                            <el-option value="female">Femail</el-option>
-                            <el-option value="third_gender">Third</el-option>
-                        </el-select>
-                    </el-form-item>
-                </el-col>
-
-                <el-col :sm="8" v-if="user.user_type === 'artist'">
+                <el-col :sm="8">
                     <el-form-item label="Date of birth" prop="dob">
                         <el-date-picker
                                 v-model="user.dob"
@@ -239,27 +213,66 @@
                     </el-form-item>
                 </el-col>
 
-                <el-col :sm="8" v-if="user.user_type === 'artist' || user.user_type === 'gallery' ">
+                <el-col :sm="8">
+                    <el-form-item label="Gender" prop="gender">
+                        <el-select value="user.gender" v-model="user.gender">
+                            <el-option value="male">Male</el-option>
+                            <el-option value="female">Femail</el-option>
+                            <el-option value="third_gender">Third</el-option>
+                        </el-select>
+                    </el-form-item>
+                </el-col>
+
+                <el-col :sm="8">
                     <el-form-item label="Phone" prop="phone">
                         <el-input v-model="user.phone"></el-input>
                     </el-form-item>
                 </el-col>
 
-                <template v-if="user.profile_education && user.user_type === 'artist' ">
-                    <el-col :sm="12">
-                        <el-form-item label="Name of the high school " prop="education">
-                            <el-input v-model="user.education"></el-input>
-                        </el-form-item>
-                    </el-col>
+            </el-row>
 
-                    <el-col :sm="12">
-                        <el-form-item label="University educational title" prop="education_title">
-                            <el-input v-model="user.education_title"></el-input>
-                        </el-form-item>
-                    </el-col>
-                </template>
+            <el-row :gutter="20">
+                <el-col :sm="8">
+                    <el-form-item label="City" prop="city">
+                        <el-input v-model="user.city"></el-input>
+                    </el-form-item>
+                </el-col>
 
-                <el-col :sm="12" v-if="user.user_type === 'artist' ">
+                <el-col :sm="8">
+                    <el-form-item label="Postcode" prop="postcode">
+                        <el-input v-model="user.postcode"></el-input>
+                    </el-form-item>
+                </el-col>
+
+                <el-col :sm="8">
+                    <el-form-item label="Address" prop="address">
+                        <el-input placeholder="Address" v-model="user.address">
+                        </el-input>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+
+
+            <el-row :gutter="20" v-if="user.profile_website || user.profile_education && user.user_type === 'artist' ">
+                <el-col :sm="12">
+                    <el-form-item label="Name of the high school " prop="education">
+                        <el-input v-model="user.education"></el-input>
+                    </el-form-item>
+                </el-col>
+
+                <el-col :sm="12">
+                    <el-form-item label="University educational title" prop="education_title">
+                        <el-select value="" v-model="user.education_title" filterable allow-create>
+                            <el-option v-for="title in options('education')" :key="title.value" :label="title.label"
+                                       :value="title.value"></el-option>
+                        </el-select>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+
+            <el-row :gutter="20" v-if="user.user_type === 'artist' ">
+
+                <el-col :sm="12">
                     <el-form-item label="Technique" prop="technique">
                         <el-select value="" v-model="user.medium" multiple filterable allow-create
                                    default-first-option placeholder="What do you work with?">
@@ -269,7 +282,7 @@
                     </el-form-item>
                 </el-col>
 
-                <el-col :sm="12" v-if="user.user_type === 'artist' ">
+                <el-col :sm="12">
                     <el-form-item label="Art Direction" prop="direction">
                         <el-select value="" v-model="user.direction" multiple filterable allow-create
                                    default-first-option placeholder="What is your Art direction?">
@@ -281,6 +294,9 @@
 
                 </el-col>
 
+            </el-row>
+
+            <el-row :gutter="20">
 
                 <el-col :sm="12" v-if="user.profile_website || user.profile_inspiration && user.user_type === 'artist'">
                     <el-form-item label="Inspiration" prop="inspiration">
@@ -288,7 +304,6 @@
                                     :editorToolbar="profileEditorToolbar"></vue-editor>
                     </el-form-item>
                 </el-col>
-
 
                 <el-col :sm="12" v-if="user.profile_website || user.profile_exhibitions && user.user_type === 'artist'">
                     <el-form-item label="Exhibitions" prop="exhibition">
@@ -336,13 +351,21 @@
         data() {
             let userNameValidator = (rule, value, callback) => {
 
-                if (value === '') {
-                    callback(new Error('Please input the password again'));
-                } else if (value !== 'test') {
-                    callback(new Error('Two inputs don\'t match!'));
-                } else {
-                    callback();
-                }
+                axios.get('/api/user/check-username/' + value)
+                    .then(response => {
+                        console.log(response.data);
+                        if (response.data) {
+                            this.user.user_name = response.data;
+
+                            callback();
+                        } else {
+                            callback(new Error('This username is already taken'));
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error.response);
+                        callback()
+                    });
             };
             return {
                 loading: false,
@@ -356,8 +379,7 @@
                         {required: true, message: 'Please enter last name', trigger: 'blur'}
                     ],
                     user_name: [
-                        // {validator: userNameValidator, trigger: ['blur', 'change']}
-                        // {required: true, message: 'user name is required'}
+                        {validator: userNameValidator, trigger: 'blur'}
                     ],
                 },
                 csrf: '',
@@ -391,10 +413,9 @@
 
         methods: {
 
-            confirmProfileUpgrade(name, price) {
-                axios.get('/api/user-add/' + name + '/' + price).then(response => {
+            confirmProfileUpgrade(name, price, period = null) {
+                axios.get('/api/user-add/' + name + '/' + price + '/' + period).then(response => {
                     console.log(response.data);
-                    // this.profileBackgroundImageDialog = false;
                     this.user = response.data.data;
 
                     this.$alert(null, response.data.message, {
@@ -477,20 +498,11 @@
                             });
                     }
                 });
-            },
-
-            checkUserName($username) {
-                if ($username) {
-                    axios.get('/api/user/check-username/' + $username).then(response => {
-                        console.log(response.data);
-                    });
-                    console.log($username);
-                }
             }
         },
         computed: {
             userName() {
-                return window.location.origin + '/' + this.user.user_name ? this.user.user_name : 'artist/' + this.user.id;
+                return window.location.origin + '/' + (this.user.user_name ? this.user.user_name : 'artist/' + this.user.id);
             }
         }
     }

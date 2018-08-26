@@ -19,7 +19,8 @@ class CreateAddsTable extends Migration
             $table->integer('artwork_id')->nullable();
             $table->string('name');
 	        $table->decimal('price', 12,2)->nullable();
-            $table->timestamps();
+	        $table->dateTime('rebill_at')->nullable();
+	        $table->timestamps();
         });
     }
 

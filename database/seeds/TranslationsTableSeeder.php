@@ -86,6 +86,13 @@ class TranslationsTableSeeder extends Seeder {
 				[ 'Illustrator', '' ],
 				[ 'Painter', 'Painter' ]
 			],
+			'education' => [
+				['High Scool Graduate', ''],
+				['Bachelor', ''],
+				['Master', ''],
+				['Professor', ''],
+				['Ph.D.', '']
+			]
 		];
 
 		foreach ( $translations as $group => $trans ) {

@@ -16153,6 +16153,22 @@ Vue.prototype.options = function (key) {
     });
 };
 
+Vue.prototype.slugify = function (string) {
+    var a = 'àáäâãåèéëêìíïîòóöôùúüûñçßÿœæŕśńṕẃǵǹḿǘẍźḧ·/_,:;';
+    var b = 'aaaaaaeeeeiiiioooouuuuncsyoarsnpwgnmuxzh------';
+    var p = new RegExp(a.split('').join('|'), 'g');
+
+    return string.toString().toLowerCase().replace(/\s+/g, '-') // Replace spaces with -
+    .replace(p, function (c) {
+        return b.charAt(a.indexOf(c));
+    }) // Replace special characters
+    .replace(/&/g, '-and-') // Replace & with 'and'
+    .replace(/[^\w\-]+/g, '') // Remove all non-word characters
+    .replace(/\-\-+/g, '-') // Replace multiple - with single -
+    .replace(/^-+/, '') // Trim - from start of text
+    .replace(/-+$/, ''); // Trim - from end of text
+};
+
 Vue.use(Vuex);
 Vue.use(__WEBPACK_IMPORTED_MODULE_0_element_ui___default.a, { locale: __WEBPACK_IMPORTED_MODULE_2_element_ui_lib_locale_lang_en___default.a });
 
@@ -20762,6 +20778,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -20772,15 +20803,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     data: function data() {
+        var _this = this;
+
         var userNameValidator = function userNameValidator(rule, value, callback) {
 
-            if (value === '') {
-                callback(new Error('Please input the password again'));
-            } else if (value !== 'test') {
-                callback(new Error('Two inputs don\'t match!'));
-            } else {
+            axios.get('/api/user/check-username/' + value).then(function (response) {
+                console.log(response.data);
+                if (response.data) {
+                    _this.user.user_name = response.data;
+
+                    callback();
+                } else {
+                    callback(new Error('This username is already taken'));
+                }
+            }).catch(function (error) {
+                console.log(error.response);
                 callback();
-            }
+            });
         };
         return {
             loading: false,
@@ -20789,10 +20828,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             rules: {
                 first_name: [{ required: true, message: 'Please enter first name', trigger: 'blur' }],
                 last_name: [{ required: true, message: 'Please enter last name', trigger: 'blur' }],
-                user_name: [
-                    // {validator: userNameValidator, trigger: ['blur', 'change']}
-                    // {required: true, message: 'user name is required'}
-                ]
+                user_name: [{ validator: userNameValidator, trigger: 'blur' }]
             },
             csrf: '',
             countries: [],
@@ -20804,7 +20840,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
     mounted: function mounted() {
-        var _this = this;
+        var _this2 = this;
 
         this.csrf = window.csrf;
 
@@ -20813,21 +20849,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
 
         axios.get('/api/countries').then(function (response) {
-            _this.countries = response.data;
+            _this2.countries = response.data;
         });
     },
 
 
     methods: {
         confirmProfileUpgrade: function confirmProfileUpgrade(name, price) {
-            var _this2 = this;
+            var _this3 = this;
 
-            axios.get('/api/user-add/' + name + '/' + price).then(function (response) {
+            var period = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+
+            axios.get('/api/user-add/' + name + '/' + price + '/' + period).then(function (response) {
                 console.log(response.data);
-                // this.profileBackgroundImageDialog = false;
-                _this2.user = response.data.data;
+                _this3.user = response.data.data;
 
-                _this2.$alert(null, response.data.message, {
+                _this3.$alert(null, response.data.message, {
                     confirmButtonText: 'OK'
                 });
                 // this.$message({
@@ -20882,40 +20919,32 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return isJPG && isLt2M;
         },
         save: function save() {
-            var _this3 = this;
+            var _this4 = this;
 
             this.$refs['profile'].validate(function (valid) {
                 if (valid) {
-                    _this3.loading = true;
-                    axios.post('/api/profile/', _this3.user).then(function (response) {
+                    _this4.loading = true;
+                    axios.post('/api/profile/', _this4.user).then(function (response) {
                         if (response.data) {
                             console.log(response.data);
-                            _this3.$message({
+                            _this4.$message({
                                 showClose: true,
                                 message: response.data.message,
                                 type: response.data.status
                             });
-                            _this3.profileSaved = true;
-                            _this3.loading = false;
+                            _this4.profileSaved = true;
+                            _this4.loading = false;
                         } else {
                             console.log(response.data);
                         }
                     });
                 }
             });
-        },
-        checkUserName: function checkUserName($username) {
-            if ($username) {
-                axios.get('/api/user/check-username/' + $username).then(function (response) {
-                    console.log(response.data);
-                });
-                console.log($username);
-            }
         }
     },
     computed: {
         userName: function userName() {
-            return window.location.origin + '/' + this.user.user_name ? this.user.user_name : 'artist/' + this.user.id;
+            return window.location.origin + '/' + (this.user.user_name ? this.user.user_name : 'artist/' + this.user.id);
         }
     }
 });
@@ -65789,7 +65818,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     },
     on: {
       "click": function($event) {
-        _vm.confirmProfileUpgrade('profile-website', 30, 'monthly')
+        _vm.confirmProfileUpgrade('profile_website', 30, 'month')
       }
     }
   }, [_vm._v("Confirm Monthly")]), _vm._v(" "), _c('el-button', {
@@ -65798,10 +65827,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     },
     on: {
       "click": function($event) {
-        _vm.confirmProfileUpgrade('profile-website', 279, 'annually')
+        _vm.confirmProfileUpgrade('profile_website', 279, 'year')
       }
     }
-  }, [_vm._v("Confirm Annually")])], 1)]), _vm._v(" "), (!_vm.user.profile_inspiration && _vm.user.user_type === 'artist') ? _c('el-button', {
+  }, [_vm._v("Confirm Annually")])], 1)]), _vm._v(" "), (!_vm.user.profile_website && !_vm.user.profile_education && _vm.user.user_type === 'artist') ? _c('el-button', {
     attrs: {
       "type": "text"
     },
@@ -65833,10 +65862,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     },
     on: {
       "click": function($event) {
-        _vm.confirmProfileUpgrade('profile-education', 1)
+        _vm.confirmProfileUpgrade('profile_education', 1)
       }
     }
-  }, [_vm._v("Confirm")])], 1)]), _vm._v(" "), (!_vm.user.profile_inspiration && _vm.user.user_type === 'artist') ? _c('el-button', {
+  }, [_vm._v("Confirm")])], 1)]), _vm._v(" "), (!_vm.user.profile_website && !_vm.user.profile_inspiration && _vm.user.user_type === 'artist') ? _c('el-button', {
     attrs: {
       "type": "text"
     },
@@ -65868,16 +65897,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     },
     on: {
       "click": function($event) {
-        _vm.confirmProfileUpgrade('profile-inspiration', 2)
+        _vm.confirmProfileUpgrade('profile_inspiration', 2)
       }
     }
-  }, [_vm._v("Confirm")])], 1)])], 1)], 1), _vm._v(" "), (_vm.user.user_type === 'artist' || _vm.user.user_type === 'gallery') ? _c('el-col', {
+  }, [_vm._v("Confirm")])], 1)])], 1)], 1), _vm._v(" "), (_vm.user.profile_website && _vm.user.user_type === 'artist') ? _c('el-col', {
     attrs: {
       "sm": 12
     }
-  }, [(_vm.user.profile_background_image) ? _c('el-form-item', {
+  }, [_c('el-form-item', {
     attrs: {
-      "label": "Upload profile background image"
+      "label": "Click on image to upload profile background image"
     }
   }, [_c('el-upload', {
     staticClass: "image-uploader",
@@ -65897,7 +65926,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "src": '/imagecache/avatar/' + _vm.user.image_url
     }
-  })])], 1) : _vm._e()], 1) : _vm._e()], 1)], 1), _vm._v(" "), _c('el-form', {
+  })])], 1)], 1) : _vm._e()], 1)], 1), _vm._v(" "), _c('el-form', {
     ref: "profile",
     attrs: {
       "label-position": "top",
@@ -65943,13 +65972,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.last_name"
     }
-  })], 1)], 1), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-col', {
-    staticStyle: {
-      "display": "none"
-    }
-  }, [_c('el-form-item', {
+  })], 1)], 1)], 1), _vm._v(" "), _c('el-row', {
     attrs: {
-      "label": "Your public username",
+      "gutter": 20
+    }
+  }, [(_vm.user.profile_website && _vm.user.user_type === 'artist') ? _c('el-col', [_c('el-form-item', {
+    attrs: {
+      "label": "Your public username ( Personal website url )",
       "prop": "user_name"
     }
   }, [_c('el-input', {
@@ -65973,7 +66002,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "href": _vm.userName,
       "target": "_blank"
     }
-  }, [_vm._v("\n                            " + _vm._s(_vm.userName) + "\n                        ")])])], 1)], 1) : _vm._e(), _vm._v(" "), _c('el-col', [_c('el-form-item', {
+  }, [_vm._v("\n                            " + _vm._s(_vm.userName) + "\n                        ")])])], 1)], 1) : _vm._e()], 1), _vm._v(" "), _c('el-row', {
+    attrs: {
+      "gutter": 20
+    }
+  }, [_c('el-col', [_c('el-form-item', {
     attrs: {
       "label": "Email",
       "prop": "email"
@@ -65993,7 +66026,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.email"
     }
-  }), _vm._v(" "), _c('change-email-form')], 1)], 1), _vm._v(" "), _c('el-col', {
+  }), _vm._v(" "), _c('change-email-form')], 1)], 1)], 1), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-row', {
+    attrs: {
+      "gutter": 20
+    }
+  }, [_c('el-col', {
     attrs: {
       "sm": 8
     }
@@ -66023,7 +66060,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "value": country.id
       }
     })
-  }))], 1)], 1), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-col', {
+  }))], 1)], 1), _vm._v(" "), _c('el-col', {
     attrs: {
       "sm": 8
     }
@@ -66053,7 +66090,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "value": country.id
       }
     })
-  }))], 1)], 1) : _vm._e(), _vm._v(" "), _c('el-col', {
+  }))], 1)], 1), _vm._v(" "), _c('el-col', {
     attrs: {
       "sm": 8
     }
@@ -66084,63 +66121,33 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "value": profession.value
       }
     })
-  }))], 1)], 1), _vm._v(" "), _c('el-col', {
+  }))], 1)], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-row', {
     attrs: {
-      "sm": 12
+      "gutter": 20
+    }
+  }, [_c('el-col', {
+    attrs: {
+      "sm": 8
     }
   }, [_c('el-form-item', {
     attrs: {
-      "label": "City",
-      "prop": "city"
+      "label": "Date of birth",
+      "prop": "dob"
     }
-  }, [_c('el-input', {
-    model: {
-      value: (_vm.user.city),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "city", $$v)
-      },
-      expression: "user.city"
-    }
-  })], 1)], 1), _vm._v(" "), _c('el-col', {
+  }, [_c('el-date-picker', {
     attrs: {
-      "sm": 12
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Postcode",
-      "prop": "postcode"
-    }
-  }, [_c('el-input', {
-    model: {
-      value: (_vm.user.postcode),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "postcode", $$v)
-      },
-      expression: "user.postcode"
-    }
-  })], 1)], 1), _vm._v(" "), _c('el-col', {
-    attrs: {
-      "sm": 12
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Address",
-      "prop": "address"
-    }
-  }, [_c('el-input', {
-    attrs: {
-      "type": "textarea",
-      "rows": 2,
-      "placeholder": "Address"
+      "type": "date",
+      "value-format": "yyyy-MM-dd",
+      "placeholder": "yyyy-mm-dd"
     },
     model: {
-      value: (_vm.user.address),
+      value: (_vm.user.dob),
       callback: function($$v) {
-        _vm.$set(_vm.user, "address", $$v)
+        _vm.$set(_vm.user, "dob", $$v)
       },
-      expression: "user.address"
+      expression: "user.dob"
     }
-  })], 1)], 1), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-col', {
+  })], 1)], 1), _vm._v(" "), _c('el-col', {
     attrs: {
       "sm": 8
     }
@@ -66172,29 +66179,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "value": "third_gender"
     }
-  }, [_vm._v("Third")])], 1)], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-col', {
-    attrs: {
-      "sm": 8
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Date of birth",
-      "prop": "dob"
-    }
-  }, [_c('el-date-picker', {
-    attrs: {
-      "type": "date",
-      "value-format": "yyyy-MM-dd",
-      "placeholder": "yyyy-mm-dd"
-    },
-    model: {
-      value: (_vm.user.dob),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "dob", $$v)
-      },
-      expression: "user.dob"
-    }
-  })], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist' || _vm.user.user_type === 'gallery') ? _c('el-col', {
+  }, [_vm._v("Third")])], 1)], 1)], 1), _vm._v(" "), _c('el-col', {
     attrs: {
       "sm": 8
     }
@@ -66211,7 +66196,69 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.phone"
     }
-  })], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.profile_education && _vm.user.user_type === 'artist') ? [_c('el-col', {
+  })], 1)], 1)], 1) : _vm._e(), _vm._v(" "), _c('el-row', {
+    attrs: {
+      "gutter": 20
+    }
+  }, [_c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "City",
+      "prop": "city"
+    }
+  }, [_c('el-input', {
+    model: {
+      value: (_vm.user.city),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "city", $$v)
+      },
+      expression: "user.city"
+    }
+  })], 1)], 1), _vm._v(" "), _c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Postcode",
+      "prop": "postcode"
+    }
+  }, [_c('el-input', {
+    model: {
+      value: (_vm.user.postcode),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "postcode", $$v)
+      },
+      expression: "user.postcode"
+    }
+  })], 1)], 1), _vm._v(" "), _c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Address",
+      "prop": "address"
+    }
+  }, [_c('el-input', {
+    attrs: {
+      "placeholder": "Address"
+    },
+    model: {
+      value: (_vm.user.address),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "address", $$v)
+      },
+      expression: "user.address"
+    }
+  })], 1)], 1)], 1), _vm._v(" "), (_vm.user.profile_website || _vm.user.profile_education && _vm.user.user_type === 'artist') ? _c('el-row', {
+    attrs: {
+      "gutter": 20
+    }
+  }, [_c('el-col', {
     attrs: {
       "sm": 12
     }
@@ -66237,7 +66284,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "label": "University educational title",
       "prop": "education_title"
     }
-  }, [_c('el-input', {
+  }, [_c('el-select', {
+    attrs: {
+      "value": "",
+      "filterable": "",
+      "allow-create": ""
+    },
     model: {
       value: (_vm.user.education_title),
       callback: function($$v) {
@@ -66245,7 +66297,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.education_title"
     }
-  })], 1)], 1)] : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-col', {
+  }, _vm._l((_vm.options('education')), function(title) {
+    return _c('el-option', {
+      key: title.value,
+      attrs: {
+        "label": title.label,
+        "value": title.value
+      }
+    })
+  }))], 1)], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-row', {
+    attrs: {
+      "gutter": 20
+    }
+  }, [_c('el-col', {
     attrs: {
       "sm": 12
     }
@@ -66278,7 +66342,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "value": medium.value
       }
     })
-  }))], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-col', {
+  }))], 1)], 1), _vm._v(" "), _c('el-col', {
     attrs: {
       "sm": 12
     }
@@ -66311,7 +66375,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "value": direction.value
       }
     })
-  }))], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.profile_website || _vm.user.profile_inspiration && _vm.user.user_type === 'artist') ? _c('el-col', {
+  }))], 1)], 1)], 1) : _vm._e(), _vm._v(" "), _c('el-row', {
+    attrs: {
+      "gutter": 20
+    }
+  }, [(_vm.user.profile_website || _vm.user.profile_inspiration && _vm.user.user_type === 'artist') ? _c('el-col', {
     attrs: {
       "sm": 12
     }
@@ -66353,7 +66421,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.exhibition"
     }
-  })], 1)], 1) : _vm._e()], 2), _vm._v(" "), _c('el-button', {
+  })], 1)], 1) : _vm._e()], 1), _vm._v(" "), _c('el-button', {
     staticStyle: {
       "margin-top": "20px"
     },

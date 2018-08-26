@@ -4,9 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Storage;
 use App\User;
-use Intervention\Image\Facades\Image;
 
 class UserController extends Controller {
 
@@ -15,16 +13,22 @@ class UserController extends Controller {
 	}
 
 	public function checkUsername( $username ) {
-		$user = User::where( 'user_name', $username )->first();
+		$username = str_slug( $username );
 
-		return $user;
+		$user = User::whereUserName( $username )->first();
+
+		if ( $user && $user->id !== auth()->user()->id ) {
+			return '';
+		} else {
+			return $username;
+		}
 	}
 
 	public function store( Request $request ) {
 
 		$user = auth()->user();
 
-		$user->update( $request->except( [ 'avatar', 'image', 'avatar_url', 'image_url' ] ) );
+		$user->update( $request->except( [ 'avatar', 'image', 'avatar_url', 'image_url', 'profile_website' ] ) );
 
 		return [ 'status' => 'success', 'message' => 'Saved', 'data' => $user ];
 	}
@@ -52,9 +56,9 @@ class UserController extends Controller {
 		}
 	}
 
-	public function destroy(Request $request) {
+	public function destroy( Request $request ) {
 
-		$user = User::findOrFail($request->id);
+		$user     = User::findOrFail( $request->id );
 		$userName = $user->name;
 		$user->forceDelete();
 

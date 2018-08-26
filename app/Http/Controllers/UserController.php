@@ -40,6 +40,8 @@ class UserController extends Controller {
 
 		$user = auth()->user();
 
+//		return $user->profile_website;
+
 		return view( 'dashboard.user.profile', compact( 'title', 'user' ) );
 	}
 

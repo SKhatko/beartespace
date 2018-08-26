@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -13,7 +14,7 @@ class User extends Authenticatable {
 
 	protected $dates = [ 'deleted_at' ];
 
-	protected $appends = [ 'avatar_url', 'image_url', 'profile_background_image' ];
+	protected $appends = [ 'avatar_url', 'image_url', 'profile_website' ];
 
 	/**
 	 * The attributes that are mass assignable.
@@ -124,13 +125,13 @@ class User extends Authenticatable {
 		}
 	}
 
-	public function deductFromBalance($price) {
+	public function deductFromBalance( $price ) {
 		$this->attributes['balance'] -= $price;
 		$this->save();
 	}
 
-	public function getProfileBackgroundImageAttribute() {
-		return $this->adds()->whereName( 'profile-background-image' )->first();
+	public function getProfileWebsiteAttribute() {
+		return $this->adds()->whereName( 'profile_website' )->where( 'rebill_at', '>', Carbon::now() )->first();
 	}
 
 	public function getMediumAttribute() {
