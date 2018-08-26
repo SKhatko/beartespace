@@ -10,7 +10,7 @@ use App\Add;
 class Artwork extends Model {
 	protected $guarded = [];
 
-	protected $appends = [ 'formatted_price', 'artwork_options' ];
+	protected $appends = [ 'formatted_price', 'artwork_options_add', 'artwork_inspiration_add', 'artwork_interior_add' ];
 
 	protected $casts = [
 		'medium'    => 'array',
@@ -24,10 +24,6 @@ class Artwork extends Model {
 		return $this->belongsTo( User::class );
 	}
 
-	public function category() {
-		return $this->belongsTo( Category::class );
-	}
-
 	public function images() {
 		return $this->hasMany( Media::class );
 	}
@@ -35,7 +31,6 @@ class Artwork extends Model {
 	public function adds() {
 		return $this->hasMany( Add::class );
 	}
-
 
 	public function scopeActive( $query ) {
 		return $query->whereStatus( '1' );
@@ -65,7 +60,15 @@ class Artwork extends Model {
 		return $this->width . ' x ' . $this->height . ' cm';
 	}
 
-	public function getArtworkOptionsAttribute() {
-		return $this->adds()->whereName( 'artwork_options' )->first();
+	public function getArtworkOptionsAddAttribute() {
+		return $this->adds()->whereName( 'artwork_options_add' )->first();
+	}
+
+	public function getArtworkInspirationAddAttribute() {
+		return $this->adds()->whereName( 'artwork_inspiration_add' )->first();
+	}
+
+	public function getArtworkInteriorAddAttribute() {
+		return $this->adds()->whereName( 'artwork_interior_add' )->get();
 	}
 }

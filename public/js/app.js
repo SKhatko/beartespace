@@ -19592,6 +19592,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -19614,7 +19634,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 color: [],
                 images: []
             },
-            artworkOptionsDialog: false,
+            artworkOptionsAddDialog: false,
+            artworkInspirationAddDialog: false,
             updateArtworkRules: {
                 title: [{ required: true, message: 'Please input title of artwork', trigger: ['blur', 'change'] }],
                 category: [{ required: true, message: 'Please select category', trigger: ['blur', 'change'] }],
@@ -19648,9 +19669,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         if (this.user_) {
             this.user = JSON.parse(this.user_);
         }
-
-        console.log(this.user.profile_website);
-        console.log(this.artwork.artwork_options);
 
         console.log(this.$refs['artwork']);
     },
@@ -67000,12 +67018,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })], 1)], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.artwork_) ? [_c('el-dialog', {
     attrs: {
       "title": "Upgrade Your Artwork",
-      "visible": _vm.artworkOptionsDialog,
+      "visible": _vm.artworkOptionsAddDialog,
       "width": "30%"
     },
     on: {
       "update:visible": function($event) {
-        _vm.artworkOptionsDialog = $event
+        _vm.artworkOptionsAddDialog = $event
       }
     }
   }, [_c('p', [_vm._v("We offer you to give more descriptions for your artwork, so customers can find your artwork by medium (material), orientation, art direction or even basic colors.")]), _vm._v(" "), _c('p', [_vm._v("Add more search options for 1 EUR")]), _vm._v(" "), _c('span', {
@@ -67020,19 +67038,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     },
     on: {
       "click": function($event) {
-        _vm.confirmArtworkUpgrade('artwork_options', 1)
+        _vm.confirmArtworkUpgrade('artwork_options_add', 1)
       }
     }
-  }, [_vm._v("Confirm")])], 1)]), _vm._v(" "), (!!_vm.user.profile_website || !_vm.artwork.artwork_options) ? _c('el-button', {
+  }, [_vm._v("Confirm")])], 1)]), _vm._v(" "), (!!_vm.user.profile_website || !_vm.artwork.artwork_options_add) ? _c('el-button', {
     attrs: {
       "type": "text"
     },
     on: {
       "click": function($event) {
-        _vm.artworkOptionsDialog = true
+        _vm.artworkOptionsAddDialog = true
       }
     }
-  }, [_vm._v("\n                Add medium, orientation, art direction to attract more customers\n            ")]) : _vm._e(), _vm._v(" "), (_vm.user.profile_website || _vm.artwork.artwork_options) ? _c('el-row', {
+  }, [_vm._v("\n                Add medium, orientation, art direction to attract more customers\n            ")]) : _vm._e(), _vm._v(" "), (_vm.user.profile_website || _vm.artwork.artwork_options_add) ? _c('el-row', {
     attrs: {
       "gutter": 20
     }
@@ -67220,7 +67238,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "artwork.description"
     }
-  })], 1)], 1), _vm._v(" "), _c('el-col', {
+  })], 1)], 1), _vm._v(" "), (_vm.user.profile_website || _vm.artwork.artwork_inspiration_add) ? _c('el-col', {
     attrs: {
       "sm": 12
     }
@@ -67241,7 +67259,42 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "artwork.inspiration"
     }
-  })], 1)], 1)], 1), _vm._v(" "), _c('el-row', {
+  })], 1)], 1) : _vm._e()], 1), _vm._v(" "), _c('el-dialog', {
+    attrs: {
+      "title": "Upgrade Your Artwork",
+      "visible": _vm.artworkInspirationAddDialog,
+      "width": "30%"
+    },
+    on: {
+      "update:visible": function($event) {
+        _vm.artworkInspirationAddDialog = $event
+      }
+    }
+  }, [_c('p', [_vm._v("Buyers love stories, attract them to your art, show your art in the best possible way.")]), _vm._v(" "), _c('p', [_vm._v("Sent us keywords and we can write a short story about your work to convince others why is so unique. The description of your inspiration is best to write in English.")]), _vm._v(" "), _c('p', [_vm._v("Make your artwork more attractive for  1 EUR")]), _vm._v(" "), _c('span', {
+    staticClass: "dialog-footer",
+    attrs: {
+      "slot": "footer"
+    },
+    slot: "footer"
+  }, [_c('el-button', {
+    attrs: {
+      "type": "primary"
+    },
+    on: {
+      "click": function($event) {
+        _vm.confirmArtworkUpgrade('artwork_inspiration_add', 1)
+      }
+    }
+  }, [_vm._v("Confirm")])], 1)]), _vm._v(" "), (!!_vm.user.profile_website || !_vm.artwork.artwork_inspiration_add) ? _c('el-button', {
+    attrs: {
+      "type": "text"
+    },
+    on: {
+      "click": function($event) {
+        _vm.artworkInspirationAddDialog = true
+      }
+    }
+  }, [_vm._v("\n                Add inspiration of your artwork to attract more customers\n            ")]) : _vm._e(), _vm._v(" "), _c('el-row', {
     attrs: {
       "gutter": 20
     }

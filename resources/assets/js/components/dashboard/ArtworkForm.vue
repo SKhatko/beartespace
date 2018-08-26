@@ -82,20 +82,20 @@
                 <!--    Medium, color, theme, art direction -->
                 <el-dialog
                         title="Upgrade Your Artwork"
-                        :visible.sync="artworkOptionsDialog"
+                        :visible.sync="artworkOptionsAddDialog"
                         width="30%">
                     <p>We offer you to give more descriptions for your artwork, so customers can find your artwork by medium (material), orientation, art direction or even basic colors.</p>
                     <p>Add more search options for 1 EUR</p>
                     <span slot="footer" class="dialog-footer">
-                <el-button type="primary" @click="confirmArtworkUpgrade('artwork_options', 1)">Confirm</el-button>
+                <el-button type="primary" @click="confirmArtworkUpgrade('artwork_options_add', 1)">Confirm</el-button>
               </span>
                 </el-dialog>
 
-                <el-button type="text" @click="artworkOptionsDialog = true" v-if="!!user.profile_website || !artwork.artwork_options">
+                <el-button type="text" @click="artworkOptionsAddDialog = true" v-if="!!user.profile_website || !artwork.artwork_options_add">
                     Add medium, orientation, art direction to attract more customers
                 </el-button>
 
-                <el-row :gutter="20" v-if="user.profile_website || artwork.artwork_options">
+                <el-row :gutter="20" v-if="user.profile_website || artwork.artwork_options_add">
                     <el-col :sm="6">
                         <el-form-item label="Medium">
                             <el-select value="" v-model="artwork.medium" multiple filterable allow-create
@@ -156,7 +156,8 @@
                             </el-input>
                         </el-form-item>
                     </el-col>
-                    <el-col :sm="12">
+
+                    <el-col :sm="12" v-if="user.profile_website || artwork.artwork_inspiration_add">
                         <el-form-item label="Inspiration">
                             <el-input
                                     type="textarea"
@@ -166,7 +167,26 @@
                             </el-input>
                         </el-form-item>
                     </el-col>
+
                 </el-row>
+
+
+                <el-dialog
+                        title="Upgrade Your Artwork"
+                        :visible.sync="artworkInspirationAddDialog"
+                        width="30%">
+                    <p>Buyers love stories, attract them to your art, show your art in the best possible way.</p>
+                    <p>Sent us keywords and we can write a short story about your work to convince others why is so unique. The description of your inspiration is best to write in English.</p>
+                    <p>Make your artwork more attractive for  1 EUR</p>
+                    <span slot="footer" class="dialog-footer">
+                <el-button type="primary" @click="confirmArtworkUpgrade('artwork_inspiration_add', 1)">Confirm</el-button>
+              </span>
+                </el-dialog>
+
+                <el-button type="text" @click="artworkInspirationAddDialog = true" v-if="!!user.profile_website || !artwork.artwork_inspiration_add">
+                    Add inspiration of your artwork to attract more customers
+                </el-button>
+
 
                 <!--  Date of compleation, price -->
                 <el-row :gutter="20">
@@ -300,7 +320,8 @@
                     color: [],
                     images: [],
                 },
-                artworkOptionsDialog: false,
+                artworkOptionsAddDialog: false,
+                artworkInspirationAddDialog: false,
                 updateArtworkRules: {
                     title: [
                         {required: true, message: 'Please input title of artwork', trigger: ['blur', 'change']},
@@ -356,9 +377,6 @@
             if (this.user_) {
                 this.user = JSON.parse(this.user_);
             }
-
-            console.log(this.user.profile_website);
-            console.log(this.artwork.artwork_options);
 
             console.log(this.$refs['artwork']);
 
