@@ -51,7 +51,7 @@
                                 <el-button type="success"
                                            @click="confirmProfileUpgrade('profile_website', 30, 'month')">Confirm Monthly</el-button>
                                 <el-button type="primary"
-                                           @click="confirmProfileUpgrade('profile_website', 279, 'year')">Confirm Annually</el-button>
+                                           @click="confirmProfileUpgrade('profile_website', 279, 'year')">Annually</el-button>
                               </span>
                         </el-dialog>
 
@@ -194,7 +194,8 @@
                 </el-col>
                 <el-col :sm="8">
                     <el-form-item label="Profession" prop="profession">
-                        <el-select value="" v-model="user.profession" multiple filterable allow-create default-first-option
+                        <el-select value="" v-model="user.profession" multiple filterable allow-create
+                                   default-first-option
                                    placeholder="What is your profession?">
                             <el-option v-for="profession in options('profession')" :key="profession.value"
                                        :label="profession.label"
@@ -316,7 +317,6 @@
             </el-row>
 
 
-
             <el-row :gutter="20">
 
                 <el-col :sm="12" v-if="user.profile_website || user.profile_inspiration && user.user_type === 'artist'">
@@ -372,21 +372,26 @@
         data() {
             let userNameValidator = (rule, value, callback) => {
 
-                axios.get('/api/user/check-username/' + value)
-                    .then(response => {
-                        console.log(response.data);
-                        if (response.data) {
-                            this.user.user_name = response.data;
+                if (!value) {
+                    callback();
+                } else {
+                    axios.get('/api/user/check-username/' + value)
+                        .then(response => {
+                            console.log(response.data);
+                            if (response.data) {
+                                this.user.user_name = response.data;
 
-                            callback();
-                        } else {
-                            callback(new Error('This username is already taken'));
-                        }
-                    })
-                    .catch(error => {
-                        console.log(error.response);
-                        callback()
-                    });
+                                callback();
+                            } else {
+                                callback(new Error('This username is already taken'));
+                            }
+                        })
+                        .catch(error => {
+                            console.log(error.response);
+                            callback()
+                        });
+                }
+
             };
             return {
                 loading: false,

@@ -20828,19 +20828,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         var userNameValidator = function userNameValidator(rule, value, callback) {
 
-            axios.get('/api/user/check-username/' + value).then(function (response) {
-                console.log(response.data);
-                if (response.data) {
-                    _this.user.user_name = response.data;
-
-                    callback();
-                } else {
-                    callback(new Error('This username is already taken'));
-                }
-            }).catch(function (error) {
-                console.log(error.response);
+            if (!value) {
                 callback();
-            });
+            } else {
+                axios.get('/api/user/check-username/' + value).then(function (response) {
+                    console.log(response.data);
+                    if (response.data) {
+                        _this.user.user_name = response.data;
+
+                        callback();
+                    } else {
+                        callback(new Error('This username is already taken'));
+                    }
+                }).catch(function (error) {
+                    console.log(error.response);
+                    callback();
+                });
+            }
         };
         return {
             loading: false,
@@ -65855,7 +65859,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.confirmProfileUpgrade('profile_website', 279, 'year')
       }
     }
-  }, [_vm._v("Confirm Annually")])], 1)]), _vm._v(" "), (!_vm.user.profile_website && !_vm.user.profile_education && _vm.user.user_type === 'artist') ? _c('el-button', {
+  }, [_vm._v("Annually")])], 1)]), _vm._v(" "), (!_vm.user.profile_website && !_vm.user.profile_education && _vm.user.user_type === 'artist') ? _c('el-button', {
     attrs: {
       "type": "text"
     },

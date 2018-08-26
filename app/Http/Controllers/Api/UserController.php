@@ -12,7 +12,11 @@ class UserController extends Controller {
 		return auth()->user();
 	}
 
-	public function checkUsername( $username ) {
+	public function checkUsername( $username = null) {
+
+		if($username) {
+
+		}
 		$username = str_slug( $username );
 
 		$user = User::whereUserName( $username )->first();
