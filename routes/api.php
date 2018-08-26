@@ -19,7 +19,7 @@ Route::group( [ 'middleware' => 'auth:api' ], function () {
 	Route::post( 'settings', 'Api\SettingController@update' );
 	Route::post( 'translations', 'Api\TranslationController@update' );
 	Route::post( 'languages', 'Api\LanguageController@store' );
-	Route::post( 'profile', 'Api\UserController@store' );
+	Route::post( 'profile', 'Api\UserController@update' );
 	Route::post( 'artwork', 'Api\ArtworkController@store' );
 	Route::post( 'pages', 'Api\PageController@store' );
 

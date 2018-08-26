@@ -29,7 +29,7 @@ class UsersTableSeeder extends Seeder {
 				'email'            => 'support@beartespace.com',
 				'user_name'        => 'admin',
 				'password'         => bcrypt( '123456' ),
-				'gender'           => 'third_gender',
+				'gender'           => 'third',
 				'activation_token' => str_random( 60 ),
 				'user_type'        => 'admin',
 				'email_verified'   => true,

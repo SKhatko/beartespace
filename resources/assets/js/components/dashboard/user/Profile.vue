@@ -25,7 +25,7 @@
                                 accept="image/*"
                                 :on-success="handleAvatarSuccess"
                                 :before-upload="beforeAvatarUpload">
-                            <img :src="'/imagecache/avatar/' + user.avatar_url" class="avatar">
+                            <img v-if="user.avatar_url" :src="'/imagecache/avatar/' + user.avatar_url" class="avatar">
                         </el-upload>
 
                         <el-button type="text" @click="profileWebsiteDialog = true"
@@ -148,12 +148,17 @@
 
 
             <el-row :gutter="20">
-                <el-col>
-                    <el-form-item label="Email" prop="email">
+                <el-col :sm="8">
+                    <el-form-item prop="email">
+                        <span slot="label">Email <change-email-form></change-email-form></span>
                         <el-input v-model="user.email" disabled style="max-width: 290px;margin-right: 20px;"></el-input>
+                    </el-form-item>
+                </el-col>
 
-                        <change-email-form></change-email-form>
-
+                <el-col :sm="8" v-if="user.user_type === 'artist'">
+                    <el-form-item label="Optional Email for client communication" prop="optional_email">
+                        <el-input type="email" v-model="user.optional_email"
+                                  style="max-width: 290px;margin-right: 20px;"></el-input>
                     </el-form-item>
                 </el-col>
             </el-row>
@@ -189,7 +194,7 @@
                 </el-col>
                 <el-col :sm="8">
                     <el-form-item label="Profession" prop="profession">
-                        <el-select value="" v-model="user.profession" filterable default-first-option
+                        <el-select value="" v-model="user.profession" multiple filterable allow-create default-first-option
                                    placeholder="What is your profession?">
                             <el-option v-for="profession in options('profession')" :key="profession.value"
                                        :label="profession.label"
@@ -199,68 +204,14 @@
                 </el-col>
             </el-row>
 
-
-            <el-row :gutter="20" v-if="user.user_type === 'artist'">
-
-                <el-col :sm="8">
-                    <el-form-item label="Date of birth" prop="dob">
-                        <el-date-picker
-                                v-model="user.dob"
-                                type="date"
-                                value-format="yyyy-MM-dd"
-                                placeholder="yyyy-mm-dd">
-                        </el-date-picker>
-                    </el-form-item>
-                </el-col>
-
-                <el-col :sm="8">
-                    <el-form-item label="Gender" prop="gender">
-                        <el-select value="user.gender" v-model="user.gender">
-                            <el-option value="male">Male</el-option>
-                            <el-option value="female">Femail</el-option>
-                            <el-option value="third_gender">Third</el-option>
-                        </el-select>
-                    </el-form-item>
-                </el-col>
-
-                <el-col :sm="8">
-                    <el-form-item label="Phone" prop="phone">
-                        <el-input v-model="user.phone"></el-input>
-                    </el-form-item>
-                </el-col>
-
-            </el-row>
-
-            <el-row :gutter="20">
-                <el-col :sm="8">
-                    <el-form-item label="City" prop="city">
-                        <el-input v-model="user.city"></el-input>
-                    </el-form-item>
-                </el-col>
-
-                <el-col :sm="8">
-                    <el-form-item label="Postcode" prop="postcode">
-                        <el-input v-model="user.postcode"></el-input>
-                    </el-form-item>
-                </el-col>
-
-                <el-col :sm="8">
-                    <el-form-item label="Address" prop="address">
-                        <el-input placeholder="Address" v-model="user.address">
-                        </el-input>
-                    </el-form-item>
-                </el-col>
-            </el-row>
-
-
             <el-row :gutter="20" v-if="user.profile_website || user.profile_education && user.user_type === 'artist' ">
-                <el-col :sm="12">
-                    <el-form-item label="Name of the high school " prop="education">
+                <el-col :sm="8">
+                    <el-form-item label="Name of the last finished school " prop="education">
                         <el-input v-model="user.education"></el-input>
                     </el-form-item>
                 </el-col>
 
-                <el-col :sm="12">
+                <el-col :sm="8">
                     <el-form-item label="University educational title" prop="education_title">
                         <el-select value="" v-model="user.education_title" filterable allow-create>
                             <el-option v-for="title in options('education')" :key="title.value" :label="title.label"
@@ -268,6 +219,17 @@
                         </el-select>
                     </el-form-item>
                 </el-col>
+
+                <el-col :sm="8">
+                    <el-form-item label="Skill origin" prop="education_born">
+                        <el-switch
+                                v-model="user.education_born"
+                                active-text="Natural Born Artist"
+                                inactive-text="Educated Artist">
+                        </el-switch>
+                    </el-form-item>
+                </el-col>
+
             </el-row>
 
             <el-row :gutter="20" v-if="user.user_type === 'artist' ">
@@ -295,6 +257,65 @@
                 </el-col>
 
             </el-row>
+
+            <el-row :gutter="20" v-if="user.user_type === 'artist'">
+
+                <el-col :sm="8">
+                    <el-form-item label="Date of birth" prop="dob">
+                        <el-date-picker
+                                v-model="user.dob"
+                                type="date"
+                                value-format="yyyy-MM-dd"
+                                placeholder="yyyy-mm-dd">
+                        </el-date-picker>
+                    </el-form-item>
+                </el-col>
+
+                <el-col :sm="8">
+                    <el-form-item label="Gender" prop="gender">
+                        <el-select value="user.gender" v-model="user.gender">
+                            <el-option v-for="gender in options('gender')" :key="gender.value" :label="gender.label"
+                                       :value="gender.value"></el-option>
+                        </el-select>
+                    </el-form-item>
+                </el-col>
+
+                <el-col :sm="8">
+                    <el-form-item label="Phone" prop="phone">
+                        <el-input v-model="user.phone"></el-input>
+                    </el-form-item>
+                </el-col>
+
+            </el-row>
+
+            <el-row :gutter="20">
+                <el-col :sm="8">
+                    <el-form-item label="City" prop="city">
+                        <el-input v-model="user.city"></el-input>
+                    </el-form-item>
+                </el-col>
+
+                <el-col :sm="8">
+                    <el-form-item label="Region" prop="region">
+                        <el-input v-model="user.region"></el-input>
+                    </el-form-item>
+                </el-col>
+
+                <el-col :sm="8">
+                    <el-form-item label="Postcode" prop="postcode">
+                        <el-input v-model="user.postcode"></el-input>
+                    </el-form-item>
+                </el-col>
+
+                <el-col :sm="8">
+                    <el-form-item label="Address" prop="address">
+                        <el-input placeholder="Address" v-model="user.address">
+                        </el-input>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+
+
 
             <el-row :gutter="20">
 
@@ -378,6 +399,9 @@
                     last_name: [
                         {required: true, message: 'Please enter last name', trigger: 'blur'}
                     ],
+                    optional_email: [
+                        {type: 'email', message: 'Email is not valid', trigger: 'blur'}
+                    ],
                     user_name: [
                         {validator: userNameValidator, trigger: 'blur'}
                     ],
@@ -420,6 +444,9 @@
 
                     this.$alert(null, response.data.message, {
                         confirmButtonText: 'OK',
+                        callback: action => {
+                            window.location.reload();
+                        }
                     });
                     // this.$message({
                     //     showClose: true,

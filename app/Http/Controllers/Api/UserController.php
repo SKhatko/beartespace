@@ -24,11 +24,11 @@ class UserController extends Controller {
 		}
 	}
 
-	public function store( Request $request ) {
+	public function update( Request $request ) {
 
 		$user = auth()->user();
 
-		$user->update( $request->except( [ 'avatar', 'image', 'avatar_url', 'image_url', 'profile_website' ] ) );
+		$user->update( $request->except( [ 'avatar', 'image', 'avatar_url', 'image_url', 'profile_website', 'profile_education', 'profile_inspiration'] ) );
 
 		return [ 'status' => 'success', 'message' => 'Saved', 'data' => $user ];
 	}

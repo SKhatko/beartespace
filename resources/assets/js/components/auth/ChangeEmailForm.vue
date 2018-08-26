@@ -1,12 +1,12 @@
 <template>
 
     <span>
-        <el-button type="text" @click="showChangeEmailForm = true">Change Email</el-button>
+        <el-button type="text" @click="showChangeEmailForm = true">change <i class="el-icon-edit-outline"></i></el-button>
 
         <el-dialog
                 title="Change Email"
                 :visible.sync="showChangeEmailForm"
-                width="30%">
+                width="290px">
             <el-form :model="newEmail" :rules="newEmailRules" ref="newEmail">
 
                 <errors></errors>
@@ -67,7 +67,7 @@
                         {type: 'email', required: true, message: 'Please enter email', trigger: 'blur'}
                     ],
                     email_confirmation: [
-                        {validator: emailValidator, trigger: 'blur'}
+                        {required: true, validator: emailValidator, trigger: 'blur'}
                     ],
 
                     password: [

@@ -14,7 +14,7 @@ class User extends Authenticatable {
 
 	protected $dates = [ 'deleted_at' ];
 
-	protected $appends = [ 'avatar_url', 'image_url', 'profile_website' ];
+	protected $appends = [ 'avatar_url', 'image_url', 'profile_website', 'profile_education', 'profile_inspiration' ];
 
 	/**
 	 * The attributes that are mass assignable.
@@ -34,8 +34,9 @@ class User extends Authenticatable {
 	];
 
 	protected $casts = [
-		'medium'    => 'array',
-		'direction' => 'array',
+		'profession'     => 'array',
+		'medium'         => 'array',
+		'direction'      => 'array',
 	];
 
 	public function country() {
@@ -125,6 +126,10 @@ class User extends Authenticatable {
 		}
 	}
 
+	public function getEducationBornAttribute($value) {
+		return !!$value;
+	}
+
 	public function deductFromBalance( $price ) {
 		$this->attributes['balance'] -= $price;
 		$this->save();
@@ -134,9 +139,25 @@ class User extends Authenticatable {
 		return $this->adds()->whereName( 'profile_website' )->where( 'rebill_at', '>', Carbon::now() )->first();
 	}
 
+	public function getProfileEducationAttribute() {
+		return $this->adds()->whereName( 'profile_education' )->first();
+	}
+
+	public function getProfileInspirationAttribute() {
+		return $this->adds()->whereName('profile_inspiration')->first();
+	}
+
 	public function getMediumAttribute() {
 		if ( $this->attributes['medium'] ) {
 			return json_decode( $this->attributes['medium'] );
+		} else {
+			return [];
+		}
+	}
+
+	public function getProfessionAttribute() {
+		if ( $this->attributes['profession'] ) {
+			return json_decode( $this->attributes['profession'] );
 		} else {
 			return [];
 		}

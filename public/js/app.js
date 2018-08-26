@@ -20793,6 +20793,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -20828,6 +20849,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             rules: {
                 first_name: [{ required: true, message: 'Please enter first name', trigger: 'blur' }],
                 last_name: [{ required: true, message: 'Please enter last name', trigger: 'blur' }],
+                optional_email: [{ type: 'email', message: 'Email is not valid', trigger: 'blur' }],
                 user_name: [{ validator: userNameValidator, trigger: 'blur' }]
             },
             csrf: '',
@@ -20865,7 +20887,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this3.user = response.data.data;
 
                 _this3.$alert(null, response.data.message, {
-                    confirmButtonText: 'OK'
+                    confirmButtonText: 'OK',
+                    callback: function callback(action) {
+                        window.location.reload();
+                    }
                 });
                 // this.$message({
                 //     showClose: true,
@@ -65776,12 +65801,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "on-success": _vm.handleAvatarSuccess,
       "before-upload": _vm.beforeAvatarUpload
     }
-  }, [_c('img', {
+  }, [(_vm.user.avatar_url) ? _c('img', {
     staticClass: "avatar",
     attrs: {
       "src": '/imagecache/avatar/' + _vm.user.avatar_url
     }
-  })]), _vm._v(" "), (!_vm.user.profile_website && _vm.user.user_type === 'artist') ? _c('el-button', {
+  }) : _vm._e()]), _vm._v(" "), (!_vm.user.profile_website && _vm.user.user_type === 'artist') ? _c('el-button', {
     attrs: {
       "type": "text"
     },
@@ -66006,12 +66031,20 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "gutter": 20
     }
-  }, [_c('el-col', [_c('el-form-item', {
+  }, [_c('el-col', {
     attrs: {
-      "label": "Email",
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
       "prop": "email"
     }
-  }, [_c('el-input', {
+  }, [_c('span', {
+    attrs: {
+      "slot": "label"
+    },
+    slot: "label"
+  }, [_vm._v("Email "), _c('change-email-form')], 1), _vm._v(" "), _c('el-input', {
     staticStyle: {
       "max-width": "290px",
       "margin-right": "20px"
@@ -66026,7 +66059,31 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.email"
     }
-  }), _vm._v(" "), _c('change-email-form')], 1)], 1)], 1), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-row', {
+  })], 1)], 1), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Optional Email for client communication",
+      "prop": "optional_email"
+    }
+  }, [_c('el-input', {
+    staticStyle: {
+      "max-width": "290px",
+      "margin-right": "20px"
+    },
+    attrs: {
+      "type": "email"
+    },
+    model: {
+      value: (_vm.user.optional_email),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "optional_email", $$v)
+      },
+      expression: "user.optional_email"
+    }
+  })], 1)], 1) : _vm._e()], 1), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-row', {
     attrs: {
       "gutter": 20
     }
@@ -66102,7 +66159,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('el-select', {
     attrs: {
       "value": "",
+      "multiple": "",
       "filterable": "",
+      "allow-create": "",
       "default-first-option": "",
       "placeholder": "What is your profession?"
     },
@@ -66121,7 +66180,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "value": profession.value
       }
     })
-  }))], 1)], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-row', {
+  }))], 1)], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.profile_website || _vm.user.profile_education && _vm.user.user_type === 'artist') ? _c('el-row', {
     attrs: {
       "gutter": 20
     }
@@ -66131,140 +66190,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('el-form-item', {
     attrs: {
-      "label": "Date of birth",
-      "prop": "dob"
-    }
-  }, [_c('el-date-picker', {
-    attrs: {
-      "type": "date",
-      "value-format": "yyyy-MM-dd",
-      "placeholder": "yyyy-mm-dd"
-    },
-    model: {
-      value: (_vm.user.dob),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "dob", $$v)
-      },
-      expression: "user.dob"
-    }
-  })], 1)], 1), _vm._v(" "), _c('el-col', {
-    attrs: {
-      "sm": 8
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Gender",
-      "prop": "gender"
-    }
-  }, [_c('el-select', {
-    attrs: {
-      "value": "user.gender"
-    },
-    model: {
-      value: (_vm.user.gender),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "gender", $$v)
-      },
-      expression: "user.gender"
-    }
-  }, [_c('el-option', {
-    attrs: {
-      "value": "male"
-    }
-  }, [_vm._v("Male")]), _vm._v(" "), _c('el-option', {
-    attrs: {
-      "value": "female"
-    }
-  }, [_vm._v("Femail")]), _vm._v(" "), _c('el-option', {
-    attrs: {
-      "value": "third_gender"
-    }
-  }, [_vm._v("Third")])], 1)], 1)], 1), _vm._v(" "), _c('el-col', {
-    attrs: {
-      "sm": 8
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Phone",
-      "prop": "phone"
-    }
-  }, [_c('el-input', {
-    model: {
-      value: (_vm.user.phone),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "phone", $$v)
-      },
-      expression: "user.phone"
-    }
-  })], 1)], 1)], 1) : _vm._e(), _vm._v(" "), _c('el-row', {
-    attrs: {
-      "gutter": 20
-    }
-  }, [_c('el-col', {
-    attrs: {
-      "sm": 8
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "City",
-      "prop": "city"
-    }
-  }, [_c('el-input', {
-    model: {
-      value: (_vm.user.city),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "city", $$v)
-      },
-      expression: "user.city"
-    }
-  })], 1)], 1), _vm._v(" "), _c('el-col', {
-    attrs: {
-      "sm": 8
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Postcode",
-      "prop": "postcode"
-    }
-  }, [_c('el-input', {
-    model: {
-      value: (_vm.user.postcode),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "postcode", $$v)
-      },
-      expression: "user.postcode"
-    }
-  })], 1)], 1), _vm._v(" "), _c('el-col', {
-    attrs: {
-      "sm": 8
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Address",
-      "prop": "address"
-    }
-  }, [_c('el-input', {
-    attrs: {
-      "placeholder": "Address"
-    },
-    model: {
-      value: (_vm.user.address),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "address", $$v)
-      },
-      expression: "user.address"
-    }
-  })], 1)], 1)], 1), _vm._v(" "), (_vm.user.profile_website || _vm.user.profile_education && _vm.user.user_type === 'artist') ? _c('el-row', {
-    attrs: {
-      "gutter": 20
-    }
-  }, [_c('el-col', {
-    attrs: {
-      "sm": 12
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Name of the high school ",
+      "label": "Name of the last finished school ",
       "prop": "education"
     }
   }, [_c('el-input', {
@@ -66277,7 +66203,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1)], 1), _vm._v(" "), _c('el-col', {
     attrs: {
-      "sm": 12
+      "sm": 8
     }
   }, [_c('el-form-item', {
     attrs: {
@@ -66305,7 +66231,28 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "value": title.value
       }
     })
-  }))], 1)], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-row', {
+  }))], 1)], 1), _vm._v(" "), _c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Skill origin",
+      "prop": "education_born"
+    }
+  }, [_c('el-switch', {
+    attrs: {
+      "active-text": "Natural Born Artist",
+      "inactive-text": "Educated Artist"
+    },
+    model: {
+      value: (_vm.user.education_born),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "education_born", $$v)
+      },
+      expression: "user.education_born"
+    }
+  })], 1)], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-row', {
     attrs: {
       "gutter": 20
     }
@@ -66375,7 +66322,153 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "value": direction.value
       }
     })
-  }))], 1)], 1)], 1) : _vm._e(), _vm._v(" "), _c('el-row', {
+  }))], 1)], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-row', {
+    attrs: {
+      "gutter": 20
+    }
+  }, [_c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Date of birth",
+      "prop": "dob"
+    }
+  }, [_c('el-date-picker', {
+    attrs: {
+      "type": "date",
+      "value-format": "yyyy-MM-dd",
+      "placeholder": "yyyy-mm-dd"
+    },
+    model: {
+      value: (_vm.user.dob),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "dob", $$v)
+      },
+      expression: "user.dob"
+    }
+  })], 1)], 1), _vm._v(" "), _c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Gender",
+      "prop": "gender"
+    }
+  }, [_c('el-select', {
+    attrs: {
+      "value": "user.gender"
+    },
+    model: {
+      value: (_vm.user.gender),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "gender", $$v)
+      },
+      expression: "user.gender"
+    }
+  }, _vm._l((_vm.options('gender')), function(gender) {
+    return _c('el-option', {
+      key: gender.value,
+      attrs: {
+        "label": gender.label,
+        "value": gender.value
+      }
+    })
+  }))], 1)], 1), _vm._v(" "), _c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Phone",
+      "prop": "phone"
+    }
+  }, [_c('el-input', {
+    model: {
+      value: (_vm.user.phone),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "phone", $$v)
+      },
+      expression: "user.phone"
+    }
+  })], 1)], 1)], 1) : _vm._e(), _vm._v(" "), _c('el-row', {
+    attrs: {
+      "gutter": 20
+    }
+  }, [_c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "City",
+      "prop": "city"
+    }
+  }, [_c('el-input', {
+    model: {
+      value: (_vm.user.city),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "city", $$v)
+      },
+      expression: "user.city"
+    }
+  })], 1)], 1), _vm._v(" "), _c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Region",
+      "prop": "region"
+    }
+  }, [_c('el-input', {
+    model: {
+      value: (_vm.user.region),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "region", $$v)
+      },
+      expression: "user.region"
+    }
+  })], 1)], 1), _vm._v(" "), _c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Postcode",
+      "prop": "postcode"
+    }
+  }, [_c('el-input', {
+    model: {
+      value: (_vm.user.postcode),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "postcode", $$v)
+      },
+      expression: "user.postcode"
+    }
+  })], 1)], 1), _vm._v(" "), _c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Address",
+      "prop": "address"
+    }
+  }, [_c('el-input', {
+    attrs: {
+      "placeholder": "Address"
+    },
+    model: {
+      value: (_vm.user.address),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "address", $$v)
+      },
+      expression: "user.address"
+    }
+  })], 1)], 1)], 1), _vm._v(" "), _c('el-row', {
     attrs: {
       "gutter": 20
     }
@@ -69976,7 +70069,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             passwordType: 'password',
             newEmailRules: {
                 email: [{ type: 'email', required: true, message: 'Please enter email', trigger: 'blur' }],
-                email_confirmation: [{ validator: emailValidator, trigger: 'blur' }],
+                email_confirmation: [{ required: true, validator: emailValidator, trigger: 'blur' }],
 
                 password: [{ required: true, message: 'Please enter password', trigger: 'blur' }]
             }
@@ -70029,11 +70122,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.showChangeEmailForm = true
       }
     }
-  }, [_vm._v("Change Email")]), _vm._v(" "), _c('el-dialog', {
+  }, [_vm._v("change "), _c('i', {
+    staticClass: "el-icon-edit-outline"
+  })]), _vm._v(" "), _c('el-dialog', {
     attrs: {
       "title": "Change Email",
       "visible": _vm.showChangeEmailForm,
-      "width": "30%"
+      "width": "290px"
     },
     on: {
       "update:visible": function($event) {

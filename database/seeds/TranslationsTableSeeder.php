@@ -84,7 +84,8 @@ class TranslationsTableSeeder extends Seeder {
 				[ 'Sculptor', 'Sculpturer' ],
 				[ 'Cartoonist', '' ],
 				[ 'Illustrator', '' ],
-				[ 'Painter', 'Painter' ]
+				[ 'Painter', 'Painter' ],
+				['Academic teacher', '']
 			],
 			'education' => [
 				['High Scool Graduate', ''],
@@ -92,6 +93,11 @@ class TranslationsTableSeeder extends Seeder {
 				['Master', ''],
 				['Professor', ''],
 				['Ph.D.', '']
+			],
+			'gender' => [
+				['Male', 'Man'],
+				['Female', 'Kwine'],
+				['Third', '']
 			]
 		];
 
