@@ -5,10 +5,10 @@
         <div class="app-footer-panel">
             <div class="app-footer-logo">
                 <a href="{{ route('home') }}">
-                    <img src="/images/logo-100.png" title="BeArteSpace" alt="BeArteSpace logo"/>
+                    <img src="/imagecache/height-80/logo.png" title="BeArteSpace" alt="BeArteSpace logo"/>
                 </a>
                 <a href="http://bearte.org/">
-                    <img src="/images/bearte-gallery-logo-100.png" title="BeArteSpace"
+                    <img src="/imagecache/height-80/bearte-gallery-logo.png" title="BeArteSpace"
                          alt="BeArteSpace logo"/>
                 </a>
             </div>

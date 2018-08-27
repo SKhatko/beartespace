@@ -2,18 +2,17 @@
 
     <div class="app-header--left">
 
-        @if(Request::segment(1) === 'dashboard')
-            <div class="app-header-logo">
-                <a href="{{ route('home') }}">
-                    <img src="/images/logo-100.png" alt="BeArteSpace logo"/>
-                </a>
-            </div>
-        @else
-
+        @if(Route::currentRouteName() === 'home')
             <div class="app-header-invites">
                 <a href="{{ route('invite.artist') }}">For Artists</a>| &nbsp;
                 <a href="{{ route('invite.gallery') }}">For Galleries</a>| &nbsp;
                 <a href="{{ route('invite.writer') }}">For Art Writers</a>
+            </div>
+        @else
+            <div class="app-header-logo">
+                <a href="{{ route('home') }}">
+                    <img src="imagecache/height-40/logo.png" alt="BeArteSpace logo"/>
+                </a>
             </div>
 
         @endif
@@ -188,7 +187,8 @@
     </a>
 
     @if(auth()->user() && auth()->user()->user_type === 'artist')
-        <el-button type="success" size="mini"  style="margin-left:10px;"><a href="{{ route('dashboard.artwork.create') }}">
+        <el-button type="success" size="mini" style="margin-left:10px;"><a
+                    href="{{ route('dashboard.artwork.create') }}">
                 Upload Artwork
             </a></el-button>
     @endif

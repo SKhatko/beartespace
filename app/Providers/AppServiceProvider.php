@@ -18,7 +18,7 @@ class AppServiceProvider extends ServiceProvider {
 		 * Set dynamic configuration for third party services
 		 */
 
-		view()->composer( 'layouts.app', function ( $view ) {
+		view()->composer( 'master', function ( $view ) {
 			$translations = getAllTranslations();
 			$view->with( [ 'translations' => $translations ] );
 		} );

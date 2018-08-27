@@ -56,7 +56,11 @@ return array(
         'medium' => 'Intervention\Image\Templates\Medium',
         'large' => 'Intervention\Image\Templates\Large',
 	    'avatar' => 'App\Filters\Avatar',
-	    'mini-avatar' => 'App\Filters\MiniAvatar'
+	    'mini-avatar' => 'App\Filters\MiniAvatar',
+	    'height-100' => 'App\Filters\Height100',
+	    'height-200' => 'App\Filters\Height200',
+	    'height-40' => 'App\Filters\Height40',
+	    'height-80' => 'App\Filters\Height80'
     ),
 
     /*
