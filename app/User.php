@@ -14,7 +14,15 @@ class User extends Authenticatable {
 
 	protected $dates = [ 'deleted_at' ];
 
-	protected $appends = [ 'avatar_url', 'image_url', 'profile_website', 'profile_education', 'profile_inspiration' ];
+	protected $appends = [
+		'avatar_url',
+		'image_url',
+		'profile_premium_add',
+		'profile_education_add',
+		'profile_inspiration_add',
+		'profile_exhibition_add',
+		'profile_background_image_add'
+	];
 
 	/**
 	 * The attributes that are mass assignable.
@@ -34,9 +42,7 @@ class User extends Authenticatable {
 	];
 
 	protected $casts = [
-		'profession'     => 'array',
-		'medium'         => 'array',
-		'direction'      => 'array',
+		'profession' => 'array',
 	];
 
 	public function country() {
@@ -74,7 +80,6 @@ class User extends Authenticatable {
 	public function adds() {
 		return $this->hasMany( Add::class, 'user_id' );
 	}
-
 
 	public function isAdmin() {
 		return $this->user_type == 'admin';
@@ -126,8 +131,8 @@ class User extends Authenticatable {
 		}
 	}
 
-	public function getEducationBornAttribute($value) {
-		return !!$value;
+	public function getEducationBornAttribute( $value ) {
+		return ! ! $value;
 	}
 
 	public function deductFromBalance( $price ) {
@@ -135,24 +140,24 @@ class User extends Authenticatable {
 		$this->save();
 	}
 
-	public function getProfileWebsiteAttribute() {
-		return $this->adds()->whereName( 'profile_website' )->where( 'rebill_at', '>', Carbon::now() )->first();
+	public function getProfilePremiumAddAttribute() {
+		return $this->adds()->whereName( 'profile_premium_add' )->where( 'rebill_at', '>', Carbon::now() )->first();
 	}
 
-	public function getProfileEducationAttribute() {
-		return $this->adds()->whereName( 'profile_education' )->first();
+	public function getProfileEducationAddAttribute() {
+		return $this->adds()->whereName( 'profile_education_add' )->first();
 	}
 
-	public function getProfileInspirationAttribute() {
-		return $this->adds()->whereName('profile_inspiration')->first();
+	public function getProfileInspirationAddAttribute() {
+		return $this->adds()->whereName( 'profile_inspiration_add' )->first();
 	}
 
-	public function getMediumAttribute() {
-		if ( $this->attributes['medium'] ) {
-			return json_decode( $this->attributes['medium'] );
-		} else {
-			return [];
-		}
+	public function getProfileExhibitionAddAttribute() {
+		return $this->adds()->whereName( 'profile_exhibition_add' )->first();
+	}
+
+	public function getProfileBackgroundImageAddAttribute() {
+		return $this->adds()->whereName( 'profile_background_image_add' )->first();
 	}
 
 	public function getProfessionAttribute() {
@@ -161,34 +166,6 @@ class User extends Authenticatable {
 		} else {
 			return [];
 		}
-	}
-
-	public function getDirectionAttribute() {
-		if ( $this->attributes['direction'] ) {
-			return json_decode( $this->attributes['direction'] );
-		} else {
-			return [];
-		}
-	}
-
-
-	public function status_context() {
-		$status = $this->active_status;
-
-		$context = '';
-		switch ( $status ) {
-			case '0':
-				$context = 'Pending';
-				break;
-			case '1':
-				$context = 'Active';
-				break;
-			case '2':
-				$context = 'Block';
-				break;
-		}
-
-		return $context;
 	}
 
 }

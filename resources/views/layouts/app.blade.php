@@ -27,12 +27,11 @@
         window.bus = {
             'alert': {!! json_encode(session('alert')?? '') !!},
             'errors': {!! json_encode($errors->all()) !!},
+            'notify': {!! json_encode(session('notify')) !!}
 
         };
 
         window.trans = {!! $translations !!};
-
-        window.notify = {!! json_encode(session('notify') ?? '') !!};
 
         window.status = {!! json_encode(session('status') ?? '') !!};
 

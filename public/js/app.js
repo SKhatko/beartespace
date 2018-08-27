@@ -16153,22 +16153,6 @@ Vue.prototype.options = function (key) {
     });
 };
 
-Vue.prototype.slugify = function (string) {
-    var a = 'àáäâãåèéëêìíïîòóöôùúüûñçßÿœæŕśńṕẃǵǹḿǘẍźḧ·/_,:;';
-    var b = 'aaaaaaeeeeiiiioooouuuuncsyoarsnpwgnmuxzh------';
-    var p = new RegExp(a.split('').join('|'), 'g');
-
-    return string.toString().toLowerCase().replace(/\s+/g, '-') // Replace spaces with -
-    .replace(p, function (c) {
-        return b.charAt(a.indexOf(c));
-    }) // Replace special characters
-    .replace(/&/g, '-and-') // Replace & with 'and'
-    .replace(/[^\w\-]+/g, '') // Remove all non-word characters
-    .replace(/\-\-+/g, '-') // Replace multiple - with single -
-    .replace(/^-+/, '') // Trim - from start of text
-    .replace(/-+$/, ''); // Trim - from end of text
-};
-
 Vue.use(Vuex);
 Vue.use(__WEBPACK_IMPORTED_MODULE_0_element_ui___default.a, { locale: __WEBPACK_IMPORTED_MODULE_2_element_ui_lib_locale_lang_en___default.a });
 
@@ -16213,6 +16197,13 @@ var app = new Vue({
         if (window.bus.alert) {
             this.$alert(window.bus.alert.message, window.bus.alert.title, {
                 confirmButtonText: 'OK'
+            });
+        } else if (window.bus.notify) {
+            this.$notify.info({
+                dangerouslyUseHTMLString: true,
+                title: window.notify.title,
+                message: window.notify.message,
+                duration: window.notify.duration ? window.notify.duration : 0
             });
         }
 
@@ -19634,8 +19625,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 color: [],
                 images: []
             },
-            artworkOptionsAddDialog: false,
-            artworkInspirationAddDialog: false,
+            dialogs: {
+                artworkOptionsAddDialog: false,
+                artworkInspirationAddDialog: false
+            },
             updateArtworkRules: {
                 title: [{ required: true, message: 'Please input title of artwork', trigger: ['blur', 'change'] }],
                 category: [{ required: true, message: 'Please select category', trigger: ['blur', 'change'] }],
@@ -19669,8 +19662,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         if (this.user_) {
             this.user = JSON.parse(this.user_);
         }
-
-        console.log(this.$refs['artwork']);
     },
 
 
@@ -19679,6 +19670,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             var redirect = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+            var callback = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function () {};
 
             this.$refs['artwork'].validate(function (valid) {
                 if (valid) {
@@ -19698,6 +19690,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
                                 _this.artwork = response.data.data;
                                 _this.loading = false;
+
+                                callback();
                             }
                         } else {
                             console.log(response.data);
@@ -19754,22 +19748,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             var period = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
 
+
             axios.get('/api/artwork-add/' + this.artwork.id + '/' + name + '/' + price + '/' + period).then(function (response) {
                 console.log(response.data);
                 // this.user = response.data.data;
 
-                _this3.$alert(null, response.data.message, {
+                _this3.$alert(response.data.message, '', {
                     confirmButtonText: 'OK',
+                    type: 'success',
                     callback: function callback(action) {
-                        // window.location.reload();
+                        _this3.artwork = response.data.data;
+                        _this3.closeDialogs();
                     }
                 });
-                // this.$message({
-                //     showClose: true,
-                //     message: response.data.message,
-                //     type: response.data.status
-                // });
             });
+        },
+        closeDialogs: function closeDialogs() {
+            for (var dialog in this.dialogs) {
+                this.dialogs[dialog] = false;
+            }
         }
     }
 });
@@ -20868,6 +20865,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -20881,7 +20887,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var _this = this;
 
         var userNameValidator = function userNameValidator(rule, value, callback) {
-
             if (!value) {
                 callback();
             } else {
@@ -20913,9 +20918,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             csrf: '',
             countries: [],
             profileEditorToolbar: [[{ 'size': ['small', false, 'large', 'huge'] }], ['bold', 'italic', 'underline', 'strike'], [{ 'align': '' }, { 'align': 'center' }, { 'align': 'right' }, { 'align': 'justify' }], ['blockquote'], [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'list': 'check' }], [{ 'indent': '-1' }, { 'indent': '+1' }]],
-            profileWebsiteDialog: false,
-            profileEducationDialog: false,
-            profileInspirationDialog: false
+            dialogs: {
+                profileBackgroundImageAddDialog: false,
+                profilePremiumAddDialog: false,
+                profileEducationAddDialog: false,
+                profileInspirationAddDialog: false,
+                profileExhibitionAddDialog: false
+            }
 
         };
     },
@@ -20942,12 +20951,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             axios.get('/api/user-add/' + name + '/' + price + '/' + period).then(function (response) {
                 console.log(response.data);
-                _this3.user = response.data.data;
+                // this.user = response.data.data;
 
-                _this3.$alert(null, response.data.message, {
+                _this3.$alert(response.data.message, null, {
                     confirmButtonText: 'OK',
+                    type: 'success',
                     callback: function callback(action) {
-                        window.location.reload();
+                        console.log(action);
+                        console.log(_this3);
+                        _this3.closeDialogs();
+                        // window.location.reload();
                     }
                 });
                 // this.$message({
@@ -21008,26 +21021,42 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 if (valid) {
                     _this4.loading = true;
                     axios.post('/api/profile/', _this4.user).then(function (response) {
-                        if (response.data) {
-                            console.log(response.data);
-                            _this4.$message({
-                                showClose: true,
-                                message: response.data.message,
-                                type: response.data.status
-                            });
-                            _this4.profileSaved = true;
-                            _this4.loading = false;
-                        } else {
-                            console.log(response.data);
-                        }
+                        console.log(response.data);
+                        _this4.$message({
+                            showClose: true,
+                            message: response.data.message,
+                            type: response.data.status
+                        });
+                        _this4.profileSaved = true;
+                        _this4.loading = false;
+                        console.log(response.data);
+                    }).catch(function (error) {
+                        console.log(error.response);
                     });
                 }
             });
         }
     },
+    closeDialogs: function closeDialogs() {
+        console.log(1);
+        for (var dialog in this.dialogs) {
+            console.log(dialog);
+            this.dialogs[dialog] = false;
+        }
+    },
+
     computed: {
         userName: function userName() {
             return window.location.origin + '/' + (this.user.user_name ? this.user.user_name : 'artist/' + this.user.id);
+        },
+        showBackgroundImage: function showBackgroundImage() {
+            return !this.user.profile_premium_add && !this.user.profile_background_image_add && this.user.user_type === 'artist';
+        },
+        showInspiration: function showInspiration() {
+            return !this.user.profile_premium_add || !this.user.profile_inspiration && this.user.user_type === 'artist';
+        },
+        showExhibition: function showExhibition() {
+            return this.user.profile_premium_add || this.user.profile_exhibition_add && this.user.user_type === 'artist';
         }
     }
 });
@@ -65830,7 +65859,56 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return (_vm.user) ? _c('el-card', [(_vm.user.user_type === 'user') ? _c('div', [_vm._v("User")]) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('div', [_vm._v("Artist")]) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'gallery') ? _c('div', [_vm._v("Gallery")]) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'admin') ? _c('div', [_vm._v("Admin")]) : _vm._e(), _vm._v(" "), _c('h2', [_vm._v("Profile information")]), _vm._v(" "), _c('el-form', {
+  return (_vm.user) ? _c('el-card', [(_vm.user.user_type === 'user') ? _c('div', [_vm._v("User")]) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('div', [_vm._v("Artist")]) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'gallery') ? _c('div', [_vm._v("Gallery")]) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'admin') ? _c('div', [_vm._v("Admin")]) : _vm._e(), _vm._v(" "), _c('h2', [_vm._v("Profile information\n        "), (!_vm.user.profile_premium_add && _vm.user.user_type === 'artist') ? _c('el-button', {
+    attrs: {
+      "plain": ""
+    },
+    on: {
+      "click": function($event) {
+        _vm.dialogs.profilePremiumAddDialog = true
+      }
+    }
+  }, [_vm._v("\n            Go premium\n        ")]) : _vm._e()], 1), _vm._v(" "), _c('el-dialog', {
+    attrs: {
+      "title": "Get Unlimited Features",
+      "visible": _vm.dialogs.profilePremiumAddDialog,
+      "width": "30%"
+    },
+    on: {
+      "update:visible": function($event) {
+        _vm.$set(_vm.dialogs, "profilePremiumAddDialog", $event)
+      }
+    }
+  }, [_c('p', [_vm._v("Get all features in once. See example\n            "), _c('a', {
+    attrs: {
+      "href": "/",
+      "target": "_blank"
+    }
+  }, [_vm._v("here")])]), _vm._v(" "), _c('p', [_vm._v("Save 1 month by selecting annual plan")]), _vm._v(" "), _c('span', {
+    staticClass: "dialog-footer",
+    attrs: {
+      "slot": "footer"
+    },
+    slot: "footer"
+  }, [_c('el-button', {
+    attrs: {
+      "type": "success"
+    },
+    on: {
+      "click": function($event) {
+        _vm.confirmProfileUpgrade('profile_premium_add', 30, 'month')
+      }
+    }
+  }, [_vm._v("Confirm Monthly")]), _vm._v(" "), _c('el-button', {
+    attrs: {
+      "type": "primary"
+    },
+    on: {
+      "click": function($event) {
+        _vm.confirmProfileUpgrade('profile_premium_add', 279, 'year')
+      }
+    }
+  }, [_vm._v("Annually")])], 1)]), _vm._v(" "), _c('el-form', {
     attrs: {
       "label-position": "top"
     }
@@ -65864,136 +65942,59 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "src": '/imagecache/avatar/' + _vm.user.avatar_url
     }
-  }) : _vm._e()]), _vm._v(" "), (!_vm.user.profile_website && _vm.user.user_type === 'artist') ? _c('el-button', {
-    attrs: {
-      "type": "text"
-    },
-    on: {
-      "click": function($event) {
-        _vm.profileWebsiteDialog = true
-      }
-    }
-  }, [_vm._v("\n                        Make your personal website\n                    ")]) : _vm._e(), _vm._v(" "), _c('el-dialog', {
-    attrs: {
-      "title": "Your own Web Site ",
-      "visible": _vm.profileWebsiteDialog,
-      "width": "30%"
-    },
-    on: {
-      "update:visible": function($event) {
-        _vm.profileWebsiteDialog = $event
-      }
-    }
-  }, [_c('p', [_vm._v("Have you thought about having your own website? You did not know how to deal with it?")]), _vm._v(" "), _c('p', [_vm._v("it seemed to be too difficult? With BeArte Space, it takes you just a few moments and you\n                            can start\n                            selling from your own site.")]), _vm._v(" "), _c('p', [_vm._v("You can personalize your web site and adjust to your desire. Choosing your\n                            own web site, you don’t have to pay for adds, they are already included to your account.\n                            See example\n                            "), _c('a', {
-    attrs: {
-      "href": "/",
-      "target": "_blank"
-    }
-  }, [_vm._v("here")])]), _vm._v(" "), _c('p', [_vm._v("Save 1 month by selecting annually plan")]), _vm._v(" "), _c('span', {
-    staticClass: "dialog-footer",
-    attrs: {
-      "slot": "footer"
-    },
-    slot: "footer"
-  }, [_c('el-button', {
-    attrs: {
-      "type": "success"
-    },
-    on: {
-      "click": function($event) {
-        _vm.confirmProfileUpgrade('profile_website', 30, 'month')
-      }
-    }
-  }, [_vm._v("Confirm Monthly")]), _vm._v(" "), _c('el-button', {
-    attrs: {
-      "type": "primary"
-    },
-    on: {
-      "click": function($event) {
-        _vm.confirmProfileUpgrade('profile_website', 279, 'year')
-      }
-    }
-  }, [_vm._v("Annually")])], 1)]), _vm._v(" "), (!_vm.user.profile_website && !_vm.user.profile_education && _vm.user.user_type === 'artist') ? _c('el-button', {
-    attrs: {
-      "type": "text"
-    },
-    on: {
-      "click": function($event) {
-        _vm.profileEducationDialog = true
-      }
-    }
-  }, [_vm._v("\n                        Add your education to attract more customers\n                    ")]) : _vm._e(), _vm._v(" "), _c('el-dialog', {
-    attrs: {
-      "title": "Upgrade Your profile",
-      "visible": _vm.profileEducationDialog,
-      "width": "30%"
-    },
-    on: {
-      "update:visible": function($event) {
-        _vm.profileEducationDialog = $event
-      }
-    }
-  }, [_c('p', [_vm._v("You can add title, and art school you finished to your personal profile for 1 EUR")]), _vm._v(" "), _c('span', {
-    staticClass: "dialog-footer",
-    attrs: {
-      "slot": "footer"
-    },
-    slot: "footer"
-  }, [_c('el-button', {
-    attrs: {
-      "type": "primary"
-    },
-    on: {
-      "click": function($event) {
-        _vm.confirmProfileUpgrade('profile_education', 1)
-      }
-    }
-  }, [_vm._v("Confirm")])], 1)]), _vm._v(" "), (!_vm.user.profile_website && !_vm.user.profile_inspiration && _vm.user.user_type === 'artist') ? _c('el-button', {
-    attrs: {
-      "type": "text"
-    },
-    on: {
-      "click": function($event) {
-        _vm.profileInspirationDialog = true
-      }
-    }
-  }, [_vm._v("\n                        Add your inspiration to attract more customers\n                    ")]) : _vm._e(), _vm._v(" "), _c('el-dialog', {
-    attrs: {
-      "title": "Upgrade Your profile",
-      "visible": _vm.profileInspirationDialog,
-      "width": "30%"
-    },
-    on: {
-      "update:visible": function($event) {
-        _vm.profileInspirationDialog = $event
-      }
-    }
-  }, [_c('p', [_vm._v("What is inspiring you, why you are the Artist? It is very important to attract\n                            customers.")]), _vm._v(" "), _c('p', [_vm._v("Sent us key-word and we will write a short story about what inspires you, why you create\n                            the art, why you are the unique artist. The best is write your inspiration in\n                            English.")]), _vm._v(" "), _c('p', [_vm._v("You can add this feature to your personal profile for 2 EUR")]), _vm._v(" "), _c('span', {
-    staticClass: "dialog-footer",
-    attrs: {
-      "slot": "footer"
-    },
-    slot: "footer"
-  }, [_c('el-button', {
-    attrs: {
-      "type": "primary"
-    },
-    on: {
-      "click": function($event) {
-        _vm.confirmProfileUpgrade('profile_inspiration', 2)
-      }
-    }
-  }, [_vm._v("Confirm")])], 1)])], 1)], 1), _vm._v(" "), (_vm.user.profile_website && _vm.user.user_type === 'artist') ? _c('el-col', {
+  }) : _vm._e()])], 1)], 1), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-col', {
     attrs: {
       "sm": 12
     }
-  }, [_c('el-form-item', {
+  }, [_c('el-form-item', [(_vm.showBackgroundImage) ? _c('span', {
     attrs: {
-      "label": "Click on image to upload profile background image"
+      "slot": "label"
+    },
+    slot: "label"
+  }, [_c('el-button', {
+    attrs: {
+      "type": "text"
+    },
+    on: {
+      "click": function($event) {
+        _vm.dialogs.profileBackgroundImageAddDialog = true
+      }
     }
-  }, [_c('el-upload', {
+  }, [_vm._v("Add background image")]), _vm._v(" "), _c('el-dialog', {
+    attrs: {
+      "title": "Upgrade Your profile",
+      "visible": _vm.dialogs.profileBackgroundImageAddDialog,
+      "width": "30%"
+    },
+    on: {
+      "update:visible": function($event) {
+        _vm.$set(_vm.dialogs, "profileBackgroundImageAddDialog", $event)
+      }
+    }
+  }, [_c('p', [_vm._v("You can personalize your profile by adding background image")]), _vm._v(" "), _c('p', [_vm._v("You can add this feature to your personal profile for 1 EUR")]), _vm._v(" "), _c('span', {
+    staticClass: "dialog-footer",
+    attrs: {
+      "slot": "footer"
+    },
+    slot: "footer"
+  }, [_c('el-button', {
+    attrs: {
+      "type": "primary"
+    },
+    on: {
+      "click": function($event) {
+        _vm.confirmProfileUpgrade('profile_background_image_add', 1)
+      }
+    }
+  }, [_vm._v("Confirm")])], 1)])], 1) : _c('span', {
+    attrs: {
+      "slot": "label"
+    },
+    slot: "label"
+  }, [_vm._v("Click on image to upload profile background image")]), _vm._v(" "), _c('el-upload', {
     staticClass: "image-uploader",
     attrs: {
+      "disabled": _vm.showBackgroundImage,
       "action": "/api/upload/user-image",
       "headers": {
         'X-Requested-With': 'XMLHttpRequest',
@@ -66059,9 +66060,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "gutter": 20
     }
-  }, [(_vm.user.profile_website && _vm.user.user_type === 'artist') ? _c('el-col', [_c('el-form-item', {
+  }, [(_vm.user.profile_premium_add && _vm.user.user_type === 'artist') ? _c('el-col', [_c('el-form-item', {
     attrs: {
-      "label": "Your public username ( Personal website url )",
+      "label": "Your public username ( Personal profile url link )",
       "prop": "user_name"
     }
   }, [_c('el-input', {
@@ -66238,7 +66239,42 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "value": profession.value
       }
     })
-  }))], 1)], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.profile_website || _vm.user.profile_education && _vm.user.user_type === 'artist') ? _c('el-row', {
+  }))], 1)], 1)], 1) : _vm._e(), _vm._v(" "), (!_vm.user.profile_premium_add && !_vm.user.profile_education_add && _vm.user.user_type === 'artist') ? _c('el-button', {
+    attrs: {
+      "type": "text"
+    },
+    on: {
+      "click": function($event) {
+        _vm.dialogs.profileEducationAddDialog = true
+      }
+    }
+  }, [_vm._v("\n            Add education information\n        ")]) : _vm._e(), _vm._v(" "), _c('el-dialog', {
+    attrs: {
+      "title": "Upgrade Your profile",
+      "visible": _vm.dialogs.profileEducationAddDialog,
+      "width": "30%"
+    },
+    on: {
+      "update:visible": function($event) {
+        _vm.$set(_vm.dialogs, "profileEducationAddDialog", $event)
+      }
+    }
+  }, [_c('p', [_vm._v("Add your education to attract more customers")]), _vm._v(" "), _c('p', [_vm._v("You can add title, and art school you finished to your personal profile for 1 EUR")]), _vm._v(" "), _c('span', {
+    staticClass: "dialog-footer",
+    attrs: {
+      "slot": "footer"
+    },
+    slot: "footer"
+  }, [_c('el-button', {
+    attrs: {
+      "type": "primary"
+    },
+    on: {
+      "click": function($event) {
+        _vm.confirmProfileUpgrade('profile_education_add', 1)
+      }
+    }
+  }, [_vm._v("Confirm")])], 1)]), _vm._v(" "), (_vm.user.profile_premium_add || _vm.user.profile_education_add && _vm.user.user_type === 'artist') ? _c('el-row', {
     attrs: {
       "gutter": 20
     }
@@ -66311,76 +66347,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       expression: "user.education_born"
     }
   })], 1)], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-row', {
-    attrs: {
-      "gutter": 20
-    }
-  }, [_c('el-col', {
-    attrs: {
-      "sm": 12
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Technique",
-      "prop": "technique"
-    }
-  }, [_c('el-select', {
-    attrs: {
-      "value": "",
-      "multiple": "",
-      "filterable": "",
-      "allow-create": "",
-      "default-first-option": "",
-      "placeholder": "What do you work with?"
-    },
-    model: {
-      value: (_vm.user.medium),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "medium", $$v)
-      },
-      expression: "user.medium"
-    }
-  }, _vm._l((_vm.options('medium')), function(medium) {
-    return _c('el-option', {
-      key: medium.value,
-      attrs: {
-        "label": medium.label,
-        "value": medium.value
-      }
-    })
-  }))], 1)], 1), _vm._v(" "), _c('el-col', {
-    attrs: {
-      "sm": 12
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Art Direction",
-      "prop": "direction"
-    }
-  }, [_c('el-select', {
-    attrs: {
-      "value": "",
-      "multiple": "",
-      "filterable": "",
-      "allow-create": "",
-      "default-first-option": "",
-      "placeholder": "What is your Art direction?"
-    },
-    model: {
-      value: (_vm.user.direction),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "direction", $$v)
-      },
-      expression: "user.direction"
-    }
-  }, _vm._l((_vm.options('direction')), function(direction) {
-    return _c('el-option', {
-      key: direction.value,
-      attrs: {
-        "label": direction.label,
-        "value": direction.value
-      }
-    })
-  }))], 1)], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-row', {
     attrs: {
       "gutter": 20
     }
@@ -66530,11 +66496,42 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "gutter": 20
     }
-  }, [(_vm.user.profile_website || _vm.user.profile_inspiration && _vm.user.user_type === 'artist') ? _c('el-col', {
+  }, [(!_vm.showInspiration) ? _c('el-button', {
     attrs: {
-      "sm": 12
+      "type": "text"
+    },
+    on: {
+      "click": function($event) {
+        _vm.dialogs.profileInspirationAddDialog = true
+      }
     }
-  }, [_c('el-form-item', {
+  }, [_vm._v("\n                Add your inspiration to attract more customers\n            ")]) : _vm._e(), _vm._v(" "), _c('el-dialog', {
+    attrs: {
+      "title": "Upgrade Your profile",
+      "visible": _vm.dialogs.profileInspirationAddDialog,
+      "width": "30%"
+    },
+    on: {
+      "update:visible": function($event) {
+        _vm.$set(_vm.dialogs, "profileInspirationAddDialog", $event)
+      }
+    }
+  }, [_c('p', [_vm._v("What is inspiring you, why you are the Artist? It is very important to attract\n                    customers.")]), _vm._v(" "), _c('p', [_vm._v("Sent us key-word and we will write a short story about what inspires you, why you\n                    create\n                    the art, why you are the unique artist. The best is write your inspiration in\n                    English.")]), _vm._v(" "), _c('p', [_vm._v("You can add this feature to your personal profile for 2 EUR")]), _vm._v(" "), _c('span', {
+    staticClass: "dialog-footer",
+    attrs: {
+      "slot": "footer"
+    },
+    slot: "footer"
+  }, [_c('el-button', {
+    attrs: {
+      "type": "primary"
+    },
+    on: {
+      "click": function($event) {
+        _vm.confirmProfileUpgrade('profile_inspiration_add', 2)
+      }
+    }
+  }, [_vm._v("Confirm")])], 1)]), _vm._v(" "), (_vm.showInspiration) ? _c('el-col', [_c('el-form-item', {
     attrs: {
       "label": "Inspiration",
       "prop": "inspiration"
@@ -66551,11 +66548,42 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.inspiration"
     }
-  })], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.profile_website || _vm.user.profile_exhibitions && _vm.user.user_type === 'artist') ? _c('el-col', {
+  })], 1)], 1) : _vm._e(), _vm._v(" "), (!_vm.showExhibition) ? _c('el-button', {
     attrs: {
-      "sm": 12
+      "type": "text"
+    },
+    on: {
+      "click": function($event) {
+        _vm.dialogs.profileExhibitionAddDialog = true
+      }
     }
-  }, [_c('el-form-item', {
+  }, [_vm._v("\n                Add your exhibitions to attract more customers\n            ")]) : _vm._e(), _vm._v(" "), _c('el-dialog', {
+    attrs: {
+      "title": "Upgrade Your profile",
+      "visible": _vm.dialogs.profileInspirationAddDialog,
+      "width": "30%"
+    },
+    on: {
+      "update:visible": function($event) {
+        _vm.$set(_vm.dialogs, "profileInspirationAddDialog", $event)
+      }
+    }
+  }, [_c('p', [_vm._v("You can add this feature to your personal profile for 2 EUR")]), _vm._v(" "), _c('span', {
+    staticClass: "dialog-footer",
+    attrs: {
+      "slot": "footer"
+    },
+    slot: "footer"
+  }, [_c('el-button', {
+    attrs: {
+      "type": "primary"
+    },
+    on: {
+      "click": function($event) {
+        _vm.confirmProfileUpgrade('profile_exhibition_add', 2)
+      }
+    }
+  }, [_vm._v("Confirm")])], 1)]), _vm._v(" "), _c('el-col', [_c('el-form-item', {
     attrs: {
       "label": "Exhibitions",
       "prop": "exhibition"
@@ -66572,7 +66600,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.exhibition"
     }
-  })], 1)], 1) : _vm._e()], 1), _vm._v(" "), _c('el-button', {
+  })], 1)], 1)], 1), _vm._v(" "), _c('el-button', {
     staticStyle: {
       "margin-top": "20px"
     },
@@ -66748,7 +66776,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('el-card', [(_vm.artwork_) ? _c('h2', [_vm._v("Edit Artwork")]) : _c('h2', [_vm._v("Upload Artwork")]), _vm._v(" "), _c('el-form', {
+  return _c('el-card', [(_vm.artwork_) ? _c('h2', [_vm._v("Edit Artwork")]) : _c('h2', [_vm._v("Upload Artwork")]), _vm._v(" "), (_vm.artwork) ? _c('el-form', {
     ref: "artwork",
     attrs: {
       "label-position": "top",
@@ -67018,12 +67046,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })], 1)], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.artwork_) ? [_c('el-dialog', {
     attrs: {
       "title": "Upgrade Your Artwork",
-      "visible": _vm.artworkOptionsAddDialog,
+      "visible": _vm.dialogs.artworkOptionsAddDialog,
       "width": "30%"
     },
     on: {
       "update:visible": function($event) {
-        _vm.artworkOptionsAddDialog = $event
+        _vm.$set(_vm.dialogs, "artworkOptionsAddDialog", $event)
       }
     }
   }, [_c('p', [_vm._v("We offer you to give more descriptions for your artwork, so customers can find your artwork by medium (material), orientation, art direction or even basic colors.")]), _vm._v(" "), _c('p', [_vm._v("Add more search options for 1 EUR")]), _vm._v(" "), _c('span', {
@@ -67038,19 +67066,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     },
     on: {
       "click": function($event) {
-        _vm.confirmArtworkUpgrade('artwork_options_add', 1)
+        _vm.saveArtwork(false, _vm.confirmArtworkUpgrade('artwork_options_add', 1))
       }
     }
-  }, [_vm._v("Confirm")])], 1)]), _vm._v(" "), (!!_vm.user.profile_website || !_vm.artwork.artwork_options_add) ? _c('el-button', {
+  }, [_vm._v("Confirm")])], 1)]), _vm._v(" "), (!!_vm.user.profile_premium_add || !_vm.artwork.artwork_options_add) ? _c('el-button', {
     attrs: {
       "type": "text"
     },
     on: {
       "click": function($event) {
-        _vm.artworkOptionsAddDialog = true
+        _vm.dialogs.artworkOptionsAddDialog = true
       }
     }
-  }, [_vm._v("\n                Add medium, orientation, art direction to attract more customers\n            ")]) : _vm._e(), _vm._v(" "), (_vm.user.profile_website || _vm.artwork.artwork_options_add) ? _c('el-row', {
+  }, [_vm._v("\n                Add medium, orientation, art direction to attract more customers\n            ")]) : _vm._e(), _vm._v(" "), (_vm.user.profile_premium_add || _vm.artwork.artwork_options_add) ? _c('el-row', {
     attrs: {
       "gutter": 20
     }
@@ -67238,7 +67266,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "artwork.description"
     }
-  })], 1)], 1), _vm._v(" "), (_vm.user.profile_website || _vm.artwork.artwork_inspiration_add) ? _c('el-col', {
+  })], 1)], 1), _vm._v(" "), (_vm.user.profile_premium_add || _vm.artwork.artwork_inspiration_add) ? _c('el-col', {
     attrs: {
       "sm": 12
     }
@@ -67262,12 +67290,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })], 1)], 1) : _vm._e()], 1), _vm._v(" "), _c('el-dialog', {
     attrs: {
       "title": "Upgrade Your Artwork",
-      "visible": _vm.artworkInspirationAddDialog,
+      "visible": _vm.dialogs.artworkInspirationAddDialog,
       "width": "30%"
     },
     on: {
       "update:visible": function($event) {
-        _vm.artworkInspirationAddDialog = $event
+        _vm.$set(_vm.dialogs, "artworkInspirationAddDialog", $event)
       }
     }
   }, [_c('p', [_vm._v("Buyers love stories, attract them to your art, show your art in the best possible way.")]), _vm._v(" "), _c('p', [_vm._v("Sent us keywords and we can write a short story about your work to convince others why is so unique. The description of your inspiration is best to write in English.")]), _vm._v(" "), _c('p', [_vm._v("Make your artwork more attractive for  1 EUR")]), _vm._v(" "), _c('span', {
@@ -67282,16 +67310,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     },
     on: {
       "click": function($event) {
-        _vm.confirmArtworkUpgrade('artwork_inspiration_add', 1)
+        _vm.saveArtwork(false, _vm.confirmArtworkUpgrade('artwork_inspiration_add', 1))
       }
     }
-  }, [_vm._v("Confirm")])], 1)]), _vm._v(" "), (!!_vm.user.profile_website || !_vm.artwork.artwork_inspiration_add) ? _c('el-button', {
+  }, [_vm._v("Confirm")])], 1)]), _vm._v(" "), (!!_vm.user.profile_premium_add || !_vm.artwork.artwork_inspiration_add) ? _c('el-button', {
     attrs: {
       "type": "text"
     },
     on: {
       "click": function($event) {
-        _vm.artworkInspirationAddDialog = true
+        _vm.dialogs.artworkInspirationAddDialog = true
       }
     }
   }, [_vm._v("\n                Add inspiration of your artwork to attract more customers\n            ")]) : _vm._e(), _vm._v(" "), _c('el-row', {
@@ -67511,7 +67539,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.saveArtwork(true)
       }
     }
-  }, [_vm._v("\n                Create\n            ")])]], 2)], 1)
+  }, [_vm._v("\n                Create\n            ")])]], 2) : _vm._e()], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

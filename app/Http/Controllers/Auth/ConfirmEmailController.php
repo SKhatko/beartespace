@@ -8,19 +8,18 @@ use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 
-class ConfirmEmailController extends Controller
-{
-	public function changeEmail(Request $request) {
+class ConfirmEmailController extends Controller {
+	public function changeEmail( Request $request ) {
 
-		$request->validate([
-			'email'      => 'required|string|email|max:255|unique:users|confirmed',
-			'password'   => 'required|string|min:6',
-		]);
+		$request->validate( [
+			'email'    => 'required|string|email|max:255|unique:users|confirmed',
+			'password' => 'required|string|min:6',
+		] );
 
 		$user = auth()->user();
-		if (Hash::check($request->input('password'), $user->password)) {
+		if ( Hash::check( $request->input( 'password' ), $user->password ) ) {
 			// Success
-			$user->email = $request->input('email');
+			$user->email          = $request->input( 'email' );
 			$user->email_verified = false;
 			$user->save();
 
@@ -31,7 +30,7 @@ class ConfirmEmailController extends Controller
 
 	public function verify() {
 
-		return view( 'auth.confirm');
+		return view( 'auth.confirm' );
 	}
 
 	public function confirm( $token ) {
@@ -39,7 +38,7 @@ class ConfirmEmailController extends Controller
 		$user = User::where( 'activation_token', $token )->first();
 
 		if ( ! $user ) {
-			return redirect('/');
+			return redirect( '/' );
 		}
 
 		$user->email_verified = true;
@@ -48,12 +47,11 @@ class ConfirmEmailController extends Controller
 
 		auth()->logout();
 
-		return redirect()->route('dashboard.profile');
+		if ( $user->user_type == 'artist' ) {
+			return redirect()->route( 'dashboard.profile' );
+		}
 
-		return redirect()->route('dashboard.profile')->with('alert', [
-			'title'   => 'Email address confirmed',
-			'message' => 'Please fill up profile information'
-		]);
+		return redirect()->route( 'dashboard' );
 	}
 
 	public function resend() {
@@ -62,7 +60,7 @@ class ConfirmEmailController extends Controller
 
 		$user->notify( new SignupActivate( $user ) );
 
-		return redirect()->route('confirm-email.verify');
+		return redirect()->route( 'confirm-email.verify' );
 
 	}
 }

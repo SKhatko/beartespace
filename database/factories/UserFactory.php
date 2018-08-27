@@ -21,8 +21,6 @@ $factory->define( App\User::class, function ( Faker $faker ) {
 		'education_title'  => $faker->jobTitle,
 		'inspiration'      => $faker->paragraph,
 		'exhibition'       => $faker->paragraph,
-		'medium'           => json_encode( $faker->words( random_int( 0, 20 ) ) ),
-		'direction'        => json_encode( $faker->words( random_int( 0, 20 ) ) ),
 		'user_type'        => $faker->randomElement( [ 'user', 'admin', 'artist', 'gallery' ] ),
 		'active'           => $faker->randomElement( [ 0, 1, 2 ] ),
 		'activation_token' => str_random( 60 ),

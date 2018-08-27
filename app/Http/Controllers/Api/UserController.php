@@ -14,9 +14,6 @@ class UserController extends Controller {
 
 	public function checkUsername( $username = null) {
 
-		if($username) {
-
-		}
 		$username = str_slug( $username );
 
 		$user = User::whereUserName( $username )->first();
@@ -32,7 +29,7 @@ class UserController extends Controller {
 
 		$user = auth()->user();
 
-		$user->update( $request->except( [ 'avatar', 'image', 'avatar_url', 'image_url', 'profile_website', 'profile_education', 'profile_inspiration'] ) );
+		$user->update( $request->except( [ 'avatar', 'image', 'avatar_url', 'image_url', 'profile_premium_add', 'profile_education_add', 'profile_inspiration_add', 'profile_background_image_add', 'profile_exhibition_add'] ) );
 
 		return [ 'status' => 'success', 'message' => 'Saved', 'data' => $user ];
 	}

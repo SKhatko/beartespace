@@ -4,7 +4,7 @@
         <h2 v-if="artwork_">Edit Artwork</h2>
         <h2 v-else>Upload Artwork</h2>
 
-        <el-form label-position="top" :model="artwork" ref="artwork" :rules="updateArtworkRules">
+        <el-form label-position="top" :model="artwork" ref="artwork" :rules="updateArtworkRules" v-if="artwork">
 
             <el-row :gutter="20">
                 <el-col :sm="12">
@@ -82,20 +82,20 @@
                 <!--    Medium, color, theme, art direction -->
                 <el-dialog
                         title="Upgrade Your Artwork"
-                        :visible.sync="artworkOptionsAddDialog"
+                        :visible.sync="dialogs.artworkOptionsAddDialog"
                         width="30%">
                     <p>We offer you to give more descriptions for your artwork, so customers can find your artwork by medium (material), orientation, art direction or even basic colors.</p>
                     <p>Add more search options for 1 EUR</p>
                     <span slot="footer" class="dialog-footer">
-                <el-button type="primary" @click="confirmArtworkUpgrade('artwork_options_add', 1)">Confirm</el-button>
+                <el-button type="primary" @click="saveArtwork(false, confirmArtworkUpgrade('artwork_options_add', 1))">Confirm</el-button>
               </span>
                 </el-dialog>
 
-                <el-button type="text" @click="artworkOptionsAddDialog = true" v-if="!!user.profile_website || !artwork.artwork_options_add">
+                <el-button type="text" @click="dialogs.artworkOptionsAddDialog = true" v-if="!!user.profile_premium_add || !artwork.artwork_options_add">
                     Add medium, orientation, art direction to attract more customers
                 </el-button>
 
-                <el-row :gutter="20" v-if="user.profile_website || artwork.artwork_options_add">
+                <el-row :gutter="20" v-if="user.profile_premium_add || artwork.artwork_options_add">
                     <el-col :sm="6">
                         <el-form-item label="Medium">
                             <el-select value="" v-model="artwork.medium" multiple filterable allow-create
@@ -157,7 +157,7 @@
                         </el-form-item>
                     </el-col>
 
-                    <el-col :sm="12" v-if="user.profile_website || artwork.artwork_inspiration_add">
+                    <el-col :sm="12" v-if="user.profile_premium_add || artwork.artwork_inspiration_add">
                         <el-form-item label="Inspiration">
                             <el-input
                                     type="textarea"
@@ -173,17 +173,17 @@
 
                 <el-dialog
                         title="Upgrade Your Artwork"
-                        :visible.sync="artworkInspirationAddDialog"
+                        :visible.sync="dialogs.artworkInspirationAddDialog"
                         width="30%">
                     <p>Buyers love stories, attract them to your art, show your art in the best possible way.</p>
                     <p>Sent us keywords and we can write a short story about your work to convince others why is so unique. The description of your inspiration is best to write in English.</p>
                     <p>Make your artwork more attractive for  1 EUR</p>
                     <span slot="footer" class="dialog-footer">
-                <el-button type="primary" @click="confirmArtworkUpgrade('artwork_inspiration_add', 1)">Confirm</el-button>
+                <el-button type="primary" @click="saveArtwork(false, confirmArtworkUpgrade('artwork_inspiration_add', 1))">Confirm</el-button>
               </span>
                 </el-dialog>
 
-                <el-button type="text" @click="artworkInspirationAddDialog = true" v-if="!!user.profile_website || !artwork.artwork_inspiration_add">
+                <el-button type="text" @click="dialogs.artworkInspirationAddDialog = true" v-if="!!user.profile_premium_add || !artwork.artwork_inspiration_add">
                     Add inspiration of your artwork to attract more customers
                 </el-button>
 
@@ -320,8 +320,10 @@
                     color: [],
                     images: [],
                 },
-                artworkOptionsAddDialog: false,
-                artworkInspirationAddDialog: false,
+                dialogs: {
+                    artworkOptionsAddDialog: false,
+                    artworkInspirationAddDialog: false,
+                },
                 updateArtworkRules: {
                     title: [
                         {required: true, message: 'Please input title of artwork', trigger: ['blur', 'change']},
@@ -378,13 +380,11 @@
                 this.user = JSON.parse(this.user_);
             }
 
-            console.log(this.$refs['artwork']);
-
         },
 
         methods: {
 
-            saveArtwork(redirect = false) {
+            saveArtwork(redirect = false, callback = ()=>{}) {
                 this.$refs['artwork'].validate((valid) => {
                     if (valid) {
                         this.loading = true;
@@ -404,6 +404,8 @@
 
                                         this.artwork = response.data.data;
                                         this.loading = false;
+
+                                        callback();
                                     }
                                 } else {
                                     console.log(response.data);
@@ -458,23 +460,26 @@
             },
 
             confirmArtworkUpgrade(name, price, period = null) {
+
                 axios.get('/api/artwork-add/' + this.artwork.id + '/' + name + '/' + price + '/' + period).then(response => {
                     console.log(response.data);
                     // this.user = response.data.data;
 
-                    this.$alert(null, response.data.message, {
+                    this.$alert(response.data.message, '' , {
                         confirmButtonText: 'OK',
+                        type: 'success',
                         callback: action => {
-                            // window.location.reload();
+                            this.artwork = response.data.data;
+                            this.closeDialogs();
                         }
                     });
-                    // this.$message({
-                    //     showClose: true,
-                    //     message: response.data.message,
-                    //     type: response.data.status
-                    // });
                 })
             },
+            closeDialogs() {
+                for(let dialog in this.dialogs) {
+                    this.dialogs[dialog] = false;
+                }
+            }
 
         }
     }

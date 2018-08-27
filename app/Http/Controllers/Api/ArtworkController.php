@@ -16,7 +16,7 @@ class ArtworkController extends Controller {
 
 		$artwork = Artwork::updateOrCreate( [ 'id'      => $request->input( 'id' ),
 		                                      'user_id' => $user->id
-		], array_merge( $request->except( [ 'images', 'formatted_price', 'artwork_options' ] ), [ 'user_id' => $user->id ] ) );
+		], array_merge( $request->except( [ 'images', 'formatted_price', 'artwork_options_add', 'artwork_inspiration_add', 'artwork_interior_add'] ), [ 'user_id' => $user->id ] ) );
 
 		$artwork = $artwork->whereId( $artwork->id )->with( 'images' )->first();
 

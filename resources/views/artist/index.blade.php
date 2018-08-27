@@ -31,7 +31,20 @@
                             <div class="artist-info">
 
                                 <a href="{{ route('artist', $artist->id) }}" class="h2">
-                                    {{ $artist->name }} {{ $artist->profession }} {{ $artist->country['country_name'] ?? '' }}
+                                    {{ $artist->name }}
+                                </a>
+
+                                <a href="{{ route('artist', $artist->id) }}" class="h3">
+                                    @foreach($artist->profession as $profession)
+                                        @if($loop->index > 0)
+                                            |
+                                        @endif
+                                        @lang('profession.' . $profession)
+                                    @endforeach
+                                </a>
+
+                                <a href="{{ route('artist', $artist->id) }}" class="h3">
+                                    {{ $artist->country['country_name'] ?? '' }}
                                 </a>
 
                             </div>

@@ -27,22 +27,6 @@ Vue.prototype.options = (key) => {
     });
 };
 
-Vue.prototype.slugify = (string) => {
-    const a = 'àáäâãåèéëêìíïîòóöôùúüûñçßÿœæŕśńṕẃǵǹḿǘẍźḧ·/_,:;';
-    const b = 'aaaaaaeeeeiiiioooouuuuncsyoarsnpwgnmuxzh------';
-    const p = new RegExp(a.split('').join('|'), 'g');
-
-    return string.toString().toLowerCase()
-        .replace(/\s+/g, '-') // Replace spaces with -
-        .replace(p, c => b.charAt(a.indexOf(c))) // Replace special characters
-        .replace(/&/g, '-and-') // Replace & with 'and'
-        .replace(/[^\w\-]+/g, '') // Remove all non-word characters
-        .replace(/\-\-+/g, '-') // Replace multiple - with single -
-        .replace(/^-+/, '') // Trim - from start of text
-        .replace(/-+$/, '') // Trim - from end of text
-};
-
-
 Vue.use(Vuex);
 Vue.use(ElementUI, {locale});
 
@@ -88,6 +72,13 @@ const app = new Vue({
         if (window.bus.alert) {
             this.$alert(window.bus.alert.message, window.bus.alert.title, {
                 confirmButtonText: 'OK',
+            });
+        } else if(window.bus.notify) {
+            this.$notify.info({
+                dangerouslyUseHTMLString: true,
+                title: window.notify.title,
+                message: window.notify.message,
+                duration: window.notify.duration ? window.notify.duration : 0,
             });
         }
 
