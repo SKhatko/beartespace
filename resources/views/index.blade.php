@@ -2,6 +2,14 @@
 
 @section('title') @if( ! empty($title)) {{ $title }} | @endif @parent @endsection
 
+@section('header')
+
+    @include('layouts.header.top')
+    @include('layouts.header.middle')
+    @include('layouts.header.bottom')
+
+@endsection
+
 @section('content')
 
     <div class="app-index">
@@ -155,4 +163,10 @@
 
     </div>
 
+@endsection
+
+@section('footer')
+    @include('layouts.footer.top')
+    @include('layouts.footer.middle')
+    @include('layouts.footer.bottom')
 @endsection

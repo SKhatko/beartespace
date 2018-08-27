@@ -1,13 +1,7 @@
-@extends('layouts.app')
+@extends('layouts.simple')
 
 @section('content')
 
     <register-form user-type="{{ $userType ?? 'user' }}"></register-form>
-
-@endsection
-
-@section('scripts')
-
-{{--    {!! NoCaptcha::renderJs() !!}--}}
 
 @endsection

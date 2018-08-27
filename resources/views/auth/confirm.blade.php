@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.simple')
 
 @section('content')
 
@@ -12,12 +12,8 @@
                     box
                 </div>
 
-                <p>
-                    Confirmation has been send to <b>{{ auth()->user()->email }}</b>.
-                </p>
-                <p>
-                    Please go to your email box and follow the link to continue.
-                </p>
+                <p>Confirmation has been send to <b>{{ auth()->user()->email }}</b>.</p>
+                <p>Please go to your email box and follow the link to continue.</p>
 
                 <p>Click
                     <el-button type="text"><a href="{{ route('confirm-email.resend') }}">here</a></el-button>
