@@ -3,7 +3,7 @@
 
         <div class="app-header-logo">
             <a href="{{ route('home') }}">
-                <img src="imagecache/height-80/logo.png" title="BeArteSpace" alt="BeArteSpace logo"/>
+                <img src="/imagecache/height-80/logo.png" title="BeArteSpace" alt="BeArteSpace logo"/>
             </a>
         </div>
 

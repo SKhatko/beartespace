@@ -160,6 +160,17 @@ class User extends Authenticatable {
 		return $this->adds()->whereName( 'profile_background_image_add' )->first();
 	}
 
+	public function getMediumAttribute() {
+//		return $this->artworks()->medium;
+
+		$mediumm = $this->artworks->map(function ($artwork) {
+			return $artwork->pluck(['medium', 'id']);
+		});
+
+		return $mediumm;
+
+	}
+
 	public function getProfessionAttribute() {
 		if ( $this->attributes['profession'] ) {
 			return json_decode( $this->attributes['profession'] );
