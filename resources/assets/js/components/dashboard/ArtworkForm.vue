@@ -25,22 +25,26 @@
             <el-row>
                 <el-col :sm="5">
                     <el-form-item label="Width, cm" prop="width">
-                        <el-input-number v-model="artwork.width" :min="0.1" :max="200" size="small" :precision="1"></el-input-number>
+                        <el-input-number v-model="artwork.width" :min="0.1" :max="200" size="small"
+                                         :precision="1"></el-input-number>
                     </el-form-item>
                 </el-col>
                 <el-col :sm="5">
                     <el-form-item label="Height, cm" prop="height">
-                        <el-input-number v-model="artwork.height" :min="0.1" :max="200" size="small" :precision="1"></el-input-number>
+                        <el-input-number v-model="artwork.height" :min="0.1" :max="200" size="small"
+                                         :precision="1"></el-input-number>
                     </el-form-item>
                 </el-col>
                 <el-col :sm="5">
                     <el-form-item label="Depth,cm" prop="depth">
-                        <el-input-number v-model="artwork.depth" :min="0.1" :max="200" size="small" :precision="1"></el-input-number>
+                        <el-input-number v-model="artwork.depth" :min="0.1" :max="200" size="small"
+                                         :precision="1"></el-input-number>
                     </el-form-item>
                 </el-col>
                 <el-col :sm="5">
                     <el-form-item label="Weight, g" prop="weight">
-                        <el-input-number v-model="artwork.weight" :min="1" :max="10000" size="small" :precision="0"></el-input-number>
+                        <el-input-number v-model="artwork.weight" :min="1" :max="10000" size="small"
+                                         :precision="0"></el-input-number>
                     </el-form-item>
                 </el-col>
                 <el-col :sm="4" style="margin-top: 50px;">
@@ -56,22 +60,26 @@
             <el-row v-if="artwork.optional_size">
                 <el-col :sm="5">
                     <el-form-item label="Total Width, cm" prop="b_width">
-                        <el-input-number v-model="artwork.b_width" :min="0.1" :max="200" size="small" :precision="1"></el-input-number>
+                        <el-input-number v-model="artwork.b_width" :min="0.1" :max="200" size="small"
+                                         :precision="1"></el-input-number>
                     </el-form-item>
                 </el-col>
                 <el-col :sm="5">
                     <el-form-item label="Total Height, cm" prop="b_height">
-                        <el-input-number v-model="artwork.b_height" :min="0.1" :max="200" size="small" :precision="1"></el-input-number>
+                        <el-input-number v-model="artwork.b_height" :min="0.1" :max="200" size="small"
+                                         :precision="1"></el-input-number>
                     </el-form-item>
                 </el-col>
                 <el-col :sm="5">
                     <el-form-item label="Total Depth,cm" prop="b_depth">
-                        <el-input-number v-model="artwork.b_depth" :min="0.1" :max="200" size="small" :precision="1"></el-input-number>
+                        <el-input-number v-model="artwork.b_depth" :min="0.1" :max="200" size="small"
+                                         :precision="1"></el-input-number>
                     </el-form-item>
                 </el-col>
                 <el-col :sm="5">
                     <el-form-item label="Total Weight, g" prop="b_weight">
-                        <el-input-number v-model="artwork.b_weight" :min="1" :max="10000" size="small" :precision="0"></el-input-number>
+                        <el-input-number v-model="artwork.b_weight" :min="1" :max="10000" size="small"
+                                         :precision="0"></el-input-number>
                     </el-form-item>
                 </el-col>
 
@@ -84,15 +92,17 @@
                         title="Upgrade Your Artwork"
                         :visible.sync="dialogs.artworkOptionsAddDialog"
                         width="30%">
-                    <p>We offer you to give more descriptions for your artwork, so customers can find your artwork by medium (material), orientation, art direction or even basic colors.</p>
+                    <p>We offer you to give more descriptions for your artwork, so customers can find your artwork by
+                        medium (material), orientation, shape, art direction or even basic colors.</p>
                     <p>Add more search options for 1 EUR</p>
                     <span slot="footer" class="dialog-footer">
                 <el-button type="primary" @click="saveArtwork(false, confirmArtworkUpgrade('artwork_options_add', 1))">Confirm</el-button>
               </span>
                 </el-dialog>
 
-                <el-button type="text" @click="dialogs.artworkOptionsAddDialog = true" v-if="!!user.profile_premium_add || !artwork.artwork_options_add">
-                    Add medium, orientation, art direction to attract more customers
+                <el-button type="text" @click="dialogs.artworkOptionsAddDialog = true"
+                           v-if="!!user.profile_premium_add || !artwork.artwork_options_add">
+                    Add extra search options to attract more customers
                 </el-button>
 
                 <el-row :gutter="20" v-if="user.profile_premium_add || artwork.artwork_options_add">
@@ -176,19 +186,22 @@
                         :visible.sync="dialogs.artworkInspirationAddDialog"
                         width="30%">
                     <p>Buyers love stories, attract them to your art, show your art in the best possible way.</p>
-                    <p>Sent us keywords and we can write a short story about your work to convince others why is so unique. The description of your inspiration is best to write in English.</p>
-                    <p>Make your artwork more attractive for  1 EUR</p>
+                    <p>Sent us keywords and we can write a short story about your work to convince others why is so
+                        unique. The description of your inspiration is best to write in English.</p>
+                    <p>Make your artwork more attractive for 1 EUR</p>
                     <span slot="footer" class="dialog-footer">
-                <el-button type="primary" @click="saveArtwork(false, confirmArtworkUpgrade('artwork_inspiration_add', 1))">Confirm</el-button>
+                <el-button type="primary"
+                           @click="saveArtwork(false, confirmArtworkUpgrade('artwork_inspiration_add', 1))">Confirm</el-button>
               </span>
                 </el-dialog>
 
-                <el-button type="text" @click="dialogs.artworkInspirationAddDialog = true" v-if="!!user.profile_premium_add || !artwork.artwork_inspiration_add">
+                <el-button type="text" @click="dialogs.artworkInspirationAddDialog = true"
+                           v-if="!!user.profile_premium_add || !artwork.artwork_inspiration_add">
                     Add inspiration of your artwork to attract more customers
                 </el-button>
 
 
-                <!--  Date of compleation, price -->
+                <!--  Date of completion, price -->
                 <el-row :gutter="20">
                     <el-col :sm="12">
                         <el-form-item label="Date of completion Artwork">
@@ -309,7 +322,7 @@
         },
 
         data() {
-            return{
+            return {
                 user: {},
                 csrf: window.csrf,
                 currencies: [],
@@ -384,7 +397,8 @@
 
         methods: {
 
-            saveArtwork(redirect = false, callback = ()=>{}) {
+            saveArtwork(redirect = false, callback = () => {
+            }) {
                 this.$refs['artwork'].validate((valid) => {
                     if (valid) {
                         this.loading = true;
@@ -451,7 +465,6 @@
                 this.dialogImageUrl = file.url;
                 this.dialogVisible = true;
             },
-
             handleSuccess(response, file, fileList) {
                 this.artwork.images.push({
                     name: file.name,
@@ -461,11 +474,10 @@
 
             confirmArtworkUpgrade(name, price, period = null) {
 
-                axios.get('/api/artwork-add/' + this.artwork.id + '/' + name + '/' + price + '/' + period).then(response => {
-                    console.log(response.data);
-                    // this.user = response.data.data;
+                return;
 
-                    this.$alert(response.data.message, '' , {
+                axios.get('/api/artwork-add/' + this.artwork.id + '/' + name + '/' + price + '/' + period).then(response => {
+                    this.$alert(response.data.message, '', {
                         confirmButtonText: 'OK',
                         type: 'success',
                         callback: action => {
@@ -476,7 +488,7 @@
                 })
             },
             closeDialogs() {
-                for(let dialog in this.dialogs) {
+                for (let dialog in this.dialogs) {
                     this.dialogs[dialog] = false;
                 }
             }

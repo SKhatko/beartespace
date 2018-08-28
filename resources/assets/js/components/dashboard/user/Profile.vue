@@ -24,9 +24,9 @@
 
             <span slot="footer" class="dialog-footer">
                                 <el-button type="success"
-                                           @click="confirmProfileUpgrade('profile_premium_add', 30, 'month')">Confirm Monthly</el-button>
+                                           @click="save(confirmProfileUpgrade('profile_premium_add', 30, 'month'))">Confirm Monthly</el-button>
                                 <el-button type="primary"
-                                           @click="confirmProfileUpgrade('profile_premium_add', 279, 'year')">Annually</el-button>
+                                           @click="save(confirmProfileUpgrade('profile_premium_add', 279, 'year'))">Annually</el-button>
                               </span>
         </el-dialog>
 
@@ -55,7 +55,7 @@
 
                 <el-col :sm="12" v-if="user.user_type === 'artist'">
                     <el-form-item>
-                        <span slot="label" v-if="showBackgroundImage">
+                        <span slot="label" v-if="showProfileBackgroundImage">
                               <el-button type="text" @click="dialogs.profileBackgroundImageAddDialog = true">Add background image</el-button>
 
                         <el-dialog
@@ -66,13 +66,13 @@
                             <p>You can add this feature to your personal profile for 1 EUR</p>
                             <span slot="footer" class="dialog-footer">
                                 <el-button type="primary"
-                                           @click="confirmProfileUpgrade('profile_background_image_add', 1)">Confirm</el-button>
+                                           @click="save(confirmProfileUpgrade('profile_background_image_add', 1))">Confirm</el-button>
                             </span>
                         </el-dialog>
                         </span>
                         <span slot="label" v-else>Click on image to upload profile background image</span>
                         <el-upload
-                                :disabled="showBackgroundImage"
+                                :disabled="showProfileBackgroundImage"
                                 class="image-uploader"
                                 action="/api/upload/user-image"
                                 :headers="{'X-Requested-With': 'XMLHttpRequest', 'X-CSRF-TOKEN' : csrf}"
@@ -182,9 +182,7 @@
             </el-row>
 
             <!-- Education -->
-
-            <el-button type="text" @click="dialogs.profileEducationAddDialog = true"
-                       v-if="!user.profile_premium_add && !user.profile_education_add && user.user_type === 'artist'">
+            <el-button v-if="showProfileEducation" type="text" @click="dialogs.profileEducationAddDialog = true">
                 Add education information
             </el-button>
 
@@ -196,21 +194,20 @@
                 <p>You can add title, and art school you finished to your personal profile for 1 EUR</p>
                 <span slot="footer" class="dialog-footer">
                 <el-button type="primary"
-                           @click="confirmProfileUpgrade('profile_education_add', 1)">Confirm</el-button>
+                           @click="save(confirmProfileUpgrade('profile_education_add', 1))">Confirm</el-button>
               </span>
             </el-dialog>
 
-            <el-row :gutter="20"
-                    v-if="user.profile_premium_add || user.profile_education_add && user.user_type === 'artist' ">
+            <el-row :gutter="20">
                 <el-col :sm="8">
                     <el-form-item label="Name of the last finished school " prop="education">
-                        <el-input v-model="user.education"></el-input>
+                        <el-input v-model="user.education" :disabled="showProfileEducation"></el-input>
                     </el-form-item>
                 </el-col>
 
                 <el-col :sm="8">
                     <el-form-item label="University educational title" prop="education_title">
-                        <el-select value="" v-model="user.education_title" filterable allow-create>
+                        <el-select value="" v-model="user.education_title" filterable allow-create :disabled="showProfileEducation">
                             <el-option v-for="title in options('education')" :key="title.value" :label="title.label"
                                        :value="title.value"></el-option>
                         </el-select>
@@ -220,6 +217,7 @@
                 <el-col :sm="8">
                     <el-form-item label="Skill origin" prop="education_born">
                         <el-switch
+                                :disabled="showProfileEducation"
                                 v-model="user.education_born"
                                 active-text="Natural Born Artist"
                                 inactive-text="Educated Artist">
@@ -289,12 +287,14 @@
 
             <el-row :gutter="20">
 
-                <el-button type="text" @click="dialogs.profileInspirationAddDialog = true"
-                           v-if="!showInspiration">
-                    Add your inspiration to attract more customers
-                </el-button>
+                <el-col>
 
-                <el-dialog
+                    <el-form-item prop="inspiration">
+                        <span slot="label" v-if="showProfileInspiration">
+                               <el-button type="text" @click="dialogs.profileInspirationAddDialog = true">
+                                    Add your inspiration to attract more customers
+                                </el-button>
+                            <el-dialog
                         title="Upgrade Your profile"
                         :visible.sync="dialogs.profileInspirationAddDialog"
                         width="30%">
@@ -307,38 +307,40 @@
                     <p>You can add this feature to your personal profile for 2 EUR</p>
                     <span slot="footer" class="dialog-footer">
                             <el-button type="primary"
-                                       @click="confirmProfileUpgrade('profile_inspiration_add', 2)">Confirm</el-button>
+                                       @click="save(confirmProfileUpgrade('profile_inspiration_add', 2))">Confirm</el-button>
                           </span>
                 </el-dialog>
-
-                <el-col v-if="showInspiration">
-
-                    <el-form-item label="Inspiration" prop="inspiration">
+                        </span>
+                        <span slot="label" v-else>Inspiration</span>
                         <vue-editor id="inspiration" v-model="user.inspiration"
+                                    :disabled="showProfileInspiration"
                                     :editorToolbar="profileEditorToolbar"></vue-editor>
                     </el-form-item>
 
                 </el-col>
 
-                <el-button type="text" @click="dialogs.profileExhibitionAddDialog = true"
-                           v-if="!showExhibition">
-                    Add your exhibitions to attract more customers
-                </el-button>
-
-                <el-dialog
-                        title="Upgrade Your profile"
-                        :visible.sync="dialogs.profileInspirationAddDialog"
-                        width="30%">
-                    <p>You can add this feature to your personal profile for 2 EUR</p>
-                    <span slot="footer" class="dialog-footer">
-                            <el-button type="primary"
-                                       @click="confirmProfileUpgrade('profile_exhibition_add', 2)">Confirm</el-button>
-                          </span>
-                </el-dialog>
-
                 <el-col>
                     <el-form-item label="Exhibitions" prop="exhibition">
-                        <vue-editor id="exhibition" v-model="user.exhibition" :editorToolbar="profileEditorToolbar"></vue-editor>
+                        <span slot="label" v-if="showProfileExhibition">
+                                <el-button type="text" @click="dialogs.profileExhibitionAddDialog = true">
+                                Add your exhibitions to attract more customers
+                            </el-button>
+
+                            <el-dialog
+                                    title="Upgrade Your profile"
+                                    :visible.sync="dialogs.profileExhibitionAddDialog"
+                                    width="30%">
+                                <p>You can add this feature to your personal profile for 2 EUR</p>
+                                <span slot="footer" class="dialog-footer">
+                                        <el-button type="primary"
+                                                   @click="save(confirmProfileUpgrade('profile_exhibition_add', 2))">Confirm</el-button>
+                                      </span>
+                            </el-dialog>
+                        </span>
+                        <span slot="label" v-else>Exhibitions</span>
+                        <vue-editor id="exhibition" v-model="user.exhibition"
+                                    :disabled="showProfileExhibition"
+                                    :editorToolbar="profileEditorToolbar"></vue-editor>
                     </el-form-item>
                 </el-col>
 
@@ -456,24 +458,14 @@
 
             confirmProfileUpgrade(name, price, period = null) {
                 axios.get('/api/user-add/' + name + '/' + price + '/' + period).then(response => {
-                    console.log(response.data);
-                    // this.user = response.data.data;
-
-                    this.$alert(response.data.message, null, {
+                    this.$alert(response.data.message, '', {
                         confirmButtonText: 'OK',
                         type: 'success',
-                        callback: (action) => {
-                            console.log(action);
-                            console.log(this);
+                        callback: action => {
+                            this.user = response.data.data;
                             this.closeDialogs();
-                            // window.location.reload();
                         }
                     });
-                    // this.$message({
-                    //     showClose: true,
-                    //     message: response.data.message,
-                    //     type: response.data.status
-                    // });
                 })
             },
 
@@ -525,7 +517,7 @@
                 return isJPG && isLt2M;
             },
 
-            save() {
+            save(callback = ()=>{}) {
                 this.$refs['profile'].validate((valid) => {
                     if (valid) {
                         this.loading = true;
@@ -539,33 +531,36 @@
                                 });
                                 this.profileSaved = true;
                                 this.loading = false;
+                                callback();
                                 console.log(response.data);
                             }).catch(error => {
                             console.log(error.response);
                         });
                     }
                 });
-            }
-        },
-        closeDialogs() {
-            console.log(1);
-            for (let dialog in this.dialogs) {
-                console.log(dialog);
-                this.dialogs[dialog] = false;
+            },
+
+            closeDialogs() {
+                for (let dialog in this.dialogs) {
+                    this.dialogs[dialog] = false;
+                }
             }
         },
         computed: {
             userName() {
                 return window.location.origin + '/' + (this.user.user_name ? this.user.user_name : 'artist/' + this.user.id);
             },
-            showBackgroundImage() {
-                return (!this.user.profile_premium_add && !this.user.profile_background_image_add && this.user.user_type === 'artist');
+            showProfileBackgroundImage() {
+                return !this.user.profile_premium_add && !this.user.profile_background_image_add && this.user.user_type === 'artist';
             },
-            showInspiration() {
-                return (!this.user.profile_premium_add || !this.user.profile_inspiration && this.user.user_type === 'artist');
+            showProfileInspiration() {
+                return !this.user.profile_premium_add && !this.user.profile_inspiration_add && this.user.user_type === 'artist';
             },
-            showExhibition() {
-                return this.user.profile_premium_add || this.user.profile_exhibition_add && this.user.user_type === 'artist';
+            showProfileExhibition() {
+                return !this.user.profile_premium_add && !this.user.profile_exhibition_add && this.user.user_type === 'artist';
+            },
+            showProfileEducation() {
+                return !this.user.profile_premium_add && !this.user.profile_education_add && this.user.user_type === 'artist';
             }
         }
     }
