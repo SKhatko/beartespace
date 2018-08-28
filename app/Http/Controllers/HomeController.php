@@ -93,7 +93,7 @@ class HomeController extends Controller {
 
 			foreach ( $queries as $query ) {
 
-				$artists->with( 'artworks' )->whereHas( 'artworks', function ( $q ) use($query) {
+				$artists->with( 'artworks' )->whereHas( 'artworks', function ( $q ) use ( $query ) {
 					$q->whereRaw( 'LOWER(medium) LIKE ?', '%' . $query . '%' );
 				} );
 
@@ -104,7 +104,7 @@ class HomeController extends Controller {
 		if ( $request->input( 'direction' ) ) {
 			$queries = explode( ',', $request->input( 'direction' ) );
 			foreach ( $queries as $query ) {
-				$artists->with( 'artworks' )->whereHas( 'artworks', function ( $q ) use($query) {
+				$artists->with( 'artworks' )->whereHas( 'artworks', function ( $q ) use ( $query ) {
 					$q->whereRaw( 'LOWER(direction) LIKE ?', '%' . $query . '%' );
 				} );
 //				$artists->whereRaw( 'LOWER(direction) LIKE ?', '%' . $query . '%' );
@@ -285,9 +285,6 @@ class HomeController extends Controller {
 		// Search query
 		$query = trim( $request->input( 'query' ) );
 
-
-		// TODO search in Artists, Artworks
-
 		$artworks = Artwork::whereRaw( 'LOWER(title) LIKE ?', '%' . $query . '%' )
 		                   ->orWhereRaw( 'LOWER(description) LIKE ?', '%' . $query . '%' )
 		                   ->orWhereRaw( 'LOWER(inspiration) LIKE ?', '%' . $query . '%' )
@@ -298,6 +295,17 @@ class HomeController extends Controller {
 		                   ->get();
 
 //		return $artworks;
+
+		$artists = User::query()->artist();
+
+		$userNameArray = explode( ' ', $query );
+
+		foreach ( $userNameArray as $userNamePart ) {
+			$artists->whereRaw( 'LOWER(first_name) LIKE ?', '%' . $userNamePart . '%' )
+			        ->orWhereRaw( 'LOWER(last_name) LIKE ?', '%' . $userNamePart . '%' );
+		}
+
+		$artists = $artists->paginate(15);
 
 		return view( 'search.index', compact( 'artworks', 'artists' ) );
 	}
