@@ -171,7 +171,7 @@
                 <el-col :sm="8">
                     <el-form-item label="Profession" prop="profession">
                         <el-select value="" v-model="user.profession" multiple filterable allow-create
-                                   default-first-option
+                                   default-first-option collapse-tags
                                    placeholder="What is your profession?">
                             <el-option v-for="profession in options('profession')" :key="profession.value"
                                        :label="profession.label"
@@ -207,7 +207,8 @@
 
                 <el-col :sm="8">
                     <el-form-item label="University educational title" prop="education_title">
-                        <el-select value="" v-model="user.education_title" filterable allow-create :disabled="showProfileEducation">
+                        <el-select value="" v-model="user.education_title" filterable allow-create
+                                   :disabled="showProfileEducation">
                             <el-option v-for="title in options('education')" :key="title.value" :label="title.label"
                                        :value="title.value"></el-option>
                         </el-select>
@@ -295,9 +296,9 @@
                                     Add your inspiration to attract more customers
                                 </el-button>
                             <el-dialog
-                        title="Upgrade Your profile"
-                        :visible.sync="dialogs.profileInspirationAddDialog"
-                        width="30%">
+                                    title="Upgrade Your profile"
+                                    :visible.sync="dialogs.profileInspirationAddDialog"
+                                    width="30%">
                     <p>What is inspiring you, why you are the Artist? It is very important to attract
                         customers.</p>
                     <p>Sent us key-word and we will write a short story about what inspires you, why you
@@ -517,7 +518,8 @@
                 return isJPG && isLt2M;
             },
 
-            save(callback = ()=>{}) {
+            save(callback = () => {
+            }) {
                 this.$refs['profile'].validate((valid) => {
                     if (valid) {
                         this.loading = true;

@@ -101,14 +101,15 @@
                 </el-dialog>
 
                 <el-button type="text" @click="dialogs.artworkOptionsAddDialog = true"
-                           v-if="!!user.profile_premium_add || !artwork.artwork_options_add">
+                           v-if="showArtworkOptions">
                     Add extra search options to attract more customers
                 </el-button>
 
-                <el-row :gutter="20" v-if="user.profile_premium_add || artwork.artwork_options_add">
+                <el-row :gutter="20">
                     <el-col :sm="6">
                         <el-form-item label="Medium">
                             <el-select value="" v-model="artwork.medium" multiple filterable allow-create
+                                       :disabled="showArtworkOptions"
                                        default-first-option placeholder="Select material">
                                 <el-option v-for="medium in options('medium')" :key="medium.value" :label="medium.label"
                                            :value="medium.value"></el-option>
@@ -118,6 +119,7 @@
                     <el-col :sm="6">
                         <el-form-item label="Art direction">
                             <el-select value="" v-model="artwork.direction" multiple filterable allow-create
+                                       :disabled="showArtworkOptions"
                                        default-first-option placeholder="Select">
                                 <el-option v-for="direction in options('direction')" :key="direction.value"
                                            :label="direction.label"
@@ -128,6 +130,7 @@
                     <el-col :sm="6">
                         <el-form-item label="Theme">
                             <el-select value="" v-model="artwork.theme" multiple filterable allow-create
+                                       :disabled="showArtworkOptions"
                                        default-first-option placeholder="Select">
                                 <el-option v-for="theme in options('theme')" :key="theme.value" :label="theme.label"
                                            :value="theme.value"></el-option>
@@ -137,6 +140,7 @@
                     <el-col :sm="6">
                         <el-form-item label="Main colors">
                             <el-select value="" v-model="artwork.color" multiple filterable allow-create
+                                       :disabled="showArtworkOptions"
                                        default-first-option placeholder="Select">
                                 <el-option v-for="color in options('color')" :key="color.value" :label="color.label"
                                            :value="color.value"></el-option>
@@ -146,6 +150,7 @@
                     <el-col :sm="6">
                         <el-form-item label="Artwork shape">
                             <el-select value="" v-model="artwork.shape" filterable allow-create
+                                       :disabled="showArtworkOptions"
                                        default-first-option placeholder="Select shape">
                                 <el-option v-for="shape in options('shape')" :key="shape.value" :label="shape.label"
                                            :value="shape.value"></el-option>
@@ -156,49 +161,45 @@
 
                 <!-- Description, Inspiration -->
                 <el-row :gutter="20">
-                    <el-col :sm="12">
+                    <el-col>
                         <el-form-item label="Artwork Description">
-                            <el-input
-                                    type="textarea"
-                                    :rows="2"
-                                    placeholder="Description"
-                                    v-model="artwork.description">
-                            </el-input>
+                            <vue-editor id="description" v-model="artwork.description"
+                                        placeholder="Artwork description"
+                                        :editorToolbar="artworkEditorToolbar"></vue-editor>
                         </el-form-item>
                     </el-col>
 
-                    <el-col :sm="12" v-if="user.profile_premium_add || artwork.artwork_inspiration_add">
-                        <el-form-item label="Inspiration">
-                            <el-input
-                                    type="textarea"
-                                    :rows="2"
-                                    placeholder="Things that inspire you"
-                                    v-model="artwork.inspiration">
-                            </el-input>
+                    <el-col>
+                        <el-form-item>
+                            <span slot="label" v-if="showArtworkInspiration">
+                                <el-button type="text" @click="dialogs.artworkInspirationAddDialog = true"
+                                           v-if="showArtworkInspiration">
+                                    Add inspiration of your artwork to attract more customers
+                                </el-button>
+                                <el-dialog
+                                        title="Upgrade Your Artwork"
+                                        :visible.sync="dialogs.artworkInspirationAddDialog"
+                                        width="30%">
+                                    <p>Buyers love stories, attract them to your art, show your art in the best possible way.</p>
+                                    <p>Sent us keywords and we can write a short story about your work to convince others why is so
+                                        unique. The description of your inspiration is best to write in English.</p>
+                                    <p>Make your artwork more attractive for 1 EUR</p>
+                                    <span slot="footer" class="dialog-footer">
+                                <el-button type="primary"
+                                           @click="saveArtwork(false, confirmArtworkUpgrade('artwork_inspiration_add', 1))">Confirm</el-button>
+                              </span>
+                                </el-dialog>
+                            </span>
+                            <span slot="label" v-else>Inspiration</span>
+
+                            <vue-editor id="inspiration" v-model="artwork.inspiration"
+                                        placeholder="Things that inspire you"
+                                        :disabled="showArtworkInspiration"
+                                        :editorToolbar="artworkEditorToolbar"></vue-editor>
                         </el-form-item>
                     </el-col>
 
                 </el-row>
-
-
-                <el-dialog
-                        title="Upgrade Your Artwork"
-                        :visible.sync="dialogs.artworkInspirationAddDialog"
-                        width="30%">
-                    <p>Buyers love stories, attract them to your art, show your art in the best possible way.</p>
-                    <p>Sent us keywords and we can write a short story about your work to convince others why is so
-                        unique. The description of your inspiration is best to write in English.</p>
-                    <p>Make your artwork more attractive for 1 EUR</p>
-                    <span slot="footer" class="dialog-footer">
-                <el-button type="primary"
-                           @click="saveArtwork(false, confirmArtworkUpgrade('artwork_inspiration_add', 1))">Confirm</el-button>
-              </span>
-                </el-dialog>
-
-                <el-button type="text" @click="dialogs.artworkInspirationAddDialog = true"
-                           v-if="!!user.profile_premium_add || !artwork.artwork_inspiration_add">
-                    Add inspiration of your artwork to attract more customers
-                </el-button>
 
 
                 <!--  Date of completion, price -->
@@ -228,7 +229,7 @@
                     </el-col>
                 </el-row>
 
-                <el-row :gutter="20">
+                <el-row :gutter="20" style="margin-bottom: 20px;">
                     <el-col :sm="8">
                         <el-form-item label="Your artworks can be sold on auction">
                             <el-checkbox v-model="artwork.auction_status" border>Place for auction</el-checkbox>
@@ -253,11 +254,24 @@
                         </el-form-item>
                     </el-col>
 
+                    <el-col :sm="8">
+                        <el-form-item label="Mark artwork as sold">
+                            <el-checkbox v-model="artwork.sold" @click="">Sold</el-checkbox>
+                        </el-form-item>
+                    </el-col>
+
+                    <el-col :sm="8">
+                        <el-switch
+                                v-model="artwork.available"
+                                active-text="Artwork available for sale"
+                                inactive-text="Temporary unavailable">
+                        </el-switch>
+                    </el-col>
+
                 </el-row>
 
-                <label class="el-form-item__label">Upload images of back side, signature, or artwork from side. Up to 3
-                    Photos of Your Artwork allowed( jpg/png files accepted)</label>
-                <el-form-item>
+                <el-form-item label="Upload images of back side, signature, or artwork from side. Up to 3
+                    Photos of Your Artwork allowed( jpg/png files accepted)">
                     <el-upload
                             :action="'/api/upload/artwork-image/' + artwork.id"
                             :file-list="artwork.images"
@@ -282,15 +296,11 @@
 
                 <el-button type="primary" style="margin-top: 20px"
                            size="big"
-                           @click="saveArtwork()" :loading="loading" icon="el-icon-arrow-right">
-                    Save
+                           @click="saveArtwork()" :loading="loading">Save
                 </el-button>
 
-                <el-button type="primary" v-if="artworkSaved" style="margin-top: 20px"
-                           size="big">
-                    <a :href="'/artworks/' + artwork.id" target="_blank">
-                        Preview
-                    </a>
+                <el-button type="primary" v-if="artworkSaved" style="margin-top: 20px" size="big">
+                    <a :href="'/artwork/' + artwork.id" target="_blank">Preview</a>
                 </el-button>
 
             </template>
@@ -299,8 +309,7 @@
 
                 <el-button type="primary" style="margin-top: 20px"
                            size="big" :loading="loading"
-                           @click="saveArtwork(true)" icon="el-icon-arrow-right">
-                    Create
+                           @click="saveArtwork(true)" icon="el-icon-arrow-right">Create
                 </el-button>
 
             </template>
@@ -312,6 +321,8 @@
 </template>
 
 <script>
+
+    import {VueEditor} from 'vue2-editor'
 
     export default {
 
@@ -370,6 +381,15 @@
                     ],
                 },
 
+                artworkEditorToolbar: [
+                    [{'size': ['small', false, 'large', 'huge']}],
+                    ['bold', 'italic', 'underline', 'strike'],
+                    [{'align': ''}, {'align': 'center'}, {'align': 'right'}, {'align': 'justify'}],
+                    ['blockquote'],
+                    [{'list': 'ordered'}, {'list': 'bullet'}, {'list': 'check'}],
+                    [{'indent': '-1'}, {'indent': '+1'}],
+                ],
+
                 artworkSaved: false,
                 loading: false,
 
@@ -416,6 +436,7 @@
                                             type: response.data.status
                                         });
 
+                                        this.artworkSaved = true;
                                         this.artwork = response.data.data;
                                         this.loading = false;
 
@@ -473,9 +494,6 @@
             },
 
             confirmArtworkUpgrade(name, price, period = null) {
-
-                return;
-
                 axios.get('/api/artwork-add/' + this.artwork.id + '/' + name + '/' + price + '/' + period).then(response => {
                     this.$alert(response.data.message, '', {
                         confirmButtonText: 'OK',
@@ -493,6 +511,14 @@
                 }
             }
 
+        },
+        computed: {
+            showArtworkOptions() {
+                return !this.user.profile_premium_add && !this.artwork.artwork_options_add;
+            },
+            showArtworkInspiration() {
+                return !this.user.profile_premium_add && !this.artwork.artwork_inspiration_add;
+            }
         }
     }
 </script>

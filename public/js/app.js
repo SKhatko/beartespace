@@ -19303,6 +19303,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue2_editor__ = __webpack_require__(78);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue2_editor___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue2_editor__);
 //
 //
 //
@@ -19616,6 +19618,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -19654,6 +19667,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 weight: [{ required: true, message: 'Please select weight', trigger: ['blur', 'change'] }],
                 b_weight: [{ required: true, message: 'Please select weight', trigger: ['blur', 'change'] }]
             },
+
+            artworkEditorToolbar: [[{ 'size': ['small', false, 'large', 'huge'] }], ['bold', 'italic', 'underline', 'strike'], [{ 'align': '' }, { 'align': 'center' }, { 'align': 'right' }, { 'align': 'justify' }], ['blockquote'], [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'list': 'check' }], [{ 'indent': '-1' }, { 'indent': '+1' }]],
 
             artworkSaved: false,
             loading: false,
@@ -19701,6 +19716,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                                     type: response.data.status
                                 });
 
+                                _this.artworkSaved = true;
                                 _this.artwork = response.data.data;
                                 _this.loading = false;
 
@@ -19761,9 +19777,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             var period = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
 
-
-            return;
-
             axios.get('/api/artwork-add/' + this.artwork.id + '/' + name + '/' + price + '/' + period).then(function (response) {
                 _this3.$alert(response.data.message, '', {
                     confirmButtonText: 'OK',
@@ -19779,6 +19792,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             for (var dialog in this.dialogs) {
                 this.dialogs[dialog] = false;
             }
+        }
+    },
+    computed: {
+        showArtworkOptions: function showArtworkOptions() {
+            return !this.user.profile_premium_add && !this.artwork.artwork_options_add;
+        },
+        showArtworkInspiration: function showArtworkInspiration() {
+            return !this.user.profile_premium_add && !this.artwork.artwork_inspiration_add;
         }
     }
 });
@@ -20515,6 +20536,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue2_editor__ = __webpack_require__(78);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue2_editor___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue2_editor__);
+//
 //
 //
 //
@@ -66229,6 +66251,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "filterable": "",
       "allow-create": "",
       "default-first-option": "",
+      "collapse-tags": "",
       "placeholder": "What is your profession?"
     },
     model: {
@@ -67102,7 +67125,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.saveArtwork(false, _vm.confirmArtworkUpgrade('artwork_options_add', 1))
       }
     }
-  }, [_vm._v("Confirm")])], 1)]), _vm._v(" "), (!!_vm.user.profile_premium_add || !_vm.artwork.artwork_options_add) ? _c('el-button', {
+  }, [_vm._v("Confirm")])], 1)]), _vm._v(" "), (_vm.showArtworkOptions) ? _c('el-button', {
     attrs: {
       "type": "text"
     },
@@ -67111,7 +67134,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.dialogs.artworkOptionsAddDialog = true
       }
     }
-  }, [_vm._v("\n                Add extra search options to attract more customers\n            ")]) : _vm._e(), _vm._v(" "), (_vm.user.profile_premium_add || _vm.artwork.artwork_options_add) ? _c('el-row', {
+  }, [_vm._v("\n                Add extra search options to attract more customers\n            ")]) : _vm._e(), _vm._v(" "), _c('el-row', {
     attrs: {
       "gutter": 20
     }
@@ -67129,6 +67152,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "multiple": "",
       "filterable": "",
       "allow-create": "",
+      "disabled": _vm.showArtworkOptions,
       "default-first-option": "",
       "placeholder": "Select material"
     },
@@ -67161,6 +67185,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "multiple": "",
       "filterable": "",
       "allow-create": "",
+      "disabled": _vm.showArtworkOptions,
       "default-first-option": "",
       "placeholder": "Select"
     },
@@ -67193,6 +67218,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "multiple": "",
       "filterable": "",
       "allow-create": "",
+      "disabled": _vm.showArtworkOptions,
       "default-first-option": "",
       "placeholder": "Select"
     },
@@ -67225,6 +67251,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "multiple": "",
       "filterable": "",
       "allow-create": "",
+      "disabled": _vm.showArtworkOptions,
       "default-first-option": "",
       "placeholder": "Select"
     },
@@ -67256,6 +67283,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "value": "",
       "filterable": "",
       "allow-create": "",
+      "disabled": _vm.showArtworkOptions,
       "default-first-option": "",
       "placeholder": "Select shape"
     },
@@ -67274,23 +67302,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "value": shape.value
       }
     })
-  }))], 1)], 1)], 1) : _vm._e(), _vm._v(" "), _c('el-row', {
+  }))], 1)], 1)], 1), _vm._v(" "), _c('el-row', {
     attrs: {
       "gutter": 20
     }
-  }, [_c('el-col', {
-    attrs: {
-      "sm": 12
-    }
-  }, [_c('el-form-item', {
+  }, [_c('el-col', [_c('el-form-item', {
     attrs: {
       "label": "Artwork Description"
     }
-  }, [_c('el-input', {
+  }, [_c('vue-editor', {
     attrs: {
-      "type": "textarea",
-      "rows": 2,
-      "placeholder": "Description"
+      "id": "description",
+      "placeholder": "Artwork description",
+      "editorToolbar": _vm.artworkEditorToolbar
     },
     model: {
       value: (_vm.artwork.description),
@@ -67299,28 +67323,21 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "artwork.description"
     }
-  })], 1)], 1), _vm._v(" "), (_vm.user.profile_premium_add || _vm.artwork.artwork_inspiration_add) ? _c('el-col', {
+  })], 1)], 1), _vm._v(" "), _c('el-col', [_c('el-form-item', [(_vm.showArtworkInspiration) ? _c('span', {
     attrs: {
-      "sm": 12
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Inspiration"
-    }
-  }, [_c('el-input', {
-    attrs: {
-      "type": "textarea",
-      "rows": 2,
-      "placeholder": "Things that inspire you"
+      "slot": "label"
     },
-    model: {
-      value: (_vm.artwork.inspiration),
-      callback: function($$v) {
-        _vm.$set(_vm.artwork, "inspiration", $$v)
-      },
-      expression: "artwork.inspiration"
+    slot: "label"
+  }, [(_vm.showArtworkInspiration) ? _c('el-button', {
+    attrs: {
+      "type": "text"
+    },
+    on: {
+      "click": function($event) {
+        _vm.dialogs.artworkInspirationAddDialog = true
+      }
     }
-  })], 1)], 1) : _vm._e()], 1), _vm._v(" "), _c('el-dialog', {
+  }, [_vm._v("\n                                Add inspiration of your artwork to attract more customers\n                            ")]) : _vm._e(), _vm._v(" "), _c('el-dialog', {
     attrs: {
       "title": "Upgrade Your Artwork",
       "visible": _vm.dialogs.artworkInspirationAddDialog,
@@ -67331,7 +67348,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.$set(_vm.dialogs, "artworkInspirationAddDialog", $event)
       }
     }
-  }, [_c('p', [_vm._v("Buyers love stories, attract them to your art, show your art in the best possible way.")]), _vm._v(" "), _c('p', [_vm._v("Sent us keywords and we can write a short story about your work to convince others why is so\n                    unique. The description of your inspiration is best to write in English.")]), _vm._v(" "), _c('p', [_vm._v("Make your artwork more attractive for 1 EUR")]), _vm._v(" "), _c('span', {
+  }, [_c('p', [_vm._v("Buyers love stories, attract them to your art, show your art in the best possible way.")]), _vm._v(" "), _c('p', [_vm._v("Sent us keywords and we can write a short story about your work to convince others why is so\n                                    unique. The description of your inspiration is best to write in English.")]), _vm._v(" "), _c('p', [_vm._v("Make your artwork more attractive for 1 EUR")]), _vm._v(" "), _c('span', {
     staticClass: "dialog-footer",
     attrs: {
       "slot": "footer"
@@ -67346,16 +67363,26 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.saveArtwork(false, _vm.confirmArtworkUpgrade('artwork_inspiration_add', 1))
       }
     }
-  }, [_vm._v("Confirm")])], 1)]), _vm._v(" "), (!!_vm.user.profile_premium_add || !_vm.artwork.artwork_inspiration_add) ? _c('el-button', {
+  }, [_vm._v("Confirm")])], 1)])], 1) : _c('span', {
     attrs: {
-      "type": "text"
+      "slot": "label"
     },
-    on: {
-      "click": function($event) {
-        _vm.dialogs.artworkInspirationAddDialog = true
-      }
+    slot: "label"
+  }, [_vm._v("Inspiration")]), _vm._v(" "), _c('vue-editor', {
+    attrs: {
+      "id": "inspiration",
+      "placeholder": "Things that inspire you",
+      "disabled": _vm.showArtworkInspiration,
+      "editorToolbar": _vm.artworkEditorToolbar
+    },
+    model: {
+      value: (_vm.artwork.inspiration),
+      callback: function($$v) {
+        _vm.$set(_vm.artwork, "inspiration", $$v)
+      },
+      expression: "artwork.inspiration"
     }
-  }, [_vm._v("\n                Add inspiration of your artwork to attract more customers\n            ")]) : _vm._e(), _vm._v(" "), _c('el-row', {
+  })], 1)], 1)], 1), _vm._v(" "), _c('el-row', {
     attrs: {
       "gutter": 20
     }
@@ -67426,6 +67453,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     })
   }))], 1)], 1)], 1), _vm._v(" "), _c('el-row', {
+    staticStyle: {
+      "margin-bottom": "20px"
+    },
     attrs: {
       "gutter": 20
     }
@@ -67490,9 +67520,46 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "artwork.auction_price"
     }
-  })], 1)], 1) : _vm._e()], 1), _vm._v(" "), _c('label', {
-    staticClass: "el-form-item__label"
-  }, [_vm._v("Upload images of back side, signature, or artwork from side. Up to 3\n                Photos of Your Artwork allowed( jpg/png files accepted)")]), _vm._v(" "), _c('el-form-item', [_c('el-upload', {
+  })], 1)], 1) : _vm._e(), _vm._v(" "), _c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Mark artwork as sold"
+    }
+  }, [_c('el-checkbox', {
+    on: {
+      "click": function($event) {}
+    },
+    model: {
+      value: (_vm.artwork.sold),
+      callback: function($$v) {
+        _vm.$set(_vm.artwork, "sold", $$v)
+      },
+      expression: "artwork.sold"
+    }
+  }, [_vm._v("Sold")])], 1)], 1), _vm._v(" "), _c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-switch', {
+    attrs: {
+      "active-text": "Artwork available for sale",
+      "inactive-text": "Temporary unavailable"
+    },
+    model: {
+      value: (_vm.artwork.available),
+      callback: function($$v) {
+        _vm.$set(_vm.artwork, "available", $$v)
+      },
+      expression: "artwork.available"
+    }
+  })], 1)], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "label": "Upload images of back side, signature, or artwork from side. Up to 3\n                Photos of Your Artwork allowed( jpg/png files accepted)"
+    }
+  }, [_c('el-upload', {
     attrs: {
       "action": '/api/upload/artwork-image/' + _vm.artwork.id,
       "file-list": _vm.artwork.images,
@@ -67536,15 +67603,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "primary",
       "size": "big",
-      "loading": _vm.loading,
-      "icon": "el-icon-arrow-right"
+      "loading": _vm.loading
     },
     on: {
       "click": function($event) {
         _vm.saveArtwork()
       }
     }
-  }, [_vm._v("\n                Save\n            ")]), _vm._v(" "), (_vm.artworkSaved) ? _c('el-button', {
+  }, [_vm._v("Save\n            ")]), _vm._v(" "), (_vm.artworkSaved) ? _c('el-button', {
     staticStyle: {
       "margin-top": "20px"
     },
@@ -67554,10 +67620,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('a', {
     attrs: {
-      "href": '/artworks/' + _vm.artwork.id,
+      "href": '/artwork/' + _vm.artwork.id,
       "target": "_blank"
     }
-  }, [_vm._v("\n                    Preview\n                ")])]) : _vm._e()] : [_c('el-button', {
+  }, [_vm._v("Preview")])]) : _vm._e()] : [_c('el-button', {
     staticStyle: {
       "margin-top": "20px"
     },
@@ -67572,7 +67638,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.saveArtwork(true)
       }
     }
-  }, [_vm._v("\n                Create\n            ")])]], 2) : _vm._e()], 1)
+  }, [_vm._v("Create\n            ")])]], 2) : _vm._e()], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

@@ -8,7 +8,9 @@
 
     <el-breadcrumb separator-class="el-icon-arrow-right" style="margin-bottom: 30px;">
         <el-breadcrumb-item><a href="/">Home</a></el-breadcrumb-item>
-        <el-breadcrumb-item>Create Artwork</el-breadcrumb-item>
+        <el-breadcrumb-item><a href="/dashboard">Dashboard</a></el-breadcrumb-item>
+        <el-breadcrumb-item><a href="/dashboard/artwork">Artworks</a></el-breadcrumb-item>
+        <el-breadcrumb-item>Upload</el-breadcrumb-item>
     </el-breadcrumb>
 
     @include('partials.back')

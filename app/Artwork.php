@@ -48,6 +48,14 @@ class Artwork extends Model {
 		return ! ! $value;
 	}
 
+	public function getSoldAttribute($value) {
+		return !!$value;
+	}
+
+	public function getAvailableAttribute($value) {
+		return !!$value;
+	}
+
 	public function getFormattedPriceAttribute() {
 		return currency( $this->attributes['price'], null, session( 'currency' ) );
 	}
