@@ -10,14 +10,19 @@ use App\Add;
 class Artwork extends Model {
 	protected $guarded = [];
 
-	protected $appends = [ 'formatted_price', 'artwork_options_add', 'artwork_inspiration_add', 'artwork_interior_add' ];
+	protected $appends = [
+		'formatted_price',
+		'artwork_options_add',
+		'artwork_inspiration_add',
+		'artwork_interior_add'
+	];
 
 	protected $casts = [
-		'medium'    => 'array',
+		'medium' => 'array',
 		'direction' => 'array',
-		'theme'     => 'array',
-		'color'     => 'array',
-		'image'     => 'array'
+		'theme' => 'array',
+		'color' => 'array',
+		'image' => 'array'
 	];
 
 	public function user() {
@@ -48,12 +53,12 @@ class Artwork extends Model {
 		return ! ! $value;
 	}
 
-	public function getSoldAttribute($value) {
-		return !!$value;
+	public function getSoldAttribute( $value ) {
+		return ! ! $value;
 	}
 
-	public function getAvailableAttribute($value) {
-		return !!$value;
+	public function getAvailableAttribute( $value ) {
+		return ! ! $value;
 	}
 
 	public function getFormattedPriceAttribute() {

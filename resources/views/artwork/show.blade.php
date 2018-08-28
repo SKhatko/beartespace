@@ -16,7 +16,7 @@
                             @foreach($artwork->images as $image)
                                 <el-carousel-item key="{{ $loop->index }}">
                                     <div class="artwork-image">
-                                        <img src="{{ $image->url }}" alt="{{ $image->name }}">
+                                        <img src="/imagecache/height-200/{{ $image->url }}" alt="{{ $image->name }}">
                                     </div>
                                 </el-carousel-item>
                             @endforeach

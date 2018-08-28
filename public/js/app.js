@@ -19762,7 +19762,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             // this.images = fileList;
         },
         handlePictureCardPreview: function handlePictureCardPreview(file) {
-            console.log(file);
             this.dialogImageUrl = file.url;
             this.dialogVisible = true;
         },
@@ -67152,6 +67151,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "multiple": "",
       "filterable": "",
       "allow-create": "",
+      "collapse-tags": "",
       "disabled": _vm.showArtworkOptions,
       "default-first-option": "",
       "placeholder": "Select material"
@@ -67185,6 +67185,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "multiple": "",
       "filterable": "",
       "allow-create": "",
+      "collapse-tags": "",
       "disabled": _vm.showArtworkOptions,
       "default-first-option": "",
       "placeholder": "Select"
@@ -67218,6 +67219,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "multiple": "",
       "filterable": "",
       "allow-create": "",
+      "collapse-tags": "",
       "disabled": _vm.showArtworkOptions,
       "default-first-option": "",
       "placeholder": "Select"
@@ -67251,6 +67253,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "multiple": "",
       "filterable": "",
       "allow-create": "",
+      "collapse-tags": "",
       "disabled": _vm.showArtworkOptions,
       "default-first-option": "",
       "placeholder": "Select"
@@ -67283,6 +67286,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "value": "",
       "filterable": "",
       "allow-create": "",
+      "collapse-tags": "",
       "disabled": _vm.showArtworkOptions,
       "default-first-option": "",
       "placeholder": "Select shape"
@@ -67572,7 +67576,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "on-success": _vm.handleSuccess,
       "limit": 3,
       "on-exceed": _vm.handleExceed,
-      "accept": ".jpg, .jpeg, .png"
+      "accept": ".jpg, .jpeg"
     }
   }, [_c('el-button', {
     attrs: {

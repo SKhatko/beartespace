@@ -108,7 +108,7 @@
                 <el-row :gutter="20">
                     <el-col :sm="6">
                         <el-form-item label="Medium">
-                            <el-select value="" v-model="artwork.medium" multiple filterable allow-create
+                            <el-select value="" v-model="artwork.medium" multiple filterable allow-create collapse-tags
                                        :disabled="showArtworkOptions"
                                        default-first-option placeholder="Select material">
                                 <el-option v-for="medium in options('medium')" :key="medium.value" :label="medium.label"
@@ -118,7 +118,7 @@
                     </el-col>
                     <el-col :sm="6">
                         <el-form-item label="Art direction">
-                            <el-select value="" v-model="artwork.direction" multiple filterable allow-create
+                            <el-select value="" v-model="artwork.direction" multiple filterable allow-create collapse-tags
                                        :disabled="showArtworkOptions"
                                        default-first-option placeholder="Select">
                                 <el-option v-for="direction in options('direction')" :key="direction.value"
@@ -129,7 +129,7 @@
                     </el-col>
                     <el-col :sm="6">
                         <el-form-item label="Theme">
-                            <el-select value="" v-model="artwork.theme" multiple filterable allow-create
+                            <el-select value="" v-model="artwork.theme" multiple filterable allow-create collapse-tags
                                        :disabled="showArtworkOptions"
                                        default-first-option placeholder="Select">
                                 <el-option v-for="theme in options('theme')" :key="theme.value" :label="theme.label"
@@ -139,7 +139,7 @@
                     </el-col>
                     <el-col :sm="6">
                         <el-form-item label="Main colors">
-                            <el-select value="" v-model="artwork.color" multiple filterable allow-create
+                            <el-select value="" v-model="artwork.color" multiple filterable allow-create collapse-tags
                                        :disabled="showArtworkOptions"
                                        default-first-option placeholder="Select">
                                 <el-option v-for="color in options('color')" :key="color.value" :label="color.label"
@@ -149,7 +149,7 @@
                     </el-col>
                     <el-col :sm="6">
                         <el-form-item label="Artwork shape">
-                            <el-select value="" v-model="artwork.shape" filterable allow-create
+                            <el-select value="" v-model="artwork.shape" filterable allow-create collapse-tags
                                        :disabled="showArtworkOptions"
                                        default-first-option placeholder="Select shape">
                                 <el-option v-for="shape in options('shape')" :key="shape.value" :label="shape.label"
@@ -281,7 +281,7 @@
                             :on-success="handleSuccess"
                             :limit="3"
                             :on-exceed="handleExceed"
-                            accept=".jpg, .jpeg, .png">
+                            accept=".jpg, .jpeg">
                         <el-button type="info" plain>
                             <i class="el-icon-upload"></i>
                             Upload images
@@ -482,7 +482,6 @@
                 // this.images = fileList;
             },
             handlePictureCardPreview(file) {
-                console.log(file);
                 this.dialogImageUrl = file.url;
                 this.dialogVisible = true;
             },

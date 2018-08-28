@@ -104,10 +104,9 @@ Route::group( [ 'middleware' => 'web' ], function () {
 
 		// Not user (admin, artist, gallery)
 		Route::group( [ 'middleware' => 'artist' ], function () {
-			Route::get( 'artworks', 'ArtworkController@index' )->name( 'dashboard.artworks' );
+			Route::get( 'artwork', 'ArtworkController@index' )->name( 'dashboard.artworks' );
 			Route::get( 'artwork/create', 'ArtworkController@create' )->name( 'dashboard.artwork.create' );
 			Route::get( 'artwork/{id}/edit', 'ArtworkController@edit' )->name( 'dashboard.artwork.edit' );
-			Route::post( 'artwork/{id}', 'ArtworkController@destroy' )->name( 'dashboard.artwork.destroy' );
 		} );
 
 		// Admin only
