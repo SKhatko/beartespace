@@ -14,7 +14,7 @@
 
             <el-form-item>
 
-                <el-select value="" v-model="artworkFilters.category" filterable multiple collapse-tags
+                <el-select value="" v-model="artworkFilters.category" filterable multiple collapse-tags allow-create
                            placeholder="Filter by category">
                     <el-option
                             v-for="(category, key) in trans('category')"
@@ -28,7 +28,7 @@
 
             <el-form-item>
 
-                <el-select value="" v-model="artworkFilters.medium" filterable multiple collapse-tags
+                <el-select value="" v-model="artworkFilters.medium" filterable multiple collapse-tags allow-create
                            placeholder="Filter by medium">
                     <el-option
                             v-for="(medium, key) in trans('medium')"
@@ -42,7 +42,7 @@
 
             <el-form-item>
 
-                <el-select value="" v-model="artworkFilters.theme" filterable multiple collapse-tags
+                <el-select value="" v-model="artworkFilters.theme" filterable multiple collapse-tags allow-create
                            placeholder="Filter by theme">
                     <el-option
                             v-for="(theme, key) in trans('theme')"
@@ -56,7 +56,7 @@
 
             <el-form-item>
 
-                <el-select value="" v-model="artworkFilters.direction" filterable multiple collapse-tags
+                <el-select value="" v-model="artworkFilters.direction" filterable multiple collapse-tags allow-create
                            placeholder="Filter by direction">
                     <el-option
                             v-for="(direction, key) in trans('direction')"
@@ -96,16 +96,16 @@
 
             </el-form-item>
 
-            <el-form-item>
+            <!--<el-form-item>-->
 
-                <el-select value="" v-model="artworkFilters.size" placeholder="Filter by size">
-                    <el-option :key="50" label="Up to 50cm" :value="50"></el-option>
-                    <el-option :key="100" label="Up to 100cm" :value="100"></el-option>
-                    <el-option :key="200" label="Up to 200cm" :value="200"></el-option>
+                <!--<el-select value="" v-model="artworkFilters.size" placeholder="Filter by size">-->
+                    <!--<el-option :key="50" label="Up to 50cm" :value="50"></el-option>-->
+                    <!--<el-option :key="100" label="Up to 100cm" :value="100"></el-option>-->
+                    <!--<el-option :key="200" label="Up to 200cm" :value="200"></el-option>-->
 
-                </el-select>
+                <!--</el-select>-->
 
-            </el-form-item>
+            <!--</el-form-item>-->
 
             <el-form-item>
 
@@ -116,6 +116,7 @@
                             :key="key"
                             :label="color"
                             :value="key">
+                        <span :style="{float: 'left', marginRight: '10px', width: '30px',height: '30px',backgroundColor: key}"></span> {{ color }}
                     </el-option>
                 </el-select>
 
@@ -153,18 +154,12 @@
         data() {
             return {
                 artworkFilters: {
-
-                    // Free
                     artist: '',
                     artwork: '',
                     medium: [],
                     category: [],
-
-                    // Basic
                     theme: [],
                     direction: [],
-
-                    // Vip
                     country: '',
                     shape: '',
                     size: '',
@@ -190,11 +185,14 @@
 
         methods: {
             setFilters() {
+
+                // Parse artist name from url
                 let artist = this.getQueryVariable('artist');
                 if (artist) {
                     this.artworkFilters['artist'] = artist;
                 }
 
+                // Title name
                 let artwork = this.getQueryVariable('artwork');
                 if (artwork) {
                     this.artworkFilters['artwork'] = artwork;
@@ -220,6 +218,27 @@
                     this.artworkFilters['direction'] = direction.split(',');
                 }
 
+                let country = this.getQueryVariable('country');
+                if (country) {
+                    let countries = country.split(',');
+
+                    countries = countries.map($country => {
+                        return Number($country);
+                    });
+
+                    this.artworkFilters['country'] = countries;
+                }
+
+                let shape = this.getQueryVariable('shape');
+                if (shape) {
+                    this.artworkFilters['shape'] = shape.split(',');
+                }
+
+                let color = this.getQueryVariable('color');
+                if (color) {
+                    this.artworkFilters['color'] = color.split(',');
+                }
+
             },
             setSearchQuery() {
                 let query = '?';
@@ -240,12 +259,14 @@
                         return decodeURIComponent(pair[1]);
                     }
                 }
-                console.log('Query variable %s not found', variable);
+                // console.log('Query variable %s not found', variable);
             },
             clearFilters() {
                 for (let filter in this.artworkFilters) {
                     this.artworkFilters[filter] = '';
                 }
+
+                this.setSearchQuery();
             }
         }
     }

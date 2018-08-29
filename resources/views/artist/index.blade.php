@@ -80,7 +80,7 @@
 
             @endforeach
 
-            <div class="artists-footer" style="text-align: center;margin-bottom: 50px;">
+            <div class="artists-bottom" style="text-align: center;margin-bottom: 50px;">
 
                 <el-button><a href="/selection/artist">See artists of the week</a></el-button>
 

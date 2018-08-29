@@ -12,7 +12,7 @@ class TranslationsTableSeeder extends Seeder {
 	public function run() {
 
 		$translations = [
-			'portal'    => [
+			'portal'     => [
 				[ 'Login', '' ],
 				[ 'Signup', '' ],
 				[ 'Artists', '' ],
@@ -27,18 +27,18 @@ class TranslationsTableSeeder extends Seeder {
 				[ 'Theme', '' ],
 				[ 'Color', '' ],
 				[ 'Technique', '' ],
-				[ 'Basic', ''],
-				[ 'Expanded', ''],
-				[ 'Trial', ''],
+				[ 'Basic', '' ],
+				[ 'Expanded', '' ],
+				[ 'Trial', '' ],
 			],
-			'category'  => [
+			'category'   => [
 				[ 'Painting', 'Maleri' ],
 				[ 'Sculpture', 'Skulptur' ],
 				[ 'Drawing', '' ],
 				[ 'Glass Art', '' ],
 				[ 'Ceramic', '' ],
 			],
-			'direction' => [
+			'direction'  => [
 				[ 'Abstraction', 'Abstraktion' ],
 				[ 'Colorism', '' ],
 				[ 'Impressionism', '' ],
@@ -48,7 +48,7 @@ class TranslationsTableSeeder extends Seeder {
 				[ 'Fantasy Realism', '' ],
 				[ 'Street Art', '' ],
 			],
-			'medium'    => [
+			'medium'     => [
 				[ 'Oil', '' ],
 				[ 'Acrylic', '' ],
 				[ 'Watercolor', '' ],
@@ -60,7 +60,7 @@ class TranslationsTableSeeder extends Seeder {
 				[ 'Wood', '' ],
 				[ 'Glass', '' ],
 			],
-			'theme'     => [
+			'theme'      => [
 				[ 'Figurative', '' ],
 				[ 'Abstract', '' ],
 				[ 'Portrait', '' ],
@@ -71,33 +71,53 @@ class TranslationsTableSeeder extends Seeder {
 				[ 'Maritime', '' ],
 				[ 'City Landscape', '' ],
 			],
-			'shape'     => [
+			'shape'      => [
 				[ 'Square', '' ],
 				[ 'Oval/Round', '' ],
 				[ 'Horizontal', '' ],
 				[ 'Vertical', '' ],
 			],
-			'color'     => [
-				[ 'Yellow', 'Gule' ]
+			'color'      => [
+				[ 'Red', '' ],
+				[ 'Green', '' ],
+				[ 'Yellow', '' ],
+				[ 'Blue', '' ],
+				[ 'Orange', '' ],
+				[ 'Purple', '' ],
+				[ 'Cyan', '' ],
+				[ 'Magenta', '' ],
+				[ 'Lime', '' ],
+				[ 'Pink', '' ],
+				[ 'Teal', '' ],
+				[ 'Lavender', '' ],
+				[ 'Brown', '' ],
+				[ 'Beige', '' ],
+				[ 'Maroon', '' ],
+				[ 'Olive', '' ],
+				[ 'Coral', '' ],
+				[ 'Navy', '' ],
+				[ 'Grey', '' ],
+				[ 'White', '' ],
+				[ 'Black', '' ],
 			],
-			'profession'     => [
+			'profession' => [
 				[ 'Sculptor', 'Sculpturer' ],
 				[ 'Cartoonist', '' ],
 				[ 'Illustrator', '' ],
 				[ 'Painter', 'Painter' ],
-				['Academic teacher', '']
+				[ 'Academic teacher', '' ]
 			],
-			'education' => [
-				['High Scool Graduate', ''],
-				['Bachelor', ''],
-				['Master', ''],
-				['Professor', ''],
-				['Ph.D.', '']
+			'education'  => [
+				[ 'High Scool Graduate', '' ],
+				[ 'Bachelor', '' ],
+				[ 'Master', '' ],
+				[ 'Professor', '' ],
+				[ 'Ph.D.', '' ]
 			],
-			'gender' => [
-				['Male', 'Man'],
-				['Female', 'Kwine'],
-				['Third', '']
+			'gender'     => [
+				[ 'Male', 'Man' ],
+				[ 'Female', 'Kwine' ],
+				[ 'Third', '' ]
 			]
 		];
 

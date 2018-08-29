@@ -18650,6 +18650,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -18659,18 +18660,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             artworkFilters: {
-
-                // Free
                 artist: '',
                 artwork: '',
                 medium: [],
                 category: [],
-
-                // Basic
                 theme: [],
                 direction: [],
-
-                // Vip
                 country: '',
                 shape: '',
                 size: '',
@@ -18697,11 +18692,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         setFilters: function setFilters() {
+
+            // Parse artist name from url
             var artist = this.getQueryVariable('artist');
             if (artist) {
                 this.artworkFilters['artist'] = artist;
             }
 
+            // Title name
             var artwork = this.getQueryVariable('artwork');
             if (artwork) {
                 this.artworkFilters['artwork'] = artwork;
@@ -18726,6 +18724,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (direction) {
                 this.artworkFilters['direction'] = direction.split(',');
             }
+
+            var country = this.getQueryVariable('country');
+            if (country) {
+                var countries = country.split(',');
+
+                countries = countries.map(function ($country) {
+                    return Number($country);
+                });
+
+                this.artworkFilters['country'] = countries;
+            }
+
+            var shape = this.getQueryVariable('shape');
+            if (shape) {
+                this.artworkFilters['shape'] = shape.split(',');
+            }
+
+            var color = this.getQueryVariable('color');
+            if (color) {
+                this.artworkFilters['color'] = color.split(',');
+            }
         },
         setSearchQuery: function setSearchQuery() {
             var query = '?';
@@ -18746,12 +18765,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     return decodeURIComponent(pair[1]);
                 }
             }
-            console.log('Query variable %s not found', variable);
+            // console.log('Query variable %s not found', variable);
         },
         clearFilters: function clearFilters() {
             for (var filter in this.artworkFilters) {
                 this.artworkFilters[filter] = '';
             }
+
+            this.setSearchQuery();
         }
     }
 });
@@ -19306,6 +19327,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue2_editor__ = __webpack_require__(78);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue2_editor___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue2_editor__);
+//
+//
 //
 //
 //
@@ -67166,7 +67189,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('el-col', {
     attrs: {
-      "sm": 6
+      "sm": 8
     }
   }, [_c('el-form-item', {
     attrs: {
@@ -67200,7 +67223,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     })
   }))], 1)], 1), _vm._v(" "), _c('el-col', {
     attrs: {
-      "sm": 6
+      "sm": 8
     }
   }, [_c('el-form-item', {
     attrs: {
@@ -67234,7 +67257,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     })
   }))], 1)], 1), _vm._v(" "), _c('el-col', {
     attrs: {
-      "sm": 6
+      "sm": 8
     }
   }, [_c('el-form-item', {
     attrs: {
@@ -67268,7 +67291,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     })
   }))], 1)], 1), _vm._v(" "), _c('el-col', {
     attrs: {
-      "sm": 6
+      "sm": 8
     }
   }, [_c('el-form-item', {
     attrs: {
@@ -67299,10 +67322,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "label": color.label,
         "value": color.value
       }
-    })
+    }, [_c('span', {
+      style: ({
+        float: 'left',
+        marginRight: '10px',
+        width: '30px',
+        height: '30px',
+        backgroundColor: color.value
+      })
+    }), _vm._v(" " + _vm._s(color.label) + "\n                            ")])
   }))], 1)], 1), _vm._v(" "), _c('el-col', {
     attrs: {
-      "sm": 6
+      "sm": 8
     }
   }, [_c('el-form-item', {
     attrs: {
@@ -68215,6 +68246,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "filterable": "",
       "multiple": "",
       "collapse-tags": "",
+      "allow-create": "",
       "placeholder": "Filter by category"
     },
     model: {
@@ -68238,6 +68270,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "filterable": "",
       "multiple": "",
       "collapse-tags": "",
+      "allow-create": "",
       "placeholder": "Filter by medium"
     },
     model: {
@@ -68261,6 +68294,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "filterable": "",
       "multiple": "",
       "collapse-tags": "",
+      "allow-create": "",
       "placeholder": "Filter by theme"
     },
     model: {
@@ -68284,6 +68318,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "filterable": "",
       "multiple": "",
       "collapse-tags": "",
+      "allow-create": "",
       "placeholder": "Filter by direction"
     },
     model: {
@@ -68350,36 +68385,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }))], 1), _vm._v(" "), _c('el-form-item', [_c('el-select', {
     attrs: {
       "value": "",
-      "placeholder": "Filter by size"
-    },
-    model: {
-      value: (_vm.artworkFilters.size),
-      callback: function($$v) {
-        _vm.$set(_vm.artworkFilters, "size", $$v)
-      },
-      expression: "artworkFilters.size"
-    }
-  }, [_c('el-option', {
-    key: 50,
-    attrs: {
-      "label": "Up to 50cm",
-      "value": 50
-    }
-  }), _vm._v(" "), _c('el-option', {
-    key: 100,
-    attrs: {
-      "label": "Up to 100cm",
-      "value": 100
-    }
-  }), _vm._v(" "), _c('el-option', {
-    key: 200,
-    attrs: {
-      "label": "Up to 200cm",
-      "value": 200
-    }
-  })], 1)], 1), _vm._v(" "), _c('el-form-item', [_c('el-select', {
-    attrs: {
-      "value": "",
       "filterable": "",
       "multiple": "",
       "collapse-tags": "",
@@ -68399,7 +68404,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "label": color,
         "value": key
       }
-    })
+    }, [_c('span', {
+      style: ({
+        float: 'left',
+        marginRight: '10px',
+        width: '30px',
+        height: '30px',
+        backgroundColor: key
+      })
+    }), _vm._v(" " + _vm._s(color) + "\n                ")])
   }))], 1), _vm._v(" "), _c('el-form-item', [_c('el-select', {
     attrs: {
       "value": "",

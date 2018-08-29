@@ -106,7 +106,7 @@
                 </el-button>
 
                 <el-row :gutter="20">
-                    <el-col :sm="6">
+                    <el-col :sm="8">
                         <el-form-item label="Medium">
                             <el-select value="" v-model="artwork.medium" multiple filterable allow-create collapse-tags
                                        :disabled="showArtworkOptions"
@@ -116,7 +116,7 @@
                             </el-select>
                         </el-form-item>
                     </el-col>
-                    <el-col :sm="6">
+                    <el-col :sm="8">
                         <el-form-item label="Art direction">
                             <el-select value="" v-model="artwork.direction" multiple filterable allow-create collapse-tags
                                        :disabled="showArtworkOptions"
@@ -127,7 +127,7 @@
                             </el-select>
                         </el-form-item>
                     </el-col>
-                    <el-col :sm="6">
+                    <el-col :sm="8">
                         <el-form-item label="Theme">
                             <el-select value="" v-model="artwork.theme" multiple filterable allow-create collapse-tags
                                        :disabled="showArtworkOptions"
@@ -137,17 +137,19 @@
                             </el-select>
                         </el-form-item>
                     </el-col>
-                    <el-col :sm="6">
+                    <el-col :sm="8">
                         <el-form-item label="Main colors">
                             <el-select value="" v-model="artwork.color" multiple filterable allow-create collapse-tags
                                        :disabled="showArtworkOptions"
                                        default-first-option placeholder="Select">
                                 <el-option v-for="color in options('color')" :key="color.value" :label="color.label"
-                                           :value="color.value"></el-option>
+                                           :value="color.value">
+                                    <span :style="{float: 'left', marginRight: '10px', width: '30px',height: '30px',backgroundColor: color.value}"></span> {{ color.label }}
+                                </el-option>
                             </el-select>
                         </el-form-item>
                     </el-col>
-                    <el-col :sm="6">
+                    <el-col :sm="8">
                         <el-form-item label="Artwork shape">
                             <el-select value="" v-model="artwork.shape" filterable allow-create collapse-tags
                                        :disabled="showArtworkOptions"

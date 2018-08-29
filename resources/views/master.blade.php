@@ -28,7 +28,7 @@
             'alert': {!! json_encode(session('alert')?? '') !!},
             'errors': {!! json_encode($errors->all()) !!},
             'notify': {!! json_encode(session('notify')) !!},
-            'favouriteArtworks': {!! auth()->user() ? auth()->user()->favouriteArtworks: '' !!}
+            'favouriteArtworks': {!! json_encode(auth()->user() ? auth()->user()->favouriteArtworks: '') !!}
 
         };
 
