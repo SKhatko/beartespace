@@ -80,6 +80,8 @@ const app = new Vue({
                 message: window.notify.message,
                 duration: window.notify.duration ? window.notify.duration : 0,
             });
+        } else if(window.bus.favouriteArtworks) {
+            this.$store.commit('setInitialFavouriteArtworks', window.bus.favouriteArtworks);
         }
 
         if (window.notify) {

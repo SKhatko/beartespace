@@ -2,8 +2,8 @@ let store = {
     state: {
         cart: [],
         cartCount: 0,
-        favourites: [],
-        favouritesCount: 0,
+        favouriteArtworks: [],
+        favouriteArtworksCount: 0,
         errors: [],
     },
     mutations: {
@@ -18,8 +18,8 @@ let store = {
                     type: response.data.status
                 });
 
-                state.favourites = response.data.data;
-                state.favouritesCount = response.data.data.length;
+                state.favouriteArtworks = response.data.data;
+                state.favouriteArtworksCount = response.data.data.length;
             }).catch(error => {
                 if (error.response.status === 401) {
                     window.location.href = '/login';
@@ -51,6 +51,12 @@ let store = {
         setInitialCart(state, cart) {
             console.log(cart);
             state.cartCount = cart.totalQuantity;
+        },
+
+        setInitialFavouriteArtworks(state, favouriteArtworks) {
+            console.log('artworks', favouriteArtworks.length);
+            state.favouriteArtworksCount = favouriteArtworks.length;
+            state.favouriteArtworks = favouriteArtworks;
         },
 
         setErrors(state, errors) {

@@ -148,9 +148,7 @@
 
     export default {
 
-        props: {
-            countries_: {}
-        },
+        props: {},
 
         data() {
             return {
@@ -180,52 +178,52 @@
 
         mounted() {
 
-            if (this.countries_) {
-                this.countries = JSON.parse(this.countries_);
-            }
+            axios.get('/api/countries').then(response => {
+                this.countries = response.data;
+            });
 
             console.log(window.location.search);
-            if(window.location.search) {
+            if (window.location.search) {
                 this.setFilters();
             }
         },
 
         methods: {
             setFilters() {
-                    let artist = this.getQueryVariable('artist');
-                    if(artist) {
-                        this.artworkFilters['artist'] = artist;
-                    }
+                let artist = this.getQueryVariable('artist');
+                if (artist) {
+                    this.artworkFilters['artist'] = artist;
+                }
 
-                    let artwork = this.getQueryVariable('artwork');
-                    if(artwork) {
-                        this.artworkFilters['artwork'] = artwork;
-                    }
+                let artwork = this.getQueryVariable('artwork');
+                if (artwork) {
+                    this.artworkFilters['artwork'] = artwork;
+                }
 
-                    let medium = this.getQueryVariable('medium');
-                    if(medium) {
-                        this.artworkFilters['medium'] = medium.split(',');
-                    }
+                let medium = this.getQueryVariable('medium');
+                if (medium) {
+                    this.artworkFilters['medium'] = medium.split(',');
+                }
 
-                    let category = this.getQueryVariable('category');
-                    if(category) {
-                        this.artworkFilters['category'] = category.split(',');
-                    }
+                let category = this.getQueryVariable('category');
+                if (category) {
+                    this.artworkFilters['category'] = category.split(',');
+                }
 
-                    let theme = this.getQueryVariable('theme');
-                    if(theme) {
-                        this.artworkFilters['theme'] = theme.split(',');
-                    }
+                let theme = this.getQueryVariable('theme');
+                if (theme) {
+                    this.artworkFilters['theme'] = theme.split(',');
+                }
 
-                    let direction = this.getQueryVariable('direction');
-                    if(direction) {
-                        this.artworkFilters['direction'] = direction.split(',');
-                    }
+                let direction = this.getQueryVariable('direction');
+                if (direction) {
+                    this.artworkFilters['direction'] = direction.split(',');
+                }
 
             },
             setSearchQuery() {
                 let query = '?';
-                for(let filter in this.artworkFilters) {
+                for (let filter in this.artworkFilters) {
                     query += filter + '=' + this.artworkFilters[filter] + '&';
                     console.log(filter);
                 }
@@ -245,7 +243,7 @@
                 console.log('Query variable %s not found', variable);
             },
             clearFilters() {
-                for(let filter in this.artworkFilters) {
+                for (let filter in this.artworkFilters) {
                     this.artworkFilters[filter] = '';
                 }
             }

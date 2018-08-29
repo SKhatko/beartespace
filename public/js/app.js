@@ -16205,6 +16205,8 @@ var app = new Vue({
                 message: window.notify.message,
                 duration: window.notify.duration ? window.notify.duration : 0
             });
+        } else if (window.bus.favouriteArtworks) {
+            this.$store.commit('setInitialFavouriteArtworks', window.bus.favouriteArtworks);
         }
 
         if (window.notify) {
@@ -18652,9 +18654,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
-    props: {
-        countries_: {}
-    },
+    props: {},
 
     data: function data() {
         return {
@@ -18682,10 +18682,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
     mounted: function mounted() {
+        var _this = this;
 
-        if (this.countries_) {
-            this.countries = JSON.parse(this.countries_);
-        }
+        axios.get('/api/countries').then(function (response) {
+            _this.countries = response.data;
+        });
 
         console.log(window.location.search);
         if (window.location.search) {
@@ -21228,7 +21229,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -21249,7 +21249,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
 
-    methods: {}
+    methods: {},
+    computed: {
+        favouriteIconClass: function favouriteIconClass() {
+            var _this = this;
+
+            if (this.$store.state.favouriteArtworks.find(function (artwork) {
+                return artwork.id === _this.artwork.id;
+            })) {
+                return 'el-icon-star-on';
+            }
+            return 'el-icon-star-off';
+        },
+        cartIconClass: function cartIconClass() {
+            var _this2 = this;
+
+            if (this.$store.state.cart.find(function (artwork) {
+                return artwork.id === _this2.artwork.id;
+            })) {
+                return 'el-icon-star-on';
+            }
+            return 'el-icon-star-off';
+        }
+    }
 });
 
 /***/ }),
@@ -21524,8 +21546,8 @@ var store = {
     state: {
         cart: [],
         cartCount: 0,
-        favourites: [],
-        favouritesCount: 0,
+        favouriteArtworks: [],
+        favouriteArtworksCount: 0,
         errors: []
     },
     mutations: {
@@ -21540,8 +21562,8 @@ var store = {
                     type: response.data.status
                 });
 
-                state.favourites = response.data.data;
-                state.favouritesCount = response.data.data.length;
+                state.favouriteArtworks = response.data.data;
+                state.favouriteArtworksCount = response.data.data.length;
             }).catch(function (error) {
                 if (error.response.status === 401) {
                     window.location.href = '/login';
@@ -21569,6 +21591,11 @@ var store = {
         setInitialCart: function setInitialCart(state, cart) {
             console.log(cart);
             state.cartCount = cart.totalQuantity;
+        },
+        setInitialFavouriteArtworks: function setInitialFavouriteArtworks(state, favouriteArtworks) {
+            console.log('artworks', favouriteArtworks.length);
+            state.favouriteArtworksCount = favouriteArtworks.length;
+            state.favouriteArtworks = favouriteArtworks;
         },
         setErrors: function setErrors(state, errors) {
             console.log(errors);
@@ -68891,7 +68918,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('el-button', {
     staticClass: "artwork-panel-favourite",
     attrs: {
-      "icon": "el-icon-star-off",
+      "icon": _vm.favouriteIconClass,
       "circle": ""
     },
     on: {

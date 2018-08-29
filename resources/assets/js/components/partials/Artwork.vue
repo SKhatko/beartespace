@@ -9,7 +9,7 @@
 
             <div class="artwork-panel">
 
-                <el-button icon="el-icon-star-off" class="artwork-panel-favourite" circle
+                <el-button :icon="favouriteIconClass" class="artwork-panel-favourite" circle
                            @click="$store.commit('toggleFavourites', artwork)"></el-button>
                 <el-button icon="el-icon-goods" class="artwork-panel-cart" circle
                            @click="$store.commit('toggleCart', artwork)"></el-button>
@@ -31,7 +31,6 @@
                 {{ artwork.formatted_price }}
             </div>
         </div>
-
 
     </el-card>
 
@@ -58,6 +57,29 @@
             }
         },
 
-        methods: {}
+        methods: {},
+        computed: {
+            favouriteIconClass() {
+
+                if (this.$store.state.favouriteArtworks.find(artwork => {
+                    return artwork.id === this.artwork.id
+                })) {
+                    return 'el-icon-star-on'
+                }
+                return 'el-icon-star-off'
+
+            },
+
+            cartIconClass() {
+
+                if (this.$store.state.cart.find(artwork => {
+                    return artwork.id === this.artwork.id
+                })) {
+                    return 'el-icon-star-on'
+                }
+                return 'el-icon-star-off'
+
+            }
+        },
     }
 </script>
