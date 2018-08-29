@@ -18650,7 +18650,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -18670,10 +18669,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 shape: '',
                 size: '',
                 color: '',
-                price: ''
+                price_min: '',
+                price_max: ''
             },
 
-            countries: ''
+            countries: '',
+            showFilters: false
         };
     },
     mounted: function mounted() {
@@ -18744,6 +18745,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var color = this.getQueryVariable('color');
             if (color) {
                 this.artworkFilters['color'] = color.split(',');
+            }
+
+            var price_min = this.getQueryVariable('price_min');
+            if (price_min) {
+                this.artworkFilters['price_min'] = price_min;
+            }
+
+            var price_max = this.getQueryVariable('price_max');
+            if (price_max) {
+                this.artworkFilters['price_max'] = price_max;
             }
         },
         setSearchQuery: function setSearchQuery() {
@@ -67958,14 +67969,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "margin-bottom": "20px"
     },
     attrs: {
-      "type": "success"
+      "plain": ""
     },
     on: {
       "click": _vm.setSearchQuery
     }
   }, [_vm._v("Filter")]), _vm._v(" "), _c('el-button', {
     attrs: {
-      "type": "warning"
+      "type": "warning",
+      "plain": ""
     },
     on: {
       "click": _vm.clearFilters
@@ -68214,7 +68226,30 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "app-artworks-menu"
-  }, [_c('el-form', {
+  }, [_c('el-button', {
+    staticStyle: {
+      "margin-bottom": "20px"
+    },
+    attrs: {
+      "plain": ""
+    },
+    on: {
+      "click": function($event) {
+        _vm.showFilters = !_vm.showFilters
+      }
+    }
+  }, [_vm._v("Show filters")]), _vm._v(" "), _c('el-button', {
+    attrs: {
+      "type": "warning",
+      "plain": ""
+    },
+    on: {
+      "click": _vm.clearFilters
+    }
+  }, [_vm._v("Clear filters")]), _vm._v(" "), (_vm.showFilters) ? _c('el-form', {
+    staticStyle: {
+      "margin-bottom": "20px"
+    },
     attrs: {
       "inline": ""
     }
@@ -68413,54 +68448,47 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         backgroundColor: key
       })
     }), _vm._v(" " + _vm._s(color) + "\n                ")])
-  }))], 1), _vm._v(" "), _c('el-form-item', [_c('el-select', {
+  }))], 1), _vm._v(" "), _c('el-form-item', {
     attrs: {
-      "value": "",
-      "placeholder": "Filter by price"
+      "label": "Price from"
+    }
+  }, [_c('el-input-number', {
+    attrs: {
+      "step": 100
     },
     model: {
-      value: (_vm.artworkFilters.price),
+      value: (_vm.artworkFilters.price_min),
       callback: function($$v) {
-        _vm.$set(_vm.artworkFilters, "price", $$v)
+        _vm.$set(_vm.artworkFilters, "price_min", $$v)
       },
-      expression: "artworkFilters.price"
+      expression: "artworkFilters.price_min"
     }
-  }, [_c('el-option', {
-    key: 7000,
+  })], 1), _vm._v(" "), _c('el-form-item', {
     attrs: {
-      "label": "Up to 7000",
-      "value": 7000
+      "label": "Price to"
     }
-  }), _vm._v(" "), _c('el-option', {
-    key: 15000,
+  }, [_c('el-input-number', {
     attrs: {
-      "label": "Up to 15000",
-      "value": 15000
+      "step": 100
+    },
+    model: {
+      value: (_vm.artworkFilters.price_max),
+      callback: function($$v) {
+        _vm.$set(_vm.artworkFilters, "price_max", $$v)
+      },
+      expression: "artworkFilters.price_max"
     }
-  }), _vm._v(" "), _c('el-option', {
-    key: 30000,
-    attrs: {
-      "label": "Up to 30000",
-      "value": 30000
-    }
-  })], 1)], 1), _vm._v(" "), _c('el-button', {
+  })], 1), _vm._v(" "), _c('el-button', {
     staticStyle: {
       "margin-bottom": "20px"
     },
     attrs: {
-      "type": "success"
+      "type": "primary"
     },
     on: {
       "click": _vm.setSearchQuery
     }
-  }, [_vm._v("Filter")]), _vm._v(" "), _c('el-button', {
-    attrs: {
-      "type": "warning"
-    },
-    on: {
-      "click": _vm.clearFilters
-    }
-  }, [_vm._v("Clear filters")])], 1)], 1)
+  }, [_vm._v("Filter")])], 1) : _vm._e()], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

@@ -134,10 +134,6 @@ class HomeController extends Controller {
 
 		$artworks = Artwork::query();
 
-		foreach ( $artworks->get() as $artwork ) {
-//			dump( $artwork->shape );
-		}
-
 		if ( $request->input( 'artist' ) ) {
 			$artist = $request->input( 'artist' );
 
@@ -206,13 +202,24 @@ class HomeController extends Controller {
 				$artworks->whereRaw( 'LOWER(color) LIKE ?', '%' . $query . '%' );
 			}
 		}
-//
-//			if ( $request->input( 'price' ) ) {
-//				$queries = explode( ',', $request->input( 'price' ) );
-//				foreach ( $queries as $query ) {
-//					$artworks->whereRaw( 'LOWER(color) LIKE ?', '%' . $query . '%' );
-//				}
-//			}
+
+		if ( $request->input( 'price_min' ) ) {
+			$priceMin = currency($request->input( 'price_min' ), session('currency'), 'EUR',false);
+			$artworks->where( 'price', '>=', $priceMin );
+		}
+
+		if ( $request->input( 'price_max' ) ) {
+			$priceMax = currency($request->input( 'price_max' ), session('currency'), 'EUR',false);
+			$artworks->where( 'price', '<=', $priceMax );
+		}
+
+
+//		foreach ( $artworks->get() as $artwork ) {
+//			dump($artwork->price);
+//			dump($artwork->currency);
+//			dump( $artwork->price < $priceMax );
+//			dump( $artwork->price > $priceMin );
+//		}
 
 
 		$items = 3;
@@ -224,48 +231,6 @@ class HomeController extends Controller {
 		$artworks = $artworks->with( 'images', 'user.country' )->paginate( $items );
 
 		return view( 'artwork.index', compact( 'artworks' ) );
-
-
-		if ( $request->input( 'artist' ) ) {
-			$artist        = $request->input( 'artist' );
-			$userNameArray = explode( ' ', $artist );
-
-			foreach ( $userNameArray as $userNamePart ) {
-				$artists->whereRaw( 'LOWER(first_name) LIKE ?', '%' . $userNamePart . '%' )
-				        ->orWhereRaw( 'LOWER(last_name) LIKE ?', '%' . $userNamePart . '%' );
-			}
-		}
-
-		if ( $request->input( 'country' ) ) {
-			$queries = explode( ',', $request->input( 'country' ) );
-			$artists->whereIn( 'country_id', $queries );
-		}
-
-		if ( $request->input( 'profession' ) ) {
-			$queries = explode( ',', $request->input( 'profession' ) );
-			foreach ( $queries as $query ) {
-				$artists->whereRaw( 'LOWER(profession) LIKE ?', '%' . $query . '%' );
-			}
-		}
-
-		if ( $request->input( 'medium' ) ) {
-			$queries = explode( ',', $request->input( 'medium' ) );
-			foreach ( $queries as $query ) {
-				$artists->with( 'artworks' )->whereHas( 'artworks', function ( $q ) use ( $query ) {
-					$q->whereRaw( 'LOWER(medium) LIKE ?', '%' . $query . '%' );
-				} );
-			}
-		}
-
-		if ( $request->input( 'direction' ) ) {
-			$queries = explode( ',', $request->input( 'direction' ) );
-			foreach ( $queries as $query ) {
-				$artists->with( 'artworks' )->whereHas( 'artworks', function ( $q ) use ( $query ) {
-					$q->whereRaw( 'LOWER(direction) LIKE ?', '%' . $query . '%' );
-				} );
-			}
-		}
-
 	}
 
 	public function artwork( $id ) {

@@ -19,7 +19,7 @@
 
                 @include('partials.artworks', $artworks)
 
-                <div class="artworks-bottom" style="text-align: center;margin-bottom: 50px;">
+                <div class="artworks-bottom" style="text-align: center;margin: 50px 0;">
 
                     <el-button><a href="/selection/artwork">See artworks of the week</a></el-button>
 

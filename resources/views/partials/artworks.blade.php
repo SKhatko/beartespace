@@ -1,9 +1,16 @@
-<div class="app-artworks-list">
+@if(count($artworks))
 
-    @foreach($artworks as $artwork)
+    <div class="app-artworks-list">
 
-        <partials-artwork artwork_="{{ $artwork }}"></partials-artwork>
+        @foreach($artworks as $artwork)
 
-    @endforeach
+            <partials-artwork artwork_="{{ $artwork }}"></partials-artwork>
 
-</div>
+        @endforeach
+    </div>
+
+@else
+    <h2 class="h2" style="text-align: center;margin: 50px 0;">
+        No artworks found
+    </h2>
+@endif

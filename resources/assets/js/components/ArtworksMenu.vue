@@ -2,7 +2,11 @@
 
     <div class="app-artworks-menu">
 
-        <el-form inline>
+        <el-button plain @click="showFilters = !showFilters" style="margin-bottom: 20px;">Show filters</el-button>
+
+        <el-button @click="clearFilters" type="warning" plain>Clear filters</el-button>
+
+        <el-form inline v-if="showFilters" style="margin-bottom: 20px;">
 
             <el-form-item>
                 <el-input v-model="artworkFilters.artist" placeholder="Filter by artist name"></el-input>
@@ -123,20 +127,15 @@
             </el-form-item>
 
 
-            <el-form-item>
-
-                <el-select value="" v-model="artworkFilters.price" placeholder="Filter by price">
-                    <el-option :key="7000" label="Up to 7000" :value="7000"></el-option>
-                    <el-option :key="15000" label="Up to 15000" :value="15000"></el-option>
-                    <el-option :key="30000" label="Up to 30000" :value="30000"></el-option>
-
-                </el-select>
-
+            <el-form-item label="Price from">
+                <el-input-number v-model="artworkFilters.price_min" :step="100"></el-input-number>
             </el-form-item>
 
-            <el-button style="margin-bottom: 20px;" @click="setSearchQuery" type="success">Filter</el-button>
+            <el-form-item label="Price to">
+                <el-input-number v-model="artworkFilters.price_max" :step="100"></el-input-number>
+            </el-form-item>
 
-            <el-button type="warning" @click="clearFilters">Clear filters</el-button>
+            <el-button type="primary" style="margin-bottom: 20px;" @click="setSearchQuery">Filter</el-button>
 
         </el-form>
 
@@ -164,10 +163,12 @@
                     shape: '',
                     size: '',
                     color: '',
-                    price: '',
+                    price_min: '',
+                    price_max: '',
                 },
 
                 countries: '',
+                showFilters: false
             }
         },
 
@@ -237,6 +238,16 @@
                 let color = this.getQueryVariable('color');
                 if (color) {
                     this.artworkFilters['color'] = color.split(',');
+                }
+
+                let price_min = this.getQueryVariable('price_min');
+                if (price_min) {
+                    this.artworkFilters['price_min'] = price_min;
+                }
+
+                let price_max = this.getQueryVariable('price_max');
+                if (price_max) {
+                    this.artworkFilters['price_max'] = price_max;
                 }
 
             },

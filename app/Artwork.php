@@ -65,6 +65,7 @@ class Artwork extends Model {
 		return currency( $this->attributes['price'], null, session( 'currency' ) );
 	}
 
+
 	public function bids() {
 		return $this->hasMany( Bid::class );
 	}

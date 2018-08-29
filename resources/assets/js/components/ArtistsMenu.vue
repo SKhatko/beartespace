@@ -57,9 +57,9 @@
             </el-form-item>
 
 
-            <el-button style="margin-bottom: 20px;" @click="setSearchQuery" type="success">Filter</el-button>
+            <el-button style="margin-bottom: 20px;" @click="setSearchQuery" plain>Filter</el-button>
 
-            <el-button type="warning" @click="clearFilters">Clear filters</el-button>
+            <el-button type="warning" @click="clearFilters" plain>Clear filters</el-button>
 
         </el-form>
 
