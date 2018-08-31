@@ -58,6 +58,7 @@ Vue.component('artwork-form', require('./components/dashboard/ArtworkForm.vue'))
 // Global components
 Vue.component('pagination', require('./components/global/Pagination.vue'));
 Vue.component('errors', require('./components/partials/Errors.vue'));
+Vue.component('follow-button', require('./components/partials/FollowButton.vue'));
 
 
 const app = new Vue({

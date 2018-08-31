@@ -16184,6 +16184,7 @@ Vue.component('artwork-form', __webpack_require__(213));
 // Global components
 Vue.component('pagination', __webpack_require__(220));
 Vue.component('errors', __webpack_require__(26));
+Vue.component('follow-button', __webpack_require__(260));
 
 var app = new Vue({
     el: '#app',
@@ -21588,7 +21589,7 @@ var store = {
         toggleFavourites: function toggleFavourites(state, item) {
             var _this = this;
 
-            axios.put('/api/favourites/' + item.id + '/toggle').then(function (response) {
+            axios.put('/api/user/favourite/' + item.id + '/toggle').then(function (response) {
 
                 _this._vm.$message({
                     showClose: true,
@@ -70645,6 +70646,185 @@ if(false) {
  if(!content.locals) {
    module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-057c424a\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ChangeEmailForm.vue", function() {
      var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-057c424a\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ChangeEmailForm.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 260 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+/* styles */
+__webpack_require__(264)
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(261),
+  /* template */
+  __webpack_require__(263),
+  /* scopeId */
+  "data-v-91aee822",
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/skhatko/code/larabid/resources/assets/js/components/partials/FollowButton.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] FollowButton.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-91aee822", Component.options)
+  } else {
+    hotAPI.reload("data-v-91aee822", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 261 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: {
+        userId_: '',
+        follow_: ''
+    },
+    data: function data() {
+        return {
+            follow: '',
+            userId: ''
+        };
+    },
+
+    methods: {
+        followUser: function followUser() {
+            this.toggleFollowUser();
+        },
+        unfollowUser: function unfollowUser() {
+            var _this = this;
+
+            this.$confirm('Are you going to unfollow this artist. Continue?', 'Warning', {
+                confirmButtonText: 'OK',
+                cancelButtonText: 'Cancel',
+                type: 'warning'
+            }).then(function () {
+                _this.toggleFollowUser();
+            }).catch(function () {});
+        },
+        toggleFollowUser: function toggleFollowUser() {
+            var _this2 = this;
+
+            axios.put('/api/user/followed/' + this.userId + '/toggle').then(function (response) {
+                console.log(response.data.data);
+
+                _this2.follow = !_this2.follow;
+
+                _this2.$message({
+                    showClose: true,
+                    message: response.data.message,
+                    type: response.data.status
+                });
+            }).catch(function (error) {
+                if (error.response.status === 401) {
+                    window.location.href = '/login';
+                    console.log(error.response);
+                }
+            });
+        }
+    },
+    mounted: function mounted() {
+
+        if (this.userId_) {
+            this.userId = this.userId_;
+        }
+
+        if (this.follow_ === '1') {
+            this.follow = true;
+        } else {
+            this.follow = false;
+        }
+    }
+});
+
+/***/ }),
+/* 262 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(66)();
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+/***/ }),
+/* 263 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', [(_vm.follow) ? _c('el-button', {
+    attrs: {
+      "plain": "",
+      "icon": "el-icon-close"
+    },
+    on: {
+      "click": _vm.unfollowUser
+    }
+  }, [_vm._v("Unfollow")]) : _c('el-button', {
+    attrs: {
+      "plain": "",
+      "icon": "el-icon-plus"
+    },
+    on: {
+      "click": _vm.followUser
+    }
+  }, [_vm._v("Follow")])], 1)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-91aee822", module.exports)
+  }
+}
+
+/***/ }),
+/* 264 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(262);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(77)("58268c8e", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-91aee822\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./FollowButton.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-91aee822\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./FollowButton.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });

@@ -57,6 +57,29 @@ class UserController extends Controller {
 		}
 	}
 
+	public function toggleFollowedUser( Request $request, $id ) {
+
+		$user = auth()->user();
+
+		$followedCount = $user->followedUsers()->count();
+
+		$user->followedUsers()->toggle( $id );
+
+		if ( $user->followedUsers()->count() > $followedCount ) {
+			return [
+				'status'  => 'success',
+				'message' => 'Artist added to followed',
+				'data'    => $user->followedUsers
+			];
+		} else {
+			return [
+				'status'  => 'success',
+				'message' => 'Artist unfollowed',
+				'data'    => $user->followedUsers
+			];
+		}
+	}
+
 	public function destroy( Request $request ) {
 
 		$user     = User::findOrFail( $request->id );

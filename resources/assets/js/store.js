@@ -10,7 +10,7 @@ let store = {
 
         toggleFavourites(state, item) {
 
-            axios.put('/api/favourites/' + item.id + '/toggle',).then(response => {
+            axios.put('/api/user/favourite/' + item.id + '/toggle',).then(response => {
 
                 this._vm.$message({
                     showClose: true,

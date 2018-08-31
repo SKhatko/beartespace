@@ -61,6 +61,10 @@ class User extends Authenticatable {
 		return $this->belongsToMany( Artwork::class, 'favorites' );
 	}
 
+	public function followedUsers() {
+		return $this->belongsToMany( User::class, 'follows', 'follower_id' );
+	}
+
 	public function orders() {
 		return $this->hasMany( Order::class );
 	}

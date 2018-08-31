@@ -18,61 +18,47 @@
 
             <div class="artist">
 
-                @if($artist->profile_premium_add || $artist->profile_background_image_add)
-                    <div class="artist-image"
-                         style="background-image: url({{ '/imagecache/original' .  $artist->image_url }});">
+                <div class="artist-image"
+                     style="background-image: url({{ '/imagecache/original' .  $artist->image_url }});">
 
-                        <div class="artist-image--fade">
+                    <div class="artist-image--fade">
 
-                            <div class="artist-info">
-                                <div class="h2" style="margin-bottom: 20px;">
-                                    @foreach($artist->profession as $profession)
-                                        @if($loop->index > 0)
-                                            |
-                                        @endif
-                                        @lang('profession.' . $profession)
-                                    @endforeach
-                                </div>
-                                <div class="h4" style="margin-bottom: 30px;">
-                                    {{ $artist->country['country_name'] ?? '' }}
-                                </div>
-
-
-                                <div class="h1" style="margin-bottom: 50px;font-size: 70px;">{{ $artist->name }} </div>
-
-                                <div class="artist-avatar">
-                                    <img src="/imagecache/avatar{{ $artist->avatar_url }}"
-                                         alt="{{ $artist->avatar->name }}">
-                                </div>
+                        <div class="artist-info">
+                            <div class="h2" style="margin-bottom: 20px;">
+                                @foreach($artist->profession as $profession)
+                                    @if($loop->index > 0)
+                                        |
+                                    @endif
+                                    @lang('profession.' . $profession)
+                                @endforeach
+                            </div>
+                            <div class="h4" style="margin-bottom: 30px;">
+                                {{ $artist->country['country_name'] ?? '' }}
                             </div>
 
 
+                            <div class="h1" style="margin-bottom: 50px;font-size: 70px;">{{ $artist->name }} </div>
+
+                            <div class="artist-avatar">
+                                <img src="/imagecache/avatar{{ $artist->avatar_url }}"
+                                     alt="{{ $artist->avatar->name }}">
+                            </div>
+
+                            @if(auth()->user())
+                                {{ auth()->user()->followedUsers->contains($artist->id) }}
+                                <follow-button
+                                        follow_="{{ auth()->user()->followedUsers->contains($artist->id) }}"
+                                        user-id_="{{ $artist->id }}">
+                                </follow-button>
+                            @endif
+
                         </div>
+
 
                     </div>
 
-                @else
-                    <div class="artist-info">
-                        <div class="h2" style="margin-bottom: 20px;">
-                            @foreach($artist->profession as $profession)
-                                @if($loop->index > 0)
-                                    |
-                                @endif
-                                @lang('profession.' . $profession)
-                            @endforeach
-                        </div>
-                        <div class="h4" style="margin-bottom: 30px;">
-                            {{ $artist->country['country_name'] ?? '' }}
-                        </div>
+                </div>
 
-
-                        <div class="h1" style="margin-bottom: 50px;font-size: 70px;">{{ $artist->name }} </div>
-
-                        <div class="artist-avatar">
-                            <img src="/imagecache/avatar{{ $artist->avatar_url }}" alt="{{ $artist->avatar->name }}">
-                        </div>
-                    </div>
-                @endif
                 <div class="app--wrapper">
 
                     <div class="artist-info">
