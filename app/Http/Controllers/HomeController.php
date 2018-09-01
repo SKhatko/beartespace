@@ -119,6 +119,7 @@ class HomeController extends Controller {
 
 		$artist = User::where( 'id', $id )->with( 'image', 'avatar', 'artworks.images' )->first();
 
+//		return $artist->favouriteArtworks;
 		return view( 'artist.show', compact( 'artist' ) );
 	}
 

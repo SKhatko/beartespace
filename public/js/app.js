@@ -20945,6 +20945,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -66050,7 +66073,28 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.dialogs.profileBackgroundImageAddDialog = true
       }
     }
-  }, [_vm._v("Add background image")]), _vm._v(" "), _c('el-dialog', {
+  }, [_vm._v("\n                              Add background image\n\n                              "), _c('el-tooltip', {
+    attrs: {
+      "content": "Make your profile more professional,\n                                       put on background extra picture of your studio or yourself during\n                                       working or even your favourite art.",
+      "effect": "light"
+    }
+  }, [_c('i', {
+    staticClass: "el-icon-info"
+  })]), _vm._v(" "), _c('el-popover', {
+    attrs: {
+      "placement": "top-start",
+      "title": "Title",
+      "width": "200",
+      "trigger": "hover",
+      "content": "Make your profile more professional,\n                                       put on background extra picture of your studio or yourself during\n                                       working or even your favourite art."
+    }
+  }, [_c('i', {
+    staticClass: "el-icon-question",
+    attrs: {
+      "slot": "reference"
+    },
+    slot: "reference"
+  })])], 1), _vm._v(" "), _c('el-dialog', {
     attrs: {
       "title": "Upgrade Your profile",
       "visible": _vm.dialogs.profileBackgroundImageAddDialog,

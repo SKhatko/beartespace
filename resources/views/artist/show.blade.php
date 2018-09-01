@@ -45,12 +45,35 @@
                             </div>
 
                             @if(auth()->user())
-                                {{ auth()->user()->followedUsers->contains($artist->id) }}
                                 <follow-button
                                         follow_="{{ auth()->user()->followedUsers->contains($artist->id) }}"
                                         user-id_="{{ $artist->id }}">
                                 </follow-button>
                             @endif
+
+                            @if($artist->created_at)
+                                <div class="h3">
+                                    Joined BearteSpace {{ $artist->created_at->diffForHumans() }}
+                                </div>
+                            @endif
+
+                            @if($artist->followedBy)
+                                Followed by {{ $artist->followedBy->count() }} people
+                            @endif
+
+                            @if($artist->inspiration)
+                                Inspiration: {{ $artist->inspiration }}
+                            @endif
+
+                            @if($artist->exhibition)
+                                Exhibition: {{ $artist->exhibition }}
+                            @endif
+
+                            <div class="artist-gender">{{ $artist->gender }}</div>
+
+
+                            <div class="artist-education">Education: {{ $artist->education }}</div>
+                            <div class="artist-education-title">Education title: {{ $artist->education_title }}</div>
 
                         </div>
 
@@ -63,11 +86,7 @@
 
                     <div class="artist-info">
 
-                        <div class="artist-gender">{{ $artist->gender }}</div>
-                        <div class="artist-education">{{ $artist->education }}</div>
-                        <div class="artist-education-title">{{ $artist->education_title }}</div>
-                        <div class="artist-inspiration">{!! $artist->inspiration !!}</div>
-                        <div class="artist-exhibition">{!! $artist->exhibition !!}</div>
+
 
                     </div>
 
@@ -76,6 +95,15 @@
                 <div class="artist-artworks">
 
                     <div class="app--wrapper">
+
+                        @if($artist->favouriteArtworks->count())
+                            <div class="artist-artworks-favorite">
+
+                                <h2 class="h2">Artist's favorite artworks</h2>
+                                @include('partials.artworks', ['artworks' => $artist->favouriteArtworks])
+
+                            </div>
+                        @endif
 
 
                         <h2>Other artworks</h2>

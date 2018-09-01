@@ -56,7 +56,30 @@
                 <el-col :sm="12" v-if="user.user_type === 'artist'">
                     <el-form-item>
                         <span slot="label" v-if="showProfileBackgroundImage">
-                              <el-button type="text" @click="dialogs.profileBackgroundImageAddDialog = true">Add background image</el-button>
+                              <el-button type="text" @click="dialogs.profileBackgroundImageAddDialog = true">
+                                  Add background image
+
+                                  <el-tooltip
+                                          content="Make your profile more professional,
+                                           put on background extra picture of your studio or yourself during
+                                           working or even your favourite art." effect="light">
+                                      <i class="el-icon-info"></i>
+                                  </el-tooltip>
+
+                                    <el-popover
+                                            placement="top-start"
+                                            title="Title"
+                                            width="200"
+                                            trigger="hover"
+                                            content="Make your profile more professional,
+                                           put on background extra picture of your studio or yourself during
+                                           working or even your favourite art.">
+                                       <i slot="reference" class="el-icon-question"></i>
+                                   </el-popover>
+
+
+                              </el-button>
+
 
                         <el-dialog
                                 title="Upgrade Your profile"

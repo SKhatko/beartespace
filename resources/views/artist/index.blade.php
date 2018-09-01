@@ -30,11 +30,12 @@
 
                             <div class="artist-info">
 
-                                <a href="{{ route('artist', $artist->id) }}" class="h2">
+                                <a href="{{ route('artist', $artist->id) }}" class="h2" style="margin-bottom: 20px;">
                                     {{ $artist->name }}
                                 </a>
 
-                                <a href="{{ route('artist', $artist->id) }}" class="h3">
+                                <a href="{{ route('artist', $artist->id) }}" class="h4" style="margin-bottom: 10px;">
+{{--                                    @foreach(json_decode($artist->profession) as $profession)--}}
                                     @foreach($artist->profession as $profession)
                                         @if($loop->index > 0)
                                             |
@@ -72,7 +73,7 @@
                         <el-button type="success" plain size="small"><a href="{{ route('artist', $artist->id) }}">
                                 See more
                             </a></el-button>
-                        <el-button type="primary" plain size="small">Follow</el-button>
+                        {{--<el-button type="primary" plain size="small">Follow</el-button>--}}
                     </div>
 
 
