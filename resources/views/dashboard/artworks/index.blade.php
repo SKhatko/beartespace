@@ -12,8 +12,8 @@
             <a href="{{ route('artwork', $artwork->id) }}" class="h2" target="_blank">{{ $artwork->title }}</a>
 
             <div class="artwork-image">
-                @if($artwork->images()->first())
-                    <img src="{{ $artwork->images()->first()->url }}" alt="" style="max-width: 200px; max-height: 200px">
+                @if($artwork->image)
+                    <img src="{{ $artwork->image_url }}" alt="" style="max-width: 200px; max-height: 200px">
                 @endif
             </div>
 

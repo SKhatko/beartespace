@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Media;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
@@ -12,7 +13,7 @@ class UserController extends Controller {
 		return auth()->user();
 	}
 
-	public function checkUsername( $username = null) {
+	public function checkUsername( $username = null ) {
 
 		$username = str_slug( $username );
 
@@ -29,7 +30,17 @@ class UserController extends Controller {
 
 		$user = auth()->user();
 
-		$user->update( $request->except( [ 'avatar', 'image', 'avatar_url', 'image_url', 'profile_premium_add', 'profile_education_add', 'profile_inspiration_add', 'profile_background_image_add', 'profile_exhibition_add'] ) );
+		$user->update( $request->except( [
+			'avatar',
+			'image',
+			'avatar_url',
+			'image_url',
+			'profile_premium_add',
+			'profile_education_add',
+			'profile_inspiration_add',
+			'profile_background_image_add',
+			'profile_exhibition_add'
+		] ) );
 
 		return [ 'status' => 'success', 'message' => 'Saved', 'data' => $user ];
 	}
@@ -95,90 +106,65 @@ class UserController extends Controller {
 
 	public function uploadUserAvatar( Request $request ) {
 
-		// validate the uploaded file
 		$validation = $request->validate( [
 			'file' => 'required|image|mimes:jpeg,jpg,png|max:2048'
 		] );
 
 		$user = auth()->user();
 
-		$file      = $validation['file']; // get the validated file
-		$extension = $file->getClientOriginalExtension();
-		$filename  = 'avatar-' . time() . '.' . $extension;
-		$file->storeAs( 'public/user/' . $user->id, $filename );
+		if ( $user->avatar ) {
+			$user->avatar->delete();
+			$user->avatar()->dissociate();
+		}
 
-		$user->avatar()->updateOrCreate( [ 'avatar_id' => $user->id ], [
-			'name'    => $filename,
-			'user_id' => $user->id,
-			'folder'  => '/user',
-			'url'     => null
+		$file     = $validation['file'];
+		$fileName = time() . '-' . str_random( 60 ) . '.' . $request->file( 'file' )->getClientOriginalExtension();
+
+		$file->storeAs( 'public/user-avatar/', $fileName );
+
+		$image = Media::create( [
+			'original_name' => $file->getClientOriginalName(),
+			'name'          => $fileName,
+			'slug'          => str_slug( $request->file( 'file' )->getClientOriginalName() ),
+			'folder'        => '/user-avatar'
 		] );
+
+		$image->save();
+		$user->avatar()->associate( $image );
+		$user->save();
 
 		return [ 'status' => 'success', 'message' => 'Profile avatar saved', 'data' => $user->avatar_url ];
 
-//		$base64 = $request->input( 'avatar' );
-//
-////			$base64 = 'data:image/png;base64,asdfla;sdlkfj;
-//
-//		$user = auth()->user();
-//
-//		$imageName = $user->name . ' avatar.png';
-//
-//		$user->avatar()->updateOrCreate( [ 'avatar_id' => $user->id ], [
-//			'name'    => $imageName,
-//			'user_id' => $user->id,
-//			'folder'  => '/user',
-//			'url'     => $base64 ? null : '/images/user-placeholder-image.png'
-//		] );
-//
-//		if ( $base64 ) {
-//			list( $baseType, $image ) = explode( ';', $base64 );
-//			list( , $image ) = explode( ',', $image );
-//			$image = base64_decode( $image );
-//			Storage::put( 'public/user/' . $user->id . '/' . $imageName, $image, 'public' );
-//		}
-//
-//		return [ 'status' => 'success', 'message' => 'Avatar saved', 'data' => $user->avatar ];
 	}
 
 	public function uploadUserImage( Request $request ) {
 
-		// validate the uploaded file
 		$validation = $request->validate( [
-			'file' => 'required|image|mimes:jpeg,jpg,png|max:2048'
+			'file' => 'required|image|mimes:jpeg,jpg'
 		] );
 
 		$user = auth()->user();
 
-		$file      = $validation['file']; // get the validated file
-		$extension = $file->getClientOriginalExtension();
-		$filename  = 'image-' . time() . '.' . $extension;
-		$file->storeAs( 'public/user/' . $user->id, $filename );
+		if ( $user->image ) {
+			$user->image->delete();
+		}
 
-		$user->image()->updateOrCreate( [ 'image_id' => $user->id ], [
-			'name'    => $filename,
-			'user_id' => $user->id,
-			'folder'  => '/user',
-			'url'     => null
+		$file      = $validation['file']; // get the validated file
+		$fileName  = time() . '-' . str_random( 60 ) . '.' . $request->file( 'file' )->getClientOriginalExtension();
+
+		$file->storeAs( 'public/user-image/', $fileName );
+
+		$image = Media::create( [
+			'original_name' => $file->getClientOriginalName(),
+			'name'          => $fileName,
+			'slug'          => str_slug( $request->file( 'file' )->getClientOriginalName() ),
+			'folder'        => '/user-image'
 		] );
 
-		return [ 'status' => 'success', 'message' => 'Profile image saved', 'data' => $user->image_url ];
+		$image->save();
+		$user->image()->associate( $image );
+		$user->save();
 
-
-//		if ( $request->file( 'file' ) ) {
-//
-//			$user = auth()->user();
-//
-//			$user->image()->updateOrCreate( [ 'image_id' => $user->id ], [
-//				'name'    => $request->file( 'file' )->getClientOriginalName(),
-//				'user_id' => $user->id,
-//				'folder'  => '/user',
-//				'url'     => null
-//			] );
-//
-//			$request->file( 'file' )->storeAs( '/public/user/' . $user->id, $request->file( 'file' )->getClientOriginalName() );
-//
-//			return [ 'status' => 'success', 'message' => 'Profile image saved', 'data' => $user->image ];
-//		}
+		return [ 'status' => 'success', 'message' => 'Profile background saved', 'data' => $user->image_url ];
 	}
 }

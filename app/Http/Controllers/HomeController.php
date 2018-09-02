@@ -18,9 +18,13 @@ class HomeController extends Controller {
 
 		$artwork = Artwork::inRandomOrder()->with( 'images', 'user' )->first();
 
+		$randomArtwork = Artwork::first();
+
+//		return $randomArtwork;
+
 		$auctions = Artwork::auction()->orderBy( 'id', 'desc' )->take( 4 )->get();
 
-		return view( 'index', compact( 'artwork', 'auctions', 'articles' ) );
+		return view( 'index', compact( 'artwork', 'auctions', 'articles', 'randomArtwork' ) );
 	}
 
 	public function auctions() {
@@ -119,6 +123,7 @@ class HomeController extends Controller {
 
 		$artist = User::where( 'id', $id )->with( 'image', 'avatar', 'artworks.images' )->first();
 
+//		return $artist->image;
 //		return $artist->favouriteArtworks;
 		return view( 'artist.show', compact( 'artist' ) );
 	}
@@ -237,6 +242,8 @@ class HomeController extends Controller {
 	public function artwork( $id ) {
 
 		$artwork = Artwork::find( $id );
+
+//		return $artwork->image;
 
 		return view( 'artwork.show', compact( 'artwork' ) );
 	}

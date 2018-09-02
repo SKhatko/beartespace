@@ -25,7 +25,7 @@
                         <div class="artist-header">
                             <a href="{{ route('artist', $artist->id) }}" class="artist-avatar">
                                 <img src="/imagecache/avatar{{ $artist->avatar_url }}"
-                                     alt="{{ $artist->avatar->name }}">
+                                     alt="{{ $artist->avatar ? $artist->avatar->name : $artist->name }}">
                             </a>
 
                             <div class="artist-info">
@@ -55,10 +55,10 @@
 
                             @foreach($artist->artworks->take(3) as $artwork)
 
-                                @if($artwork->images->first())
+                                @if($artwork->image)
                                     <a href="{{ route('artwork', $artwork->id) }}" class="artist-artwork">
-                                        <img src="{{ $artwork->images->first()->url }}"
-                                             alt="{{ $artwork->images->first()->name }}">
+                                        <img src="/imagecache/height-200{{ $artwork->image_url }}"
+                                             alt="{{ $artwork->image->name }}">
                                     </a>
                                 @endif
 

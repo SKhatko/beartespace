@@ -78,11 +78,11 @@ class User extends Authenticatable {
 	}
 
 	public function avatar() {
-		return $this->hasOne( Media::class, 'avatar_id' );
+		return $this->belongsTo(Media::class);
 	}
 
 	public function image() {
-		return $this->hasOne( Media::class, 'image_id' );
+		return $this->belongsTo(Media::class);
 	}
 
 	public function adds() {
@@ -131,6 +131,7 @@ class User extends Authenticatable {
 	}
 
 	public function getImageUrlAttribute() {
+//		if($this->image){
 		if ( $this->image && file_exists( public_path( 'storage' . $this->image->url ) ) ) {
 			return $this->image->url;
 		} else {

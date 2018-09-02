@@ -40,7 +40,7 @@
 
                         <el-upload
                                 class="avatar-uploader"
-                                action="/api/upload/user-avatar"
+                                action="/api/user/upload-user-avatar"
                                 :headers="{'X-Requested-With': 'XMLHttpRequest', 'X-CSRF-TOKEN' : csrf}"
                                 :show-file-list="false"
                                 accept="image/*"
@@ -55,12 +55,9 @@
 
                 <el-col :sm="12" v-if="user.user_type === 'artist'">
                     <el-form-item>
-                        <span slot="label" v-if="showProfileBackgroundImage">
-                              <el-button type="text" @click="dialogs.profileBackgroundImageAddDialog = true">
-                                  Add background image
-
-                                  <el-tooltip
-                                          content="Make your profile more professional,
+                        <span slot="label">
+                            Click on image to upload profile background image
+                              <el-tooltip content="Make your profile more professional,
                                            put on background extra picture of your studio or yourself during
                                            working or even your favourite art." effect="light">
                                       <i class="el-icon-info"></i>
@@ -76,34 +73,16 @@
                                            working or even your favourite art.">
                                        <i slot="reference" class="el-icon-question"></i>
                                    </el-popover>
-
-
-                              </el-button>
-
-
-                        <el-dialog
-                                title="Upgrade Your profile"
-                                :visible.sync="dialogs.profileBackgroundImageAddDialog"
-                                width="30%">
-                            <p>You can personalize your profile by adding background image</p>
-                            <p>You can add this feature to your personal profile for 1 EUR</p>
-                            <span slot="footer" class="dialog-footer">
-                                <el-button type="primary"
-                                           @click="save(confirmProfileUpgrade('profile_background_image_add', 1))">Confirm</el-button>
-                            </span>
-                        </el-dialog>
                         </span>
-                        <span slot="label" v-else>Click on image to upload profile background image</span>
                         <el-upload
-                                :disabled="showProfileBackgroundImage"
                                 class="image-uploader"
-                                action="/api/upload/user-image"
+                                action="/api/user/upload-user-image"
                                 :headers="{'X-Requested-With': 'XMLHttpRequest', 'X-CSRF-TOKEN' : csrf}"
                                 :show-file-list="false"
                                 accept="image/*"
                                 :on-success="handleImageSuccess"
                                 :before-upload="beforeImageUpload">
-                            <img :src="'/imagecache/avatar/' + user.image_url" class="image">
+                            <img :src="'/imagecache/height-200/' + user.image_url" class="image">
                         </el-upload>
                     </el-form-item>
                 </el-col>
@@ -529,14 +508,14 @@
 
             beforeImageUpload(file) {
                 console.log(file);
-                const isJPG = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/jpg';
-                const isLt2M = file.size / 1024 / 1024 < 2;
+                const isJPG = file.type === 'image/jpeg' || file.type === 'image/jpg';
+                const isLt2M = file.size / 1024 / 1024 < 10;
 
                 if (!isJPG) {
-                    this.$message.error('Image picture must be JPG, JPEG, or PNG format!');
+                    this.$message.error('Image picture must be JPG or JPEG format!');
                 }
                 if (!isLt2M) {
-                    this.$message.error('Image picture size can not exceed 2MB!');
+                    this.$message.error('Image picture size can not exceed 10MB!');
                 }
                 return isJPG && isLt2M;
             },

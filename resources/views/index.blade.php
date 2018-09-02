@@ -14,7 +14,7 @@
 
     <div class="app-index">
         <div class="app-index-banner"
-             style="background-image: url({{ $artwork->images()->first()->url }});">
+             style="background-image: url('/imagecache/original'{{ $randomArtwork->image_url }});">
 
             <div class="banner--fade">
 
@@ -26,11 +26,11 @@
                 </div>
 
                 <div class="banner-info">
-                    <span>{{ $artwork->user->name }}</span>
-                    <span>{{ $artwork->title }}</span>
-                    <span>{{ $artwork->size() }}</span>
+                    <span>{{ $randomArtwork->user->name }}</span>
+                    <span>{{ $randomArtwork->title }}</span>
+                    <span>{{ $randomArtwork->size() }}</span>
                     <span>
-                            @foreach($artwork->medium as $medium)
+                            @foreach($randomArtwork->medium as $medium)
                             {{ trans('medium.' . $medium) && strpos(trans('medium.' . $medium), 'medium') !== false ? $medium : trans('medium.' . $medium)}}
                         @endforeach
                         </span>
@@ -55,12 +55,12 @@
 
                     @foreach($auctions as $auction)
 
-                        @if($auction->images->first())
+                        @if($auction->image)
 
                             <div class="auction">
                                 <a href="{{ route('auction', $auction->id) }}" class="auction-image">
-                                    <img src="{{ $auction->images->first()->url }}"
-                                         alt="{{ $auction->images->first()->name }}">
+                                    <img src="/imagecache/height-200{{ $auction->image_url }}"
+                                         alt="{{ $auction->image->name }}">
                                 </a>
 
                                 <a href="{{ route('auction', $auction->id) }}" class="auction-title">
@@ -98,9 +98,9 @@
                     @foreach($articles as $article)
 
                         <a href="{{ route('artwork', $article->id) }}" class="article">
-                            @if($article->image_url)
+                            @if($article->image)
                                 <div class="article-image">
-                                    <img src="/imagecache/avatar{{ $article->image_url }}"
+                                    <img src="/imagecache/height-200{{ $article->image_url }}"
                                          alt="{{ $article->image->name }}">
                                 </div>
                             @endif
@@ -138,12 +138,11 @@
                 <div class="artworks">
 
                     @foreach($auctions as $artwork)
-
-                        @if($artwork->images->first())
+                        @if($artwork->image)
                             <div class="artwork">
                                 <a href="{{ route('artwork', $artwork->id) }}" class="artwork-image">
-                                    <img src="{{ $artwork->images->first()->url }}"
-                                         alt="{{ $artwork->images->first()->name }}">
+                                    <img src="/imagecache/height-200{{ $artwork->image_url }}"
+                                         alt="{{ $artwork->image->name }}">
                                 </a>
                             </div>
                         @endif

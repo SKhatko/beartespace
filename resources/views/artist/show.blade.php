@@ -41,7 +41,7 @@
 
                             <div class="artist-avatar">
                                 <img src="/imagecache/avatar{{ $artist->avatar_url }}"
-                                     alt="{{ $artist->avatar->name }}">
+                                     alt="{{ $artist->avatar ? $artist->avatar->name : $artist->name }}">
                             </div>
 
                             @if(auth()->user())

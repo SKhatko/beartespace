@@ -118,7 +118,8 @@
                     </el-col>
                     <el-col :sm="8">
                         <el-form-item label="Art direction">
-                            <el-select value="" v-model="artwork.direction" multiple filterable allow-create collapse-tags
+                            <el-select value="" v-model="artwork.direction" multiple filterable allow-create
+                                       collapse-tags
                                        :disabled="showArtworkOptions"
                                        default-first-option placeholder="Select">
                                 <el-option v-for="direction in options('direction')" :key="direction.value"
@@ -144,7 +145,8 @@
                                        default-first-option placeholder="Select">
                                 <el-option v-for="color in options('color')" :key="color.value" :label="color.label"
                                            :value="color.value">
-                                    <span :style="{float: 'left', marginRight: '10px', width: '30px',height: '30px',backgroundColor: color.value}"></span> {{ color.label }}
+                                    <span :style="{float: 'left', marginRight: '10px', width: '30px',height: '30px',backgroundColor: color.value}"></span>
+                                    {{ color.label }}
                                 </el-option>
                             </el-select>
                         </el-form-item>
@@ -272,26 +274,39 @@
 
                 </el-row>
 
-                <el-form-item label="Upload images of back side, signature, or artwork from side. Up to 3
-                    Photos of Your Artwork allowed( jpg/png files accepted)">
+                <el-form-item label="Upload main image of your Artwork ( jpg/jpeg files accepted)">
+
                     <el-upload
-                            :action="'/api/upload/artwork-image/' + artwork.id"
+                            class="image-uploader"
+                            :action="'/api/artwork/'  + artwork.id + '/upload-artwork-image/'"
+                            :headers="{'X-Requested-With': 'XMLHttpRequest', 'X-CSRF-TOKEN' : csrf}"
+                            :show-file-list="false"
+                            accept=".jpg, .jpeg"
+                            :on-success="handleImageSuccess"
+                            :before-upload="beforeImageUpload">
+                        <img :src="'/imagecache/height-200/' + artwork.image_url" class="image">
+                    </el-upload>
+
+                </el-form-item>
+
+                <el-form-item label="Upload additional images like back side, signature, or artwork from side. Up to 3
+                    Photos of Your Artwork allowed( .jpg, .jpeg files accepted)">
+                    <el-upload
+                            :action="'/api/artwork/'  + artwork.id + '/upload-artwork-images/'"
                             :file-list="artwork.images"
                             :headers="{'X-Requested-With': 'XMLHttpRequest', 'X-CSRF-TOKEN' : csrf}"
                             :on-preview="handlePictureCardPreview"
                             :on-remove="handleRemove"
-                            :on-success="handleSuccess"
+                            :on-success="handleImagesSuccess"
                             :limit="3"
                             :on-exceed="handleExceed"
+                            list-type="picture-card"
                             accept=".jpg, .jpeg">
-                        <el-button type="info" plain>
-                            <i class="el-icon-upload"></i>
-                            Upload images
-                        </el-button>
+                        <i class="el-icon-plus"></i>
                     </el-upload>
 
                     <el-dialog :visible.sync="dialogVisible">
-                        <img width="100%" :src="'/' + dialogImageUrl" alt="">
+                        <img width="100%" :src="dialogImageUrl" alt="">
                     </el-dialog>
                 </el-form-item>
 
@@ -415,6 +430,8 @@
                 this.user = JSON.parse(this.user_);
             }
 
+            console.log(this.artwork);
+
         },
 
         methods: {
@@ -452,12 +469,6 @@
                 });
 
             },
-            mainPhotoExceed() {
-                this.$message({
-                    message: 'Maximum quantity of images is 1',
-                    type: 'warning'
-                });
-            },
             handleExceed() {
                 this.$message({
                     message: 'Maximum quantity of images is 3',
@@ -465,7 +476,7 @@
                 });
             },
             handleRemove(file, fileList) {
-                axios.post('/api/remove/artwork-image/' + this.artwork.id, file)
+                axios.post('/api/artwork/' + this.artwork.id + '/remove-artwork-image/', file)
                     .then((response) => {
                         if (response.data) {
                             console.log(response.data);
@@ -479,7 +490,9 @@
                         } else {
                             console.log(response.data);
                         }
-                    });
+                    }).catch(error => {
+                    console.log(error);
+                });
 
                 // this.images = fileList;
             },
@@ -487,11 +500,39 @@
                 this.dialogImageUrl = file.url;
                 this.dialogVisible = true;
             },
-            handleSuccess(response, file, fileList) {
-                this.artwork.images.push({
-                    name: file.name,
-                    url: file.url
+            handleImagesSuccess(response, file, fileList) {
+                console.log(response);
+                this.artwork.images = response.data;
+
+                // this.artwork.images.push({
+                //     name: file.name,
+                //     url: file.url
+                // });
+            },
+
+
+            handleImageSuccess(response, file) {
+                console.log(response);
+                this.artwork.image_url = response.data;
+                this.$message({
+                    showClose: true,
+                    message: response.message,
+                    type: response.status
                 });
+            },
+
+            beforeImageUpload(file) {
+                console.log(file);
+                const isJPG = file.type === 'image/jpeg' || file.type === 'image/jpg';
+                const isLt2M = file.size / 1024 / 1024 < 10;
+
+                if (!isJPG) {
+                    this.$message.error('Image picture must be JPG or JPEG format!');
+                }
+                if (!isLt2M) {
+                    this.$message.error('Image picture size can not exceed 10MB!');
+                }
+                return isJPG && isLt2M;
             },
 
             confirmArtworkUpgrade(name, price, period = null) {

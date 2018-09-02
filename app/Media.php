@@ -16,14 +16,7 @@ class Media extends Model {
 	];
 
 	public function getUrlAttribute( $value ) {
-
-		$id = $this->user_id ?? $this->artwork_id;
-
-		return $value ?? $this->folder . '/' . $id . '/' . $this->name;
-	}
-
-	public function user() {
-		return $this->belongsTo(User::class, 'id', 'user_id');
+		return $value ?? $this->folder . '/' . $this->name;
 	}
 
 }

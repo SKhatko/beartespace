@@ -92,9 +92,10 @@ class ArtworkController extends Controller {
 
 		$artwork = Artwork::whereId( $id )->with( 'images' )->firstOrFail();
 
-//		return $artwork->artwork_options;
-
+//		return $artwork;
 		$user = auth()->user();
+
+//		return $artwork;
 
 		if ( $artwork->user_id === $user->id || $user->isAdmin() ) {
 			return view( 'dashboard.artworks.edit', compact( 'title', 'artwork' ) );

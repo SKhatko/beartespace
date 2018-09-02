@@ -40,7 +40,10 @@ class UserController extends Controller {
 
 		$user = auth()->user();
 
-//		return $user->profile_website;
+//		->each(function ($media) use $user {
+//			$user->avatar()->associate(factory(Media::class)->create());
+//		});
+//		return $user;
 
 		return view( 'dashboard.user.profile', compact( 'title', 'user' ) );
 	}

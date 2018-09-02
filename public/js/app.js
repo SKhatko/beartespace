@@ -19663,6 +19663,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -19726,6 +19741,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         if (this.user_) {
             this.user = JSON.parse(this.user_);
         }
+
+        console.log(this.artwork);
     },
 
 
@@ -19765,12 +19782,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
             });
         },
-        mainPhotoExceed: function mainPhotoExceed() {
-            this.$message({
-                message: 'Maximum quantity of images is 1',
-                type: 'warning'
-            });
-        },
         handleExceed: function handleExceed() {
             this.$message({
                 message: 'Maximum quantity of images is 3',
@@ -19780,7 +19791,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         handleRemove: function handleRemove(file, fileList) {
             var _this2 = this;
 
-            axios.post('/api/remove/artwork-image/' + this.artwork.id, file).then(function (response) {
+            axios.post('/api/artwork/' + this.artwork.id + '/remove-artwork-image/', file).then(function (response) {
                 if (response.data) {
                     console.log(response.data);
                     _this2.$message({
@@ -19793,6 +19804,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 } else {
                     console.log(response.data);
                 }
+            }).catch(function (error) {
+                console.log(error);
             });
 
             // this.images = fileList;
@@ -19801,11 +19814,36 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.dialogImageUrl = file.url;
             this.dialogVisible = true;
         },
-        handleSuccess: function handleSuccess(response, file, fileList) {
-            this.artwork.images.push({
-                name: file.name,
-                url: file.url
+        handleImagesSuccess: function handleImagesSuccess(response, file, fileList) {
+            console.log(response);
+            this.artwork.images = response.data;
+
+            // this.artwork.images.push({
+            //     name: file.name,
+            //     url: file.url
+            // });
+        },
+        handleImageSuccess: function handleImageSuccess(response, file) {
+            console.log(response);
+            this.artwork.image_url = response.data;
+            this.$message({
+                showClose: true,
+                message: response.message,
+                type: response.status
             });
+        },
+        beforeImageUpload: function beforeImageUpload(file) {
+            console.log(file);
+            var isJPG = file.type === 'image/jpeg' || file.type === 'image/jpg';
+            var isLt2M = file.size / 1024 / 1024 < 10;
+
+            if (!isJPG) {
+                this.$message.error('Image picture must be JPG or JPEG format!');
+            }
+            if (!isLt2M) {
+                this.$message.error('Image picture size can not exceed 10MB!');
+            }
+            return isJPG && isLt2M;
         },
         confirmArtworkUpgrade: function confirmArtworkUpgrade(name, price) {
             var _this3 = this;
@@ -20947,27 +20985,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -21087,14 +21104,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         beforeImageUpload: function beforeImageUpload(file) {
             console.log(file);
-            var isJPG = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/jpg';
-            var isLt2M = file.size / 1024 / 1024 < 2;
+            var isJPG = file.type === 'image/jpeg' || file.type === 'image/jpg';
+            var isLt2M = file.size / 1024 / 1024 < 10;
 
             if (!isJPG) {
-                this.$message.error('Image picture must be JPG, JPEG, or PNG format!');
+                this.$message.error('Image picture must be JPG or JPEG format!');
             }
             if (!isLt2M) {
-                this.$message.error('Image picture size can not exceed 2MB!');
+                this.$message.error('Image picture size can not exceed 10MB!');
             }
             return isJPG && isLt2M;
         },
@@ -66040,7 +66057,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('el-upload', {
     staticClass: "avatar-uploader",
     attrs: {
-      "action": "/api/upload/user-avatar",
+      "action": "/api/user/upload-user-avatar",
       "headers": {
         'X-Requested-With': 'XMLHttpRequest',
         'X-CSRF-TOKEN': _vm.csrf
@@ -66059,21 +66076,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "sm": 12
     }
-  }, [_c('el-form-item', [(_vm.showProfileBackgroundImage) ? _c('span', {
+  }, [_c('el-form-item', [_c('span', {
     attrs: {
       "slot": "label"
     },
     slot: "label"
-  }, [_c('el-button', {
-    attrs: {
-      "type": "text"
-    },
-    on: {
-      "click": function($event) {
-        _vm.dialogs.profileBackgroundImageAddDialog = true
-      }
-    }
-  }, [_vm._v("\n                              Add background image\n\n                              "), _c('el-tooltip', {
+  }, [_vm._v("\n                        Click on image to upload profile background image\n                          "), _c('el-tooltip', {
     attrs: {
       "content": "Make your profile more professional,\n                                       put on background extra picture of your studio or yourself during\n                                       working or even your favourite art.",
       "effect": "light"
@@ -66094,42 +66102,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "slot": "reference"
     },
     slot: "reference"
-  })])], 1), _vm._v(" "), _c('el-dialog', {
-    attrs: {
-      "title": "Upgrade Your profile",
-      "visible": _vm.dialogs.profileBackgroundImageAddDialog,
-      "width": "30%"
-    },
-    on: {
-      "update:visible": function($event) {
-        _vm.$set(_vm.dialogs, "profileBackgroundImageAddDialog", $event)
-      }
-    }
-  }, [_c('p', [_vm._v("You can personalize your profile by adding background image")]), _vm._v(" "), _c('p', [_vm._v("You can add this feature to your personal profile for 1 EUR")]), _vm._v(" "), _c('span', {
-    staticClass: "dialog-footer",
-    attrs: {
-      "slot": "footer"
-    },
-    slot: "footer"
-  }, [_c('el-button', {
-    attrs: {
-      "type": "primary"
-    },
-    on: {
-      "click": function($event) {
-        _vm.save(_vm.confirmProfileUpgrade('profile_background_image_add', 1))
-      }
-    }
-  }, [_vm._v("Confirm")])], 1)])], 1) : _c('span', {
-    attrs: {
-      "slot": "label"
-    },
-    slot: "label"
-  }, [_vm._v("Click on image to upload profile background image")]), _vm._v(" "), _c('el-upload', {
+  })])], 1), _vm._v(" "), _c('el-upload', {
     staticClass: "image-uploader",
     attrs: {
-      "disabled": _vm.showProfileBackgroundImage,
-      "action": "/api/upload/user-image",
+      "action": "/api/user/upload-user-image",
       "headers": {
         'X-Requested-With': 'XMLHttpRequest',
         'X-CSRF-TOKEN': _vm.csrf
@@ -66142,7 +66118,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('img', {
     staticClass: "image",
     attrs: {
-      "src": '/imagecache/avatar/' + _vm.user.image_url
+      "src": '/imagecache/height-200/' + _vm.user.image_url
     }
   })])], 1)], 1) : _vm._e()], 1)], 1), _vm._v(" "), _c('el-form', {
     ref: "profile",
@@ -67386,7 +67362,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         height: '30px',
         backgroundColor: color.value
       })
-    }), _vm._v(" " + _vm._s(color.label) + "\n                            ")])
+    }), _vm._v("\n                                " + _vm._s(color.label) + "\n                            ")])
   }))], 1)], 1), _vm._v(" "), _c('el-col', {
     attrs: {
       "sm": 8
@@ -67675,11 +67651,33 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1)], 1), _vm._v(" "), _c('el-form-item', {
     attrs: {
-      "label": "Upload images of back side, signature, or artwork from side. Up to 3\n                Photos of Your Artwork allowed( jpg/png files accepted)"
+      "label": "Upload main image of your Artwork ( jpg/jpeg files accepted)"
+    }
+  }, [_c('el-upload', {
+    staticClass: "image-uploader",
+    attrs: {
+      "action": '/api/artwork/' + _vm.artwork.id + '/upload-artwork-image/',
+      "headers": {
+        'X-Requested-With': 'XMLHttpRequest',
+        'X-CSRF-TOKEN': _vm.csrf
+      },
+      "show-file-list": false,
+      "accept": ".jpg, .jpeg",
+      "on-success": _vm.handleImageSuccess,
+      "before-upload": _vm.beforeImageUpload
+    }
+  }, [_c('img', {
+    staticClass: "image",
+    attrs: {
+      "src": '/imagecache/height-200/' + _vm.artwork.image_url
+    }
+  })])], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "label": "Upload additional images like back side, signature, or artwork from side. Up to 3\n                Photos of Your Artwork allowed( .jpg, .jpeg files accepted)"
     }
   }, [_c('el-upload', {
     attrs: {
-      "action": '/api/upload/artwork-image/' + _vm.artwork.id,
+      "action": '/api/artwork/' + _vm.artwork.id + '/upload-artwork-images/',
       "file-list": _vm.artwork.images,
       "headers": {
         'X-Requested-With': 'XMLHttpRequest',
@@ -67687,19 +67685,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       "on-preview": _vm.handlePictureCardPreview,
       "on-remove": _vm.handleRemove,
-      "on-success": _vm.handleSuccess,
+      "on-success": _vm.handleImagesSuccess,
       "limit": 3,
       "on-exceed": _vm.handleExceed,
+      "list-type": "picture-card",
       "accept": ".jpg, .jpeg"
     }
-  }, [_c('el-button', {
-    attrs: {
-      "type": "info",
-      "plain": ""
-    }
   }, [_c('i', {
-    staticClass: "el-icon-upload"
-  }), _vm._v("\n                        Upload images\n                    ")])], 1), _vm._v(" "), _c('el-dialog', {
+    staticClass: "el-icon-plus"
+  })]), _vm._v(" "), _c('el-dialog', {
     attrs: {
       "visible": _vm.dialogVisible
     },
@@ -67711,7 +67705,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('img', {
     attrs: {
       "width": "100%",
-      "src": '/' + _vm.dialogImageUrl,
+      "src": _vm.dialogImageUrl,
       "alt": ""
     }
   })])], 1), _vm._v(" "), _c('el-button', {
@@ -68989,15 +68983,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "artwork"
   }, [_c('div', {
     staticClass: "artwork-top"
-  }, [(_vm.artwork.images) ? _c('a', {
+  }, [(_vm.artwork.image) ? _c('a', {
     staticClass: "artwork-image",
     attrs: {
       "href": '/artwork/' + _vm.artwork.id
     }
   }, [_c('img', {
     attrs: {
-      "src": _vm.artwork.images[0].url,
-      "alt": _vm.artwork.images[0].name
+      "src": '/imagecache/original/' + _vm.artwork.image_url,
+      "alt": _vm.artwork.image.name
     }
   })]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "artwork-panel"

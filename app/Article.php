@@ -7,8 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Article extends Model {
 	protected $appends = [ 'image_url' ];
 
+	public function images() {
+		return $this->belongsToMany( Media::class, 'article_images', 'article_id', 'media_id' );
+	}
+
 	public function image() {
-		return $this->hasOne( Media::class, 'article_id' );
+		return $this->belongsTo( Media::class );
 	}
 
 	public function getImageUrlAttribute() {

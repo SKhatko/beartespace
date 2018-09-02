@@ -13,8 +13,14 @@
 
                     <div class="artwork-images">
                         <el-carousel indicator-position="outside">
+                            <el-carousel-item key="{{ $artwork->image->id }}">
+                                <div class="artwork-image">
+                                    <img src="/imagecache/height-200/{{ $artwork->image_url }}" alt="{{ $artwork->image->name }}">
+                                </div>
+                            </el-carousel-item>
+
                             @foreach($artwork->images as $image)
-                                <el-carousel-item key="{{ $loop->index }}">
+                                <el-carousel-item key="{{ $image->id }}">
                                     <div class="artwork-image">
                                         <img src="/imagecache/height-200/{{ $image->url }}" alt="{{ $image->name }}">
                                     </div>

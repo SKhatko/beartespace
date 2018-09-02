@@ -23,6 +23,8 @@ class CreateUsersTable extends Migration {
 			$table->string( 'password' )->nullable();
 			$table->integer( 'balance' )->default( 0 );
 			$table->json( 'profession' )->nullable();
+			$table->integer('avatar_id')->nullable();
+			$table->integer('image_id')->nullable();
 
 			$table->date( 'dob' )->nullable();
 			$table->integer( 'country_id' )->nullable();

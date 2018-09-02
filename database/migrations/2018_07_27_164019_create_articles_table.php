@@ -22,6 +22,7 @@ class CreateArticlesTable extends Migration
             $table->boolean('active')->nullable();
             $table->boolean('show_index')->nullable();
             $table->integer('user_id');
+            $table->integer('image_id');
             $table->timestamps();
         });
     }

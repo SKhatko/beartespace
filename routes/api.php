@@ -31,10 +31,12 @@ Route::group( [ 'middleware' => 'auth:api' ], function () {
 
 
 	// Upload files
-	Route::any( 'upload/user-avatar', 'Api\UserController@uploadUserAvatar' );
-	Route::any( 'upload/user-image', 'Api\UserController@uploadUserImage' );
-	Route::any( 'upload/artwork-image/{id}', 'Api\ArtworkController@uploadArtworkImage' );
-	Route::any( 'remove/artwork-image/{id}', 'Api\ArtworkController@removeArtworkImage' );
+	Route::any( 'user/upload-user-avatar', 'Api\UserController@uploadUserAvatar' );
+	Route::any( 'user/upload-user-image', 'Api\UserController@uploadUserImage' );
+
+	Route::post( 'artwork/{id}/upload-artwork-image', 'Api\ArtworkController@uploadArtworkImage' );
+	Route::post( 'artwork/{id}/upload-artwork-images', 'Api\ArtworkController@uploadArtworkImages' );
+	Route::post( 'artwork/{id}/remove-artwork-image', 'Api\ArtworkController@removeArtworkImage' );
 
 	// Change email
 	Route::post( 'change-email', 'Auth\ConfirmEmailController@changeEmail');

@@ -14,15 +14,16 @@ class Artwork extends Model {
 		'formatted_price',
 		'artwork_options_add',
 		'artwork_inspiration_add',
-		'artwork_interior_add'
+		'artwork_interior_add',
+		'image_url'
 	];
 
 	protected $casts = [
-		'medium' => 'array',
+		'medium'    => 'array',
 		'direction' => 'array',
-		'theme' => 'array',
-		'color' => 'array',
-		'image' => 'array'
+		'theme'     => 'array',
+		'color'     => 'array',
+		'image'     => 'array'
 	];
 
 	public function user() {
@@ -30,7 +31,11 @@ class Artwork extends Model {
 	}
 
 	public function images() {
-		return $this->hasMany( Media::class );
+		return $this->belongsToMany( Media::class, 'artwork_images', 'artwork_id', 'media_id' );
+	}
+
+	public function image() {
+		return $this->belongsTo( Media::class );
 	}
 
 	public function adds() {
@@ -65,6 +70,14 @@ class Artwork extends Model {
 		return currency( $this->attributes['price'], null, session( 'currency' ) );
 	}
 
+	public function getImageUrlAttribute() {
+
+		if ( $this->image && file_exists( public_path( 'storage' . $this->image->url ) ) ) {
+			return $this->image->url;
+		} else {
+			return '/no-image-placeholder.png';
+		}
+	}
 
 	public function bids() {
 		return $this->hasMany( Bid::class );
