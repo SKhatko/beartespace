@@ -27,23 +27,6 @@ class HomeController extends Controller {
 		return view( 'index', compact( 'artwork', 'auctions', 'articles', 'randomArtwork' ) );
 	}
 
-	public function auctions() {
-
-		$countries = Country::all( 'country_name', 'id', 'citizenship' );
-
-		$artworks = Artwork::auction()->get();
-
-		return view( 'auction.index', compact( 'artworks', 'countries' ) );
-
-	}
-
-	public function auction( $id ) {
-
-		$auction = Artwork::find( $id );
-
-		return view( 'auction.show', compact( 'auction' ) );
-	}
-
 	public function selectedArtists() {
 
 		$artists = User::whereIn( 'id', Setting::first()->artists_of_the_week )->paginate( 15 );
@@ -246,10 +229,6 @@ class HomeController extends Controller {
 //		return $artwork->image;
 
 		return view( 'artwork.show', compact( 'artwork' ) );
-	}
-
-	public function checkout() {
-		return view( 'checkout.checkout' );
 	}
 
 	public function about() {

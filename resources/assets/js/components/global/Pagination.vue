@@ -36,7 +36,7 @@
                 this.paginator = JSON.parse(this.paginator_);
             }
 
-            console.log(this.paginator);
+            // console.log(this.paginator);
 
         },
 

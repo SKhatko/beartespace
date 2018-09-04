@@ -7,12 +7,60 @@
 
             <h2>Shopping cart</h2>
 
-            @if($artworks)
+
+            <table>
+                <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Qty</th>
+                    <th>Price</th>
+                    <th>Subtotal</th>
+                </tr>
+                </thead>
+
+                <tbody>
+
+		        <?php foreach(Cart::content() as $row) :?>
+
+                <tr>
+                    <td>
+                        <p><strong><?php echo $row->name; ?></strong></p>
+                        <p><?php echo ($row->options->has('size') ? $row->options->size : ''); ?></p>
+                    </td>
+                    <td><input type="text" value="<?php echo $row->qty; ?>"></td>
+                    <td>$<?php echo $row->price; ?></td>
+                    <td>$<?php echo $row->total; ?></td>
+                </tr>
+
+		        <?php endforeach;?>
+
+                </tbody>
+
+                <tfoot>
+                <tr>
+                    <td colspan="2">&nbsp;</td>
+                    <td>Subtotal</td>
+                    <td><?php echo Cart::subtotal(); ?></td>
+                </tr>
+                <tr>
+                    <td colspan="2">&nbsp;</td>
+                    <td>Tax</td>
+                    <td><?php echo Cart::tax(); ?></td>
+                </tr>
+                <tr>
+                    <td colspan="2">&nbsp;</td>
+                    <td>Total</td>
+                    <td><?php echo Cart::total(); ?></td>
+                </tr>
+                </tfoot>
+            </table>
+
+            @if(isset($artworks))
                 @foreach($artworks as $artwork)
                     <el-row :gutter="20" style="margin-bottom:20px;">
 
                         <el-col :sm="10">
-                            <img src="{{ $artwork['item']->images()->first()->name }}" alt="" style="width: 100%;">
+                            <img src="/imagecache/height-100{{ $artwork['item']->image_url }}" alt="" style="height: 100px;">
                         </el-col>
 
                         <el-col :sm="12">
@@ -58,7 +106,7 @@
 
             @endif
 
-            <el-button><a href="{{ route('home') }}">Continue shopping</a></el-button>
+            <el-button><a href="{{ route('artworks') }}">Continue shopping</a></el-button>
 
         </el-card>
     </div>

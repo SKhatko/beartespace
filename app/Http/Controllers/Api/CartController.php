@@ -2,47 +2,55 @@
 
 namespace App\Http\Controllers\Api;
 
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Artwork;
-use App\Cart;
 
 class CartController extends Controller {
+
+	public $response;
+
 	public function toggleCart( Request $request, $id ) {
 
 		$artwork = Artwork::find( $id );
 
-		$oldCart = session( 'cart' );
+		$cart = Cart::content();
 
-		$cart = new Cart( $oldCart );
-
-		$cart->toggle( $artwork, $artwork->id );
-
-		session( [ 'cart' => $cart ] );
-
-		if($oldCart) {
-
-			if ( $oldCart->totalQuantity < session( 'cart' )->totalQuantity ) {
-				return [
-					'status'  => 'success',
-					'message' => 'Artwork Added to Shopping Cart',
-					'data'    => session( 'cart' )
-				];
-			} else {
-				return [
-					'status'  => 'success',
-					'message' => 'Artwork Removed from Shopping Cart',
-					'data'    => session( 'cart' )
-				];
-			}
+		if ( $cart->contains( 'id', $artwork->id ) ) {
+			$cart->map( function ( $item, $rowId ) use ( $artwork ) {
+				if ( $artwork->id == $item->id ) {
+					$this->removeItem( $rowId );
+				}
+			} );
 		} else {
-			return [
-				'status'  => 'success',
-				'message' => 'Artwork Added to Shopping Cart',
-				'data'    => session( 'cart' )
-			];
+			$this->addItem( $artwork );
 		}
 
+		if ( auth()->user() ) {
+			Cart::restore( auth()->user()->id );
+		}
 
+		return $this->response;
+	}
+
+	public function addItem( $artwork ) {
+		Cart::add( $artwork->id, $artwork->title, 1, $artwork->price );
+
+		$this->response = [
+			'status'  => 'success',
+			'message' => 'Artwork Added to Shopping Cart',
+			'data'    => Cart::content()->values()
+		];
+	}
+
+	public function removeItem( $rowId ) {
+		Cart::remove( $rowId );
+
+		$this->response = [
+			'status'  => 'success',
+			'message' => 'Artwork Removed from Shopping Cart',
+			'data'    => Cart::content()->values()
+		];
 	}
 }

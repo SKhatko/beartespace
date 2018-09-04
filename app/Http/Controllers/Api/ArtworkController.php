@@ -6,7 +6,6 @@ use App\Artwork;
 use App\Media;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Cart;
 
 class ArtworkController extends Controller {
 

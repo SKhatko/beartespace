@@ -182,8 +182,8 @@
         <i class="el-icon-star-off"></i><sup>@{{ $store.state.favouriteArtworksCount }}</sup>
     </a>
 
-    <a href="{{ route('shopping-cart') }}" class="app-header-cart" v-if="$store.state.cartCount">
-        <i class="el-icon-goods"></i><sup>@{{ $store.state.cartCount }}</sup>
+    <a href="{{ route('cart') }}" class="app-header-cart" v-if="$store.state.shoppingCartCount">
+        <i class="el-icon-goods"></i><sup>@{{ $store.state.shoppingCartCount }}</sup>
     </a>
 
     @if(auth()->user() && auth()->user()->user_type === 'artist')

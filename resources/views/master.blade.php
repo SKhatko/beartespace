@@ -28,8 +28,8 @@
             'alert': {!! json_encode(session('alert')?? '') !!},
             'errors': {!! json_encode($errors->all()) !!},
             'notify': {!! json_encode(session('notify')) !!},
-            'favouriteArtworks': {!! json_encode(auth()->user() ? auth()->user()->favouriteArtworks: '') !!}
-
+            'favouriteArtworks': {!! json_encode(auth()->user() ? auth()->user()->favouriteArtworks: '') !!},
+            'shoppingCart' : {!! json_encode(Cart::content()->values()) !!},
         };
 
         window.trans = {!! $translations !!};
@@ -38,7 +38,6 @@
 
         window.error = {!! json_encode(session('error') ?? '') !!};
 
-        window.cart = {!! json_encode(session( 'cart' ) ?? '') !!};
 
         window.favourites = '';
 

@@ -66,6 +66,7 @@ const app = new Vue({
     store: new Vuex.Store(store),
     components: {},
     data: {
+        showArtworkImageDialog: false,
         showRegisterDialog: false
     },
     mounted() {
@@ -74,16 +75,22 @@ const app = new Vue({
             this.$alert(window.bus.alert.message, window.bus.alert.title, {
                 confirmButtonText: 'OK',
             });
-        } else if(window.bus.notify) {
+        } else if (window.bus.notify) {
             this.$notify.info({
                 dangerouslyUseHTMLString: true,
                 title: window.notify.title,
                 message: window.notify.message,
                 duration: window.notify.duration ? window.notify.duration : 0,
             });
-        } else if(window.bus.favouriteArtworks) {
+        } else if (window.bus.favouriteArtworks) {
             this.$store.commit('setInitialFavouriteArtworks', window.bus.favouriteArtworks);
         }
+
+        // Shopping cart
+        if (window.bus.shoppingCart) {
+            this.$store.commit('setInitialShoppingCart', window.bus.shoppingCart);
+        }
+        // End shopping cart
 
         if (window.notify) {
             this.$notify.info({
@@ -112,9 +119,6 @@ const app = new Vue({
             })
         }
 
-        if (window.cart) {
-            this.$store.commit('setInitialCart', window.cart);
-        }
         //
         axios.get('/api/profile')
             .then(response => {

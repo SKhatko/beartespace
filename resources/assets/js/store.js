@@ -1,7 +1,7 @@
 let store = {
     state: {
-        cart: [],
-        cartCount: 0,
+        shoppingCart: [],
+        shoppingCartCount: 0,
         favouriteArtworks: [],
         favouriteArtworksCount: 0,
         errors: [],
@@ -29,14 +29,15 @@ let store = {
 
         },
 
-        toggleCart(state, item) {
+        toggleShoppingCart(state, item) {
 
             axios.put('/api/cart/' + item.id + '/toggle',).then(response => {
 
-                state.cart = response.data.data.items;
-                state.cartCount = response.data.data.totalQuantity;
+                state.shoppingCart = response.data.data;
 
-                console.log(response.data.data);
+                state.shoppingCartCount = response.data.data.length ;
+
+                console.log(response.data.data, 'got data');
 
                 this._vm.$message({
                     showClose: true,
@@ -48,13 +49,15 @@ let store = {
 
         },
 
-        setInitialCart(state, cart) {
-            console.log(cart);
-            state.cartCount = cart.totalQuantity;
+        setInitialShoppingCart(state, cart) {
+            console.log('Initial shopping cart', cart);
+            state.shoppingCartCount = cart.length;
+            state.shoppingCart = cart;
+
         },
 
         setInitialFavouriteArtworks(state, favouriteArtworks) {
-            console.log('artworks', favouriteArtworks.length);
+            console.log('Initial favourite artworks', favouriteArtworks.length);
             state.favouriteArtworksCount = favouriteArtworks.length;
             state.favouriteArtworks = favouriteArtworks;
         },

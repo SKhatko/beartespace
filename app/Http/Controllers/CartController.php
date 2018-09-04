@@ -2,67 +2,56 @@
 
 namespace App\Http\Controllers;
 
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
-use App\Cart;
 use App\Artwork;
 
 class CartController extends Controller {
 
+	public $response;
+
 	public function index() {
 
-		$oldCart = session( 'cart' );
+		$artwork = Artwork::find( 2 );
 
-		$cart = new Cart( $oldCart );
+//		$this->toggleCart(2);
 
-		return view( 'checkout.shopping-cart', with( [
-			'artworks'   => $cart->items,
-			'totalPrice' => $cart->totalPrice
-		] ) );
+//		return Cart::content()->values();
+
+		return view( 'checkout.shopping-cart' );
 	}
 
-	public function addToCart( Request $request, $id ) {
+	public function buyNow( Request $request, $id ) {
 
 		$artwork = Artwork::findOrFail( $id );
 
-		$oldCart = session( 'cart' );
+		$cart = Cart::content();
 
-		$cart = new Cart( $oldCart );
+		if ( $cart->contains( 'id', $artwork->id ) ) {
+			$cart->map( function ( $item, $rowId ) use ( $artwork ) {
+				if ( $artwork->id == $item->id ) {
+//					$this->removeItem( $rowId );
+					$this->response = redirect()->route( 'cart' );
 
-		$cart->add( $artwork, $artwork->id );
+				}
+			} );
+		} else {
+			$this->addItem( $artwork );
+		}
 
-		session( [ 'cart' => $cart ] );
-
-		return redirect()->route( 'shopping-cart' );
+		return $this->response;
 	}
 
-	public function toggleToCart( Request $request, $id ) {
+	public function addItem( $artwork ) {
+		Cart::add( $artwork->id, $artwork->title, 1, $artwork->price );
 
-		$artwork = Artwork::find( $id );
-
-		$oldCart = session( 'cart' );
-
-		$cart = new Cart( $oldCart );
-
-		$cart->toggle( $artwork, $artwork->id );
-
-		session( [ 'cart' => $cart ] );
-
-//		return back();
+		$this->response = redirect()->route( 'cart' );
 	}
 
+	public function removeItem( $rowId ) {
+		Cart::remove( $rowId );
 
-	public function removeFromCart( Request $request, $id ) {
-
-		$artwork = Artwork::find( $id );
-
-		$oldCart = session( 'cart' );
-
-		$cart = new Cart( $oldCart );
-
-		$cart->remove( $artwork, $artwork->id );
-
-		session( [ 'cart' => $cart ] );
-
-		return redirect()->route( 'shopping-cart' );
+		$this->response = redirect()->route( 'cart' );
 	}
+
 }

@@ -40,8 +40,8 @@ Route::group( [ 'middleware' => 'web' ], function () {
 
 	Route::get( '/', 'HomeController@index' )->name( 'home' );
 	Route::get( '/home', 'HomeController@index' );
-	Route::get( '/auction', 'HomeController@auctions' )->name( 'auctions' );
-	Route::get( '/auction/{id}', 'HomeController@auctions' )->name( 'auction' );
+	Route::get( '/auction', 'AuctionController@index' )->name( 'auctions' );
+	Route::get( '/auction/{id}', 'AuctionController@show' )->name( 'auction' );
 	Route::get( '/artwork', 'HomeController@artworks' )->name( 'artworks' );
 	Route::get( '/artwork/{id}', 'HomeController@artwork' )->name( 'artwork' );
 	Route::get( '/artist', 'HomeController@artists' )->name( 'artists' );
@@ -67,12 +67,15 @@ Route::group( [ 'middleware' => 'web' ], function () {
 	Route::get( 'language/{lang}', 'LanguageController@switchLang' )->name( 'switch-language' );
 	Route::get( 'currency/{code}', 'CurrencyController@switchCurrency' )->name( 'switch-currency' );
 
-	// Shopping
-	Route::get( 'shopping-cart', 'CartController@index' )->name( 'shopping-cart' );
-	Route::get( 'add-to-cart/{id}', 'CartController@addToCart' )->name( 'add-to-cart' );
+	// Shopping Cart
+	Route::get( 'cart', 'CartController@index' )->name( 'cart' );
+	Route::get( 'cart/item/{id}/buy-now', 'CartController@buyNow' )->name( 'cart.item.buy-now' );
+	Route::get( 'cart/item/{id}/add', 'CartController@addItem' )->name( 'cart.item.add' );
 	Route::get( 'toggle-to-cart/{id}', 'CartController@toggleToCart' )->name( 'toggle-to-cart' );
-	Route::get( 'remove-from-cart/{id}', 'CartController@removeFromCart' )->name( 'remove-from-cart' );
-	Route::get( 'checkout', 'HomeController@checkout' )->name( 'checkout' );
+	Route::get( 'cart/item/{id}/remove', 'CartController@removeItem' )->name( 'cart.item.remove' );
+
+	// Checkout
+	Route::get( 'checkout', 'CheckoutController@checkout' )->name( 'checkout' );
 
 	// Pages
 	Route::get( 'about', 'HomeController@about' )->name( 'about' );

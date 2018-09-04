@@ -11,8 +11,9 @@
 
                 <el-button :icon="favouriteIconClass" class="artwork-panel-favourite" circle
                            @click="$store.commit('toggleFavourites', artwork)"></el-button>
-                <el-button icon="el-icon-goods" class="artwork-panel-cart" circle
-                           @click="$store.commit('toggleCart', artwork)"></el-button>
+                <el-button class="artwork-panel-cart" circle :type="artworkInShoppingCartType"
+                           @click="$store.commit('toggleShoppingCart', artwork)"><i class="el-icon-goods"></i>
+                </el-button>
 
             </div>
         </div>
@@ -28,7 +29,10 @@
             </div>
 
             <div class="artwork-price">
-                {{ artwork.formatted_price }}
+                <div style="margin-bottom: 10px;">
+                    {{ artwork.formatted_price }}
+                </div>
+                <el-button><a :href="'/cart/item/' + artwork.id + '/buy-now'">Buy Now</a></el-button>
             </div>
         </div>
 
@@ -60,26 +64,23 @@
         methods: {},
         computed: {
             favouriteIconClass() {
-
                 if (this.$store.state.favouriteArtworks.find(artwork => {
                     return artwork.id === this.artwork.id
                 })) {
                     return 'el-icon-star-on'
                 }
                 return 'el-icon-star-off'
+            },
+            artworkInShoppingCartType() {
 
+                if (this.$store.state.shoppingCart.find(item => {
+                    return item.id === this.artwork.id
+                })) {
+                    return 'primary'
+                }
+                return ''
             },
 
-            cartIconClass() {
-
-                if (this.$store.state.cart.find(artwork => {
-                    return artwork.id === this.artwork.id
-                })) {
-                    return 'el-icon-star-on'
-                }
-                return 'el-icon-star-off'
-
-            }
         },
     }
 </script>
