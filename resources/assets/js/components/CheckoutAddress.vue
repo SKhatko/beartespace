@@ -51,9 +51,16 @@
                     <el-input placeholder="Email" v-model="address.email"></el-input>
                 </el-form-item>
 
+                <!--<el-form-item prop="phone">-->
+                    <!--<el-input placeholder="Phone" v-model="address.phone"></el-input>-->
+                <!--</el-form-item>-->
+
                 <el-form-item prop="phone">
-                    <el-input placeholder="Phone" v-model="address.phone"></el-input>
+                    <vue-tel-input v-model="address.phone"
+                                   :preferredCountries="['us', 'gb', 'ua']">
+                    </vue-tel-input>
                 </el-form-item>
+
 
                 <el-button @click="submit">Go to checkout</el-button>
 

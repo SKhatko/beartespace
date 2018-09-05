@@ -15,7 +15,9 @@ require('./bootstrap');
 
 import ElementUI from 'element-ui';
 import store from './store.js';
-import locale from 'element-ui/lib/locale/lang/en'
+import locale from 'element-ui/lib/locale/lang/en';
+import VueTelInput from 'vue-tel-input'
+
 
 Vue.prototype.trans = (key) => {
     return get(window.trans, key, key);
@@ -31,6 +33,7 @@ Vue.prototype.options = (key) => {
 
 Vue.use(Vuex);
 Vue.use(ElementUI, {locale});
+Vue.use(VueTelInput);
 
 Vue.component('subscription-form', require('./components/payment/SubscriptionForm.vue'));
 Vue.component('partials-artwork', require('./components/partials/Artwork.vue'));

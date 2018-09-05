@@ -3,6 +3,8 @@
 @import "~normalize.css";
 @import "~font-awesome/css/font-awesome";
 @import "~element-ui/packages/theme-chalk/src/index";
+@import '~vue-tel-input/dist/vue-tel-input';
+
 
 body, html {
   margin: 0;
@@ -888,6 +890,18 @@ body, html {
 
 .ql-disabled {
   background-color: #f5f7fa;
+}
+
+.vue-tel-input {
+  border: $--border-base !important;
+  line-height: 25px;
+
+  ul {
+    min-width: 290px;
+    width: 358px;
+    top: auto;
+    bottom: 33px;
+  }
 }
 
 // Admin styles

@@ -29,6 +29,7 @@
     "fontello-webpack-plugin": "^0.4.8",
     "lodash.get": "^4.4.2",
     "normalize.css": "^8.0.0",
+    "vue-tel-input": "^2.0.5",
     "vue-template-compiler": "^2.5.17",
     "vue2-editor": "^2.6.6",
     "vuex": "^3.0.1"
