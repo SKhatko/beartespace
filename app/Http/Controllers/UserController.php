@@ -198,7 +198,7 @@ class UserController extends Controller {
 				$logged_user->password = Hash::make( $new_password );
 				$logged_user->save();
 
-				return redirect()->back()->with( 'status', 'Password changed successfully' );
+				return redirect()->back()->with( ['message' => ['message' => 'Password changed successfully'] ]);
 			}
 
 			return redirect()->back()->with( 'error', 'Wrong Old password' );

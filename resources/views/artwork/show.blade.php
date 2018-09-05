@@ -14,10 +14,11 @@
                     <div class="artwork--top">
 
                         <div class="artwork-image" @click="showArtworkImageDialog = !showArtworkImageDialog">
-                            <img src="/imagecache/height-200/{{ $artwork->image_url }}" alt="{{ $artwork->image->name }}">
+                            <img src="/imagecache/height-200/{{ $artwork->image_url }}"
+                                 alt="{{ $artwork->image->name }}">
                         </div>
 
-                        <el-dialog  :visible.sync="showArtworkImageDialog">
+                        <el-dialog :visible.sync="showArtworkImageDialog">
                             <img src="/imagecache/original/{{ $artwork->image_url }}" alt="{{ $artwork->image->name }}">
                         </el-dialog>
 
@@ -27,15 +28,30 @@
                                         href="{{ route('artist', $artwork->user->id) }}">{{ $artwork->user->name }}</a>, {{ $artwork->title }}
                             </div>
 
-                            <div class="h4" style="margin-bottom: 20px;">{{ $artwork->user->country['country_name'] }}</div>
+                            <div class="h4"
+                                 style="margin-bottom: 20px;">{{ $artwork->user->country['country_name'] }}</div>
 
-                            <el-button>
-                                <a href="{{ route('cart.item.add', $artwork->id) }}">Add to cart</a>
-                            </el-button>
 
-                            <el-button>
-                                <a href="{{ route('cart.item.buy-now', $artwork->id) }}">Buy Now</a>
-                            </el-button>
+                            @if(Cart::content()->contains('id', $artwork->id))
+                                <el-tag type="info">Item is added to shopping cart</el-tag>
+
+                                <el-button type="text">
+                                    <a href="{{ route('cart.item.remove', $artwork->id) }}">Remove</a>
+                                </el-button>
+
+
+                            @else
+                                <el-button>
+                                    <a href="{{ route('cart.item.add', $artwork->id) }}">Add to cart</a>
+                                </el-button>
+                            @endif
+
+                            <div style="margin-top: 20px;">
+                                <el-button>
+                                    <a href="{{ route('cart.item.buy-now', $artwork->id) }}">Buy Now</a>
+                                </el-button>
+                            </div>
+
 
                         </div>
                     </div>

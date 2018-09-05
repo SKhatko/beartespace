@@ -10,17 +10,6 @@ class CartController extends Controller {
 
 	public $response;
 
-	public function index() {
-
-		$artwork = Artwork::find( 2 );
-
-//		$this->toggleCart(2);
-
-//		return Cart::content()->values();
-
-		return view( 'checkout.shopping-cart' );
-	}
-
 	public function buyNow( Request $request, $id ) {
 
 		$artwork = Artwork::findOrFail( $id );
@@ -30,28 +19,45 @@ class CartController extends Controller {
 		if ( $cart->contains( 'id', $artwork->id ) ) {
 			$cart->map( function ( $item, $rowId ) use ( $artwork ) {
 				if ( $artwork->id == $item->id ) {
-//					$this->removeItem( $rowId );
 					$this->response = redirect()->route( 'cart' );
-
 				}
 			} );
 		} else {
-			$this->addItem( $artwork );
+			Cart::add( $artwork->id, $artwork->title, 1, $artwork->price, [ 'image_url' => $artwork->image_url ] );
+
+			$this->response = redirect()->route( 'cart' );
+
 		}
 
 		return $this->response;
 	}
 
-	public function addItem( $artwork ) {
-		Cart::add( $artwork->id, $artwork->title, 1, $artwork->price );
+	public function addItem( Request $request, $id ) {
+		$artwork = Artwork::findOrFail( $id );
 
-		$this->response = redirect()->route( 'cart' );
+		if ( ! Cart::content()->contains( 'id', $artwork->id ) ) {
+			Cart::add( $artwork->id, $artwork->title, 1, $artwork->price, [ 'image_url' => $artwork->image_url ] );
+		}
+
+		return redirect()->back()->with( 'message', [
+			'status'  => 'success',
+			'message' => $artwork->title . ' added to shopping cart'
+		] );
 	}
 
-	public function removeItem( $rowId ) {
-		Cart::remove( $rowId );
+	public function removeItem( Request $request, $id ) {
+		$artwork = Artwork::findOrFail( $id );
 
-		$this->response = redirect()->route( 'cart' );
+		if ( Cart::content()->contains( 'id', $artwork->id ) ) {
+			$item = Cart::content()->where( 'id', $artwork->id )->first();
+
+			Cart::remove( $item->rowId );
+		}
+
+		return redirect()->back()->with( 'message', [
+			'status'  => 'success',
+			'message' => $artwork->title . ' removed from shopping cart'
+		] );
 	}
 
 }

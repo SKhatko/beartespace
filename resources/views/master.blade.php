@@ -21,25 +21,28 @@
         window.cfg = {
             'currency': '{{ session('currency') }}',
             'locale': '{{ session('locale') }}',
-
         };
+
+        window.trans = '{!! $translations !!}',
+
 
         window.bus = {
+
+            // Modal alert window
             'alert': {!! json_encode(session('alert')?? '') !!},
+
             'errors': {!! json_encode($errors->all()) !!},
             'notify': {!! json_encode(session('notify')) !!},
+
+            // Message that appear on top
+            'message': {!! json_encode(session('message') ?? '') !!},
+
             'favouriteArtworks': {!! json_encode(auth()->user() ? auth()->user()->favouriteArtworks: '') !!},
-            'shoppingCart' : {!! json_encode(Cart::content()->values()) !!},
+            'shoppingCart': {!! json_encode(Cart::content()->values()) !!},
         };
 
-        window.trans = {!! $translations !!};
-
-        window.status = {!! json_encode(session('status') ?? '') !!};
 
         window.error = {!! json_encode(session('error') ?? '') !!};
-
-
-        window.favourites = '';
 
     </script>
 

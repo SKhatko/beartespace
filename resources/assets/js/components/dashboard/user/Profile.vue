@@ -123,7 +123,6 @@
                 </el-col>
             </el-row>
 
-
             <el-row :gutter="20">
                 <el-col :sm="8">
                     <el-form-item prop="email">
@@ -140,7 +139,6 @@
                     </el-form-item>
                 </el-col>
             </el-row>
-
 
             <el-row :gutter="20" v-if="user.user_type === 'artist'">
                 <el-col :sm="8">

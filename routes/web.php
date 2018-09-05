@@ -68,20 +68,19 @@ Route::group( [ 'middleware' => 'web' ], function () {
 	Route::get( 'currency/{code}', 'CurrencyController@switchCurrency' )->name( 'switch-currency' );
 
 	// Shopping Cart
-	Route::get( 'cart', 'CartController@index' )->name( 'cart' );
 	Route::get( 'cart/item/{id}/buy-now', 'CartController@buyNow' )->name( 'cart.item.buy-now' );
 	Route::get( 'cart/item/{id}/add', 'CartController@addItem' )->name( 'cart.item.add' );
-	Route::get( 'toggle-to-cart/{id}', 'CartController@toggleToCart' )->name( 'toggle-to-cart' );
 	Route::get( 'cart/item/{id}/remove', 'CartController@removeItem' )->name( 'cart.item.remove' );
 
 	// Checkout
-	Route::get( 'checkout', 'CheckoutController@checkout' )->name( 'checkout' );
+	Route::get( 'cart', 'CheckoutController@cart' )->name( 'cart' );
+	Route::get( 'checkout/checkout', 'CheckoutController@checkout' )->name( 'checkout' );
+	Route::get( 'checkout/address', 'CheckoutController@address' )->name( 'checkout.address' );
 
 	// Pages
 	Route::get( 'about', 'HomeController@about' )->name( 'about' );
 	Route::get( 'rules', 'HomeController@rules' )->name( 'rules' );
 	Route::get( 'shipping', 'HomeController@shipping' )->name( 'shipping' );
-
 
 	//Dashboard Route
 	Route::group( [

@@ -29,7 +29,7 @@
                                     @if($loop->index > 0)
                                         |
                                     @endif
-                                    @lang('profession.' . $profession)
+                                    {{ trans('profession.' . $profession) }}
                                 @endforeach
                             </div>
                             <div class="h4" style="margin-bottom: 30px;">
@@ -70,7 +70,6 @@
                             @endif
 
                             <div class="artist-gender">{{ $artist->gender }}</div>
-
 
                             <div class="artist-education">Education: {{ $artist->education }}</div>
                             <div class="artist-education-title">Education title: {{ $artist->education_title }}</div>

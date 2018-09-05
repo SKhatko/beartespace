@@ -8,7 +8,8 @@
                 <a href="{{ route('invite.gallery') }}">For Galleries</a>| &nbsp;
                 <a href="{{ route('invite.writer') }}">For Art Writers</a>
             </div>
-        @elseif(Request::segment(1) === 'dashboard' || Request::segment(1) === 'login' || Request::segment(1) === 'register')
+        @else
+            {{--        @elseif(Request::segment(1) === 'dashboard' || Request::segment(1) === 'login' || Request::segment(1) === 'register')--}}
             <div class="app-header-logo">
                 <a href="{{ route('home') }}">
                     <img src="/imagecache/height-40/logo.png" alt="BeArteSpace logo"/>

@@ -22,7 +22,9 @@ Vue.prototype.trans = (key) => {
 };
 
 Vue.prototype.options = (key) => {
+    console.log(key);
     return Object.entries(get(window.trans, key, key)).map(function (translation) {
+        console.log(translation);
         return {value: translation[0], label: translation[1]}
     });
 };
@@ -60,6 +62,8 @@ Vue.component('pagination', require('./components/global/Pagination.vue'));
 Vue.component('errors', require('./components/partials/Errors.vue'));
 Vue.component('follow-button', require('./components/partials/FollowButton.vue'));
 
+// Checkout
+Vue.component('checkout-address', require('./components/CheckoutAddress.vue'));
 
 const app = new Vue({
     el: '#app',
@@ -71,44 +75,43 @@ const app = new Vue({
     },
     mounted() {
 
+        // Modal alert window
         if (window.bus.alert) {
-            this.$alert(window.bus.alert.message, window.bus.alert.title, {
-                confirmButtonText: 'OK',
-            });
-        } else if (window.bus.notify) {
-            this.$notify.info({
+            this.$alert(
+                window.bus.alert.message,
+                window.bus.alert.title, {
+                    confirmButtonText: 'OK',
+                });
+        }
+
+        if (window.bus.notify) {
+            this.$notify({
                 dangerouslyUseHTMLString: true,
-                title: window.notify.title,
-                message: window.notify.message,
-                duration: window.notify.duration ? window.notify.duration : 0,
-            });
-        } else if (window.bus.favouriteArtworks) {
-            this.$store.commit('setInitialFavouriteArtworks', window.bus.favouriteArtworks);
-        }
-
-        // Shopping cart
-        if (window.bus.shoppingCart) {
-            this.$store.commit('setInitialShoppingCart', window.bus.shoppingCart);
-        }
-        // End shopping cart
-
-        if (window.notify) {
-            this.$notify.info({
-                title: window.notify.title,
-                dangerouslyUseHTMLString: true,
-                message: window.notify.message,
-                duration: 8000
+                title: window.bus.notify.title,
+                message: window.bus.notify.message,
+                duration: window.bus.notify.duration ? window.bus.notify.duration : 0,
             });
         }
 
-        if (window.status) {
+        if (window.bus.message) {
             this.$message({
                 showClose: true,
-                message: window.status,
-                type: 'success',
+                message: window.bus.message.message,
+                type: window.bus.message.status,
                 duration: 6000
             });
         }
+
+        // Passing initial favorite Artworks
+        if (window.bus.favouriteArtworks) {
+            this.$store.commit('setInitialFavouriteArtworks', window.bus.favouriteArtworks);
+        }
+
+        // Shopping cart initial
+        if (window.bus.shoppingCart) {
+            this.$store.commit('setInitialShoppingCart', window.bus.shoppingCart);
+        }
+
 
         if (window.error) {
             this.$message({
@@ -119,7 +122,7 @@ const app = new Vue({
             })
         }
 
-        //
+
         axios.get('/api/profile')
             .then(response => {
                 console.log('profile', response.data);
@@ -127,15 +130,6 @@ const app = new Vue({
             .catch(error => {
                 console.log(error.response);
             })
-        //     .catch(error => {
-        //         if(error.response.status === 401) {
-        //             // window.location.href = '/login';
-        //
-        //
-        //             console.log(error.response);
-        //
-        //         }
-        //     });
     },
     methods: {}
 });

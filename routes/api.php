@@ -27,7 +27,7 @@ Route::group( [ 'middleware' => 'auth:api' ], function () {
 	Route::put( 'user/followed/{id}/toggle', 'Api\UserController@toggleFollowedUser' );
 
 	Route::get( 'user/check-username/{username}', 'Api\UserController@checkUsername' );
-	Route::post( 'user', 'Api\UserController@destroy' )->middleware('admin');
+	Route::post( 'user', 'Api\UserController@destroy' )->middleware( 'admin' );
 
 
 	// Upload files
@@ -39,15 +39,20 @@ Route::group( [ 'middleware' => 'auth:api' ], function () {
 	Route::post( 'artwork/{id}/remove-artwork-image', 'Api\ArtworkController@removeArtworkImage' );
 
 	// Change email
-	Route::post( 'change-email', 'Auth\ConfirmEmailController@changeEmail');
+	Route::post( 'change-email', 'Auth\ConfirmEmailController@changeEmail' );
 
 	// Adds
-	Route::get( 'user-add/{name}/{price}/{period?}', 'Api\AddController@createUserAdd');
-	Route::get( 'artwork-add/{id}/{name}/{price}/{period?}', 'Api\AddController@createArtworkAdd');
+	Route::get( 'user-add/{name}/{price}/{period?}', 'Api\AddController@createUserAdd' );
+	Route::get( 'artwork-add/{id}/{name}/{price}/{period?}', 'Api\AddController@createArtworkAdd' );
+
+	// Checkout
+	Route::post( 'checkout/checkout', 'Api\CheckoutController@checkout' );
 
 } );
 
-Route::get( 'countries', 'Api\DataController@countries');
+Route::post( 'checkout/address', 'Api\CheckoutController@address' );
+
+Route::get( 'countries', 'Api\DataController@countries' );
 
 Route::put( 'cart/{id}/toggle', 'Api\CartController@toggleCart' );
 

@@ -35,7 +35,7 @@ class CartController extends Controller {
 	}
 
 	public function addItem( $artwork ) {
-		Cart::add( $artwork->id, $artwork->title, 1, $artwork->price );
+		Cart::add( $artwork->id, $artwork->title, 1, $artwork->price, [ 'image_url' => $artwork->image_url ] );
 
 		$this->response = [
 			'status'  => 'success',

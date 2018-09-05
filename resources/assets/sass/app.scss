@@ -718,6 +718,22 @@ body, html {
 
   }
 
+  &-checkout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 80px 15px;
+
+    &-cart {
+      width: 600px;
+
+    }
+
+    &-address {
+      width: 400px;
+    }
+  }
+
   &-footer {
     padding: 0;
 
