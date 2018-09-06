@@ -5,7 +5,6 @@
 @import "~element-ui/packages/theme-chalk/src/index";
 @import '~vue-tel-input/dist/vue-tel-input';
 
-
 body, html {
   margin: 0;
   padding: 0;
@@ -21,164 +20,507 @@ body, html {
   max-width: 1200px;
 }
 
+.app--centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .app {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+}
 
-  &-header {
-    padding: 0;
+.app-header {
+  padding: 0;
 
-    &--top {
-      display: flex;
-      justify-content: space-between;
-      padding: 10px 15px;
-      background-color: $brand-primary;
-      color: #ffffff;
-      text-transform: uppercase;
+  &--top {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 15px;
+    background-color: $brand-primary;
+    color: #ffffff;
+    text-transform: uppercase;
 
+  }
+
+  &--middle {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 15px;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+
+    .app-header-logo {
+      margin-right: 20px;
     }
+  }
 
-    &--middle {
-      display: flex;
-      align-items: center;
-      margin-bottom: 20px;
-      padding: 15px;
-      box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  &--bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
 
-      .app-header-logo {
-        margin-right: 20px;
-      }
-    }
-
-    &--bottom {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px;
-
-      .app-header-logo {
-        margin-right: 30px;
-      }
-
-    }
-
-    &--left {
-      flex: 1;
-      display: flex;
-    }
-
-    &-invites {
-      color: lightgrey;
-
-      & a {
-        margin-right: 10px;
-        color: black;
-      }
-
-    }
-
-    &-auth {
-      display: flex;
-      align-items: center;
-      margin: 0 0 0 15px;
-      cursor: pointer;
-
-      &-name {
-        display: flex;
-        align-items: center;
-      }
-
-      &-avatar {
-        display: inline-block;
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        overflow: hidden;
-        margin-right: 10px;
-
-      }
-    }
-
-    &-languages {
-      cursor: pointer;
-    }
-
-    &-currencies {
-      cursor: pointer;
-      margin-right: 10px;
-    }
-
-    &-cart {
-      font-size: 23px;
-      position: relative;
-      margin-left: 10px;
-
-      sup {
-        font-size: 12px;
-        position: absolute;
-        right: -4px;
-        top: 2px;
-      }
-
-    }
-
-    &-star {
-      font-size: 23px;
-      position: relative;
-      margin-left: 10px;
-
-      sup {
-        font-size: 12px;
-        position: absolute;
-        right: -4px;
-        top: 2px;
-      }
-
-    }
-
-    &-links {
-      flex: 1;
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
+    .app-header-logo {
       margin-right: 30px;
+    }
 
-      a {
-        font-size: 13px;
-        text-transform: uppercase;
-        padding: 2px 15px;
-        transition: all 0.8s ease;
-        border-bottom: 2px solid transparent;
+  }
 
-        &:hover {
-          color: #454545;
-          text-shadow: 0 0 1px white;
-          border-bottom: 2px solid black;
+  &--left {
+    flex: 1;
+    display: flex;
+  }
+
+  &-invites {
+    color: lightgrey;
+
+    & a {
+      margin-right: 10px;
+      color: black;
+    }
+
+  }
+
+  &-auth {
+    display: flex;
+    align-items: center;
+    margin: 0 0 0 15px;
+    cursor: pointer;
+
+    &-name {
+      display: flex;
+      align-items: center;
+    }
+
+    &-avatar {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-right: 10px;
+
+    }
+  }
+
+  &-languages {
+    cursor: pointer;
+  }
+
+  &-currencies {
+    cursor: pointer;
+    margin-right: 10px;
+  }
+
+  &-cart {
+    font-size: 23px;
+    position: relative;
+    margin-left: 10px;
+
+    sup {
+      font-size: 12px;
+      position: absolute;
+      right: -4px;
+      top: 2px;
+    }
+
+  }
+
+  &-star {
+    font-size: 23px;
+    position: relative;
+    margin-left: 10px;
+
+    sup {
+      font-size: 12px;
+      position: absolute;
+      right: -4px;
+      top: 2px;
+    }
+
+  }
+
+  &-links {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-right: 30px;
+
+    a {
+      font-size: 13px;
+      text-transform: uppercase;
+      padding: 2px 15px;
+      transition: all 0.8s ease;
+      border-bottom: 2px solid transparent;
+
+      &:hover {
+        color: #454545;
+        text-shadow: 0 0 1px white;
+        border-bottom: 2px solid black;
+      }
+    }
+
+  }
+
+  &-subscribe {
+    margin-left: 10px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+}
+
+.app-content {
+  flex: 1;
+  width: 100%;
+}
+
+.app-index {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+
+  &-banner {
+    text-align: center;
+    position: relative;
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+
+    .banner {
+
+      &--fade {
+        background-color: rgba(0, 0, 0, 0.4);
+        padding: 50px 15px;
+      }
+
+      &-title {
+        color: #fff;
+        font-size: 60px;
+        font-weight: 300;
+        text-shadow: 0 0 3px black;
+      }
+
+      &-buttons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        & a {
+          margin: 0 10px;
+          background-color: rgba(0, 0, 0, 0.5);
+          padding: 15px 20px;
+          font-size: 22px;
+          color: #fff;
+          min-width: 200px;
+          border: 1px solid #fff;
+          //box-shadow: 0 0 1px #fff;
+        }
+      }
+
+      &-info {
+        display: flex;
+        justify-content: center;
+        margin-top: 50px;
+        //align-items: center;
+
+        & span {
+          //flex: 1;
+          font-size: 17px;
+          color: #e1e1e1;
+          margin: 0 20px;
+          max-widtH: 290px;
+          text-shadow: 0 0 2px black;
         }
       }
 
     }
 
-    &-subscribe {
-      margin-left: 10px;
-      font-weight: 700;
-      cursor: pointer;
+  }
+
+  &-auctions {
+    text-align: center;
+    padding: 90px 15px;
+
+    .auctions {
+      margin: 0 -15px;
+      padding-top: 50px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .auctions-bottom {
+      text-align: right;
+      padding-top: 10px;
+
+      &-link {
+        text-transform: uppercase;
+        font-weight: bold;
+        border: 1px solid black;
+        padding: 7px 20px;
+        display: inline-block;
+      }
+    }
+
+    .auction {
+      padding: 15px;
+      flex: 1;
+      text-align: left;
+
+      &-image {
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        height: 350px;
+        overflow: hidden;
+
+        img {
+          width: 100%;
+          height: 350px;
+        }
+      }
+
+      &-title {
+        font-size: 22px;
+        font-weight: 300;
+        display: block;
+        width: 200px;
+      }
+
+      &-artist {
+        font-size: 18px;
+      }
+
+      &-ends {
+        font-weight: bold;
+      }
     }
 
   }
 
-  &-content {
-    flex: 1;
-    width: 100%;
+  &-articles {
+    background-color: #82d8d8b5;
+    text-align: center;
+    padding: 45px 15px;
+
+    .articles {
+      padding-top: 50px;
+      display: flex;
+      justify-content: space-between;
+      margin: 0 -15px;
+    }
+
+    .articles-bottom {
+      text-align: right;
+      padding-top: 10px;
+
+      &-link {
+        text-transform: uppercase;
+        font-weight: bold;
+        border: 1px solid black;
+        padding: 7px 20px;
+        display: inline-block;
+      }
+    }
+
+    .article {
+      padding: 15px;
+      text-align: left;
+      flex: 1;
+
+      &-image {
+        margin-bottom: 10px;
+        display: block;
+
+        img {
+          height: 300px;
+          max-width: 400px;
+        }
+      }
+
+      &-content {
+        //margin-left: 20px;
+      }
+
+    }
+
   }
 
-  &-index {
-    width: 100%;
-    margin: 0;
-    padding: 0;
+  &-artworks {
+    text-align: center;
+    padding: 90px 15px;
 
-    &-banner {
+    .artworks {
+      margin: 0 -15px;
+      padding-top: 50px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .artworks-bottom {
+      text-align: right;
+      padding-top: 10px;
+
+      &-link {
+        text-transform: uppercase;
+        font-weight: bold;
+        border: 1px solid black;
+        padding: 7px 20px;
+        display: inline-block;
+      }
+    }
+
+    .artwork {
+      flex: 1;
+      padding: 15px;
+      text-align: left;
+
+      &-image {
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        height: 350px;
+        overflow: hidden;
+
+        img {
+          width: 100%;
+          height: 350px;
+        }
+      }
+
+    }
+
+  }
+
+}
+
+.app-search {
+  width: 100%;
+  padding: 30px 15px;
+
+  .artwork {
+    margin-bottom: 20px;
+
+  }
+}
+
+.app-invite {
+  padding: 80px 15px;
+  text-align: center;
+
+  .pricing {
+    display: flex;
+    justify-content: center;
+    //max-width: 900px;
+    margin: 50px auto;
+
+    &-plan {
+      margin: 0 10px;
+      //flex: 1 0 30%;
+    }
+
+  }
+}
+
+.app-artists {
+  //display: flex;
+  padding: 15px;
+
+  &-menu {
+    min-width: 300px;
+  }
+
+  main {
+    flex: 1;
+  }
+
+  .artist {
+    margin-bottom: 20px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &-header {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 40px;
+      margin-top: 30px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &-avatar {
+      display: block;
+      border-radius: 50%;
+      overflow: hidden;
+      line-height: 0;
+      max-width: 150px;
+      max-height: 150px;
+      min-width: 150px;
+      margin-bottom: 10px;
+
+      & img {
+        height: auto;
+        width: 100%;
+        max-height: 500px;
+      }
+    }
+
+    &-artworks {
+      margin: 0 -15px;
+      margin-left: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    &-artwork {
+      padding: 15px;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      max-height: 250px;
+
+      img {
+        width: 100%;
+        height: 250px;
+      }
+
+    }
+
+    &-footer {
+      margin-top: 10px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    &-info {
+      text-align: center;
+
+      a {
+        display: block;
+      }
+    }
+
+  }
+
+}
+
+.app-artist {
+  width: 100%;
+
+  .artist {
+
+    &-image {
       text-align: center;
       position: relative;
       background-color: #fff;
@@ -186,694 +528,395 @@ body, html {
       background-position: center;
       background-size: cover;
       background-attachment: fixed;
+      margin-bottom: 30px;
+      color: #fff;
 
-      .banner {
-
-        &--fade {
-          background-color: rgba(0, 0, 0, 0.4);
-          padding: 50px 15px;
-        }
-
-        &-title {
-          color: #fff;
-          font-size: 60px;
-          font-weight: 300;
-          text-shadow: 0 0 3px black;
-        }
-
-        &-buttons {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-
-          & a {
-            margin: 0 10px;
-            background-color: rgba(0, 0, 0, 0.5);
-            padding: 15px 20px;
-            font-size: 22px;
-            color: #fff;
-            min-width: 200px;
-            border: 1px solid #fff;
-            //box-shadow: 0 0 1px #fff;
-          }
-        }
-
-        &-info {
-          display: flex;
-          justify-content: center;
-          margin-top: 50px;
-          //align-items: center;
-
-          & span {
-            //flex: 1;
-            font-size: 17px;
-            color: #e1e1e1;
-            margin: 0 20px;
-            max-widtH: 290px;
-            text-shadow: 0 0 2px black;
-          }
-        }
-
+      &--fade {
+        background-color: rgba(0, 0, 0, 0.4);
+        padding: 50px 15px;
       }
 
+      img {
+        max-width: 100%;
+        max-height: 100%
+      }
     }
 
-    &-auctions {
-      text-align: center;
-      padding: 90px 15px;
-
-      .auctions {
-        margin: 0 -15px;
-        padding-top: 50px;
-        display: flex;
-        justify-content: space-between;
-      }
-
-      .auctions-bottom {
-        text-align: right;
-        padding-top: 10px;
-
-        &-link {
-          text-transform: uppercase;
-          font-weight: bold;
-          border: 1px solid black;
-          padding: 7px 20px;
-          display: inline-block;
-        }
-      }
-
-      .auction {
-        padding: 15px;
-        flex: 1;
-        text-align: left;
-
-        &-image {
-          margin-bottom: 10px;
-          display: flex;
-          align-items: center;
-          height: 350px;
-          overflow: hidden;
-
-          img {
-            width: 100%;
-            height: 350px;
-          }
-        }
-
-        &-title {
-          font-size: 22px;
-          font-weight: 300;
-          display: block;
-          width: 200px;
-        }
-
-        &-artist {
-          font-size: 18px;
-        }
-
-        &-ends {
-          font-weight: bold;
-        }
-      }
-
-    }
-
-    &-articles {
-      background-color: #82d8d8b5;
-      text-align: center;
-      padding: 45px 15px;
-
-      .articles {
-        padding-top: 50px;
-        display: flex;
-        justify-content: space-between;
-        margin: 0 -15px;
-      }
-
-      .articles-bottom {
-        text-align: right;
-        padding-top: 10px;
-
-        &-link {
-          text-transform: uppercase;
-          font-weight: bold;
-          border: 1px solid black;
-          padding: 7px 20px;
-          display: inline-block;
-        }
-      }
-
-      .article {
-        padding: 15px;
-        text-align: left;
-        flex: 1;
-
-        &-image {
-          margin-bottom: 10px;
-          display: block;
-
-          img {
-            height: 300px;
-            max-width: 400px;
-          }
-        }
-
-        &-content {
-          //margin-left: 20px;
-        }
-
-      }
-
-    }
-
-    &-artworks {
-      text-align: center;
-      padding: 90px 15px;
-
-      .artworks {
-        margin: 0 -15px;
-        padding-top: 50px;
-        display: flex;
-        justify-content: space-between;
-      }
-
-      .artworks-bottom {
-        text-align: right;
-        padding-top: 10px;
-
-        &-link {
-          text-transform: uppercase;
-          font-weight: bold;
-          border: 1px solid black;
-          padding: 7px 20px;
-          display: inline-block;
-        }
-      }
-
-      .artwork {
-        flex: 1;
-        padding: 15px;
-        text-align: left;
-
-        &-image {
-          margin-bottom: 10px;
-          display: flex;
-          align-items: center;
-          height: 350px;
-          overflow: hidden;
-
-          img {
-            width: 100%;
-            height: 350px;
-          }
-        }
-
-      }
-
-    }
-
-  }
-
-  &-search {
-    width: 100%;
-    padding: 30px 15px;
-
-    .artwork {
+    &-avatar {
+      overflow: hidden;
       margin-bottom: 20px;
 
-    }
-  }
-
-  &-invite {
-    padding: 80px 15px;
-    text-align: center;
-
-    .pricing {
-      display: flex;
-      justify-content: center;
-      //max-width: 900px;
-      margin: 50px auto;
-
-      &-plan {
-        margin: 0 10px;
-        //flex: 1 0 30%;
-      }
-
-    }
-  }
-
-  &-artists {
-    //display: flex;
-    padding: 15px;
-
-    &-menu {
-      min-width: 300px;
-    }
-
-    main {
-      flex: 1;
-    }
-
-    .artist {
-      margin-bottom: 20px;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-
-      &-header {
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 40px;
-        margin-top: 30px;
-        align-items: center;
-        justify-content: center;
-      }
-
-      &-avatar {
-        display: block;
+      img {
         border-radius: 50%;
-        overflow: hidden;
-        line-height: 0;
-        max-width: 150px;
-        max-height: 150px;
-        min-width: 150px;
-        margin-bottom: 10px;
-
-        & img {
-          height: auto;
-          width: 100%;
-          max-height: 500px;
-        }
-      }
-
-      &-artworks {
-        margin: 0 -15px;
-        margin-left: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-      }
-
-      &-artwork {
-        padding: 15px;
-        flex: 1;
-        display: flex;
-        align-items: center;
-        overflow: hidden;
-        max-height: 250px;
-
-        img {
-          width: 100%;
-          height: 250px;
-        }
-
-      }
-
-      &-footer {
-        margin-top: 10px;
-        display: flex;
-        justify-content: flex-end;
-      }
-
-      &-info {
-        text-align: center;
-
-        a {
-          display: block;
-        }
-      }
-
-    }
-
-  }
-
-  &-artist {
-    width: 100%;
-
-    .artist {
-
-      &-image {
-        text-align: center;
-        position: relative;
-        background-color: #fff;
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
-        background-attachment: fixed;
-        margin-bottom: 30px;
-        color: #fff;
-
-        &--fade {
-          background-color: rgba(0, 0, 0, 0.4);
-          padding: 50px 15px;
-        }
-
-        img {
-          max-width: 100%;
-          max-height: 100%
-        }
-      }
-
-      &-avatar {
-        overflow: hidden;
-        margin-bottom: 20px;
-
-        img {
-          border-radius: 50%;
-          border: 5px solid white;
-          box-shadow: 0 0 1px white;
-        }
-      }
-
-      &-name {
-        font-size: 20px;
-      }
-
-      &-info {
-        margin-bottom: 20px;
-        padding: 15px;
-        text-align: center;
+        border: 5px solid white;
+        box-shadow: 0 0 1px white;
       }
     }
 
-    .artist-artworks {
+    &-name {
+      font-size: 20px;
+    }
+
+    &-info {
+      margin-bottom: 20px;
       padding: 15px;
+      text-align: center;
     }
   }
 
-  &-artworks {
+  .artist-artworks {
     padding: 15px;
+  }
+}
 
-    main {
-      flex: 1;
-    }
+.app-artworks {
+  padding: 15px;
 
+  main {
+    flex: 1;
   }
 
-  &-artwork {
-    padding: 50px 15px;
+}
 
-    .artwork {
+.app-artwork {
+  padding: 50px 15px;
 
-      &--top {
-        display: flex;
-        margin-bottom: 50px;
-      }
-
-      &-image {
-        flex: 1;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-right: 20px;
-
-        img {
-          width: 100%;
-          //height: 350px;
-        }
-      }
-
-      &-description {
-        width: 400px;
-      }
-
-      &-images {
-        flex: 1;
-        margin-right: 20px;
-      }
-
-    }
-  }
-
-  &-artworks-list {
-    column-count: 2;
-    column-gap: 15px;
-
-    .artwork {
-      display: inline-block;
-      margin: 0 0 1em;
-      width: 100%;
-
-      &-top {
-        position: relative;
-      }
-
-      &-image {
-        display: block;
-
-        & img {
-          height: auto;
-          width: 100%;
-        }
-      }
-
-      &-title {
-        font-size: 18px;
-        font-weight: 700;
-        margin: 10px 0 20px;
-      }
-
-      &-panel {
-        position: absolute;
-        display: flex;
-        justify-content: flex-end;
-        top: 5px;
-        right: 5px;
-        text-align: right;
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.7s ease;
-
-        &-favourite {
-          font-size: 25px;
-          padding: 7px;
-        }
-
-        &-cart {
-          font-size: 25px;
-          padding: 6px;
-        }
-      }
-
-      &:hover .artwork-panel {
-        opacity: 0.8;
-        visibility: visible;
-      }
-
-      &-price {
-        text-align: right;
-      }
-
-      &-title {
-        font-size: 22px;
-        font-weight: 300;
-        margin-bottom: 10px;
-      }
-
-      &-bottom {
-        display: flex;
-        align-items: flex-end;
-      }
-
-      &-info {
-        flex: 1;
-        margin-right: 10px;
-        margin-top: 10px;
-      }
-
-    }
-
-  }
-
-  &-page {
-    padding: 30px 15px;
-
-    & img {
-      max-width: 100%;
-    }
-  }
-
-  &-change-password {
-    width: 400px;
-    margin: 0 auto;
-  }
-
-  &-auth {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 80px 15px;
-
-    &-login {
-      width: 400px;
-    }
-
-    &-email {
-      width: 400px;
-    }
-
-    &-register {
-      width: 400px;
-    }
-
-  }
-
-  &-checkout {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 80px 15px;
-
-    &-cart {
-      width: 600px;
-
-    }
-
-    &-address {
-      width: 400px;
-    }
-  }
-
-  &-footer {
-    padding: 0;
+  .artwork {
 
     &--top {
       display: flex;
-      justify-content: space-between;
-      padding: 15px;
-      box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+      margin-bottom: 50px;
     }
 
-    &--middle {
-      padding: 40px 15px 0;
-
-    }
-
-    &--bottom {
+    &-image {
+      flex: 1;
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
-      margin-top: 20px;
-      box-shadow: 0 -2px 12px 0 rgba(0, 0, 0, 0.1);
-    }
+      margin-right: 20px;
 
-    &-promos {
-      display: flex;
-      justify-content: space-between;
-      padding: 60px 0;
-
-      .promo {
-        flex: 1 1 22%;
-        display: flex;
-        justify-content: space-between;
-        flex-direction: column;
-        align-items: center;
-
-        &--top {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-        }
-
-        &-image {
-          font-size: 40px;
-          text-align: center;
-          box-shadow: 0 0 1px gray;
-          border-radius: 50%;
-          padding: 20px 15px;
-          margin-bottom: 10px;
-        }
-
-        &-description {
-          margin: 10px 0 20px;
-          text-align: center;
-
-          .icons {
-            font-size: 40px;
-            display: flex;
-            align-items: center;
-            color: gray;
-          }
-
-          .icon-cc-paypal {
-            font-size: 29px;
-          }
-        }
-
-        &-link {
-          border-bottom: 1px solid black;
-          text-transform: capitalize;
-          transition: all 0.3s ease;
-
-          &:hover {
-            text-decoration: underline;
-          }
-
-        }
+      img {
+        width: 100%;
+        //height: 350px;
       }
     }
 
-    &-column {
+    &-description {
+      width: 400px;
+    }
+
+    &-images {
       flex: 1;
+      margin-right: 20px;
+    }
+
+  }
+}
+
+.app-artworks-list {
+  column-count: 2;
+  column-gap: 15px;
+
+  .artwork {
+    display: inline-block;
+    margin: 0 0 1em;
+    width: 100%;
+
+    &-top {
+      position: relative;
+    }
+
+    &-image {
+      display: block;
+
+      & img {
+        height: auto;
+        width: 100%;
+      }
+    }
+
+    &-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin: 10px 0 20px;
     }
 
     &-panel {
+      position: absolute;
+      display: flex;
+      justify-content: flex-end;
+      top: 5px;
+      right: 5px;
+      text-align: right;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.7s ease;
+
+      &-favourite {
+        font-size: 25px;
+        padding: 7px;
+      }
+
+      &-cart {
+        font-size: 25px;
+        padding: 6px;
+      }
+    }
+
+    &:hover .artwork-panel {
+      opacity: 0.8;
+      visibility: visible;
+    }
+
+    &-price {
+      text-align: right;
+    }
+
+    &-title {
+      font-size: 22px;
+      font-weight: 300;
+      margin-bottom: 10px;
+    }
+
+    &-bottom {
+      display: flex;
+      align-items: flex-end;
+    }
+
+    &-info {
+      flex: 1;
+      margin-right: 10px;
+      margin-top: 10px;
+    }
+
+  }
+
+}
+
+.app-page {
+  padding: 30px 15px;
+
+  & img {
+    max-width: 100%;
+  }
+}
+
+.app-change-password {
+  width: 400px;
+  margin: 0 auto;
+}
+
+.app-auth {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 80px 15px;
+
+  &-login {
+    width: 400px;
+  }
+
+  &-email {
+    width: 400px;
+  }
+
+  &-register {
+    width: 400px;
+  }
+
+}
+
+.app-checkout {
+  width: 100%;
+  max-width: 800px;
+}
+
+.app-cart {
+  width: 100%;
+  max-width: 600px;
+
+  .cart {
+
+    &-item {
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+
+      &-image {
+        margin-right: 20px;
+
+      }
+
+      &-info {
+        flex: 1;
+
+      }
+
+      &-price {
+        margin-left: 20px;
+
+      }
+    }
+
+    &-bottom {
+      display: flex;
+      padding: 30px 0;
+      border-top: $--border-base;
+
+      &-price {
+        font-weight: bold;
+      }
+
+      &-info {
+        flex: 1;
+      }
+    }
+  }
+
+}
+
+.app-address {
+  max-width: 400px;
+  width: 100%;
+}
+
+.app-footer {
+  padding: 0;
+
+  &--top {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  }
+
+  &--middle {
+    padding: 40px 15px 0;
+
+  }
+
+  &--bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    box-shadow: 0 -2px 12px 0 rgba(0, 0, 0, 0.1);
+  }
+
+  &-promos {
+    display: flex;
+    justify-content: space-between;
+    padding: 60px 0;
+
+    .promo {
+      flex: 1 1 22%;
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      padding: 15px;
-    }
-
-    &-submenu {
-      margin-bottom: 20px;
-
-      a {
-        margin: 7px 0;
-        display: block;
-      }
-    }
-
-    &-languages {
-      margin-bottom: 10px;
-    }
-
-    &-currencies {
-      margin-bottom: 10px;
-    }
-
-    &-social {
-      display: flex;
+      flex-direction: column;
       align-items: center;
 
-      & a {
-        font-size: 25px;
-        margin-right: 15px;
+      &--top {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      &-image {
+        font-size: 40px;
+        text-align: center;
+        box-shadow: 0 0 1px gray;
+        border-radius: 50%;
+        padding: 20px 15px;
+        margin-bottom: 10px;
+      }
+
+      &-description {
+        margin: 10px 0 20px;
+        text-align: center;
+
+        .icons {
+          font-size: 40px;
+          display: flex;
+          align-items: center;
+          color: gray;
+        }
+
+        .icon-cc-paypal {
+          font-size: 29px;
+        }
+      }
+
+      &-link {
+        border-bottom: 1px solid black;
+        text-transform: capitalize;
+        transition: all 0.3s ease;
+
+        &:hover {
+          text-decoration: underline;
+        }
+
       }
     }
+  }
 
-    &-subscribe {
-      label {
-        line-height: 20px;
-        margin-top: 10px;
-      }
+  &-column {
+    flex: 1;
+  }
 
-      .el-form-item {
-        margin-right: 0;
-      }
+  &-panel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+  }
 
+  &-submenu {
+    margin-bottom: 20px;
+
+    a {
+      margin: 7px 0;
+      display: block;
+    }
+  }
+
+  &-languages {
+    margin-bottom: 10px;
+  }
+
+  &-currencies {
+    margin-bottom: 10px;
+  }
+
+  &-social {
+    display: flex;
+    align-items: center;
+
+    & a {
+      font-size: 25px;
+      margin-right: 15px;
+    }
+  }
+
+  &-subscribe {
+    label {
+      line-height: 20px;
+      margin-top: 10px;
     }
 
-    &-copy {
-      white-space: nowrap;
+    .el-form-item {
+      margin-right: 0;
     }
 
-    &-logo {
+  }
 
-      a {
-        margin-right: 20px;
-      }
+  &-copy {
+    white-space: nowrap;
+  }
+
+  &-logo {
+
+    a {
+      margin-right: 20px;
     }
   }
 }
@@ -890,6 +933,11 @@ body, html {
 
 .ql-disabled {
   background-color: #f5f7fa;
+}
+
+// Vue phone number
+.is-error .vue-tel-input {
+  border-color: $--color-danger !important;
 }
 
 .vue-tel-input {

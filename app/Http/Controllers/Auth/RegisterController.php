@@ -8,6 +8,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Notifications\SignupActivate;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 
 class RegisterController extends Controller {
@@ -59,6 +60,9 @@ class RegisterController extends Controller {
 			'activation_token' => str_random( 60 )
 //			'g-recaptcha-response' => 'required|captcha'
 		] );
+
+		// Save shopping cart to db;
+		Cart::store($user->id);
 
 //		$user = User::find(74);
 

@@ -16,9 +16,9 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
 	        $table->integer('user_id')->nullable();
+	        $table->integer('address_id')->nullable();
 	        $table->json('cart')->nullable();
 	        $table->string('payment_id')->nullable();
-
 
 	        $table->decimal('amount')->nullable();
 	        $table->string('payment_method')->nullable();
@@ -34,6 +34,7 @@ class CreateOrdersTable extends Migration
 	        $table->string('local_transaction_id')->nullable();
 	        //payment created column will be use by gateway
 	        $table->integer('payment_created')->nullable();
+	        $table->timestamp('confirmed_at')->nullable();
             $table->timestamps();
         });
     }

@@ -31,7 +31,7 @@ let store = {
 
         toggleShoppingCart(state, item) {
 
-            axios.put('/api/cart/' + item.id + '/toggle',).then(response => {
+            axios.get('/cart/item/' + item.id + '/toggle',).then(response => {
 
                 state.shoppingCart = response.data.data;
 

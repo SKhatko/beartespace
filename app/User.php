@@ -69,6 +69,10 @@ class User extends Authenticatable {
 		return $this->belongsToMany( User::class, 'follows', 'user_id', 'follower_id' );
 	}
 
+	public function addresses() {
+		return $this->belongsToMany( Address::class, 'user_addresses' );
+	}
+
 	public function orders() {
 		return $this->hasMany( Order::class );
 	}
@@ -78,11 +82,11 @@ class User extends Authenticatable {
 	}
 
 	public function avatar() {
-		return $this->belongsTo(Media::class);
+		return $this->belongsTo( Media::class );
 	}
 
 	public function image() {
-		return $this->belongsTo(Media::class);
+		return $this->belongsTo( Media::class );
 	}
 
 	public function adds() {
@@ -172,9 +176,9 @@ class User extends Authenticatable {
 	public function getMediumAttribute() {
 //		return $this->artworks()->medium;
 
-		$mediumm = $this->artworks->map(function ($artwork) {
-			return $artwork->pluck(['medium', 'id']);
-		});
+		$mediumm = $this->artworks->map( function ( $artwork ) {
+			return $artwork->pluck( [ 'medium', 'id' ] );
+		} );
 
 		return $mediumm;
 

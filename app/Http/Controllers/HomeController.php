@@ -91,7 +91,7 @@ class HomeController extends Controller {
 			}
 		}
 
-		$items = 3;
+		$items = 5;
 
 		if ( $request->has( 'items' ) && $request->input( 'items' ) > 1 ) {
 			$items = $request->get( 'items' );
@@ -211,7 +211,7 @@ class HomeController extends Controller {
 //		}
 
 
-		$items = 3;
+		$items = 5;
 
 		if ( $request->has( 'items' ) && $request->input( 'items' ) > 1 ) {
 			$items = $request->get( 'items' );

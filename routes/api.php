@@ -50,9 +50,6 @@ Route::group( [ 'middleware' => 'auth:api' ], function () {
 
 } );
 
-Route::post( 'checkout/address', 'Api\CheckoutController@address' );
+//Route::post( 'checkout/address', 'Api\CheckoutController@address' );
 
 Route::get( 'countries', 'Api\DataController@countries' );
-
-Route::put( 'cart/{id}/toggle', 'Api\CartController@toggleCart' );
-

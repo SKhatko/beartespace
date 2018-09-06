@@ -6,7 +6,7 @@
                 @current-change="changePage"
                 :current-page="paginator.current_page"
                 @size-change="changeSize"
-                :page-sizes="[3, 15, 30, 50]"
+                :page-sizes="[5, 10, 20, 30]"
                 :page-size="paginator.per_page"
                 layout="sizes, prev, pager, next"
                 :total="paginator.total">

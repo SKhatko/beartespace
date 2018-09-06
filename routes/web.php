@@ -68,14 +68,17 @@ Route::group( [ 'middleware' => 'web' ], function () {
 	Route::get( 'currency/{code}', 'CurrencyController@switchCurrency' )->name( 'switch-currency' );
 
 	// Shopping Cart
+	Route::get( 'cart', 'CartController@index' )->name( 'cart' );
+	Route::get( 'cart/item/{id}/toggle', 'CartController@apiToggleCart' );
 	Route::get( 'cart/item/{id}/buy-now', 'CartController@buyNow' )->name( 'cart.item.buy-now' );
 	Route::get( 'cart/item/{id}/add', 'CartController@addItem' )->name( 'cart.item.add' );
 	Route::get( 'cart/item/{id}/remove', 'CartController@removeItem' )->name( 'cart.item.remove' );
 
 	// Checkout
-	Route::get( 'cart', 'CheckoutController@cart' )->name( 'cart' );
-	Route::get( 'checkout/checkout', 'CheckoutController@checkout' )->name( 'checkout' );
-	Route::get( 'checkout/address', 'CheckoutController@address' )->name( 'checkout.address' );
+	Route::get( 'checkout', 'CheckoutController@index' )->name( 'checkout' )->middleware('has-address');
+	Route::get( 'address/create', 'AddressController@create' )->name( 'address.create' )->middleware('auth');
+	Route::get( 'address/{id}/edit', 'AddressController@edit' )->name( 'address.show' )->middleware('auth');
+	Route::post( 'address', 'AddressController@store' )->middleware('auth');
 
 	// Pages
 	Route::get( 'about', 'HomeController@about' )->name( 'about' );
