@@ -38,17 +38,26 @@
 
             </el-form>
 
-            <!--<a href="/login/facebook" class="btn btn-lg btn-block btn-facebook">-->
-            <!--<span class="hidden-xs"><i class="fa fa-facebook-square"></i> Facebook</span>-->
-            <!--</a>-->
+            <!--<div class="h4" style="margin: 20px 0; text-align: center;">Log in via</div>-->
 
-            <!--<a href="/login/google" class="btn btn-lg btn-block btn-google">-->
-            <!--<span class="hidden-xs"><i class="fa fa-google-plus-square"></i> Google</span>-->
-            <!--</a>-->
+            <!--<el-button plain>-->
+                <!--<a href="/login/facebook">-->
+                    <!--<span class="hidden-xs"><i class="fa fa-facebook-square"></i> Facebook</span>-->
+                <!--</a>-->
+            <!--</el-button>-->
 
-            <!--<a href="/login/twitter" class="btn btn-lg btn-block btn-twitter">-->
-            <!--<span class="hidden-xs"><i class="fa fa-twitter"></i> Twitter</span>-->
-            <!--</a>-->
+
+            <!--<el-button plain>-->
+                <!--<a href="/login/google">-->
+                    <!--<span class="hidden-xs"><i class="fa fa-google-plus-square"></i> Google</span>-->
+                <!--</a>-->
+            <!--</el-button>-->
+
+            <!--<el-button plain>-->
+                <!--<a href="/login/twitter" class="btn btn-lg btn-block btn-twitter">-->
+                    <!--<span class="hidden-xs"><i class="fa fa-twitter"></i> Twitter</span>-->
+                <!--</a>-->
+            <!--</el-button>-->
 
         </el-card>
 
