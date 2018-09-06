@@ -16147,15 +16147,20 @@ __webpack_require__(142);
 
 
 Vue.prototype.trans = function (key) {
-    return get(window.trans, key, key);
+    var defaultValue = key.split('.');
+    return get(window.cfg.trans, key, defaultValue[defaultValue.length - 1]);
 };
 
 Vue.prototype.options = function (key) {
-    console.log(key);
-    return Object.entries(get(window.trans, key, key)).map(function (translation) {
-        console.log(translation);
+    var defaultValue = key.split('.');
+
+    return Object.entries(get(window.cfg.trans, key, defaultValue[defaultValue.length - 1])).map(function (translation) {
         return { value: translation[0], label: translation[1] };
     });
+
+    // return Object.entries(get(window.cfg.trans, key, key)).map(function (translation) {
+    //     return {value: translation[0], label: translation[1]}
+    // });
 };
 
 Vue.use(Vuex);
@@ -21087,6 +21092,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -21118,6 +21130,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 });
             }
         };
+
         return {
             loading: false,
             user: {},
@@ -21157,6 +21170,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
     methods: {
+        setphoneNumber: function setphoneNumber(_ref) {
+            var number = _ref.number,
+                isValid = _ref.isValid,
+                country = _ref.country;
+
+            console.log(number, isValid, country);
+        },
         confirmProfileUpgrade: function confirmProfileUpgrade(name, price) {
             var _this3 = this;
 
@@ -21779,21 +21799,6 @@ if (token) {
 } else {
   console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
-
-/**
- * Echo exposes an expressive API for subscribing to channels and listening
- * for events that are broadcast by Laravel. Echo and event broadcasting
- * allows your team to easily build robust real-time web applications.
- */
-
-// import Echo from 'laravel-echo'
-
-// window.Pusher = require('pusher-js');
-
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: 'your-pusher-key'
-// });
 
 /***/ }),
 /* 143 */
@@ -66446,11 +66451,23 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "sm": 12
     }
-  }, [_c('el-form-item', {
+  }, [_c('el-form-item', [_c('span', {
     attrs: {
-      "label": 'Click on image to upload ' + (_vm.user.user_type === 'gallery' ? 'logo' : 'avatar')
+      "slot": "label"
+    },
+    slot: "label"
+  }, [_c('span', [_vm._v("\n                            Click on image to upload " + _vm._s(_vm.user.user_type === 'gallery' ? 'logo' : 'avatar') + "\n                        ")]), _vm._v(" "), _c('el-popover', {
+    attrs: {
+      "width": "200",
+      "trigger": "hover"
     }
-  }, [_c('el-upload', {
+  }, [_c('span', [_vm._v("\n                                        This image represents you here on website.\n                                        Make sure your image is in good quality and has a nice smile :)\n                                    ")]), _vm._v(" "), _c('i', {
+    staticClass: "el-icon-info",
+    attrs: {
+      "slot": "reference"
+    },
+    slot: "reference"
+  })])], 1), _vm._v(" "), _c('el-upload', {
     staticClass: "avatar-uploader",
     attrs: {
       "action": "/api/user/upload-user-avatar",
@@ -66477,23 +66494,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "slot": "label"
     },
     slot: "label"
-  }, [_vm._v("\n                        Click on image to upload profile background image\n                          "), _c('el-tooltip', {
+  }, [_vm._v("\n                        Click on image to upload profile background image\n                                "), _c('el-popover', {
     attrs: {
-      "content": "Make your profile more professional,\n                                       put on background extra picture of your studio or yourself during\n                                       working or even your favourite art.",
-      "effect": "light"
-    }
-  }, [_c('i', {
-    staticClass: "el-icon-info"
-  })]), _vm._v(" "), _c('el-popover', {
-    attrs: {
-      "placement": "top-start",
-      "title": "Title",
       "width": "200",
-      "trigger": "hover",
-      "content": "Make your profile more professional,\n                                       put on background extra picture of your studio or yourself during\n                                       working or even your favourite art."
+      "trigger": "hover"
     }
-  }, [_c('i', {
-    staticClass: "el-icon-question",
+  }, [_c('span', [_vm._v("\n                                        Make your profile more professional,\n                                       put on background extra picture of your studio or yourself during\n                                       working or even your favourite art.\n                                    ")]), _vm._v(" "), _c('i', {
+    staticClass: "el-icon-info",
     attrs: {
       "slot": "reference"
     },
@@ -66921,7 +66928,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "label": "Phone",
       "prop": "phone"
     }
-  }, [_c('el-input', {
+  }, [_c('vue-tel-input', {
+    attrs: {
+      "preferredCountries": ['us', 'gb', 'ua']
+    },
+    on: {
+      "onInput": _vm.setphoneNumber
+    },
     model: {
       value: (_vm.user.phone),
       callback: function($$v) {
@@ -70962,12 +70975,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -71026,7 +71033,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(27)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 /* 272 */

@@ -1,4 +1,4 @@
-@if(Request::segment(1) !== 'dashboard')
+@if(Route::currentRouteName() === 'home')
     <div class="app-header--bottom">
 
         <div class="app-header-logo">

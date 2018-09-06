@@ -16,6 +16,18 @@
                 </a>
             </div>
 
+            <div class="app-header-search">
+                <form action="{{ route('search') }}">
+                    {{ csrf_field() }}
+
+                    <el-input required
+                              placeholder="Search" name="query"
+                              prefix-icon="el-icon-search">
+                    </el-input>
+
+                </form>
+            </div>
+
         @endif
 
     </div>

@@ -21,10 +21,8 @@
         window.cfg = {
             'currency': '{{ session('currency') }}',
             'locale': '{{ session('locale') }}',
+            'trans': JSON.parse('{!! $translations !!}'),
         };
-
-        window.trans = '{!! $translations !!}',
-
 
         window.bus = {
 

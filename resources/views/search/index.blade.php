@@ -8,6 +8,11 @@
 
         <div class="app-search">
 
+            <el-breadcrumb separator-class="el-icon-arrow-right" style="margin: 30px 0;">
+                <el-breadcrumb-item><a href="/">Home</a></el-breadcrumb-item>
+                <el-breadcrumb-item>Search</el-breadcrumb-item>
+            </el-breadcrumb>
+
             @if(count($artworks))
                 @foreach($artworks as $artwork)
                     <div class="artwork">

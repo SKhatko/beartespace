@@ -35,8 +35,21 @@
             <el-row :gutter="20">
 
                 <el-col :sm="12">
-                    <el-form-item
-                            :label="'Click on image to upload ' + (user.user_type === 'gallery' ? 'logo' : 'avatar')">
+                    <el-form-item>
+                        <span slot="label">
+                            <span>
+                                Click on image to upload {{ user.user_type === 'gallery' ? 'logo' : 'avatar' }}
+                            </span>
+                              <el-popover
+                                      width="200"
+                                      trigger="hover">
+                                        <span>
+                                            This image represents you here on website.
+                                            Make sure your image is in good quality and has a nice smile :)
+                                        </span>
+                                       <i slot="reference" class="el-icon-info"></i>
+                                   </el-popover>
+                        </span>
 
                         <el-upload
                                 class="avatar-uploader"
@@ -57,21 +70,15 @@
                     <el-form-item>
                         <span slot="label">
                             Click on image to upload profile background image
-                              <el-tooltip content="Make your profile more professional,
-                                           put on background extra picture of your studio or yourself during
-                                           working or even your favourite art." effect="light">
-                                      <i class="el-icon-info"></i>
-                                  </el-tooltip>
-
                                     <el-popover
-                                            placement="top-start"
-                                            title="Title"
                                             width="200"
-                                            trigger="hover"
-                                            content="Make your profile more professional,
+                                            trigger="hover">
+                                        <span>
+                                            Make your profile more professional,
                                            put on background extra picture of your studio or yourself during
-                                           working or even your favourite art.">
-                                       <i slot="reference" class="el-icon-question"></i>
+                                           working or even your favourite art.
+                                        </span>
+                                       <i slot="reference" class="el-icon-info"></i>
                                    </el-popover>
                         </span>
                         <el-upload
@@ -252,7 +259,7 @@
 
                 <el-col :sm="8">
                     <el-form-item label="Phone" prop="phone">
-                        <el-input v-model="user.phone"></el-input>
+                        <vue-tel-input v-model="user.phone" @onInput="setphoneNumber" :preferredCountries="['us', 'gb', 'ua']"></vue-tel-input>
                     </el-form-item>
                 </el-col>
 
@@ -403,6 +410,7 @@
                         });
                 }
             };
+
             return {
                 loading: false,
                 user: {},
@@ -456,6 +464,9 @@
         },
 
         methods: {
+            setphoneNumber({ number, isValid, country }) {
+                console.log(number, isValid, country);
+            },
 
             confirmProfileUpgrade(name, price, period = null) {
                 axios.get('/api/user-add/' + name + '/' + price + '/' + period).then(response => {

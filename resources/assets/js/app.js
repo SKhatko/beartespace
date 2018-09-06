@@ -20,15 +20,20 @@ import VueTelInput from 'vue-tel-input'
 
 
 Vue.prototype.trans = (key) => {
-    return get(window.trans, key, key);
+    let defaultValue = key.split('.');
+    return get(window.cfg.trans, key, defaultValue[defaultValue.length - 1]);
 };
 
 Vue.prototype.options = (key) => {
-    console.log(key);
-    return Object.entries(get(window.trans, key, key)).map(function (translation) {
-        console.log(translation);
+    let defaultValue = key.split('.');
+
+    return Object.entries(get(window.cfg.trans, key, defaultValue[defaultValue.length - 1])).map(function (translation) {
         return {value: translation[0], label: translation[1]}
     });
+
+    // return Object.entries(get(window.cfg.trans, key, key)).map(function (translation) {
+    //     return {value: translation[0], label: translation[1]}
+    // });
 };
 
 Vue.use(Vuex);
