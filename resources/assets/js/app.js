@@ -72,6 +72,7 @@ Vue.component('follow-button', require('./components/partials/FollowButton.vue')
 
 // Checkout
 Vue.component('address-form', require('./components/AddressForm.vue'));
+Vue.component('checkout-form', require('./components/CheckoutForm.vue'));
 
 const app = new Vue({
     el: '#app',

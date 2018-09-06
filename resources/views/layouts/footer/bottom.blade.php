@@ -14,7 +14,7 @@
             </div>
 
             <div class="app-footer-copy">
-                &copy; 2018 Beartespace
+                &copy; 2018 Beartespace. All rights reserved.
             </div>
 
         </div>

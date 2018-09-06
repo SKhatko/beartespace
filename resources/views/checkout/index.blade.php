@@ -10,7 +10,7 @@
                 <el-breadcrumb-item>Checkout</el-breadcrumb-item>
             </el-breadcrumb>
 
-            {{--<address-form></address-form>--}}
+            <checkout-form></checkout-form>
 
         </div>
 

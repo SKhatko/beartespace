@@ -109,8 +109,10 @@
                             <el-form inline label-position="top" method="POST"
                                      action="{{ route('add-lead') }}">
                                 {{ csrf_field() }}
-                                <el-form-item
-                                        label="Sign up for our newsletter for exclusive deals, discount codes, and more:">
+                                <el-form-item>
+                                    <span slot="label">
+                                        Sign up for our newsletter for exclusive deals, discount codes, and more!
+                                    </span>
                                     <el-input name="email" type="email"
                                               placeholder="Email" required>
                                         <el-button slot="append" native-type="submit" type="primary">Join
