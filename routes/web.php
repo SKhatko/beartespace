@@ -46,8 +46,8 @@ Route::group( [ 'middleware' => 'web' ], function () {
 	Route::get( '/artwork/{id}', 'HomeController@artwork' )->name( 'artwork' );
 	Route::get( '/artist', 'HomeController@artists' )->name( 'artists' );
 	Route::get( '/artist/{id}', 'HomeController@artist' )->name( 'artist' );
-	Route::get( '/selection/artist', 'HomeController@selectedArtists')->name('selected-artists');
-	Route::get( '/selection/artwork', 'HomeController@selectedArtworks')->name('selected-artworks');
+	Route::get( '/selection/artist', 'HomeController@selectedArtists' )->name( 'selected-artists' );
+	Route::get( '/selection/artwork', 'HomeController@selectedArtworks' )->name( 'selected-artworks' );
 
 	// Invites
 	Route::get( '/invite/artist', 'HomeController@inviteArtist' )->name( 'invite.artist' );
@@ -75,10 +75,10 @@ Route::group( [ 'middleware' => 'web' ], function () {
 	Route::get( 'cart/item/{id}/remove', 'CartController@removeItem' )->name( 'cart.item.remove' );
 
 	// Checkout
-	Route::get( 'checkout', 'CheckoutController@index' )->name( 'checkout' )->middleware('has-address');
-	Route::get( 'address/create', 'AddressController@create' )->name( 'address.create' )->middleware('auth');
-	Route::get( 'address/{id}/edit', 'AddressController@edit' )->name( 'address.show' )->middleware('auth');
-	Route::post( 'address', 'AddressController@store' )->middleware('auth');
+	Route::get( 'checkout', 'CheckoutController@index' )->name( 'checkout' )->middleware( [ 'auth', 'has-address' ] );
+	Route::get( 'address/create', 'AddressController@create' )->name( 'address.create' )->middleware( 'auth' );
+	Route::get( 'address/{id}/edit', 'AddressController@edit' )->name( 'address.show' )->middleware( 'auth' );
+	Route::post( 'address', 'AddressController@store' )->middleware( 'auth' );
 
 	// Pages
 	Route::get( 'about', 'HomeController@about' )->name( 'about' );
@@ -105,7 +105,7 @@ Route::group( [ 'middleware' => 'web' ], function () {
 		// TODO
 		Route::get( 'payments', 'PaymentController@index' )->name( 'dashboard.payments' );
 
-		Route::get('favorite/{id}/toggle', 'FavoriteController@toggleFavoriteArtwork')->name('favorite.toggle')->middleware('auth');
+		Route::get( 'favorite/{id}/toggle', 'FavoriteController@toggleFavoriteArtwork' )->name( 'favorite.toggle' )->middleware( 'auth' );
 		Route::get( 'favorites', 'UserController@favoriteArtworks' )->name( 'dashboard.favorites' );
 
 		// Not user (admin, artist, gallery)
