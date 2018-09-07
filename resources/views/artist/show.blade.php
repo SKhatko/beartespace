@@ -95,11 +95,11 @@
 
                     <div class="app--wrapper">
 
-                        @if($artist->favouriteArtworks->count())
+                        @if($artist->favoriteArtworks->count())
                             <div class="artist-artworks-favorite">
 
                                 <h2 class="h2">Artist's favorite artworks</h2>
-                                @include('partials.artworks', ['artworks' => $artist->favouriteArtworks])
+                                @include('partials.artworks', ['artworks' => $artist->favoriteArtworks])
 
                             </div>
                         @endif

@@ -52,9 +52,9 @@ class UserController extends Controller {
 
 		$user = auth()->user();
 
-		$artworks = $user->favouriteArtworks()->orderBy( 'id', 'desc' )->get();
+		$artworks = $user->favoriteArtworks()->orderBy( 'id', 'desc' )->get();
 
-		return view( 'dashboard.user.favourites', compact( 'artworks' ) );
+		return view( 'dashboard.user.favorites', compact( 'artworks' ) );
 	}
 
 

@@ -105,6 +105,7 @@ Route::group( [ 'middleware' => 'web' ], function () {
 		// TODO
 		Route::get( 'payments', 'PaymentController@index' )->name( 'dashboard.payments' );
 
+		Route::get('favorite/{id}/toggle', 'FavoriteController@toggleFavoriteArtwork')->name('favorite.toggle')->middleware('auth');
 		Route::get( 'favorites', 'UserController@favoriteArtworks' )->name( 'dashboard.favorites' );
 
 		// Not user (admin, artist, gallery)

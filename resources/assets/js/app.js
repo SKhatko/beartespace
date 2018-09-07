@@ -112,8 +112,8 @@ const app = new Vue({
         }
 
         // Passing initial favorite Artworks
-        if (window.bus.favouriteArtworks) {
-            this.$store.commit('setInitialFavouriteArtworks', window.bus.favouriteArtworks);
+        if (window.bus.favoriteArtworks) {
+            this.$store.commit('setInitialFavoriteArtworks', window.bus.favoriteArtworks);
         }
 
         // Shopping cart initial

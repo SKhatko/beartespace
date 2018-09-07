@@ -35,7 +35,7 @@
             // Message that appear on top
             'message': {!! json_encode(session('message') ?? '') !!},
 
-            'favouriteArtworks': {!! json_encode(auth()->user() ? auth()->user()->favouriteArtworks: '') !!},
+            'favoriteArtworks': {!! json_encode(auth()->user() ? auth()->user()->favoriteArtworks: '') !!},
             'shoppingCart': {!! json_encode(Cart::content()->values()) !!},
         };
 

@@ -45,25 +45,25 @@ class UserController extends Controller {
 		return [ 'status' => 'success', 'message' => 'Saved', 'data' => $user ];
 	}
 
-	public function toggleFavouriteArtwork( Request $request, $id ) {
+	public function toggleFavoriteArtwork( Request $request, $id ) {
 
 		$user = auth()->user();
 
-		$artworksCount = $user->favouriteArtworks()->count();
+		$artworksCount = $user->favoriteArtworks()->count();
 
-		$user->favouriteArtworks()->toggle( $id );
+		$user->favoriteArtworks()->toggle( $id );
 
-		if ( $user->favouriteArtworks()->count() > $artworksCount ) {
+		if ( $user->favoriteArtworks()->count() > $artworksCount ) {
 			return [
 				'status'  => 'success',
-				'message' => 'Artwork Added to Favourites',
-				'data'    => $user->favouriteArtworks
+				'message' => 'Artwork Added to Favorites',
+				'data'    => $user->favoriteArtworks
 			];
 		} else {
 			return [
 				'status'  => 'success',
-				'message' => 'Artwork Removed from Favourites',
-				'data'    => $user->favouriteArtworks
+				'message' => 'Artwork Removed from Favorites',
+				'data'    => $user->favoriteArtworks
 			];
 		}
 	}

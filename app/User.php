@@ -57,7 +57,7 @@ class User extends Authenticatable {
 		return $this->hasMany( Article::class );
 	}
 
-	public function favouriteArtworks() {
+	public function favoriteArtworks() {
 		return $this->belongsToMany( Artwork::class, 'favorites' );
 	}
 

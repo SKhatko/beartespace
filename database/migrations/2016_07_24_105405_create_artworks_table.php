@@ -40,7 +40,7 @@ class CreateArtworksTable extends Migration {
 			$table->boolean( 'available' )->nullable()->default(1);
 			$table->integer('image_id')->nullable();
 
-			//0 =pending for review, 1= published, 2=blocked, 3=archived
+			//0 =pending for review, 1= available, 2=unavailable, 3=sold,
 			$table->enum( 'status', [ 0, 1, 2, 3 ] )->nullable();
 			$table->boolean( 'auction_status' )->nullable();
 			$table->decimal( 'auction_price', 12, 2 )->nullable();

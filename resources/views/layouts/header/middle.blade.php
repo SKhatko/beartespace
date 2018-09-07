@@ -191,8 +191,8 @@
     @endif
 
     <a href="{{ route('dashboard.favorites') }}" class="app-header-star"
-       v-if="$store.state.favouriteArtworksCount">
-        <i class="el-icon-star-off"></i><sup>@{{ $store.state.favouriteArtworksCount }}</sup>
+       v-if="$store.state.favoriteArtworksCount">
+        <i class="el-icon-star-off"></i><sup>@{{ $store.state.favoriteArtworksCount }}</sup>
     </a>
 
     <a href="{{ route('cart') }}" class="app-header-cart" v-if="$store.state.shoppingCartCount">

@@ -9,8 +9,8 @@
 
             <div class="artwork-panel">
 
-                <el-button :icon="favouriteIconClass" class="artwork-panel-favourite" circle
-                           @click="$store.commit('toggleFavourites', artwork)"></el-button>
+                <el-button :icon="favoriteIconClass" class="artwork-panel-favorite" circle
+                           @click="$store.commit('toggleFavorites', artwork)"></el-button>
                 <el-button class="artwork-panel-cart" circle :type="artworkInShoppingCartType"
                            @click="$store.commit('toggleShoppingCart', artwork)"><i class="el-icon-goods"></i>
                 </el-button>
@@ -63,8 +63,8 @@
 
         methods: {},
         computed: {
-            favouriteIconClass() {
-                if (this.$store.state.favouriteArtworks.find(artwork => {
+            favoriteIconClass() {
+                if (this.$store.state.favoriteArtworks.find(artwork => {
                     return artwork.id === this.artwork.id
                 })) {
                     return 'el-icon-star-on'

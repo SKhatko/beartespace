@@ -1,5 +1,20 @@
 <?php
 
+if ( ! function_exists( 'trans_input' ) ) {
+	function trans_input( $key ) {
+
+		$translation = trans( $key );
+
+		if ( $key === $translation ) {
+			$data      = $key;
+			$whatIWant = str_after( $data, '.' );
+			return title_case(str_slug($whatIWant, ' '));
+		}
+
+		return trans( $key );
+	}
+}
+
 if ( ! function_exists( 'getAllTranslations' ) ) {
 	function getAllTranslations() {
 		$translations = [];
@@ -58,11 +73,11 @@ function currentLanguage() {
 }
 
 function getCurrentCurrency() {
-	if ( Cookie::get('currency') && currency()->hasCurrency(Cookie::get('currency')) ) {
-		return Cookie::get('currency');
+	if ( Cookie::get( 'currency' ) && currency()->hasCurrency( Cookie::get( 'currency' ) ) ) {
+		return Cookie::get( 'currency' );
 	}
 
-	return session('currency');
+	return session( 'currency' );
 }
 
 /**

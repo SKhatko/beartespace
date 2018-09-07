@@ -16307,8 +16307,8 @@ var app = new Vue({
         }
 
         // Passing initial favorite Artworks
-        if (window.bus.favouriteArtworks) {
-            this.$store.commit('setInitialFavouriteArtworks', window.bus.favouriteArtworks);
+        if (window.bus.favoriteArtworks) {
+            this.$store.commit('setInitialFavoriteArtworks', window.bus.favoriteArtworks);
         }
 
         // Shopping cart initial
@@ -21533,10 +21533,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {},
     computed: {
-        favouriteIconClass: function favouriteIconClass() {
+        favoriteIconClass: function favoriteIconClass() {
             var _this = this;
 
-            if (this.$store.state.favouriteArtworks.find(function (artwork) {
+            if (this.$store.state.favoriteArtworks.find(function (artwork) {
                 return artwork.id === _this.artwork.id;
             })) {
                 return 'el-icon-star-on';
@@ -21890,15 +21890,15 @@ var store = {
     state: {
         shoppingCart: [],
         shoppingCartCount: 0,
-        favouriteArtworks: [],
-        favouriteArtworksCount: 0,
+        favoriteArtworks: [],
+        favoriteArtworksCount: 0,
         errors: []
     },
     mutations: {
-        toggleFavourites: function toggleFavourites(state, item) {
+        toggleFavorites: function toggleFavorites(state, item) {
             var _this = this;
 
-            axios.put('/api/user/favourite/' + item.id + '/toggle').then(function (response) {
+            axios.put('/api/user/favorite/' + item.id + '/toggle').then(function (response) {
 
                 _this._vm.$message({
                     showClose: true,
@@ -21906,8 +21906,8 @@ var store = {
                     type: response.data.status
                 });
 
-                state.favouriteArtworks = response.data.data;
-                state.favouriteArtworksCount = response.data.data.length;
+                state.favoriteArtworks = response.data.data;
+                state.favoriteArtworksCount = response.data.data.length;
             }).catch(function (error) {
                 if (error.response.status === 401) {
                     window.location.href = '/login';
@@ -21938,10 +21938,10 @@ var store = {
             state.shoppingCartCount = cart.length;
             state.shoppingCart = cart;
         },
-        setInitialFavouriteArtworks: function setInitialFavouriteArtworks(state, favouriteArtworks) {
-            console.log('Initial favourite artworks', favouriteArtworks.length);
-            state.favouriteArtworksCount = favouriteArtworks.length;
-            state.favouriteArtworks = favouriteArtworks;
+        setInitialFavoriteArtworks: function setInitialFavoriteArtworks(state, favoriteArtworks) {
+            console.log('Initial favorite artworks', favoriteArtworks.length);
+            state.favoriteArtworksCount = favoriteArtworks.length;
+            state.favoriteArtworks = favoriteArtworks;
         },
         setErrors: function setErrors(state, errors) {
             console.log(errors);
@@ -69419,14 +69419,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "artwork-panel"
   }, [_c('el-button', {
-    staticClass: "artwork-panel-favourite",
+    staticClass: "artwork-panel-favorite",
     attrs: {
-      "icon": _vm.favouriteIconClass,
+      "icon": _vm.favoriteIconClass,
       "circle": ""
     },
     on: {
       "click": function($event) {
-        _vm.$store.commit('toggleFavourites', _vm.artwork)
+        _vm.$store.commit('toggleFavorites', _vm.artwork)
       }
     }
   }), _vm._v(" "), _c('el-button', {

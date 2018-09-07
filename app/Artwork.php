@@ -11,6 +11,7 @@ class Artwork extends Model {
 	protected $guarded = [];
 
 	protected $appends = [
+		'stock_status',
 		'formatted_price',
 		'artwork_options_add',
 		'artwork_inspiration_add',
@@ -30,6 +31,10 @@ class Artwork extends Model {
 		return $this->belongsTo( User::class );
 	}
 
+	public function favoritedUsers() {
+		return $this->belongsToMany( User::class, 'favorites' );
+	}
+
 	public function images() {
 		return $this->belongsToMany( Media::class, 'artwork_images', 'artwork_id', 'media_id' );
 	}
@@ -42,9 +47,20 @@ class Artwork extends Model {
 		return $this->hasMany( Add::class );
 	}
 
-	public function scopeActive( $query ) {
-		return $query->whereStatus( '1' );
+	public function getStockStatusAttribute() {
+		if($this->attributes['sold']) {
+			return 'sold';
+		} else if(!$this->attributes['available']) {
+			return 'unavailable';
+		} else {
+			return 'available';
+		}
+
 	}
+
+//	public function scopeActive( $query ) {
+//		return $query->whereStatus( '1' );
+//	}
 
 	public function scopeAuction( $query ) {
 		return $query->whereAuctionStatus( '1' );

@@ -12,7 +12,7 @@ class TranslationsTableSeeder extends Seeder {
 	public function run() {
 
 		$translations = [
-			'portal'     => [
+			'portal'       => [
 				[ 'Login', '' ],
 				[ 'Signup', '' ],
 				[ 'Artists', '' ],
@@ -31,14 +31,14 @@ class TranslationsTableSeeder extends Seeder {
 				[ 'Expanded', '' ],
 				[ 'Trial', '' ],
 			],
-			'category'   => [
+			'category'     => [
 				[ 'Painting', 'Maleri' ],
 				[ 'Sculpture', 'Skulptur' ],
 				[ 'Drawing', '' ],
 				[ 'Glass Art', '' ],
 				[ 'Ceramic', '' ],
 			],
-			'direction'  => [
+			'direction'    => [
 				[ 'Abstraction', 'Abstraktion' ],
 				[ 'Colorism', '' ],
 				[ 'Impressionism', '' ],
@@ -48,7 +48,7 @@ class TranslationsTableSeeder extends Seeder {
 				[ 'Fantasy Realism', '' ],
 				[ 'Street Art', '' ],
 			],
-			'medium'     => [
+			'medium'       => [
 				[ 'Oil', '' ],
 				[ 'Acrylic', '' ],
 				[ 'Watercolor', '' ],
@@ -60,7 +60,7 @@ class TranslationsTableSeeder extends Seeder {
 				[ 'Wood', '' ],
 				[ 'Glass', '' ],
 			],
-			'theme'      => [
+			'theme'        => [
 				[ 'Figurative', '' ],
 				[ 'Abstract', '' ],
 				[ 'Portrait', '' ],
@@ -71,13 +71,13 @@ class TranslationsTableSeeder extends Seeder {
 				[ 'Maritime', '' ],
 				[ 'City Landscape', '' ],
 			],
-			'shape'      => [
+			'shape'        => [
 				[ 'Square', '' ],
 				[ 'Oval/Round', '' ],
 				[ 'Horizontal', '' ],
 				[ 'Vertical', '' ],
 			],
-			'color'      => [
+			'color'        => [
 				[ 'Red', '' ],
 				[ 'Green', '' ],
 				[ 'Yellow', '' ],
@@ -100,24 +100,30 @@ class TranslationsTableSeeder extends Seeder {
 				[ 'White', '' ],
 				[ 'Black', '' ],
 			],
-			'profession' => [
+			'profession'   => [
 				[ 'Sculptor', 'Sculpturer' ],
 				[ 'Cartoonist', '' ],
 				[ 'Illustrator', '' ],
 				[ 'Painter', 'Painter' ],
 				[ 'Academic teacher', '' ]
 			],
-			'education'  => [
+			'education'    => [
 				[ 'High Scool Graduate', '' ],
 				[ 'Bachelor', '' ],
 				[ 'Master', '' ],
 				[ 'Professor', '' ],
 				[ 'Ph.D.', '' ]
 			],
-			'gender'     => [
+			'gender'       => [
 				[ 'Male', 'Man' ],
 				[ 'Female', 'Kwine' ],
 				[ 'Third', '' ]
+			],
+			'stock-status' => [
+				[ 'Available', '' ],
+				[ 'Unavailable', '' ],
+				[ 'Sold', '' ],
+
 			]
 		];
 

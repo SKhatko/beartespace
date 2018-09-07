@@ -18,39 +18,97 @@
                                  alt="{{ $artwork->image->name }}">
                         </div>
 
-                        <el-dialog :visible.sync="showArtworkImageDialog">
+                        <el-dialog :visible.sync="showArtworkImageDialog" center>
                             <img src="/imagecache/original/{{ $artwork->image_url }}" alt="{{ $artwork->image->name }}">
                         </el-dialog>
 
-                        <div class="artwork-description">
+                        <div class="artwork--right">
+                            <el-card class="artwork-description">
 
-                            <div class="h3"><a
-                                        href="{{ route('artist', $artwork->user->id) }}">{{ $artwork->user->name }}</a>, {{ $artwork->title }}
-                            </div>
+                                <div class="artwork-name">{{ $artwork->title }} by <b>{{ $artwork->user->name }}</b>
+                                </div>
 
-                            <div class="h4"
-                                 style="margin-bottom: 20px;">{{ $artwork->user->country['country_name'] }}</div>
+                                @if($artwork->user->country)
+                                    <div class="artwork-country">
+                                        Location: {{ $artwork->user->country['country_name'] }}
+                                    </div>
+                                @endif
 
+                                <div class="artwork-status {{ $artwork->stock_status === 'available' ? 'active' : '' }}">
+                                    {{ trans('stock-status.' . $artwork->stock_status) }}
+                                </div>
 
-                            @if(Cart::content()->contains('id', $artwork->id))
-                                <el-tag type="info">Item is added to shopping cart</el-tag>
+                                <div class="artwork-price">
+                                    {{ $artwork->formatted_price }}
+                                </div>
 
-                                <el-button type="text">
-                                    <a href="{{ route('cart.item.remove', $artwork->id) }}">Remove</a>
-                                </el-button>
+                                @if(!$artwork->sold && $artwork->available)
+                                    @if(Cart::content()->contains('id', $artwork->id))
+                                        <el-tag type="info">Item is added to shopping cart</el-tag>
 
+                                        <el-button type="text" style="display: block;width: 100%;">
+                                            <a href="{{ route('cart.item.remove', $artwork->id) }}">Remove</a>
+                                        </el-button>
+                                    @else
+                                        <el-button style="display: block;width: 100%;">
+                                            <a href="{{ route('cart.item.add', $artwork->id) }}">Add to cart</a>
+                                        </el-button>
+                                    @endif
 
-                            @else
-                                <el-button>
-                                    <a href="{{ route('cart.item.add', $artwork->id) }}">Add to cart</a>
-                                </el-button>
-                            @endif
+                                    <div style="margin-top: 20px;">
+                                        <el-button style="display: block;width: 100%;">
+                                            <a href="{{ route('cart.item.buy-now', $artwork->id) }}">Buy Now</a>
+                                        </el-button>
+                                    </div>
+                                @endif
 
-                            <div style="margin-top: 20px;">
-                                <el-button>
-                                    <a href="{{ route('cart.item.buy-now', $artwork->id) }}">Buy Now</a>
-                                </el-button>
-                            </div>
+                                <div class="artwork-favorite">
+                                    @if(auth()->user() && auth()->user()->favoriteArtworks->contains('id', $artwork->id))
+                                        <el-tag type="info">Artwork is added to Favorite</el-tag>
+
+                                        <el-button type="text">
+                                            <a href="{{ route('favorite.toggle', $artwork->id) }}">Remove</a>
+                                        </el-button>
+                                    @else
+                                        <el-button style="display: block;width: 100%;">
+                                            <a href="{{ route('favorite.toggle', $artwork->id) }}">Add to Favorite</a>
+                                        </el-button>
+                                    @endif
+                                </div>
+
+                            </el-card>
+
+                            <el-card>
+
+                                <div class="artwork-category">
+                                    Category: {{ trans('category.' . $artwork->category) }}
+                                </div>
+
+                                <div class="artwork-size">
+                                    Size: {{ $artwork->width }} x {{ $artwork->height }} x {{ $artwork->depth }}
+                                </div>
+
+                                <div class="artwork-medium">
+                                    Materials: @foreach($artwork->medium as $medium)
+                                        {{ trans_input('medium.' . $medium ) }},
+                                    @endforeach
+                                </div>
+
+                                @if($artwork->favoritedUsers()->count())
+                                    <div class="artwork-favorited">
+                                        Favorited by: {{ $artwork->favoritedUsers()->count() }} people
+                                    </div>
+                                @endif
+
+                                <a href="{{ route('artist', $artwork->user->id) }}" class="artwork-artist">
+                                    Artist:
+                                    <span class="artwork-artist-avatar">
+                                        <img src="/imagecache/mini-avatar/{{ $artwork->user->avatar_url}}"/>
+                                    </span>
+
+                                    {{ $artwork->user->name }}
+                                </a>
+                            </el-card>
 
 
                         </div>

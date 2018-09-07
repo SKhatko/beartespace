@@ -23,7 +23,7 @@ Route::group( [ 'middleware' => 'auth:api' ], function () {
 	Route::post( 'artwork', 'Api\ArtworkController@store' );
 	Route::post( 'pages', 'Api\PageController@store' );
 
-	Route::put( 'user/favourite/{id}/toggle', 'Api\UserController@toggleFavouriteArtwork' );
+	Route::put( 'user/favorite/{id}/toggle', 'Api\UserController@toggleFavoriteArtwork' );
 	Route::put( 'user/followed/{id}/toggle', 'Api\UserController@toggleFollowedUser' );
 
 	Route::get( 'user/check-username/{username}', 'Api\UserController@checkUsername' );
