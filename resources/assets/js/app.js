@@ -39,6 +39,7 @@ Vue.prototype.options = (key) => {
 Vue.use(Vuex);
 Vue.use(ElementUI, {locale});
 Vue.use(VueTelInput);
+Vue.use(SocialSharing);
 
 Vue.component('subscription-form', require('./components/payment/SubscriptionForm.vue'));
 Vue.component('partials-artwork', require('./components/partials/Artwork.vue'));

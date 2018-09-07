@@ -622,6 +622,12 @@ body, html {
 
     }
 
+    &-share {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+    }
+
     &-status {
       color: darkred;
       font-size: 20px;

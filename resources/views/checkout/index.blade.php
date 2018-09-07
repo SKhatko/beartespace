@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <el-main class="app--centered">
+    <el-main class="app--wrapper">
 
         <div class="app-checkout">
             <el-breadcrumb separator-class="el-icon-arrow-right" style="margin: 30px 0;">

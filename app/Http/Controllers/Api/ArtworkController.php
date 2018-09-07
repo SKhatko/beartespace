@@ -33,54 +33,50 @@ class ArtworkController extends Controller {
 
 	public function uploadArtworkImage( Request $request, $id ) {
 
-		if ( $request->file( 'file' ) ) {
 
-			$artwork = Artwork::find( $id );
+		$artwork = Artwork::find( $id );
 
-			if ( $artwork->image ) {
-				$artwork->image->delete();
-			}
-
-			$fileName = time() . '-' . str_random( 60 ) . '.' . $request->file( 'file' )->getClientOriginalExtension();
-
-			$request->file( 'file' )->storeAs( '/public/artwork-image', $fileName );
-
-			$image = Media::create( [
-				'original_name' => $request->file( 'file' )->getClientOriginalName(),
-				'name'          => $fileName,
-				'slug'          => str_slug( $request->file( 'file' )->getClientOriginalName() ),
-				'folder'        => '/artwork-image'
-			] );
-
-			$image->save();
-			$artwork = $artwork->image()->associate($image);
-			$artwork->save();
-
-			return [ 'status' => 'success', 'message' => 'Image Uploaded', 'data' => $artwork->image_url ];
+		if ( $artwork->image ) {
+			$artwork->image->delete();
 		}
+
+		$fileName = time() . '-' . str_random( 60 ) . '.' . $request->file( 'file' )->getClientOriginalExtension();
+
+		$request->file( 'file' )->storeAs( '/public/artwork-image', $fileName );
+
+		$image = Media::create( [
+			'original_name' => $request->file( 'file' )->getClientOriginalName(),
+			'name'          => $fileName,
+			'slug'          => str_slug( $request->file( 'file' )->getClientOriginalName() ),
+			'folder'        => '/artwork-image'
+		] );
+
+		$image->save();
+		$artwork = $artwork->image()->associate( $image );
+		$artwork->save();
+
+		return [ 'status' => 'success', 'message' => 'Image Uploaded', 'data' => $artwork->image_url ];
 	}
 
 	public function uploadArtworkImages( Request $request, $id ) {
 
-		if ( $request->file( 'file' ) ) {
+		$artwork = Artwork::find( $id );
 
-			$artwork = Artwork::find( $id );
+		$fileName = time() . '-' . str_random( 60 ) . '.' . $request->file( 'file' )->getClientOriginalExtension();
 
-			$fileName = time() . '-' . str_random( 60 ) . '.' . $request->file( 'file' )->getClientOriginalExtension();
+		$request->file( 'file' )->storeAs( '/public/artwork-images', $fileName );
 
-			$request->file( 'file' )->storeAs( '/public/artwork-images', $fileName );
+		$image = $artwork->images()->create( [
+			'original_name' => $request->file( 'file' )->getClientOriginalName(),
+			'name'          => $fileName,
+			'slug'          => str_slug( $request->file( 'file' )->getClientOriginalName() ),
+			'folder'        => '/artwork-images'
+		] );
 
-			$image = $artwork->images()->create( [
-				'original_name' => $request->file( 'file' )->getClientOriginalName(),
-				'name'          => $fileName,
-				'slug'          => str_slug( $request->file( 'file' )->getClientOriginalName() ),
-				'folder'        => '/artwork-images'
-			] );
+		$artwork = $artwork->fresh();
 
-			$artwork = $artwork->fresh();
+		return [ 'status' => 'success', 'message' => 'Image Uploaded', 'data' => $artwork->images ];
 
-			return [ 'status' => 'success', 'message' => 'Image Uploaded', 'data' => $artwork->images ];
-		}
 	}
 
 	public function removeArtworkImage( Request $request, $id ) {

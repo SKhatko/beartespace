@@ -2,6 +2,7 @@
 window.get = require('lodash.get');
 window.Vue = require('vue');
 window.Vuex = require('vuex');
+window.SocialSharing = require('vue-social-sharing');
 
 // window._ = require('lodash');
 

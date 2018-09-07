@@ -48,7 +48,7 @@ class TestingSeeder extends Seeder {
 		foreach ( $artworks as $artwork ) {
 			$artwork->image()->associate( factory( App\Media::class )->create() );
 			$artwork->save();
-//			$artwork->images()->saveMany( factory( App\Media::class, random_int( 1, 4 ) )->make() );
+			$artwork->images()->saveMany( factory( App\Media::class, random_int( 1, 4 ) )->make() );
 		}
 
 //		$articles = Article::all();

@@ -19,7 +19,10 @@
                         </div>
 
                         <el-dialog :visible.sync="showArtworkImageDialog" center>
-                            <img src="/imagecache/original/{{ $artwork->image_url }}" alt="{{ $artwork->image->name }}">
+                            <div style="text-align: center;">
+                                <img src="/imagecache/original/{{ $artwork->image_url }}"
+                                     alt="{{ $artwork->image->name }}">
+                            </div>
                         </el-dialog>
 
                         <div class="artwork--right">
@@ -44,20 +47,19 @@
 
                                 @if(!$artwork->sold && $artwork->available)
                                     @if(Cart::content()->contains('id', $artwork->id))
-                                        <el-tag type="info">Item is added to shopping cart</el-tag>
-
-                                        <el-button type="text" style="display: block;width: 100%;">
-                                            <a href="{{ route('cart.item.remove', $artwork->id) }}">Remove</a>
-                                        </el-button>
+                                        <el-tag type="info" style="margin-right: 10px; width: 100%;">
+                                            <a href="{{ route('cart.item.remove', $artwork->id) }}"> Item is added to
+                                                shopping cart, remove?</a></el-tag>
                                     @else
-                                        <el-button style="display: block;width: 100%;">
+                                        <el-button plain style="display: block;width: 100%;">
                                             <a href="{{ route('cart.item.add', $artwork->id) }}">Add to cart</a>
                                         </el-button>
                                     @endif
 
                                     <div style="margin-top: 20px;">
-                                        <el-button style="display: block;width: 100%;">
-                                            <a href="{{ route('cart.item.buy-now', $artwork->id) }}">Buy Now</a>
+                                        <el-button type="success" style="display: block;width: 100%;">
+                                            <a href="{{ route('cart.item.buy-now', $artwork->id) }}">Buy Now <i
+                                                        class="el-icon-goods"></i></a>
                                         </el-button>
                                     </div>
                                 @endif
@@ -71,14 +73,40 @@
                                         </el-button>
                                     @else
                                         <el-button style="display: block;width: 100%;">
-                                            <a href="{{ route('favorite.toggle', $artwork->id) }}">Add to Favorite</a>
+                                            <a href="{{ route('favorite.toggle', $artwork->id) }}">Add to Favorite <i
+                                                        class="el-icon-star-off"></i></a>
                                         </el-button>
                                     @endif
                                 </div>
 
+
+                                <social-sharing inline-template quote="Quote here" url="{{ url()->current() }}"
+                                                title="Title here" description="Description here">
+                                    <div class="artwork-share">
+                                        <el-button size="mini">
+                                            <network network="facebook">
+                                                <i class="fa fa-fw fa-facebook"></i> Share
+                                            </network>
+                                        </el-button>
+
+                                        <el-button size="mini">
+                                            <network network="googleplus">
+                                                <i class="fa fa-fw fa-google-plus"></i> Share
+                                            </network>
+                                        </el-button>
+
+                                        <el-button size="mini">
+                                            <network network="twitter">
+                                                <i class="fa fa-fw fa-twitter"></i> Tweet
+                                            </network>
+                                        </el-button>
+
+                                    </div>
+                                </social-sharing>
+
                             </el-card>
 
-                            <el-card>
+                            <el-card style="margin-bottom: 20px;">
 
                                 <div class="artwork-category">
                                     Category: {{ trans('category.' . $artwork->category) }}
@@ -110,8 +138,34 @@
                                 </a>
                             </el-card>
 
+                            <el-card>
+                                <div class="h4">
+                                    Shipping & returns
+                                </div>
+
+                                <div class="p">
+                                    Ready to ship in 1–2 business days
+                                </div>
+
+                                <div class="p">
+                                    From {{ $artwork->user->country['country_name'] }}
+                                </div>
+
+                                <div class="p">
+                                    Free shipping to {{ geoip(request()->ip())->country }}
+                                </div>
+
+                                <div class="p">
+                                    See
+                                    <a href="{{ route('page', 'freight')}}">Shipping</a> and
+                                    <a href="{{ route('page', 'right-of-cancellation')}}">Rights to Cancellation</a>
+                                </div>
+
+                            </el-card>
+
 
                         </div>
+
                     </div>
 
                     <div class="artwork-images">
@@ -128,6 +182,7 @@
                         </el-carousel>
 
                     </div>
+
 
                 </div>
 

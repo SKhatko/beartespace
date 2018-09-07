@@ -226,6 +226,8 @@ class HomeController extends Controller {
 
 		$artwork = Artwork::find( $id );
 
+//		return $artwork->images;
+
 		return view( 'artwork.show', compact( 'artwork' ) );
 	}
 
