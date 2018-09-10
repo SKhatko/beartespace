@@ -52,10 +52,12 @@ class CreateUsersTable extends Migration {
 			$table->boolean( 'is_online' )->nullable();
 			$table->timestamp( 'last_login' )->nullable();
 
-			$table->string( 'stripe_id' )->nullable();
-			$table->string( 'card_brand' )->nullable();
-			$table->string( 'card_last_four' )->nullable();
-			$table->timestamp( 'trial_ends_at' )->nullable();
+			// Stripe
+			$table->string('stripe_id')->nullable();
+			$table->string('card_brand')->nullable();
+			$table->string('card_last_four')->nullable();
+			$table->timestamp('trial_ends_at')->nullable();
+			// End Stripe
 
 			$table->rememberToken();
 			$table->timestamps();

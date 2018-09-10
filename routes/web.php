@@ -156,7 +156,6 @@ Route::group( [ 'middleware' => 'web' ], function () {
 	// Global artist profile search
 	Route::get( '{artist}', 'HomeController@artistProfile' )->name( 'artist-profile' );
 
-
 } );
 
 //Post bid
@@ -164,6 +163,7 @@ Route::post( '{id}/post-new', [ 'as' => 'post_bid', 'uses' => 'BidController@pos
 
 
 //Checkout payment
+Route::post( 'checkout/pay', 'PaymentController@pay' );
 Route::get( 'checkout/{transaction_id}', [ 'as' => 'payment_checkout', 'uses' => 'PaymentController@checkout' ] );
 Route::post( 'checkout/{transaction_id}', [ 'uses' => 'PaymentController@chargePayment' ] );
 //Payment success url

@@ -76,7 +76,6 @@ class ArtworkController extends Controller {
 		$artwork = $artwork->fresh();
 
 		return [ 'status' => 'success', 'message' => 'Image Uploaded', 'data' => $artwork->images ];
-
 	}
 
 	public function removeArtworkImage( Request $request, $id ) {
