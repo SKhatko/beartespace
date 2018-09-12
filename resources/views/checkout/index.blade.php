@@ -37,7 +37,11 @@
                     <button>Submit Payment</button>
                 </el-form>
 
+
             </checkout-form>
+
+            <a href="{{ route('address') }}">Edit delivery address</a>
+
 
 
             {{--<form action="/checkout/pay" method="POST">--}}

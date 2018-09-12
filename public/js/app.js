@@ -18530,44 +18530,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
-        addresses_: {}
+        addresses_: {},
+        selected_: null
     },
     data: function data() {
-        var addressValidator = function addressValidator(rule, value, callback) {
-            if (!value) {
-                callback(new Error('Please enter name for delivery'));
-            } else if (value) {
-                callback(new Error('Two inputs don\'t match!'));
-            } else {
-                callback();
-            }
-        };
-
         return {
             showAddressForm: false,
-            deliveryAddresses: {
-                selectedAddress: 0
+            deliveryAddress: {
+                selected: null
             },
             addressesRules: {
-                address: [{ required: true, message: 'Please select address for delivery', trigger: 'blur' }]
+                selected: [{ required: true, message: 'Please select delivery address', trigger: 'blur' }]
             },
             addresses: {},
-            address: {
-                // country_id: '',
-                // address: '',
-                // address_2: '',
-                // city: '',
-                // region: '',
-                // postcode: '',
-                // email: '',
-                // phone: '',
-            },
+            address: {},
             countries: '',
             rules: {
-                name: [{ required: true, validator: addressValidator, trigger: 'blur' }],
+                name: [{ required: true, message: 'Please enter delivery name', trigger: 'blur' }],
                 country_id: [{ required: true, message: 'Please select country', trigger: 'blur' }],
                 address: [{ required: true, message: 'Please enter address', trigger: 'blur' }],
                 optional_address: [{}],
@@ -18578,7 +18564,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 phone: [{ required: true, message: 'Please enter valid phone number', trigger: 'blur' }]
             },
             csrf: ''
-
         };
     },
     mounted: function mounted() {
@@ -18592,6 +18577,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         if (this.addresses_) {
             this.addresses = JSON.parse(this.addresses_);
+        }
+
+        console.log(this.selected_, 'selected');
+
+        if (this.selected_) {
+            this.deliveryAddress.selected = Number(this.selected_);
         }
 
         if (!this.addresses.length) {
@@ -23064,7 +23055,7 @@ exports.push([module.i, "\n.avatar-uploader .el-upload, .image-uploader .el-uplo
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 /* 182 */
@@ -69447,14 +69438,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "slot": "header"
     },
     slot: "header"
-  }, [_vm._v("Select delivery Address")]), _vm._v(" "), _c('el-form', {
+  }, [_vm._v("Select delivery Address")]), _vm._v("\n\n            " + _vm._s(_vm.deliveryAddress.selected) + " selected\n            "), _c('el-form', {
     ref: "addresses",
     attrs: {
-      "model": _vm.deliveryAddresses,
+      "model": _vm.deliveryAddress,
       "status-icon": "",
       "rules": _vm.addressesRules,
       "method": "POST",
-      "action": "/address"
+      "action": '/address/' + _vm.deliveryAddress.selected
     },
     nativeOn: {
       "submit": function($event) {
@@ -69472,19 +69463,20 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }), _vm._v(" "), _c('el-form-item', {
     attrs: {
-      "prop": "address"
+      "prop": "selected"
     }
   }, [_c('el-radio-group', {
     model: {
-      value: (_vm.deliveryAddresses.selectedAddress),
+      value: (_vm.deliveryAddress.selected),
       callback: function($$v) {
-        _vm.$set(_vm.deliveryAddresses, "selectedAddress", $$v)
+        _vm.$set(_vm.deliveryAddress, "selected", $$v)
       },
-      expression: "deliveryAddresses.selectedAddress"
+      expression: "deliveryAddress.selected"
     }
   }, _vm._l((_vm.addresses), function(address) {
-    return _c('el-radio', {
-      key: address.id,
+    return _c('div', {
+      key: address.id
+    }, [_c('el-radio', {
       staticClass: "radio",
       attrs: {
         "label": address.id
@@ -69506,7 +69498,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           _vm.edit(address)
         }
       }
-    }, [_vm._v("Edit address")])])])
+    }, [_vm._v("Edit address")])])])], 1)
   }))], 1), _vm._v(" "), _c('el-button', {
     attrs: {
       "type": "text"

@@ -69,7 +69,7 @@ class Kernel extends HttpKernel {
 		'admin'              => \App\Http\Middleware\OnlyAdminAccess::class,
 		'artist'             => \App\Http\Middleware\OnlyArtistAccess::class,
 		'has-profile-avatar' => \App\Http\Middleware\CheckProfileAvatar::class,
-		'has-address' => \App\Http\Middleware\HasAddress::class,
+		'has-delivery-address' => \App\Http\Middleware\HasDeliveryAddress::class,
 
 	];
 }

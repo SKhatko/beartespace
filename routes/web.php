@@ -75,11 +75,11 @@ Route::group( [ 'middleware' => 'web' ], function () {
 	Route::get( 'cart/item/{id}/remove', 'CartController@removeItem' )->name( 'cart.item.remove' );
 
 	// Checkout
-	Route::get( 'checkout', 'CheckoutController@index' )->name( 'checkout' )->middleware( [ 'auth', 'has-address' ] );
+	Route::get( 'checkout', 'CheckoutController@index' )->name( 'checkout' )->middleware( [ 'auth', 'has-delivery-address' ] );
 
 	// Address
 	Route::get( 'address', 'AddressController@index' )->middleware( 'auth' )->name('address');
-	Route::post( 'address', 'AddressController@store' )->middleware( 'auth' );
+	Route::post( 'address/{id}', 'AddressController@setDeliveryAddress' )->middleware( 'auth' );
 
 	// Pages
 	Route::get( 'about', 'HomeController@about' )->name( 'about' );

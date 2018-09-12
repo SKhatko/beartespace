@@ -11,13 +11,15 @@
             <el-card class="box-card">
                 <div slot="header" class="h4">Select delivery Address</div>
 
-                <el-form :model="deliveryAddresses" status-icon :rules="addressesRules" ref="addresses"
-                         @submit.native.prevent="saveAddresses" method="POST" action="/address">
+                {{ deliveryAddress.selected }} selected
+                <el-form :model="deliveryAddress" status-icon :rules="addressesRules" ref="addresses"
+                         @submit.native.prevent="saveAddresses" method="POST" :action="'/address/' + deliveryAddress.selected">
                     <input type="hidden" name="_token" :value="csrf">
 
-                    <el-form-item prop="address">
-                        <el-radio-group v-model="deliveryAddresses.selectedAddress">
-                            <el-radio class="radio" v-for="address in addresses" :key="address.id" :label="address.id">
+                    <el-form-item prop="selected">
+                        <el-radio-group v-model="deliveryAddress.selected">
+                            <div v-for="address in addresses" :key="address.id">
+                                <el-radio class="radio" :label="address.id">
                                 <span class="address">{{ address.name }}, {{ getCountyName(address.country_id) }},
                                 {{ address.address }},
                                 {{ address.address_2 }},
@@ -29,7 +31,9 @@
                                 <a href="#" @click.prevent="edit(address)"
                                    style="margin-top: 5px;display: block;text-decoration: underline;">Edit address</a>
                                     </span>
-                            </el-radio>
+                                </el-radio>
+                            </div>
+
                         </el-radio-group>
                     </el-form-item>
 
@@ -128,43 +132,25 @@
     export default {
         props: {
             addresses_: {},
+            selected_: null,
         },
         data() {
-            let addressValidator = (rule, value, callback) => {
-                if (!value) {
-                    callback(new Error('Please enter name for delivery'));
-                } else if (value ) {
-                    callback(new Error('Two inputs don\'t match!'));
-                } else {
-                    callback();
-                }
-            };
-
             return {
                 showAddressForm: false,
-                deliveryAddresses: {
-                    selectedAddress: 0,
+                deliveryAddress: {
+                    selected: null,
                 },
                 addressesRules: {
-                    address: [
-                        {required: true, message: 'Please select address for delivery', trigger: 'blur'}
+                    selected: [
+                        {required: true, message: 'Please select delivery address', trigger: 'blur'}
                     ]
                 },
                 addresses: {},
-                address: {
-                    // country_id: '',
-                    // address: '',
-                    // address_2: '',
-                    // city: '',
-                    // region: '',
-                    // postcode: '',
-                    // email: '',
-                    // phone: '',
-                },
+                address: {},
                 countries: '',
                 rules: {
                     name: [
-                        {required: true, validator: addressValidator, trigger: 'blur'}
+                        {required: true, message: 'Please enter delivery name', trigger: 'blur'}
                     ],
                     country_id: [
                         {required: true, message: 'Please select country', trigger: 'blur'}
@@ -190,7 +176,6 @@
                     ]
                 },
                 csrf: ''
-
             }
         },
         mounted() {
@@ -202,6 +187,12 @@
 
             if (this.addresses_) {
                 this.addresses = JSON.parse(this.addresses_);
+            }
+
+            console.log(this.selected_, 'selected');
+
+            if(this.selected_) {
+                this.deliveryAddress.selected = Number(this.selected_);
             }
 
             if (!this.addresses.length) {
