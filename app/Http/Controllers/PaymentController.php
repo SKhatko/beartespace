@@ -12,30 +12,22 @@ use Illuminate\Support\Facades\Auth;
 
 class PaymentController extends Controller {
 	public function pay( Request $request ) {
-//		return $request->all();
-//		Stripe::setApiKey();
-
-//		$token = request('stripeToken');
 
 		Stripe::setApiKey(config('services.stripe.secret'));
 
-
 		$token = request('stripeToken');
+
+		$token = $request->input('stripeToken');
 
 		$charge = Charge::create( [
 			'amount'        => 999,
 			'currency'      => 'usd',
-			'source'        => $token,
+			'source'        => 'tok_visa',
 			'receipt_email' => 'jenny.rosen@example.com',
 		] );
 
 		dump($charge);
-//		$charge = \Stripe\Charge::create([
-//			'amount' => 999,
-//			'currency' => 'usd',
-//			'description' => 'Example charge',
-//			'source' => $token,
-//		]);
+
 
 		return 'Payment Success!';
 	}

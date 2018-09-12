@@ -14,22 +14,28 @@
             <el-card class="box-card cart">
                 <div slot="header" class="clearfix h4">Shopping cart</div>
 
-                @if(Cart::content()->count() > 0)
+                @if($artworks)
 
-                    @foreach(Cart::content() as $artwork)
+                    @foreach($artworks as $artwork)
                         <div class="cart-item">
 
                             <div class="cart-item-image">
-                                <img src="/imagecache/height-100{{ $artwork->options->image_url }}" alt=""
+                                <img src="/imagecache/height-100{{ $artwork->image_url }}"
+                                     alt="{{ $artwork->image ? $artwork->image->original_name : 'image' }}"
                                      style="height: 100px;">
                             </div>
 
                             <a href="{{ route('artwork', $artwork->id) }}" class="cart-item-info">
-                                {{ $artwork->name }}
+                                {{ $artwork->title }}
                             </a>
 
+{{--                            {{ $artwork->unique ? 1 : $artwork->quantity }}--}}
+
+{{--                            {{ $artwork->status }}--}}
+
                             <div class="cart-item-price">
-                                {{ currency($artwork->price, null, session('currency')) }}
+                                {{ $artwork->formatted_price }}
+                                {{--                                {{ currency($artwork->price, null, session('currency')) }}--}}
 
                                 <el-button circle style="margin-left: 10px;">
                                     <a href="{{ route('cart.item.remove', $artwork->id) }}"><span
@@ -51,7 +57,7 @@
                     </div>
 
                     {{--<el-button type="success"><a href="{{ route('checkout') }}">Checkout</a></el-button>--}}
-                    <el-button type="success"><a href="{{ route('checkout') }}">Continue</a></el-button>
+                    <el-button type="success"><a href="{{ route('checkout') }}">Checkout</a></el-button>
 
                 @else
 

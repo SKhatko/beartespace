@@ -1,91 +1,166 @@
 <template>
 
-    <el-card class="box-card address" style="">
-        <div slot="header" class="h4">Where should we deliver your order?</div>
+    <el-main class="app--wrapper">
 
-        <el-form :model="address" status-icon :rules="rules" ref="address" @submit.native.prevent="save" method="POST" action="/address">
-            <input type="hidden" name="_token" :value="csrf">
+        <div class="app-address">
+            <el-breadcrumb separator-class="el-icon-arrow-right" style="margin: 30px 0;">
+                <el-breadcrumb-item><a href="/">Home</a></el-breadcrumb-item>
+                <el-breadcrumb-item>Select Delivery Address</el-breadcrumb-item>
+            </el-breadcrumb>
 
-            <el-form-item prop="country">
-                <el-select value="" name="county" v-model="address.country" filterable
-                           placeholder="Select country">
-                    <el-option
-                            v-for="country in countries"
-                            :key="country.id"
-                            :label="country.country_name"
-                            :value="country.id">
-                    </el-option>
-                </el-select>
-            </el-form-item>
+            <el-card class="box-card">
+                <div slot="header" class="h4">Select delivery Address</div>
 
-            <el-form-item prop="address">
-                <el-input placeholder="Address" name="address" v-model="address.address"></el-input>
-            </el-form-item>
+                <el-form :model="deliveryAddresses" status-icon :rules="addressesRules" ref="addresses"
+                         @submit.native.prevent="saveAddresses" method="POST" action="/address">
+                    <input type="hidden" name="_token" :value="csrf">
 
-            <el-form-item prop="optional_address">
-                <el-input placeholder="Optional Address" name="address_2" v-model="address.address_2"></el-input>
-            </el-form-item>
-
-            <el-form-item prop="city">
-                <el-input placeholder="City" name="city" v-model="address.city"></el-input>
-            </el-form-item>
-
-            <el-row :gutter="20">
-                <el-col :span="16">
-                    <el-form-item prop="region">
-                        <el-input placeholder="State / Region / Province" name="region" v-model="address.region"></el-input>
+                    <el-form-item prop="address">
+                        <div v-for="address in addresses" :key="address.id">
+                            <el-radio class="radio" v-model="deliveryAddresses.selectedAddress" :label="address.id">
+                                <span class="address">{{ address.name }}{{ getCountyName(address.country_id) }},
+                                {{ address.address }},
+                                {{ address.address_2 }},
+                                {{ address.city }},
+                                {{ address.region }},
+                                {{ address.postcode }},
+                                {{ address.email }},
+                                {{ address.phone }},
+                                <a href="#" @click.prevent="edit(address)"
+                                   style="margin-top: 5px;display: block;text-decoration: underline;">Edit address</a>
+                            </span>
+                            </el-radio>
+                        </div>
                     </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                    <el-form-item prop="postcode">
-                        <el-input placeholder="Postcode" name="postcode" v-model="address.postcode"></el-input>
-                    </el-form-item>
-                </el-col>
-            </el-row>
 
-            <el-form-item prop="email">
-                <el-input placeholder="Email" name="email" v-model="address.email"></el-input>
-            </el-form-item>
-
-            <input type="hidden" name="phone" v-model="address.phone">
-
-            <el-form-item prop="phone">
-                <vue-tel-input v-model="address.phone" :preferredCountries="['us', 'dk', 'ua']"></vue-tel-input>
-            </el-form-item>
+                    <el-button type="text" @click="createAddress">Create new Address</el-button>
 
 
-            <el-button native-type="submit">Go to checkout</el-button>
-            <el-button type="text"><a href="/cart">Back to Cart</a></el-button>
+                    <!--<hr>-->
+                    <div style="margin-top: 20px;">
 
-        </el-form>
+                        <el-button type="primary" native-type="submit">Save</el-button>
 
-    </el-card>
+                        <el-button type="warning"><a href="/cart">Back to Cart</a></el-button>
+
+                    </div>
+
+                </el-form>
+
+
+            </el-card>
+
+        </div>
+
+        <el-dialog :visible.sync="showAddressForm" width="30%" title="Delivery Address"
+                   :before-close="handleCloseDialog">
+
+            <el-form :model="address" status-icon :rules="rules" ref="address"
+                     @submit.native.prevent="save" method="POST" action="/address">
+                <input type="hidden" name="_token" :value="csrf">
+
+                <errors></errors>
+
+                <el-form-item prop="country_id">
+                    <el-select value="" name="country_id" v-model="address.country_id" filterable
+                               placeholder="Select country">
+                        <el-option
+                                v-for="country in countries"
+                                :key="country.id"
+                                :label="country.country_name"
+                                :value="country.id">
+                        </el-option>
+                    </el-select>
+                </el-form-item>
+
+                <el-form-item prop="address">
+                    <el-input placeholder="Address" name="address" v-model="address.address"></el-input>
+                </el-form-item>
+
+                <el-form-item prop="optional_address">
+                    <el-input placeholder="Optional Address" name="address_2" v-model="address.address_2"></el-input>
+                </el-form-item>
+
+                <el-form-item prop="city">
+                    <el-input placeholder="City" name="city" v-model="address.city"></el-input>
+                </el-form-item>
+
+                <el-row :gutter="20">
+                    <el-col :span="16">
+                        <el-form-item prop="region">
+                            <el-input placeholder="State / Region / Province" name="region"
+                                      v-model="address.region"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="8">
+                        <el-form-item prop="postcode">
+                            <el-input placeholder="Postcode" name="postcode" v-model="address.postcode"></el-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+
+                <el-form-item prop="email">
+                    <el-input placeholder="Email" name="email" v-model="address.email"></el-input>
+                </el-form-item>
+
+                <input type="hidden" name="phone" v-model="address.phone">
+
+                <el-form-item prop="phone">
+                    <vue-tel-input v-model="address.phone" :preferredCountries="['us', 'dk', 'ua']"></vue-tel-input>
+                </el-form-item>
+
+
+                <el-button native-type="submit" type="primary">Save</el-button>
+
+                <el-button @click="resetForm('address')">Reset</el-button>
+
+
+            </el-form>
+
+        </el-dialog>
+
+
+    </el-main>
 
 
 </template>
 
 <script>
     export default {
+        props: {
+            addresses_: {},
+        },
         data() {
             return {
+                showAddressForm: false,
+                deliveryAddresses: {
+                    selectedAddress: 0,
+                },
+                addressesRules: {
+                    address: [
+                        {required: true, message: 'Please select address for delivery', trigger: 'blur'}
+                    ]
+                },
+                addresses: {},
                 address: {
-                    country: '',
-                    address: '',
-                    address_2: '',
-                    city: '',
-                    region: '',
-                    postcode: '',
-                    email: '',
-                    phone: '',
+                    // country_id: '',
+                    // address: '',
+                    // address_2: '',
+                    // city: '',
+                    // region: '',
+                    // postcode: '',
+                    // email: '',
+                    // phone: '',
                 },
                 countries: '',
                 rules: {
-                    country: [
+                    country_id: [
                         {required: true, message: 'Please select country', trigger: 'blur'}
                     ],
                     address: [
                         {required: true, message: 'Please enter address', trigger: 'blur'}
                     ],
+                    optional_address: [{}],
                     city: [
                         {required: true, message: 'Please enter city', trigger: 'blur'}
                     ],
@@ -112,15 +187,75 @@
             axios.get('/api/countries').then(response => {
                 this.countries = response.data;
             });
+
+            if (this.addresses_) {
+                this.addresses = JSON.parse(this.addresses_);
+            }
+
+            if (!this.addresses.length) {
+                this.showAddressForm = true;
+            }
+
+            console.log(this.addresses);
         },
         methods: {
+            edit(address) {
+                this.address = Object.assign({}, address);
+                this.showAddressForm = true;
+            },
             save() {
                 this.$refs['address'].validate((valid) => {
                     if (valid) {
-                        this.$refs['address'].$el.submit();
+                        // this.$refs['address'].$el.submit();
+                        axios.post('/api/address', this.address)
+                            .then(response => {
+                                console.log(response.data);
+                                this.$message({
+                                    showClose: true,
+                                    message: response.data.message,
+                                    type: response.data.status
+                                });
+                                this.addresses = response.data.data;
+                                this.handleCloseDialog();
+                            })
+                            .catch(error => {
+                                this.$store.commit('setErrors', error.response.data.errors);
+                                console.log(error);
+                            })
+                    }
+                })
+            },
+            saveAddresses() {
+                this.$refs['addresses'].validate((valid) => {
+                    if (valid) {
+                        this.$refs['addresses'].$el.submit();
 
                     }
                 })
+            },
+            handleCloseDialog() {
+                this.$refs['address'].resetFields();
+                this.showAddressForm = false;
+            },
+            getCountyName(id) {
+                let countryName = '';
+                if (this.countries.length) {
+                    this.countries.map(country => {
+                        if (country.id === id) {
+                            countryName = country.country_name;
+                        }
+                    });
+                }
+
+                return countryName;
+            },
+            resetForm(formName) {
+                // console.log(this.$refs[formName].resetFields());
+                this.$refs[formName].resetFields();
+            },
+            createAddress() {
+                this.address = {};
+                this.showAddressForm = true;
             }
         }
     }

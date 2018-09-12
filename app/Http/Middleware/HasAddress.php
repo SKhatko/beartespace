@@ -18,7 +18,7 @@ class HasAddress
     	if(auth()->user() && auth()->user()->addresses()->count()) {
 		    return $next($request);
 	    } else {
-		    return redirect( route( 'address.create' ));
+		    return redirect( route( 'address' ));
 	    }
     }
 }

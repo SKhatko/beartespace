@@ -48,6 +48,9 @@ Route::group( [ 'middleware' => 'auth:api' ], function () {
 	// Checkout
 	Route::post( 'checkout/checkout', 'Api\CheckoutController@checkout' );
 
+	// Address
+	Route::post( 'address', 'Api\AddressController@store');
+
 } );
 
 //Route::post( 'checkout/address', 'Api\CheckoutController@address' );

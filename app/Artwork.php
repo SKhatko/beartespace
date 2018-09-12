@@ -48,9 +48,9 @@ class Artwork extends Model {
 	}
 
 	public function getStockStatusAttribute() {
-		if($this->attributes['sold']) {
+		if ( $this->attributes['sold'] ) {
 			return 'sold';
-		} else if(!$this->attributes['available']) {
+		} else if ( ! $this->attributes['available'] ) {
 			return 'unavailable';
 		} else {
 			return 'available';
@@ -64,6 +64,10 @@ class Artwork extends Model {
 
 	public function scopeAuction( $query ) {
 		return $query->whereAuctionStatus( '1' );
+	}
+
+	public function getUniqueAttribute( $value ) {
+		return ! ! $value;
 	}
 
 	public function getOptionalSizeAttribute( $value ) {

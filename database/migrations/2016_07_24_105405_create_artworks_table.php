@@ -39,6 +39,8 @@ class CreateArtworksTable extends Migration {
 			$table->string( 'sold_by' )->nullable();
 			$table->boolean( 'available' )->nullable()->default(1);
 			$table->integer('image_id')->nullable();
+			$table->integer('quantity')->nullable()->default(1);
+			$table->boolean('unique')->nullable()->default(1);
 
 			//0 =pending for review, 1= available, 2=unavailable, 3=sold,
 			$table->enum( 'status', [ 0, 1, 2, 3 ] )->nullable();

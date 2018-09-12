@@ -21,12 +21,13 @@ class ArtworkController extends Controller {
 			'image_url',
 			'images',
 			'formatted_price',
+			'stock_status',
 			'artwork_options_add',
 			'artwork_inspiration_add',
 			'artwork_interior_add'
 		] ), [ 'user_id' => $user->id ] ) );
 
-		$artwork = $artwork->whereId( $artwork->id )->with( 'images' )->first();
+		$artwork = $artwork->whereId( $artwork->id )->with( 'images', 'image' )->first();
 
 		return [ 'status' => 'success', 'message' => 'Saved', 'data' => $artwork ];
 	}
@@ -54,8 +55,9 @@ class ArtworkController extends Controller {
 		$image->save();
 		$artwork = $artwork->image()->associate( $image );
 		$artwork->save();
+		$artwork = $artwork->fresh();
 
-		return [ 'status' => 'success', 'message' => 'Image Uploaded', 'data' => $artwork->image_url ];
+		return [ 'status' => 'success', 'message' => 'Image Uploaded', 'data' => $artwork->image ];
 	}
 
 	public function uploadArtworkImages( Request $request, $id ) {

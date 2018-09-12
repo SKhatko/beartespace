@@ -11,7 +11,14 @@ class CartController extends Controller {
 	public $response;
 
 	public function index() {
-		return view( 'cart.index' );
+
+		$cartArtworks = Cart::content()->pluck('id');
+
+		$artworks = Artwork::find($cartArtworks);
+//		$artworks = Artwork::find([1212]);
+
+//		return $artworks;
+		return view( 'cart.index', compact('artworks'));
 	}
 
 	public function apiToggleCart( Request $request, $id ) {
@@ -33,7 +40,7 @@ class CartController extends Controller {
 				}
 			} );
 		} else {
-			Cart::add( $artwork->id, $artwork->title, 1, $artwork->price, [ 'image_url' => $artwork->image_url ] );
+			Cart::add( $artwork->id, $artwork->title, 1, $artwork->price );
 
 			$this->response = [
 				'status'  => 'success',
@@ -63,9 +70,9 @@ class CartController extends Controller {
 				}
 			} );
 		} else {
-			Cart::add( $artwork->id, $artwork->title, 1, $artwork->price, [ 'image_url' => $artwork->image_url ] );
+			Cart::add( $artwork->id, $artwork->title, 1, $artwork->price );
 
-			$this->response = redirect()->route( 'checkout' );
+			$this->response = redirect()->route( 'cart' );
 
 		}
 
@@ -76,7 +83,7 @@ class CartController extends Controller {
 		$artwork = Artwork::findOrFail( $id );
 
 		if ( ! Cart::content()->contains( 'id', $artwork->id ) ) {
-			Cart::add( $artwork->id, $artwork->title, 1, $artwork->price, [ 'image_url' => $artwork->image_url ] );
+			Cart::add( $artwork->id, $artwork->title, 1, $artwork->price);
 		}
 
 		return redirect()->back()->with( 'message', [

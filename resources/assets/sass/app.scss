@@ -785,6 +785,21 @@ body, html {
 .app-checkout {
   width: 100%;
   max-width: 800px;
+
+  .checkout {
+
+    &-payment {
+
+      &-stripe {
+        margin-top: 20px;
+      }
+
+      &-buttons {
+
+      }
+
+    }
+  }
 }
 
 .app-cart {
@@ -835,6 +850,19 @@ body, html {
 .app-address {
   max-width: 400px;
   width: 100%;
+  margin: 0 auto;
+
+  .radio {
+    display: flex;
+    margin-top: 20px;
+
+  }
+
+  .address {
+    white-space: normal;
+    //display: flex;
+
+  }
 }
 
 .app-footer {

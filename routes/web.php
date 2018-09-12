@@ -76,8 +76,9 @@ Route::group( [ 'middleware' => 'web' ], function () {
 
 	// Checkout
 	Route::get( 'checkout', 'CheckoutController@index' )->name( 'checkout' )->middleware( [ 'auth', 'has-address' ] );
-	Route::get( 'address/create', 'AddressController@create' )->name( 'address.create' )->middleware( 'auth' );
-	Route::get( 'address/{id}/edit', 'AddressController@edit' )->name( 'address.show' )->middleware( 'auth' );
+
+	// Address
+	Route::get( 'address', 'AddressController@index' )->middleware( 'auth' )->name('address');
 	Route::post( 'address', 'AddressController@store' )->middleware( 'auth' );
 
 	// Pages

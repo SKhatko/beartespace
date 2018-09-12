@@ -85,31 +85,34 @@
 
             </el-row>
 
+
+            <el-row :gutter="20">
+
+                <el-col :sm="8">
+                    <el-form-item label="How many items do you want sell?" prop="quantity">
+                        <el-input-number :min="1" :precision="0" v-model="artwork.quantity" :disabled="showArtworkQuantity"></el-input-number>
+                    </el-form-item>
+                </el-col>
+
+                <el-col :sm="8">
+                    <el-form-item label="Is your artwork unique">
+                        <el-switch
+                                v-model="artwork.unique"
+                                active-text="Artwork is unique"
+                                inactive-text="Artwork exists in few pieces">
+                        </el-switch>
+                    </el-form-item>
+                </el-col>
+
+
+            </el-row>
+
             <template v-if="artwork_">
-
-                <!--    Medium, color, theme, art direction -->
-                <el-dialog
-                        title="Upgrade Your Artwork"
-                        :visible.sync="dialogs.artworkOptionsAddDialog"
-                        width="30%">
-                    <p>We offer you to give more descriptions for your artwork, so customers can find your artwork by
-                        medium (material), orientation, shape, art direction or even basic colors.</p>
-                    <p>Add more search options for 1 EUR</p>
-                    <span slot="footer" class="dialog-footer">
-                <el-button type="primary" @click="saveArtwork(false, confirmArtworkUpgrade('artwork_options_add', 1))">Confirm</el-button>
-              </span>
-                </el-dialog>
-
-                <el-button type="text" @click="dialogs.artworkOptionsAddDialog = true"
-                           v-if="showArtworkOptions">
-                    Add extra search options to attract more customers
-                </el-button>
 
                 <el-row :gutter="20">
                     <el-col :sm="8">
                         <el-form-item label="Medium">
                             <el-select value="" v-model="artwork.medium" multiple filterable allow-create collapse-tags
-                                       :disabled="showArtworkOptions"
                                        default-first-option placeholder="Select material">
                                 <el-option v-for="medium in options('medium')" :key="medium.value" :label="medium.label"
                                            :value="medium.value"></el-option>
@@ -120,7 +123,6 @@
                         <el-form-item label="Art direction">
                             <el-select value="" v-model="artwork.direction" multiple filterable allow-create
                                        collapse-tags
-                                       :disabled="showArtworkOptions"
                                        default-first-option placeholder="Select">
                                 <el-option v-for="direction in options('direction')" :key="direction.value"
                                            :label="direction.label"
@@ -131,7 +133,6 @@
                     <el-col :sm="8">
                         <el-form-item label="Theme">
                             <el-select value="" v-model="artwork.theme" multiple filterable allow-create collapse-tags
-                                       :disabled="showArtworkOptions"
                                        default-first-option placeholder="Select">
                                 <el-option v-for="theme in options('theme')" :key="theme.value" :label="theme.label"
                                            :value="theme.value"></el-option>
@@ -141,7 +142,6 @@
                     <el-col :sm="8">
                         <el-form-item label="Main colors">
                             <el-select value="" v-model="artwork.color" multiple filterable allow-create collapse-tags
-                                       :disabled="showArtworkOptions"
                                        default-first-option placeholder="Select">
                                 <el-option v-for="color in options('color')" :key="color.value" :label="color.label"
                                            :value="color.value">
@@ -154,7 +154,6 @@
                     <el-col :sm="8">
                         <el-form-item label="Artwork shape">
                             <el-select value="" v-model="artwork.shape" filterable allow-create collapse-tags
-                                       :disabled="showArtworkOptions"
                                        default-first-option placeholder="Select shape">
                                 <el-option v-for="shape in options('shape')" :key="shape.value" :label="shape.label"
                                            :value="shape.value"></el-option>
@@ -187,7 +186,6 @@
                                     <p>Buyers love stories, attract them to your art, show your art in the best possible way.</p>
                                     <p>Sent us keywords and we can write a short story about your work to convince others why is so
                                         unique. The description of your inspiration is best to write in English.</p>
-                                    <p>Make your artwork more attractive for 1 EUR</p>
                                     <span slot="footer" class="dialog-footer">
                                 <el-button type="primary"
                                            @click="saveArtwork(false, confirmArtworkUpgrade('artwork_inspiration_add', 1))">Confirm</el-button>
@@ -198,7 +196,6 @@
 
                             <vue-editor id="inspiration" v-model="artwork.inspiration"
                                         placeholder="Things that inspire you"
-                                        :disabled="showArtworkInspiration"
                                         :editorToolbar="artworkEditorToolbar"></vue-editor>
                         </el-form-item>
                     </el-col>
@@ -220,14 +217,15 @@
                         </el-form-item>
                     </el-col>
                     <el-col :sm="12">
-                        <el-form-item label="Price">
+                        <el-form-item label="Price, Eur">
                             <el-input-number value="2" v-model="artwork.price" :min="1" :max="50000"></el-input-number>
 
-                            <el-select value="" v-model="artwork.currency" placeholder="Select currency"
-                                       style="max-width: 200px;margin-left: 20px;">
-                                <el-option v-for="(label, value) in currencies" :key="value" :value="value"
-                                           :label="value"></el-option>
-                            </el-select>
+                            <span class="h4">Your profit: {{ artwork.price }} - 15% = {{ profitPrice }} Eur</span>
+                            <!--<el-select value="" v-model="artwork.currency" placeholder="Select currency"-->
+                                       <!--style="max-width: 200px;margin-left: 20px;">-->
+                                <!--<el-option v-for="(label, value) in currencies" :key="value" :value="value"-->
+                                           <!--:label="value"></el-option>-->
+                            <!--</el-select>-->
                         </el-form-item>
 
                     </el-col>
@@ -284,7 +282,7 @@
                             accept=".jpg, .jpeg"
                             :on-success="handleImageSuccess"
                             :before-upload="beforeImageUpload">
-                        <img :src="'/imagecache/height-200/' + artwork.image_url" class="image">
+                        <img v-if="artwork.image" :src="'/imagecache/height-200/' + artwork.image.url" class="image">
                     </el-upload>
 
                 </el-form-item>
@@ -395,7 +393,7 @@
                     ],
                     b_weight: [
                         {required: true, message: 'Please select weight', trigger: ['blur', 'change']}
-                    ],
+                    ]
                 },
 
                 artworkEditorToolbar: [
@@ -436,8 +434,7 @@
 
         methods: {
 
-            saveArtwork(redirect = false, callback = () => {
-            }) {
+            saveArtwork(redirect = false, callback = () => {}) {
                 this.$refs['artwork'].validate((valid) => {
                     if (valid) {
                         this.loading = true;
@@ -503,17 +500,11 @@
             handleImagesSuccess(response, file, fileList) {
                 console.log(response);
                 this.artwork.images = response.data;
-
-                // this.artwork.images.push({
-                //     name: file.name,
-                //     url: file.url
-                // });
             },
-
 
             handleImageSuccess(response, file) {
                 console.log(response);
-                this.artwork.image_url = response.data;
+                this.artwork.image = response.data;
                 this.$message({
                     showClose: true,
                     message: response.message,
@@ -555,6 +546,12 @@
 
         },
         computed: {
+            profitPrice() {
+                return this.artwork.price - (this.artwork.price * 15 / 100);
+            },
+            showArtworkQuantity() {
+                return this.artwork.unique;
+            },
             showArtworkOptions() {
                 return !this.user.profile_premium_add && !this.artwork.artwork_options_add;
             },
