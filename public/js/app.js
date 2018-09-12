@@ -18530,7 +18530,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -18540,7 +18539,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             showAddressForm: false,
             deliveryAddresses: {
-                selectedAddress: 0
+                selectedAddress: '131231'
             },
             addressesRules: {
                 address: [{ required: true, message: 'Please select address for delivery', trigger: 'blur' }]
@@ -18558,6 +18557,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             },
             countries: '',
             rules: {
+                name: [{ required: true, message: 'Please enter name for delivery', trigger: 'blur' }],
                 country_id: [{ required: true, message: 'Please select country', trigger: 'blur' }],
                 address: [{ required: true, message: 'Please enter address', trigger: 'blur' }],
                 optional_address: [{}],
@@ -18642,10 +18642,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
 
             return countryName;
-        },
-        resetForm: function resetForm(formName) {
-            // console.log(this.$refs[formName].resetFields());
-            this.$refs[formName].resetFields();
         },
         createAddress: function createAddress() {
             this.address = {};
@@ -23058,7 +23054,7 @@ exports.push([module.i, "\n.avatar-uploader .el-upload, .image-uploader .el-uplo
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 /* 182 */
@@ -69468,24 +69464,24 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "prop": "address"
     }
+  }, [_c('el-radio-group', {
+    model: {
+      value: (_vm.deliveryAddresses.selectedAddress),
+      callback: function($$v) {
+        _vm.$set(_vm.deliveryAddresses, "selectedAddress", $$v)
+      },
+      expression: "deliveryAddresses.selectedAddress"
+    }
   }, _vm._l((_vm.addresses), function(address) {
-    return _c('div', {
-      key: address.id
-    }, [_c('el-radio', {
+    return _c('el-radio', {
+      key: address.id,
       staticClass: "radio",
       attrs: {
         "label": address.id
-      },
-      model: {
-        value: (_vm.deliveryAddresses.selectedAddress),
-        callback: function($$v) {
-          _vm.$set(_vm.deliveryAddresses, "selectedAddress", $$v)
-        },
-        expression: "deliveryAddresses.selectedAddress"
       }
     }, [_c('span', {
       staticClass: "address"
-    }, [_vm._v(_vm._s(address.name) + _vm._s(_vm.getCountyName(address.country_id)) + ",\n                            " + _vm._s(address.address) + ",\n                            " + _vm._s(address.address_2) + ",\n                            " + _vm._s(address.city) + ",\n                            " + _vm._s(address.region) + ",\n                            " + _vm._s(address.postcode) + ",\n                            " + _vm._s(address.email) + ",\n                            " + _vm._s(address.phone) + ",\n                            "), _c('a', {
+    }, [_vm._v(_vm._s(address.name) + ", " + _vm._s(_vm.getCountyName(address.country_id)) + ",\n                            " + _vm._s(address.address) + ",\n                            " + _vm._s(address.address_2) + ",\n                            " + _vm._s(address.city) + ",\n                            " + _vm._s(address.region) + ",\n                            " + _vm._s(address.postcode) + ",\n                            " + _vm._s(address.email) + ",\n                            " + _vm._s(address.phone) + ",\n                            "), _c('a', {
       staticStyle: {
         "margin-top": "5px",
         "display": "block",
@@ -69500,8 +69496,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           _vm.edit(address)
         }
       }
-    }, [_vm._v("Edit address")])])])], 1)
-  })), _vm._v(" "), _c('el-button', {
+    }, [_vm._v("Edit address")])])])
+  }))], 1), _vm._v(" "), _c('el-button', {
     attrs: {
       "type": "text"
     },
@@ -69561,6 +69557,22 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "value": _vm.csrf
     }
   }), _vm._v(" "), _c('errors'), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "prop": "name"
+    }
+  }, [_c('el-input', {
+    attrs: {
+      "placeholder": "Enter name for delivery",
+      "name": "name"
+    },
+    model: {
+      value: (_vm.address.name),
+      callback: function($$v) {
+        _vm.$set(_vm.address, "name", $$v)
+      },
+      expression: "address.name"
+    }
+  })], 1), _vm._v(" "), _c('el-form-item', {
     attrs: {
       "prop": "country_id"
     }
@@ -69734,13 +69746,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "native-type": "submit",
       "type": "primary"
     }
-  }, [_vm._v("Save")]), _vm._v(" "), _c('el-button', {
-    on: {
-      "click": function($event) {
-        _vm.resetForm('address')
-      }
-    }
-  }, [_vm._v("Reset")])], 1)], 1)], 1)
+  }, [_vm._v("Save")])], 1)], 1)], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

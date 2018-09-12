@@ -16,9 +16,9 @@
                     <input type="hidden" name="_token" :value="csrf">
 
                     <el-form-item prop="address">
-                        <div v-for="address in addresses" :key="address.id">
-                            <el-radio class="radio" v-model="deliveryAddresses.selectedAddress" :label="address.id">
-                                <span class="address">{{ address.name }}{{ getCountyName(address.country_id) }},
+                        <el-radio-group v-model="deliveryAddresses.selectedAddress">
+                            <el-radio class="radio" v-for="address in addresses" :key="address.id" :label="address.id">
+                                <span class="address">{{ address.name }}, {{ getCountyName(address.country_id) }},
                                 {{ address.address }},
                                 {{ address.address_2 }},
                                 {{ address.city }},
@@ -28,13 +28,12 @@
                                 {{ address.phone }},
                                 <a href="#" @click.prevent="edit(address)"
                                    style="margin-top: 5px;display: block;text-decoration: underline;">Edit address</a>
-                            </span>
+                                    </span>
                             </el-radio>
-                        </div>
+                        </el-radio-group>
                     </el-form-item>
 
                     <el-button type="text" @click="createAddress">Create new Address</el-button>
-
 
                     <!--<hr>-->
                     <div style="margin-top: 20px;">
@@ -60,6 +59,10 @@
                 <input type="hidden" name="_token" :value="csrf">
 
                 <errors></errors>
+
+                <el-form-item prop="name">
+                    <el-input placeholder="Enter name for delivery" name="name" v-model="address.name"></el-input>
+                </el-form-item>
 
                 <el-form-item prop="country_id">
                     <el-select value="" name="country_id" v-model="address.country_id" filterable
@@ -109,11 +112,7 @@
                     <vue-tel-input v-model="address.phone" :preferredCountries="['us', 'dk', 'ua']"></vue-tel-input>
                 </el-form-item>
 
-
                 <el-button native-type="submit" type="primary">Save</el-button>
-
-                <el-button @click="resetForm('address')">Reset</el-button>
-
 
             </el-form>
 
@@ -134,7 +133,7 @@
             return {
                 showAddressForm: false,
                 deliveryAddresses: {
-                    selectedAddress: 0,
+                    selectedAddress: '131231',
                 },
                 addressesRules: {
                     address: [
@@ -154,6 +153,9 @@
                 },
                 countries: '',
                 rules: {
+                    name: [
+                        {required: true, message: 'Please enter name for delivery', trigger: 'blur'}
+                    ],
                     country_id: [
                         {required: true, message: 'Please select country', trigger: 'blur'}
                     ],
@@ -248,10 +250,6 @@
                 }
 
                 return countryName;
-            },
-            resetForm(formName) {
-                // console.log(this.$refs[formName].resetFields());
-                this.$refs[formName].resetFields();
             },
             createAddress() {
                 this.address = {};
