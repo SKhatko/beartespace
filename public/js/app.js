@@ -18536,10 +18536,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         addresses_: {}
     },
     data: function data() {
+        var addressValidator = function addressValidator(rule, value, callback) {
+            if (!value) {
+                callback(new Error('Please enter name for delivery'));
+            } else if (value) {
+                callback(new Error('Two inputs don\'t match!'));
+            } else {
+                callback();
+            }
+        };
+
         return {
             showAddressForm: false,
             deliveryAddresses: {
-                selectedAddress: '131231'
+                selectedAddress: 0
             },
             addressesRules: {
                 address: [{ required: true, message: 'Please select address for delivery', trigger: 'blur' }]
@@ -18557,7 +18567,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             },
             countries: '',
             rules: {
-                name: [{ required: true, message: 'Please enter name for delivery', trigger: 'blur' }],
+                name: [{ required: true, validator: addressValidator, trigger: 'blur' }],
                 country_id: [{ required: true, message: 'Please select country', trigger: 'blur' }],
                 address: [{ required: true, message: 'Please enter address', trigger: 'blur' }],
                 optional_address: [{}],
@@ -23054,7 +23064,7 @@ exports.push([module.i, "\n.avatar-uploader .el-upload, .image-uploader .el-uplo
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(14)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 /* 182 */

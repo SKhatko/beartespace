@@ -130,10 +130,20 @@
             addresses_: {},
         },
         data() {
+            let addressValidator = (rule, value, callback) => {
+                if (!value) {
+                    callback(new Error('Please enter name for delivery'));
+                } else if (value ) {
+                    callback(new Error('Two inputs don\'t match!'));
+                } else {
+                    callback();
+                }
+            };
+
             return {
                 showAddressForm: false,
                 deliveryAddresses: {
-                    selectedAddress: '131231',
+                    selectedAddress: 0,
                 },
                 addressesRules: {
                     address: [
@@ -154,7 +164,7 @@
                 countries: '',
                 rules: {
                     name: [
-                        {required: true, message: 'Please enter name for delivery', trigger: 'blur'}
+                        {required: true, validator: addressValidator, trigger: 'blur'}
                     ],
                     country_id: [
                         {required: true, message: 'Please select country', trigger: 'blur'}
