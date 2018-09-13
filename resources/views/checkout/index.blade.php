@@ -10,35 +10,44 @@
                 <el-breadcrumb-item>Checkout</el-breadcrumb-item>
             </el-breadcrumb>
 
-            <checkout-form>
+            <el-card class="box-card checkout-payment">
+                <div slot="header" class="h4">Select a payment method</div>
 
+                <div class="checkout-payment-price">
+                    10eur
+                </div>
 
-                <el-form action="/checkout/pay" method="post" id="payment-form">
-                    {{ csrf_field() }}
+                <div class="checkout-payment-buttons">
+                    <el-button type="primary">Pay with Paypal</el-button>
+                </div>
 
-                    <el-form-item label="Credit or debit card">
-                        <div id="card-element"></div>
-                    </el-form-item>
+                <div class="p">or Pay with Mastercard / Visa</div>
 
-                    <div class="form-row">
-                        <label for="card-element">
-                            Something here
-                        </label>
-                        <div id="card-element">
-                            <!-- A Stripe Element will be inserted here. -->
-                        </div>
+                <div class="checkout-payment-stripe">
+                    <el-form action="/checkout/pay" method="post" id="payment-form">
+                        {{ csrf_field() }}
 
-                        <!-- Used to display Element errors. -->
-                        <div id="card-errors" role="alert"></div>
-                    </div>
+                        <el-form-item>
+                            <span slot="label">
+                                Credit or debit card
+                            </span>
 
-                    <el-button>Submit</el-button>
+                            <div id="card-element">
+                                <!-- A Stripe Element will be inserted here. -->
+                            </div>
 
-                    <button>Submit Payment</button>
-                </el-form>
+                            <!-- Used to display form errors. -->
+                            <div id="card-errors" role="alert">
+                                errors
+                            </div>
+                        </el-form-item>
 
+                        <el-button type="primary" native-type="submit">Pay with Card</el-button>
 
-            </checkout-form>
+                    </el-form>
+                </div>
+
+            </el-card>
 
             <el-card class="box-card checkout-address">
                 <div slot="header" class="h4">Delivery Address</div>
@@ -105,16 +114,30 @@
 @section('script')
 
     <script>
+        // Create a Stripe client.
+        var stripe = Stripe('{{ config('services.stripe.key') }}');
 
-        var stripe = Stripe('pk_test_hRbzarBjU9kEvjlNLAdqm5he');
+        console.log(stripe);
+
+        // Create an instance of Elements.
         var elements = stripe.elements();
 
         // Custom styling can be passed to options when creating an Element.
+        // (Note that this demo uses a wider set of styles than the guide below.)
         var style = {
             base: {
-                // Add your base input styles here. For example:
+                color: '#32325d',
+                lineHeight: '18px',
+                fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+                fontSmoothing: 'antialiased',
                 fontSize: '16px',
-                color: "#32325d",
+                '::placeholder': {
+                    color: '#aab7c4'
+                }
+            },
+            invalid: {
+                color: '#fa755a',
+                iconColor: '#fa755a'
             }
         };
 
@@ -124,6 +147,7 @@
         // Add an instance of the card Element into the `card-element` <div>.
         card.mount('#card-element');
 
+        // Handle real-time validation errors from the card Element.
         card.addEventListener('change', function (event) {
             var displayError = document.getElementById('card-errors');
             if (event.error) {
@@ -133,15 +157,14 @@
             }
         });
 
-
-        // Create a token or display an error when the form is submitted.
+        // Handle form submission.
         var form = document.getElementById('payment-form');
         form.addEventListener('submit', function (event) {
             event.preventDefault();
 
             stripe.createToken(card).then(function (result) {
                 if (result.error) {
-                    // Inform the customer that there was an error.
+                    // Inform the user if there was an error.
                     var errorElement = document.getElementById('card-errors');
                     errorElement.textContent = result.error.message;
                 } else {
@@ -150,20 +173,7 @@
                 }
             });
         });
-
-        function stripeTokenHandler(token) {
-            // Insert the token ID into the form so it gets submitted to the server
-            var form = document.getElementById('payment-form');
-            var hiddenInput = document.createElement('input');
-            hiddenInput.setAttribute('type', 'hidden');
-            hiddenInput.setAttribute('name', 'stripeToken');
-            hiddenInput.setAttribute('value', token.id);
-            form.appendChild(hiddenInput);
-
-            // Submit the form
-            form.submit();
-        }
-
     </script>
+
 
 @endsection

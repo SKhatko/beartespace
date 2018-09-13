@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 class PaymentController extends Controller {
 	public function pay( Request $request ) {
 
+		return $request->all();
 		Stripe::setApiKey(config('services.stripe.secret'));
 
 		$token = request('stripeToken');
