@@ -18,33 +18,35 @@
                 </div>
 
                 <div class="checkout-payment-buttons">
-                    <el-button type="primary">Pay with Paypal</el-button>
+                    <el-button type="primary" id="paypal-submit">Pay with Paypal</el-button>
                 </div>
 
                 <div class="p">or Pay with Mastercard / Visa</div>
 
                 <div class="checkout-payment-stripe">
-                    <el-form action="/checkout/pay" method="post" id="payment-form">
+                    <form action="/checkout/pay" method="post" id="payment-form">
                         {{ csrf_field() }}
 
-                        <el-form-item>
-                            <span slot="label">
+                        <div class="el-form-item">
+                            <label class="el-form-item__label">
                                 Credit or debit card
-                            </span>
+                            </label>
 
                             <div id="card-element">
                                 <!-- A Stripe Element will be inserted here. -->
                             </div>
 
                             <!-- Used to display form errors. -->
-                            <div id="card-errors" role="alert">
-                                errors
-                            </div>
-                        </el-form-item>
+                            <div id="card-errors" class="checkout-payment-stripe__errors" role="alert"></div>
+                        </div>
 
-                        <el-button type="primary" native-type="submit">Pay with Card</el-button>
+                        Press enter to submit the form
 
-                    </el-form>
+                        {{--<button type="submit" form="payment-form" class="el-button el-button--primary" id="submit-button">--}}
+                            {{--Pay with Card--}}
+                        {{--</button>--}}
+
+                    </form>
                 </div>
 
             </el-card>
@@ -114,10 +116,9 @@
 @section('script')
 
     <script>
+
         // Create a Stripe client.
         var stripe = Stripe('{{ config('services.stripe.key') }}');
-
-        console.log(stripe);
 
         // Create an instance of Elements.
         var elements = stripe.elements();
@@ -149,6 +150,7 @@
 
         // Handle real-time validation errors from the card Element.
         card.addEventListener('change', function (event) {
+            console.log(event, 'event');
             var displayError = document.getElementById('card-errors');
             if (event.error) {
                 displayError.textContent = event.error.message;
@@ -159,10 +161,14 @@
 
         // Handle form submission.
         var form = document.getElementById('payment-form');
+
         form.addEventListener('submit', function (event) {
+            console.log(event, 'submit');
             event.preventDefault();
 
             stripe.createToken(card).then(function (result) {
+                console.log(card);
+                console.log(result);
                 if (result.error) {
                     // Inform the user if there was an error.
                     var errorElement = document.getElementById('card-errors');
@@ -173,6 +179,27 @@
                 }
             });
         });
+
+        var payWithPaypal = document.getElementById('paypal-submit');
+
+        var submitButton = document.getElementById('submit-button');
+
+        payWithPaypal.addEventListener("click", function (event) {
+            alert("paypal");
+            console.log(event);
+        }, false);
+
+        submitButton.addEventListener("click", function (event) {
+            alert("something");
+
+            event.preventDefault();
+
+            return false;
+
+        }, false);
+
+
+
     </script>
 
 

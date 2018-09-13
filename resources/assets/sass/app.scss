@@ -798,6 +798,10 @@ body, html {
 
       &-stripe {
         margin-top: 20px;
+
+        &__errors {
+          color: $--color-danger;
+        }
       }
 
       &-buttons {

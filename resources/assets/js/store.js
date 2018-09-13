@@ -50,14 +50,14 @@ let store = {
         },
 
         setInitialShoppingCart(state, cart) {
-            console.log('Initial shopping cart', cart);
+            // console.log('Initial shopping cart', cart);
             state.shoppingCartCount = cart.length;
             state.shoppingCart = cart;
 
         },
 
         setInitialFavoriteArtworks(state, favoriteArtworks) {
-            console.log('Initial favorite artworks', favoriteArtworks.length);
+            // console.log('Initial favorite artworks', favoriteArtworks.length);
             state.favoriteArtworksCount = favoriteArtworks.length;
             state.favoriteArtworks = favoriteArtworks;
         },

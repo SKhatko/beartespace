@@ -16326,7 +16326,7 @@ var app = new Vue({
         }
 
         axios.get('/api/profile').then(function (response) {
-            console.log('profile', response.data);
+            // console.log('profile', response.data);
         }).catch(function (error) {
             console.log(error.response);
         });
@@ -22186,12 +22186,12 @@ var store = {
             });
         },
         setInitialShoppingCart: function setInitialShoppingCart(state, cart) {
-            console.log('Initial shopping cart', cart);
+            // console.log('Initial shopping cart', cart);
             state.shoppingCartCount = cart.length;
             state.shoppingCart = cart;
         },
         setInitialFavoriteArtworks: function setInitialFavoriteArtworks(state, favoriteArtworks) {
-            console.log('Initial favorite artworks', favoriteArtworks.length);
+            // console.log('Initial favorite artworks', favoriteArtworks.length);
             state.favoriteArtworksCount = favoriteArtworks.length;
             state.favoriteArtworks = favoriteArtworks;
         },
