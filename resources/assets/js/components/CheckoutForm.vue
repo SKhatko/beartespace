@@ -2,7 +2,12 @@
     <el-card class="box-card checkout-payment">
         <div slot="header" class="h4">Select a payment method</div>
 
-        <div class="checkout-payment-buttons" style="text-align: left;">
+        <div class="checkout-payment-price">
+
+            10eur
+        </div>
+
+        <div class="checkout-payment-buttons">
             <el-button type="primary" @click="payWithPaypal" >Pay with Paypal</el-button>
             <el-button type="primary" @click="showPayWithStripe = !showPayWithStripe">Pay with Mastercard / Visa</el-button>
         </div>

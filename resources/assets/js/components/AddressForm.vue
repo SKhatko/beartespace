@@ -11,7 +11,6 @@
             <el-card class="box-card">
                 <div slot="header" class="h4">Select delivery Address</div>
 
-                {{ deliveryAddress.selected }} selected
                 <el-form :model="deliveryAddress" status-icon :rules="addressesRules" ref="addresses"
                          @submit.native.prevent="saveAddresses" method="POST" :action="'/address/' + deliveryAddress.selected">
                     <input type="hidden" name="_token" :value="csrf">
@@ -42,7 +41,7 @@
                     <!--<hr>-->
                     <div style="margin-top: 20px;">
 
-                        <el-button type="primary" native-type="submit">Save</el-button>
+                        <el-button type="primary" native-type="submit">Checkout</el-button>
 
                         <el-button type="warning"><a href="/cart">Back to Cart</a></el-button>
 

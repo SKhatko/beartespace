@@ -40,25 +40,60 @@
 
             </checkout-form>
 
-            <a href="{{ route('address') }}">Edit delivery address</a>
+            <el-card class="box-card checkout-address">
+                <div slot="header" class="h4">Delivery Address</div>
 
+                <div class="h5">{{ $address->name }}</div>
+                <div class="p" style="max-width: 400px;">
+                    {{ $address->country->country_name }},
+                    {{ $address->city }},
+                    {{ $address->region }},
+                    {{ $address->postcode }},
+                    {{ $address->address }},
+                    {{ $address->address_2 }},
+                    {{ $address->email }},
+                    {{ $address->phone }}
+                </div>
+
+                <el-button style="margin-top: 10px;">
+                    <a href="{{ route('address') }}">Edit delivery address</a>
+                </el-button>
+
+            </el-card>
+
+            <el-card class="box-card checkout-cart">
+                <div slot="header" class="h4">Review items</div>
+
+                @foreach($artworks as $artwork)
+
+                    <div class="checkout-cart-item">
+                        <img src="/imagecache/height-100{{ $artwork->image_url }}" alt="" style="margin-right: 20px;">
+                        {{ $artwork->title . ' - ' . $artwork->price }}
+                    </div>
+
+                @endforeach
+
+                <el-button style="margin-top: 10px;">
+                    <a href="{{ route('cart') }}">Edit items</a>
+                </el-button>
+
+            </el-card>
 
 
             {{--<form action="/checkout/pay" method="POST">--}}
-                {{--{{ csrf_field() }}--}}
+            {{--{{ csrf_field() }}--}}
 
-                {{--<script--}}
-                        {{--src="https://checkout.stripe.com/checkout.js" class="stripe-button"--}}
-                        {{--data-key="{{ config('services.stripe.key') }}"--}}
-                        {{--data-amount="999"--}}
-                        {{--data-name="Demo Site"--}}
-                        {{--data-description="Example charge"--}}
-                        {{--data-image="https://stripe.com/img/documentation/checkout/marketplace.png"--}}
-                        {{--data-locale="auto"--}}
-                        {{--data-currency="eur">--}}
-                {{--</script>--}}
+            {{--<script--}}
+            {{--src="https://checkout.stripe.com/checkout.js" class="stripe-button"--}}
+            {{--data-key="{{ config('services.stripe.key') }}"--}}
+            {{--data-amount="999"--}}
+            {{--data-name="Demo Site"--}}
+            {{--data-description="Example charge"--}}
+            {{--data-image="https://stripe.com/img/documentation/checkout/marketplace.png"--}}
+            {{--data-locale="auto"--}}
+            {{--data-currency="eur">--}}
+            {{--</script>--}}
             {{--</form>--}}
-
 
 
         </div>
@@ -89,7 +124,7 @@
         // Add an instance of the card Element into the `card-element` <div>.
         card.mount('#card-element');
 
-        card.addEventListener('change', function(event) {
+        card.addEventListener('change', function (event) {
             var displayError = document.getElementById('card-errors');
             if (event.error) {
                 displayError.textContent = event.error.message;
@@ -101,10 +136,10 @@
 
         // Create a token or display an error when the form is submitted.
         var form = document.getElementById('payment-form');
-        form.addEventListener('submit', function(event) {
+        form.addEventListener('submit', function (event) {
             event.preventDefault();
 
-            stripe.createToken(card).then(function(result) {
+            stripe.createToken(card).then(function (result) {
                 if (result.error) {
                     // Inform the customer that there was an error.
                     var errorElement = document.getElementById('card-errors');

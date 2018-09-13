@@ -790,14 +790,34 @@ body, html {
 
     &-payment {
 
+      &-price {
+        @extend .h1;
+        text-align: left;
+        padding: 50px 0;
+      }
+
       &-stripe {
         margin-top: 20px;
       }
 
       &-buttons {
+        //text-align: center;
 
       }
 
+    }
+
+    &-address {
+      margin-top: 20px;
+    }
+
+    &-cart {
+      margin-top: 20px;
+
+      &-item {
+        display: flex;
+        align-items: center;
+      }
     }
   }
 }
