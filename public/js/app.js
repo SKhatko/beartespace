@@ -16196,6 +16196,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_element_ui_lib_locale_lang_en___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_element_ui_lib_locale_lang_en__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vue_tel_input__ = __webpack_require__(265);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vue_tel_input___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_vue_tel_input__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue_stripe_checkout__ = __webpack_require__(281);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -16210,6 +16211,7 @@ __webpack_require__(145);
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+
 
 
 
@@ -16237,6 +16239,12 @@ Vue.use(Vuex);
 Vue.use(__WEBPACK_IMPORTED_MODULE_0_element_ui___default.a, { locale: __WEBPACK_IMPORTED_MODULE_2_element_ui_lib_locale_lang_en___default.a });
 Vue.use(__WEBPACK_IMPORTED_MODULE_3_vue_tel_input___default.a);
 Vue.use(SocialSharing);
+
+var stripeOptions = {
+    key: 'pk_test_hRbzarBjU9kEvjlNLAdqm5he'
+};
+
+Vue.use(__WEBPACK_IMPORTED_MODULE_4_vue_stripe_checkout__["a" /* default */], stripeOptions);
 
 Vue.component('subscription-form', __webpack_require__(234));
 Vue.component('partials-artwork', __webpack_require__(232));
@@ -16270,6 +16278,7 @@ Vue.component('follow-button', __webpack_require__(233));
 
 // Checkout
 Vue.component('address-form', __webpack_require__(214));
+Vue.component('checkout-form', __webpack_require__(217));
 
 var app = new Vue({
     el: '#app',
@@ -19117,7 +19126,72 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 126 */,
+/* 126 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: {
+        key_: '',
+        price_: 0,
+        formattedPrice_: ''
+    },
+    data: function data() {
+        return {
+            csrf: '',
+            token: ''
+        };
+    },
+    mounted: function mounted() {
+        console.log(this.key_);
+        console.log(Number(this.price_) * 100);
+        this.csrf = window.csrf;
+    },
+
+
+    methods: {
+        paypal: function paypal() {
+            console.log('paypal');
+            console.log(this.$checkout);
+        },
+        stripe: function stripe() {
+            var _this = this;
+
+            // this.$checkout.close()
+            // is also available.
+            this.$checkout.open({
+                image: '/images/b-favicon-64.png',
+                locale: 'auto',
+                currency: window.cfg.currency,
+                name: 'Buy artworks',
+                description: 'Description',
+                amount: Number(this.price_) * 100,
+                panelLabel: 'Pay ' + this.formattedPrice_,
+                token: function token(_token) {
+                    _this.token = _token;
+                    _this.$refs['stripe-payment-form'].submit();
+                    console.log(_token, 'token');
+                }
+            });
+        }
+    }
+});
+
+/***/ }),
 /* 127 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -65690,7 +65764,40 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 217 */,
+/* 217 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(126),
+  /* template */
+  __webpack_require__(253),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/skhatko/code/larabid/resources/assets/js/components/CheckoutForm.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] CheckoutForm.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-9359c02a", Component.options)
+  } else {
+    hotAPI.reload("data-v-9359c02a", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
 /* 218 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -70134,7 +70241,70 @@ if (false) {
 }
 
 /***/ }),
-/* 253 */,
+/* 253 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "checkout-payment-buttons"
+  }, [_c('el-button', {
+    attrs: {
+      "type": "primary"
+    },
+    on: {
+      "click": _vm.paypal
+    }
+  }, [_vm._v("Paypal")]), _vm._v(" "), _c('el-button', {
+    attrs: {
+      "type": "primary"
+    },
+    on: {
+      "click": _vm.stripe
+    }
+  }, [_vm._v("Credit or Debit Cart")]), _vm._v(" "), _c('el-form', {
+    ref: "stripe-payment-form",
+    attrs: {
+      "action": "/checkout/pay"
+    }
+  }, [_c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "_token"
+    },
+    domProps: {
+      "value": _vm.csrf
+    }
+  }), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.token),
+      expression: "token"
+    }],
+    attrs: {
+      "type": "hidden",
+      "name": "stripe-token"
+    },
+    domProps: {
+      "value": (_vm.token)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.token = $event.target.value
+      }
+    }
+  })])], 1)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-9359c02a", module.exports)
+  }
+}
+
+/***/ }),
 /* 254 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -71934,6 +72104,130 @@ var index_esm = {
 __webpack_require__(80);
 module.exports = __webpack_require__(81);
 
+
+/***/ }),
+/* 268 */,
+/* 269 */,
+/* 270 */,
+/* 271 */,
+/* 272 */,
+/* 273 */,
+/* 274 */,
+/* 275 */,
+/* 276 */,
+/* 277 */,
+/* 278 */,
+/* 279 */,
+/* 280 */
+/***/ (function(module, exports) {
+
+module.exports =
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var script = document.createElement('script');
+script.src = 'https://checkout.stripe.com/checkout.js';
+document.getElementsByTagName('head')[0].appendChild(script);
+
+var VueStripeCheckout = {
+  install: function install(Vue, options) {
+    if (!options) {
+      console.warn('Shut up and provide the options! (config options is required in Vue.use(VueStripeCheckout, options))');
+      return;
+    }
+    window.addEventListener('load', function () {
+      Vue.prototype.$checkout = StripeCheckout.configure(options);
+    });
+  }
+};
+
+exports.default = VueStripeCheckout;
+
+/***/ })
+/******/ ]);
+
+/***/ }),
+/* 281 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__dist__ = __webpack_require__(280);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__dist___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__dist__);
+
+
+/* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0__dist___default.a);
 
 /***/ })
 /******/ ]);

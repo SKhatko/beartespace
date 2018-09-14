@@ -791,17 +791,9 @@ body, html {
     &-payment {
 
       &-price {
-        @extend .h1;
+        @extend .h2;
         text-align: left;
         padding: 50px 0;
-      }
-
-      &-stripe {
-        margin-top: 20px;
-
-        &__errors {
-          color: $--color-danger;
-        }
       }
 
       &-buttons {

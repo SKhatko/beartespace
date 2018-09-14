@@ -17,6 +17,7 @@ import ElementUI from 'element-ui';
 import store from './store.js';
 import locale from 'element-ui/lib/locale/lang/en';
 import VueTelInput from 'vue-tel-input'
+import VueStripeCheckout from 'vue-stripe-checkout';
 
 
 Vue.prototype.trans = (key) => {
@@ -36,10 +37,18 @@ Vue.prototype.options = (key) => {
     // });
 };
 
+
 Vue.use(Vuex);
 Vue.use(ElementUI, {locale});
 Vue.use(VueTelInput);
 Vue.use(SocialSharing);
+
+
+const stripeOptions = {
+    key: 'pk_test_hRbzarBjU9kEvjlNLAdqm5he',
+};
+
+Vue.use(VueStripeCheckout, stripeOptions);
 
 Vue.component('subscription-form', require('./components/payment/SubscriptionForm.vue'));
 Vue.component('partials-artwork', require('./components/partials/Artwork.vue'));
@@ -73,6 +82,7 @@ Vue.component('follow-button', require('./components/partials/FollowButton.vue')
 
 // Checkout
 Vue.component('address-form', require('./components/AddressForm.vue'));
+Vue.component('checkout-form', require('./components/CheckoutForm.vue'));
 
 const app = new Vue({
     el: '#app',

@@ -18,6 +18,7 @@ class CheckoutController extends Controller {
 
 		$artworks = Artwork::find($cartArtworks);
 
+
 		//		return $address;
 
 //		return Cart::total();

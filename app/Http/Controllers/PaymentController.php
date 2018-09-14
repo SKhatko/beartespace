@@ -14,11 +14,11 @@ class PaymentController extends Controller {
 	public function pay( Request $request ) {
 
 		return $request->all();
-		Stripe::setApiKey(config('services.stripe.secret'));
+		Stripe::setApiKey( config( 'services.stripe.secret' ) );
 
-		$token = request('stripeToken');
+		$token = request( 'stripeToken' );
 
-		$token = $request->input('stripeToken');
+		$token = $request->input( 'stripeToken' );
 
 		$charge = Charge::create( [
 			'amount'        => 999,
@@ -27,7 +27,7 @@ class PaymentController extends Controller {
 			'receipt_email' => 'jenny.rosen@example.com',
 		] );
 
-		dump($charge);
+		dump( $charge );
 
 
 		return 'Payment Success!';
