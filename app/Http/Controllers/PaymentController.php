@@ -11,28 +11,6 @@ use Stripe\Charge;
 use Illuminate\Support\Facades\Auth;
 
 class PaymentController extends Controller {
-	public function pay( Request $request ) {
-
-		return $request->all();
-		Stripe::setApiKey( config( 'services.stripe.secret' ) );
-
-		$token = request( 'stripeToken' );
-
-		$token = $request->input( 'stripeToken' );
-
-		$charge = Charge::create( [
-			'amount'        => 999,
-			'currency'      => 'usd',
-			'source'        => 'tok_visa',
-			'receipt_email' => 'jenny.rosen@example.com',
-		] );
-
-		dump( $charge );
-
-
-		return 'Payment Success!';
-	}
-
 
 	public function index() {
 
@@ -48,23 +26,36 @@ class PaymentController extends Controller {
 		return view( 'dashboard.user.payments', compact( 'title', 'payments' ) );
 	}
 
-
-	/**
-	 * @param $transaction_id
-	 *
-	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-	 *
-	 * Checkout Method
-	 */
-
 	public function checkout( $transaction_id ) {
-		$payment = Payment::whereLocalTransactionId( $transaction_id )->whereStatus( 'initial' )->first();
-		$title   = trans( 'app.checkout' );
+
+		$payment = Payment::whereTransactionId( $transaction_id )->firstOrNew( [
+			'transaction_id' => $transaction_id,
+			'status'         => 'initial'
+		] );
+
+		return $payment;
+
+
+		Stripe::setApiKey( config( 'services.stripe.secret' ) );
+//
+//		$charge = Charge::create([
+//			'amount' => 999,
+//			'currency' => 'usd',
+//			'description' => 'Example charge',
+//			'source' => $transaction_id,
+//			'statement_descriptor' => 'Custom descriptor',
+//			'metadata' => ['order_id' => 6735],
+//		]);
+//
+//		dump( $charge );
+
+		return 'Payment Success!';
+
 		if ( $payment ) {
-			return view( 'checkout', compact( 'title', 'payment' ) );
+			return view( 'checkout', compact( 'payment' ) );
 		}
 
-		return view( 'invalid_transaction', compact( 'title', 'payment' ) );
+		return view( 'invalid_transaction', compact( 'payment' ) );
 	}
 
 	/**
@@ -76,7 +67,8 @@ class PaymentController extends Controller {
 	 * Used by Stripe
 	 */
 
-	public function chargePayment( Request $request, $transaction_id ) {
+	public function chargePayment( $transaction_id, Request $request ) {
+
 		$payment = Payment::whereLocalTransactionId( $transaction_id )->whereStatus( 'initial' )->first();
 		$ad      = $payment->ad;
 

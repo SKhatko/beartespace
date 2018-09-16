@@ -8,15 +8,21 @@ use App\Address;
 class AddressController extends Controller {
 
 	public function index() {
-		$addresses = auth()->user()->addresses;
 
-		return view( 'address.index', compact( 'addresses' ) );
+		$user = auth()->user();
+
+		return view( 'address.index', compact( 'user' ) );
 	}
 
-	public function setDeliveryAddress($id) {
-//		return $id;
+	public function setPrimaryAddress($id) {
 
-		session(['delivery-address' => $id]);
+		$user = auth()->user();
+
+		$address = $user->addresses()->where( 'addresses.id', $id )->firstOrFail();
+
+		$user->primaryAddress()->associate($address);
+
+		$user->save();
 
 		return redirect(route('checkout'));
 	}

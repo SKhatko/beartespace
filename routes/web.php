@@ -75,11 +75,11 @@ Route::group( [ 'middleware' => 'web' ], function () {
 	Route::get( 'cart/item/{id}/remove', 'CartController@removeItem' )->name( 'cart.item.remove' );
 
 	// Checkout
-	Route::get( 'checkout', 'CheckoutController@index' )->name( 'checkout' )->middleware( [ 'auth', 'has-delivery-address' ] );
+	Route::get( 'checkout', 'CheckoutController@index' )->name( 'checkout' )->middleware( [ 'auth', 'has-primary-address' ] );
 
 	// Address
 	Route::get( 'address', 'AddressController@index' )->middleware( 'auth' )->name('address');
-	Route::post( 'address/{id}', 'AddressController@setDeliveryAddress' )->middleware( 'auth' );
+	Route::post( 'address/{id}', 'AddressController@setPrimaryAddress' )->middleware( 'auth' );
 
 	// Pages
 	Route::get( 'about', 'HomeController@about' )->name( 'about' );
@@ -164,9 +164,8 @@ Route::post( '{id}/post-new', [ 'as' => 'post_bid', 'uses' => 'BidController@pos
 
 
 //Checkout payment
-Route::post( 'checkout/pay', 'PaymentController@pay' );
-Route::get( 'checkout/{transaction_id}', [ 'as' => 'payment_checkout', 'uses' => 'PaymentController@checkout' ] );
-Route::post( 'checkout/{transaction_id}', [ 'uses' => 'PaymentController@chargePayment' ] );
+Route::get( 'checkout/{transaction_id?}', [ 'as' => 'payment_checkout', 'uses' => 'PaymentController@checkout' ] );
+Route::post( 'checkout/{transaction_id?}', [ 'uses' => 'PaymentController@chargePayment' ] );
 //Payment success url
 Route::any( 'checkout/{transaction_id}/payment-success', [
 	'as'   => 'payment_success_url',

@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class HasDeliveryAddress
+class HasPrimaryAddress
 {
     /**
      * Handle an incoming request.
@@ -15,7 +15,7 @@ class HasDeliveryAddress
      */
     public function handle($request, Closure $next)
     {
-    	if(auth()->user() && session('delivery-address')) {
+	    if(auth()->user() && auth()->user()->primaryAddress) {
 		    return $next($request);
 	    } else {
 		    return redirect( route( 'address' ));

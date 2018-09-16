@@ -23,16 +23,7 @@ class AddressController extends Controller {
 			$address = Address::findOrFail( $request->input( 'id' ) );
 
 			$address->fill($request->all());
-//			$request->only( [
-//				'county_id',
-//				'address',
-//				'address_2',
-//				'city',
-//				'region',
-//				'postcode',
-//				'email',
-//				'phone',
-//			] ) );
+
 			$address->save();
 
 //			auth()->user()->addresses()->save( $address );

@@ -12,12 +12,11 @@ class CheckoutController extends Controller {
 
 	public function index() {
 
-		$address = Address::findOrFail(session('delivery-address'));
+		$address = auth()->user()->primaryAddress;
 
-		$cartArtworks = Cart::content()->pluck('id');
+		$cartArtworks = Cart::content()->pluck( 'id' );
 
-		$artworks = Artwork::find($cartArtworks);
-
+		$artworks = Artwork::find( $cartArtworks );
 
 		//		return $address;
 
@@ -27,7 +26,8 @@ class CheckoutController extends Controller {
 //		                     ->create([
 //
 //		]);
-		return view( 'checkout.index', compact('address', 'artworks') );
+
+		return view( 'checkout.index', compact( 'artworks', 'address' ) );
 	}
 
 }

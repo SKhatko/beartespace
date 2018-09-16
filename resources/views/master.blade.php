@@ -44,9 +44,6 @@
 
     </script>
 
-    <script src="https://js.stripe.com/v3/"></script>
-
-
 </head>
 <body class="@if(is_rtl()) rtl @endif">
 

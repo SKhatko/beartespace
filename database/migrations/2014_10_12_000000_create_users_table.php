@@ -33,6 +33,7 @@ class CreateUsersTable extends Migration {
 			$table->string( 'city' )->nullable();
 			$table->string( 'postcode' )->nullable();
 			$table->enum( 'gender', [ 'male', 'female', 'third' ] )->nullable();
+			$table->integer('address_id')->nullable();
 			$table->string( 'address' )->nullable();
 			$table->string( 'address_2' )->nullable();
 			$table->string( 'region' )->nullable();

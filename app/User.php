@@ -73,6 +73,10 @@ class User extends Authenticatable {
 		return $this->belongsToMany( Address::class, 'user_addresses' );
 	}
 
+	public function primaryAddress() {
+		return $this->belongsTo( Address::class, 'address_id' );
+	}
+
 	public function orders() {
 		return $this->hasMany( Order::class );
 	}

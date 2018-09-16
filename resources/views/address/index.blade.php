@@ -2,6 +2,6 @@
 
 @section('content')
 
-    <address-form addresses_="{{ $addresses }}" selected_="{{ session('delivery-address') }}"></address-form>
+    <address-form addresses_="{{ $user->addresses }}" selected_="{{ $user->address_id }}"></address-form>
 
 @stop

@@ -10,59 +10,11 @@
                 <el-breadcrumb-item>Checkout</el-breadcrumb-item>
             </el-breadcrumb>
 
-            <el-card class="box-card checkout-payment">
-                <div slot="header" class="h4">Select a payment method</div>
-
-                <div class="checkout-payment-price">
-                    Order total: {{ currency(Cart::total(), null, session('currency')) }}
-                </div>
-
-                <checkout-form
-                        price_="{{ Cart::total() }}"
-                        formatted-price_="{{ currency(Cart::total(), null, session('currency')) }}"
-                        key_="{{ config('services.stripe.key') }}">
-                </checkout-form>
-
-                <div class="checkout-payment-stripe">
-
-                    {{--<form action="/checkout/pay" method="POST">--}}
-                    {{--{{ csrf_field() }}--}}
-
-                    {{--<script type="application/javascript"--}}
-                    {{--src="https://checkout.stripe.com/checkout.js" class="stripe-button"--}}
-                    {{--data-key="pk_test_hRbzarBjU9kEvjlNLAdqm5he"--}}
-                    {{--data-amount="999"--}}
-                    {{--data-name="Demo Site"--}}
-                    {{--data-description="Example charge"--}}
-                    {{--data-image="https://stripe.com/img/documentation/checkout/marketplace.png"--}}
-                    {{--data-locale="auto"--}}
-                    {{--data-currency="eur">--}}
-                    {{--</script>--}}
-                    {{--</form>--}}
-                    {{--<form action="/checkout/pay" method="post" id="payment-form">--}}
-                    {{--{{ csrf_field() }}--}}
-                    {{--<div class="el-form-item">--}}
-                    {{--<label class="el-form-item__label">--}}
-                    {{--Credit or debit card--}}
-                    {{--</label>--}}
-
-                    {{--<div id="card-element">--}}
-                    {{--<!-- A Stripe Element will be inserted here. -->--}}
-                    {{--</div>--}}
-
-                    {{--<!-- Used to display form errors. -->--}}
-                    {{--<div id="card-errors" class="checkout-payment-stripe__errors" role="alert"></div>--}}
-                    {{--</div>--}}
-
-                    {{--Press enter to submit the form--}}
-
-                    {{--<button class="el-button el-button--primary" id="submit-button">--}}
-                    {{--Pay with Card--}}
-                    {{--</button>--}}
-                    {{--</form>--}}
-                </div>
-
-            </el-card>
+            <checkout-form
+                    price_="{{ Cart::total() }}"
+                    formatted-price_="{{ currency(Cart::total(), null, session('currency')) }}"
+                    key_="{{ config('services.stripe.key') }}">
+            </checkout-form>
 
             <el-card class="box-card checkout-address">
                 <div slot="header" class="h4">Delivery Address</div>
@@ -110,5 +62,7 @@
 @stop
 
 @section('script')
+
+    <script src="https://js.stripe.com/v3/"></script>
 
 @endsection
