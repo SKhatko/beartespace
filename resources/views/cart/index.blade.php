@@ -14,7 +14,7 @@
             <el-card class="box-card cart">
                 <div slot="header" class="clearfix h4">Shopping cart</div>
 
-                @if($artworks)
+                @if($artworks->count() > 0)
 
                     @foreach($artworks as $artwork)
                         <div class="cart-item">
@@ -25,17 +25,29 @@
                                      style="height: 100px;">
                             </div>
 
-                            <a href="{{ route('artwork', $artwork->id) }}" class="cart-item-info">
-                                {{ $artwork->title }}
-                            </a>
+                            <div class="cart-item-info">
 
-{{--                            {{ $artwork->unique ? 1 : $artwork->quantity }}--}}
+                                <a href="{{ route('artist', $artwork->user_id) }}" class="h5" style="margin-bottom: 6px;font-weight: bold;display: block;">
+                                    {{ $artwork->user->name }}
+                                </a>
 
-{{--                            {{ $artwork->status }}--}}
+                                <a href="{{ route('artwork', $artwork->id) }}" class="h5">
+                                    {{ $artwork->title }}
+                                </a>
+                            </div>
+
+                            {{--                            {{ $artwork->unique ? 1 : $artwork->quantity }}--}}
+
+                            {{--                            {{ $artwork->status }}--}}
 
                             <div class="cart-item-price">
+
                                 {{ $artwork->formatted_price }}
                                 {{--                                {{ currency($artwork->price, null, session('currency')) }}--}}
+
+                                <div class="cart-item-qty">
+                                    {{ $cartArtworks[$artwork->id] }} pc
+                                </div>
 
                                 <el-button circle style="margin-left: 10px;">
                                     <a href="{{ route('cart.item.remove', $artwork->id) }}"><span
@@ -52,7 +64,8 @@
                             Subtotal
                         </div>
                         <div class="cart-bottom-price">
-                            {{ currency(Cart::subtotal(), null, session('currency')) }}
+{{--                            {{ currency(Cart::subtotal(), null, session('currency')) }}--}}
+                            {{ $totalFormattedPrice }}
                         </div>
                     </div>
 
@@ -62,9 +75,8 @@
                 @else
 
                     <div class="h3" style="margin-bottom: 30px;">
-                        Cart is empty
+                        You don't have any items in your cart. Let's get shopping!
                     </div>
-
                 @endif
 
                 <el-button><a href="{{ route('artworks') }}">Continue shopping</a></el-button>

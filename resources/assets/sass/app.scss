@@ -835,10 +835,11 @@ body, html {
 
       &-info {
         flex: 1;
-
       }
 
       &-price {
+        display: flex;
+        align-items: center;
         margin-left: 20px;
 
       }

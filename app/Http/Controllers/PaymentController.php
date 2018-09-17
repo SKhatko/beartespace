@@ -28,7 +28,7 @@ class PaymentController extends Controller {
 
 	public function checkout( $transaction_id ) {
 
-		$payment = Payment::whereTransactionId( $transaction_id )->firstOrNew( [
+		$payment = Payment::whereTransactionId( $transaction_id )->firstOrCreate( [
 			'transaction_id' => $transaction_id,
 			'status'         => 'initial'
 		] );

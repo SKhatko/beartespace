@@ -70,6 +70,7 @@ class Kernel extends HttpKernel {
 		'artist'             => \App\Http\Middleware\OnlyArtistAccess::class,
 		'has-profile-avatar' => \App\Http\Middleware\CheckProfileAvatar::class,
 		'has-primary-address' => \App\Http\Middleware\HasPrimaryAddress::class,
+		'empty-shopping-cart' => \App\Http\Middleware\EmptyShoppingCard::class,
 
 	];
 }

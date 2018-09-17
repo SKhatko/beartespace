@@ -17,14 +17,14 @@ import ElementUI from 'element-ui';
 import store from './store.js';
 import locale from 'element-ui/lib/locale/lang/en';
 import VueTelInput from 'vue-tel-input'
-import VueStripeCheckout from 'vue-stripe-checkout';
 
-
+// Trans function takes translation from db return it on frontend
 Vue.prototype.trans = (key) => {
     let defaultValue = key.split('.');
     return get(window.cfg.trans, key, defaultValue[defaultValue.length - 1]);
 };
 
+// Options is array of [key => translation] grouped by group of language line
 Vue.prototype.options = (key) => {
     let defaultValue = key.split('.');
 
@@ -43,12 +43,6 @@ Vue.use(ElementUI, {locale});
 Vue.use(VueTelInput);
 Vue.use(SocialSharing);
 
-
-const stripeOptions = {
-    key: 'pk_test_hRbzarBjU9kEvjlNLAdqm5he',
-};
-
-Vue.use(VueStripeCheckout, stripeOptions);
 
 Vue.component('subscription-form', require('./components/payment/SubscriptionForm.vue'));
 Vue.component('partials-artwork', require('./components/partials/Artwork.vue'));
@@ -113,7 +107,9 @@ const app = new Vue({
         }
 
         if (window.bus.message) {
+            console.log(window.bus.message);
             this.$message({
+                dangerouslyUseHTMLString: true,
                 showClose: true,
                 message: window.bus.message.message,
                 type: window.bus.message.status,
@@ -142,13 +138,13 @@ const app = new Vue({
         }
 
 
-        axios.get('/api/profile')
-            .then(response => {
-                // console.log('profile', response.data);
-            })
-            .catch(error => {
-                console.log(error.response);
-            })
+        // axios.get('/api/profile')
+        //     .then(response => {
+        //         // console.log('profile', response.data);
+        //     })
+        //     .catch(error => {
+        //         console.log(error.response);
+        //     })
     },
     methods: {}
 });

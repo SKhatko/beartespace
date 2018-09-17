@@ -12,13 +12,20 @@ class CartController extends Controller {
 
 	public function index() {
 
-		$cartArtworks = Cart::content()->pluck('id');
+		$cartArtworks = Cart::content()->pluck( 'qty', 'id' );
 
-		$artworks = Artwork::find($cartArtworks);
-//		$artworks = Artwork::find([1212]);
+		$artworks = Artwork::find( $cartArtworks->keys() );
+
+		$totalPrice = 0;
+
+		foreach ( $artworks as $artwork ) {
+			$totalPrice += $artwork->price * $cartArtworks[ $artwork->id ];
+		};
+
+		$totalFormattedPrice = currency( $totalPrice );
 
 //		return $artworks;
-		return view( 'cart.index', compact('artworks'));
+		return view( 'cart.index', compact( 'artworks', 'cartArtworks', 'totalPrice', 'totalFormattedPrice' ) );
 	}
 
 	public function apiToggleCart( Request $request, $id ) {
@@ -34,7 +41,7 @@ class CartController extends Controller {
 
 					$this->response = [
 						'status'  => 'success',
-						'message' => 'Artwork Removed from Shopping Cart',
+						'message' => 'Artwork Removed from <a href="/cart">Shopping Cart</a>',
 						'data'    => Cart::content()->values()
 					];
 				}
@@ -44,7 +51,7 @@ class CartController extends Controller {
 
 			$this->response = [
 				'status'  => 'success',
-				'message' => 'Artwork Added to Shopping Cart',
+				'message' => 'Artwork Added to <a href="/cart">Shopping Cart</a>',
 				'data'    => Cart::content()->values()
 			];
 		}
@@ -83,7 +90,7 @@ class CartController extends Controller {
 		$artwork = Artwork::findOrFail( $id );
 
 		if ( ! Cart::content()->contains( 'id', $artwork->id ) ) {
-			Cart::add( $artwork->id, $artwork->title, 1, $artwork->price);
+			Cart::add( $artwork->id, $artwork->title, 1, $artwork->price );
 		}
 
 		return redirect()->back()->with( 'message', [

@@ -29,6 +29,7 @@ class AddressController extends Controller {
 
 
 	public function edit( $id ) {
+
 		$address = auth()->user()->addresses()->where( 'addresses.id', $id )->firstOrFail();
 
 		return view( 'address.edit', compact( 'address' ) );

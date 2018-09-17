@@ -13,6 +13,7 @@ let store = {
             axios.put('/api/user/favorite/' + item.id + '/toggle',).then(response => {
 
                 this._vm.$message({
+                    dangerouslyUseHTMLString: true,
                     showClose: true,
                     message: response.data.message,
                     type: response.data.status
@@ -40,6 +41,7 @@ let store = {
                 console.log(response.data.data, 'got data');
 
                 this._vm.$message({
+                    dangerouslyUseHTMLString: true,
                     showClose: true,
                     message: response.data.message,
                     type: response.data.status

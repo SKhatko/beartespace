@@ -75,7 +75,7 @@ Route::group( [ 'middleware' => 'web' ], function () {
 	Route::get( 'cart/item/{id}/remove', 'CartController@removeItem' )->name( 'cart.item.remove' );
 
 	// Checkout
-	Route::get( 'checkout', 'CheckoutController@index' )->name( 'checkout' )->middleware( [ 'auth', 'has-primary-address' ] );
+	Route::get( 'checkout', 'CheckoutController@index' )->name( 'checkout' )->middleware( [ 'auth', 'empty-shopping-cart', 'has-primary-address' ] );
 
 	// Address
 	Route::get( 'address', 'AddressController@index' )->middleware( 'auth' )->name('address');
