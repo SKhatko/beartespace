@@ -18,14 +18,7 @@ class CheckoutController extends Controller {
 
 		$artworks = Artwork::whereIn( 'id', $cartArtworks->keys() )->get();
 
-		$totalPrice = 0;
-
-		foreach ( $artworks as $artwork ) {
-			// If available in stock needed amount
-			if ( $artwork->availableInStockWithQuantity( $cartArtworks[ $artwork->id ] ) === 'available' ) {
-				$totalPrice += $artwork->price * $cartArtworks[ $artwork->id ];
-			}
-		};
+		$totalPrice = $artworks->sum('price');
 
 		$totalFormattedPrice = currency( $totalPrice );
 

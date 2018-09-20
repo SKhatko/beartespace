@@ -16,8 +16,8 @@ class Order extends Model {
 		return $this->hasOne( Address::class );
 	}
 
-	public function artworks() {
-		return $this->belongsToMany(Artwork::class);
+	public function payment() {
+		return $this->hasOne(Payment::class);
 	}
 
 	public function scopeConfirmed( $query ) {

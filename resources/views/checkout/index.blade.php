@@ -44,7 +44,8 @@
 
                     <div class="checkout-cart-item">
                         <img src="/imagecache/height-100{{ $artwork->image_url }}" alt="" style="margin-right: 20px;">
-                        {{ $artwork->title . ' - ' . $artwork->price }}
+                        {{ $artwork->title . ' - ' . $artwork->formatted_price }}
+                        {{ $cartArtworks[$artwork->id] }}pc
                     </div>
 
                 @endforeach

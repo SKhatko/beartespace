@@ -32,30 +32,22 @@ class PaymentController extends Controller {
 
 	public function checkout( $transaction_id ) {
 
-		$payment = Payment::whereTransactionId( $transaction_id )->firstOrCreate( [
+		$user = auth()->user();
+
+		$payment = $user->payments()->whereTransactionId( $transaction_id )->firstOrCreate( [
 			'transaction_id' => $transaction_id,
 			'status'         => 'initial'
 		] );
-
-		$user = auth()->user();
-
 
 		$cartArtworks = Cart::content()->pluck( 'qty', 'id' );
 
 		$artworks = Artwork::find( $cartArtworks->keys() );
 
-		$totalPrice = 0;
-
-		foreach ( $artworks as $artwork ) {
-			$totalPrice += $artwork->price * $cartArtworks[ $artwork->id ];
-		};
+		$totalPrice = $artworks->sum( 'price' );
 
 		$order = $user->orders()->create( [
-			'address' => json_encode( $user->primaryAddress ),
-			'cart'    => json_encode( Cart::content() ),
-			'status'  => 'initial',
+			'status' => 'initial',
 		] );
-
 
 		try {
 			Stripe::setApiKey( config( 'services.stripe.secret' ) );
@@ -70,22 +62,34 @@ class PaymentController extends Controller {
 			] );
 
 			if ( $charge->status == 'succeeded' ) {
-				ArtworkPurchased::dispatch($order);
 
-//				$order->status = 'success';
-//				$order->save();
+				$order->update( [
+					'address'    => json_encode( $user->primaryAddress ),
+					'cart'       => json_encode( Cart::content() ),
+					'artworks'   => json_encode( $artworks ),
+					'status'     => 'success',
+					'amount'     => $totalPrice,
+					'payment_id' => $payment->id,
+				] );
 
+				ArtworkPurchased::dispatch( $order );
 
+				$payment->update( [
+					'amount'             => $totalPrice,
+					'order_id'           => $order->id,
+					'status'             => 'success',
+					'charge_id_or_token' => $charge->id,
+					'description'        => $charge->description,
+					'payment_created'    => $charge->created,
+					'charge'             => json_encode( $charge ),
+				] );
 
-
-				$payment->status             = 'success';
-				$payment->charge_id_or_token = $charge->id;
-				$payment->description        = $charge->description;
-				$payment->payment_created    = $charge->created;
-				$payment->charge             = json_encode( $charge );
 				$payment->save();
 
-				return view('checkout.success');
+				return view( 'checkout.success' );
+			} else {
+				// TODO update other data to order
+
 			}
 
 			return $charge;
@@ -98,7 +102,7 @@ class PaymentController extends Controller {
 
 			$message = $ex->getMessage();
 
-			return view('checkout.error', compact('message'));
+			return view( 'checkout.error', compact( 'message' ) );
 		}
 
 
