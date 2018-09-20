@@ -15,13 +15,13 @@
 
                         <div class="artwork-image" @click="showArtworkImageDialog = !showArtworkImageDialog">
                             <img src="/imagecache/height-200/{{ $artwork->image_url }}"
-                                 alt="{{ $artwork->image->name }}">
+                                 alt="">
                         </div>
 
                         <el-dialog :visible.sync="showArtworkImageDialog" center>
                             <div style="text-align: center;">
                                 <img src="/imagecache/original/{{ $artwork->image_url }}"
-                                     alt="{{ $artwork->image->name }}">
+                                     alt="">
                             </div>
                         </el-dialog>
 
@@ -37,9 +37,20 @@
                                     </div>
                                 @endif
 
-                                <div class="artwork-status {{ $artwork->stock_status === 'available' ? 'active' : '' }}">
-                                    {{ trans('stock-status.' . $artwork->stock_status) }}
-                                </div>
+                                @if($artwork->stock_status !== 'available')
+                                    <div class="artwork-status">
+                                        {{ trans('stock-status.' . $artwork->stock_status) }}
+                                    </div>
+                                @else
+                                    <div class="artwork-status-available">
+                                        {{ trans('stock-status.' . $artwork->stock_status) }}
+
+                                        @if($artwork->quantity > 1)
+                                            {{ $artwork->quantity }} pc
+                                        @endif
+                                    </div>
+                                @endif
+
 
                                 <div class="artwork-price">
                                     {{ $artwork->formatted_price }}
@@ -174,7 +185,7 @@
                             @foreach($artwork->images as $image)
                                 <el-carousel-item key="{{ $image->id }}">
                                     <div class="artwork-image">
-                                        <img src="/imagecache/height-200/{{ $image->url }}" alt="{{ $image->name }}">
+                                        <img src="/imagecache/height-200/{{ $image->url }}" alt="">
                                     </div>
                                 </el-carousel-item>
                             @endforeach

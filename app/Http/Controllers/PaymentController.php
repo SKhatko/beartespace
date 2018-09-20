@@ -53,47 +53,42 @@ class PaymentController extends Controller {
 			Stripe::setApiKey( config( 'services.stripe.secret' ) );
 
 			$charge = Charge::create( [
-				'amount'               => $totalPrice * 100,
-				'currency'             => 'eur',
-				'description'          => 'Purchase',
-				'source'               => $transaction_id,
-				'statement_descriptor' => $user->id . '-' . $user->name,
-				'metadata'             => [ 'order_id' => $order->id ],
+				'amount'      => $totalPrice * 100,
+				'currency'    => 'eur',
+				'description' => 'Purchase',
+				'source'      => $transaction_id,
+				'metadata'    => [ 'order_id' => $order->id ],
 			] );
 
-			if ( $charge->status == 'succeeded' ) {
+//			if ( $charge->status == 'succeeded' ) {
 
-				$order->update( [
-					'address'    => json_encode( $user->primaryAddress ),
-					'cart'       => json_encode( Cart::content() ),
-					'artworks'   => json_encode( $artworks ),
-					'status'     => 'success',
-					'amount'     => $totalPrice,
-					'payment_id' => $payment->id,
-				] );
+			$order->update( [
+				'address'    => json_encode( $user->primaryAddress ),
+				'cart'       => json_encode( Cart::content() ),
+				'artworks'   => json_encode( $artworks ),
+				'amount'     => $totalPrice,
+				'payment_id' => $payment->id,
+				'status'     => 'success',
+			] );
 
-				ArtworkPurchased::dispatch( $order );
+			$payment->update( [
+				'amount'             => $totalPrice,
+				'order_id'           => $order->id,
+				'status'             => 'success',
+				'charge_id_or_token' => $charge->id,
+				'description'        => $charge->description,
+				'payment_created'    => $charge->created,
+				'charge'             => json_encode( $charge ),
+			] );
 
-				$payment->update( [
-					'amount'             => $totalPrice,
-					'order_id'           => $order->id,
-					'status'             => 'success',
-					'charge_id_or_token' => $charge->id,
-					'description'        => $charge->description,
-					'payment_created'    => $charge->created,
-					'charge'             => json_encode( $charge ),
-				] );
+			$payment->save();
 
-				$payment->save();
+//								ArtworkPurchased::dispatch( $order );
 
-				return view( 'checkout.success' );
-			} else {
-				// TODO update other data to order
+//			} else {
+			// TODO update other data to order
 
-			}
-
-			return $charge;
-
+//			}
 		} catch ( \Exception $ex ) {
 			// The card has been declined
 //			$payment->status      = 'declined';
@@ -102,15 +97,12 @@ class PaymentController extends Controller {
 
 			$message = $ex->getMessage();
 
-			return view( 'checkout.error', compact( 'message' ) );
+			return $message;
+			return view( 'checkout.failure', compact( 'message' ) );
 		}
 
+		return view( 'checkout.success' );
 
-		if ( $payment ) {
-			return view( 'checkout', compact( 'payment' ) );
-		}
-
-		return view( 'invalid_transaction', compact( 'payment' ) );
 	}
 
 	/**

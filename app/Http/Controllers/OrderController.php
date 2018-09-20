@@ -8,8 +8,8 @@ class OrderController extends Controller
 {
     public function index() {
 
-    	return auth()->user()->orders;
+    	$orders =  auth()->user()->orders;
 
-    	return view('dashboard.user.orders');
+    	return view('dashboard.user.orders', compact('orders'));
     }
 }

@@ -21,6 +21,7 @@ $factory->define( App\Artwork::class, function ( Faker $faker ) {
 		'color'              => $faker->words( random_int( 0, 20 ) ),
 		'status'             => $faker->randomElement( [ 0, 1, 2, 3 ] ),
 		'available'          => $faker->boolean,
+		'quantity'           => $faker->randomDigit,
 		'sold'               => $faker->boolean,
 		'auction_status'     => $faker->boolean,
 		'auction_price'      => $faker->randomFloat( 2 ),

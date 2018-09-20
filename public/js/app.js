@@ -19178,6 +19178,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -19191,6 +19193,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     components: { Card: __WEBPACK_IMPORTED_MODULE_0_vue_stripe_elements_plus__["Card"] },
     data: function data() {
         return {
+            loading: false,
             csrf: '',
             error: '',
             paymentOption: null,
@@ -19208,38 +19211,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         stripe: function stripe() {
             var _this = this;
 
+            this.loading = true;
             __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_vue_stripe_elements_plus__["createToken"])().then(function (data) {
                 if (data.error) {
                     _this.error = data.error.message;
                     console.log(data.error.message);
+                    _this.loading = false;
                 }
 
                 if (data.token) {
                     // this.stripeToken = 'tok_1DB17yFwuOiaBR7w2HtovVky';
                     // this.$refs['stripe-form'].$el.submit();
-
                     window.location.href = '/checkout/' + data.token.id;
                 }
             }).catch(function (error) {
                 console.log(error, 'error');
+                _this.loading = false;
             });
         },
         paypal: function paypal() {
+            alert('Paypal is not connected, use Cart checkout.');
             console.log('paypal');
-        },
-        sttttripe: function sttttripe() {
-            // this.$checkout.close()
-            // is also available.
-            this.$checkout.open({
-                image: '/images/b-favicon-64.png',
-                locale: 'auto',
-                currency: window.cfg.currency,
-                name: 'BearteSpace',
-                description: 'Make purchase with credit or debit cart',
-                amount: Number(this.price_) * 100,
-                panelLabel: 'Pay ' + this.formattedPrice_,
-                token: function token(_token) {}
-            });
+            this.loading = true;
         }
     }
 });
@@ -70342,7 +70335,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "checkout-payment-paypal"
   }, [_c('el-button', {
     attrs: {
-      "type": "primary"
+      "type": "primary",
+      "loading": _vm.loading
     },
     on: {
       "click": _vm.paypal
@@ -70384,12 +70378,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "margin-top": "20px"
     },
     attrs: {
-      "type": "primary"
+      "type": "primary",
+      "loading": _vm.loading
     },
     on: {
       "click": _vm.stripe
     }
-  }, [_vm._v("Pay with credit card")])], 1)], 1)])
+  }, [_vm._v("Pay with credit\n                card\n            ")])], 1)], 1)])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

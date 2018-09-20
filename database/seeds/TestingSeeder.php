@@ -31,25 +31,26 @@ class TestingSeeder extends Seeder {
 				$user->artworks()->saveMany( factory( App\Artwork::class, 3 )->make() );
 
 
-				$user->avatar()->associate( factory( App\Media::class )->create( [
-					'url' => 'https://picsum.photos/290/290',
-				] ) );
-				$user->save();
-
-				$user->image()->associate( factory( App\Media::class )->create() );
-				$user->save();
-
-				$user->articles()->saveMany( factory( App\Article::class, 5 )->make() );
+//				$user->avatar()->associate( factory( App\Media::class )->create( [
+//					'url' => 'https://picsum.photos/290/290',
+//				] ) );
+//				$user->save();
+//
+//				$user->image()->associate( factory( App\Media::class )->create() );
+//				$user->save();
+//
+//				$user->articles()->saveMany( factory( App\Article::class, 5 )->make() );
 			}
 		}
 
 		$artworks = Artwork::all();
 
-		foreach ( $artworks as $artwork ) {
-			$artwork->image()->associate( factory( App\Media::class )->create() );
-			$artwork->save();
-			$artwork->images()->saveMany( factory( App\Media::class, random_int( 1, 4 ) )->make() );
-		}
+//		foreach ( $artworks as $artwork ) {
+//			dump($artwork->id);
+//			$artwork->image()->associate( factory( App\Media::class )->create() );
+//			$artwork->save();
+//			$artwork->images()->saveMany( factory( App\Media::class, random_int( 1, 4 ) )->make() );
+//		}
 
 //		$articles = Article::all();
 //

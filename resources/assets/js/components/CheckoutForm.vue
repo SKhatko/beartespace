@@ -16,7 +16,7 @@
             </div>
 
             <div class="checkout-payment-paypal" v-show="paymentOption === 'paypal'">
-                <el-button type="primary" @click="paypal">Pay with PayPal</el-button>
+                <el-button type="primary" @click="paypal" :loading="loading">Pay with PayPal</el-button>
             </div>
 
             <el-form ref="stripe-form" v-show="paymentOption === 'stripe'">
@@ -33,7 +33,9 @@
 
                 </el-form-item>
 
-                <el-button type="primary" @click='stripe' style="margin-top: 20px;">Pay with credit card</el-button>
+                <el-button type="primary" @click='stripe' style="margin-top: 20px;" :loading="loading">Pay with credit
+                    card
+                </el-button>
 
             </el-form>
 
@@ -58,6 +60,7 @@
         components: {Card},
         data() {
             return {
+                loading: false,
                 csrf: '',
                 error: '',
                 paymentOption: null,
@@ -73,43 +76,30 @@
         },
         methods: {
             stripe() {
+                this.loading = true;
                 createToken().then(data => {
                     if (data.error) {
                         this.error = data.error.message;
                         console.log(data.error.message);
+                        this.loading = false
                     }
 
                     if (data.token) {
                         // this.stripeToken = 'tok_1DB17yFwuOiaBR7w2HtovVky';
                         // this.$refs['stripe-form'].$el.submit();
-
                         window.location.href = '/checkout/' + data.token.id;
                     }
 
                 }).catch(error => {
                     console.log(error, 'error');
+                    this.loading = false;
                 })
             },
 
             paypal() {
+                alert('Paypal is not connected, use Cart checkout.');
                 console.log('paypal');
-            },
-
-            sttttripe() {
-                // this.$checkout.close()
-                // is also available.
-                this.$checkout.open({
-                    image: '/images/b-favicon-64.png',
-                    locale: 'auto',
-                    currency: window.cfg.currency,
-                    name: 'BearteSpace',
-                    description: 'Make purchase with credit or debit cart',
-                    amount: Number(this.price_) * 100,
-                    panelLabel: 'Pay ' + this.formattedPrice_,
-                    token: (token) => {
-
-                    }
-                })
+                this.loading = true;
             },
         }
     }
