@@ -14,20 +14,22 @@ class CheckoutController extends Controller {
 
 		$address = auth()->user()->primaryAddress;
 
-		$cartArtworks = Cart::content()->pluck( 'id' );
+		$cartArtworks = Cart::content()->pluck( 'qty', 'id' );
 
-		$artworks = Artwork::find( $cartArtworks );
+		$artworks = Artwork::whereIn( 'id', $cartArtworks->keys() )->get();
 
-		//		return $address;
+		$totalPrice = 0;
 
-//		return Cart::total();
+		foreach ( $artworks as $artwork ) {
+			// If available in stock needed amount
+			if ( $artwork->availableInStockWithQuantity( $cartArtworks[ $artwork->id ] ) === 'available' ) {
+				$totalPrice += $artwork->price * $cartArtworks[ $artwork->id ];
+			}
+		};
 
-//		return auth()->user()->orders;
-//		                     ->create([
-//
-//		]);
+		$totalFormattedPrice = currency( $totalPrice );
 
-		return view( 'checkout.index', compact( 'artworks', 'address' ) );
+		return view( 'checkout.index', compact( 'artworks', 'address', 'cartArtworks', 'totalPrice', 'totalFormattedPrice' ) );
 	}
 
 }

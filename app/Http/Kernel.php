@@ -58,19 +58,21 @@ class Kernel extends HttpKernel {
 	 * @var array
 	 */
 	protected $routeMiddleware = [
-		'auth'               => \Illuminate\Auth\Middleware\Authenticate::class,
-		'auth.basic'         => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-		'bindings'           => \Illuminate\Routing\Middleware\SubstituteBindings::class,
-		'can'                => \Illuminate\Auth\Middleware\Authorize::class,
-		'guest'              => \App\Http\Middleware\RedirectIfAuthenticated::class,
-		'throttle'           => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-		'dashboard'          => \App\Http\Middleware\DashboardArea::class,
-		'confirmed-email'    => \App\Http\Middleware\ConfirmedEmail::class,
-		'admin'              => \App\Http\Middleware\OnlyAdminAccess::class,
-		'artist'             => \App\Http\Middleware\OnlyArtistAccess::class,
-		'has-profile-avatar' => \App\Http\Middleware\CheckProfileAvatar::class,
-		'has-primary-address' => \App\Http\Middleware\HasPrimaryAddress::class,
-		'empty-shopping-cart' => \App\Http\Middleware\EmptyShoppingCard::class,
+		'auth'                             => \Illuminate\Auth\Middleware\Authenticate::class,
+		'auth.basic'                       => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+		'bindings'                         => \Illuminate\Routing\Middleware\SubstituteBindings::class,
+		'can'                              => \Illuminate\Auth\Middleware\Authorize::class,
+		'guest'                            => \App\Http\Middleware\RedirectIfAuthenticated::class,
+		'throttle'                         => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+		'dashboard'                        => \App\Http\Middleware\DashboardArea::class,
+		'confirmed-email'                  => \App\Http\Middleware\ConfirmedEmail::class,
+		'admin'                            => \App\Http\Middleware\OnlyAdminAccess::class,
+		'artist'                           => \App\Http\Middleware\OnlyArtistAccess::class,
+		'has-profile-avatar'               => \App\Http\Middleware\CheckProfileAvatar::class,
+		'has-primary-address'              => \App\Http\Middleware\HasPrimaryAddress::class,
+		'empty-shopping-cart'              => \App\Http\Middleware\EmptyShoppingCard::class,
+		'items-available-in-shopping-cart' => \App\Http\Middleware\ItemsAvailableInShoppingCart::class,
+		'shopping-cart'                    => \App\Http\Middleware\ShoppingCart::class,
 
 	];
 }

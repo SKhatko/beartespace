@@ -4,17 +4,23 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Order extends Model
-{
-    public function user() {
-    	return $this->belongsTo(User::class);
-    }
+class Order extends Model {
 
-    public function address() {
-    	return $this->hasOne(Address::class);
-    }
+	protected $fillable = [ 'address', 'cart', 'status' ];
 
-	public function scopeConfirmed($query)
-	{
-		return $query->where('confirmed_at', '<', now());
-	}}
+	public function user() {
+		return $this->belongsTo( User::class );
+	}
+
+	public function address() {
+		return $this->hasOne( Address::class );
+	}
+
+	public function artworks() {
+		return $this->belongsToMany(Artwork::class);
+	}
+
+	public function scopeConfirmed( $query ) {
+		return $query->where( 'confirmed_at', '<', now() );
+	}
+}

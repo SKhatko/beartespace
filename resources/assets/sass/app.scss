@@ -837,11 +837,14 @@ body, html {
         flex: 1;
       }
 
-      &-price {
+      &--right {
         display: flex;
         align-items: center;
         margin-left: 20px;
+      }
 
+      &-status {
+        color: red;
       }
     }
 

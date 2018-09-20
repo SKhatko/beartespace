@@ -14,12 +14,16 @@ class CartController extends Controller {
 
 		$cartArtworks = Cart::content()->pluck( 'qty', 'id' );
 
-		$artworks = Artwork::find( $cartArtworks->keys() );
+		$artworks = Artwork::whereIn('id', $cartArtworks->keys() )->get();
 
+//		return $artworks;
 		$totalPrice = 0;
 
 		foreach ( $artworks as $artwork ) {
-			$totalPrice += $artwork->price * $cartArtworks[ $artwork->id ];
+			// If available in stock needed amount
+			if($artwork->availableInStockWithQuantity($cartArtworks[ $artwork->id ]) === 'available') {
+				$totalPrice += $artwork->price * $cartArtworks[ $artwork->id ];
+			}
 		};
 
 		$totalFormattedPrice = currency( $totalPrice );

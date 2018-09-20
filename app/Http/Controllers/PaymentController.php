@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Payment;
 use Illuminate\Http\Request;
-
+use App\Order;
+use App\Jobs\ArtworkPurchased;
 use App\Http\Requests;
 use Stripe\Stripe;
 use Stripe\Charge;
 use Illuminate\Support\Facades\Auth;
+use Gloudemans\Shoppingcart\Facades\Cart;
+use App\Artwork;
+
 
 class PaymentController extends Controller {
 
@@ -33,23 +37,70 @@ class PaymentController extends Controller {
 			'status'         => 'initial'
 		] );
 
-		return $payment;
+		$user = auth()->user();
 
 
-		Stripe::setApiKey( config( 'services.stripe.secret' ) );
-//
-//		$charge = Charge::create([
-//			'amount' => 999,
-//			'currency' => 'usd',
-//			'description' => 'Example charge',
-//			'source' => $transaction_id,
-//			'statement_descriptor' => 'Custom descriptor',
-//			'metadata' => ['order_id' => 6735],
-//		]);
-//
-//		dump( $charge );
+		$cartArtworks = Cart::content()->pluck( 'qty', 'id' );
 
-		return 'Payment Success!';
+		$artworks = Artwork::find( $cartArtworks->keys() );
+
+		$totalPrice = 0;
+
+		foreach ( $artworks as $artwork ) {
+			$totalPrice += $artwork->price * $cartArtworks[ $artwork->id ];
+		};
+
+		$order = $user->orders()->create( [
+			'address' => json_encode( $user->primaryAddress ),
+			'cart'    => json_encode( Cart::content() ),
+			'status'  => 'initial',
+		] );
+
+
+		try {
+			Stripe::setApiKey( config( 'services.stripe.secret' ) );
+
+			$charge = Charge::create( [
+				'amount'               => $totalPrice * 100,
+				'currency'             => 'eur',
+				'description'          => 'Purchase',
+				'source'               => $transaction_id,
+				'statement_descriptor' => $user->id . '-' . $user->name,
+				'metadata'             => [ 'order_id' => $order->id ],
+			] );
+
+			if ( $charge->status == 'succeeded' ) {
+				ArtworkPurchased::dispatch($order);
+
+//				$order->status = 'success';
+//				$order->save();
+
+
+
+
+				$payment->status             = 'success';
+				$payment->charge_id_or_token = $charge->id;
+				$payment->description        = $charge->description;
+				$payment->payment_created    = $charge->created;
+				$payment->charge             = json_encode( $charge );
+				$payment->save();
+
+				return view('checkout.success');
+			}
+
+			return $charge;
+
+		} catch ( \Exception $ex ) {
+			// The card has been declined
+//			$payment->status      = 'declined';
+//			$payment->description = 'Payment declined';
+//			$payment->save();
+
+			$message = $ex->getMessage();
+
+			return view('checkout.error', compact('message'));
+		}
+
 
 		if ( $payment ) {
 			return view( 'checkout', compact( 'payment' ) );

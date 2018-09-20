@@ -23,7 +23,7 @@
                 </el-form-item>
 
                 <el-form-item>
-                    <el-checkbox v-model="user.remember">Remember Me</el-checkbox>
+                    <el-checkbox name="remember" :checked="user.remember">Remember Me</el-checkbox>
                 </el-form-item>
 
                 <el-form-item>

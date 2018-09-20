@@ -11,8 +11,8 @@
             </el-breadcrumb>
 
             <checkout-form
-                    price_="{{ Cart::total() }}"
-                    formatted-price_="{{ currency(Cart::total(), null, session('currency')) }}"
+                    price_="{{ $totalPrice }}"
+                    formatted-price_="{{ $totalFormattedPrice }}"
                     key_="{{ config('services.stripe.key') }}">
             </checkout-form>
 

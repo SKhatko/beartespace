@@ -15,14 +15,16 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
-	        $table->integer('user_id')->nullable();
-	        $table->integer('address_id')->nullable();
+	        $table->integer('user_id');
+	        $table->json('address')->nullable();
 	        $table->json('cart')->nullable();
-	        $table->string('payment_id')->nullable();
+	        $table->enum('status', ['initial','pending','success','failed','declined','dispute'])->nullable();
 
+
+
+	        $table->string('payment_id')->nullable();
 	        $table->decimal('amount')->nullable();
 	        $table->string('payment_method')->nullable();
-	        $table->enum('status', ['initial','pending','success','failed','declined','dispute'])->nullable();
 	        $table->string('currency')->nullable();
 	        $table->string('token_id')->nullable();
 	        $table->string('card_last4')->nullable();
@@ -31,7 +33,7 @@ class CreateOrdersTable extends Migration
 	        $table->string('charge_id_or_token')->nullable();
 	        $table->string('payer_email')->nullable();
 	        $table->string('description')->nullable();
-	        $table->string('local_transaction_id')->nullable();
+	        $table->string('transaction_id')->nullable();
 	        //payment created column will be use by gateway
 	        $table->integer('payment_created')->nullable();
 	        $table->timestamp('confirmed_at')->nullable();

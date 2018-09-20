@@ -75,10 +75,14 @@ Route::group( [ 'middleware' => 'web' ], function () {
 	Route::get( 'cart/item/{id}/remove', 'CartController@removeItem' )->name( 'cart.item.remove' );
 
 	// Checkout
-	Route::get( 'checkout', 'CheckoutController@index' )->name( 'checkout' )->middleware( [ 'auth', 'empty-shopping-cart', 'has-primary-address' ] );
+	Route::middleware( [ 'auth', 'shopping-cart', 'has-primary-address' ] )->group( function () {
+		Route::get( 'checkout', 'CheckoutController@index' )->name( 'checkout' );
+		Route::get( 'checkout/{transaction_id?}', 'PaymentController@checkout' );
+
+	} );
 
 	// Address
-	Route::get( 'address', 'AddressController@index' )->middleware( 'auth' )->name('address');
+	Route::get( 'address', 'AddressController@index' )->middleware( 'auth' )->name( 'address' );
 	Route::post( 'address/{id}', 'AddressController@setPrimaryAddress' )->middleware( 'auth' );
 
 	// Pages
@@ -102,6 +106,8 @@ Route::group( [ 'middleware' => 'web' ], function () {
 		Route::get( 'profile', 'UserController@profile' )->name( 'dashboard.profile' );
 		Route::get( 'change-password', 'UserController@changePassword' )->name( 'dashboard.change-password' );
 		Route::post( 'change-password', 'UserController@changePasswordPost' );
+
+		Route::get( 'order', 'OrderController@index' )->name( 'dashboard.orders' );
 
 		// TODO
 		Route::get( 'payments', 'PaymentController@index' )->name( 'dashboard.payments' );
@@ -164,7 +170,6 @@ Route::post( '{id}/post-new', [ 'as' => 'post_bid', 'uses' => 'BidController@pos
 
 
 //Checkout payment
-Route::get( 'checkout/{transaction_id?}', [ 'as' => 'payment_checkout', 'uses' => 'PaymentController@checkout' ] );
 Route::post( 'checkout/{transaction_id?}', [ 'uses' => 'PaymentController@chargePayment' ] );
 //Payment success url
 Route::any( 'checkout/{transaction_id}/payment-success', [

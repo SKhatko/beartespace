@@ -47,7 +47,7 @@ class Artwork extends Model {
 		return $this->hasMany( Add::class );
 	}
 
-	public function getStockStatusAttribute() {
+	public function getStockStatusAttribute( $quantity = 1 ) {
 		if ( $this->attributes['sold'] ) {
 			return 'sold';
 		} else if ( ! $this->attributes['available'] ) {
@@ -56,6 +56,16 @@ class Artwork extends Model {
 			return 'available';
 		}
 
+	}
+
+	public function availableInStockWithQuantity( $quantity = 1 ) {
+		if ( $this->attributes['sold'] ) {
+			return 'sold';
+		} else if ( ! $this->attributes['available'] || $quantity > $this->attributes['quantity'] ) {
+			return 'unavailable';
+		} else {
+			return 'available';
+		}
 	}
 
 //	public function scopeActive( $query ) {

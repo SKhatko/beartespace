@@ -27,7 +27,8 @@
 
                             <div class="cart-item-info">
 
-                                <a href="{{ route('artist', $artwork->user_id) }}" class="h5" style="margin-bottom: 6px;font-weight: bold;display: block;">
+                                <a href="{{ route('artist', $artwork->user_id) }}" class="h5"
+                                   style="margin-bottom: 6px;font-weight: bold;display: block;">
                                     {{ $artwork->user->name }}
                                 </a>
 
@@ -40,14 +41,25 @@
 
                             {{--                            {{ $artwork->status }}--}}
 
-                            <div class="cart-item-price">
 
-                                {{ $artwork->formatted_price }}
+                            <div class="cart-item--right">
+                                @if($artwork->availableInStockWithQuantity($cartArtworks[$artwork->id]) === 'available')
+
+                                    <div class="cart-item-price">
+                                        {{ $artwork->formatted_price }}
+                                    </div>
+
+                                    <div class="cart-item-qty">
+                                        {{ $cartArtworks[$artwork->id] }} pc
+                                    </div>
+
+                                @else
+                                    <div class="cart-item-status">
+                                        @lang('stock-status.' . $artwork->stockStatus)
+                                    </div>
+                                @endif
+
                                 {{--                                {{ currency($artwork->price, null, session('currency')) }}--}}
-
-                                <div class="cart-item-qty">
-                                    {{ $cartArtworks[$artwork->id] }} pc
-                                </div>
 
                                 <el-button circle style="margin-left: 10px;">
                                     <a href="{{ route('cart.item.remove', $artwork->id) }}"><span
@@ -64,7 +76,7 @@
                             Subtotal
                         </div>
                         <div class="cart-bottom-price">
-{{--                            {{ currency(Cart::subtotal(), null, session('currency')) }}--}}
+                            {{--                            {{ currency(Cart::subtotal(), null, session('currency')) }}--}}
                             {{ $totalFormattedPrice }}
                         </div>
                     </div>

@@ -94,6 +94,10 @@
                         <a href="{{ route('dashboard.payments') }}" class="el-dropdown-link">Payments</a>
                     </el-dropdown-item>
 
+                    <el-dropdown-item>
+                        <a href="{{ route('dashboard.orders') }}" class="el-dropdown-link">Orders</a>
+                    </el-dropdown-item>
+
 
                     <el-dropdown-item>
                         <a href="{{route('dashboard.profile')}}" class="el-dropdown-link">Profile</a>

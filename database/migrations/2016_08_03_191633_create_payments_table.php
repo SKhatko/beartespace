@@ -28,6 +28,7 @@ class CreatePaymentsTable extends Migration
             $table->string('card_id')->nullable();
             $table->string('client_ip')->nullable();
             $table->string('charge_id_or_token')->nullable();
+            $table->json('charge')->nullable();
             $table->string('payer_email')->nullable();
             $table->string('description')->nullable();
             //payment created column will be use by gateway
