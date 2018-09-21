@@ -20,20 +20,24 @@
 
                     @foreach($orders as $order)
                         <div class="order">
+                            <div class="order-top">
+                                Order #{{ $order->id }} from {{ $order->created_at->diffForHumans() }}
+
+                            </div>
                             @foreach($order->cart as $artwork)
                                 <div class="artwork">
                                     {{----}}
                                     {{--<div class="artwork-image">--}}
-                                        {{--<img src="/imagecache/height-100{{ $artwork->image_url }}"--}}
-                                             {{--alt="{{ $artwork->image ? $artwork->image->original_name : 'image' }}"--}}
-                                             {{--style="height: 100px;">--}}
+                                    {{--<img src="/imagecache/height-100{{ $artwork->image_url }}"--}}
+                                    {{--alt="{{ $artwork->image ? $artwork->image->original_name : 'image' }}"--}}
+                                    {{--style="height: 100px;">--}}
                                     {{--</div>--}}
 
                                     <div class="artwork-info">
 
                                         {{--<a href="{{ route('artist', $artwork->user_id) }}" class="h5"--}}
-                                           {{--style="margin-bottom: 6px;font-weight: bold;display: block;">--}}
-                                            {{--{{ $artwork->user->name }}--}}
+                                        {{--style="margin-bottom: 6px;font-weight: bold;display: block;">--}}
+                                        {{--{{ $artwork->user->name }}--}}
                                         {{--</a>--}}
 
                                         <a href="{{ route('artwork', $artwork->id) }}" class="h5">
@@ -60,6 +64,7 @@
                                 </div>
 
                             @endforeach
+                            <hr>
 
                             <div class="order-bottom">
                                 <div class="order-bottom-info">
@@ -68,8 +73,8 @@
                                 <div class="order-bottom-price">
                                     {{ currency($order->amount) }}
                                 </div>
+
                             </div>
-                            {{ $order->id . ' = ' . $order->created_at }}
 
                         </div>
 

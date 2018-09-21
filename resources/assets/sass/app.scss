@@ -417,16 +417,22 @@ body, html {
   .order {
     margin-bottom: 30px;
 
+    &-top {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
     &-bottom {
-      border-bottom: 1px solid gray;
+      font-weight: bold;
       display: flex;
       justify-content: space-between;
-
+      margin-bottom: 10px;
     }
 
   }
 
   .artwork {
+    margin-bottom: 10px;
     display: flex;
     align-items: center;
 
