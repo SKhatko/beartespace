@@ -16,51 +16,51 @@
                 <div slot="header" class="clearfix h4">Orders</div>
 
 
-                @if(auth()->user()->orders()->count() > 0)
+                @if($orders->count() > 0)
 
-                    @foreach(auth()->user()->orders as $order)
+                    @foreach($orders as $order)
                         <div class="order">
-
-                            @foreach($order->artworks as $artwork)
-                                <div class="artwork">
-                                    <div class="artwork-image">
-                                        <img src="/imagecache/height-100{{ $artwork->image_url }}"
-                                             alt="{{ $artwork->image ? $artwork->image->original_name : 'image' }}"
-                                             style="height: 100px;">
-                                    </div>
-
-                                    <div class="artwork-info">
-
-                                        <a href="{{ route('artist', $artwork->user_id) }}" class="h5"
-                                           style="margin-bottom: 6px;font-weight: bold;display: block;">
-                                            {{ $artwork->user->name }}
-                                        </a>
-
-                                        <a href="{{ route('artwork', $artwork->id) }}" class="h5">
-                                            {{ $artwork->title }}
-                                        </a>
-                                    </div>
-
-                                    <div class="artwork--right">
-
-                                        <div class="artwork-price">
-                                            {{ $artwork->formatted_price }}
+                            @if(count(json_decode($order->artworks)) > 0)
+                                @foreach(json_decode($order->artworks) as $artwork)
+                                    <div class="artwork">
+                                        <div class="artwork-image">
+                                            <img src="/imagecache/height-100{{ $artwork->image_url }}"
+                                                 alt="{{ $artwork->image ? $artwork->image->original_name : 'image' }}"
+                                                 style="height: 100px;">
                                         </div>
 
-                                        <div class="artwork-qty">
-                                            {{ $cartArtworks[$artwork->id] }} pc
+                                        <div class="artwork-info">
+
+                                            <a href="{{ route('artist', $artwork->user_id) }}" class="h5"
+                                               style="margin-bottom: 6px;font-weight: bold;display: block;">
+                                                {{ $artwork->user->name }}
+                                            </a>
+
+                                            <a href="{{ route('artwork', $artwork->id) }}" class="h5">
+                                                {{ $artwork->name }}
+                                            </a>
                                         </div>
 
-                                        <div class="artwork-status">
-                                            Payed
+                                        <div class="artwork--right">
+
+                                            <div class="artwork-price">
+                                                {{ $artwork->formatted_price }}
+                                            </div>
+
+                                            <div class="artwork-qty">
+                                                {{ $cartArtworks[$artwork->id] }} pc
+                                            </div>
+
+                                            <div class="artwork-status">
+                                                Payed
+                                            </div>
+
                                         </div>
 
                                     </div>
 
-                                </div>
-
-                            @endforeach
-
+                                @endforeach
+                            @endif
 
                             <div class="order-bottom">
                                 <div class="order-bottom-info">

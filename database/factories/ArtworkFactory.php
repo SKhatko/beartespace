@@ -5,7 +5,7 @@ use Faker\Generator as Faker;
 $factory->define( App\Artwork::class, function ( Faker $faker ) {
 	return [
 		'slug'               => $faker->slug,
-		'title'              => $faker->sentence,
+		'name'              => $faker->sentence,
 		'description'        => $faker->sentence,
 		'inspiration'        => $faker->sentence,
 		'height'             => $faker->randomFloat( 1 ),

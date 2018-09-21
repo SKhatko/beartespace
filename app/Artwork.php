@@ -6,8 +6,10 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use App\Add;
+use Gloudemans\Shoppingcart\Contracts\Buyable;
 
-class Artwork extends Model {
+class Artwork extends Model implements Buyable {
+
 	protected $guarded = [];
 
 	protected $appends = [
@@ -26,6 +28,18 @@ class Artwork extends Model {
 		'color'     => 'array',
 		'image'     => 'array'
 	];
+
+	public function getBuyableIdentifier( $options = null ) {
+		return $this->id;
+	}
+
+	public function getBuyableDescription( $options = null ) {
+		return $this->name;
+	}
+
+	public function getBuyablePrice( $options = null ) {
+		return $this->price;
+	}
 
 	public function user() {
 		return $this->belongsTo( User::class );
@@ -68,9 +82,9 @@ class Artwork extends Model {
 		}
 	}
 
-//	public function scopeActive( $query ) {
-//		return $query->whereStatus( '1' );
-//	}
+	public function scopeActive( $query ) {
+		return $query->where( 'available', true );
+	}
 
 	public function scopeAuction( $query ) {
 		return $query->whereAuctionStatus( '1' );

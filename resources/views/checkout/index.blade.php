@@ -11,8 +11,8 @@
             </el-breadcrumb>
 
             <checkout-form
-                    price_="{{ $totalPrice }}"
-                    formatted-price_="{{ $totalFormattedPrice }}"
+                    price_="{{ Cart::total() }}"
+                    formatted-price_="{{ currency(Cart::total()) }}"
                     key_="{{ config('services.stripe.key') }}">
             </checkout-form>
 
@@ -40,12 +40,12 @@
             <el-card class="box-card checkout-cart">
                 <div slot="header" class="h4">Review items</div>
 
-                @foreach($artworks as $artwork)
+                @foreach(Cart::content() as $artwork)
 
                     <div class="checkout-cart-item">
-                        <img src="/imagecache/height-100{{ $artwork->image_url }}" alt="" style="margin-right: 20px;">
-                        <a href="{{ route('artwork', $artwork->id) }}">{{ $artwork->title . ' - ' . $artwork->formatted_price }}
-                            {{ $cartArtworks[$artwork->id] }}pc</a>
+                        <img src="/imagecache/height-100{{ $artwork->model->image_url }}" alt="" style="margin-right: 20px;">
+                        <a href="{{ route('artwork', $artwork->id) }}">{{ $artwork->name . ' - ' . $artwork->model->formatted_price }}
+                            {{ $artwork->qty }}pc</a>
                     </div>
 
                 @endforeach

@@ -14,55 +14,48 @@
             <el-card class="box-card cart">
                 <div slot="header" class="clearfix h4">Shopping cart</div>
 
-                @if($artworks->count() > 0)
+                @if(Cart::count() > 0)
 
-                    @foreach($artworks as $artwork)
+                    @foreach(Cart::content() as $artwork)
+
                         <div class="cart-item">
-
                             <div class="cart-item-image">
-                                <img src="/imagecache/height-100{{ $artwork->image_url }}"
-                                     alt="{{ $artwork->image ? $artwork->image->original_name : 'image' }}"
+                                <img src="/imagecache/height-100{{ $artwork->model->image_url }}"
+                                     alt="{{ $artwork->model->image ? $artwork->model->image->original_name : 'image' }}"
                                      style="height: 100px;">
                             </div>
 
                             <div class="cart-item-info">
 
-                                <a href="{{ route('artist', $artwork->user_id) }}" class="h5"
+                                <a href="{{ route('artist', $artwork->model->user_id) }}" class="h5"
                                    style="margin-bottom: 6px;font-weight: bold;display: block;">
-                                    {{ $artwork->user->name }}
+                                    {{ $artwork->model->user->name }}
                                 </a>
 
                                 <a href="{{ route('artwork', $artwork->id) }}" class="h5">
-                                    {{ $artwork->title }}
+                                    {{ $artwork->name }}
                                 </a>
                             </div>
 
-                            {{--                            {{ $artwork->unique ? 1 : $artwork->quantity }}--}}
-
-                            {{--                            {{ $artwork->status }}--}}
-
-
                             <div class="cart-item--right">
-                                @if($artwork->availableInStockWithQuantity($cartArtworks[$artwork->id]) === 'available')
+                                @if($artwork->model->availableInStockWithQuantity($artwork->qty) === 'available')
 
                                     <div class="cart-item-price">
-                                        {{ $artwork->formatted_price }}
+                                        {{ $artwork->model->formatted_price }}
                                     </div>
 
                                     <div class="cart-item-qty">
-                                        {{ $cartArtworks[$artwork->id] }} pc
+                                        {{ $artwork->qty }} pc
                                     </div>
 
                                 @else
                                     <div class="cart-item-status">
-                                        @lang('stock-status.' . $artwork->stockStatus)
+                                        @lang('stock-status.' . $artwork->model->stockStatus)
                                     </div>
                                 @endif
 
-                                {{--                                {{ currency($artwork->price, null, session('currency')) }}--}}
-
                                 <el-button circle style="margin-left: 10px;">
-                                    <a href="{{ route('cart.item.remove', $artwork->id) }}"><span
+                                    <a href="{{ route('cart.item.remove', $artwork->model->id) }}"><span
                                                 class="el-icon-delete"></span></a>
                                 </el-button>
                             </div>
@@ -76,8 +69,8 @@
                             Subtotal
                         </div>
                         <div class="cart-bottom-price">
-                            {{--                            {{ currency(Cart::subtotal(), null, session('currency')) }}--}}
-                            {{ $totalFormattedPrice }}
+{{--                            {{ currency(Cart::total(), null, session('currency')) }} / --}}
+                            {{ currency(Cart::total()) }}
                         </div>
                     </div>
 

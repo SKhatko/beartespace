@@ -28,7 +28,7 @@
                         <div class="artwork--right">
                             <el-card class="artwork-description">
 
-                                <div class="artwork-name">{{ $artwork->title }} by <b>{{ $artwork->user->name }}</b>
+                                <div class="artwork-name">{{ $artwork->name }} by <b>{{ $artwork->user->name }}</b>
                                 </div>
 
                                 @if($artwork->user->country)
@@ -49,6 +49,10 @@
                                             {{ $artwork->quantity }} pc
                                         @endif
                                     </div>
+
+                                    <el-input-number size="mini" value="1" :min="Number('1')"
+                                                     :max="Number('{{ $artwork->quantity }}')"></el-input-number>
+
                                 @endif
 
 

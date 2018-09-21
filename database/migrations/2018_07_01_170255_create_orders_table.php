@@ -13,13 +13,12 @@ class CreateOrdersTable extends Migration {
 	public function up() {
 		Schema::create( 'orders', function ( Blueprint $table ) {
 			$table->increments( 'id' );
-			$table->integer( 'user_id' );
+			$table->integer( 'user_id' )->nullable();
 			$table->json( 'address' )->nullable();
 			$table->json( 'cart' )->nullable();
-			$table->json( 'artworks' )->nullable();
 			$table->decimal( 'amount' )->nullable();
 			$table->string( 'payment_id' )->nullable();
-			$table->enum( 'status', [ 'initial', 'pending', 'success', 'failed', 'declined', 'dispute' ] )->nullable();
+			$table->enum('status', ['initial','pending','success','failed','declined','dispute'])->nullable()->default('initial');
 
 			//payment created column will be use by gateway
 			$table->timestamp( 'confirmed_at' )->nullable();

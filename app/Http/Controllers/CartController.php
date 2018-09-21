@@ -11,25 +11,8 @@ class CartController extends Controller {
 	public $response;
 
 	public function index() {
-
-		$cartArtworks = Cart::content()->pluck( 'qty', 'id' );
-
-		$artworks = Artwork::whereIn('id', $cartArtworks->keys() )->get();
-
-//		return $artworks;
-		$totalPrice = 0;
-
-		foreach ( $artworks as $artwork ) {
-			// If available in stock needed amount
-			if($artwork->availableInStockWithQuantity($cartArtworks[ $artwork->id ]) === 'available') {
-				$totalPrice += $artwork->price * $cartArtworks[ $artwork->id ];
-			}
-		};
-
-		$totalFormattedPrice = currency( $totalPrice );
-
-//		return $artworks;
-		return view( 'cart.index', compact( 'artworks', 'cartArtworks', 'totalPrice', 'totalFormattedPrice' ) );
+//		dd( Cart::content());
+		return view( 'cart.index' );
 	}
 
 	public function apiToggleCart( Request $request, $id ) {
@@ -51,7 +34,8 @@ class CartController extends Controller {
 				}
 			} );
 		} else {
-			Cart::add( $artwork->id, $artwork->title, 1, $artwork->price );
+//			Cart::add( $artwork->id, $artwork->name, 1, $artwork->price );
+			Cart::add( $artwork );
 
 			$this->response = [
 				'status'  => 'success',
@@ -81,7 +65,8 @@ class CartController extends Controller {
 				}
 			} );
 		} else {
-			Cart::add( $artwork->id, $artwork->title, 1, $artwork->price );
+//			Cart::add( $artwork->id, $artwork->name, 1, $artwork->price );
+			Cart::add( $artwork );
 
 			$this->response = redirect()->route( 'cart' );
 
@@ -94,12 +79,13 @@ class CartController extends Controller {
 		$artwork = Artwork::findOrFail( $id );
 
 		if ( ! Cart::content()->contains( 'id', $artwork->id ) ) {
-			Cart::add( $artwork->id, $artwork->title, 1, $artwork->price );
+//			Cart::add( $artwork->id, $artwork->name, 1, $artwork->price );
+			Cart::add( $artwork );
 		}
 
 		return redirect()->back()->with( 'message', [
 			'status'  => 'success',
-			'message' => $artwork->title . ' added to shopping cart'
+			'message' => $artwork->name . ' added to shopping cart'
 		] );
 	}
 
@@ -114,7 +100,7 @@ class CartController extends Controller {
 
 		return redirect()->back()->with( 'message', [
 			'status'  => 'success',
-			'message' => $artwork->title . ' removed from shopping cart'
+			'message' => $artwork->name . ' removed from shopping cart'
 		] );
 	}
 

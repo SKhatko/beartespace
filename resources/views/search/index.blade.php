@@ -16,7 +16,7 @@
             @if(count($artworks))
                 @foreach($artworks as $artwork)
                     <div class="artwork">
-                        <a href="{{ route('artwork', $artwork->id) }}">{{ $artwork->title }}</a>
+                        <a href="{{ route('artwork', $artwork->id) }}">{{ $artwork->name }}</a>
                     </div>
                 @endforeach
             @elseif(count($artists))

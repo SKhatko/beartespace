@@ -9,7 +9,7 @@
     @foreach($artworks as $artwork)
         <div class="artwork">
 
-            <a href="{{ route('artwork', $artwork->id) }}" class="h2" target="_blank">{{ $artwork->title }}</a>
+            <a href="{{ route('artwork', $artwork->id) }}" class="h2" target="_blank">{{ $artwork->name }}</a>
 
             <div class="artwork-image">
                 @if($artwork->image)

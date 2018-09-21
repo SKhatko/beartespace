@@ -18,20 +18,11 @@ class CreatePaymentsTable extends Migration
 	        $table->integer('order_id')->nullable();
 	        $table->string('transaction_id');
 	        $table->decimal('amount')->nullable();
-
-	        $table->enum('status', ['initial','pending','success','failed','declined','dispute'])->nullable();
-
-
-            $table->string('payment_method')->nullable();
-            $table->string('currency')->nullable();
-            $table->string('token_id')->nullable();
-            $table->string('card_last4')->nullable();
-            $table->string('card_id')->nullable();
-            $table->string('client_ip')->nullable();
+	        $table->json('charge')->nullable();
+	        $table->string('description')->nullable();
+	        $table->enum('status', ['initial','pending','success','failed','declined','dispute'])->nullable()->default('initial');
             $table->string('charge_id_or_token')->nullable();
-            $table->json('charge')->nullable();
-            $table->string('payer_email')->nullable();
-            $table->string('description')->nullable();
+
             //payment created column will be use by gateway
             $table->integer('payment_created')->nullable();
             $table->timestamps();

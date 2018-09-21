@@ -36,24 +36,17 @@ class PaymentController extends Controller {
 
 		$payment = $user->payments()->whereTransactionId( $transaction_id )->firstOrCreate( [
 			'transaction_id' => $transaction_id,
-			'status'         => 'initial'
 		] );
 
-		$cartArtworks = Cart::content()->pluck( 'qty', 'id' );
-
-		$artworks = Artwork::find( $cartArtworks->keys() );
-
-		$totalPrice = $artworks->sum( 'price' );
-
-		$order = $user->orders()->create( [
-			'status' => 'initial',
-		] );
+		$order =  $user->orders()->updateOrCreate(['payment_id' => $payment->id], [
+			'payment_id' => $payment->id,
+		]);
 
 		try {
 			Stripe::setApiKey( config( 'services.stripe.secret' ) );
 
 			$charge = Charge::create( [
-				'amount'      => $totalPrice * 100,
+				'amount'      => Cart::total() * 100,
 				'currency'    => 'eur',
 				'description' => 'Purchase',
 				'source'      => $transaction_id,
@@ -65,9 +58,7 @@ class PaymentController extends Controller {
 			$order->update( [
 				'address'    => json_encode( $user->primaryAddress ),
 				'cart'       => json_encode( Cart::content() ),
-				'artworks'   => json_encode( $artworks ),
-				'amount'     => $totalPrice,
-				'payment_id' => $payment->id,
+				'amount'     => Cart::total(),
 				'status'     => 'success',
 			] );
 
@@ -81,7 +72,7 @@ class PaymentController extends Controller {
 				'charge'             => json_encode( $charge ),
 			] );
 
-			$payment->save();
+//			$payment->save();
 
 //								ArtworkPurchased::dispatch( $order );
 
@@ -97,11 +88,16 @@ class PaymentController extends Controller {
 
 			$message = $ex->getMessage();
 
-			return $message;
-			return view( 'checkout.failure', compact( 'message' ) );
+//			return $message;
+			return view( 'checkout.failure', compact( 'message', 'order' ) );
+//			return redirect(route('checkout.failure'));
 		}
 
-		return view( 'checkout.success' );
+//		dump( $payment );
+//		dd( $order );
+
+//		return redirect(route('checkout.success'));
+		return view( 'checkout.success', compact( 'order' ) );
 
 	}
 

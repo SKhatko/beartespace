@@ -204,7 +204,6 @@ class HomeController extends Controller {
 			$artworks->where( 'price', '<=', $priceMax );
 		}
 
-
 //		foreach ( $artworks->get() as $artwork ) {
 //			dump($artwork->price);
 //			dump($artwork->currency);
@@ -212,15 +211,15 @@ class HomeController extends Controller {
 //			dump( $artwork->price > $priceMin );
 //		}
 
-
 		$items = 15;
 
 		if ( $request->has( 'items' ) && $request->input( 'items' ) > 1 ) {
 			$items = $request->get( 'items' );
 		}
 
-		$artworks = $artworks->with( 'images', 'user.country' )->paginate( $items );
+		$artworks = $artworks->active()->with( 'images', 'user.country' )->paginate( $items );
 
+//		return $artworks->pluck('available');
 		return view( 'artwork.index', compact( 'artworks' ) );
 	}
 
