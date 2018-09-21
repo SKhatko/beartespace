@@ -409,6 +409,38 @@ body, html {
   }
 }
 
+.app-orders {
+
+  .orders {
+  }
+
+  .order {
+    margin-bottom: 30px;
+
+    &-bottom {
+      border-bottom: 1px solid gray;
+      display: flex;
+      justify-content: space-between;
+
+    }
+
+  }
+
+  .artwork {
+    display: flex;
+    align-items: center;
+
+    &--right {
+      display: flex;
+      margin-left: 20px;
+    }
+
+    &-info {
+      flex: 1;
+    }
+  }
+}
+
 .app-invite {
   padding: 80px 15px;
   text-align: center;

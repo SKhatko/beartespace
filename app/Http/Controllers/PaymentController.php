@@ -38,9 +38,9 @@ class PaymentController extends Controller {
 			'transaction_id' => $transaction_id,
 		] );
 
-		$order =  $user->orders()->updateOrCreate(['payment_id' => $payment->id], [
+		$order = $user->orders()->updateOrCreate( [ 'payment_id' => $payment->id ], [
 			'payment_id' => $payment->id,
-		]);
+		] );
 
 		try {
 			Stripe::setApiKey( config( 'services.stripe.secret' ) );
@@ -56,10 +56,10 @@ class PaymentController extends Controller {
 //			if ( $charge->status == 'succeeded' ) {
 
 			$order->update( [
-				'address'    => json_encode( $user->primaryAddress ),
-				'cart'       => json_encode( Cart::content() ),
-				'amount'     => Cart::total(),
-				'status'     => 'success',
+				'address' => $user->primaryAddress,
+				'cart'    => Cart::content(),
+				'amount'  => Cart::total(),
+				'status'  => 'success',
 			] );
 
 			$payment->update( [
