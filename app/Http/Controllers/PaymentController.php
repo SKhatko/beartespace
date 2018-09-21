@@ -63,7 +63,7 @@ class PaymentController extends Controller {
 			] );
 
 			$payment->update( [
-				'amount'             => $totalPrice,
+				'amount'             => Cart::total(),
 				'order_id'           => $order->id,
 				'status'             => 'success',
 				'charge_id_or_token' => $charge->id,
