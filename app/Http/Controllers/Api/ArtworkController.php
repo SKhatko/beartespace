@@ -21,7 +21,6 @@ class ArtworkController extends Controller {
 			'image_url',
 			'images',
 			'formatted_price',
-			'stock_status',
 			'artwork_options_add',
 			'artwork_inspiration_add',
 			'artwork_interior_add'

@@ -8,8 +8,8 @@
 
             <el-row :gutter="20">
                 <el-col :sm="12">
-                    <el-form-item label="Artwork Name (Title)" prop="title">
-                        <el-input placeholder="Please input" v-model="artwork.title"></el-input>
+                    <el-form-item label="Artwork Name (Title)" prop="name">
+                        <el-input placeholder="Please input" v-model="artwork.name"></el-input>
                     </el-form-item>
                 </el-col>
                 <el-col :sm="12">
@@ -364,8 +364,8 @@
                     artworkInspirationAddDialog: false,
                 },
                 updateArtworkRules: {
-                    title: [
-                        {required: true, message: 'Please input title of artwork', trigger: ['blur', 'change']},
+                    name: [
+                        {required: true, message: 'Please enter the name of artwork', trigger: ['blur', 'change']},
                     ],
                     category: [
                         {required: true, message: 'Please select category', trigger: ['blur', 'change']}

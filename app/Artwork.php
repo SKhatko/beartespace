@@ -13,7 +13,6 @@ class Artwork extends Model implements Buyable {
 	protected $guarded = [];
 
 	protected $appends = [
-		'stock_status',
 		'formatted_price',
 		'artwork_options_add',
 		'artwork_inspiration_add',
@@ -61,29 +60,24 @@ class Artwork extends Model implements Buyable {
 		return $this->hasMany( Add::class );
 	}
 
-	public function getStockStatusAttribute( $quantity = 1 ) {
-		if ( $this->attributes['sold'] ) {
-			return 'sold';
-		} else if ( ! $this->attributes['available'] ) {
-			return 'unavailable';
-		} else {
-			return 'available';
-		}
-
-	}
-
 	public function availableInStockWithQuantity( $quantity = 1 ) {
 		if ( $this->attributes['sold'] ) {
 			return 'sold';
-		} else if ( ! $this->attributes['available'] || $quantity > $this->attributes['quantity'] ) {
-			return 'unavailable';
-		} else {
+		} else if ( ! $this->attributes['available'] ) {
+			return 'temporarily-unavailable';
+		} else if($quantity <= $this->attributes['quantity']) {
 			return 'available';
+		} else {
+			return 'unavailable';
 		}
 	}
 
-	public function scopeActive( $query ) {
+	public function scopeAvailable( $query ) {
 		return $query->where( 'available', true );
+	}
+
+	public function scopeNotSold( $query ) {
+		return $query->where( 'sold', false );
 	}
 
 	public function scopeAuction( $query ) {

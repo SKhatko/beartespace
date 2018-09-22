@@ -20,7 +20,8 @@ class CreatePaymentsTable extends Migration
 	        $table->decimal('amount')->nullable();
 	        $table->json('charge')->nullable();
 	        $table->string('description')->nullable();
-	        $table->enum('status', ['initial','pending','success','failed','declined','dispute'])->nullable()->default('initial');
+//	        $table->enum('status', ['initial','pending','success','failed','declined','dispute'])->nullable()->default('initial');
+	        $table->string('status')->nullable()->default('initial');
             $table->string('charge_id_or_token')->nullable();
 
             //payment created column will be use by gateway

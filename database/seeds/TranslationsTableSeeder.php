@@ -121,6 +121,7 @@ class TranslationsTableSeeder extends Seeder {
 			],
 			'stock-status' => [
 				[ 'Available', '' ],
+				[ 'Temporarily unavailable', '' ],
 				[ 'Unavailable', '' ],
 				[ 'Sold', '' ],
 

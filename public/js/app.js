@@ -20267,7 +20267,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 artworkInspirationAddDialog: false
             },
             updateArtworkRules: {
-                title: [{ required: true, message: 'Please input title of artwork', trigger: ['blur', 'change'] }],
+                name: [{ required: true, message: 'Please enter the name of artwork', trigger: ['blur', 'change'] }],
                 category: [{ required: true, message: 'Please select category', trigger: ['blur', 'change'] }],
                 width: [{ required: true, message: 'Please select width', trigger: ['blur', 'change'] }],
                 b_width: [{ required: true, message: 'Please select width', trigger: ['blur', 'change'] }],
@@ -67801,18 +67801,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('el-form-item', {
     attrs: {
       "label": "Artwork Name (Title)",
-      "prop": "title"
+      "prop": "name"
     }
   }, [_c('el-input', {
     attrs: {
       "placeholder": "Please input"
     },
     model: {
-      value: (_vm.artwork.title),
+      value: (_vm.artwork.name),
       callback: function($$v) {
-        _vm.$set(_vm.artwork, "title", $$v)
+        _vm.$set(_vm.artwork, "name", $$v)
       },
-      expression: "artwork.title"
+      expression: "artwork.name"
     }
   })], 1)], 1), _vm._v(" "), _c('el-col', {
     attrs: {
@@ -70184,17 +70184,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "artwork"
   }, [_c('div', {
     staticClass: "artwork-top"
-  }, [(_vm.artwork.image) ? _c('a', {
+  }, [_c('a', {
     staticClass: "artwork-image",
     attrs: {
       "href": '/artwork/' + _vm.artwork.id
     }
   }, [_c('img', {
     attrs: {
-      "src": '/imagecache/original/' + _vm.artwork.image_url,
-      "alt": _vm.artwork.image.name
+      "src": '/imagecache/original/' + _vm.artwork.image_url
     }
-  })]) : _vm._e(), _vm._v(" "), _c('div', {
+  })]), _vm._v(" "), _c('div', {
     staticClass: "artwork-panel"
   }, [_c('el-button', {
     staticClass: "artwork-panel-favorite",
@@ -70225,7 +70224,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "href": '/artwork/' + _vm.artwork.id
     }
-  }, [_vm._v("\n        " + _vm._s(_vm.artwork.title) + "\n    ")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n        " + _vm._s(_vm.artwork.name) + "\n    ")]), _vm._v(" "), _c('div', {
     staticClass: "artwork-bottom"
   }, [(_vm.artwork.user && _vm.artwork.user.country) ? _c('div', {
     staticClass: "artwork-info"

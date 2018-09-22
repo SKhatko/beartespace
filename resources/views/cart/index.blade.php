@@ -27,37 +27,44 @@
 
                             <div class="cart-item-info">
 
-                                <a href="{{ route('artist', $artwork->model->user_id) }}" class="h5"
-                                   style="margin-bottom: 6px;font-weight: bold;display: block;">
+                                <a href="{{ route('artist', $artwork->model->user->id) }}" class="cart-item-artist">
+                                    <span class="cart-item-artist-avatar">
+                                        <img src="/imagecache/mini-avatar/{{ $artwork->model->user->avatar_url}}"/>
+                                    </span>
+
+                                    {{ $artwork->model->user->name }}
+                                </a>
+
+                                <a href="{{ route('artist', $artwork->model->user_id) }}" class="h5">
                                     {{ $artwork->model->user->name }}
                                 </a>
 
                                 <a href="{{ route('artwork', $artwork->id) }}" class="h5">
                                     {{ $artwork->name }}
                                 </a>
+
+                                <a href="{{ route('cart.item.remove', $artwork->model->id) }}"
+                                   style="display: block;margin-top: 10px;">Remove</a>
                             </div>
 
                             <div class="cart-item--right">
+
+
+                                <div class="cart-item-qty">
+                                    Qty: {{ $artwork->qty }}
+                                </div>
+
                                 @if($artwork->model->availableInStockWithQuantity($artwork->qty) === 'available')
 
                                     <div class="cart-item-price">
                                         {{ $artwork->model->formatted_price }}
                                     </div>
 
-                                    <div class="cart-item-qty">
-                                        {{ $artwork->qty }} pc
-                                    </div>
-
                                 @else
                                     <div class="cart-item-status">
-                                        @lang('stock-status.' . $artwork->model->stockStatus)
+                                        @lang('stock-status.' . $artwork->model->availableInStockWithQuantity($artwork->qty))
                                     </div>
                                 @endif
-
-                                <el-button circle style="margin-left: 10px;">
-                                    <a href="{{ route('cart.item.remove', $artwork->model->id) }}"><span
-                                                class="el-icon-delete"></span></a>
-                                </el-button>
                             </div>
 
                         </div>
@@ -69,7 +76,7 @@
                             Subtotal
                         </div>
                         <div class="cart-bottom-price">
-{{--                            {{ currency(Cart::total(), null, session('currency')) }} / --}}
+                            {{--                            {{ currency(Cart::total(), null, session('currency')) }} / --}}
                             {{ currency(Cart::total()) }}
                         </div>
                     </div>

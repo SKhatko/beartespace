@@ -28,7 +28,7 @@
                         <div class="artwork--right">
                             <el-card class="artwork-description">
 
-                                <div class="artwork-name">{{ $artwork->name }} by <b>{{ $artwork->user->name }}</b>
+                                <div class="artwork-name">{{ $artwork->name }} by <a href="{{ route('artist', $artwork->user->id) }}"><b>{{ $artwork->user->name }}</b></a>
                                 </div>
 
                                 @if($artwork->user->country)
@@ -37,21 +37,21 @@
                                     </div>
                                 @endif
 
-                                @if($artwork->stock_status !== 'available')
+                                @if($artwork->availableInStockWithQuantity() !== 'available')
                                     <div class="artwork-status">
-                                        {{ trans('stock-status.' . $artwork->stock_status) }}
+                                        {{ trans('stock-status.' . $artwork->availableInStockWithQuantity()) }}
                                     </div>
                                 @else
-                                    <div class="artwork-status-available">
-                                        {{ trans('stock-status.' . $artwork->stock_status) }}
+                                    <div class="artwork-status available">
+                                        {{ trans('stock-status.' . $artwork->availableInStockWithQuantity()) }}
 
                                         @if($artwork->quantity > 1)
-                                            {{ $artwork->quantity }} pc
+                                            Qty: {{ $artwork->quantity }} pc
                                         @endif
                                     </div>
 
-                                    <el-input-number size="mini" value="1" :min="Number('1')"
-                                                     :max="Number('{{ $artwork->quantity }}')"></el-input-number>
+                                    {{--<el-input-number size="mini" value="1" :min="Number('1')"--}}
+                                                     {{--:max="Number('{{ $artwork->quantity }}')"></el-input-number>--}}
 
                                 @endif
 

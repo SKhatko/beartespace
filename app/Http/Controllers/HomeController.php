@@ -217,9 +217,8 @@ class HomeController extends Controller {
 			$items = $request->get( 'items' );
 		}
 
-		$artworks = $artworks->active()->with( 'images', 'user.country' )->paginate( $items );
+		$artworks = $artworks->notSold()->available()->with( 'images', 'user.country' )->paginate( $items );
 
-//		return $artworks->pluck('available');
 		return view( 'artwork.index', compact( 'artworks' ) );
 	}
 

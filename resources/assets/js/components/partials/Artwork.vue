@@ -3,8 +3,8 @@
     <el-card class="artwork" v-if="artwork">
 
         <div class="artwork-top">
-            <a :href="'/artwork/' + artwork.id" class="artwork-image" v-if="artwork.image">
-                <img :src="'/imagecache/original/' + artwork.image_url" :alt="artwork.image.name">
+            <a :href="'/artwork/' + artwork.id" class="artwork-image">
+                <img :src="'/imagecache/original/' + artwork.image_url">
             </a>
 
             <div class="artwork-panel">
@@ -19,7 +19,7 @@
         </div>
 
         <a :href="'/artwork/' + artwork.id" class="artwork-title">
-            {{ artwork.title }}
+            {{ artwork.name }}
         </a>
 
         <div class="artwork-bottom">

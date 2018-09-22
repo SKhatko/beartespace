@@ -657,7 +657,9 @@ body, html {
     }
 
     &-country {
-
+      @extend .h4;
+      margin-top: 20px;
+      margin-bottom: 20px;
     }
 
     &-share {
@@ -671,7 +673,7 @@ body, html {
       font-size: 20px;
       margin: 20px 0;
 
-      &-available {
+      &.available {
         color: green;
       }
     }
@@ -862,7 +864,7 @@ body, html {
   .cart {
 
     &-item {
-      margin-bottom: 20px;
+      margin-bottom: 30px;
       display: flex;
       align-items: center;
 
@@ -875,10 +877,30 @@ body, html {
         flex: 1;
       }
 
+      &-artist {
+        margin-bottom: 6px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+
+        &-avatar {
+          display: inline-block;
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          overflow: hidden;
+          margin-right: 10px;
+        }
+      }
+
       &--right {
         display: flex;
         align-items: center;
         margin-left: 20px;
+      }
+
+      &-qty {
+        margin-right: 20px;
       }
 
       &-status {
