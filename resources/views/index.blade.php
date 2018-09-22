@@ -13,31 +13,33 @@
 @section('content')
 
     <div class="app-index">
-        <div class="app-index-banner"
-             style="background-image: url('/imagecache/original'{{ $randomArtwork->image_url }});">
+        @if($randomArtwork && $randomArtwork->image)
+            <div class="app-index-banner"
+                 style="background-image: url('/imagecache/original'{{ $randomArtwork->image_url }});">
 
-            <div class="banner--fade">
+                <div class="banner--fade">
 
-                <h1 class="banner-title">We sell Art - Join Us</h1>
+                    <h1 class="banner-title">We sell Art - Join Us</h1>
 
-                <div class="banner-buttons">
-                    <a href="{{ route('artworks') }}">Buy Art</a>
-                    <a href="{{ route('auctions') }}">Go to Auctions</a>
-                </div>
+                    <div class="banner-buttons">
+                        <a href="{{ route('artworks') }}">Buy Art</a>
+                        <a href="{{ route('auctions') }}">Go to Auctions</a>
+                    </div>
 
-                <div class="banner-info">
-                    <span>{{ $randomArtwork->user->name }}</span>
-                    <span>{{ $randomArtwork->title }}</span>
-                    <span>{{ $randomArtwork->size() }}</span>
-                    <span>
+                    <div class="banner-info">
+                        <span>{{ $randomArtwork->user->name }}</span>
+                        <span>{{ $randomArtwork->title }}</span>
+                        <span>{{ $randomArtwork->size() }}</span>
+                        <span>
                             @foreach($randomArtwork->medium as $medium)
-                            {{ trans('medium.' . $medium) && strpos(trans('medium.' . $medium), 'medium') !== false ? $medium : trans('medium.' . $medium)}}
-                        @endforeach
+                                {{ trans('medium.' . $medium) && strpos(trans('medium.' . $medium), 'medium') !== false ? $medium : trans('medium.' . $medium)}}
+                            @endforeach
                         </span>
-                </div>
+                    </div>
 
+                </div>
             </div>
-        </div>
+        @endif
 
         <div class="app-index-auctions">
 
