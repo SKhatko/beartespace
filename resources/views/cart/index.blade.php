@@ -82,7 +82,7 @@
                     </div>
 
                     {{--<el-button type="success"><a href="{{ route('checkout') }}">Checkout</a></el-button>--}}
-                    <el-button type="success"><a href="{{ route('checkout') }}">Checkout</a></el-button>
+                    <a href="{{ route('checkout') }}" class="el-button el-button--success">Checkout</a>
 
                 @else
 
@@ -91,7 +91,7 @@
                     </div>
                 @endif
 
-                <el-button><a href="{{ route('artworks') }}">Continue shopping</a></el-button>
+               <a href="{{ route('artworks') }}" class="el-button el-button--default">Continue shopping</a>
             </el-card>
 
         </div>

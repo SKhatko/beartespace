@@ -204,10 +204,10 @@
     </a>
 
     @if(auth()->user() && auth()->user()->user_type === 'artist')
-        <el-button type="success" size="mini" style="margin-left:10px;"><a
-                    href="{{ route('dashboard.artwork.create') }}">
-                Upload Artwork
-            </a></el-button>
+        <a href="{{ route('dashboard.artwork.create') }}" class="el-button el-button--success el-button--mini"
+           style="margin-left: 10px;">
+            Upload Artwork
+        </a>
     @endif
 
 </div>

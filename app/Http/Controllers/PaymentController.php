@@ -6,12 +6,12 @@ use App\Payment;
 use Illuminate\Http\Request;
 use App\Order;
 use App\Jobs\ArtworkPurchased;
+use App\Jobs\PlaceOrder;
 use App\Http\Requests;
 use Stripe\Stripe;
 use Stripe\Charge;
 use Illuminate\Support\Facades\Auth;
 use Gloudemans\Shoppingcart\Facades\Cart;
-use App\Artwork;
 
 
 class PaymentController extends Controller {
@@ -38,75 +38,59 @@ class PaymentController extends Controller {
 			'transaction_id' => $transaction_id,
 		] );
 
-		try {
-			Stripe::setApiKey( config( 'services.stripe.secret' ) );
+		if ( $payment->status != 'succeeded' ) {
+			try {
+				Stripe::setApiKey( config( 'services.stripe.secret' ) );
 
-			$charge = Charge::create( [
-				'amount'      => Cart::total() * 100,
-				'currency'    => 'eur',
-				'description' => 'Purchase',
-				'source'      => $transaction_id,
-				'metadata'    => [ 'payment_id' => $payment->id ],
-			] );
-
-			if ( $charge->status == 'succeeded' ) {
-				// TODO place order. Send email to artist, customer, confirm sale of artoworks
-//								ArtworkPurchased::dispatch( $order );
-
+				$charge = Charge::create( [
+					'amount'      => Cart::total() * 100,
+					'currency'    => 'eur',
+					'description' => 'Purchase of Artworks',
+					'source'      => $transaction_id,
+					'metadata'    => [ 'payment_id' => $payment->id ],
+				] );
 
 				$order = $user->orders()->updateOrCreate( [ 'payment_id' => $payment->id ], [
 					'payment_id' => $payment->id,
 				] );
 
-				$order->update( [
-					'address' => $user->primaryAddress,
-					'cart'    => Cart::content(),
-					'amount'  => Cart::total(),
-					'status'  => 'success',
-				] );
+				if ( $charge->status == 'succeeded' ) {
+					// TODO place order. Send email to artist, customer, confirm sale of artoworks
+//								ArtworkPurchased::dispatch( $order );
+
+					$order->update( [
+						'address' => $user->primaryAddress,
+						'cart'    => Cart::content(),
+						'amount'  => Cart::total(),
+						'status'  => 'success',
+					] );
+
+//				PlaceOrder::dispatch( $order );
+				}
 
 				$payment->update( [
 					'amount'             => Cart::total(),
 					'order_id'           => $order->id,
-					'status'             => 'success',
-					'charge_id_or_token' => $charge->id,
-					'description'        => $charge->description,
-					'payment_created'    => $charge->created,
-					'charge'             => json_encode( $charge ),
-				] );
-
-			} else {
-				// Write status of payment
-				$payment->update( [
-					'amount'             => Cart::total(),
 					'status'             => $charge->status,
 					'charge_id_or_token' => $charge->id,
 					'description'        => $charge->description,
 					'payment_created'    => $charge->created,
 					'charge'             => json_encode( $charge ),
 				] );
-			}
 
-
-		} catch ( \Exception $ex ) {
-			// The card has been declined
+			} catch ( \Exception $ex ) {
+				// The card has been declined or any other error
 //			$payment->status      = 'declined';
-//			$payment->description = 'Payment declined';
-//			$payment->save();
+				$payment->reason = $ex->getMessage();
+				$payment->save();
 
-			$message = $ex->getMessage();
+				$message = $ex->getMessage();
 
-//			return $message;
-			return view( 'checkout.failure', compact( 'message' ) );
-//			return redirect(route('checkout.failure'));
+				return view( 'checkout.failure', compact( 'message' ) );
+			}
 		}
 
-//		dump( $payment );
-//		dd( $order );
-
-//		return redirect(route('checkout.success'));
 		return view( 'checkout.success' );
-
 	}
 
 	/**

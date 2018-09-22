@@ -8,9 +8,11 @@
 
             <h1><i class="el-icon-success"></i> Success!</h1>
             <h2> Your order was payed</h2>
-            <div class="error-details" style="margin-bottom: 20px;">
+            <div class="p" style="margin-bottom: 20px;">
                 You will receive order confirmation on email and will be notified about shipping status.
-                You can track shipping status in <a href="{{ route('dashboard.orders') }}">Orders section</a>
+            </div>
+            <div class="p"> You can track shipping status in <a href="{{ route('dashboard.orders') }}">Orders
+                    section</a>
             </div>
 
             <el-button><a href="/artwork">Artworks</a></el-button>

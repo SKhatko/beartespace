@@ -8,9 +8,8 @@
 
             <h1><i class="el-icon-error"></i> Failure!</h1>
             <h2> Your order has not been payed</h2>
-            <div class="error-details" style="margin-bottom: 20px;">
-                {{ $message }}
-                <a href="{{ route('checkout') }}">Try again</a> or <a href="/">contact us for support</a>
+            <div class="p">{{ $message }}</div>
+            <div class="p"><a href="{{ route('checkout') }}">Try again</a> or <a href="/">contact us for support</a>
             </div>
 
             <el-button><a href="/artwork">Artworks</a></el-button>
