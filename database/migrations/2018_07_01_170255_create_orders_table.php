@@ -15,7 +15,6 @@ class CreateOrdersTable extends Migration {
 			$table->increments( 'id' );
 			$table->integer( 'user_id' )->nullable();
 			$table->json( 'address' )->nullable();
-			$table->json( 'cart' )->nullable();
 			$table->decimal( 'amount' )->nullable();
 			$table->string( 'payment_id' )->nullable();
 			$table->enum('status', ['initial','pending','success','failed','declined','dispute'])->nullable()->default('initial');

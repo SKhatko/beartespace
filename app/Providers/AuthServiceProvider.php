@@ -28,6 +28,7 @@ class AuthServiceProvider extends ServiceProvider
 
 	    Passport::routes();
 
+	    // TODO remove this fix for laravel 5.6.3
 //	    Passport::withoutCookieSerialization();
     }
 }

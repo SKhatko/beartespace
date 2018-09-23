@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Payment;
 use Illuminate\Http\Request;
 use App\Order;
-use App\Jobs\ArtworkPurchased;
 use App\Jobs\PlaceOrder;
 use App\Http\Requests;
 use Stripe\Stripe;
@@ -52,17 +51,15 @@ class PaymentController extends Controller {
 
 				$order = $user->orders()->updateOrCreate( [ 'payment_id' => $payment->id ], [
 					'payment_id' => $payment->id,
+					'address'    => $user->primaryAddress,
+					'amount'     => Cart::total(),
 				] );
 
 				if ( $charge->status == 'succeeded' ) {
 					// TODO place order. Send email to artist, customer, confirm sale of artoworks
-//								ArtworkPurchased::dispatch( $order );
 
 					$order->update( [
-						'address' => $user->primaryAddress,
-						'cart'    => Cart::content(),
-						'amount'  => Cart::total(),
-						'status'  => 'success',
+						'status' => 'success',
 					] );
 
 //				PlaceOrder::dispatch( $order );
@@ -81,10 +78,10 @@ class PaymentController extends Controller {
 			} catch ( \Exception $ex ) {
 				// The card has been declined or any other error
 //			$payment->status      = 'declined';
-				$payment->reason = $ex->getMessage();
-				$payment->save();
-
 				$message = $ex->getMessage();
+
+				$payment->reason = $message;
+				$payment->save();
 
 				return view( 'checkout.failure', compact( 'message' ) );
 			}

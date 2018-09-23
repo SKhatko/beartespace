@@ -45,7 +45,8 @@ class CartController extends Controller {
 		}
 
 		if ( auth()->user() ) {
-			Cart::restore( auth()->user()->id );
+
+//			Cart::restore( auth()->user()->id );
 		}
 
 		return $this->response;

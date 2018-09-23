@@ -20,6 +20,10 @@ class Order extends Model {
 		return $this->hasOne( Address::class );
 	}
 
+	public function shoppingcart() {
+		return $this->hasOne( ShoppingCart::class, 'identifier');
+	}
+
 	public function payment() {
 		return $this->hasOne(Payment::class);
 	}
