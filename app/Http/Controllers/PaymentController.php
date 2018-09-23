@@ -62,7 +62,9 @@ class PaymentController extends Controller {
 						'status' => 'success',
 					] );
 
-//				PlaceOrder::dispatch( $order );
+					PlaceOrder::dispatch( $order );
+
+					Cart::destroy();
 				}
 
 				$payment->update( [

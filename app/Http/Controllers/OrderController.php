@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Artwork;
+use App\Notifications\OrderPaid;
 use Illuminate\Http\Request;
 use Gloudemans\Shoppingcart\Facades\Cart;
-use App\ShoppingCart;
 
 
 class OrderController extends Controller {
@@ -13,9 +13,15 @@ class OrderController extends Controller {
 
 		$order = auth()->user()->orders()->first();
 
-		return $order;
 
-		// TODO
+		// TODO Send confirmation to user
+
+		auth()->user()->notify(new OrderPaid($order));
+
+
+		// TODO Send order notifications to artists
+
+		return $order;
 
 		try {
 			Cart::store( $order->id );

@@ -17,9 +17,14 @@ class PlaceOrder implements ShouldQueue
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Order $order)
     {
-        //
+	    // TODO make item sold
+	    foreach ($order->shoppingcart->content as $artwork) {
+		    ArtworkSold::dispatch($artwork->model, $artwork->qty);
+	    }
+
+
     }
 
     /**
