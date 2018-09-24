@@ -3,18 +3,19 @@
 {{--</div>--}}
 
 @component('mail::message')
-# Hello {{ auth()->user()->name }},
 
-# Order confirmation from {{ $order->created_at->toFormattedDateString() }}
+Hello {{ auth()->user()->name }},
 
-You sent a payment of {{ $order->price }} to BeArteSpace
+##Order confirmation from **{{ $order->created_at->toFormattedDateString() }}**
 
-Click the button to see the status of your order
+You sent a payment of **{{ currency($order->amount) }}** to BeArteSpace
 
-Your Order id {{ $order->id }}, Transaction id {{ $order->payment()->id }}
+##Shipping address
+{{ $order->addressString() }}
 
 
-@component('mail::button', ['url' => ''])
+You will be notified when your order is shipped. Click the button to check order status
+@component('mail::button', ['url' => '/dashboard/order'])
 Check order status
 @endcomponent
 

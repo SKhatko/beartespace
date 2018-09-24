@@ -24,46 +24,48 @@
                                 Order #{{ $order->id }} from {{ $order->created_at->diffForHumans() }}
 
                             </div>
-                            @foreach($order->shoppingcart->content as $artwork)
-                                <div class="artwork">
-                                    {{----}}
-                                    {{--<div class="artwork-image">--}}
-                                    {{--<img src="/imagecache/height-100{{ $artwork->image_url }}"--}}
-                                    {{--alt="{{ $artwork->image ? $artwork->image->original_name : 'image' }}"--}}
-                                    {{--style="height: 100px;">--}}
-                                    {{--</div>--}}
+                            @if($order->shoppingcart)
+                                @foreach($order->shoppingcart->content as $artwork)
+                                    <div class="artwork">
+                                        {{----}}
+                                        {{--<div class="artwork-image">--}}
+                                        {{--<img src="/imagecache/height-100{{ $artwork->image_url }}"--}}
+                                        {{--alt="{{ $artwork->image ? $artwork->image->original_name : 'image' }}"--}}
+                                        {{--style="height: 100px;">--}}
+                                        {{--</div>--}}
 
-                                    <div class="artwork-info">
+                                        <div class="artwork-info">
 
-                                        {{--<a href="{{ route('artist', $artwork->user_id) }}" class="h5"--}}
-                                        {{--style="margin-bottom: 6px;font-weight: bold;display: block;">--}}
-                                        {{--{{ $artwork->user->name }}--}}
-                                        {{--</a>--}}
+                                            {{--<a href="{{ route('artist', $artwork->user_id) }}" class="h5"--}}
+                                            {{--style="margin-bottom: 6px;font-weight: bold;display: block;">--}}
+                                            {{--{{ $artwork->user->name }}--}}
+                                            {{--</a>--}}
 
-                                        <a href="{{ route('artwork', $artwork->id) }}" class="h5">
-                                            {{ $artwork->name }}
-                                        </a>
+                                            <a href="{{ route('artwork', $artwork->id) }}" class="h5">
+                                                {{ $artwork->name }}
+                                            </a>
+                                        </div>
+
+                                        <div class="artwork--right">
+
+                                            <div class="artwork-price">
+                                                {{ currency($artwork->price) }}
+                                            </div>
+
+                                            <div class="artwork-qty">
+                                                {{ $artwork->qty }} pc
+                                            </div>
+
+                                            <div class="artwork-status">
+                                                Payed
+                                            </div>
+
+                                        </div>
+
                                     </div>
 
-                                    <div class="artwork--right">
-
-                                        <div class="artwork-price">
-                                            {{ currency($artwork->price) }}
-                                        </div>
-
-                                        <div class="artwork-qty">
-                                            {{ $artwork->qty }} pc
-                                        </div>
-
-                                        <div class="artwork-status">
-                                            Payed
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                            @endforeach
+                                @endforeach
+                            @endif
                             <hr>
 
                             <div class="order-bottom">
@@ -86,7 +88,7 @@
                     </div>
                 @endif
 
-               <a href="{{ route('artworks') }}" class="el-button el-button--default">Continue shopping</a>
+                <a href="{{ route('artworks') }}" class="el-button el-button--default">Continue shopping</a>
             </el-card>
 
         </div>

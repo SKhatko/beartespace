@@ -37,8 +37,6 @@ class PaymentController extends Controller {
 			'transaction_id' => $transaction_id,
 		] );
 
-		dump($payment);
-
 		if ( $payment->status != 'succeeded' ) {
 			try {
 				Stripe::setApiKey( config( 'services.stripe.secret' ) );
@@ -59,7 +57,6 @@ class PaymentController extends Controller {
 
 				$payment->update( [
 					'amount'             => Cart::total(),
-					'order_id'           => $order->id,
 					'status'             => $charge->status,
 					'charge_id_or_token' => $charge->id,
 					'description'        => $charge->description,
@@ -74,18 +71,14 @@ class PaymentController extends Controller {
 						'status' => 'success',
 					] );
 
-					// TODO uncomment
 					PlaceOrder::dispatch( $order );
-					Cart::destroy();
 				}
 
 
 			} catch ( \Exception $ex ) {
 				// The card has been declined or any other error
-//			$payment->status      = 'declined';
 				$message = $ex->getMessage();
 
-//				$payment->reason = $message;
 				$payment->save();
 
 				return view( 'checkout.failure', compact( 'message' ) );
