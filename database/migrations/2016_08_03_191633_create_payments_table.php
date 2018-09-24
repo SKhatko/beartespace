@@ -15,11 +15,10 @@ class CreatePaymentsTable extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->increments('id');
 	        $table->integer('user_id')->nullable();
-	        $table->integer('order_id')->nullable();
 	        $table->string('transaction_id');
 	        $table->decimal('amount')->nullable();
 	        $table->json('charge')->nullable();
-	        $table->json('reason')->nullable();
+//	        $table->string('reason')->nullable();
 	        $table->string('description')->nullable();
 //	        $table->enum('status', ['initial','pending','success','failed','declined','dispute'])->nullable()->default('initial');
 	        $table->string('status')->nullable()->default('initial');

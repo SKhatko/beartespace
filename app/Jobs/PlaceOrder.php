@@ -2,11 +2,14 @@
 
 namespace App\Jobs;
 
+use App\Order;
+use App\Mail\OrderPaid;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Support\Facades\Mail;
 
 class PlaceOrder implements ShouldQueue
 {
@@ -19,12 +22,19 @@ class PlaceOrder implements ShouldQueue
      */
     public function __construct(Order $order)
     {
-	    // TODO make item sold
+    	// Store cart to db
+	    try {
+		    Cart::store( $order->id );
+	    } catch ( \Exception $ex ) {
+		    return $ex->getMessage();
+	    }
+
+	    // Make item sold
 	    foreach ($order->shoppingcart->content as $artwork) {
 		    ArtworkSold::dispatch($artwork->model, $artwork->qty);
 	    }
 
-
+	    Mail::to(auth()->user())->send(new OrderPaid($order));
     }
 
     /**

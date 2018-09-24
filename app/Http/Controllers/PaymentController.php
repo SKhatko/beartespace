@@ -37,6 +37,8 @@ class PaymentController extends Controller {
 			'transaction_id' => $transaction_id,
 		] );
 
+		dump($payment);
+
 		if ( $payment->status != 'succeeded' ) {
 			try {
 				Stripe::setApiKey( config( 'services.stripe.secret' ) );
@@ -55,18 +57,6 @@ class PaymentController extends Controller {
 					'amount'     => Cart::total(),
 				] );
 
-				if ( $charge->status == 'succeeded' ) {
-					// TODO place order. Send email to artist, customer, confirm sale of artoworks
-
-					$order->update( [
-						'status' => 'success',
-					] );
-
-					PlaceOrder::dispatch( $order );
-
-					Cart::destroy();
-				}
-
 				$payment->update( [
 					'amount'             => Cart::total(),
 					'order_id'           => $order->id,
@@ -77,12 +67,25 @@ class PaymentController extends Controller {
 					'charge'             => json_encode( $charge ),
 				] );
 
+				if ( $charge->status == 'succeeded' ) {
+					// TODO place order. Send email to artist, customer, confirm sale of artoworks
+
+					$order->update( [
+						'status' => 'success',
+					] );
+
+					// TODO uncomment
+					PlaceOrder::dispatch( $order );
+					Cart::destroy();
+				}
+
+
 			} catch ( \Exception $ex ) {
 				// The card has been declined or any other error
 //			$payment->status      = 'declined';
 				$message = $ex->getMessage();
 
-				$payment->reason = $message;
+//				$payment->reason = $message;
 				$payment->save();
 
 				return view( 'checkout.failure', compact( 'message' ) );

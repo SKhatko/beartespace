@@ -15,15 +15,15 @@ Confirm Account
 
 @isset($subcopy)
 @slot('subcopy')
-    @component('mail::subcopy')
-    {{ $subcopy }}
-    @endcomponent
+@component('mail::subcopy')
+{{ $subcopy }}
+@endcomponent
 @endslot
 @endisset
 
 @slot('footer')
-    @component('mail::footer')
-    © {{ date('Y') }} {{ config('app.name') }}. All rights reserved.
-    @endcomponent
-    @endslot
+@component('mail::footer')
+© {{ date('Y') }} {{ config('app.name') }}. All rights reserved.
+@endcomponent
+@endslot
 @endcomponent

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Artwork;
-use App\Notifications\OrderPaid;
+use App\Payment;
 use Illuminate\Http\Request;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
@@ -13,21 +13,27 @@ class OrderController extends Controller {
 
 		$order = auth()->user()->orders()->first();
 
+//		return Payment::find($order->id);
+//		dd($order->payment());
+
+		return $order->payment;
+
+		$user = auth()->user();
+
+		return new \App\Mail\OrderPaid($order);
 
 		// TODO Send confirmation to user
 
-		auth()->user()->notify(new OrderPaid($order));
+		return 1;
+
+
+//		auth()->user()->notify( new OrderPaid( $order ) );
 
 
 		// TODO Send order notifications to artists
 
 		return $order;
 
-		try {
-			Cart::store( $order->id );
-		} catch ( \Exception $ex ) {
-			return $ex->getMessage();
-		}
 
 
 		$orders = auth()->user()->orders()->get();
