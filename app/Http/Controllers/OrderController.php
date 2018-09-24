@@ -2,26 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Artwork;
-use App\Payment;
 use Illuminate\Http\Request;
-use Gloudemans\Shoppingcart\Facades\Cart;
 
 
 class OrderController extends Controller {
+
 	public function index() {
-
-		$order = auth()->user()->orders()->first();
-
-//		return $order->payment;
-
-//		return new \App\Mail\OrderPaid($order);
-
-//		auth()->user()->notify( new OrderPaid( $order ) );
-
-		// TODO Send order notifications to artists
-
-//		return $order;
 
 		$orders = auth()->user()->orders()->get();
 
@@ -38,6 +24,6 @@ class OrderController extends Controller {
 
 //		$artworks = Artwork::findMany( $artworkIds );
 
-		return view( 'dashboard.user.orders', compact( 'orders', 'artworks' ) );
+		return view( 'dashboard.user.orders', compact( 'orders' ) );
 	}
 }

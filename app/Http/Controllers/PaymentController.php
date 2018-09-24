@@ -17,16 +17,11 @@ class PaymentController extends Controller {
 
 	public function index() {
 
-		$user = Auth::user();
-		if ( $user->isAdmin() ) {
-			$payments = Payment::select( 'id', 'ad_id', 'user_id', 'amount', 'payment_method', 'status', 'local_transaction_id', 'created_at' )->with( 'ad', 'user' )->get();
-		} else {
-			$payments = Payment::select( 'id', 'ad_id', 'user_id', 'amount', 'payment_method', 'status', 'local_transaction_id', 'created_at' )->whereUserId( $user->id )->with( 'ad', 'user' )->get();
-		}
+		$payments = Payment::all();
 
-		$title = trans( 'app.payments' );
+		return $payments;
 
-		return view( 'dashboard.user.payments', compact( 'title', 'payments' ) );
+		return view( 'dashboard.admin.payments', compact( 'payments' ) );
 	}
 
 	public function checkout( $transaction_id ) {

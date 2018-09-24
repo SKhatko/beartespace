@@ -1,6 +1,3 @@
-{{--<div>--}}
-{{--Order id: {{ $order->id }}--}}
-{{--</div>--}}
 
 @component('mail::message')
 

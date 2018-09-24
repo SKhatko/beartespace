@@ -108,9 +108,6 @@ Route::group( [ 'middleware' => 'web' ], function () {
 
 		Route::get( 'order', 'OrderController@index' )->name( 'dashboard.orders' );
 
-		// TODO
-		Route::get( 'payments', 'PaymentController@index' )->name( 'dashboard.payments' );
-
 		Route::get( 'favorite/{id}/toggle', 'FavoriteController@toggleFavoriteArtwork' )->name( 'favorite.toggle' )->middleware( 'auth' );
 		Route::get( 'favorites', 'UserController@favoriteArtworks' )->name( 'dashboard.favorites' );
 
@@ -124,6 +121,7 @@ Route::group( [ 'middleware' => 'web' ], function () {
 		// Admin only
 		Route::group( [ 'middleware' => 'admin' ], function () {
 
+			Route::get( 'payments', 'PaymentController@index' )->name( 'admin.payments' );
 			Route::get( 'users', 'UserController@index' )->name( 'admin.users' );
 			Route::get( 'translations', 'TranslationController@index' )->name( 'admin.translations' );
 			Route::get( 'languages', 'LanguageController@index' )->name( 'admin.languages' );

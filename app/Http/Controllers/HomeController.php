@@ -139,7 +139,7 @@ class HomeController extends Controller {
 
 		if ( $request->input( 'artwork' ) ) {
 			$artwork = $request->input( 'artwork' );
-			$artworks->whereRaw( 'LOWER(title) LIKE ?', '%' . $artwork . '%' );
+			$artworks->whereRaw( 'LOWER(name) LIKE ?', '%' . $artwork . '%' );
 		}
 
 		if ( $request->input( 'category' ) ) {
@@ -286,7 +286,7 @@ class HomeController extends Controller {
 		// Search query
 		$query = trim( $request->input( 'query' ) );
 
-		$artworks = Artwork::whereRaw( 'LOWER(title) LIKE ?', '%' . $query . '%' )
+		$artworks = Artwork::whereRaw( 'LOWER(name) LIKE ?', '%' . $query . '%' )
 		                   ->orWhereRaw( 'LOWER(description) LIKE ?', '%' . $query . '%' )
 		                   ->orWhereRaw( 'LOWER(inspiration) LIKE ?', '%' . $query . '%' )
 		                   ->orWhereRaw( 'LOWER(medium) LIKE ?', '%' . $query . '%' )

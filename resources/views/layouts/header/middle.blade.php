@@ -23,6 +23,7 @@
                     <el-input required
                               placeholder="Search" name="query"
                               prefix-icon="el-icon-search">
+                        <el-button native-type="submit" slot="append" icon="el-icon-search"></el-button>
                     </el-input>
 
                 </form>
@@ -91,13 +92,8 @@
                     </el-dropdown-item>
 
                     <el-dropdown-item>
-                        <a href="{{ route('dashboard.payments') }}" class="el-dropdown-link">Payments</a>
-                    </el-dropdown-item>
-
-                    <el-dropdown-item>
                         <a href="{{ route('dashboard.orders') }}" class="el-dropdown-link">Orders</a>
                     </el-dropdown-item>
-
 
                     <el-dropdown-item>
                         <a href="{{route('dashboard.profile')}}" class="el-dropdown-link">Profile</a>
@@ -121,6 +117,10 @@
                     @endif
 
                     @if(auth()->user()->isAdmin())
+
+                        <el-dropdown-item>
+                            <a href="{{ route('admin.payments') }}" class="el-dropdown-link">Payments</a>
+                        </el-dropdown-item>
 
                         <el-dropdown-item>
                             <a href="{{route('admin.messages')}}" class="el-dropdown-link"><i

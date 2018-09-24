@@ -64,7 +64,7 @@ class Order extends Model {
 		}
 		if ( $address->country_id ) {
 			$country       = Country::findOrFail( $address->country_id );
-			$addressString .= $country->country_name . ', ';
+			$addressString .= $country->country_name;
 		}
 
 		return $addressString;

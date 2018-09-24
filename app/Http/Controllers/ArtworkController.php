@@ -15,6 +15,22 @@ class ArtworkController extends Controller {
 	public function index() {
 		$title = 'My artworks';
 
+//
+//		$order = auth()->user()->orders()->first();
+//
+////		dd($order->shoppingcart->content);
+//
+//		foreach ( $order->shoppingcart->content as $item ) {
+//
+//			dump( $item->model );
+////					return new \App\Mail\ArtworkSold($order, $item->model);
+//		}
+//
+//
+//		return $order;
+//
+//		Mail::to( $artwork->user )->send( new OrderPaid( $order ) );
+
 		$user = Auth::user();
 
 		$artworks = $user->artworks()->orderBy( 'id', 'desc' )->with( 'images' )->get();
