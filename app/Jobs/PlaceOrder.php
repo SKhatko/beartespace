@@ -21,16 +21,10 @@ class PlaceOrder implements ShouldQueue {
 	 * @return void
 	 */
 	public function __construct( Order $order ) {
-		// Store cart to db
-		try {
-			Cart::store( $order->id );
-		} catch ( \Exception $ex ) {
-			logger( $ex->getMessage() );
-		}
 
 		// Make item sold
-		foreach ( $order->shoppingcart->content as $artwork ) {
-			ArtworkSold::dispatch( $artwork->model, $artwork->qty );
+		foreach ( $order->content as $item ) {
+			ArtworkSold::dispatch( $item->model, $item->qty );
 		}
 
 		Mail::to( auth()->user() )->send( new OrderPaid( $order ) );

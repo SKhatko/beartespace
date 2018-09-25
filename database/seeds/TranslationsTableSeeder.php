@@ -13,8 +13,8 @@ class TranslationsTableSeeder extends Seeder {
 
 		$translations = [
 			'portal'       => [
-				[ 'Login', '' ],
-				[ 'Signup', '' ],
+				[ 'Sign in', '' ],
+				[ 'Register', '' ],
 				[ 'Artists', '' ],
 				[ 'Artworks', '' ],
 				[ 'Auction', '' ],

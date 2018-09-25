@@ -4,7 +4,11 @@
 
 @section('admin-content')
 
-    @include('partials.back')
+    <el-breadcrumb separator-class="el-icon-arrow-right" style="margin-bottom: 30px;">
+        <el-breadcrumb-item><a href="/">Home</a></el-breadcrumb-item>
+        <el-breadcrumb-item><a href="/dashboard">Dashboard</a></el-breadcrumb-item>
+        <el-breadcrumb-item>Change Password</el-breadcrumb-item>
+    </el-breadcrumb>
 
     <el-card class="app-change-password">
 

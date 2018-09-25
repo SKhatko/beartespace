@@ -7,6 +7,16 @@ Hello {{ auth()->user()->name }},
 
 You sent a payment of **{{ currency($order->amount) }}** to BeArteSpace
 
+
+##Order content
+@component('mail::table')
+| Item       | Quantity   | Price |
+| :--------- |:-----:| ------:|
+@foreach($order->content as $item)
+| {{ $item->name }}| {{ $item->qty }} | {{ currency($item->price) }} |
+@endforeach
+@endcomponent
+
 ##Shipping address
 {{ $order->addressString() }}
 

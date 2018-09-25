@@ -2,35 +2,21 @@
 
     <el-card v-if="user">
 
-        <div v-if="user.user_type === 'user'">User</div>
-        <div v-if="user.user_type === 'artist'">Artist</div>
-        <div v-if="user.user_type === 'gallery'">Gallery</div>
-        <div v-if="user.user_type === 'admin'">Admin</div>
+        <div class="h2">
+            {{ user.name }}
+            <a href="" class="el-button el-button--default el-button--mini">Following</a>
+            <a href="" class="el-button el-button--default el-button--mini">Followers</a>
+        </div>
 
-        <h2>Profile information
-            <el-button plain @click="dialogs.profilePremiumAddDialog = true"
-                       v-if="!user.profile_premium_add && user.user_type === 'artist'">
-                Go premium
-            </el-button>
-        </h2>
-
-        <el-dialog
-                title="Get Unlimited Features"
-                :visible.sync="dialogs.profilePremiumAddDialog"
-                width="30%">
-            <p>Get all features in once. See example
-                <a href="/" target="_blank">here</a></p>
-            <p>Save 1 month by selecting annual plan</p>
-
-            <span slot="footer" class="dialog-footer">
-                                <el-button type="success"
-                                           @click="save(confirmProfileUpgrade('profile_premium_add', 30, 'month'))">Confirm Monthly</el-button>
-                                <el-button type="primary"
-                                           @click="save(confirmProfileUpgrade('profile_premium_add', 279, 'year'))">Annually</el-button>
-                              </span>
-        </el-dialog>
 
         <el-form label-position="top">
+
+            <el-row :gutter="20">
+                <el-col>
+
+                </el-col>
+
+            </el-row>
 
             <el-row :gutter="20">
 
@@ -259,7 +245,8 @@
 
                 <el-col :sm="8">
                     <el-form-item label="Phone" prop="phone">
-                        <vue-tel-input v-model="user.phone" @onInput="setphoneNumber" :preferredCountries="['us', 'gb', 'ua']"></vue-tel-input>
+                        <vue-tel-input v-model="user.phone" @onInput="setphoneNumber"
+                                       :preferredCountries="['us', 'gb', 'ua']"></vue-tel-input>
                     </el-form-item>
                 </el-col>
 
@@ -464,7 +451,7 @@
         },
 
         methods: {
-            setphoneNumber({ number, isValid, country }) {
+            setphoneNumber({number, isValid, country}) {
                 console.log(number, isValid, country);
             },
 

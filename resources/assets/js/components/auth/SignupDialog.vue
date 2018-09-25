@@ -1,7 +1,7 @@
 <template>
 
     <div style="display: inline-block;">
-        <a href="/register" v-if="type_ === 'link'" @click.prevent="showSignupDialog = !showSignupDialog">{{ trans('portal')['signup']}}</a>
+        <a href="/register" v-if="type_ === 'link'" @click.prevent="showSignupDialog = !showSignupDialog" class="el-button el-button--text">{{ trans('portal')['register']}}</a>
         <el-button type="text" v-if="type_ === 'button'" @click.prevent="showSignupDialog = !showSignupDialog">&nbsp; Create New Account</el-button>
 
         <el-dialog

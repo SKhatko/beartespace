@@ -18532,13 +18532,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -21538,19 +21531,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -23126,7 +23106,7 @@ exports.push([module.i, "\n.avatar-uploader .el-upload, .image-uploader .el-uplo
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(18)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 /* 182 */
@@ -66854,60 +66834,27 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return (_vm.user) ? _c('el-card', [(_vm.user.user_type === 'user') ? _c('div', [_vm._v("User")]) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('div', [_vm._v("Artist")]) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'gallery') ? _c('div', [_vm._v("Gallery")]) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'admin') ? _c('div', [_vm._v("Admin")]) : _vm._e(), _vm._v(" "), _c('h2', [_vm._v("Profile information\n        "), (!_vm.user.profile_premium_add && _vm.user.user_type === 'artist') ? _c('el-button', {
+  return (_vm.user) ? _c('el-card', [_c('div', {
+    staticClass: "h2"
+  }, [_vm._v("\n        " + _vm._s(_vm.user.name) + "\n        "), _c('a', {
+    staticClass: "el-button el-button--default el-button--mini",
     attrs: {
-      "plain": ""
-    },
-    on: {
-      "click": function($event) {
-        _vm.dialogs.profilePremiumAddDialog = true
-      }
+      "href": ""
     }
-  }, [_vm._v("\n            Go premium\n        ")]) : _vm._e()], 1), _vm._v(" "), _c('el-dialog', {
+  }, [_vm._v("Following")]), _vm._v(" "), _c('a', {
+    staticClass: "el-button el-button--default el-button--mini",
     attrs: {
-      "title": "Get Unlimited Features",
-      "visible": _vm.dialogs.profilePremiumAddDialog,
-      "width": "30%"
-    },
-    on: {
-      "update:visible": function($event) {
-        _vm.$set(_vm.dialogs, "profilePremiumAddDialog", $event)
-      }
+      "href": ""
     }
-  }, [_c('p', [_vm._v("Get all features in once. See example\n            "), _c('a', {
-    attrs: {
-      "href": "/",
-      "target": "_blank"
-    }
-  }, [_vm._v("here")])]), _vm._v(" "), _c('p', [_vm._v("Save 1 month by selecting annual plan")]), _vm._v(" "), _c('span', {
-    staticClass: "dialog-footer",
-    attrs: {
-      "slot": "footer"
-    },
-    slot: "footer"
-  }, [_c('el-button', {
-    attrs: {
-      "type": "success"
-    },
-    on: {
-      "click": function($event) {
-        _vm.save(_vm.confirmProfileUpgrade('profile_premium_add', 30, 'month'))
-      }
-    }
-  }, [_vm._v("Confirm Monthly")]), _vm._v(" "), _c('el-button', {
-    attrs: {
-      "type": "primary"
-    },
-    on: {
-      "click": function($event) {
-        _vm.save(_vm.confirmProfileUpgrade('profile_premium_add', 279, 'year'))
-      }
-    }
-  }, [_vm._v("Annually")])], 1)]), _vm._v(" "), _c('el-form', {
+  }, [_vm._v("Followers")])]), _vm._v(" "), _c('el-form', {
     attrs: {
       "label-position": "top"
     }
   }, [_c('el-row', {
+    attrs: {
+      "gutter": 20
+    }
+  }, [_c('el-col')], 1), _vm._v(" "), _c('el-row', {
     attrs: {
       "gutter": 20
     }
@@ -67677,7 +67624,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "slot": "header"
     },
     slot: "header"
-  }, [_vm._v("Login")]), _vm._v(" "), _c('errors'), _vm._v(" "), _c('el-form', {
+  }, [_vm._v("Sign in")]), _vm._v(" "), _c('errors'), _vm._v(" "), _c('el-form', {
     ref: "user",
     attrs: {
       "model": _vm.user,
@@ -67756,7 +67703,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "native-type": "submit",
       "loading": _vm.loading
     }
-  }, [_vm._v("Login")]), _vm._v(" "), _c('signup-dialog', {
+  }, [_vm._v("Sign in")]), _vm._v(" "), _c('signup-dialog', {
     attrs: {
       "type_": "button"
     }
@@ -69540,22 +69487,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('span', {
       staticClass: "address"
-    }, [_vm._v(_vm._s(address.name) + ", " + _vm._s(_vm.getCountyName(address.country_id)) + ",\n                            " + _vm._s(address.address) + ",\n                            " + _vm._s(address.address_2) + ",\n                            " + _vm._s(address.city) + ",\n                            " + _vm._s(address.region) + ",\n                            " + _vm._s(address.postcode) + ",\n                            " + _vm._s(address.email) + ",\n                            " + _vm._s(address.phone) + ",\n                            "), _c('a', {
-      staticStyle: {
-        "margin-top": "5px",
-        "display": "block",
-        "text-decoration": "underline"
-      },
-      attrs: {
-        "href": "#"
-      },
+    }, [_vm._v(_vm._s(address.address_string))]), _vm._v(" "), _c('span', {
+      staticClass: "address-edit",
       on: {
         "click": function($event) {
           $event.preventDefault();
           _vm.edit(address)
         }
       }
-    }, [_vm._v("Edit address")])])])], 1)
+    }, [_vm._v("Edit address")])])], 1)
   }))], 1), _vm._v(" "), _c('el-button', {
     attrs: {
       "type": "text"
@@ -70600,6 +70540,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "display": "inline-block"
     }
   }, [(_vm.type_ === 'link') ? _c('a', {
+    staticClass: "el-button el-button--text",
     attrs: {
       "href": "/register"
     },
@@ -70609,7 +70550,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.showSignupDialog = !_vm.showSignupDialog
       }
     }
-  }, [_vm._v(_vm._s(_vm.trans('portal')['signup']))]) : _vm._e(), _vm._v(" "), (_vm.type_ === 'button') ? _c('el-button', {
+  }, [_vm._v(_vm._s(_vm.trans('portal')['register']))]) : _vm._e(), _vm._v(" "), (_vm.type_ === 'button') ? _c('el-button', {
     attrs: {
       "type": "text"
     },

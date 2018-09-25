@@ -3,6 +3,7 @@
     <el-main class="app--wrapper">
 
         <div class="app-address">
+
             <el-breadcrumb separator-class="el-icon-arrow-right" style="margin: 30px 0;">
                 <el-breadcrumb-item><a href="/">Home</a></el-breadcrumb-item>
                 <el-breadcrumb-item>Select Delivery Address</el-breadcrumb-item>
@@ -12,24 +13,16 @@
                 <div slot="header" class="h4">Select delivery Address</div>
 
                 <el-form :model="deliveryAddress" status-icon :rules="addressesRules" ref="addresses"
-                         @submit.native.prevent="saveAddresses" method="POST" :action="'/address/' + deliveryAddress.selected">
+                         @submit.native.prevent="saveAddresses" method="POST"
+                         :action="'/address/' + deliveryAddress.selected">
                     <input type="hidden" name="_token" :value="csrf">
 
                     <el-form-item prop="selected">
                         <el-radio-group v-model="deliveryAddress.selected">
                             <div v-for="address in addresses" :key="address.id">
                                 <el-radio class="radio" :label="address.id">
-                                <span class="address">{{ address.name }}, {{ getCountyName(address.country_id) }},
-                                {{ address.address }},
-                                {{ address.address_2 }},
-                                {{ address.city }},
-                                {{ address.region }},
-                                {{ address.postcode }},
-                                {{ address.email }},
-                                {{ address.phone }},
-                                <a href="#" @click.prevent="edit(address)"
-                                   style="margin-top: 5px;display: block;text-decoration: underline;">Edit address</a>
-                                    </span>
+                                    <span class="address">{{ address.address_string }}</span>
+                                    <span class="address-edit" @click.prevent="edit(address)">Edit address</span>
                                 </el-radio>
                             </div>
 
@@ -190,7 +183,7 @@
 
             console.log(this.selected_, 'selected');
 
-            if(this.selected_) {
+            if (this.selected_) {
                 this.deliveryAddress.selected = Number(this.selected_);
             }
 

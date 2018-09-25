@@ -3,7 +3,7 @@
     <el-main class="app-auth">
 
         <el-card class="box-card app-auth-login">
-            <div slot="header" class="clearfix">Login</div>
+            <div slot="header" class="clearfix">Sign in</div>
 
             <errors></errors>
 
@@ -27,7 +27,7 @@
                 </el-form-item>
 
                 <el-form-item>
-                    <el-button type="primary" native-type="submit" :loading="loading">Login</el-button>
+                    <el-button type="primary" native-type="submit" :loading="loading">Sign in</el-button>
 
                     <signup-dialog type_="button"></signup-dialog>
 

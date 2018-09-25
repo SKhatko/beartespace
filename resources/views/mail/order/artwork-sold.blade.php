@@ -5,7 +5,7 @@ Hello {{ $artwork->user->name }},
 Your artwork **{{ $artwork->name }}** has been sold for **{{ currency($artwork->price) }}** to **{{ $order->user->name }}**
 
 ##Order details
-@foreach($order->shoppingcart->content as $item)
+@foreach($order->content as $item)
 <div>
 {{ $item->model->name }} - {{ $item->qty }} - {{ currency($item->total()) }}
 

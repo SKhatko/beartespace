@@ -7,7 +7,7 @@ use App\Country;
 
 class Order extends Model {
 
-	protected $fillable = [ 'user_id', 'address', 'cart', 'artworks', 'amount', 'payment_id', 'status' ];
+	protected $fillable = [ 'user_id', 'address', 'content', 'artworks', 'amount', 'payment_id', 'status' ];
 
 	public function getCartAttribute( $value ) {
 		return json_decode( $value );
@@ -70,7 +70,7 @@ class Order extends Model {
 		return $addressString;
 	}
 
-	public function getAddressAttribute( $value ) {
-//		return json_decode( $value );
+	public function getContentAttribute( $value ) {
+		return unserialize( $value );
 	}
 }

@@ -35,16 +35,11 @@
                                     {{ $artwork->model->user->name }}
                                 </a>
 
-                                <a href="{{ route('artist', $artwork->model->user_id) }}" class="h5">
-                                    {{ $artwork->model->user->name }}
-                                </a>
-
-                                <a href="{{ route('artwork', $artwork->id) }}" class="h5">
+                                <a href="{{ route('artwork', $artwork->id) }}" class="cart-item-description">
                                     {{ $artwork->name }}
                                 </a>
 
-                                <a href="{{ route('cart.item.remove', $artwork->model->id) }}"
-                                   style="display: block;margin-top: 10px;">Remove</a>
+                                <a href="{{ route('cart.item.remove', $artwork->model->id) }}" class="cart-item-remove">Remove</a>
                             </div>
 
                             <div class="cart-item--right">
@@ -91,7 +86,7 @@
                     </div>
                 @endif
 
-               <a href="{{ route('artworks') }}" class="el-button el-button--default">Continue shopping</a>
+                <a href="{{ route('artworks') }}" class="el-button el-button--default">Continue shopping</a>
             </el-card>
 
         </div>

@@ -24,8 +24,8 @@
                                 Order #{{ $order->id }} from {{ $order->created_at->diffForHumans() }}
 
                             </div>
-                            @if($order->shoppingcart)
-                                @foreach($order->shoppingcart->content as $artwork)
+                            @if($order->content)
+                                @foreach($order->content as $artwork)
                                     <div class="artwork">
                                         {{----}}
                                         {{--<div class="artwork-image">--}}

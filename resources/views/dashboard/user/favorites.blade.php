@@ -7,11 +7,8 @@
     <el-breadcrumb separator-class="el-icon-arrow-right" style="margin-bottom: 30px;">
         <el-breadcrumb-item><a href="/">Home</a></el-breadcrumb-item>
         <el-breadcrumb-item><a href="/dashboard">Dashboard</a></el-breadcrumb-item>
-        <el-breadcrumb-item>Favourite Artworks</el-breadcrumb-item>
+        <el-breadcrumb-item>Favorite Artworks</el-breadcrumb-item>
     </el-breadcrumb>
-
-    @include('partials.back')
-
 
     <div class="app--wrapper">
 

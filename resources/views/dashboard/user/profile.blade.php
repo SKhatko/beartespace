@@ -10,8 +10,6 @@
         <el-breadcrumb-item>Profile</el-breadcrumb-item>
     </el-breadcrumb>
 
-    @include('partials.back')
-
     <profile user_="{{ $user }}"></profile>
 
 @endsection

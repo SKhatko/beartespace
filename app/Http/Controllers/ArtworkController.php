@@ -15,12 +15,12 @@ class ArtworkController extends Controller {
 	public function index() {
 		$title = 'My artworks';
 
+		$order = auth()->user()->orders()->first();
+
+//		return new \App\Mail\OrderPaid($order);
+//		dd($order->content);
 //
-//		$order = auth()->user()->orders()->first();
-//
-////		dd($order->shoppingcart->content);
-//
-//		foreach ( $order->shoppingcart->content as $item ) {
+//		foreach ( $order->content as $item ) {
 //
 //			dump( $item->model );
 ////					return new \App\Mail\ArtworkSold($order, $item->model);

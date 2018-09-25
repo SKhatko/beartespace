@@ -20,16 +20,7 @@
                 <div slot="header" class="h4">Delivery Address</div>
 
                 <div class="h5">{{ $address->name }}</div>
-                <div class="p" style="max-width: 400px;">
-                    {{ $address->country->country_name }},
-                    {{ $address->city }},
-                    {{ $address->region }},
-                    {{ $address->postcode }},
-                    {{ $address->address }},
-                    {{ $address->address_2 }},
-                    {{ $address->email }},
-                    {{ $address->phone }}
-                </div>
+                <div class="p" style="max-width: 400px;">{{ $address->address_string }}</div>
 
                 <el-button style="margin-top: 10px;">
                     <a href="{{ route('address') }}">Edit delivery address</a>
@@ -43,7 +34,8 @@
                 @foreach(Cart::content() as $artwork)
 
                     <div class="checkout-cart-item">
-                        <img src="/imagecache/height-100{{ $artwork->model->image_url }}" alt="" style="margin-right: 20px;">
+                        <img src="/imagecache/height-100{{ $artwork->model->image_url }}" alt=""
+                             style="margin-right: 20px;">
                         <a href="{{ route('artwork', $artwork->id) }}">{{ $artwork->name . ' - ' . $artwork->model->formatted_price }}
                             {{ $artwork->qty }}pc</a>
                     </div>

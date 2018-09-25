@@ -13,6 +13,6 @@ use Intervention\Image\Filters\FilterInterface;
 
 class MiniAvatar implements FilterInterface {
 	public function applyFilter( Image $image ) {
-		return $image->fit( 30, 30 );
+		return $image->fit( 25, 25 );
 	}
 }

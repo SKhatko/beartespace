@@ -2,7 +2,8 @@
 
 @section('content')
 
-    <div class="admin">
+    {{--<div class="admin">--}}
+    <div class="app--wrapper">
 
         <div class="a-content">
 

@@ -48,6 +48,7 @@ class PaymentController extends Controller {
 					'payment_id' => $payment->id,
 					'address'    => $user->primaryAddress,
 					'amount'     => Cart::total(),
+					'content'    => serialize( Cart::content() )
 				] );
 
 				$payment->update( [
@@ -56,19 +57,12 @@ class PaymentController extends Controller {
 					'charge_id_or_token' => $charge->id,
 					'description'        => $charge->description,
 					'payment_created'    => $charge->created,
-					'charge'             => json_encode( $charge ),
+					'charge'             => serialize( $charge ),
 				] );
 
 				if ( $charge->status == 'succeeded' ) {
-					// TODO place order. Send email to artist, customer, confirm sale of artoworks
-
-					$order->update( [
-						'status' => 'success',
-					] );
-
 					PlaceOrder::dispatch( $order );
 				}
-
 
 			} catch ( \Exception $ex ) {
 				// The card has been declined or any other error
