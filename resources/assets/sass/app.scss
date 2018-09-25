@@ -115,9 +115,18 @@ body, html {
   }
 
   &-cart {
-    font-size: 23px;
-    position: relative;
+    text-align: center;
     margin-left: 10px;
+
+    &-icon {
+      font-size: 23px;
+      position: relative;
+    }
+
+    &-title {
+      display: block;
+      font-size: 12px;
+    }
 
     sup {
       font-size: 12px;
@@ -128,10 +137,19 @@ body, html {
 
   }
 
-  &-star {
-    font-size: 23px;
-    position: relative;
+  &-favorites {
+    text-align: center;
     margin-left: 10px;
+
+    &-icon {
+      font-size: 23px;
+      position: relative;
+    }
+
+    &-title {
+      display: block;
+      font-size: 12px;
+    }
 
     sup {
       font-size: 12px;

@@ -21,9 +21,10 @@
                     {{ csrf_field() }}
 
                     <el-input required
-                              placeholder="Search" name="query"
-                              prefix-icon="el-icon-search">
-                        <el-button native-type="submit" slot="append" icon="el-icon-search"></el-button>
+                              placeholder="Search artworks and artists" name="query"
+                              value="{{ Request::get('query') }}">
+                        {{--prefix-icon="el-icon-search"--}}
+                        <el-button native-type="submit" slot="append">Find</el-button>
                     </el-input>
 
                 </form>
@@ -194,13 +195,24 @@
         </div>
     @endif
 
-    <a href="{{ route('dashboard.favorites') }}" class="app-header-star"
-       v-if="$store.state.favoriteArtworksCount">
-        <i class="el-icon-star-off"></i><sup>@{{ $store.state.favoriteArtworksCount }}</sup>
+    <a href="{{ route('dashboard.favorites') }}" class="app-header-favorites">
+        <span class="app-header-favorites-icon">
+               <i class="el-icon-star-off"></i>
+        <template v-if="$store.state.favoriteArtworksCount">
+            <sup>@{{ $store.state.favoriteArtworksCount }}</sup>
+        </template>
+        </span>
+        <span class="app-header-favorites-title">Favorites</span>
     </a>
 
-    <a href="{{ route('cart') }}" class="app-header-cart" v-if="$store.state.shoppingCartCount">
-        <i class="el-icon-goods"></i><sup>@{{ $store.state.shoppingCartCount }}</sup>
+    <a href="{{ route('cart') }}" class="app-header-cart">
+        <span class="app-header-cart-icon">
+               <i class="el-icon-goods"></i>
+        <template v-if="$store.state.shoppingCartCount">
+            <sup>@{{ $store.state.shoppingCartCount }}</sup>
+        </template>
+        </span>
+        <span class="app-header-cart-title">Cart</span>
     </a>
 
     @if(auth()->user() && auth()->user()->user_type === 'artist')

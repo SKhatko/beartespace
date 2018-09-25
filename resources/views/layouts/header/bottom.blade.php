@@ -20,8 +20,9 @@
                 {{ csrf_field() }}
 
                 <el-input required
-                          placeholder="Search" name="query"
-                          prefix-icon="el-icon-search">
+                          placeholder="Search artworks and artists" name="query" value="{{ Request::get('query') }}">
+                    {{--prefix-icon="el-icon-search"--}}
+                    <el-button native-type="submit" slot="append" icon="el-icon-search"></el-button>
                 </el-input>
 
             </form>

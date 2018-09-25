@@ -23,7 +23,7 @@ Route::group( [ 'middleware' => 'web' ], function () {
 	Route::post( 'subscription/stripe', 'SubscriptionController@payWithStripe' )->name( 'subscription.stripe' )->middleware( 'auth' );
 
 	// Search
-	Route::get( 'search/{query?}', 'HomeController@search' )->name( 'search' )->middleware( 'auth' );
+	Route::get( 'search/{query?}', 'HomeController@search' )->name( 'search' );
 
 	Route::group( [ 'prefix' => 'login' ], function () {
 		//Social login route
