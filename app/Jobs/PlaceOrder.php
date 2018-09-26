@@ -3,7 +3,9 @@
 namespace App\Jobs;
 
 use App\Order;
+use App\Sale;
 use App\Mail\OrderPaid;
+use App\Payment;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -15,6 +17,8 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 class PlaceOrder implements ShouldQueue {
 	use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+	private $order;
+
 	/**
 	 * Create a new job instance.
 	 *
@@ -22,22 +26,7 @@ class PlaceOrder implements ShouldQueue {
 	 */
 	public function __construct( Order $order ) {
 
-		// Make item sold
-		foreach ( $order->content as $item ) {
-			dump( $item );
-			$order->sales()->create( [
-				'user_id'    => $item->model->user_id,
-				'artwork_id' => $item->id,
-				'qty'        => $item->qty,
-				'price'      => $item->price,
-			] );
-
-//			ArtworkSold::dispatch( $item->model, $item->qty );
-		}
-
-//		Mail::to( auth()->user() )->send( new OrderPaid( $order ) );
-
-//		Cart::destroy();
+		$this->order = $order;
 	}
 
 	/**
@@ -46,6 +35,26 @@ class PlaceOrder implements ShouldQueue {
 	 * @return void
 	 */
 	public function handle() {
-		//
+
+		// Make item sold
+		foreach ( $this->order->content as $item ) {
+			$sale = Sale::create( [
+				'order_id'   => $this->order->id,
+				'user_id'    => $item->model->user_id,
+				'artwork_id' => $item->id,
+				'qty'        => $item->qty,
+				'price'      => $item->price,
+			] );
+
+			$sale->save();
+
+			dump( $sale );
+
+//			ArtworkSold::dispatch( $sale, $item->model, $item->qty );
+		}
+
+//		Mail::to( auth()->user() )->send( new OrderPaid( $order ) );
+
+//		Cart::destroy();
 	}
 }

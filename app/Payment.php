@@ -16,6 +16,10 @@ class Payment extends Model {
 		return $this->belongsTo( Order::class );
 	}
 
+	public function getChargeAttribute($value) {
+		return unserialize($value);
+	}
+
 	public function payment_completed_at() {
 		$created_date_time = '';
 		if ( $this->attributes['payment_created'] ) {

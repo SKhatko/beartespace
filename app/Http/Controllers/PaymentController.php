@@ -53,30 +53,37 @@ class PaymentController extends Controller {
 
 		if ( $charge->status == 'succeeded' ) {
 
-			$order = auth()->user()->orders()->updateOrCreate( [ 'payment_id' => $payment->id ], [
-				'payment_id' => $payment->id,
-				'address'    => auth()->user()->primaryAddress,
-				'amount'     => Cart::total(),
-				'content'    => serialize( Cart::content() )
-			] );
-
 			$payment->update( [
 				'amount'             => Cart::total(),
-				'status'             => $charge->status,
+				'status'             => 'success',
 				'charge_id_or_token' => $charge->id,
 				'description'        => $charge->description,
 				'payment_created'    => $charge->created,
 				'charge'             => serialize( $charge ),
 			] );
 
-			PlaceOrder::dispatch( $order, $payment, $charge );
+			$payment->save();
+
+			$order = new Order();
+			$order->save();
+
+			$order->update( [
+				'user_id'    => auth()->user()->id,
+				'address'    => auth()->user()->primaryAddress,
+				'amount'     => Cart::total(),
+				'payment_id' => $payment->id,
+				'content'    => serialize( Cart::content() )
+			] );
+
+			PlaceOrder::dispatch( $order );
+
+			Cart::destroy();
 
 			return view( 'checkout.success' );
 
+
 		} else {
 			dd( $charge );
-
-
 			//				return view( 'checkout.failure', compact( 'message' ) );
 		}
 

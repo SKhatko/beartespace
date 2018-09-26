@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Order;
 use Illuminate\Http\Request;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 
 class OrderController extends Controller {
@@ -11,8 +13,13 @@ class OrderController extends Controller {
 
 		$orders = auth()->user()->orders()->first();
 
-		return $orders->sales;
-		\App\Jobs\PlaceOrder::dispatch($orders);
+		$payment = auth()->user()->payments()->first();
+
+
+		$order = Order::first();
+
+
+		\App\Jobs\PlaceOrder::dispatch( $order );
 
 		foreach ( $orders->content as $item ) {
 //			$d = $orders->sales()->create( [
@@ -25,10 +32,9 @@ class OrderController extends Controller {
 //			dump($d);
 
 
-
 //			ArtworkSold::dispatch( $item->model, $item->qty );
 		}
-		dd( $orders->sales);
+		dd( $orders->sales );
 		// TODO looks too creepy, takes ids from cart and push it to one dimensional array of id's
 //		$artworkIds = [];
 //		foreach ( $orders as $order ) {
