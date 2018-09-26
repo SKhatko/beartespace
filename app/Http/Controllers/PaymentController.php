@@ -26,55 +26,60 @@ class PaymentController extends Controller {
 
 	public function checkout( $transaction_id ) {
 
-		$user = auth()->user();
-
-		$payment = $user->payments()->whereTransactionId( $transaction_id )->firstOrCreate( [
+		$payment = auth()->user()->payments()->whereTransactionId( $transaction_id )->firstOrCreate( [
 			'transaction_id' => $transaction_id,
 		] );
 
-		if ( $payment->status != 'succeeded' ) {
-			try {
-				Stripe::setApiKey( config( 'services.stripe.secret' ) );
+		try {
 
-				$charge = Charge::create( [
-					'amount'      => Cart::total() * 100,
-					'currency'    => 'eur',
-					'description' => 'Purchase of Artworks',
-					'source'      => $transaction_id,
-					'metadata'    => [ 'payment_id' => $payment->id ],
-				] );
+			Stripe::setApiKey( config( 'services.stripe.secret' ) );
 
-				$order = $user->orders()->updateOrCreate( [ 'payment_id' => $payment->id ], [
-					'payment_id' => $payment->id,
-					'address'    => $user->primaryAddress,
-					'amount'     => Cart::total(),
-					'content'    => serialize( Cart::content() )
-				] );
+			$charge = Charge::create( [
+				'amount'      => Cart::total() * 100,
+				'currency'    => 'eur',
+				'description' => 'Artwork Purchase',
+				'source'      => $transaction_id,
+//					'metadata'    => [ 'payment_id' => $payment->id ],
+			] );
 
-				$payment->update( [
-					'amount'             => Cart::total(),
-					'status'             => $charge->status,
-					'charge_id_or_token' => $charge->id,
-					'description'        => $charge->description,
-					'payment_created'    => $charge->created,
-					'charge'             => serialize( $charge ),
-				] );
+		} catch ( \Exception $ex ) {
 
-				if ( $charge->status == 'succeeded' ) {
-					PlaceOrder::dispatch( $order );
-				}
+			$payment->status = 'failed';
+			$payment->save();
 
-			} catch ( \Exception $ex ) {
-				// The card has been declined or any other error
-				$message = $ex->getMessage();
-
-				$payment->save();
-
-				return view( 'checkout.failure', compact( 'message' ) );
-			}
+			// The card has been declined or any other error
+			return redirect()->route( 'checkout' )->with( 'error', $ex->getMessage() );
 		}
 
-		return view( 'checkout.success' );
+		if ( $charge->status == 'succeeded' ) {
+
+			$order = auth()->user()->orders()->updateOrCreate( [ 'payment_id' => $payment->id ], [
+				'payment_id' => $payment->id,
+				'address'    => auth()->user()->primaryAddress,
+				'amount'     => Cart::total(),
+				'content'    => serialize( Cart::content() )
+			] );
+
+			$payment->update( [
+				'amount'             => Cart::total(),
+				'status'             => $charge->status,
+				'charge_id_or_token' => $charge->id,
+				'description'        => $charge->description,
+				'payment_created'    => $charge->created,
+				'charge'             => serialize( $charge ),
+			] );
+
+			PlaceOrder::dispatch( $order, $payment, $charge );
+
+			return view( 'checkout.success' );
+
+		} else {
+			dd( $charge );
+
+
+			//				return view( 'checkout.failure', compact( 'message' ) );
+		}
+
 	}
 
 	/**

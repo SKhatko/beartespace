@@ -14,6 +14,10 @@ class CheckoutController extends Controller {
 
 		$address = auth()->user()->primaryAddress;
 
+//		['errors', $arrErrors]
+
+
+//		dd(session('status'));
 		return view( 'checkout.index', compact( 'address' ) );
 	}
 

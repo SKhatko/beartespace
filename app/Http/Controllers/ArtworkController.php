@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Artwork;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 class ArtworkController extends Controller {
 	/**
@@ -17,6 +18,7 @@ class ArtworkController extends Controller {
 
 		$order = auth()->user()->orders()->first();
 
+//		return Cart::content();
 //		return new \App\Mail\OrderPaid($order);
 //		dd($order->content);
 //

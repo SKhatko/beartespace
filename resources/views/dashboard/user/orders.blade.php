@@ -22,10 +22,9 @@
                         <div class="order">
                             <div class="order-top">
                                 Order #{{ $order->id }} from {{ $order->created_at->diffForHumans() }}
-
                             </div>
                             @if($order->content)
-                                @foreach($order->content as $artwork)
+                                @foreach($order->sales as $sale)
                                     <div class="artwork">
                                         {{----}}
                                         {{--<div class="artwork-image">--}}
@@ -41,23 +40,23 @@
                                             {{--{{ $artwork->user->name }}--}}
                                             {{--</a>--}}
 
-                                            <a href="{{ route('artwork', $artwork->id) }}" class="h5">
-                                                {{ $artwork->name }}
+                                            <a href="{{ route('artwork', $sale->artwork->id) }}" class="h5">
+                                                {{ $sale->artwork->name }}
                                             </a>
                                         </div>
 
                                         <div class="artwork--right">
 
                                             <div class="artwork-price">
-                                                {{ currency($artwork->price) }}
+                                                {{ currency($sale->price) }}
                                             </div>
 
                                             <div class="artwork-qty">
-                                                {{ $artwork->qty }} pc
+                                                {{ $sale->qty }} pc
                                             </div>
 
                                             <div class="artwork-status">
-                                                Payed
+                                                {{ $sale->status }}
                                             </div>
 
                                         </div>

@@ -19173,6 +19173,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -70238,7 +70241,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     slot: "header"
   }, [_vm._v("Select a payment method")]), _vm._v(" "), _c('div', {
     staticClass: "checkout-payment-form"
-  }, [_c('div', {
+  }, [_vm._t("default"), _vm._v(" "), _c('div', {
     staticClass: "checkout-payment-price"
   }, [_vm._v("\n            Order total: " + _vm._s(_vm.formattedPrice_) + "\n        ")]), _vm._v(" "), _c('div', {
     staticClass: "el-form-item checkout-payment-buttons"
@@ -70323,7 +70326,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.stripe
     }
-  }, [_vm._v("Pay with credit\n                card\n            ")])], 1)], 1)])
+  }, [_vm._v("Pay with credit\n                card\n            ")])], 1)], 2)])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

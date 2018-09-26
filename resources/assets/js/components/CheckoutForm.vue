@@ -4,7 +4,10 @@
     <el-card class="box-card checkout-payment">
         <div slot="header" class="h4">Select a payment method</div>
 
+
         <div class="checkout-payment-form">
+
+            <slot></slot>
 
             <div class="checkout-payment-price">
                 Order total: {{ formattedPrice_ }}

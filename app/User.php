@@ -61,6 +61,10 @@ class User extends Authenticatable {
 		return $this->hasMany( Article::class );
 	}
 
+	public function sales() {
+		return $this->hasMany(Sale::class);
+	}
+
 	public function favoriteArtworks() {
 		return $this->belongsToMany( Artwork::class, 'favorites' );
 	}

@@ -15,6 +15,7 @@ You sent a payment of **{{ currency($order->amount) }}** to BeArteSpace
 @foreach($order->content as $item)
 | {{ $item->name }}| {{ $item->qty }} | {{ currency($item->price) }} |
 @endforeach
+| **Total** | {{ $order->content->count() }} | {{ currency($order->amount) }}
 @endcomponent
 
 ##Shipping address

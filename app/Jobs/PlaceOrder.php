@@ -24,12 +24,20 @@ class PlaceOrder implements ShouldQueue {
 
 		// Make item sold
 		foreach ( $order->content as $item ) {
-			ArtworkSold::dispatch( $item->model, $item->qty );
+			dump( $item );
+			$order->sales()->create( [
+				'user_id'    => $item->model->user_id,
+				'artwork_id' => $item->id,
+				'qty'        => $item->qty,
+				'price'      => $item->price,
+			] );
+
+//			ArtworkSold::dispatch( $item->model, $item->qty );
 		}
 
-		Mail::to( auth()->user() )->send( new OrderPaid( $order ) );
+//		Mail::to( auth()->user() )->send( new OrderPaid( $order ) );
 
-		Cart::destroy();
+//		Cart::destroy();
 	}
 
 	/**

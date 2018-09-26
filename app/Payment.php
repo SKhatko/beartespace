@@ -12,6 +12,10 @@ class Payment extends Model {
 		return $this->belongsTo( User::class );
 	}
 
+	public function order() {
+		return $this->belongsTo( Order::class );
+	}
+
 	public function payment_completed_at() {
 		$created_date_time = '';
 		if ( $this->attributes['payment_created'] ) {

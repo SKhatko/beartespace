@@ -6,6 +6,7 @@
 
     @include('partials.errors')
 
+    Artworks
     @foreach($artworks as $artwork)
         <div class="artwork">
 

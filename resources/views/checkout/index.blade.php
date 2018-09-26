@@ -14,6 +14,7 @@
                     price_="{{ Cart::total() }}"
                     formatted-price_="{{ currency(Cart::total()) }}"
                     key_="{{ config('services.stripe.key') }}">
+                @include('partials.errors')
             </checkout-form>
 
             <el-card class="box-card checkout-address">

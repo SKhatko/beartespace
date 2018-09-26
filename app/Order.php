@@ -21,12 +21,12 @@ class Order extends Model {
 		return $this->hasOne( Address::class );
 	}
 
-	public function shoppingcart() {
-		return $this->hasOne( ShoppingCart::class, 'identifier' );
+	public function sales() {
+		return $this->hasMany( Sale::class );
 	}
 
-	public function payment() {
-		return $this->hasOne( Payment::class, 'id' );
+	public function payments() {
+		return $this->hasMany( Payment::class );
 	}
 
 	public function scopeConfirmed( $query ) {
