@@ -15,17 +15,15 @@
                 <el-breadcrumb-item>Favorites</el-breadcrumb-item>
             </el-breadcrumb>
 
-            <el-card>
 
-                <el-tabs value="artworks">
-                    <el-tab-pane label="Artworks" name="artworks">
-                        @include('partials.artworks', $artworks)
-                    </el-tab-pane>
-                    <el-tab-pane label="Artists" name="artists">Artists</el-tab-pane>
-                    <el-tab-pane label="Galleries" name="galleries">Galleries</el-tab-pane>
-                </el-tabs>
+            <el-tabs value="artworks">
+                <el-tab-pane label="Artworks" name="artworks">
+                    @include('partials.artworks', $artworks)
+                </el-tab-pane>
+                <el-tab-pane label="Artists" name="artists">Artists</el-tab-pane>
+                <el-tab-pane label="Galleries" name="galleries">Galleries</el-tab-pane>
+            </el-tabs>
 
-            </el-card>
 
         </div>
 
