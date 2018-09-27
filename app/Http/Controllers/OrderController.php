@@ -32,9 +32,9 @@ class OrderController extends Controller {
 //			dump($d);
 
 
-//			ArtworkSold::dispatch( $item->model, $item->qty );
+			ArtworkSold::dispatch( $item->model, $item->qty );
 		}
-		dd( $orders->sales );
+		dd( $order->sales );
 		// TODO looks too creepy, takes ids from cart and push it to one dimensional array of id's
 //		$artworkIds = [];
 //		foreach ( $orders as $order ) {

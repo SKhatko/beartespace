@@ -2,9 +2,14 @@
 
 namespace App;
 
+use App\Events\SaleCreated;
 use Illuminate\Database\Eloquent\Model;
 
 class Sale extends Model {
+
+	protected $dispatchesEvents = [
+		'created' => SaleCreated::class,
+	];
 
 	protected $fillable = ['order_id', 'user_id', 'artwork_id', 'qty', 'price', 'status'];
 

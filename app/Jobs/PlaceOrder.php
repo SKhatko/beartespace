@@ -46,9 +46,9 @@ class PlaceOrder implements ShouldQueue {
 				'price'      => $item->price,
 			] );
 
-			$sale->save();
+//			$sale->save();
 
-			dump( $sale );
+//			dump( $sale );
 
 //			ArtworkSold::dispatch( $sale, $item->model, $item->qty );
 		}
