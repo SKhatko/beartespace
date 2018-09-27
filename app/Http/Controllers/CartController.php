@@ -66,10 +66,9 @@ class CartController extends Controller {
 				}
 			} );
 		} else {
-//			Cart::add( $artwork->id, $artwork->name, 1, $artwork->price );
 			Cart::add( $artwork );
 
-			$this->response = redirect()->route( 'cart' );
+			$this->response = redirect()->route( 'checkout' );
 
 		}
 
@@ -80,14 +79,10 @@ class CartController extends Controller {
 		$artwork = Artwork::findOrFail( $id );
 
 		if ( ! Cart::content()->contains( 'id', $artwork->id ) ) {
-//			Cart::add( $artwork->id, $artwork->name, 1, $artwork->price );
 			Cart::add( $artwork );
 		}
 
-		return redirect()->back()->with( 'message', [
-			'status'  => 'success',
-			'message' => $artwork->name . ' added to shopping cart'
-		] );
+		return redirect()->route( 'cart' );
 	}
 
 	public function removeItem( Request $request, $id ) {

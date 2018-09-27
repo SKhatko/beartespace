@@ -70,22 +70,12 @@
                                 </div>
 
                                 @if(!$artwork->sold && $artwork->available)
-                                    @if(Cart::content()->contains('id', $artwork->id))
-                                        <el-tag type="info" style="margin-right: 10px; width: 100%;">
-                                            <a href="{{ route('cart.item.remove', $artwork->id) }}"> Item is added to
-                                                shopping cart, remove?</a></el-tag>
-                                    @else
-                                        <el-button plain style="display: block;width: 100%;">
-                                            <a href="{{ route('cart.item.add', $artwork->id) }}">Add to cart</a>
-                                        </el-button>
-                                    @endif
 
-                                    <div style="margin-top: 20px;">
-                                        <el-button type="success" style="display: block;width: 100%;">
-                                            <a href="{{ route('cart.item.buy-now', $artwork->id) }}">Buy Now <i
-                                                        class="el-icon-goods"></i></a>
-                                        </el-button>
-                                    </div>
+                                    <a href="{{ route('cart.item.buy-now', $artwork->id) }}"
+                                       class="el-button el-button--default is-plain artwork-buy">Buy Now</a>
+
+                                    <a href="{{ route('cart.item.add', $artwork->id) }}"
+                                       class="el-button el-button--primary artwork-add">Add to cart</a>
                                 @endif
 
                                 <div class="artwork-favorite">

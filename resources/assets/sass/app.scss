@@ -732,6 +732,17 @@ body, html {
       }
     }
 
+    &-buy {
+      display: block;
+      width: 100%;
+    }
+
+    &-add {
+      display: block;
+      width: 100%;
+      margin: 10px 0 0;
+    }
+
     &-favorite {
       margin-top: 20px;
     }
@@ -1020,6 +1031,10 @@ body, html {
 }
 
 .app-favorites {
+
+  .app-artworks-list {
+    column-count: 4;
+  }
 
 }
 
