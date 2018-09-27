@@ -2,6 +2,8 @@
 
 @section('content')
 
-  <login-form></login-form>
+  <login-form>
+    @include('partials.errors')
+  </login-form>
 
 @endsection

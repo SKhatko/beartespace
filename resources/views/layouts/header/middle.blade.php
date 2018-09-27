@@ -86,7 +86,7 @@
                         trigger="click">
 
                     <el-dropdown-item>
-                        <a href="{{route('dashboard.profile')}}" >View Profile</a>
+                        <a href="{{route('dashboard.profile')}}">View Profile</a>
                     </el-dropdown-item>
 
                     <el-dropdown-item divided>
@@ -94,7 +94,11 @@
                     </el-dropdown-item>
 
                     <el-dropdown-item>
-                        <a href="{{ route('dashboard.orders') }}" class="el-dropdown-link">Orders</a>
+                        <a href="{{route('dashboard.favorites')}}" class="el-dropdown-link">Favorites</a>
+                    </el-dropdown-item>
+
+                    <el-dropdown-item>
+                        <a href="{{ route('dashboard.orders') }}" class="el-dropdown-link">Purchases</a>
                     </el-dropdown-item>
 
                     @if(!auth()->user()->isUser())
@@ -169,7 +173,7 @@
                               </span>
                         <div class="app-header-auth-name">
                             You
-{{--                            {{ auth()->user()->name }}--}}
+                            {{--                            {{ auth()->user()->name }}--}}
 
                             <i class="el-icon-arrow-down el-icon--right"></i>
                         </div>
@@ -212,12 +216,12 @@
         @endif
 
         <a href="{{ route('cart') }}" class="app-header-cart">
-        <span class="app-header-cart-icon">
-               <i class="el-icon-goods"></i>
-        <template v-if="$store.state.shoppingCartCount">
-            <sup>@{{ $store.state.shoppingCartCount }}</sup>
-        </template>
-        </span>
+            <span class="app-header-cart-icon">
+                   <i class="el-icon-goods"></i>
+            <template v-if="$store.state.shoppingCartCount">
+                <sup>@{{ $store.state.shoppingCartCount }}</sup>
+            </template>
+            </span>
             <span class="app-header-cart-title">Cart</span>
         </a>
 

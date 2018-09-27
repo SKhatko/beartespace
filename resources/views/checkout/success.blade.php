@@ -15,7 +15,7 @@
                     section</a>
             </div>
 
-            <el-button><a href="/artwork">Artworks</a></el-button>
+            <el-button><a href="/">Home</a></el-button>
             <el-button><a href="{{ route('dashboard.orders') }}">My orders</a></el-button>
         </div>
 

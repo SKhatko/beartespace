@@ -32,15 +32,15 @@
             'errors': {!! json_encode($errors->all()) !!},
             'notify': {!! json_encode(session('notify')) !!},
 
+            // Errors
+            'error': {!! json_encode(session('error') ?? '') !!},
+
             // Message that appear on top
             'message': {!! json_encode(session('message') ?? '') !!},
 
             'favoriteArtworks': {!! json_encode(auth()->user() ? auth()->user()->favoriteArtworks: '') !!},
             'shoppingCart': {!! json_encode(Cart::content()->values()) !!},
         };
-
-
-        window.error = {!! json_encode(session('error') ?? '') !!};
 
     </script>
 

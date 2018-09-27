@@ -117,6 +117,15 @@ const app = new Vue({
             });
         }
 
+        if (window.bus.error) {
+            this.$message({
+                showClose: true,
+                message: window.bus.error,
+                type: 'error',
+                duration: 6000
+            })
+        }
+
         // Passing initial favorite Artworks
         if (window.bus.favoriteArtworks) {
             this.$store.commit('setInitialFavoriteArtworks', window.bus.favoriteArtworks);
@@ -128,14 +137,6 @@ const app = new Vue({
         }
 
 
-        if (window.error) {
-            this.$message({
-                showClose: true,
-                message: window.error,
-                type: 'error',
-                duration: 6000
-            })
-        }
 
 
         // axios.get('/api/profile')

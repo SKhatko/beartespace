@@ -2,7 +2,7 @@
 
 @section('admin-content')
 
-    <el-main class="app--centered">
+    <el-main class="app--wrapper">
 
         <div class="app-orders">
 
@@ -16,55 +16,53 @@
                 <div slot="header" class="clearfix h4">Orders</div>
 
 
-                @if($orders->count() > 0)
+                @if(auth()->user()->orders()->count() > 0)
 
-                    @foreach($orders as $order)
+                    @foreach(auth()->user()->orders as $order)
                         <div class="order">
                             <div class="order-top">
                                 Order #{{ $order->id }} from {{ $order->created_at->diffForHumans() }}
                             </div>
-                            @if($order->content)
-                                @foreach($order->sales as $sale)
-                                    <div class="artwork">
-                                        {{----}}
-                                        {{--<div class="artwork-image">--}}
-                                        {{--<img src="/imagecache/height-100{{ $artwork->image_url }}"--}}
-                                        {{--alt="{{ $artwork->image ? $artwork->image->original_name : 'image' }}"--}}
-                                        {{--style="height: 100px;">--}}
-                                        {{--</div>--}}
+                            @foreach($order->sales as $sale)
+                                <div class="artwork">
+                                    {{----}}
+                                    {{--<div class="artwork-image">--}}
+                                    {{--<img src="/imagecache/height-100{{ $artwork->image_url }}"--}}
+                                    {{--alt="{{ $artwork->image ? $artwork->image->original_name : 'image' }}"--}}
+                                    {{--style="height: 100px;">--}}
+                                    {{--</div>--}}
 
-                                        <div class="artwork-info">
+                                    <div class="artwork-info">
 
-                                            {{--<a href="{{ route('artist', $artwork->user_id) }}" class="h5"--}}
-                                            {{--style="margin-bottom: 6px;font-weight: bold;display: block;">--}}
-                                            {{--{{ $artwork->user->name }}--}}
-                                            {{--</a>--}}
+                                        {{--<a href="{{ route('artist', $artwork->user_id) }}" class="h5"--}}
+                                        {{--style="margin-bottom: 6px;font-weight: bold;display: block;">--}}
+                                        {{--{{ $artwork->user->name }}--}}
+                                        {{--</a>--}}
 
-                                            <a href="{{ route('artwork', $sale->artwork->id) }}" class="h5">
-                                                {{ $sale->artwork->name }}
-                                            </a>
+                                        <a href="{{ route('artwork', $sale->artwork->id) }}" class="h5">
+                                            {{ $sale->artwork->name }}
+                                        </a>
+                                    </div>
+
+                                    <div class="artwork--right">
+
+                                        <div class="artwork-price">
+                                            {{ currency($sale->price) }}
                                         </div>
 
-                                        <div class="artwork--right">
+                                        <div class="artwork-qty">
+                                            {{ $sale->qty }} pc
+                                        </div>
 
-                                            <div class="artwork-price">
-                                                {{ currency($sale->price) }}
-                                            </div>
-
-                                            <div class="artwork-qty">
-                                                {{ $sale->qty }} pc
-                                            </div>
-
-                                            <div class="artwork-status">
-                                                {{ $sale->status }}
-                                            </div>
-
+                                        <div class="artwork-status">
+                                            {{ $sale->status }}
                                         </div>
 
                                     </div>
 
-                                @endforeach
-                            @endif
+                                </div>
+
+                            @endforeach
                             <hr>
 
                             <div class="order-bottom">

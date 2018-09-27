@@ -5,7 +5,7 @@
         <el-card class="box-card app-auth-login">
             <div slot="header" class="clearfix">Sign in</div>
 
-            <errors></errors>
+            <slot></slot>
 
             <el-form :model="user" :rules="rules" ref="user" method="post" action="/login"
                      @submit.native.prevent="login">
@@ -67,11 +67,7 @@
 
 <script>
 
-    import Errors from '../partials/Errors.vue'
-
     export default {
-
-        components: {Errors},
 
         props: {},
 

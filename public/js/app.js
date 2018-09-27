@@ -16311,6 +16311,15 @@ var app = new Vue({
             });
         }
 
+        if (window.bus.error) {
+            this.$message({
+                showClose: true,
+                message: window.bus.error,
+                type: 'error',
+                duration: 6000
+            });
+        }
+
         // Passing initial favorite Artworks
         if (window.bus.favoriteArtworks) {
             this.$store.commit('setInitialFavoriteArtworks', window.bus.favoriteArtworks);
@@ -16319,15 +16328,6 @@ var app = new Vue({
         // Shopping cart initial
         if (window.bus.shoppingCart) {
             this.$store.commit('setInitialShoppingCart', window.bus.shoppingCart);
-        }
-
-        if (window.error) {
-            this.$message({
-                showClose: true,
-                message: window.error,
-                type: 'error',
-                duration: 6000
-            });
         }
 
         // axios.get('/api/profile')
@@ -19344,8 +19344,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__partials_Errors_vue__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__partials_Errors_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__partials_Errors_vue__);
 //
 //
 //
@@ -19413,13 +19411,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
-
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-
-    components: { Errors: __WEBPACK_IMPORTED_MODULE_0__partials_Errors_vue___default.a },
 
     props: {},
 
@@ -19652,8 +19646,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__partials_Errors_vue__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__partials_Errors_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__partials_Errors_vue__);
 //
 //
 //
@@ -19737,22 +19729,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
-
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
     props: {
-        userType: '',
+        userType_: '',
         userPlan: ''
     },
-    components: { Errors: __WEBPACK_IMPORTED_MODULE_0__partials_Errors_vue___default.a },
 
     data: function data() {
         return {
             user: {
-                user_plan: 'trial',
                 user_type: 'user',
                 first_name: '',
                 last_name: '',
@@ -19766,9 +19759,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 last_name: [{ required: true, message: 'Required' }],
                 email: [{ type: 'email', required: true, message: 'Please enter email' }],
                 password: [{ required: true, message: 'Please enter password' }]
-                // user_type: [
-                //     {required: true, message: 'Please select customer type'}
-                // ]
             },
             csrf: ''
 
@@ -19777,11 +19767,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     mounted: function mounted() {
         this.csrf = window.csrf;
 
-        if (this.userType && (this.userType == 'artist' || this.userType == 'gallery')) {
-            this.user.user_type = this.userType;
+        if (this.userType_ && (this.userType_ === 'artist' || this.userType_ === 'gallery')) {
+            this.user.user_type = this.userType_;
         }
-
-        console.log(this.user.user_type, 'usertype');
     },
 
 
@@ -21862,9 +21850,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -22251,16 +22236,15 @@ var store = {
     },
     mutations: {
         toggleFavorites: function toggleFavorites(state, item) {
-            var _this = this;
 
             axios.put('/api/user/favorite/' + item.id + '/toggle').then(function (response) {
 
-                _this._vm.$message({
-                    dangerouslyUseHTMLString: true,
-                    showClose: true,
-                    message: response.data.message,
-                    type: response.data.status
-                });
+                // this._vm.$message({
+                //     dangerouslyUseHTMLString: true,
+                //     showClose: true,
+                //     message: response.data.message,
+                //     type: response.data.status
+                // });
 
                 state.favoriteArtworks = response.data.data;
                 state.favoriteArtworksCount = response.data.data.length;
@@ -22272,7 +22256,7 @@ var store = {
             });
         },
         toggleShoppingCart: function toggleShoppingCart(state, item) {
-            var _this2 = this;
+            var _this = this;
 
             axios.get('/cart/item/' + item.id + '/toggle').then(function (response) {
 
@@ -22282,7 +22266,7 @@ var store = {
 
                 console.log(response.data.data, 'got data');
 
-                _this2._vm.$message({
+                _this._vm.$message({
                     dangerouslyUseHTMLString: true,
                     showClose: true,
                     message: response.data.message,
@@ -67627,7 +67611,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "slot": "header"
     },
     slot: "header"
-  }, [_vm._v("Sign in")]), _vm._v(" "), _c('errors'), _vm._v(" "), _c('el-form', {
+  }, [_vm._v("Sign in")]), _vm._v(" "), _vm._t("default"), _vm._v(" "), _c('el-form', {
     ref: "user",
     attrs: {
       "model": _vm.user,
@@ -67718,7 +67702,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "href": "/password/reset"
     }
-  }, [_vm._v("Forgot Your Password?")])])], 1)], 1)], 1)
+  }, [_vm._v("Forgot Your Password?")])])], 1)], 2)], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -68898,7 +68882,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         return _vm.register($event)
       }
     }
-  }, [_c('errors'), _vm._v(" "), _c('input', {
+  }, [_vm._t("default"), _vm._v(" "), _c('input', {
     attrs: {
       "type": "hidden",
       "name": "_token"
@@ -69029,7 +69013,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "href": _vm.userAgreementSrc,
       "target": "_blank"
     }
-  }, [_vm._v("User Agreement")]), _vm._v(", you're at least 18 years\n                old, and you consent to our "), _c('a', {
+  }, [_vm._v("User\n                Agreement")]), _vm._v(", you're at least 18 years\n                old, and you consent to our "), _c('a', {
     staticStyle: {
       "font-weight": "bold"
     },
@@ -69037,7 +69021,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "href": "/page/cookies-and-privacy",
       "target": "_blank"
     }
-  }, [_vm._v("Privacy Notice")]), _vm._v(" and receiving marketing communications from us.\n            ")]), _vm._v(" "), _c('el-form-item', [_c('el-button', {
+  }, [_vm._v("Privacy Notice")]), _vm._v(" and receiving marketing\n                communications from us.\n            ")]), _vm._v(" "), _c('el-form-item', [_c('el-button', {
     attrs: {
       "type": "primary",
       "native-type": "submit",
@@ -69051,7 +69035,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "href": "/login"
     }
-  }, [_vm._v("\n                        or Login\n                    ")])])], 1)], 1)], 1)], 1)
+  }, [_vm._v("\n                        or Login\n                    ")])])], 1)], 2)], 1)], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -69080,15 +69064,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.showFilters = !_vm.showFilters
       }
     }
-  }, [_vm._v("Show filters")]), _vm._v(" "), _c('el-button', {
-    attrs: {
-      "type": "warning",
-      "plain": ""
-    },
-    on: {
-      "click": _vm.clearFilters
-    }
-  }, [_vm._v("Clear filters")]), _vm._v(" "), (_vm.showFilters) ? _c('el-form', {
+  }, [_vm._v("Filters")]), _vm._v(" "), (_vm.showFilters) ? _c('el-form', {
     staticStyle: {
       "margin-bottom": "20px"
     },
@@ -69330,7 +69306,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.setSearchQuery
     }
-  }, [_vm._v("Filter")])], 1) : _vm._e()], 1)
+  }, [_vm._v("Filter")]), _vm._v(" "), _c('el-button', {
+    attrs: {
+      "type": "warning",
+      "plain": ""
+    },
+    on: {
+      "click": _vm.clearFilters
+    }
+  }, [_vm._v("Clear filters")])], 1) : _vm._e()], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -69424,8 +69408,6 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('el-main', {
     staticClass: "app--wrapper"
-  }, [_c('div', {
-    staticClass: "app-address"
   }, [_c('el-breadcrumb', {
     staticStyle: {
       "margin": "30px 0"
@@ -69437,7 +69419,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "href": "/"
     }
-  }, [_vm._v("Home")])]), _vm._v(" "), _c('el-breadcrumb-item', [_vm._v("Select Delivery Address")])], 1), _vm._v(" "), _c('el-card', {
+  }, [_vm._v("Home")])]), _vm._v(" "), _c('el-breadcrumb-item', [_vm._v("Select Delivery Address")])], 1), _vm._v(" "), _c('div', {
+    staticClass: "app-address"
+  }, [_c('el-card', {
     staticClass: "box-card"
   }, [_c('div', {
     staticClass: "h4",
@@ -70124,13 +70108,17 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return (_vm.artwork) ? _c('el-card', {
-    staticClass: "artwork"
+    staticClass: "artwork",
+    attrs: {
+      "shadow": "hover"
+    }
   }, [_c('div', {
     staticClass: "artwork-top"
   }, [_c('a', {
     staticClass: "artwork-image",
     attrs: {
-      "href": '/artwork/' + _vm.artwork.id
+      "href": '/artwork/' + _vm.artwork.id,
+      "target": "_blank"
     }
   }, [_c('img', {
     attrs: {
@@ -70163,29 +70151,20 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('i', {
     staticClass: "el-icon-goods"
   })])], 1)]), _vm._v(" "), _c('a', {
-    staticClass: "artwork-title",
+    staticClass: "artwork-name",
     attrs: {
-      "href": '/artwork/' + _vm.artwork.id
+      "href": '/artwork/' + _vm.artwork.id,
+      "target": "_blank"
     }
   }, [_vm._v("\n        " + _vm._s(_vm.artwork.name) + "\n    ")]), _vm._v(" "), _c('div', {
     staticClass: "artwork-bottom"
   }, [(_vm.artwork.user && _vm.artwork.user.country) ? _c('div', {
     staticClass: "artwork-info"
   }, [_c('div', {
-    staticClass: "h4"
-  }, [_vm._v(_vm._s(_vm.artwork.user.name))]), _vm._v(" "), _c('div', {
-    staticClass: "h5"
-  }, [_vm._v(_vm._s(_vm.artwork.user.country.country_name))])]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "artwork-artist"
+  }, [_vm._v(_vm._s(_vm.artwork.user.name))])]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "artwork-price"
-  }, [_c('div', {
-    staticStyle: {
-      "margin-bottom": "10px"
-    }
-  }, [_vm._v("\n                " + _vm._s(_vm.artwork.formatted_price) + "\n            ")]), _vm._v(" "), _c('el-button', [_c('a', {
-    attrs: {
-      "href": '/cart/item/' + _vm.artwork.id + '/buy-now'
-    }
-  }, [_vm._v("Buy Now")])])], 1)])]) : _vm._e()
+  }, [_vm._v("\n            " + _vm._s(_vm.artwork.formatted_price) + "\n            ")])])]) : _vm._e()
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

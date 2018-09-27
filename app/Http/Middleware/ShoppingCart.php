@@ -25,7 +25,7 @@ class ShoppingCart {
 
 			foreach ( $artworks as $artwork ) {
 				if ( $artwork->availableInStockWithQuantity( $cartArtworks[ $artwork->id ] ) !== 'available' ) {
-					return redirect( route( 'cart' ) )->with( 'error', 'Not all items from your shopping cart are available. Remove them from your cart to continue' );
+					return redirect( route( 'cart' ) )->with( 'inline-warning', 'Not all items from your shopping cart are available. Remove them from your cart to continue' );
 				}
 			};
 

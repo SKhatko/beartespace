@@ -13,11 +13,15 @@
                 <el-breadcrumb-item>Artworks</el-breadcrumb-item>
             </el-breadcrumb>
 
-            <artworks-menu></artworks-menu>
-
             <main>
 
-                @include('partials.artworks', $artworks)
+                <div class="artworks">
+
+                    <artworks-menu></artworks-menu>
+
+                    @include('partials.artworks', $artworks)
+
+                </div>
 
                 <div class="artworks-bottom" style="text-align: center;margin: 50px 0;">
 

@@ -1,9 +1,9 @@
 <template>
 
-    <el-card class="artwork" v-if="artwork">
+    <el-card class="artwork" v-if="artwork" shadow="hover">
 
         <div class="artwork-top">
-            <a :href="'/artwork/' + artwork.id" class="artwork-image">
+            <a :href="'/artwork/' + artwork.id" target="_blank" class="artwork-image">
                 <img :src="'/imagecache/original/' + artwork.image_url">
             </a>
 
@@ -18,21 +18,18 @@
             </div>
         </div>
 
-        <a :href="'/artwork/' + artwork.id" class="artwork-title">
+        <a :href="'/artwork/' + artwork.id" target="_blank" class="artwork-name">
             {{ artwork.name }}
         </a>
 
         <div class="artwork-bottom">
             <div class="artwork-info" v-if="artwork.user && artwork.user.country">
-                <div class="h4">{{ artwork.user.name }}</div>
-                <div class="h5">{{ artwork.user.country.country_name }}</div>
+                <div class="artwork-artist">{{ artwork.user.name }}</div>
             </div>
 
             <div class="artwork-price">
-                <div style="margin-bottom: 10px;">
-                    {{ artwork.formatted_price }}
-                </div>
-                <el-button><a :href="'/cart/item/' + artwork.id + '/buy-now'">Buy Now</a></el-button>
+                {{ artwork.formatted_price }}
+                <!--<el-button><a :href="'/cart/item/' + artwork.id + '/buy-now'">Buy Now</a></el-button>-->
             </div>
         </div>
 

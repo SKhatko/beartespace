@@ -22,14 +22,7 @@ class ArtworkController extends Controller {
 //		return new \App\Mail\OrderPaid($order);
 //		dd($order->content);
 //
-//		foreach ( $order->content as $item ) {
-//
-//			dump( $item->model );
-////					return new \App\Mail\ArtworkSold($order, $item->model);
-//		}
-//
-//
-//		return $order;
+
 //
 //		Mail::to( $artwork->user )->send( new OrderPaid( $order ) );
 

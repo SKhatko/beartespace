@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\CreateOrder;
 use App\Payment;
 use Illuminate\Http\Request;
 use App\Order;
-use App\Jobs\PlaceOrder;
 use App\Http\Requests;
 use Stripe\Stripe;
 use Stripe\Charge;
@@ -45,6 +45,7 @@ class PaymentController extends Controller {
 		} catch ( \Exception $ex ) {
 
 			$payment->status = 'failed';
+			$payment->fail_reason = $ex->getMessage();
 			$payment->save();
 
 			// The card has been declined or any other error
@@ -64,18 +65,7 @@ class PaymentController extends Controller {
 
 			$payment->save();
 
-			$order = new Order();
-			$order->save();
-
-			$order->update( [
-				'user_id'    => auth()->user()->id,
-				'address'    => auth()->user()->primaryAddress,
-				'amount'     => Cart::total(),
-				'payment_id' => $payment->id,
-				'content'    => serialize( Cart::content() )
-			] );
-
-			PlaceOrder::dispatch( $order );
+			CreateOrder::dispatch( $payment );
 
 			Cart::destroy();
 

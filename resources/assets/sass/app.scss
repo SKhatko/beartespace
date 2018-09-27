@@ -658,6 +658,15 @@ body, html {
     flex: 1;
   }
 
+  &-menu {
+    flex: 1;
+    max-width: 250px;
+  }
+  .artworks {
+    display: flex;
+  }
+
+
 }
 
 .app-artwork {
@@ -755,6 +764,7 @@ body, html {
 }
 
 .app-artworks-list {
+  flex: 1;
   column-count: 2;
   column-gap: 15px;
 
@@ -776,10 +786,13 @@ body, html {
       }
     }
 
-    &-title {
+    &-name {
       font-size: 18px;
-      font-weight: 700;
-      margin: 10px 0 20px;
+      font-weight: 400;
+      margin: 10px 0;
+      //overflow: hidden;
+      //text-overflow: ellipsis;
+      //white-space: nowrap;
     }
 
     &-panel {
@@ -811,12 +824,12 @@ body, html {
 
     &-price {
       text-align: right;
+      font-weight: 700;
     }
 
-    &-title {
-      font-size: 22px;
-      font-weight: 300;
-      margin-bottom: 10px;
+    &-artist {
+      font-size: 16px;
+      color: gray;
     }
 
     &-bottom {
@@ -870,6 +883,7 @@ body, html {
 .app-checkout {
   width: 100%;
   max-width: 800px;
+  margin: 0 auto;
 
   .checkout {
 
@@ -905,8 +919,15 @@ body, html {
 .app-cart {
   width: 100%;
   max-width: 600px;
+  margin: 0 auto;
 
   .cart {
+
+    &-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
     &-item {
       margin-bottom: 30px;
@@ -987,7 +1008,18 @@ body, html {
         font-weight: bold;
       }
     }
+
+    &-empty {
+      @extend .h2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
   }
+
+}
+
+.app-favorites {
 
 }
 

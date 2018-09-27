@@ -11,30 +11,16 @@ class OrderController extends Controller {
 
 	public function index() {
 
-		$orders = auth()->user()->orders()->first();
+		$orders = auth()->user()->orders()->get();
 
 		$payment = auth()->user()->payments()->first();
 
 
-		$order = Order::first();
+//		\App\Jobs\CreateOrder::dispatch( $payment );
 
 
-		\App\Jobs\PlaceOrder::dispatch( $order );
+//		return new \App\Mail\SalePaid($order->sales->first());
 
-		foreach ( $orders->content as $item ) {
-//			$d = $orders->sales()->create( [
-//				'user_id'    => $item->model->user_id,
-//				'artwork_id' => $item->id,
-//				'qty'        => $item->qty,
-//				'price'      => $item->price
-//			] );
-//
-//			dump($d);
-
-
-			ArtworkSold::dispatch( $item->model, $item->qty );
-		}
-		dd( $order->sales );
 		// TODO looks too creepy, takes ids from cart and push it to one dimensional array of id's
 //		$artworkIds = [];
 //		foreach ( $orders as $order ) {

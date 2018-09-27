@@ -7,24 +7,24 @@
             <el-form label-position="top" :rules="rules" :model="user" ref="user" method="post" action="/register"
                      @submit.native.prevent="register">
 
-                <errors></errors>
+                <slot></slot>
 
                 <input type="hidden" name="_token" :value="csrf">
                 <input type="hidden" name="user_type" v-model="user.user_type">
 
                 <!--<el-row :gutter="20">-->
-                    <!--<el-col>-->
+                <!--<el-col>-->
 
-                        <!--<el-form-item label="Select user type">-->
+                <!--<el-form-item label="Select user type">-->
 
-                            <!--<el-radio-group v-model="user.user_type" name="user_type">-->
-                                <!--<el-radio-button name="user_type" label="user">Customer</el-radio-button>-->
-                                <!--<el-radio-button name="user_type" label="artist">Artist</el-radio-button>-->
-                                <!--<el-radio-button name="user_type" label="gallery">Gallery</el-radio-button>-->
-                            <!--</el-radio-group>-->
+                <!--<el-radio-group v-model="user.user_type" name="user_type">-->
+                <!--<el-radio-button name="user_type" label="user">Customer</el-radio-button>-->
+                <!--<el-radio-button name="user_type" label="artist">Artist</el-radio-button>-->
+                <!--<el-radio-button name="user_type" label="gallery">Gallery</el-radio-button>-->
+                <!--</el-radio-group>-->
 
-                        <!--</el-form-item>-->
-                    <!--</el-col>-->
+                <!--</el-form-item>-->
+                <!--</el-col>-->
                 <!--</el-row>-->
 
                 <el-row :gutter="20">
@@ -59,8 +59,13 @@
                 <!--@include('auth.social_login')-->
 
                 <p style="margin-bottom:20px;">
-                    By Registering, you agree that you've read and accepted our <a :href="userAgreementSrc" target="_blank" style="font-weight: bold;">User Agreement</a>, you're at least 18 years
-                    old, and you consent to our <a href="/page/cookies-and-privacy" target="_blank" style="font-weight: bold;">Privacy Notice</a> and receiving marketing communications from us.
+                    By Registering, you agree that you've read and accepted our <a :href="userAgreementSrc"
+                                                                                   target="_blank"
+                                                                                   style="font-weight: bold;">User
+                    Agreement</a>, you're at least 18 years
+                    old, and you consent to our <a href="/page/cookies-and-privacy" target="_blank"
+                                                   style="font-weight: bold;">Privacy Notice</a> and receiving marketing
+                    communications from us.
                 </p>
 
                 <el-form-item>
@@ -83,20 +88,16 @@
 
 <script>
 
-    import Errors from '../partials/Errors.vue'
-
     export default {
 
         props: {
-            userType: '',
-            userPlan: ''
+            userType_: '',
+            userPlan: '',
         },
-        components: {Errors},
 
         data() {
             return {
                 user: {
-                    user_plan: 'trial',
                     user_type: 'user',
                     first_name: '',
                     last_name: '',
@@ -118,9 +119,6 @@
                     password: [
                         {required: true, message: 'Please enter password'}
                     ],
-                    // user_type: [
-                    //     {required: true, message: 'Please select customer type'}
-                    // ]
                 },
                 csrf: ''
 
@@ -130,11 +128,9 @@
         mounted() {
             this.csrf = window.csrf;
 
-            if(this.userType && (this.userType == 'artist' || this.userType == 'gallery')) {
-                this.user.user_type = this.userType;
+            if (this.userType_ && (this.userType_ === 'artist' || this.userType_ === 'gallery')) {
+                this.user.user_type = this.userType_;
             }
-
-            console.log(this.user.user_type, 'usertype');
         },
 
         methods: {
@@ -152,7 +148,7 @@
         },
         computed: {
             userAgreementSrc() {
-                return '/page/' +  this.user.user_type + '-agreement';
+                return '/page/' + this.user.user_type + '-agreement';
             }
         }
     }

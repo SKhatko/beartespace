@@ -2,12 +2,12 @@
 
     <el-main class="app--wrapper">
 
-        <div class="app-address">
+        <el-breadcrumb separator-class="el-icon-arrow-right" style="margin: 30px 0;">
+            <el-breadcrumb-item><a href="/">Home</a></el-breadcrumb-item>
+            <el-breadcrumb-item>Select Delivery Address</el-breadcrumb-item>
+        </el-breadcrumb>
 
-            <el-breadcrumb separator-class="el-icon-arrow-right" style="margin: 30px 0;">
-                <el-breadcrumb-item><a href="/">Home</a></el-breadcrumb-item>
-                <el-breadcrumb-item>Select Delivery Address</el-breadcrumb-item>
-            </el-breadcrumb>
+        <div class="app-address">
 
             <el-card class="box-card">
                 <div slot="header" class="h4">Select delivery Address</div>

@@ -2,17 +2,24 @@
 
 @section('content')
 
-    <el-main class="app--centered">
+    <el-main class="app--wrapper">
+
+        <el-breadcrumb separator-class="el-icon-arrow-right" style="margin: 30px 0;">
+            <el-breadcrumb-item><a href="/">Home</a></el-breadcrumb-item>
+            <el-breadcrumb-item>Shopping Cart</el-breadcrumb-item>
+        </el-breadcrumb>
 
         <div class="app-cart">
 
-            <el-breadcrumb separator-class="el-icon-arrow-right" style="margin: 30px 0;">
-                <el-breadcrumb-item><a href="/">Home</a></el-breadcrumb-item>
-                <el-breadcrumb-item>Shopping Cart</el-breadcrumb-item>
-            </el-breadcrumb>
-
             <el-card class="box-card cart">
-                <div slot="header" class="clearfix h4">Shopping cart</div>
+                <div slot="header">
+                    <div class="cart-header">
+                        <span>Shopping cart</span>
+                        <a href="/" class="el-button el-button--default el-button--mini">Keep shopping</a>
+                    </div>
+                </div>
+
+                @include('partials.errors')
 
                 @if(Cart::count() > 0)
 
@@ -79,14 +86,18 @@
                     {{--<el-button type="success"><a href="{{ route('checkout') }}">Checkout</a></el-button>--}}
                     <a href="{{ route('checkout') }}" class="el-button el-button--success">Checkout</a>
 
+                    <a href="{{ route('artworks') }}" class="el-button el-button--default">Continue shopping</a>
+
                 @else
 
-                    <div class="h3" style="margin-bottom: 30px;">
-                        You don't have any items in your cart. Let's get shopping!
+                    <div class="cart-empty">
+                        Your cart is empty. Let's get some art!
+
+                        <a href="/" class="el-button el-button--default" style="margin-top: 20px;">Find art for the
+                            soul</a>
                     </div>
                 @endif
 
-                <a href="{{ route('artworks') }}" class="el-button el-button--default">Continue shopping</a>
             </el-card>
 
         </div>

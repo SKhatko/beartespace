@@ -2,9 +2,7 @@
 
     <div class="app-artworks-menu">
 
-        <el-button plain @click="showFilters = !showFilters" style="margin-bottom: 20px;">Show filters</el-button>
-
-        <el-button @click="clearFilters" type="warning" plain>Clear filters</el-button>
+        <el-button plain @click="showFilters = !showFilters" style="margin-bottom: 20px;">Filters</el-button>
 
         <el-form inline v-if="showFilters" style="margin-bottom: 20px;">
 
@@ -136,6 +134,8 @@
             </el-form-item>
 
             <el-button type="primary" style="margin-bottom: 20px;" @click="setSearchQuery">Filter</el-button>
+
+            <el-button @click="clearFilters" type="warning" plain>Clear filters</el-button>
 
         </el-form>
 

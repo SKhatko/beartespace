@@ -12,12 +12,12 @@ let store = {
 
             axios.put('/api/user/favorite/' + item.id + '/toggle',).then(response => {
 
-                this._vm.$message({
-                    dangerouslyUseHTMLString: true,
-                    showClose: true,
-                    message: response.data.message,
-                    type: response.data.status
-                });
+                // this._vm.$message({
+                //     dangerouslyUseHTMLString: true,
+                //     showClose: true,
+                //     message: response.data.message,
+                //     type: response.data.status
+                // });
 
                 state.favoriteArtworks = response.data.data;
                 state.favoriteArtworksCount = response.data.data.length;
