@@ -38,8 +38,6 @@ class SaleCreated {
 			$artwork->save();
 		}
 
-		Mail::to( $sale->user )->send( new \App\Mail\SaleCreated( $sale ) );
-
 	}
 
 	/**

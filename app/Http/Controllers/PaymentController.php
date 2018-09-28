@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\CreateOrder;
+use App\Jobs\CreateSale;
 use App\Payment;
 use App\Sale;
 use Illuminate\Http\Request;
@@ -77,21 +78,13 @@ class PaymentController extends Controller {
 				'content'    => serialize( Cart::content() )
 			] );
 
-			foreach ( $order->content as $item ) {
-				Sale::create( [
-					'order_id'   => $order->id,
-					'user_id'    => $item->model->user_id,
-					'artwork_id' => $item->id,
-					'qty'        => $item->qty,
-					'price'      => $item->price,
-				] );
-			}
+			CreateSale::dispatch($order);
 
 			event(new \App\Events\OrderCreated($order));
 
 //			Cart::destroy();
 
-//			return view( 'checkout.success' );
+			return view( 'checkout.success' );
 
 
 		} else {
