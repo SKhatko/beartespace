@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Order;
 use Illuminate\Http\Request;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Support\Facades\Mail;
 
 
 class OrderController extends Controller {
@@ -16,12 +17,16 @@ class OrderController extends Controller {
 		$payment = auth()->user()->payments()->first();
 
 
+		Mail::to( $orders->first()->user )->queue( new \App\Mail\OrderCreated( $orders->first() ) );
+		foreach ( $orders->first()->sales as $sale ) {
+			Mail::to( $orders->first()->user )->queue( new \App\Mail\SaleCreated( $sale ) );
+		}
+
 //		\App\Jobs\CreateSale::dispatch($orders->first());
 
 //		\App\Jobs\OrderCreated::dispatch($orders->first());
 
 //		\App\Jobs\CreateSale::dispatch( $orders->first() );
-
 
 
 		// TODO looks too creepy, takes ids from cart and push it to one dimensional array of id's
