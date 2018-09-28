@@ -19,17 +19,17 @@
                 </div>
 
                 <div class="app-header-search">
-                    <form action="{{ route('search') }}">
+                    <el-form action="{{ route('search') }}">
                         {{ csrf_field() }}
 
                         <el-input required
-                                  placeholder="Search artworks and artists" name="query"
+                                  placeholder="Search..." name="query"
                                   value="{{ Request::get('query') }}">
                             {{--prefix-icon="el-icon-search"--}}
                             <el-button native-type="submit" slot="append">Find</el-button>
                         </el-input>
 
-                    </form>
+                    </el-form>
                 </div>
 
             @endif
@@ -145,6 +145,10 @@
 
                         <el-dropdown-item>
                             <a href="{{ route('admin.pages') }}"><i class="el-icon-document"></i> Pages</a>
+                        </el-dropdown-item>
+
+                        <el-dropdown-item>
+                            <a href="/horizon"><i class="el-icon-service"></i> Horizon</a>
                         </el-dropdown-item>
 
                     @endif

@@ -94,6 +94,11 @@ body, html {
 
   }
 
+  &-search {
+    display: flex;
+    align-items: center;
+  }
+
   &-auth {
     display: flex;
     align-items: center;

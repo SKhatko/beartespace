@@ -23,7 +23,7 @@
         </a>
 
         <div class="artwork-bottom">
-            <div class="artwork-info" v-if="artwork.user && artwork.user.country">
+            <div class="artwork-info" v-if="artwork.user">
                 <div class="artwork-artist">{{ artwork.user.name }}</div>
             </div>
 

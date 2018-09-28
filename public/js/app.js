@@ -70157,7 +70157,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("\n        " + _vm._s(_vm.artwork.name) + "\n    ")]), _vm._v(" "), _c('div', {
     staticClass: "artwork-bottom"
-  }, [(_vm.artwork.user && _vm.artwork.user.country) ? _c('div', {
+  }, [(_vm.artwork.user) ? _c('div', {
     staticClass: "artwork-info"
   }, [_c('div', {
     staticClass: "artwork-artist"

@@ -94,6 +94,8 @@ class CartController extends Controller {
 			Cart::remove( $item->rowId );
 		}
 
+		return redirect()->route('cart');
+
 		return redirect()->back()->with( 'message', [
 			'status'  => 'success',
 			'message' => $artwork->name . ' removed from shopping cart'
