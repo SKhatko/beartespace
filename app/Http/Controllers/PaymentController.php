@@ -86,7 +86,6 @@ class PaymentController extends Controller {
 
 			return view( 'checkout.success' );
 
-
 		} else {
 			dd( $charge );
 			//				return view( 'checkout.failure', compact( 'message' ) );

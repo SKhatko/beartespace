@@ -23,6 +23,7 @@ class OrderCreated {
 	public function __construct( Order $order ) {
 		logger( 'Order Created event' );
 		logger( $order );
+		logger($order->user->email);
 
 		Mail::to( $order->user )->send( new \App\Mail\OrderCreated( $order ) );
 
