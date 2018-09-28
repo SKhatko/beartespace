@@ -12,6 +12,7 @@ use Stripe\Stripe;
 use Stripe\Charge;
 use Illuminate\Support\Facades\Auth;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 
 
 class PaymentController extends Controller {
@@ -77,9 +78,10 @@ class PaymentController extends Controller {
 				'content'    => serialize( Cart::content() )
 			] );
 
-			CreateSale::dispatch( $order );
-
 			OrderCreated::dispatch( $order );
+
+//			CreateSale::dispatch( $order );
+
 
 			Cart::destroy();
 
