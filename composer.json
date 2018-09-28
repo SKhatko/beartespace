@@ -18,6 +18,7 @@
     "intervention/imagecache": "^2.3",
     "laravel/cashier": "~7.0",
     "laravel/framework": "5.6.*",
+    "laravel/horizon": "^1.4",
     "laravel/passport": "^6.0",
     "laravel/socialite": "^3.0",
     "laravel/tinker": "^1.0",

@@ -100,9 +100,9 @@
             },
 
             paypal() {
-                alert('Paypal is not connected, use Cart checkout.');
+                alert('Paypal is not connected, use Debit Cart checkout (Stripe)');
                 console.log('paypal');
-                this.loading = true;
+                // this.loading = true;
             },
         }
     }
