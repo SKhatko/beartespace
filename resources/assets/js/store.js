@@ -40,12 +40,12 @@ let store = {
 
                 console.log(response.data.data, 'got data');
 
-                this._vm.$message({
-                    dangerouslyUseHTMLString: true,
-                    showClose: true,
-                    message: response.data.message,
-                    type: response.data.status
-                });
+                // this._vm.$message({
+                //     dangerouslyUseHTMLString: true,
+                //     showClose: true,
+                //     message: response.data.message,
+                //     type: response.data.status
+                // });
 
             });
 

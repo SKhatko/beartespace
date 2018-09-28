@@ -22256,7 +22256,6 @@ var store = {
             });
         },
         toggleShoppingCart: function toggleShoppingCart(state, item) {
-            var _this = this;
 
             axios.get('/cart/item/' + item.id + '/toggle').then(function (response) {
 
@@ -22266,12 +22265,12 @@ var store = {
 
                 console.log(response.data.data, 'got data');
 
-                _this._vm.$message({
-                    dangerouslyUseHTMLString: true,
-                    showClose: true,
-                    message: response.data.message,
-                    type: response.data.status
-                });
+                // this._vm.$message({
+                //     dangerouslyUseHTMLString: true,
+                //     showClose: true,
+                //     message: response.data.message,
+                //     type: response.data.status
+                // });
             });
         },
         setInitialShoppingCart: function setInitialShoppingCart(state, cart) {

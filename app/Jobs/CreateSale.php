@@ -39,6 +39,8 @@ class CreateSale implements ShouldQueue {
 				'price'      => $item->price,
 			] );
 
+			$sale->save();
+
 			Mail::to( $sale->user )->send( new \App\Mail\SaleCreated( $sale ) );
 
 		}
