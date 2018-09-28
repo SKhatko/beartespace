@@ -24,21 +24,20 @@ class TestingSeeder extends Seeder {
 
 		$users = User::all();
 
-		if ( App::environment() !== 'production' ) {
+		if ( App::environment() === 'production' ) {
 			foreach ( $users as $user ) {
 
 				if ( $user->user_type == 'artist' ) {
 					$user->artworks()->saveMany( factory( App\Artwork::class, 30 )->make() );
 				}
-
-				$artworks = Artwork::all();
 			}
+		}
 
 
-			foreach ( $users as $user ) {
+		foreach ( $users as $user ) {
 
-				if ( $user->user_type == 'artist' ) {
-					$user->artworks()->saveMany( factory( App\Artwork::class, 3 )->make() );
+			if ( $user->user_type == 'artist' ) {
+				$user->artworks()->saveMany( factory( App\Artwork::class, 3 )->make() );
 
 //				$user->avatar()->associate( factory( App\Media::class )->create( [
 //					'url' => 'https://picsum.photos/290/290',
@@ -49,10 +48,10 @@ class TestingSeeder extends Seeder {
 //				$user->save();
 //
 //				$user->articles()->saveMany( factory( App\Article::class, 5 )->make() );
-				}
 			}
+		}
 
-			$artworks = Artwork::all();
+		$artworks = Artwork::all();
 
 //		foreach ( $artworks as $artwork ) {
 //			dump($artwork->id);
@@ -67,5 +66,5 @@ class TestingSeeder extends Seeder {
 //			$article->image()->associate( factory( App\Media::class )->make() );
 //		$article->save():
 //		}
-		}
 	}
+}
