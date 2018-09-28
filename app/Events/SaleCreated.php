@@ -2,9 +2,7 @@
 
 namespace App\Events;
 
-use App\Mail\OrderCreated;
 use App\Sale;
-use App\Mail\SalePaid;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -25,7 +23,6 @@ class SaleCreated {
 	public function __construct( Sale $sale ) {
 
 		logger( 'Sale Created event' );
-		logger( $sale );
 
 		$artwork = $sale->artwork;
 		if ( $artwork->quantity >= $sale->qty ) {

@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Jobs\CreateOrder;
 use App\Jobs\CreateSale;
+use App\Jobs\OrderCreated;
 use App\Payment;
-use App\Sale;
 use Illuminate\Http\Request;
 use App\Order;
 use App\Http\Requests;
@@ -46,7 +45,7 @@ class PaymentController extends Controller {
 
 		} catch ( \Exception $ex ) {
 
-			$payment->status = 'failed';
+			$payment->status      = 'failed';
 			$payment->fail_reason = $ex->getMessage();
 			$payment->save();
 
@@ -78,11 +77,11 @@ class PaymentController extends Controller {
 				'content'    => serialize( Cart::content() )
 			] );
 
-			CreateSale::dispatch($order);
+			CreateSale::dispatch( $order );
 
-			event(new \App\Events\OrderCreated($order));
+			OrderCreated::dispatch( $order );
 
-//			Cart::destroy();
+			Cart::destroy();
 
 			return view( 'checkout.success' );
 
