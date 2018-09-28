@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Cashier\Cashier;
 use Illuminate\Pagination\Paginator;
+use Laravel\Horizon\Horizon;
 
 class AppServiceProvider extends ServiceProvider {
 	/**
@@ -32,12 +33,15 @@ class AppServiceProvider extends ServiceProvider {
 			] );
 		} );
 
-		Cashier::useCurrency('eur', '€');
+		Cashier::useCurrency( 'eur', '€' );
 
-		Paginator::defaultView('pagination::vue');
+		Paginator::defaultView( 'pagination::vue' );
 
-		Paginator::defaultSimpleView('pagination::vue');
+		Paginator::defaultSimpleView( 'pagination::vue' );
 
+		Horizon::auth( function ( $request ) {
+			return auth()->user() && auth()->user()->isAdmin() ? true : abort( 404 );
+		} );
 	}
 
 	/**

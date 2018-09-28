@@ -16,12 +16,9 @@ class OrderController extends Controller {
 		$payment = auth()->user()->payments()->first();
 
 
-		\App\Jobs\CreateSale::dispatch( $orders->first() );
-
-		return 1;
+//		\App\Jobs\CreateSale::dispatch( $orders->first() );
 
 
-//		return new \App\Mail\SalePaid($order->sales->first());
 
 		// TODO looks too creepy, takes ids from cart and push it to one dimensional array of id's
 //		$artworkIds = [];
