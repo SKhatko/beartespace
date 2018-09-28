@@ -98,7 +98,7 @@
                     </el-dropdown-item>
 
                     <el-dropdown-item>
-                        <a href="{{ route('dashboard.orders') }}" class="el-dropdown-link">Purchases</a>
+                        <a href="{{ route('dashboard.orders') }}" class="el-dropdown-link">Orders</a>
                     </el-dropdown-item>
 
                     @if(!auth()->user()->isUser())

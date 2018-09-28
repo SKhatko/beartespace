@@ -16,7 +16,9 @@ class OrderController extends Controller {
 		$payment = auth()->user()->payments()->first();
 
 
-//		\App\Jobs\CreateOrder::dispatch( $payment );
+		\App\Jobs\CreateSale::dispatch( $orders->first() );
+
+		return 1;
 
 
 //		return new \App\Mail\SalePaid($order->sales->first());

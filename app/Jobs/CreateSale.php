@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Order;
+use App\Sale;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -31,6 +32,7 @@ class CreateSale implements ShouldQueue {
 	 * @return void
 	 */
 	public function handle() {
+
 		foreach ( $this->order->content as $item ) {
 			$sale = Sale::create( [
 				'order_id'   => $this->order->id,
@@ -46,6 +48,7 @@ class CreateSale implements ShouldQueue {
 			logger( $sale );
 
 			Mail::to( $sale->user )->send( new \App\Mail\SaleCreated( $sale ) );
+//			Mail::to( auth()->user() )->send( new \App\Mail\SaleCreated( $sale ) );
 
 		}
 	}
