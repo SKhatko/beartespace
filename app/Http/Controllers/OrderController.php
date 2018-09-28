@@ -17,9 +17,9 @@ class OrderController extends Controller {
 		$payment = auth()->user()->payments()->first();
 
 
-		Mail::to( $orders->first()->user )->queue( new \App\Mail\OrderCreated( $orders->first() ) );
+		Mail::to( $orders->first()->user )->send( new \App\Mail\OrderCreated( $orders->first() ) );
 		foreach ( $orders->first()->sales as $sale ) {
-			Mail::to( $orders->first()->user )->queue( new \App\Mail\SaleCreated( $sale ) );
+			Mail::to( $orders->first()->user )->send( new \App\Mail\SaleCreated( $sale ) );
 		}
 
 //		\App\Jobs\CreateSale::dispatch($orders->first());
