@@ -30,7 +30,7 @@ class OrderCreated implements ShouldQueue {
 
 //		$this->dispatch(new CreateSale($this->order));
 
-		Mail::to( $this->order->user )->send( new \App\Mail\OrderCreated( $this->order ) );
+		Mail::to( $this->order->user )->queue( new \App\Mail\OrderCreated( $this->order ) );
 
 	}
 
