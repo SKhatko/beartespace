@@ -24,4 +24,8 @@ class Sale extends Model {
 	public function artwork() {
 		return $this->belongsTo( Artwork::class );
 	}
+
+	public function total() {
+		return $this->attributes['price'] * $this->attributes['qty'];
+	}
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Jobs\CreateOrder;
 use App\Payment;
+use App\Sale;
 use Illuminate\Http\Request;
 use App\Order;
 use App\Http\Requests;
@@ -65,11 +66,32 @@ class PaymentController extends Controller {
 
 			$payment->save();
 
-			CreateOrder::dispatch( $payment );
+			$order = new Order();
+			$order->save();
 
-			Cart::destroy();
+			$order->update( [
+				'user_id'    => $payment->user_id,
+				'address'    => $payment->user->primaryAddress,
+				'amount'     => Cart::total(),
+				'payment_id' => $payment->id,
+				'content'    => serialize( Cart::content() )
+			] );
 
-			return view( 'checkout.success' );
+			foreach ( $order->content as $item ) {
+				Sale::create( [
+					'order_id'   => $order->id,
+					'user_id'    => $item->model->user_id,
+					'artwork_id' => $item->id,
+					'qty'        => $item->qty,
+					'price'      => $item->price,
+				] );
+			}
+
+			event(new \App\Events\OrderCreated($order));
+
+//			Cart::destroy();
+
+//			return view( 'checkout.success' );
 
 
 		} else {

@@ -2,9 +2,7 @@
 
 namespace App\Events;
 
-use App\Mail\OrderCreated;
-use App\Sale;
-use App\Mail\SalePaid;
+use App\Order;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -14,7 +12,7 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Support\Facades\Mail;
 
-class SaleCreated {
+class OrderCreated {
 	use Dispatchable, InteractsWithSockets, SerializesModels;
 
 	/**
@@ -22,23 +20,11 @@ class SaleCreated {
 	 *
 	 * @return void
 	 */
-	public function __construct( Sale $sale ) {
+	public function __construct( Order $order ) {
+		logger( 'Order Created event' );
+		logger( $order );
 
-		logger( 'Sale Created event' );
-		logger( $sale );
-
-		$artwork = $sale->artwork;
-		if ( $artwork->quantity >= $sale->qty ) {
-			$artwork->quantity -= $sale->qty;
-			$artwork->save();
-		}
-
-		if ( $artwork->quantity < 1 ) {
-			$artwork->sold = true;
-			$artwork->save();
-		}
-
-		Mail::to( $sale->user )->send( new \App\Mail\SaleCreated( $sale ) );
+		Mail::to( $order->user )->send( new \App\Mail\OrderCreated( $order ) );
 
 	}
 

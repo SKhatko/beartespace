@@ -1,17 +1,17 @@
 @component('mail::message')
 
-Hello {{ $artwork->user->name }},
+Hello {{ $sale->user->name }},
 
-Your artwork **{{ $artwork->name }}** has been sold for **{{ currency($artwork->price) }}** to **{{ $order->user->name }}**
+Your artwork **{{ $sale->artwork->name }}** has been sold for **{{ currency($sale->price) }}** to **{{ $sale->order->user->name }}**
 
 ##Order details
-@foreach($order->content as $item)
-<div>
-{{ $item->model->name }} - {{ $item->qty }} - {{ currency($item->total()) }}
+@component('mail::table')
+| Item       | Quantity | Price |
+| :--------- |:-----:| ------:|
+| {{ $sale->artwork->name }}| {{ $sale->qty }} | {{ currency($sale->price) }} |
+| **Total** | {{ $sale->qty }} | {{ currency($sale->total()) }}
+@endcomponent
 
-</div>
-
-@endforeach
 <hr>
 ##Shipping address
 {{ $sale->order->addressString() }}
@@ -20,7 +20,7 @@ Your artwork **{{ $artwork->name }}** has been sold for **{{ currency($artwork->
 {{--You sent a payment of **{{ currency($order->amount) }}** to BeArteSpace--}}
 
 <hr>
-Your profit from this sale is **{{ currency($artwork->price / 100 * 85) }}** and will be available on your balance after you customer confirms receiving the artwork.
+Your profit from this sale is **{{ currency($sale->total() / 100 * 85) }}** and will be available on your balance after you customer confirms receiving the artwork.
 Please confirm shipping.
 
 @component('mail::button', ['url' => '/dashboard/order/'])
