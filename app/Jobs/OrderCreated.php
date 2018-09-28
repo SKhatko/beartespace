@@ -23,6 +23,15 @@ class OrderCreated implements ShouldQueue {
 	public function __construct( \App\Order $order ) {
 
 		$this->order = $order;
+
+		logger( 'Order Created job, send email to ' . $this->order->user->email );
+
+		dispatch( new CreateSale( $this->order ) );
+
+//		$this->dispatch(new CreateSale($this->order));
+
+		Mail::to( $this->order->user )->send( new \App\Mail\OrderCreated( $this->order ) );
+
 	}
 
 	/**
@@ -31,12 +40,6 @@ class OrderCreated implements ShouldQueue {
 	 * @return void
 	 */
 	public function handle() {
-		logger( 'Order Created job, send email to ' . $this->order->user->email );
-
-		dispatch(new CreateSale($this->order));
-
-//		$this->dispatch(new CreateSale($this->order));
-
-		Mail::to( $this->order->user )->send( new \App\Mail\OrderCreated( $this->order ) );
+		//
 	}
 }
