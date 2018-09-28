@@ -40,8 +40,8 @@ class CreateOrder implements ShouldQueue {
 		$order->save();
 
 		$order->update( [
-			'user_id'    => auth()->user()->id,
-			'address'    => auth()->user()->primaryAddress,
+			'user_id'    => $this->payment->user_id,
+			'address'    => $this->payment->user->primaryAddress,
 			'amount'     => Cart::total(),
 			'payment_id' => $this->payment->id,
 			'content'    => serialize( Cart::content() )
@@ -58,7 +58,7 @@ class CreateOrder implements ShouldQueue {
 			] );
 		}
 
-		Mail::to( auth()->user() )->send( new OrderCreated( $order ) );
+		Mail::to( $this->payment->user )->send( new OrderCreated( $order ) );
 
 	}
 }
