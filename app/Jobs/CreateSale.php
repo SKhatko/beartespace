@@ -24,14 +24,6 @@ class CreateSale implements ShouldQueue {
 	public function __construct( Order $order ) {
 
 		$this->order = $order;
-	}
-
-	/**
-	 * Execute the job.
-	 *
-	 * @return void
-	 */
-	public function handle() {
 
 		foreach ( $this->order->content as $item ) {
 
@@ -45,11 +37,20 @@ class CreateSale implements ShouldQueue {
 
 			$sale->save();
 
-			logger( 'Sale create job and send mail to ' . $sale->user->email);
+			logger( 'Sale create job and send mail to ' . $sale->user->email );
 			logger( $sale );
 
 			Mail::to( $sale->user )->send( new \App\Mail\SaleCreated( $sale ) );
 
 		}
+	}
+
+	/**
+	 * Execute the job.
+	 *
+	 * @return void
+	 */
+	public function handle() {
+		//
 	}
 }
