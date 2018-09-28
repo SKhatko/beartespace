@@ -1,7 +1,7 @@
 
 @component('mail::message')
 
-Hello {{ auth()->user()->name }},
+Hello {{ $order->user->name }},
 
 ##Order confirmation from **{{ $order->created_at->toFormattedDateString() }}**
 
