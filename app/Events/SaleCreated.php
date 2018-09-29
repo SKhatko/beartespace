@@ -22,7 +22,7 @@ class SaleCreated {
 	 */
 	public function __construct( Sale $sale ) {
 
-		logger( 'Sale Created event' );
+//		logger( 'Sale Created event' );
 
 		$artwork = $sale->artwork;
 		if ( $artwork->quantity >= $sale->qty ) {

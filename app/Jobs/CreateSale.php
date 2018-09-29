@@ -37,7 +37,7 @@ class CreateSale implements ShouldQueue {
 
 			$sale->save();
 
-			logger( 'Sale create job and send mail to ' . $sale->user->email );
+//			logger( 'Sale create job and send mail to ' . $sale->user->email );
 
 			Mail::to( $sale->user )->queue( new \App\Mail\SaleCreated( $sale ) );
 

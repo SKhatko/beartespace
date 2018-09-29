@@ -24,7 +24,7 @@ class OrderCreated implements ShouldQueue {
 
 		$this->order = $order;
 
-		logger( 'Order Created job, send email to ' . $this->order->user->email );
+//		logger( 'Order Created job, send email to ' . $this->order->user->email );
 
 		dispatch( new CreateSale( $this->order ) );
 
