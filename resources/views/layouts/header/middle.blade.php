@@ -32,6 +32,12 @@
                     </el-form>
                 </div>
 
+                <div class="app-header-buttons">
+                    <a href="{{ route('artists') }}">@lang('portal.artists')</a> |
+                    <a href="{{ route('artworks') }}">@lang('portal.artworks')</a> |
+                    <a href="{{ route('auctions') }}">on-line auctions</a>
+                </div>
+
             @endif
 
         </div>

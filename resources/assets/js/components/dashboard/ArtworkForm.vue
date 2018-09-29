@@ -90,7 +90,8 @@
 
                 <el-col :sm="8">
                     <el-form-item label="How many items do you want sell?" prop="quantity">
-                        <el-input-number :min="1" :precision="0" v-model="artwork.quantity" :disabled="showArtworkQuantity"></el-input-number>
+                        <el-input-number :min="1" :precision="0" v-model="artwork.quantity"
+                                         :disabled="showArtworkQuantity"></el-input-number>
                     </el-form-item>
                 </el-col>
 
@@ -222,9 +223,9 @@
 
                             <span class="h4">Your profit: {{ artwork.price }} - 15% = {{ profitPrice }} Eur</span>
                             <!--<el-select value="" v-model="artwork.currency" placeholder="Select currency"-->
-                                       <!--style="max-width: 200px;margin-left: 20px;">-->
-                                <!--<el-option v-for="(label, value) in currencies" :key="value" :value="value"-->
-                                           <!--:label="value"></el-option>-->
+                            <!--style="max-width: 200px;margin-left: 20px;">-->
+                            <!--<el-option v-for="(label, value) in currencies" :key="value" :value="value"-->
+                            <!--:label="value"></el-option>-->
                             <!--</el-select>-->
                         </el-form-item>
 
@@ -276,6 +277,7 @@
 
                     <el-upload
                             class="image-uploader"
+                            list-type="picture-card"
                             :action="'/api/artwork/'  + artwork.id + '/upload-artwork-image/'"
                             :headers="{'X-Requested-With': 'XMLHttpRequest', 'X-CSRF-TOKEN' : csrf}"
                             :show-file-list="false"
@@ -283,6 +285,7 @@
                             :on-success="handleImageSuccess"
                             :before-upload="beforeImageUpload">
                         <img v-if="artwork.image" :src="'/imagecache/height-200/' + artwork.image.url" class="image">
+                        <i v-else class="el-icon-plus"></i>
                     </el-upload>
 
                 </el-form-item>
@@ -434,7 +437,8 @@
 
         methods: {
 
-            saveArtwork(redirect = false, callback = () => {}) {
+            saveArtwork(redirect = false, callback = () => {
+            }) {
                 this.$refs['artwork'].validate((valid) => {
                     if (valid) {
                         this.loading = true;

@@ -19002,7 +19002,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             },
 
             countries: '',
-            showFilters: false
+            showFilters: true
         };
     },
     mounted: function mounted() {
@@ -19885,6 +19885,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue2_editor__ = __webpack_require__(52);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue2_editor___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue2_editor__);
+//
+//
+//
 //
 //
 //
@@ -68442,6 +68445,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('el-upload', {
     staticClass: "image-uploader",
     attrs: {
+      "list-type": "picture-card",
       "action": '/api/artwork/' + _vm.artwork.id + '/upload-artwork-image/',
       "headers": {
         'X-Requested-With': 'XMLHttpRequest',
@@ -68457,7 +68461,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "src": '/imagecache/height-200/' + _vm.artwork.image.url
     }
-  }) : _vm._e()])], 1), _vm._v(" "), _c('el-form-item', {
+  }) : _c('i', {
+    staticClass: "el-icon-plus"
+  })])], 1), _vm._v(" "), _c('el-form-item', {
     attrs: {
       "label": "Upload additional images like back side, signature, or artwork from side. Up to 3\n                Photos of Your Artwork allowed( .jpg, .jpeg files accepted)"
     }

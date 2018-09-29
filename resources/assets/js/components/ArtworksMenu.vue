@@ -168,7 +168,7 @@
                 },
 
                 countries: '',
-                showFilters: false
+                showFilters: true
             }
         },
 
