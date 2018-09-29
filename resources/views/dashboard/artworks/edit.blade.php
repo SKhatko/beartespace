@@ -4,17 +4,21 @@
 
 @section('admin-content')
 
-    @include('partials.errors')
 
-    <el-breadcrumb separator-class="el-icon-arrow-right" style="margin-bottom: 30px;">
-        <el-breadcrumb-item><a href="/">Home</a></el-breadcrumb-item>
-        <el-breadcrumb-item><a href="/dashboard">Dashboard</a></el-breadcrumb-item>
-        <el-breadcrumb-item><a href="/dashboard/artwork">Artworks</a></el-breadcrumb-item>
-        <el-breadcrumb-item>Edit</el-breadcrumb-item>
-    </el-breadcrumb>
+    <div class="app--wrapper">
+        <div class="app-artwork-form">
 
-    @include('partials.back')
+            <el-breadcrumb separator-class="el-icon-arrow-right" style="margin-bottom: 30px;">
+                <el-breadcrumb-item><a href="/">Home</a></el-breadcrumb-item>
+                <el-breadcrumb-item><a href="/dashboard">Dashboard</a></el-breadcrumb-item>
+                <el-breadcrumb-item><a href="/dashboard/artwork">Artworks</a></el-breadcrumb-item>
+                <el-breadcrumb-item>Edit Artwork</el-breadcrumb-item>
+            </el-breadcrumb>
 
-    <artwork-form artwork_="{{ $artwork }}" currencies_="{{ json_encode(currency()->all()) }}" user_="{{ auth()->user() }}"></artwork-form>
+            <artwork-form artwork_="{{ $artwork }}" currencies_="{{ json_encode(currency()->all()) }}"
+                          user_="{{ auth()->user() }}"></artwork-form>
+
+        </div>
+    </div>
 
 @endsection

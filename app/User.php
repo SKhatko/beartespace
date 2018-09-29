@@ -17,11 +17,6 @@ class User extends Authenticatable {
 	protected $appends = [
 		'avatar_url',
 		'image_url',
-		'profile_premium_add',
-		'profile_education_add',
-		'profile_inspiration_add',
-		'profile_exhibition_add',
-		'profile_background_image_add'
 	];
 
 	/**

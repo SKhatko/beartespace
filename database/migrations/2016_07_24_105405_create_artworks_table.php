@@ -15,6 +15,7 @@ class CreateArtworksTable extends Migration {
 			$table->integer( 'user_id' );
 			$table->string( 'slug' )->nullable();
 			$table->string( 'name' )->nullable();
+			$table->string('made_by')->nullable();
 			$table->text( 'description' )->nullable();
 			$table->text( 'inspiration' )->nullable();
 			$table->boolean( 'optional_size' )->nullable();
@@ -40,7 +41,6 @@ class CreateArtworksTable extends Migration {
 			$table->boolean( 'available' )->nullable()->default( 1 );
 			$table->integer( 'image_id' )->nullable();
 			$table->integer( 'quantity' )->nullable()->default( 1 );
-			$table->boolean( 'unique' )->nullable()->default( 1 );
 
 			//0 =pending for review, 1= available, 2=unavailable, 3=sold,
 			$table->enum( 'status', [ 0, 1, 2, 3 ] )->nullable();

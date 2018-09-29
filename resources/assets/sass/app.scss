@@ -798,6 +798,32 @@ body, html {
   }
 }
 
+.app-artwork-form {
+  padding: 15px;
+
+  .artwork {
+
+    &-images {
+      display: flex;
+    }
+
+    &-image {
+      margin-right: 10px;
+
+      .el-upload--picture-card {
+        line-height: initial;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      &-label {
+
+      }
+    }
+  }
+}
+
 .app-artworks-list {
   flex: 1;
   column-count: 2;
@@ -1087,6 +1113,19 @@ body, html {
   }
 }
 
+.app-profile {
+  padding: 15px;
+
+  .profile {
+
+    &-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+}
+
 .app-footer {
   padding: 0;
 
@@ -1242,7 +1281,7 @@ body, html {
   background-color: #f5f7fa;
 }
 
-// Vue phone number
+// Vue phone number input in address
 .is-error .vue-tel-input {
   border-color: $--color-danger !important;
 }
@@ -1258,16 +1297,5 @@ body, html {
     bottom: 33px;
   }
 }
-
-// Admin styles
-.admin {
-  width: 100%;
-  margin: 0 auto;
-  max-width: 992px;
-}
-
-.a-content {
-  padding: 40px 15px;
-}
-
+// End vue phone number input
 

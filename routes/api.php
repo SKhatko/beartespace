@@ -42,8 +42,8 @@ Route::group( [ 'middleware' => 'auth:api' ], function () {
 	Route::post( 'change-email', 'Auth\ConfirmEmailController@changeEmail' );
 
 	// Adds
-	Route::get( 'user-add/{name}/{price}/{period?}', 'Api\AddController@createUserAdd' );
-	Route::get( 'artwork-add/{id}/{name}/{price}/{period?}', 'Api\AddController@createArtworkAdd' );
+//	Route::get( 'user-add/{name}/{price}/{period?}', 'Api\AddController@createUserAdd' );
+//	Route::get( 'artwork-add/{id}/{name}/{price}/{period?}', 'Api\AddController@createArtworkAdd' );
 
 	// Checkout
 	Route::post( 'checkout/checkout', 'Api\CheckoutController@checkout' );

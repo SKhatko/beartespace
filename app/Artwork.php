@@ -84,10 +84,6 @@ class Artwork extends Model implements Buyable {
 		return $query->whereAuctionStatus( '1' );
 	}
 
-	public function getUniqueAttribute( $value ) {
-		return ! ! $value;
-	}
-
 	public function getOptionalSizeAttribute( $value ) {
 		return ! ! $value;
 	}

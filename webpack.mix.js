@@ -1,6 +1,8 @@
 const {mix} = require('laravel-mix');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const FontelloPlugin = require("fontello-webpack-plugin");
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+
 
 /*
  |--------------------------------------------------------------------------
@@ -22,7 +24,15 @@ mix.webpackConfig({
                 css: '/css/icons.css',
                 font: '/fonts/vendor/fontello/[name].[ext]'
             }
-        })
+        }),
+        // new UglifyJsPlugin({
+        //     uglifyOptions: {
+        //         compress: {
+        //             warnings: false
+        //         }
+        //     },
+        //     sourceMap: true
+        // }),
     ],
 });
 
