@@ -99,16 +99,19 @@
             </el-row>
 
             <el-form-item label="Artwork Description" required prop="description">
-                <vue-editor id="description" v-model="artwork.description"
-                            placeholder="Artwork description"
-                            :editorToolbar="artworkEditorToolbar"></vue-editor>
+                <el-input type="textarea" placeholder="Please input" v-model="artwork.description"></el-input>
+                <!--<vue-editor id="description" v-model="artwork.description"-->
+                            <!--placeholder="Artwork description"-->
+                            <!--:editorToolbar="artworkEditorToolbar"></vue-editor>-->
             </el-form-item>
 
             <el-form-item>
                 <span slot="label">Inspiration</span>
-                <vue-editor id="inspiration" v-model="artwork.inspiration"
-                            placeholder="Things that inspire you"
-                            :editorToolbar="artworkEditorToolbar"></vue-editor>
+                <el-input type="textarea" placeholder="Please input" v-model="artwork.inspiration"></el-input>
+
+                <!--<vue-editor id="inspiration" v-model="artwork.inspiration"-->
+                            <!--placeholder="Things that inspire you"-->
+                            <!--:editorToolbar="artworkEditorToolbar"></vue-editor>-->
             </el-form-item>
 
             <el-row :gutter="20">
