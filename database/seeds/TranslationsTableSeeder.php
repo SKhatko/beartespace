@@ -124,7 +124,12 @@ class TranslationsTableSeeder extends Seeder {
 				[ 'Temporarily unavailable', '' ],
 				[ 'Unavailable', '' ],
 				[ 'Sold', '' ],
-
+			],
+			'processing-time' => [
+				['7 business days', ''],
+				['2 weeks', ''],
+				['1 month', ''],
+				['Unknown', ''],
 			]
 		];
 

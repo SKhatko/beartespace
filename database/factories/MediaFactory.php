@@ -8,7 +8,7 @@ $factory->define( App\Media::class, function ( Faker $faker ) {
 		'original_name' => $imageName,
 		'name'       => $imageName,
 		'slug'       => str_slug($imageName),
-		'url'        => null,
+//		'url'        => null,
 		'folder'     => '',
 	];
 //	return [

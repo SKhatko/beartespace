@@ -21,73 +21,79 @@ class ArtworkController extends Controller {
 			'image_url',
 			'images',
 			'formatted_price',
-			'artwork_options_add',
-			'artwork_inspiration_add',
-			'artwork_interior_add'
 		] ), [ 'user_id' => $user->id ] ) );
+
+//		if ( $request->input( 'images' ) ) {
+
+			$ids = array_pluck( $request->input( 'images' ), 'id' );
+
+			$images = Media::findMany( $ids );
+
+			$artwork->images()->sync( $images );
+//		}
 
 		$artwork = $artwork->whereId( $artwork->id )->with( 'images', 'image' )->first();
 
 		return [ 'status' => 'success', 'message' => 'Saved', 'data' => $artwork ];
 	}
 
-	public function uploadArtworkImage( Request $request, $id ) {
+	public function uploadArtworkImage( Request $request ) {
 
+		if ( $request->file( 'file' ) ) {
 
-		$artwork = Artwork::find( $id );
+			$fileName = uniqid( time() . '-' ) . '.' . $request->file( 'file' )->getClientOriginalExtension();
 
-		if ( $artwork->image ) {
-			$artwork->image->delete();
+			$request->file( 'file' )->storeAs( '/public/artwork-image', $fileName );
+
+			$image = Media::create( [
+				'original_name' => $request->file( 'file' )->getClientOriginalName(),
+				'name'          => $fileName,
+				'slug'          => str_slug( $request->file( 'file' )->getClientOriginalName() ),
+				'folder'        => '/artwork-image'
+			] );
+
+			return [ 'status' => 'success', 'message' => 'Primary Image Uploaded', 'data' => $image ];
 		}
 
-		$fileName = time() . '-' . str_random( 60 ) . '.' . $request->file( 'file' )->getClientOriginalExtension();
-
-		$request->file( 'file' )->storeAs( '/public/artwork-image', $fileName );
-
-		$image = Media::create( [
-			'original_name' => $request->file( 'file' )->getClientOriginalName(),
-			'name'          => $fileName,
-			'slug'          => str_slug( $request->file( 'file' )->getClientOriginalName() ),
-			'folder'        => '/artwork-image'
-		] );
-
-		$image->save();
-		$artwork = $artwork->image()->associate( $image );
-		$artwork->save();
-		$artwork = $artwork->fresh();
-
-		return [ 'status' => 'success', 'message' => 'Image Uploaded', 'data' => $artwork->image ];
 	}
 
-	public function uploadArtworkImages( Request $request, $id ) {
+	public function uploadArtworkImages( Request $request ) {
 
-		$artwork = Artwork::find( $id );
 
-		$fileName = time() . '-' . str_random( 60 ) . '.' . $request->file( 'file' )->getClientOriginalExtension();
+		if ( $request->file( 'file' ) ) {
 
-		$request->file( 'file' )->storeAs( '/public/artwork-images', $fileName );
+			$fileName = uniqid( time() . '-' ) . '.' . $request->file( 'file' )->getClientOriginalExtension();
 
-		$image = $artwork->images()->create( [
-			'original_name' => $request->file( 'file' )->getClientOriginalName(),
-			'name'          => $fileName,
-			'slug'          => str_slug( $request->file( 'file' )->getClientOriginalName() ),
-			'folder'        => '/artwork-images'
-		] );
+			$request->file( 'file' )->storeAs( '/public/artwork-images', $fileName );
 
-		$artwork = $artwork->fresh();
+			$image = Media::create( [
+				'original_name' => $request->file( 'file' )->getClientOriginalName(),
+				'name'          => $fileName,
+				'slug'          => str_slug( $request->file( 'file' )->getClientOriginalName() ),
+				'folder'        => '/artwork-images'
+			] );
 
-		return [ 'status' => 'success', 'message' => 'Image Uploaded', 'data' => $artwork->images ];
+			return [ 'status' => 'success', 'message' => 'Primary Image Uploaded', 'data' => $image ];
+		}
+
+
+//		$artwork = Artwork::find( $id );
+
+//		$fileName = time() . '-' . str_random( 60 ) . '.' . $request->file( 'file' )->getClientOriginalExtension();
+
+//		$request->file( 'file' )->storeAs( '/public/artwork-images', $fileName );
+
+//		$image = $artwork->images()->create( [
+//			'original_name' => $request->file( 'file' )->getClientOriginalName(),
+//			'name'          => $fileName,
+//			'slug'          => str_slug( $request->file( 'file' )->getClientOriginalName() ),
+//			'folder'        => '/artwork-images'
+//		] );
+
+//		$artwork = $artwork->fresh();
+
+//		return [ 'status' => 'success', 'message' => 'Image Uploaded', 'data' => $artwork->images ];
 	}
 
-	public function removeArtworkImage( Request $request, $id ) {
-
-		$artwork = Artwork::find( $id );
-
-		$artwork->images()->find( $request->input( 'id' ) )->delete();
-
-		$artwork = $artwork->fresh();
-
-		return [ 'status' => 'success', 'message' => 'Image deleted', 'data' => $artwork->images ];
-	}
 
 }

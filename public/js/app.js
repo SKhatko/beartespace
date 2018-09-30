@@ -20210,6 +20210,52 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -20218,25 +20264,38 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     props: {
         artwork_: {},
-        currencies_: {},
-        user_: {}
+        currencies_: {}
     },
 
     data: function data() {
         return {
-            user: {},
+            countries: [],
             csrf: window.csrf,
             currencies: [],
             artwork: {
                 medium: [],
+                tags: [],
                 direction: [],
                 theme: [],
                 color: [],
-                images: []
+                images: [],
+                image: []
             },
             rules: {
+                image: [{
+                    required: true,
+                    message: 'Please upload at least one photo of your artwork',
+                    trigger: ['blur', 'change']
+                }],
                 name: [{ required: true, message: 'Please enter the name of artwork', trigger: ['blur', 'change'] }],
-                category: [{ required: true, message: 'Please select category', trigger: ['blur', 'change'] }]
+                made_by: [{ required: true, message: 'This field is required', trigger: ['blur', 'change'] }],
+                date_of_completion: [{ required: true, message: 'This field is required', trigger: ['blur', 'change'] }],
+                category: [{ required: true, message: 'Please select category', trigger: ['blur', 'change'] }],
+                description: [{ required: true, message: 'This field is required', trigger: ['blur', 'change'] }],
+                price: [{ required: true, message: 'Artwork price is required', trigger: ['blur', 'change'] }],
+                quantity: [{ required: true, message: 'Artwork quantity is required', trigger: ['blur', 'change'] }],
+                country_id: [{ required: true, message: 'Select shipping country', trigger: ['blur', 'change'] }],
+                processing_time: [{ required: true, message: 'Select your processing time', trigger: ['blur', 'change'] }]
             },
 
             artworkEditorToolbar: [[{ 'size': ['small', false, 'large', 'huge'] }], ['bold', 'italic', 'underline', 'strike'], [{ 'align': '' }, { 'align': 'center' }, { 'align': 'right' }, { 'align': 'justify' }], ['blockquote'], [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'list': 'check' }], [{ 'indent': '-1' }, { 'indent': '+1' }]],
@@ -20249,95 +20308,86 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
     mounted: function mounted() {
+        var _this = this;
 
         if (this.artwork_) {
             this.artwork = JSON.parse(this.artwork_);
+            this.artwork.image = [this.artwork.image];
         }
 
         if (this.currencies_) {
             this.currencies = JSON.parse(this.currencies_);
         }
 
-        if (this.user_) {
-            this.user = JSON.parse(this.user_);
-        }
+        axios.get('/api/countries').then(function (response) {
+            _this.countries = response.data;
+        });
 
         console.log(this.artwork);
+
+        console.log(this.artwork.image);
     },
 
 
     methods: {
         saveArtwork: function saveArtwork() {
-            var _this = this;
-
-            var redirect = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+            var _this2 = this;
 
             this.$refs['artwork'].validate(function (valid) {
                 if (valid) {
-                    _this.loading = true;
-                    axios.post('/api/artwork/', _this.artwork).then(function (response) {
+
+                    _this2.loading = true;
+
+                    axios.post('/api/artwork/', _this2.artwork).then(function (response) {
                         if (response.data.data) {
                             console.log(response.data);
 
-                            if (redirect) {
-                                window.location.pathname = '/dashboard/artwork/' + response.data.data.id + '/edit';
-                            } else {
-                                _this.$message({
+                            var test = false;
+
+                            if (test) {
+                                _this2.$message({
                                     showClose: true,
                                     message: response.data.message,
                                     type: response.data.status
                                 });
 
-                                _this.artworkSaved = true;
-                                _this.artwork = response.data.data;
-                                _this.loading = false;
+                                _this2.artwork = response.data.data;
+                                _this2.artwork.image = [response.data.data.image];
+                                _this2.loading = false;
+                            } else {
+                                window.location.pathname = '/dashboard/artwork';
                             }
                         } else {
                             console.log(response.data);
                         }
+                    }).catch(function (error) {
+                        console.log(error.response);
                     });
                 }
             });
         },
-        handleExceed: function handleExceed() {
-            this.$message({
-                message: 'Maximum quantity of images is 3',
-                type: 'warning'
+        handleRemoveImages: function handleRemoveImages(file, fileList) {
+            this.artwork.images = this.artwork.images.filter(function (image) {
+                return image.id !== file.id;
             });
         },
-        handleRemove: function handleRemove(file, fileList) {
-            var _this2 = this;
-
-            axios.post('/api/artwork/' + this.artwork.id + '/remove-artwork-image/', file).then(function (response) {
-                if (response.data) {
-                    console.log(response.data);
-                    _this2.$message({
-                        showClose: true,
-                        message: response.data.message,
-                        type: response.data.status
-                    });
-
-                    _this2.artwork.images = response.data.data;
-                } else {
-                    console.log(response.data);
-                }
-            }).catch(function (error) {
-                console.log(error);
-            });
-
-            // this.images = fileList;
+        handleRemoveImage: function handleRemoveImage(file, fileList) {
+            this.artwork.image = [];
+            this.artwork.image_id = null;
         },
         handlePictureCardPreview: function handlePictureCardPreview(file) {
             this.dialogImageUrl = file.url;
             this.dialogVisible = true;
         },
         handleImagesSuccess: function handleImagesSuccess(response, file, fileList) {
-            console.log(response);
-            this.artwork.images = response.data;
+            console.log(response, file, fileList);
+            this.artwork.images.push(response.data);
         },
         handleImageSuccess: function handleImageSuccess(response, file) {
-            console.log(response);
-            this.artwork.image = response.data;
+            console.log(response.data);
+            this.artwork.image = [response.data];
+            this.artwork.image_id = response.data.id;
+
             this.$message({
                 showClose: true,
                 message: response.message,
@@ -20356,11 +20406,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.$message.error('Image picture size can not exceed 10MB!');
             }
             return isJPG && isLt2M;
-        },
-        closeDialogs: function closeDialogs() {
-            for (var dialog in this.dialogs) {
-                this.dialogs[dialog] = false;
-            }
         }
     },
     computed: {
@@ -67486,56 +67531,31 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     slot: "header"
   }, [_vm._v("Photos")]), _vm._v(" "), _c('el-form-item', {
     attrs: {
-      "label": "Add as many images as you can so buyers can see every detail.",
-      "required": ""
+      "label": "Upload primary photo of your artwork.",
+      "required": "",
+      "prop": "image"
     }
-  }, [_c('div', {
-    staticClass: "artwork-images"
   }, [_c('el-upload', {
     staticClass: "artwork-image",
     attrs: {
       "list-type": "picture-card",
-      "action": '/api/artwork/' + _vm.artwork.id + '/upload-artwork-image/',
+      "file-list": _vm.artwork.image,
+      "action": "/api/artwork/upload-artwork-image/",
       "headers": {
         'X-Requested-With': 'XMLHttpRequest',
         'X-CSRF-TOKEN': _vm.csrf
       },
-      "show-file-list": false,
       "accept": ".jpg, .jpeg",
+      "on-preview": _vm.handlePictureCardPreview,
+      "on-remove": _vm.handleRemoveImage,
       "on-success": _vm.handleImageSuccess,
       "before-upload": _vm.beforeImageUpload
-    }
-  }, [(_vm.artwork.image) ? _c('img', {
-    staticClass: "image",
-    attrs: {
-      "src": '/imagecache/height-200/' + _vm.artwork.image.url
-    }
-  }) : _c('div', {
-    staticClass: "artwork-image-label"
-  }, [_c('i', {
-    staticClass: "el-icon-plus"
-  }), _vm._v(" "), _c('div', [_vm._v("Primary image")])])]), _vm._v(" "), _c('el-upload', {
-    staticClass: "artwork-image",
-    attrs: {
-      "action": '/api/artwork/' + _vm.artwork.id + '/upload-artwork-images/',
-      "file-list": _vm.artwork.images,
-      "headers": {
-        'X-Requested-With': 'XMLHttpRequest',
-        'X-CSRF-TOKEN': _vm.csrf
-      },
-      "on-preview": _vm.handlePictureCardPreview,
-      "on-remove": _vm.handleRemove,
-      "on-success": _vm.handleImagesSuccess,
-      "limit": 3,
-      "on-exceed": _vm.handleExceed,
-      "list-type": "picture-card",
-      "accept": ".jpg, .jpeg"
     }
   }, [_c('div', {
     staticClass: "artwork-image-label"
   }, [_c('i', {
-    staticClass: "el-icon-plus"
-  }), _vm._v(" "), _c('div', [_vm._v("Other images")])])])], 1), _vm._v(" "), _c('el-dialog', {
+    staticClass: "el-icon-picture"
+  }), _vm._v(" "), _c('div', [_vm._v("Primary image")])])]), _vm._v(" "), _c('el-dialog', {
     attrs: {
       "visible": _vm.dialogVisible
     },
@@ -67550,7 +67570,30 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "src": _vm.dialogImageUrl,
       "alt": ""
     }
-  })])], 1)], 1), _vm._v(" "), _c('el-card', {
+  })])], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "label": "Add as many images as you can so buyers can see every detail."
+    }
+  }, [_c('el-upload', {
+    staticClass: "artwork-image",
+    attrs: {
+      "action": "/api/artwork/upload-artwork-images/",
+      "file-list": _vm.artwork.images,
+      "headers": {
+        'X-Requested-With': 'XMLHttpRequest',
+        'X-CSRF-TOKEN': _vm.csrf
+      },
+      "on-preview": _vm.handlePictureCardPreview,
+      "on-remove": _vm.handleRemoveImages,
+      "on-success": _vm.handleImagesSuccess,
+      "list-type": "picture-card",
+      "accept": ".jpg, .jpeg"
+    }
+  }, [_c('div', {
+    staticClass: "artwork-image-label"
+  }, [_c('i', {
+    staticClass: "el-icon-picture-outline"
+  }), _vm._v(" "), _c('div', [_vm._v("Other images")])])])], 1)], 1), _vm._v(" "), _c('el-card', {
     staticStyle: {
       "margin-bottom": "20px"
     }
@@ -67646,7 +67689,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('el-form-item', {
     attrs: {
       "label": "When was it made?",
-      "required": ""
+      "required": "",
+      "prop": "date_of_completion"
     }
   }, [_c('el-date-picker', {
     attrs: {
@@ -67664,7 +67708,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })], 1)], 1)], 1), _vm._v(" "), _c('el-form-item', {
     attrs: {
       "label": "Artwork Description",
-      "required": ""
+      "required": "",
+      "prop": "description"
     }
   }, [_c('vue-editor', {
     attrs: {
@@ -68080,7 +68125,44 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "artwork.b_weight"
     }
-  })], 1)], 1)], 1) : _vm._e()], 1), _vm._v(" "), _c('el-card', {
+  })], 1)], 1)], 1) : _vm._e(), _vm._v(" "), _c('el-row', {
+    attrs: {
+      "gutter": 20
+    }
+  }, [_c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Tags"
+    }
+  }, [_c('el-select', {
+    attrs: {
+      "value": "",
+      "multiple": "",
+      "filterable": "",
+      "allow-create": "",
+      "collapse-tags": "",
+      "default-first-option": "",
+      "placeholder": "Select tags"
+    },
+    model: {
+      value: (_vm.artwork.tags),
+      callback: function($$v) {
+        _vm.$set(_vm.artwork, "tags", $$v)
+      },
+      expression: "artwork.tags"
+    }
+  }, _vm._l((_vm.artwork.tags), function(tag) {
+    return _c('el-option', {
+      key: tag,
+      attrs: {
+        "label": tag,
+        "value": tag
+      }
+    })
+  }))], 1)], 1)], 1)], 1), _vm._v(" "), _c('el-card', {
     staticStyle: {
       "margin-bottom": "20px"
     }
@@ -68100,7 +68182,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('el-form-item', {
     attrs: {
       "label": "Price, Eur",
-      "required": ""
+      "required": "",
+      "prop": "price"
     }
   }, [_c('el-input-number', {
     attrs: {
@@ -68255,7 +68338,92 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "artwork.auction_price"
     }
-  })], 1)], 1) : _vm._e()], 1)], 1), _vm._v(" "), [_c('el-button', {
+  })], 1)], 1) : _vm._e()], 1)], 1), _vm._v(" "), _c('el-card', {
+    staticStyle: {
+      "margin-bottom": "20px"
+    }
+  }, [_c('div', {
+    attrs: {
+      "slot": "header"
+    },
+    slot: "header"
+  }, [_vm._v("Shipping")]), _vm._v(" "), _c('el-row', {
+    staticStyle: {
+      "margin-bottom": "20px"
+    },
+    attrs: {
+      "gutter": 20
+    }
+  }, [_c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Shipping origin",
+      "required": "",
+      "prop": "country_id"
+    }
+  }, [_c('el-select', {
+    attrs: {
+      "filterable": "",
+      "value": "artwork.country_id",
+      "placeholder": "Select country"
+    },
+    model: {
+      value: (_vm.artwork.country_id),
+      callback: function($$v) {
+        _vm.$set(_vm.artwork, "country_id", $$v)
+      },
+      expression: "artwork.country_id"
+    }
+  }, _vm._l((_vm.countries), function(country) {
+    return _c('el-option', {
+      key: country.id,
+      attrs: {
+        "label": country.country_name,
+        "value": country.id
+      }
+    })
+  }))], 1)], 1)], 1), _vm._v(" "), _c('el-row', {
+    staticStyle: {
+      "margin-bottom": "20px"
+    },
+    attrs: {
+      "gutter": 20
+    }
+  }, [_c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Processing time",
+      "required": "",
+      "prop": "processing_time"
+    }
+  }, [_c('el-select', {
+    attrs: {
+      "filterable": "",
+      "value": "artwork.processing_time",
+      "placeholder": "Select your processing time"
+    },
+    model: {
+      value: (_vm.artwork.processing_time),
+      callback: function($$v) {
+        _vm.$set(_vm.artwork, "processing_time", $$v)
+      },
+      expression: "artwork.processing_time"
+    }
+  }, _vm._l((_vm.options('processing-time')), function(time) {
+    return _c('el-option', {
+      key: time.value,
+      attrs: {
+        "label": time.label,
+        "value": time.value
+      }
+    })
+  }))], 1)], 1)], 1)], 1), _vm._v(" "), [_c('el-button', {
     staticStyle: {
       "margin-top": "20px"
     },
@@ -68265,11 +68433,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "loading": _vm.loading
     },
     on: {
-      "click": function($event) {
-        _vm.saveArtwork()
-      }
+      "click": _vm.saveArtwork
     }
-  }, [_vm._v("Save\n        ")]), _vm._v(" "), (_vm.artworkSaved) ? _c('el-button', {
+  }, [_vm._v("Save\n        ")]), _vm._v(" "), _c('el-button', {
     staticStyle: {
       "margin-top": "20px"
     },
@@ -68282,7 +68448,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "href": '/artwork/' + _vm.artwork.id,
       "target": "_blank"
     }
-  }, [_vm._v("Preview")])]) : _vm._e()]], 2) : _vm._e()
+  }, [_vm._v("Preview")])])]], 2) : _vm._e()
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

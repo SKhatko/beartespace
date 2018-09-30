@@ -4,48 +4,49 @@
         <el-card style="margin-bottom: 20px;">
             <div slot="header">Photos</div>
 
-            <el-form-item label="Add as many images as you can so buyers can see every detail." required>
+            <el-form-item label="Upload primary photo of your artwork." required prop="image">
 
-                <div class="artwork-images">
-
-                    <el-upload
-                            class="artwork-image"
-                            list-type="picture-card"
-                            :action="'/api/artwork/'  + artwork.id + '/upload-artwork-image/'"
-                            :headers="{'X-Requested-With': 'XMLHttpRequest', 'X-CSRF-TOKEN' : csrf}"
-                            :show-file-list="false"
-                            accept=".jpg, .jpeg"
-                            :on-success="handleImageSuccess"
-                            :before-upload="beforeImageUpload">
-                        <img v-if="artwork.image" :src="'/imagecache/height-200/' + artwork.image.url" class="image">
-                        <div v-else class="artwork-image-label">
-                            <i class="el-icon-plus"></i>
-                            <div>Primary image</div>
-                        </div>
-                    </el-upload>
-
-                    <el-upload
-                            class="artwork-image"
-                            :action="'/api/artwork/'  + artwork.id + '/upload-artwork-images/'"
-                            :file-list="artwork.images"
-                            :headers="{'X-Requested-With': 'XMLHttpRequest', 'X-CSRF-TOKEN' : csrf}"
-                            :on-preview="handlePictureCardPreview"
-                            :on-remove="handleRemove"
-                            :on-success="handleImagesSuccess"
-                            :limit="3"
-                            :on-exceed="handleExceed"
-                            list-type="picture-card"
-                            accept=".jpg, .jpeg">
-                        <div class="artwork-image-label">
-                            <i class="el-icon-plus"></i>
-                            <div>Other images</div>
-                        </div>
-                    </el-upload>
-                </div>
+                <el-upload
+                        class="artwork-image"
+                        list-type="picture-card"
+                        :file-list="artwork.image"
+                        action="/api/artwork/upload-artwork-image/"
+                        :headers="{'X-Requested-With': 'XMLHttpRequest', 'X-CSRF-TOKEN' : csrf}"
+                        accept=".jpg, .jpeg"
+                        :on-preview="handlePictureCardPreview"
+                        :on-remove="handleRemoveImage"
+                        :on-success="handleImageSuccess"
+                        :before-upload="beforeImageUpload">
+                    <!--<img v-if="artwork.image.url" :src="'/imagecache/height-200/' + artwork.image.url">-->
+                    <div class="artwork-image-label">
+                        <i class="el-icon-picture"></i>
+                        <div>Primary image</div>
+                    </div>
+                </el-upload>
 
                 <el-dialog :visible.sync="dialogVisible">
                     <img width="100%" :src="dialogImageUrl" alt="">
                 </el-dialog>
+
+            </el-form-item>
+
+            <el-form-item label="Add as many images as you can so buyers can see every detail.">
+
+                <el-upload
+                        class="artwork-image"
+                        action="/api/artwork/upload-artwork-images/"
+                        :file-list="artwork.images"
+                        :headers="{'X-Requested-With': 'XMLHttpRequest', 'X-CSRF-TOKEN' : csrf}"
+                        :on-preview="handlePictureCardPreview"
+                        :on-remove="handleRemoveImages"
+                        :on-success="handleImagesSuccess"
+                        list-type="picture-card"
+                        accept=".jpg, .jpeg">
+                    <div class="artwork-image-label">
+                        <i class="el-icon-picture-outline"></i>
+                        <div>Other images</div>
+                    </div>
+                </el-upload>
 
             </el-form-item>
 
@@ -82,7 +83,7 @@
                 </el-col>
 
                 <el-col :sm="8">
-                    <el-form-item label="When was it made?" required>
+                    <el-form-item label="When was it made?" required prop="date_of_completion">
                         <el-date-picker
                                 v-model="artwork.date_of_completion"
                                 type="year"
@@ -94,7 +95,7 @@
 
             </el-row>
 
-            <el-form-item label="Artwork Description" required>
+            <el-form-item label="Artwork Description" required prop="description">
                 <vue-editor id="description" v-model="artwork.description"
                             placeholder="Artwork description"
                             :editorToolbar="artworkEditorToolbar"></vue-editor>
@@ -223,6 +224,18 @@
 
             </el-row>
 
+            <el-row :gutter="20">
+                <el-col :sm="8">
+                    <el-form-item label="Tags">
+                        <el-select value="" v-model="artwork.tags" multiple filterable allow-create collapse-tags
+                                   default-first-option placeholder="Select tags">
+                            <el-option v-for="tag in artwork.tags" :key="tag" :label="tag"
+                                       :value="tag"></el-option>
+                        </el-select>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+
 
         </el-card>
 
@@ -231,7 +244,7 @@
 
             <el-row :gutter="20">
                 <el-col :sm="12">
-                    <el-form-item label="Price, Eur" required>
+                    <el-form-item label="Price, Eur" required prop="price">
                         <el-input-number value="2" v-model="artwork.price" :min="1" :max="50000"></el-input-number>
 
                         <span class="h4">Your profit: {{ artwork.price }} - 15% = {{ profitPrice }} Eur</span>
@@ -306,14 +319,47 @@
 
         </el-card>
 
+        <el-card style="margin-bottom: 20px;">
+            <div slot="header">Shipping</div>
+
+            <el-row :gutter="20" style="margin-bottom: 20px;">
+                <el-col :sm="8">
+                    <el-form-item label="Shipping origin" required prop="country_id">
+                        <el-select filterable value="artwork.country_id" v-model="artwork.country_id"
+                                   placeholder="Select country">
+                            <el-option
+                                    v-for="country in countries"
+                                    :key="country.id"
+                                    :label="country.country_name"
+                                    :value="country.id">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+
+            <el-row :gutter="20" style="margin-bottom: 20px;">
+                <el-col :sm="8">
+                    <el-form-item label="Processing time" required prop="processing_time">
+                        <el-select filterable value="artwork.processing_time" v-model="artwork.processing_time"
+                                   placeholder="Select your processing time">
+                            <el-option v-for="time in options('processing-time')" :key="time.value" :label="time.label"
+                                       :value="time.value"></el-option>
+                        </el-select>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+
+        </el-card>
+
         <template>
 
             <el-button type="primary" style="margin-top: 20px"
                        size="big"
-                       @click="saveArtwork()" :loading="loading">Save
+                       @click="saveArtwork" :loading="loading">Save
             </el-button>
 
-            <el-button type="primary" v-if="artworkSaved" style="margin-top: 20px" size="big">
+            <el-button type="primary" style="margin-top: 20px" size="big">
                 <a :href="'/artwork/' + artwork.id" target="_blank">Preview</a>
             </el-button>
 
@@ -332,28 +378,57 @@
         props: {
             artwork_: {},
             currencies_: {},
-            user_: {}
         },
 
         data() {
             return {
-                user: {},
+                countries: [],
                 csrf: window.csrf,
                 currencies: [],
                 artwork: {
                     medium: [],
+                    tags: [],
                     direction: [],
                     theme: [],
                     color: [],
                     images: [],
+                    image: [],
                 },
                 rules: {
+                    image: [
+                        {
+                            required: true,
+                            message: 'Please upload at least one photo of your artwork',
+                            trigger: ['blur', 'change']
+                        },
+                    ],
                     name: [
                         {required: true, message: 'Please enter the name of artwork', trigger: ['blur', 'change']},
+                    ],
+                    made_by: [
+                        {required: true, message: 'This field is required', trigger: ['blur', 'change']},
+                    ],
+                    date_of_completion: [
+                        {required: true, message: 'This field is required', trigger: ['blur', 'change']},
                     ],
                     category: [
                         {required: true, message: 'Please select category', trigger: ['blur', 'change']}
                     ],
+                    description: [
+                        {required: true, message: 'This field is required', trigger: ['blur', 'change']},
+                    ],
+                    price: [
+                        {required: true, message: 'Artwork price is required', trigger: ['blur', 'change']}
+                    ],
+                    quantity: [
+                        {required: true, message: 'Artwork quantity is required', trigger: ['blur', 'change']}
+                    ],
+                    country_id: [
+                        {required: true, message: 'Select shipping country', trigger: ['blur', 'change']}
+                    ],
+                    processing_time: [
+                        {required: true, message: 'Select your processing time', trigger: ['blur', 'change']}
+                    ]
                 },
 
                 artworkEditorToolbar: [
@@ -378,92 +453,84 @@
 
             if (this.artwork_) {
                 this.artwork = JSON.parse(this.artwork_);
+                this.artwork.image = [this.artwork.image];
             }
 
             if (this.currencies_) {
                 this.currencies = JSON.parse(this.currencies_);
             }
 
-            if (this.user_) {
-                this.user = JSON.parse(this.user_);
-            }
+            axios.get('/api/countries').then(response => {
+                this.countries = response.data;
+            });
 
             console.log(this.artwork);
+
+            console.log(this.artwork.image);
 
         },
 
         methods: {
 
-            saveArtwork(redirect = false) {
+            saveArtwork() {
                 this.$refs['artwork'].validate((valid) => {
                     if (valid) {
+
                         this.loading = true;
+
                         axios.post('/api/artwork/', this.artwork)
                             .then((response) => {
                                 if (response.data.data) {
                                     console.log(response.data);
 
-                                    if (redirect) {
-                                        window.location.pathname = '/dashboard/artwork/' + response.data.data.id + '/edit';
-                                    } else {
+                                    let test = false;
+
+                                    if (test) {
                                         this.$message({
                                             showClose: true,
                                             message: response.data.message,
                                             type: response.data.status
                                         });
 
-                                        this.artworkSaved = true;
                                         this.artwork = response.data.data;
+                                        this.artwork.image = [response.data.data.image]
                                         this.loading = false;
-
+                                    } else {
+                                        window.location.pathname = '/dashboard/artwork';
                                     }
                                 } else {
                                     console.log(response.data);
                                 }
-                            });
+                            }).catch(error => {
+                            console.log(error.response);
+                        });
                     }
                 });
 
             },
-            handleExceed() {
-                this.$message({
-                    message: 'Maximum quantity of images is 3',
-                    type: 'warning'
-                });
+            handleRemoveImages(file, fileList) {
+                this.artwork.images = this.artwork.images.filter(image => image.id !== file.id);
             },
-            handleRemove(file, fileList) {
-                axios.post('/api/artwork/' + this.artwork.id + '/remove-artwork-image/', file)
-                    .then((response) => {
-                        if (response.data) {
-                            console.log(response.data);
-                            this.$message({
-                                showClose: true,
-                                message: response.data.message,
-                                type: response.data.status
-                            });
-
-                            this.artwork.images = response.data.data;
-                        } else {
-                            console.log(response.data);
-                        }
-                    }).catch(error => {
-                    console.log(error);
-                });
-
-                // this.images = fileList;
+            handleRemoveImage(file, fileList) {
+                this.artwork.image = [];
+                this.artwork.image_id = null;
             },
+
             handlePictureCardPreview(file) {
                 this.dialogImageUrl = file.url;
                 this.dialogVisible = true;
             },
+
             handleImagesSuccess(response, file, fileList) {
-                console.log(response);
-                this.artwork.images = response.data;
+                console.log(response, file, fileList);
+                this.artwork.images.push(response.data)
             },
 
             handleImageSuccess(response, file) {
-                console.log(response);
-                this.artwork.image = response.data;
+                console.log(response.data);
+                this.artwork.image = [response.data];
+                this.artwork.image_id = response.data.id;
+
                 this.$message({
                     showClose: true,
                     message: response.message,
@@ -484,15 +551,9 @@
                 }
                 return isJPG && isLt2M;
             },
-
-            closeDialogs() {
-                for (let dialog in this.dialogs) {
-                    this.dialogs[dialog] = false;
-                }
-            }
-
         },
         computed: {
+
             profitPrice() {
                 return this.artwork.price - (this.artwork.price * 15 / 100);
             },

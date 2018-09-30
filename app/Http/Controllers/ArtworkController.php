@@ -62,6 +62,7 @@ class ArtworkController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function create() {
+
 		$title = 'Upload New Artwork';
 
 		return view( 'dashboard.artworks.create', compact( 'title' ) );

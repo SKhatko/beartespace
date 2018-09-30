@@ -15,8 +15,7 @@
                 <el-breadcrumb-item>Edit Artwork</el-breadcrumb-item>
             </el-breadcrumb>
 
-            <artwork-form artwork_="{{ $artwork }}" currencies_="{{ json_encode(currency()->all()) }}"
-                          user_="{{ auth()->user() }}"></artwork-form>
+            <artwork-form artwork_="{{ $artwork }}" currencies_="{{ json_encode(currency()->all()) }}"></artwork-form>
 
         </div>
     </div>

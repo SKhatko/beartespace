@@ -20,7 +20,6 @@ Route::group( [ 'middleware' => 'auth:api' ], function () {
 	Route::post( 'translations', 'Api\TranslationController@update' );
 	Route::post( 'languages', 'Api\LanguageController@store' );
 	Route::post( 'profile', 'Api\UserController@update' );
-	Route::post( 'artwork', 'Api\ArtworkController@store' );
 	Route::post( 'pages', 'Api\PageController@store' );
 
 	Route::put( 'user/favorite/{id}/toggle', 'Api\UserController@toggleFavoriteArtwork' );
@@ -34,9 +33,10 @@ Route::group( [ 'middleware' => 'auth:api' ], function () {
 	Route::any( 'user/upload-user-avatar', 'Api\UserController@uploadUserAvatar' );
 	Route::any( 'user/upload-user-image', 'Api\UserController@uploadUserImage' );
 
-	Route::post( 'artwork/{id}/upload-artwork-image', 'Api\ArtworkController@uploadArtworkImage' );
-	Route::post( 'artwork/{id}/upload-artwork-images', 'Api\ArtworkController@uploadArtworkImages' );
-	Route::post( 'artwork/{id}/remove-artwork-image', 'Api\ArtworkController@removeArtworkImage' );
+	// Artwork
+	Route::post( 'artwork', 'Api\ArtworkController@store' );
+	Route::post( 'artwork/upload-artwork-image', 'Api\ArtworkController@uploadArtworkImage' );
+	Route::post( 'artwork/upload-artwork-images', 'Api\ArtworkController@uploadArtworkImages' );
 
 	// Change email
 	Route::post( 'change-email', 'Auth\ConfirmEmailController@changeEmail' );

@@ -809,12 +809,18 @@ body, html {
 
     &-image {
       margin-right: 10px;
+      display: flex;
 
       .el-upload--picture-card {
         line-height: initial;
         display: flex;
         justify-content: center;
         align-items: center;
+      }
+
+      img {
+        max-height: 100%;
+        max-width: 100%;
       }
 
       &-label {
@@ -1277,14 +1283,26 @@ body, html {
   width: 100%;
 }
 
+// vue-editor disabled
 .ql-disabled {
   background-color: #f5f7fa;
 }
 
-// Vue phone number input in address
-.is-error .vue-tel-input {
-  border-color: $--color-danger !important;
+// Error validation
+.is-error {
+  // vue-editor
+  .ql-toolbar.ql-snow {
+    border-color: $--color-danger !important;
+  }
+  .ql-container.ql-snow {
+    border-color: $--color-danger !important;
+  }
+  // Vue phone number input in address
+  .vue-tel-input {
+    border-color: $--color-danger !important;
+  }
 }
+
 
 .vue-tel-input {
   border: $--border-base !important;

@@ -12,11 +12,11 @@ class CreateMediaTable extends Migration {
 	public function up() {
 		Schema::create( 'media', function ( Blueprint $table ) {
 			$table->increments( 'id' );
-			$table->string( 'name' )->nullable();
-			$table->string( 'original_name' )->nullable();
-			$table->string( 'slug' )->nullable();
-			$table->string( 'url' )->nullable();
-			$table->string( 'folder' )->nullable();
+			$table->string( 'name' );
+			$table->string( 'original_name' );
+			$table->string( 'slug' );
+			$table->string( 'folder' );
+//			$table->string( 'url' );
 			$table->timestamps();
 		} );
 	}

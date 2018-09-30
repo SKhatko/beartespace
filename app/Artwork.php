@@ -14,13 +14,11 @@ class Artwork extends Model implements Buyable {
 
 	protected $appends = [
 		'formatted_price',
-		'artwork_options_add',
-		'artwork_inspiration_add',
-		'artwork_interior_add',
 		'image_url'
 	];
 
 	protected $casts = [
+		'tags'      => 'array',
 		'medium'    => 'array',
 		'direction' => 'array',
 		'theme'     => 'array',
@@ -38,6 +36,10 @@ class Artwork extends Model implements Buyable {
 
 	public function getBuyablePrice( $options = null ) {
 		return $this->price;
+	}
+
+	public function country() {
+		return $this->belongsTo( Country::class );
 	}
 
 	public function user() {
@@ -65,7 +67,7 @@ class Artwork extends Model implements Buyable {
 			return 'sold';
 		} else if ( ! $this->attributes['available'] ) {
 			return 'temporarily-unavailable';
-		} else if($quantity <= $this->attributes['quantity']) {
+		} else if ( $quantity <= $this->attributes['quantity'] ) {
 			return 'available';
 		} else {
 			return 'unavailable';
@@ -119,17 +121,5 @@ class Artwork extends Model implements Buyable {
 
 	public function size() {
 		return $this->width . ' x ' . $this->height . ' cm';
-	}
-
-	public function getArtworkOptionsAddAttribute() {
-		return $this->adds()->whereName( 'artwork_options_add' )->first();
-	}
-
-	public function getArtworkInspirationAddAttribute() {
-		return $this->adds()->whereName( 'artwork_inspiration_add' )->first();
-	}
-
-	public function getArtworkInteriorAddAttribute() {
-		return $this->adds()->whereName( 'artwork_interior_add' )->get();
 	}
 }
