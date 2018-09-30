@@ -2,7 +2,10 @@
     <el-form label-position="top" :model="artwork" ref="artwork" :rules="rules" v-if="artwork"
              class="artwork">
         <el-card style="margin-bottom: 20px;">
-            <div slot="header">Photos</div>
+            <div slot="header" class="artwork-header">
+                <span>Photos</span>
+                <a href="/" target="_blank" class="el-button el-button--default el-button--mini">Preview</a>
+            </div>
 
             <el-form-item label="Upload primary photo of your artwork." required prop="image">
 
@@ -352,18 +355,20 @@
 
         </el-card>
 
-        <template>
+        <!--<el-card class="artwork-bottom">-->
+        <!--<div class="app&#45;&#45;wrapper">-->
 
-            <el-button type="primary" style="margin-top: 20px"
-                       size="big"
-                       @click="saveArtwork" :loading="loading">Save
-            </el-button>
+        <el-button type="primary" style="margin-top: 20px"
+                   size="big"
+                   @click="saveArtwork" :loading="loading">Save
+        </el-button>
 
-            <el-button type="primary" style="margin-top: 20px" size="big">
-                <a :href="'/artwork/' + artwork.id" target="_blank">Preview</a>
-            </el-button>
+        <el-button type="success" style="margin-top: 20px" size="big">
+            <a :href="'/artwork/' + artwork.id" target="_blank">Preview</a>
+        </el-button>
 
-        </template>
+        <!--</div>-->
+        <!--</el-card>-->
 
     </el-form>
 
@@ -464,10 +469,6 @@
                 this.countries = response.data;
             });
 
-            console.log(this.artwork);
-
-            console.log(this.artwork.image);
-
         },
 
         methods: {
@@ -503,6 +504,7 @@
                                 }
                             }).catch(error => {
                             console.log(error.response);
+                            this.loading = false;
                         });
                     }
                 });
@@ -530,12 +532,6 @@
                 console.log(response.data);
                 this.artwork.image = [response.data];
                 this.artwork.image_id = response.data.id;
-
-                this.$message({
-                    showClose: true,
-                    message: response.message,
-                    type: response.status
-                });
             },
 
             beforeImageUpload(file) {

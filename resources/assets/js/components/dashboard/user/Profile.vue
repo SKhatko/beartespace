@@ -18,13 +18,6 @@
         <el-form label-position="top">
 
             <el-row :gutter="20">
-                <el-col>
-
-                </el-col>
-
-            </el-row>
-
-            <el-row :gutter="20">
 
                 <el-col :sm="12">
                     <el-form-item>
@@ -44,14 +37,16 @@
                         </span>
 
                         <el-upload
-                                class="avatar-uploader"
+                                class="profile-avatar"
                                 action="/api/user/upload-user-avatar"
                                 :headers="{'X-Requested-With': 'XMLHttpRequest', 'X-CSRF-TOKEN' : csrf}"
                                 :show-file-list="false"
                                 accept="image/*"
                                 :on-success="handleAvatarSuccess"
                                 :before-upload="beforeAvatarUpload">
-                            <img v-if="user.avatar_url" :src="'/imagecache/avatar/' + user.avatar_url"
+                            <el-button slot="trigger" icon="el-icon-picture"  class="profile-avatar-button" circle></el-button>
+
+                            <img v-if="user.avatar_url" :src="'/imagecache/avatar' + user.avatar_url"
                                  class="avatar">
                         </el-upload>
 
@@ -480,30 +475,30 @@
 
 <style lang="scss">
 
-    .avatar-uploader .el-upload, .image-uploader .el-upload {
-        border: 1px dashed #d9d9d9;
-        border-radius: 6px;
-        cursor: pointer;
-        position: relative;
-        overflow: hidden;
+    /*.avatar-uploader .el-upload, .image-uploader .el-upload {*/
+        /*border: 1px dashed #d9d9d9;*/
+        /*border-radius: 6px;*/
+        /*cursor: pointer;*/
+        /*position: relative;*/
+        /*overflow: hidden;*/
 
-        &:hover {
-            border-color: #409EFF;
-        }
-    }
+        /*&:hover {*/
+            /*border-color: #409EFF;*/
+        /*}*/
+    /*}*/
 
-    .avatar {
-        width: 178px;
-        height: 178px;
-        display: block;
-    }
-
-    .image {
+    /*.avatar {*/
         /*width: 178px;*/
+        /*height: 178px;*/
+        /*display: block;*/
+    /*}*/
 
-        height: 178px;
-        display: block;
-    }
+    /*.image {*/
+        /*!*width: 178px;*!*/
+
+        /*height: 178px;*/
+        /*display: block;*/
+    /*}*/
 
 
 </style>

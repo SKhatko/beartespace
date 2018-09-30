@@ -690,7 +690,6 @@ body, html {
     display: flex;
   }
 
-
 }
 
 .app-artwork {
@@ -803,6 +802,11 @@ body, html {
 
   .artwork {
 
+    &-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
     &-images {
       display: flex;
     }
@@ -826,6 +830,11 @@ body, html {
       &-label {
 
       }
+    }
+
+    &-bottom {
+      position: fixed;
+      bottom: 0;
     }
   }
 }
@@ -1087,6 +1096,7 @@ body, html {
 }
 
 .app-favorites {
+  padding: 15px;
 
   .app-artworks-list {
     column-count: 4;
@@ -1129,10 +1139,32 @@ body, html {
       justify-content: space-between;
       align-items: center;
     }
+
+    &-avatar {
+      display: flex;
+
+      & img {
+        border-radius: 50%;
+        overflow: hidden;
+        width: 180px;
+        height: 180px;
+      }
+
+      &-button {
+        position: absolute;
+        left: 175px;
+        bottom: 0;
+        font-size: 25px;
+
+      }
+
+    }
+
   }
 }
 
 .app-footer {
+  transition: all 1s ease;
   padding: 0;
 
   &--top {
@@ -1273,6 +1305,38 @@ body, html {
   }
 }
 
+.app-dashboard {
+  padding: 15px;
+}
+
+.app-payments {
+  padding: 15px;
+}
+
+.app-translations {
+  padding: 15px;
+}
+
+.app-languages {
+  padding: 15px;
+}
+
+.app-settings {
+  padding: 15px;
+}
+
+.app-messages {
+  padding: 15px;
+}
+
+.app-pages {
+  padding: 15px;
+}
+
+.app-users {
+  padding: 15px;
+}
+
 .el-dropdown-menu__item {
   a {
     display: block;
@@ -1303,7 +1367,6 @@ body, html {
   }
 }
 
-
 .vue-tel-input {
   border: $--border-base !important;
   line-height: 25px;
@@ -1315,5 +1378,6 @@ body, html {
     bottom: 33px;
   }
 }
+
 // End vue phone number input
 

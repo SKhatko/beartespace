@@ -1,6 +1,6 @@
 <template>
 
-    <div class="app-settings" >
+    <el-card class="app-settings" >
         <div class="h2">Main Settings</div>
 
         <el-form>
@@ -29,7 +29,7 @@
 
             <el-button @click="save">Save Settings</el-button>
         </el-form>
-    </div>
+    </el-card>
 
 
 </template>

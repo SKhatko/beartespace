@@ -1,10 +1,7 @@
 <template>
 
-    <div v-if="users">
-
-        <h2>Users</h2>
-
-        <template>
+    <el-card>
+        <template v-if="users">
 
             <el-table
                     v-if="users.length"
@@ -63,15 +60,14 @@
                                 icon="el-icon-delete"
                                 circle
 
-                                   @click.native.prevent="deleteUser(scope.$index, users)"></el-button>
+                                @click.native.prevent="deleteUser(scope.$index, users)"></el-button>
                     </template>
                 </el-table-column>
 
             </el-table>
 
         </template>
-
-    </div>
+    </el-card>
 
 </template>
 

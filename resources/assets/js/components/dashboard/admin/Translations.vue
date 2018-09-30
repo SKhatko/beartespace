@@ -84,15 +84,13 @@
 
         mounted() {
 
-            if (this.languages_.length) {
+            if (this.languages_) {
                 this.languages = this.languages_;
             }
-            if (Object.keys(this.translations_).length) {
+            if (Object.keys(this.translations_)) {
                 this.translations = this.translations_;
             }
         },
-
-        computed: {},
 
         methods: {
 
@@ -131,13 +129,14 @@
                     .then((response) => {
                         if (response.data) {
                             console.log(response.data);
+
+                            this.translations = response.data.data;
+
                             this.$message({
                                 showClose: true,
                                 message: response.data.message,
                                 type: response.data.status
                             });
-
-                            this.translations = response.data.data;
                             // window.location.reload();
                             // window.location.href = '/dashboard';
                         } else {

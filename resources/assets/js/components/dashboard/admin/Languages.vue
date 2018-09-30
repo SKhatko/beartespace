@@ -1,9 +1,8 @@
 <template>
 
+    <el-card v-if="languages">
 
-    <div v-if="languages">
-
-        <h2>Languages ( Test all functionality )</h2>
+        <h2>Languages</h2>
 
         <!-- TODO test -->
 
@@ -63,7 +62,7 @@
                 <el-table-column
                         label="rtl">
                     <template slot-scope="scope">
-                        <el-checkbox  v-model="languages[scope.$index].is_rtl"></el-checkbox>
+                        <el-checkbox v-model="languages[scope.$index].is_rtl"></el-checkbox>
                     </template>
                 </el-table-column>
                 <el-table-column
@@ -90,7 +89,7 @@
             Save
         </el-button>
 
-    </div>
+    </el-card>
 
 </template>
 
@@ -113,12 +112,12 @@
 
 
         mounted() {
-            if (this.languages_.length) {
+            if (this.languages_) {
                 this.languages = this.languages_;
             }
 
 
-            if (Object.keys(this.translatedLanguages_).length) {
+            if (Object.keys(this.translatedLanguages_)) {
                 this.translatedLanguages = this.translatedLanguages_;
 
             }

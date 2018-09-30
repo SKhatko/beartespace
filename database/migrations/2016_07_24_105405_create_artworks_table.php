@@ -31,7 +31,7 @@ class CreateArtworksTable extends Migration {
 			$table->decimal( 'price', 12, 2 );
 			$table->string( 'currency' )->nullable();
 			$table->integer('country_id')->nullable();
-			$table->string('processing-time')->nullable();
+			$table->string('processing_time')->nullable();
 			$table->string( 'category' );
 			$table->json( 'tags' )->nullable();
 			$table->json( 'medium' )->nullable();

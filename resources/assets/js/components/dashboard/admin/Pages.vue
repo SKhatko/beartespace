@@ -5,14 +5,12 @@
 
         <h2>Pages</h2>
 
-
         <el-button style="margin-bottom: 20px"
                    size="big"
                    type="success"
                    @click="addNewPage">
             Add new page
         </el-button>
-
 
         <el-collapse v-for="page in pages" :key="page.id" accordion v-model="activePage">
 
@@ -39,9 +37,9 @@
 
                         <template v-for="language in languages">
 
-                            <el-tab-pane :label="language.name">
+                            <el-tab-pane :label="language.name"> 123
 
-                                <vue-editor v-model="page.content[language.code]"></vue-editor>
+                                <!--<vue-editor v-model="page.content[language.code]"></vue-editor>-->
 
                             </el-tab-pane>
 
@@ -66,7 +64,7 @@
 
 <script>
 
-    import { VueEditor } from 'vue2-editor'
+    import {VueEditor} from 'vue2-editor'
 
     export default {
 
@@ -85,14 +83,13 @@
 
         mounted() {
 
-            if (this.languages_.length) {
+            if (this.languages_) {
                 this.languages = this.languages_;
             }
-            if (this.pages_.length) {
+            if (this.pages_) {
                 this.pages = this.pages_;
             }
 
-            console.log(this.pages);
         },
 
         methods: {

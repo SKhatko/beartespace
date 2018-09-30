@@ -20256,6 +20256,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -20322,10 +20327,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         axios.get('/api/countries').then(function (response) {
             _this.countries = response.data;
         });
-
-        console.log(this.artwork);
-
-        console.log(this.artwork.image);
     },
 
 
@@ -20362,6 +20363,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         }
                     }).catch(function (error) {
                         console.log(error.response);
+                        _this2.loading = false;
                     });
                 }
             });
@@ -20387,12 +20389,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             console.log(response.data);
             this.artwork.image = [response.data];
             this.artwork.image_id = response.data.id;
-
-            this.$message({
-                showClose: true,
-                message: response.message,
-                type: response.status
-            });
         },
         beforeImageUpload: function beforeImageUpload(file) {
             console.log(file);
@@ -20519,7 +20515,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -20537,11 +20532,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
     mounted: function mounted() {
-        if (this.languages_.length) {
+        if (this.languages_) {
             this.languages = this.languages_;
         }
 
-        if (Object.keys(this.translatedLanguages_).length) {
+        if (Object.keys(this.translatedLanguages_)) {
             this.translatedLanguages = this.translatedLanguages_;
         }
     },
@@ -20656,8 +20651,6 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 //
 //
 //
-//
-//
 
 
 
@@ -20678,14 +20671,12 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
     },
     mounted: function mounted() {
 
-        if (this.languages_.length) {
+        if (this.languages_) {
             this.languages = this.languages_;
         }
-        if (this.pages_.length) {
+        if (this.pages_) {
             this.pages = this.pages_;
         }
-
-        console.log(this.pages);
     },
 
 
@@ -20927,16 +20918,14 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
     },
     mounted: function mounted() {
 
-        if (this.languages_.length) {
+        if (this.languages_) {
             this.languages = this.languages_;
         }
-        if (Object.keys(this.translations_).length) {
+        if (Object.keys(this.translations_)) {
             this.translations = this.translations_;
         }
     },
 
-
-    computed: {},
 
     methods: {
         addTranslationField: function addTranslationField(groupName) {
@@ -20978,13 +20967,14 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
             axios.post('/api/translations/', this.translations).then(function (response) {
                 if (response.data) {
                     console.log(response.data);
+
+                    _this2.translations = response.data.data;
+
                     _this2.$message({
                         showClose: true,
                         message: response.data.message,
                         type: response.data.status
                     });
-
-                    _this2.translations = response.data.data;
                     // window.location.reload();
                     // window.location.href = '/dashboard';
                 } else {
@@ -21001,10 +20991,6 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
 //
 //
 //
@@ -21150,11 +21136,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue2_editor__ = __webpack_require__(52);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue2_editor___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue2_editor__);
-//
-//
-//
-//
-//
 //
 //
 //
@@ -22989,7 +22970,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(18)();
-exports.push([module.i, "\n.avatar-uploader .el-upload, .image-uploader .el-upload {\n  border: 1px dashed #d9d9d9;\n  border-radius: 6px;\n  cursor: pointer;\n  position: relative;\n  overflow: hidden;\n}\n.avatar-uploader .el-upload:hover, .image-uploader .el-upload:hover {\n    border-color: #409EFF;\n}\n.avatar {\n  width: 178px;\n  height: 178px;\n  display: block;\n}\n.image {\n  /*width: 178px;*/\n  height: 178px;\n  display: block;\n}\n", ""]);
+exports.push([module.i, "/*.avatar-uploader .el-upload, .image-uploader .el-upload {*/\n/*border: 1px dashed #d9d9d9;*/\n/*border-radius: 6px;*/\n/*cursor: pointer;*/\n/*position: relative;*/\n/*overflow: hidden;*/\n/*&:hover {*/\n/*border-color: #409EFF;*/\n/*}*/\n/*}*/\n/*.avatar {*/\n/*width: 178px;*/\n/*height: 178px;*/\n/*display: block;*/\n/*}*/\n/*.image {*/\n/*!*width: 178px;*!*/\n/*height: 178px;*/\n/*display: block;*/\n/*}*/\n", ""]);
 
 /***/ }),
 /* 181 */
@@ -66601,7 +66582,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return (_vm.users) ? _c('div', [_c('h2', [_vm._v("Users")]), _vm._v(" "), [(_vm.users.length) ? _c('el-table', {
+  return _c('el-card', [(_vm.users) ? [(_vm.users.length) ? _c('el-table', {
     staticStyle: {
       "width": "100%"
     },
@@ -66709,7 +66690,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }) : _vm._e()]
       }
     }])
-  })], 1) : _vm._e()]], 2) : _vm._e()
+  })], 1) : _vm._e()] : _vm._e()], 2)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -66758,10 +66739,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "gutter": 20
     }
-  }, [_c('el-col')], 1), _vm._v(" "), _c('el-row', {
-    attrs: {
-      "gutter": 20
-    }
   }, [_c('el-col', {
     attrs: {
       "sm": 12
@@ -66783,7 +66760,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     },
     slot: "reference"
   })])], 1), _vm._v(" "), _c('el-upload', {
-    staticClass: "avatar-uploader",
+    staticClass: "profile-avatar",
     attrs: {
       "action": "/api/user/upload-user-avatar",
       "headers": {
@@ -66795,12 +66772,20 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "on-success": _vm.handleAvatarSuccess,
       "before-upload": _vm.beforeAvatarUpload
     }
-  }, [(_vm.user.avatar_url) ? _c('img', {
+  }, [_c('el-button', {
+    staticClass: "profile-avatar-button",
+    attrs: {
+      "slot": "trigger",
+      "icon": "el-icon-picture",
+      "circle": ""
+    },
+    slot: "trigger"
+  }), _vm._v(" "), (_vm.user.avatar_url) ? _c('img', {
     staticClass: "avatar",
     attrs: {
-      "src": '/imagecache/avatar/' + _vm.user.avatar_url
+      "src": '/imagecache/avatar' + _vm.user.avatar_url
     }
-  }) : _vm._e()])], 1)], 1), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-col', {
+  }) : _vm._e()], 1)], 1)], 1), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-col', {
     attrs: {
       "sm": 12
     }
@@ -67525,11 +67510,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "margin-bottom": "20px"
     }
   }, [_c('div', {
+    staticClass: "artwork-header",
     attrs: {
       "slot": "header"
     },
     slot: "header"
-  }, [_vm._v("Photos")]), _vm._v(" "), _c('el-form-item', {
+  }, [_c('span', [_vm._v("Photos")]), _vm._v(" "), _c('a', {
+    staticClass: "el-button el-button--default el-button--mini",
+    attrs: {
+      "href": "/",
+      "target": "_blank"
+    }
+  }, [_vm._v("Preview")])]), _vm._v(" "), _c('el-form-item', {
     attrs: {
       "label": "Upload primary photo of your artwork.",
       "required": "",
@@ -68423,7 +68415,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "value": time.value
       }
     })
-  }))], 1)], 1)], 1)], 1), _vm._v(" "), [_c('el-button', {
+  }))], 1)], 1)], 1)], 1), _vm._v(" "), _c('el-button', {
     staticStyle: {
       "margin-top": "20px"
     },
@@ -68435,12 +68427,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.saveArtwork
     }
-  }, [_vm._v("Save\n        ")]), _vm._v(" "), _c('el-button', {
+  }, [_vm._v("Save\n    ")]), _vm._v(" "), _c('el-button', {
     staticStyle: {
       "margin-top": "20px"
     },
     attrs: {
-      "type": "primary",
+      "type": "success",
       "size": "big"
     }
   }, [_c('a', {
@@ -68448,7 +68440,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "href": '/artwork/' + _vm.artwork.id,
       "target": "_blank"
     }
-  }, [_vm._v("Preview")])])]], 2) : _vm._e()
+  }, [_vm._v("Preview")])])], 1) : _vm._e()
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -68547,15 +68539,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         attrs: {
           "label": language.name
         }
-      }, [_c('vue-editor', {
-        model: {
-          value: (page.content[language.code]),
-          callback: function($$v) {
-            _vm.$set(page.content, language.code, $$v)
-          },
-          expression: "page.content[language.code]"
-        }
-      })], 1)]
+      }, [_vm._v(" 123\n\n                            ")])]
     })], 2), _vm._v(" "), _c('el-button', {
       staticStyle: {
         "margin-top": "20px"
@@ -69658,7 +69642,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return (_vm.languages) ? _c('div', [_c('h2', [_vm._v("Languages ( Test all functionality )")]), _vm._v(" "), _c('el-row', {
+  return (_vm.languages) ? _c('el-card', [_c('h2', [_vm._v("Languages")]), _vm._v(" "), _c('el-row', {
     attrs: {
       "gutter": 20
     }
@@ -69832,7 +69816,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
+  return _c('el-card', {
     staticClass: "app-settings"
   }, [_c('div', {
     staticClass: "h2"

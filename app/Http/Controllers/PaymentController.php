@@ -21,8 +21,6 @@ class PaymentController extends Controller {
 
 		$payments = Payment::all();
 
-		return $payments;
-
 		return view( 'dashboard.admin.payments', compact( 'payments' ) );
 	}
 

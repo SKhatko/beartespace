@@ -113,15 +113,15 @@ class UserController extends Controller {
 		}
 
 		$file     = $validation['file'];
-		$fileName = time() . '-' . str_random( 60 ) . '.' . $request->file( 'file' )->getClientOriginalExtension();
+		$fileName = uniqid( time() . '-' ) . '.' . $request->file( 'file' )->getClientOriginalExtension();
 
-		$file->storeAs( 'public/user-avatar/', $fileName );
+		$file->storeAs( 'public/avatar/', $fileName );
 
 		$image = Media::create( [
 			'original_name' => $file->getClientOriginalName(),
 			'name'          => $fileName,
 			'slug'          => str_slug( $request->file( 'file' )->getClientOriginalName() ),
-			'folder'        => '/user-avatar'
+			'folder'        => '/avatar'
 		] );
 
 		$image->save();
