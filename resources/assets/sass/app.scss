@@ -932,8 +932,7 @@ body, html {
 }
 
 .app-change-password {
-  width: 400px;
-  margin: 0 auto;
+  padding: 15px;
 }
 
 .app-auth {
@@ -1141,7 +1140,8 @@ body, html {
     }
 
     &-avatar {
-      display: flex;
+      line-height: initial;
+      //display: flex;
 
       & img {
         border-radius: 50%;
@@ -1153,11 +1153,26 @@ body, html {
       &-button {
         position: absolute;
         left: 175px;
-        bottom: 0;
-        font-size: 25px;
+        bottom: 20px;
+        font-size: 20px;
+      }
+    }
 
+    &-image {
+      line-height: initial;
+
+      & img {
+        max-width: 290px;
+        height: 180px;
+        overflow: hidden;
       }
 
+      &-button {
+        position: absolute;
+        left: 175px;
+        bottom: 20px;
+        font-size: 20px;
+      }
     }
 
   }

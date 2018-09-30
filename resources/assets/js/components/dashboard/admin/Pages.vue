@@ -35,15 +35,17 @@
 
                     <el-tabs type="card">
 
-                        <template v-for="language in languages">
+                        <!-- TODO fix pages -->
 
-                            <el-tab-pane :label="language.name"> 123
+                        <!--<template v-for="language in languages">-->
+
+                            <!--<el-tab-pane :label="language.name"> 123-->
 
                                 <!--<vue-editor v-model="page.content[language.code]"></vue-editor>-->
 
-                            </el-tab-pane>
+                            <!--</el-tab-pane>-->
 
-                        </template>
+                        <!--</template>-->
 
                     </el-tabs>
 

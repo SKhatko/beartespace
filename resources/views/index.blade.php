@@ -14,8 +14,7 @@
 
     <div class="app-index">
         @if($randomArtwork && $randomArtwork->image)
-            <div class="app-index-banner"
-                 style="background-image: url('/imagecache/original'{{ $randomArtwork->image_url }});">
+            <div class="app-index-banner" style="background-image: url('/imagecache/original{{ $randomArtwork->image_url }}')">
 
                 <div class="banner--fade">
 

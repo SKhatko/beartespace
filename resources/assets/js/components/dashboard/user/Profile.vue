@@ -8,11 +8,11 @@
             </div>
         </div>
 
-        <div class="h2">
-            {{ user.name }}
-            <a href="" class="el-button el-button--default el-button--mini">Following</a>
-            <a href="" class="el-button el-button--default el-button--mini">Followers</a>
-        </div>
+        <!--<div class="h2">-->
+            <!--{{ user.name }}-->
+            <!--<a href="" class="el-button el-button&#45;&#45;default el-button&#45;&#45;mini">Following</a>-->
+            <!--<a href="" class="el-button el-button&#45;&#45;default el-button&#45;&#45;mini">Followers</a>-->
+        <!--</div>-->
 
 
         <el-form label-position="top">
@@ -23,7 +23,7 @@
                     <el-form-item>
                         <span slot="label">
                             <span>
-                                Click on image to upload {{ user.user_type === 'gallery' ? 'logo' : 'avatar' }}
+                                Profile Picture
                             </span>
                               <el-popover
                                       width="200"
@@ -33,7 +33,7 @@
                                             Make sure your image is in good quality and has a nice smile :)
                                         </span>
                                        <i slot="reference" class="el-icon-info"></i>
-                                   </el-popover>
+                               </el-popover>
                         </span>
 
                         <el-upload
@@ -45,6 +45,7 @@
                                 :on-success="handleAvatarSuccess"
                                 :before-upload="beforeAvatarUpload">
                             <el-button slot="trigger" icon="el-icon-picture"  class="profile-avatar-button" circle></el-button>
+                            <div slot="tip" class="el-upload__tip">*Must be a .jpg, .gif or .png file smaller than 10MB and at least 400px by 400px.</div>
 
                             <img v-if="user.avatar_url" :src="'/imagecache/avatar' + user.avatar_url"
                                  class="avatar">
@@ -56,7 +57,7 @@
                 <el-col :sm="12" v-if="user.user_type === 'artist'">
                     <el-form-item>
                         <span slot="label">
-                            Click on image to upload profile background image
+                            Profile background image
                                     <el-popover
                                             width="200"
                                             trigger="hover">
@@ -69,14 +70,17 @@
                                    </el-popover>
                         </span>
                         <el-upload
-                                class="image-uploader"
+                                class="profile-image"
                                 action="/api/user/upload-user-image"
                                 :headers="{'X-Requested-With': 'XMLHttpRequest', 'X-CSRF-TOKEN' : csrf}"
                                 :show-file-list="false"
                                 accept="image/*"
                                 :on-success="handleImageSuccess"
                                 :before-upload="beforeImageUpload">
-                            <img :src="'/imagecache/height-200/' + user.image_url" class="image">
+                            <el-button slot="trigger" icon="el-icon-picture"  class="profile-avatar-button" circle></el-button>
+                            <div slot="tip" class="el-upload__tip">*Must be a .jpg file smaller than 10MB and at least 980px width.</div>
+
+                            <img :src="'/imagecache/height-200' + user.image_url" class="image">
                         </el-upload>
                     </el-form-item>
                 </el-col>
@@ -397,21 +401,11 @@
             handleAvatarSuccess(response, file) {
                 console.log(response);
                 this.user.avatar_url = response.data;
-                this.$message({
-                    showClose: true,
-                    message: response.message,
-                    type: response.status
-                });
             },
 
             handleImageSuccess(response, file) {
                 console.log(response);
                 this.user.image_url = response.data;
-                this.$message({
-                    showClose: true,
-                    message: response.message,
-                    type: response.status
-                });
             },
 
             beforeAvatarUpload(file) {

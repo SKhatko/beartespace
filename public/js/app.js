@@ -20651,6 +20651,8 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 //
 //
 //
+//
+//
 
 
 
@@ -21447,6 +21449,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -21524,20 +21530,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         handleAvatarSuccess: function handleAvatarSuccess(response, file) {
             console.log(response);
             this.user.avatar_url = response.data;
-            this.$message({
-                showClose: true,
-                message: response.message,
-                type: response.status
-            });
         },
         handleImageSuccess: function handleImageSuccess(response, file) {
             console.log(response);
             this.user.image_url = response.data;
-            this.$message({
-                showClose: true,
-                message: response.message,
-                type: response.status
-            });
         },
         beforeAvatarUpload: function beforeAvatarUpload(file) {
             console.log(file);
@@ -66719,19 +66715,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "href": "/"
     }
-  }, [_vm._v("View profile")])])]), _vm._v(" "), _c('div', {
-    staticClass: "h2"
-  }, [_vm._v("\n        " + _vm._s(_vm.user.name) + "\n        "), _c('a', {
-    staticClass: "el-button el-button--default el-button--mini",
-    attrs: {
-      "href": ""
-    }
-  }, [_vm._v("Following")]), _vm._v(" "), _c('a', {
-    staticClass: "el-button el-button--default el-button--mini",
-    attrs: {
-      "href": ""
-    }
-  }, [_vm._v("Followers")])]), _vm._v(" "), _c('el-form', {
+  }, [_vm._v("View profile")])])]), _vm._v(" "), _c('el-form', {
     attrs: {
       "label-position": "top"
     }
@@ -66748,7 +66732,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "slot": "label"
     },
     slot: "label"
-  }, [_c('span', [_vm._v("\n                            Click on image to upload " + _vm._s(_vm.user.user_type === 'gallery' ? 'logo' : 'avatar') + "\n                        ")]), _vm._v(" "), _c('el-popover', {
+  }, [_c('span', [_vm._v("\n                            Profile Picture\n                        ")]), _vm._v(" "), _c('el-popover', {
     attrs: {
       "width": "200",
       "trigger": "hover"
@@ -66780,7 +66764,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "circle": ""
     },
     slot: "trigger"
-  }), _vm._v(" "), (_vm.user.avatar_url) ? _c('img', {
+  }), _vm._v(" "), _c('div', {
+    staticClass: "el-upload__tip",
+    attrs: {
+      "slot": "tip"
+    },
+    slot: "tip"
+  }, [_vm._v("*Must be a .jpg, .gif or .png file smaller than 10MB and at least 400px by 400px.")]), _vm._v(" "), (_vm.user.avatar_url) ? _c('img', {
     staticClass: "avatar",
     attrs: {
       "src": '/imagecache/avatar' + _vm.user.avatar_url
@@ -66794,7 +66784,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "slot": "label"
     },
     slot: "label"
-  }, [_vm._v("\n                        Click on image to upload profile background image\n                                "), _c('el-popover', {
+  }, [_vm._v("\n                        Profile background image\n                                "), _c('el-popover', {
     attrs: {
       "width": "200",
       "trigger": "hover"
@@ -66806,7 +66796,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     },
     slot: "reference"
   })])], 1), _vm._v(" "), _c('el-upload', {
-    staticClass: "image-uploader",
+    staticClass: "profile-image",
     attrs: {
       "action": "/api/user/upload-user-image",
       "headers": {
@@ -66818,12 +66808,26 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "on-success": _vm.handleImageSuccess,
       "before-upload": _vm.beforeImageUpload
     }
-  }, [_c('img', {
+  }, [_c('el-button', {
+    staticClass: "profile-avatar-button",
+    attrs: {
+      "slot": "trigger",
+      "icon": "el-icon-picture",
+      "circle": ""
+    },
+    slot: "trigger"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "el-upload__tip",
+    attrs: {
+      "slot": "tip"
+    },
+    slot: "tip"
+  }, [_vm._v("*Must be a .jpg file smaller than 10MB and at least 980px width.")]), _vm._v(" "), _c('img', {
     staticClass: "image",
     attrs: {
-      "src": '/imagecache/height-200/' + _vm.user.image_url
+      "src": '/imagecache/height-200' + _vm.user.image_url
     }
-  })])], 1)], 1) : _vm._e()], 1)], 1), _vm._v(" "), _c('el-form', {
+  })], 1)], 1)], 1) : _vm._e()], 1)], 1), _vm._v(" "), _c('el-form', {
     ref: "profile",
     attrs: {
       "label-position": "top",
@@ -68534,13 +68538,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "type": "card"
       }
-    }, [_vm._l((_vm.languages), function(language) {
-      return [_c('el-tab-pane', {
-        attrs: {
-          "label": language.name
-        }
-      }, [_vm._v(" 123\n\n                            ")])]
-    })], 2), _vm._v(" "), _c('el-button', {
+    }), _vm._v(" "), _c('el-button', {
       staticStyle: {
         "margin-top": "20px"
       },
