@@ -27,9 +27,8 @@ mix.webpackConfig({
         }),
         // new UglifyJsPlugin({
         //     uglifyOptions: {
-        //         compress: {
-        //             warnings: false
-        //         }
+        //         warnings: false,
+        //         compress: {}
         //     },
         //     sourceMap: true
         // }),
