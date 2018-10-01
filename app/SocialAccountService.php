@@ -5,108 +5,103 @@ namespace App;
 use Laravel\Socialite\Contracts\User as ProviderUser;
 use Laravel\Socialite\Facades\Socialite;
 
-class SocialAccountService
-{
-    public function createOrGetFBUser(ProviderUser $providerUser){
-        $account = SocialAccount::whereProvider('facebook')->whereProviderUserId($providerUser->getId())->first();
+class SocialAccountService {
+	public function createOrGetFBUser( ProviderUser $providerUser ) {
+		$account = SocialAccount::whereProvider( 'facebook' )->whereProviderUserId( $providerUser->getId() )->first();
 
-        if ($account) {
-            if ( ! $account->user){
-                $account->delete();
-            }
-            return $account->user;
-        } else {
-            $account = new SocialAccount([
-                'provider_user_id' => $providerUser->getId(),
-                'provider' => 'facebook'
-            ]);
+		if ( $account ) {
+			if ( ! $account->user ) {
+				$account->delete();
+			}
 
-            $user = User::whereEmail($providerUser->getEmail())->first();
+			return $account->user;
+		} else {
+			$account = new SocialAccount( [
+				'provider_user_id' => $providerUser->getId(),
+				'provider'         => 'facebook'
+			] );
 
-            if (!$user) {
-                $user = User::create([
-                    'email'         => $providerUser->getEmail(),
-                    'name'          => $providerUser->getName(),
-                    'photo'        => $providerUser->getAvatar(),
-                    'user_type'     => 'user',
-                    'active_status' => '1',
-                ]);
-            }
-            $account->user()->associate($user);
-            $account->save();
+			$user = User::whereEmail( $providerUser->getEmail() )->first();
 
-            return $user;
-        }
-    }
+			if ( ! $user ) {
+				$user = User::create( [
+					'email'          => $providerUser->getEmail(),
+					'name'           => $providerUser->getName(),
+					'email_verified' => true,
+					'user_type'      => 'user',
+				] );
+			}
+			$account->user()->associate( $user );
+			$account->save();
+
+			return $user;
+		}
+	}
 
 
-    public function createOrGetGoogleUser(ProviderUser $providerUser){
-        $account = SocialAccount::whereProvider('google')->whereProviderUserId($providerUser->getId())->first();
-        if ($account) {
-            if ( ! $account->user){
-                $account->delete();
-            }
-            return $account->user;
-        } else {
-            $account = new SocialAccount([
-                'provider_user_id' => $providerUser->getId(),
-                'provider' => 'google'
-            ]);
+	public function createOrGetGoogleUser( ProviderUser $providerUser ) {
+		$account = SocialAccount::whereProvider( 'google' )->whereProviderUserId( $providerUser->getId() )->first();
+		if ( $account ) {
+			if ( ! $account->user ) {
+				$account->delete();
+			}
 
-            $user = User::whereEmail($providerUser->getEmail())->first();
+			return $account->user;
+		} else {
+			$account = new SocialAccount( [
+				'provider_user_id' => $providerUser->getId(),
+				'provider'         => 'google'
+			] );
 
-            if (!$user) {
-                $user = User::create([
-                    'email'         => $providerUser->getEmail(),
-                    'name'          => $providerUser->getName(),
-                    'photo'        => $providerUser->getAvatar(),
-                    'user_type'     => 'user',
-                    'active_status' => '1',
-                ]);
-            }
+			$user = User::whereEmail( $providerUser->getEmail() )->first();
 
-            $account->user()->associate($user);
-            $account->save();
+			if ( ! $user ) {
+				$user = User::create( [
+					'email'          => $providerUser->getEmail(),
+					'name'           => $providerUser->getName(),
+					'email_verified' => true,
+					'user_type'      => 'user',
+				] );
+			}
 
-            return $user;
-        }
-    }
+			$account->user()->associate( $user );
+			$account->save();
 
-    public function createOrGetTwitterUser(ProviderUser $providerUser){
-        $account = SocialAccount::whereProvider('twitter')->whereProviderUserId($providerUser->getId())->first();
-        if ($account) {
-            if ( ! $account->user){
-                //Delete social table account if user is not exists
-                $account->delete();
-            }
-            return $account->user;
-        } else {
-            $account = new SocialAccount([
-                'provider_user_id' => $providerUser->getId(),
-                'provider' => 'twitter'
-            ]);
+			return $user;
+		}
+	}
 
-            $user = User::whereEmail($providerUser->getEmail())->first();
+	public function createOrGetTwitterUser( ProviderUser $providerUser ) {
+		$account = SocialAccount::whereProvider( 'twitter' )->whereProviderUserId( $providerUser->getId() )->first();
+		if ( $account ) {
+			if ( ! $account->user ) {
+				//Delete social table account if user is not exists
+				$account->delete();
+			}
 
-            if (!$user) {
-                $avatar_url = $providerUser->getAvatar();
-                if ( ! empty($providerUser->user['profile_image_url_https'])){
-                    $avatar_url = $providerUser->user['profile_image_url_https'];
-                }
-                $user = User::create([
-                    'email'         => $providerUser->getEmail(),
-                    'name'          => $providerUser->getName(),
-                    'photo'        => $avatar_url,
-                    'user_type'     => 'user',
-                    'active_status' => '1',
-                ]);
-            }
+			return $account->user;
+		} else {
+			$account = new SocialAccount( [
+				'provider_user_id' => $providerUser->getId(),
+				'provider'         => 'twitter'
+			] );
 
-            $account->user()->associate($user);
-            $account->save();
+			$user = User::whereEmail( $providerUser->getEmail() )->first();
 
-            return $user;
-        }
-    }
+			if ( ! $user ) {
+				$user = User::create( [
+					'email'          => $providerUser->getEmail(),
+					'name'           => $providerUser->getName(),
+					'email_verified' => true,
+					'user_type'      => 'user',
+				] );
+			}
+
+			$account->user()->associate( $user );
+			$account->save();
+
+			return $user;
+		}
+	}
 
 }

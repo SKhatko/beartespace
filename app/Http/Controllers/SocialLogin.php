@@ -16,8 +16,8 @@ class SocialLogin extends Controller {
 
 	public function callbackFacebook( SocialAccountService $service ) {
 		try {
-			$fb_user = Socialite::driver( 'facebook' )->user();
-			$user    = $service->createOrGetFBUser( $fb_user );
+			$fbUser = Socialite::driver( 'facebook' )->user();
+			$user    = $service->createOrGetFBUser( $fbUser );
 			if ( ! $user ) {
 				return redirect( route( 'facebook-redirect' ) );
 			}
@@ -37,8 +37,6 @@ class SocialLogin extends Controller {
 	public function callbackGoogle( SocialAccountService $service ) {
 		try {
 			$googleUser = Socialite::driver( 'google' )->user();
-
-			logger( $googleUser );
 
 			$user = $service->createOrGetGoogleUser( $googleUser );
 			if ( ! $user ) {
@@ -60,8 +58,8 @@ class SocialLogin extends Controller {
 
 	public function callbackTwitter( SocialAccountService $service ) {
 		try {
-			$twitter_user = Socialite::driver( 'twitter' )->user();
-			$user         = $service->createOrGetTwitterUser( $twitter_user );
+			$twitterUser = Socialite::driver( 'twitter' )->user();
+			$user         = $service->createOrGetTwitterUser( $twitterUser );
 			if ( ! $user ) {
 				return redirect( route( 'twitter-redirect' ) );
 			}
