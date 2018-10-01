@@ -1,7 +1,7 @@
 <template>
 
     <div style="display: inline-block;">
-        <a href="/register" v-if="type_ === 'link'" @click.prevent="showSignupDialog = !showSignupDialog" class="el-button el-button--text">{{ trans('portal')['register']}}</a>
+        <a href="/register" v-if="type_ === 'link'" @click.prevent="showSignupDialog = !showSignupDialog" class="el-button el-button--text register-link">{{ trans('portal')['register']}}</a>
         <el-button type="text" v-if="type_ === 'button'" @click.prevent="showSignupDialog = !showSignupDialog">&nbsp; Create New Account</el-button>
 
         <el-dialog
@@ -79,6 +79,10 @@
 </script>
 
 <style lang="scss">
+
+    .register-link {
+        color: #606266;
+    }
 
     .register {
 

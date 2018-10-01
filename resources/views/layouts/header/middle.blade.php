@@ -42,7 +42,7 @@
 
         </div>
 
-        <div class="app-header-currencies">
+        <div class="app-header-currencies" style="display: none;">
             <el-dropdown trigger="click">
                       <span class="el-dropdown-link">
                           {{ getCurrentCurrency() }}
@@ -60,7 +60,7 @@
             </el-dropdown>
         </div>
 
-        <div class="app-header-languages">
+        <div class="app-header-languages" style="display: none;">
             <el-dropdown trigger="click">
                       <span class="el-dropdown-link">
                           {{ currentLanguage()->name ?? 'en' }}

@@ -56,7 +56,7 @@
                     {!! showPage('contacts-in-footer') !!}
                 </div>
 
-                <div class="app-footer-submenu">
+                <div class="app-footer-submenu" style="display: none;">
 
                     <div class="app-footer-currencies">
                         Currency:

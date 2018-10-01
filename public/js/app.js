@@ -20261,6 +20261,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -22987,7 +22990,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(18)();
-exports.push([module.i, "\n.register .icon {\n  display: block;\n  font-size: 32px;\n  border-right: 2px solid white;\n  margin-right: 10px;\n}\n.register p {\n  line-height: 20px;\n}\n.register .el-card__body {\n  background-color: #3babab;\n  color: #ffffff;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-align: center;\n      align-items: center;\n  font-size: 16px;\n  cursor: pointer;\n}\n.register .el-card__body:hover {\n    background-color: #379797;\n}\n", ""]);
+exports.push([module.i, "\n.register-link {\n  color: #606266;\n}\n.register .icon {\n  display: block;\n  font-size: 32px;\n  border-right: 2px solid white;\n  margin-right: 10px;\n}\n.register p {\n  line-height: 20px;\n}\n.register .el-card__body {\n  background-color: #3babab;\n  color: #ffffff;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-align: center;\n      align-items: center;\n  font-size: 16px;\n  cursor: pointer;\n}\n.register .el-card__body:hover {\n    background-color: #379797;\n}\n", ""]);
 
 /***/ }),
 /* 184 */
@@ -67707,11 +67710,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "required": "",
       "prop": "description"
     }
-  }, [_c('vue-editor', {
+  }, [_c('el-input', {
     attrs: {
-      "id": "description",
-      "placeholder": "Artwork description",
-      "editorToolbar": _vm.artworkEditorToolbar
+      "type": "textarea",
+      "placeholder": "Please input"
     },
     model: {
       value: (_vm.artwork.description),
@@ -67725,11 +67727,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "slot": "label"
     },
     slot: "label"
-  }, [_vm._v("Inspiration")]), _vm._v(" "), _c('vue-editor', {
+  }, [_vm._v("Inspiration")]), _vm._v(" "), _c('el-input', {
     attrs: {
-      "id": "inspiration",
-      "placeholder": "Things that inspire you",
-      "editorToolbar": _vm.artworkEditorToolbar
+      "type": "textarea",
+      "placeholder": "Please input"
     },
     model: {
       value: (_vm.artwork.inspiration),
@@ -70415,7 +70416,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "display": "inline-block"
     }
   }, [(_vm.type_ === 'link') ? _c('a', {
-    staticClass: "el-button el-button--text",
+    staticClass: "el-button el-button--text register-link",
     attrs: {
       "href": "/register"
     },
