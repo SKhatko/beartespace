@@ -12,18 +12,18 @@ class UsersTableSeeder extends Seeder {
 	public function run() {
 
 		DB::table( 'users' )->insert( [
-			[
-				'first_name'       => 'Stanislav',
-				'last_name'        => 'Khatko',
-				'email'            => 's.a.hatko@gmail.com',
-				'user_name'        => 'admin',
-				'password'         => bcrypt( '123456' ),
-				'gender'           => 'male',
-				'activation_token' => str_random( 60 ),
-				'user_type'        => 'admin',
-				'email_verified'   => true,
-				'created_at'       => now(),
-			],
+//			[
+//				'first_name'       => 'Stanislav',
+//				'last_name'        => 'Khatko',
+//				'email'            => 's.a.hatko@gmail.com',
+//				'user_name'        => 'admin',
+//				'password'         => bcrypt( '123456' ),
+//				'gender'           => 'male',
+//				'activation_token' => str_random( 60 ),
+//				'user_type'        => 'admin',
+//				'email_verified'   => true,
+//				'created_at'       => now(),
+//			],
 			[
 				'first_name'       => 'Support',
 				'last_name'        => 'Team',
