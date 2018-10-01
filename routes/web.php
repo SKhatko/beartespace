@@ -27,14 +27,14 @@ Route::group( [ 'middleware' => 'web' ], function () {
 
 	Route::group( [ 'prefix' => 'login' ], function () {
 		//Social login route
-		Route::get( 'facebook', 'SocialLogin@redirectFacebook' )->name( 'facebook_redirect' );
-		Route::get( 'facebook-callback', 'SocialLogin@callbackFacebook' )->name( 'facebook_callback' );
+		Route::get( 'facebook', 'SocialLogin@redirectFacebook' )->name( 'facebook-redirect' );
+		Route::get( 'facebook-callback', 'SocialLogin@callbackFacebook' );
 
-		Route::get( 'google', 'SocialLogin@redirectGoogle' )->name( 'google_redirect' );
-		Route::get( 'google-callback', 'SocialLogin@callbackGoogle' )->name( 'google_callback' );
+		Route::get( 'google', 'SocialLogin@redirectGoogle' )->name( 'google-redirect' );
+		Route::get( 'google-callback', 'SocialLogin@callbackGoogle' );
 
-		Route::get( 'twitter', 'SocialLogin@redirectTwitter' )->name( 'twitter_redirect' );
-		Route::get( 'twitter-callback', 'SocialLogin@callbackTwitter' )->name( 'twitter_callback' );
+		Route::get( 'twitter', 'SocialLogin@redirectTwitter' )->name( 'twitter-redirect' );
+		Route::get( 'twitter-callback', 'SocialLogin@callbackTwitter' );
 	} );
 
 

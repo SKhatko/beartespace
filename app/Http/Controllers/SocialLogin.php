@@ -19,7 +19,7 @@ class SocialLogin extends Controller {
 			$fb_user = Socialite::driver( 'facebook' )->user();
 			$user    = $service->createOrGetFBUser( $fb_user );
 			if ( ! $user ) {
-				return redirect( route( 'facebook_redirect' ) );
+				return redirect( route( 'facebook-redirect' ) );
 			}
 			auth()->login( $user );
 
@@ -42,13 +42,14 @@ class SocialLogin extends Controller {
 
 			$user = $service->createOrGetGoogleUser( $googleUser );
 			if ( ! $user ) {
-				return redirect( route( 'google_redirect' ) );
+				return redirect( route( 'google-redirect' ) );
 			}
 			auth()->login( $user );
 
 			return redirect()->intended( route( 'dashboard' ) );
 		} catch ( \Exception $e ) {
 			//return $e->getMessage();
+			logger($e->getMessage());
 			return redirect( route( 'login' ) )->with( 'error', $e->getMessage() );
 		}
 	}
@@ -62,7 +63,7 @@ class SocialLogin extends Controller {
 			$twitter_user = Socialite::driver( 'twitter' )->user();
 			$user         = $service->createOrGetTwitterUser( $twitter_user );
 			if ( ! $user ) {
-				return redirect( route( 'twitter_redirect' ) );
+				return redirect( route( 'twitter-redirect' ) );
 			}
 			auth()->login( $user );
 
