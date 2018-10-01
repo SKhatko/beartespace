@@ -39,16 +39,20 @@ class ConfirmEmailController extends Controller {
 
 		if ( ! $user ) {
 			return redirect( '/' );
+		} else if ( $user->email_verified ) {
+//			auth()->logout();
+			return redirect( '/' );
 		}
 
 		$user->email_verified = true;
 
 		$user->save();
 
-		auth()->logout();
+		auth()->login( $user );
+
 
 		if ( $user->user_type == 'artist' ) {
-			return redirect()->route( 'dashboard.profile' );
+			return redirect()->route( 'dashboard' );
 		}
 
 		return redirect()->route( 'dashboard' );

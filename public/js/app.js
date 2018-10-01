@@ -67490,7 +67490,50 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "href": "/password/reset"
     }
-  }, [_vm._v("Forgot Your Password?")])])], 1)], 2)], 1)
+  }, [_vm._v("Forgot Your Password?")])])], 1), _vm._v(" "), _c('div', {
+    staticClass: "h4",
+    staticStyle: {
+      "margin": "20px 0",
+      "text-align": "center"
+    }
+  }, [_vm._v("Log in via")]), _vm._v(" "), _c('el-button', {
+    attrs: {
+      "plain": ""
+    }
+  }, [_c('a', {
+    attrs: {
+      "href": "/login/facebook"
+    }
+  }, [_c('span', {
+    staticClass: "hidden-xs"
+  }, [_c('i', {
+    staticClass: "fa fa-facebook-square"
+  }), _vm._v(" Facebook")])])]), _vm._v(" "), _c('el-button', {
+    attrs: {
+      "plain": ""
+    }
+  }, [_c('a', {
+    attrs: {
+      "href": "/login/google"
+    }
+  }, [_c('span', {
+    staticClass: "hidden-xs"
+  }, [_c('i', {
+    staticClass: "fa fa-google-plus-square"
+  }), _vm._v(" Google")])])]), _vm._v(" "), _c('el-button', {
+    attrs: {
+      "plain": ""
+    }
+  }, [_c('a', {
+    staticClass: "btn btn-lg btn-block btn-twitter",
+    attrs: {
+      "href": "/login/twitter"
+    }
+  }, [_c('span', {
+    staticClass: "hidden-xs"
+  }, [_c('i', {
+    staticClass: "fa fa-twitter"
+  }), _vm._v(" Twitter")])])])], 2)], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

@@ -60,7 +60,8 @@ return array(
 	    'height-100' => 'App\Filters\Height100',
 	    'height-200' => 'App\Filters\Height200',
 	    'height-40' => 'App\Filters\Height40',
-	    'height-80' => 'App\Filters\Height80'
+	    'height-80' => 'App\Filters\Height80',
+	    'fit-290' => 'App\Filters\Fit290'
     ),
 
     /*

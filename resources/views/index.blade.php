@@ -60,7 +60,7 @@
 
                             <div class="auction">
                                 <a href="{{ route('auction', $auction->id) }}" class="auction-image">
-                                    <img src="/imagecache/height-200{{ $auction->image_url }}"
+                                    <img src="/imagecache/fit-290{{ $auction->image_url }}"
                                          alt="{{ $auction->image->name }}">
                                 </a>
 
@@ -101,7 +101,7 @@
                         <a href="{{ route('artwork', $article->id) }}" class="article">
                             @if($article->image)
                                 <div class="article-image">
-                                    <img src="/imagecache/height-200{{ $article->image_url }}"
+                                    <img src="/imagecache/fit-290{{ $article->image_url }}"
                                          alt="{{ $article->image->name }}">
                                 </div>
                             @endif
@@ -142,7 +142,7 @@
                         @if($artwork->image)
                             <div class="artwork">
                                 <a href="{{ route('artwork', $artwork->id) }}" class="artwork-image">
-                                    <img src="/imagecache/height-200{{ $artwork->image_url }}"
+                                    <img src="/imagecache/fit-290{{ $artwork->image_url }}"
                                          alt="{{ $artwork->image->name }}">
                                 </a>
                             </div>
