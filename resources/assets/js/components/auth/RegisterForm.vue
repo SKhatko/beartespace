@@ -10,22 +10,6 @@
                 <slot></slot>
 
                 <input type="hidden" name="_token" :value="csrf">
-                <input type="hidden" name="user_type" v-model="user.user_type">
-
-                <!--<el-row :gutter="20">-->
-                <!--<el-col>-->
-
-                <!--<el-form-item label="Select user type">-->
-
-                <!--<el-radio-group v-model="user.user_type" name="user_type">-->
-                <!--<el-radio-button name="user_type" label="user">Customer</el-radio-button>-->
-                <!--<el-radio-button name="user_type" label="artist">Artist</el-radio-button>-->
-                <!--<el-radio-button name="user_type" label="gallery">Gallery</el-radio-button>-->
-                <!--</el-radio-group>-->
-
-                <!--</el-form-item>-->
-                <!--</el-col>-->
-                <!--</el-row>-->
 
                 <el-row :gutter="20">
                     <el-col :sm="12">
@@ -55,11 +39,27 @@
                     </el-input>
                 </el-form-item>
 
-                <!-- TODO Social login -->
-                <!--@include('auth.social_login')-->
+                <el-form-item>
+                    <el-button type="primary" native-type="submit" :loading="loading" style="width: 100%">Register</el-button>
+                </el-form-item>
 
-                <p style="margin-bottom:20px;">
-                    By Registering, you agree that you've read and accepted our <a :href="userAgreementSrc"
+                <div class="h5" style="margin: 20px 0; text-align: center;">or</div>
+
+                <a href="/login/facebook" class="el-button el-button--default is-plain" style="display: block;">
+                    Continue with Facebook
+                </a>
+
+                <a href="/login/google" class="el-button el-button--default is-plain"
+                   style="display: block;margin: 15px 0;">
+                    Continue with Google
+                </a>
+
+                <a href="/login/twitter" class="el-button el-button--default is-plain" style="display: block;margin: 0;">
+                    Continue with Twitter
+                </a>
+
+                <p class="small">
+                    By Registering, you agree that you've read and accepted our <a href="/pages/user-agreement"
                                                                                    target="_blank"
                                                                                    style="font-weight: bold;">User
                     Agreement</a>, you're at least 18 years
@@ -67,17 +67,6 @@
                                                    style="font-weight: bold;">Privacy Notice</a> and receiving marketing
                     communications from us.
                 </p>
-
-                <el-form-item>
-                    <el-button type="primary" native-type="submit" :loading="loading">Register</el-button>
-
-                    <el-button type="text">
-                        <a href="/login">
-                            or Login
-                        </a>
-                    </el-button>
-
-                </el-form-item>
 
             </el-form>
 
@@ -98,7 +87,6 @@
         data() {
             return {
                 user: {
-                    user_type: 'user',
                     first_name: '',
                     last_name: '',
                     email: '',
@@ -128,9 +116,6 @@
         mounted() {
             this.csrf = window.csrf;
 
-            if (this.userType_ && (this.userType_ === 'artist' || this.userType_ === 'gallery')) {
-                this.user.user_type = this.userType_;
-            }
         },
 
         methods: {
@@ -147,9 +132,7 @@
             }
         },
         computed: {
-            userAgreementSrc() {
-                return '/page/' + this.user.user_type + '-agreement';
-            }
+
         }
     }
 </script>

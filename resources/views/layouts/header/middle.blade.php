@@ -81,7 +81,7 @@
         <div class="app-header-auth">
             @if (Auth::guest())
 
-                <signup-dialog type_="link"></signup-dialog>
+                <a href="/register">{{ trans('portal.register') }}</a>
 
                 <a href="{{ route('login') }}" style="margin-left: 10px;"
                    class="el-button el-button--default is-plain">@lang('portal.sign-in')</a> &nbsp;

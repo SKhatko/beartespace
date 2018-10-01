@@ -24,40 +24,42 @@
 
                 <el-form-item>
                     <el-checkbox name="remember" :checked="user.remember">Remember Me</el-checkbox>
+
+                    <a href="/password/reset" style="float: right;text-decoration: underline;">Forgot Your Password?</a>
                 </el-form-item>
 
                 <el-form-item>
-                    <el-button type="primary" native-type="submit" :loading="loading">Sign in</el-button>
-
-                    <signup-dialog type_="button"></signup-dialog>
-
+                    <el-button type="primary" native-type="submit" :loading="loading" style="width:100%">
+                        Sign in
+                    </el-button>
                 </el-form-item>
-
-                <el-button type="text"><a href="/password/reset">Forgot Your Password?</a></el-button>
-
 
             </el-form>
 
-            <div class="h4" style="margin: 20px 0; text-align: center;">Log in via</div>
+            <div class="h5" style="margin: 20px 0; text-align: center;">or</div>
 
-            <el-button plain>
-                <a href="/login/facebook">
-                    <span class="hidden-xs"><i class="fa fa-facebook-square"></i> Facebook</span>
-                </a>
-            </el-button>
+            <a href="/login/facebook" class="el-button el-button--default is-plain" style="display: block;">
+                Continue with Facebook
+            </a>
 
+            <a href="/login/google" class="el-button el-button--default is-plain"
+               style="display: block;margin: 15px 0;">
+                Continue with Google
+            </a>
 
-            <el-button plain>
-                <a href="/login/google">
-                    <span class="hidden-xs"><i class="fa fa-google-plus-square"></i> Google</span>
-                </a>
-            </el-button>
+            <a href="/login/twitter" class="el-button el-button--default is-plain" style="display: block;margin: 0;">
+                Continue with Twitter
+            </a>
 
-            <el-button plain>
-                <a href="/login/twitter" class="btn btn-lg btn-block btn-twitter">
-                    <span class="hidden-xs"><i class="fa fa-twitter"></i> Twitter</span>
-                </a>
-            </el-button>
+            <p class="small">
+                By Registering, you agree that you've read and accepted our <a href="/pages/user-agreement"
+                                                                               target="_blank"
+                                                                               style="font-weight: bold;">User
+                Agreement</a>, you're at least 18 years
+                old, and you consent to our <a href="/page/cookies-and-privacy" target="_blank"
+                                               style="font-weight: bold;">Privacy Notice</a> and receiving marketing
+                communications from us.
+            </p>
 
         </el-card>
 

@@ -16242,7 +16242,6 @@ Vue.use(SocialSharing);
 
 Vue.component('subscription-form', __webpack_require__(233));
 Vue.component('partials-artwork', __webpack_require__(231));
-Vue.component('signup-dialog', __webpack_require__(222));
 
 Vue.component('artworks-menu', __webpack_require__(215));
 Vue.component('artists-menu', __webpack_require__(214));
@@ -19411,6 +19410,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -19723,17 +19724,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -19746,7 +19736,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             user: {
-                user_type: 'user',
                 first_name: '',
                 last_name: '',
                 email: '',
@@ -19766,10 +19755,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     mounted: function mounted() {
         this.csrf = window.csrf;
-
-        if (this.userType_ && (this.userType_ === 'artist' || this.userType_ === 'gallery')) {
-            this.user.user_type = this.userType_;
-        }
     },
 
 
@@ -19788,96 +19773,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.passwordType = this.passwordType === 'password' ? 'text' : 'password';
         }
     },
-    computed: {
-        userAgreementSrc: function userAgreementSrc() {
-            return '/page/' + this.user.user_type + '-agreement';
-        }
-    }
+    computed: {}
 });
 
 /***/ }),
-/* 132 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    props: {
-        type_: ''
-    },
-    data: function data() {
-        return {
-            showSignupDialog: false
-        };
-    },
-    mounted: function mounted() {}
-});
-
-/***/ }),
+/* 132 */,
 /* 133 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -22989,13 +22889,7 @@ exports = module.exports = __webpack_require__(18)();
 exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
-/* 183 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(18)();
-exports.push([module.i, "\n.register-link {\n  color: #606266;\n}\n.register .icon {\n  display: block;\n  font-size: 32px;\n  border-right: 2px solid white;\n  margin-right: 10px;\n}\n.register p {\n  line-height: 20px;\n}\n.register .el-card__body {\n  background-color: #3babab;\n  color: #ffffff;\n  display: -ms-flexbox;\n  display: flex;\n  -ms-flex-align: center;\n      align-items: center;\n  font-size: 16px;\n  cursor: pointer;\n}\n.register .el-card__body:hover {\n    background-color: #379797;\n}\n", ""]);
-
-/***/ }),
+/* 183 */,
 /* 184 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -65872,44 +65766,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 222 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-/* styles */
-__webpack_require__(262)
-
-var Component = __webpack_require__(0)(
-  /* script */
-  __webpack_require__(132),
-  /* template */
-  __webpack_require__(255),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "/Users/skhatko/code/larabid/resources/assets/js/components/auth/SignupDialog.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] SignupDialog.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-b4db9954", Component.options)
-  } else {
-    hotAPI.reload("data-v-b4db9954", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
+/* 222 */,
 /* 223 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -67472,68 +67329,74 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "name": "remember",
       "checked": _vm.user.remember
     }
-  }, [_vm._v("Remember Me")])], 1), _vm._v(" "), _c('el-form-item', [_c('el-button', {
+  }, [_vm._v("Remember Me")]), _vm._v(" "), _c('a', {
+    staticStyle: {
+      "float": "right",
+      "text-decoration": "underline"
+    },
+    attrs: {
+      "href": "/password/reset"
+    }
+  }, [_vm._v("Forgot Your Password?")])], 1), _vm._v(" "), _c('el-form-item', [_c('el-button', {
+    staticStyle: {
+      "width": "100%"
+    },
     attrs: {
       "type": "primary",
       "native-type": "submit",
       "loading": _vm.loading
     }
-  }, [_vm._v("Sign in")]), _vm._v(" "), _c('signup-dialog', {
-    attrs: {
-      "type_": "button"
-    }
-  })], 1), _vm._v(" "), _c('el-button', {
-    attrs: {
-      "type": "text"
-    }
-  }, [_c('a', {
-    attrs: {
-      "href": "/password/reset"
-    }
-  }, [_vm._v("Forgot Your Password?")])])], 1), _vm._v(" "), _c('div', {
-    staticClass: "h4",
+  }, [_vm._v("\n                    Sign in\n                ")])], 1)], 1), _vm._v(" "), _c('div', {
+    staticClass: "h5",
     staticStyle: {
       "margin": "20px 0",
       "text-align": "center"
     }
-  }, [_vm._v("Log in via")]), _vm._v(" "), _c('el-button', {
-    attrs: {
-      "plain": ""
-    }
-  }, [_c('a', {
+  }, [_vm._v("or")]), _vm._v(" "), _c('a', {
+    staticClass: "el-button el-button--default is-plain",
+    staticStyle: {
+      "display": "block"
+    },
     attrs: {
       "href": "/login/facebook"
     }
-  }, [_c('span', {
-    staticClass: "hidden-xs"
-  }, [_c('i', {
-    staticClass: "fa fa-facebook-square"
-  }), _vm._v(" Facebook")])])]), _vm._v(" "), _c('el-button', {
-    attrs: {
-      "plain": ""
-    }
-  }, [_c('a', {
+  }, [_vm._v("\n            Continue with Facebook\n        ")]), _vm._v(" "), _c('a', {
+    staticClass: "el-button el-button--default is-plain",
+    staticStyle: {
+      "display": "block",
+      "margin": "15px 0"
+    },
     attrs: {
       "href": "/login/google"
     }
-  }, [_c('span', {
-    staticClass: "hidden-xs"
-  }, [_c('i', {
-    staticClass: "fa fa-google-plus-square"
-  }), _vm._v(" Google")])])]), _vm._v(" "), _c('el-button', {
-    attrs: {
-      "plain": ""
-    }
-  }, [_c('a', {
-    staticClass: "btn btn-lg btn-block btn-twitter",
+  }, [_vm._v("\n            Continue with Google\n        ")]), _vm._v(" "), _c('a', {
+    staticClass: "el-button el-button--default is-plain",
+    staticStyle: {
+      "display": "block",
+      "margin": "0"
+    },
     attrs: {
       "href": "/login/twitter"
     }
-  }, [_c('span', {
-    staticClass: "hidden-xs"
-  }, [_c('i', {
-    staticClass: "fa fa-twitter"
-  }), _vm._v(" Twitter")])])])], 2)], 1)
+  }, [_vm._v("\n            Continue with Twitter\n        ")]), _vm._v(" "), _c('p', {
+    staticClass: "small"
+  }, [_vm._v("\n            By Registering, you agree that you've read and accepted our "), _c('a', {
+    staticStyle: {
+      "font-weight": "bold"
+    },
+    attrs: {
+      "href": "/pages/user-agreement",
+      "target": "_blank"
+    }
+  }, [_vm._v("User\n            Agreement")]), _vm._v(", you're at least 18 years\n            old, and you consent to our "), _c('a', {
+    staticStyle: {
+      "font-weight": "bold"
+    },
+    attrs: {
+      "href": "/page/cookies-and-privacy",
+      "target": "_blank"
+    }
+  }, [_vm._v("Privacy Notice")]), _vm._v(" and receiving marketing\n            communications from us.\n        ")])], 2)], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -68828,26 +68691,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     domProps: {
       "value": _vm.csrf
     }
-  }), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.user.user_type),
-      expression: "user.user_type"
-    }],
-    attrs: {
-      "type": "hidden",
-      "name": "user_type"
-    },
-    domProps: {
-      "value": (_vm.user.user_type)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.$set(_vm.user, "user_type", $event.target.value)
-      }
-    }
   }), _vm._v(" "), _c('el-row', {
     attrs: {
       "gutter": 20
@@ -68939,16 +68782,55 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "click": _vm.togglePasswordView
     },
     slot: "append"
-  })], 1)], 1), _vm._v(" "), _c('p', {
+  })], 1)], 1), _vm._v(" "), _c('el-form-item', [_c('el-button', {
     staticStyle: {
-      "margin-bottom": "20px"
+      "width": "100%"
+    },
+    attrs: {
+      "type": "primary",
+      "native-type": "submit",
+      "loading": _vm.loading
     }
+  }, [_vm._v("Register")])], 1), _vm._v(" "), _c('div', {
+    staticClass: "h5",
+    staticStyle: {
+      "margin": "20px 0",
+      "text-align": "center"
+    }
+  }, [_vm._v("or")]), _vm._v(" "), _c('a', {
+    staticClass: "el-button el-button--default is-plain",
+    staticStyle: {
+      "display": "block"
+    },
+    attrs: {
+      "href": "/login/facebook"
+    }
+  }, [_vm._v("\n                Continue with Facebook\n            ")]), _vm._v(" "), _c('a', {
+    staticClass: "el-button el-button--default is-plain",
+    staticStyle: {
+      "display": "block",
+      "margin": "15px 0"
+    },
+    attrs: {
+      "href": "/login/google"
+    }
+  }, [_vm._v("\n                Continue with Google\n            ")]), _vm._v(" "), _c('a', {
+    staticClass: "el-button el-button--default is-plain",
+    staticStyle: {
+      "display": "block",
+      "margin": "0"
+    },
+    attrs: {
+      "href": "/login/twitter"
+    }
+  }, [_vm._v("\n                Continue with Twitter\n            ")]), _vm._v(" "), _c('p', {
+    staticClass: "small"
   }, [_vm._v("\n                By Registering, you agree that you've read and accepted our "), _c('a', {
     staticStyle: {
       "font-weight": "bold"
     },
     attrs: {
-      "href": _vm.userAgreementSrc,
+      "href": "/pages/user-agreement",
       "target": "_blank"
     }
   }, [_vm._v("User\n                Agreement")]), _vm._v(", you're at least 18 years\n                old, and you consent to our "), _c('a', {
@@ -68959,21 +68841,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "href": "/page/cookies-and-privacy",
       "target": "_blank"
     }
-  }, [_vm._v("Privacy Notice")]), _vm._v(" and receiving marketing\n                communications from us.\n            ")]), _vm._v(" "), _c('el-form-item', [_c('el-button', {
-    attrs: {
-      "type": "primary",
-      "native-type": "submit",
-      "loading": _vm.loading
-    }
-  }, [_vm._v("Register")]), _vm._v(" "), _c('el-button', {
-    attrs: {
-      "type": "text"
-    }
-  }, [_c('a', {
-    attrs: {
-      "href": "/login"
-    }
-  }, [_vm._v("\n                        or Login\n                    ")])])], 1)], 2)], 1)], 1)
+  }, [_vm._v("Privacy Notice")]), _vm._v(" and receiving marketing\n                communications from us.\n            ")])], 2)], 1)], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -70451,115 +70319,7 @@ if (false) {
 }
 
 /***/ }),
-/* 255 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticStyle: {
-      "display": "inline-block"
-    }
-  }, [(_vm.type_ === 'link') ? _c('a', {
-    staticClass: "el-button el-button--text register-link",
-    attrs: {
-      "href": "/register"
-    },
-    on: {
-      "click": function($event) {
-        $event.preventDefault();
-        _vm.showSignupDialog = !_vm.showSignupDialog
-      }
-    }
-  }, [_vm._v(_vm._s(_vm.trans('portal')['register']))]) : _vm._e(), _vm._v(" "), (_vm.type_ === 'button') ? _c('el-button', {
-    attrs: {
-      "type": "text"
-    },
-    on: {
-      "click": function($event) {
-        $event.preventDefault();
-        _vm.showSignupDialog = !_vm.showSignupDialog
-      }
-    }
-  }, [_vm._v("  Create New Account")]) : _vm._e(), _vm._v(" "), _c('el-dialog', {
-    attrs: {
-      "visible": _vm.showSignupDialog,
-      "width": "400px",
-      "center": ""
-    },
-    on: {
-      "update:visible": function($event) {
-        _vm.showSignupDialog = $event
-      }
-    }
-  }, [_c('div', {
-    staticClass: "register"
-  }, [_c('el-row', {
-    staticStyle: {
-      "margin-bottom": "20px"
-    },
-    attrs: {
-      "gutter": 20
-    }
-  }, [_c('el-col', [_c('a', {
-    attrs: {
-      "href": "/register"
-    }
-  }, [_c('el-card', {
-    attrs: {
-      "shadow": "hover"
-    }
-  }, [_c('i', {
-    staticClass: "icon icon-user-outline"
-  }), _vm._v(" "), _c('p', [_vm._v(" I'm a customer. I want to buy Art")])])], 1)])], 1), _vm._v(" "), _c('hr', {
-    staticStyle: {
-      "margin-bottom": "20px"
-    }
-  }), _vm._v(" "), _c('el-row', {
-    staticStyle: {
-      "margin-bottom": "20px"
-    },
-    attrs: {
-      "gutter": 20
-    }
-  }, [_c('el-col', [_c('a', {
-    attrs: {
-      "href": "/register?u=artist"
-    }
-  }, [_c('el-card', {
-    attrs: {
-      "shadow": "hover"
-    }
-  }, [_c('i', {
-    staticClass: "icon icon-art-gallery"
-  }), _vm._v(" "), _c('p', [_vm._v(" I am an artist. I want to sell my artworks")])])], 1)])], 1), _vm._v(" "), _c('hr', {
-    staticStyle: {
-      "margin-bottom": "20px"
-    }
-  }), _vm._v(" "), _c('el-row', {
-    attrs: {
-      "gutter": 20
-    }
-  }, [_c('el-col', [_c('a', {
-    attrs: {
-      "href": "/register?u=gallery"
-    }
-  }, [_c('el-card', {
-    attrs: {
-      "shadow": "hover"
-    }
-  }, [_c('i', {
-    staticClass: "icon icon-picture"
-  }), _vm._v(" "), _c('p', [_vm._v(" I am a Gallery. I want to buy and sell art")])])], 1)])], 1)], 1)])], 1)
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-b4db9954", module.exports)
-  }
-}
-
-/***/ }),
+/* 255 */,
 /* 256 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -71041,32 +70801,7 @@ if(false) {
 }
 
 /***/ }),
-/* 262 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(183);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(19)("10917c36", content, false);
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-b4db9954\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./SignupDialog.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-b4db9954\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./SignupDialog.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
+/* 262 */,
 /* 263 */
 /***/ (function(module, exports) {
 
