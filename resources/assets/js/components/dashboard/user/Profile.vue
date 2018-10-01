@@ -272,8 +272,9 @@
 
                     <el-form-item prop="inspiration">
                         <span slot="label">Inspiration</span>
-                        <vue-editor id="inspiration" v-model="user.inspiration"
-                                    :editorToolbar="profileEditorToolbar"></vue-editor>
+                        <el-input type="textarea" v-model="user.inspiration"></el-input>
+                        <!--<vue-editor id="inspiration" v-model="user.inspiration"-->
+                                    <!--:editorToolbar="profileEditorToolbar"></vue-editor>-->
                     </el-form-item>
 
                 </el-col>
@@ -281,8 +282,10 @@
                 <el-col>
                     <el-form-item label="Exhibitions" prop="exhibition">
                         <span slot="label">Exhibitions</span>
-                        <vue-editor id="exhibition" v-model="user.exhibition"
-                                    :editorToolbar="profileEditorToolbar"></vue-editor>
+                        <el-input type="textarea" v-model="user.exhibition"></el-input>
+
+                        <!--<vue-editor id="exhibition" v-model="user.exhibition"-->
+                                    <!--:editorToolbar="profileEditorToolbar"></vue-editor>-->
                     </el-form-item>
                 </el-col>
 

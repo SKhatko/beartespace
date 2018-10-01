@@ -21456,6 +21456,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -67297,10 +67300,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "slot": "label"
     },
     slot: "label"
-  }, [_vm._v("Inspiration")]), _vm._v(" "), _c('vue-editor', {
+  }, [_vm._v("Inspiration")]), _vm._v(" "), _c('el-input', {
     attrs: {
-      "id": "inspiration",
-      "editorToolbar": _vm.profileEditorToolbar
+      "type": "textarea"
     },
     model: {
       value: (_vm.user.inspiration),
@@ -67319,10 +67321,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "slot": "label"
     },
     slot: "label"
-  }, [_vm._v("Exhibitions")]), _vm._v(" "), _c('vue-editor', {
+  }, [_vm._v("Exhibitions")]), _vm._v(" "), _c('el-input', {
     attrs: {
-      "id": "exhibition",
-      "editorToolbar": _vm.profileEditorToolbar
+      "type": "textarea"
     },
     model: {
       value: (_vm.user.exhibition),
