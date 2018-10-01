@@ -120,15 +120,8 @@ class User extends Authenticatable {
 		return $query->where( 'user_type', 'artist' );
 	}
 
-	public function getNameAttribute() {
-		return trim( $this->first_name ) . ' ' . trim( $this->last_name );
-	}
-
-	public function setNameAttribute($value) {
-		$userName = explode($value, ' ');
-
-		$this->attributes['first_name'] = $userName[0];
-		$this->attributes['last_name'] = $userName[1];
+	public function getNameAttribute($value) {
+		return $value ??  trim( $this->first_name ) . ' ' . trim( $this->last_name );
 	}
 
 	public function plans() {
