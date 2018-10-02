@@ -49,7 +49,7 @@ return [
 		'api_key'       => env( 'GOOGLE_API_KEY' ),
 		'client_id'     => env( 'GOOGLE_CLIENT_ID' ),
 		'client_secret' => env( 'GOOGLE_CLIENT_SECRET' ),
-		'redirect'      => 'http://beartebid.khatko.com/login/google-callback',
+		'redirect'      => url( 'login/google-callback' ),
 	],
 //
 //	'twitter' => [
