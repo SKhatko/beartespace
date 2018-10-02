@@ -33,8 +33,6 @@ class AppServiceProvider extends ServiceProvider {
 			] );
 		} );
 
-		Cashier::useCurrency( 'eur', '€' );
-
 		Paginator::defaultView( 'pagination::vue' );
 
 		Paginator::defaultSimpleView( 'pagination::vue' );
@@ -42,6 +40,13 @@ class AppServiceProvider extends ServiceProvider {
 		Horizon::auth( function ( $request ) {
 			return auth()->user() && auth()->user()->isAdmin() ? true : abort( 404 );
 		} );
+
+		\Braintree_Configuration::environment(config('services.braintree.environment'));
+		\Braintree_Configuration::merchantId(config('services.braintree.merchant_id'));
+		\Braintree_Configuration::publicKey(config('services.braintree.public_key'));
+		\Braintree_Configuration::privateKey(config('services.braintree.private_key'));
+
+		Cashier::useCurrency('eur', '€');
 	}
 
 	/**
