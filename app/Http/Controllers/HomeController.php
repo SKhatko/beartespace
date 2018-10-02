@@ -14,8 +14,6 @@ class HomeController extends Controller {
 
 	public function index() {
 
-		return url( 'login/facebook-callback' );
-
 		$articles = Article::where( 'active', 1 )->take( 2 )->get();
 
 		$artwork = Artwork::inRandomOrder()->with( 'images', 'user' )->first();
