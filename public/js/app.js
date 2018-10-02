@@ -67369,16 +67369,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "href": "/login/google"
     }
-  }, [_vm._v("\n            Continue with Google\n        ")]), _vm._v(" "), _c('a', {
-    staticClass: "el-button el-button--default is-plain",
-    staticStyle: {
-      "display": "block",
-      "margin": "0"
-    },
-    attrs: {
-      "href": "/login/twitter"
-    }
-  }, [_vm._v("\n            Continue with Twitter\n        ")]), _vm._v(" "), _c('p', {
+  }, [_vm._v("\n            Continue with Google\n        ")]), _vm._v(" "), _c('p', {
     staticClass: "small"
   }, [_vm._v("\n            By Registering, you agree that you've read and accepted our "), _c('a', {
     staticStyle: {
@@ -68814,16 +68805,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "href": "/login/google"
     }
-  }, [_vm._v("\n                Continue with Google\n            ")]), _vm._v(" "), _c('a', {
-    staticClass: "el-button el-button--default is-plain",
-    staticStyle: {
-      "display": "block",
-      "margin": "0"
-    },
-    attrs: {
-      "href": "/login/twitter"
-    }
-  }, [_vm._v("\n                Continue with Twitter\n            ")]), _vm._v(" "), _c('p', {
+  }, [_vm._v("\n                Continue with Google\n            ")]), _vm._v(" "), _c('p', {
     staticClass: "small"
   }, [_vm._v("\n                By Registering, you agree that you've read and accepted our "), _c('a', {
     staticStyle: {

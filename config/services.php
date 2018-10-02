@@ -38,13 +38,13 @@ return [
 		'key' => env('PAYPAL_KEY'),
 		'secret' => env('PAYPAL_SECRET')
 	],
-//
-//	'facebook' => [
-//		'client_id'     => env( 'FACEBOOK_CLIENT_ID' ),
-//		'client_secret' => env( 'FACEBOOK_CLIENT_SECRET' ),
-//		'redirect'      => url( 'login/facebook-callback' ),
-//	],
-//
+
+	'facebook' => [
+		'client_id'     => env( 'FACEBOOK_CLIENT_ID' ),
+		'client_secret' => env( 'FACEBOOK_CLIENT_SECRET' ),
+		'redirect'      => url( 'login/facebook-callback' ),
+	],
+
 	'google' => [
 		'api_key'       => env( 'GOOGLE_API_KEY' ),
 		'client_id'     => env( 'GOOGLE_CLIENT_ID' ),

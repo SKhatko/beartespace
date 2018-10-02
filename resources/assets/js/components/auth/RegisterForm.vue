@@ -54,9 +54,9 @@
                     Continue with Google
                 </a>
 
-                <a href="/login/twitter" class="el-button el-button--default is-plain" style="display: block;margin: 0;">
-                    Continue with Twitter
-                </a>
+                <!--<a href="/login/twitter" class="el-button el-button&#45;&#45;default is-plain" style="display: block;margin: 0;">-->
+                    <!--Continue with Twitter-->
+                <!--</a>-->
 
                 <p class="small">
                     By Registering, you agree that you've read and accepted our <a href="/pages/user-agreement"
