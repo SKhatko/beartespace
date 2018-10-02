@@ -40,12 +40,70 @@ class UserController extends Controller {
 
 		$user = auth()->user();
 
-//		->each(function ($media) use $user {
-//			$user->avatar()->associate(factory(Media::class)->create());
-//		});
-//		return $user;
-
 		return view( 'dashboard.user.profile', compact( 'title', 'user' ) );
+	}
+
+
+	public function artists( Request $request ) {
+
+		$artists = User::query()->artist();
+
+		if ( $request->input( 'artist' ) ) {
+			$artist        = $request->input( 'artist' );
+			$userNameArray = explode( ' ', $artist );
+
+			foreach ( $userNameArray as $userNamePart ) {
+				$artists->whereRaw( 'LOWER(first_name) LIKE ?', '%' . $userNamePart . '%' )
+				        ->orWhereRaw( 'LOWER(last_name) LIKE ?', '%' . $userNamePart . '%' );
+			}
+		}
+
+		if ( $request->input( 'country' ) ) {
+			$queries = explode( ',', $request->input( 'country' ) );
+			$artists->whereIn( 'country_id', $queries );
+		}
+
+		if ( $request->input( 'profession' ) ) {
+			$queries = explode( ',', $request->input( 'profession' ) );
+			foreach ( $queries as $query ) {
+				$artists->whereRaw( 'LOWER(profession) LIKE ?', '%' . $query . '%' );
+			}
+		}
+
+		if ( $request->input( 'medium' ) ) {
+			$queries = explode( ',', $request->input( 'medium' ) );
+			foreach ( $queries as $query ) {
+				$artists->with( 'artworks' )->whereHas( 'artworks', function ( $q ) use ( $query ) {
+					$q->whereRaw( 'LOWER(medium) LIKE ?', '%' . $query . '%' );
+				} );
+			}
+		}
+
+		if ( $request->input( 'direction' ) ) {
+			$queries = explode( ',', $request->input( 'direction' ) );
+			foreach ( $queries as $query ) {
+				$artists->with( 'artworks' )->whereHas( 'artworks', function ( $q ) use ( $query ) {
+					$q->whereRaw( 'LOWER(direction) LIKE ?', '%' . $query . '%' );
+				} );
+			}
+		}
+
+		$items = 15;
+
+		if ( $request->has( 'items' ) && $request->input( 'items' ) > 1 ) {
+			$items = $request->get( 'items' );
+		}
+
+		$artists = $artists->paginate( $items );
+
+		return view( 'artist.index', compact( 'artists' ) );
+	}
+
+	public function artist( $id ) {
+
+		$artist = User::where( 'id', $id )->with( 'image', 'avatar', 'artworks.images' )->first();
+
+		return view( 'artist.show', compact( 'artist' ) );
 	}
 
 	public function favoriteArtworks() {
@@ -64,9 +122,7 @@ class UserController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function create() {
-		$countries = Countries::all();
 
-		return view( 'theme.user_create', compact( 'countries' ) );
 	}
 
 	/**
@@ -77,56 +133,7 @@ class UserController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function store( Request $request ) {
-		$rules = [
-			'first_name'            => 'required',
-			'email'                 => 'required|email',
-			'gender'                => 'required',
-			'country'               => 'required',
-			'password'              => 'required|confirmed',
-			'password_confirmation' => 'required',
-			'phone'                 => 'required',
-			'agree'                 => 'required',
-		];
-		$this->validate( $request, $rules );
 
-		$active_status = get_option( 'verification_email_after_registration' );
-
-		$data = [
-			'first_name' => $request->first_name,
-			'last_name'  => $request->last_name,
-			'name'       => $request->first_name . ' ' . $request->last_name,
-			'email'      => $request->email,
-			'password'   => bcrypt( $request->password ),
-			'phone'      => $request->phone,
-			'gender'     => $request->gender,
-			'country_id' => $request->country,
-
-			'user_type'     => 'user',
-			'active_status' => ( $active_status == '1' ) ? '0' : '1',
-		];
-
-		$user_create = User::create( $data );
-
-		if ( $user_create ) {
-			$registration_success_activating_msg = "";
-			if ( $active_status == '1' ) {
-				try {
-					$registration_success_activating_msg = ", we've sent you an activation email, please follow email instruction";
-
-					Mail::send( 'emails.activation_email', [ 'user' => $data ], function ( $m ) use ( $data ) {
-						$m->from( get_option( 'email_address' ), get_option( 'site_name' ) );
-						$m->to( $data['email'], $data['name'] )->subject( trans( 'app.activate_email_subject' ) );
-					} );
-				} catch ( \Exception $e ) {
-					$registration_success_activating_msg = ", we can't sending you activation email during an email error, please contact with your admin";
-					//
-				}
-			}
-
-			return redirect( route( 'login' ) )->with( 'registration_success', trans( 'app.registration_success' ) . $registration_success_activating_msg );
-		} else {
-			return back()->withInput()->with( 'error', trans( 'app.error_msg' ) );
-		}
 	}
 
 	/**
@@ -203,6 +210,5 @@ class UserController extends Controller {
 
 			return redirect()->back()->with( 'error', 'Wrong Old password' );
 		}
-
 	}
 }

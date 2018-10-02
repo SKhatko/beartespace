@@ -4,20 +4,13 @@
 
         <div class="app-header--left">
 
-            @if(Route::currentRouteName() === 'home')
-                <div class="app-header-invites">
-                    <a href="{{ route('invite.artist') }}">For Artists</a>| &nbsp;
-                    <a href="{{ route('invite.gallery') }}">For Galleries</a>| &nbsp;
-                    <a href="{{ route('invite.writer') }}">For Art Writers</a>
-                </div>
-            @else
-                {{--        @elseif(Request::segment(1) === 'dashboard' || Request::segment(1) === 'login' || Request::segment(1) === 'register')--}}
-                <div class="app-header-logo">
-                    <a href="{{ route('home') }}">
-                        <img src="/imagecache/height-40/logo.png" alt="BeArteSpace logo"/>
-                    </a>
-                </div>
+            <div class="app-header-logo">
+                <a href="{{ route('home') }}">
+                    <img src="/imagecache/height-40/logo.png" alt="BeArteSpace logo"/>
+                </a>
+            </div>
 
+            @if(Route::currentRouteName() !== 'home')
                 <div class="app-header-search">
                     <el-form action="{{ route('search') }}">
                         {{ csrf_field() }}
@@ -31,13 +24,6 @@
 
                     </el-form>
                 </div>
-
-                <div class="app-header-buttons">
-                    <a href="{{ route('artists') }}">@lang('portal.artists')</a> |
-                    <a href="{{ route('artworks') }}">@lang('portal.artworks')</a> |
-                    <a href="{{ route('auctions') }}">on-line auctions</a>
-                </div>
-
             @endif
 
         </div>
@@ -80,6 +66,8 @@
 
         <div class="app-header-auth">
             @if (Auth::guest())
+
+                <a href="#" style="margin-right: 20px;">Sell on BearteSpace</a>
 
                 <a href="/register">{{ trans('portal.register') }}</a>
 
@@ -192,26 +180,6 @@
                 </el-popover>
             @endif
         </div>
-
-        @if(!auth()->user() ? !Cookie::get('email_lead_subscription') : null)
-            &nbsp; |
-            <div class="app-header-subscribe">
-                <el-popover
-                        placement="bottom"
-                        width="400"
-                        trigger="click">
-                    <el-form inline label-position="top" method="POST" action="{{ route('add-lead') }}">
-                        {{ csrf_field() }}
-                        <el-input name="email" type="email" placeholder="Sign up to our email news"
-                                  required>
-                            <el-button slot="append" native-type="submit" type="primary">Join</el-button>
-                        </el-input>
-                    </el-form>
-                    <div slot="reference">Subscribe for Newsletters</div>
-
-                </el-popover>
-            </div>
-        @endif
 
         @if(auth()->user())
             <a href="{{ route('dashboard.favorites') }}" class="app-header-favorites">

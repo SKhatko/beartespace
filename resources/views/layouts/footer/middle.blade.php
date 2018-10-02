@@ -20,9 +20,6 @@
 
                     <a href="{{ route('artists')}}">@lang('portal.artists')</a>
                     <a href="{{ route('artworks')}}">@lang('portal.artworks')</a>
-                    <a href="{{ route('invite.artist') }}">For Artists</a>
-                    <a href="{{ route('invite.gallery') }}">For Galleries</a>
-                    <a href="{{ route('invite.writer') }}">For Art Writers</a>
                 </div>
 
             </el-col>
@@ -103,25 +100,6 @@
                 <div class="app-footer-submenu">
 
                     <div class="h4">Stay connected</div>
-
-                    @if(!auth()->user() ? !Cookie::get('email_lead_subscription') : null)
-                        <div class="app-footer-subscribe">
-                            <el-form inline label-position="top" method="POST"
-                                     action="{{ route('add-lead') }}">
-                                {{ csrf_field() }}
-                                <el-form-item>
-                                    <span slot="label">
-                                        Sign up for our newsletter for exclusive deals, discount codes, and more!
-                                    </span>
-                                    <el-input name="email" type="email"
-                                              placeholder="Email" required>
-                                        <el-button slot="append" native-type="submit" type="primary">Join
-                                        </el-button>
-                                    </el-input>
-                                </el-form-item>
-                            </el-form>
-                        </div>
-                    @endif
 
                     <div class="app-footer-social">
                         <a href="#"><i class="fa fa-facebook"></i></a>

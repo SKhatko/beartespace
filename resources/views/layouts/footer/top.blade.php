@@ -2,6 +2,28 @@
 
     <div class="app--wrapper">
 
+        @if(!auth()->user() ? !Cookie::get('email_lead_subscription') : null)
+            <div class="app-footer-subscribe">
+                <el-form method="POST"
+                         action="{{ route('add-lead') }}">
+                    {{ csrf_field() }}
+                    <el-form-item>
+                                    <span slot="label">
+                                        Get fresh BearteSpace trends and unique gift ideas delivered right to your inbox.
+
+                                        Sign up for our newsletter for exclusive deals, discount codes, and more!
+                                    </span>
+                        <el-input name="email" type="email"
+                                  placeholder="Email" required>
+                            <el-button slot="append" native-type="submit" type="primary">Join
+                            </el-button>
+                        </el-input>
+                    </el-form-item>
+                </el-form>
+            </div>
+        @endif
+
+
         <div class="app-footer-promos">
 
             <div class="promo">

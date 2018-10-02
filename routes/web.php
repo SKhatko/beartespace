@@ -11,6 +11,31 @@
 |
 */
 
+/* List of used routes
+confirm-email
+subscription
+search
+login
+home
+auction
+artwork
+article
+artist
+contact-form
+lead
+page
+language
+currency
+cart
+checkout
+address
+about
+rules
+shipping
+dashboard
+
+ */
+
 Route::group( [ 'middleware' => 'web' ], function () {
 
 	Auth::routes();
@@ -44,22 +69,19 @@ Route::group( [ 'middleware' => 'web' ], function () {
 	Route::get( '/auction/{id}', 'AuctionController@show' )->name( 'auction' );
 	Route::get( '/artwork', 'HomeController@artworks' )->name( 'artworks' );
 	Route::get( '/artwork/{id}', 'HomeController@artwork' )->name( 'artwork' );
-	Route::get( '/artist', 'HomeController@artists' )->name( 'artists' );
-	Route::get( '/artist/{id}', 'HomeController@artist' )->name( 'artist' );
+	Route::get( '/artist', 'UserController@artists' )->name( 'artists' );
+	Route::get( '/artist/{id}', 'UserController@artist' )->name( 'artist' );
+	Route::get( '/article', 'ArticleController@index' )->name( 'articles' );
+	Route::get( '/article/{id}', 'ArticleController@show' )->name( 'article' );
 	Route::get( '/selection/artist', 'HomeController@selectedArtists' )->name( 'selected-artists' );
 	Route::get( '/selection/artwork', 'HomeController@selectedArtworks' )->name( 'selected-artworks' );
 
-	// Invites
-	Route::get( '/invite/artist', 'HomeController@inviteArtist' )->name( 'invite.artist' );
-	Route::get( '/invite/gallery', 'HomeController@inviteGallery' )->name( 'invite.gallery' );
-	Route::get( '/invite/writer', 'HomeController@inviteWriter' )->name( 'invite.writer' );
-	Route::get( '/invite/customer', 'HomeController@inviteCustomer' )->name( 'invite.customer' );
 	// Contact us page
 	Route::get( 'contact-form', 'HomeController@contactForm' )->name( 'contact-form' );
 	Route::post( 'contact-form', 'HomeController@contactFormPost' )->name( 'contact-form' );
 
 	// Leads
-	Route::post( 'add-lead', 'LeadController@addLead' )->name( 'add-lead' );
+	Route::post( 'lead/add-lead', 'LeadController@addLead' )->name( 'add-lead' );
 
 	// Page
 	Route::get( 'page/{slug}', 'PageController@show' )->name( 'page' );
@@ -120,7 +142,6 @@ Route::group( [ 'middleware' => 'web' ], function () {
 
 		// Admin only
 		Route::group( [ 'middleware' => 'admin' ], function () {
-
 			Route::get( 'payments', 'PaymentController@index' )->name( 'admin.payments' );
 			Route::get( 'users', 'UserController@index' )->name( 'admin.users' );
 			Route::get( 'translations', 'TranslationController@index' )->name( 'admin.translations' );
@@ -128,25 +149,10 @@ Route::group( [ 'middleware' => 'web' ], function () {
 			Route::get( 'pages', 'PageController@index' )->name( 'admin.pages' );
 			Route::get( 'messages', 'MessageController@index' )->name( 'admin.messages' );
 			Route::get( 'settings', 'SettingController@index' )->name( 'admin.settings' );
-
-
-			Route::get( 'approved', [ 'as' => 'approved_ads', 'uses' => 'ArtworkController@index' ] );
-			Route::get( 'pending', [
-				'as'   => 'admin_pending_ads',
-				'uses' => 'ArtworkController@adminPendingArtworks'
-			] );
-			Route::get( 'blocked', [
-				'as'   => 'admin_blocked_ads',
-				'uses' => 'ArtworkController@adminBlockedArtworks'
-			] );
-
 		} );
 
 		Route::group( [ 'prefix' => 'u' ], function () {
 			Route::group( [ 'prefix' => 'posts' ], function () {
-
-				Route::get( 'pending-lists', [ 'as' => 'pending_ads', 'uses' => 'ArtworkController@pendingArtworks' ] );
-				Route::get( 'archive-lists', [ 'as' => 'favourite_ad', 'uses' => 'ArtworkController@create' ] );
 
 				//bids
 				Route::get( 'bids/{ad_id}', [ 'as' => 'auction_bids', 'uses' => 'BidController@index' ] );
