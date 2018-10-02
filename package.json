@@ -23,6 +23,8 @@
     "webpack-bundle-analyzer": "^2.13.1"
   },
   "dependencies": {
+    "braintree-web": "^3.38.0",
+    "braintree-web-drop-in": "^1.13.0",
     "browser-sync": "^2.24.6",
     "browser-sync-webpack-plugin": "^2.2.2",
     "element-ui": "^2.4.6",

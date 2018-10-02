@@ -99,6 +99,7 @@ Route::group( [ 'middleware' => 'web' ], function () {
 	// Checkout
 	Route::middleware( [ 'auth', 'shopping-cart', 'has-primary-address' ] )->group( function () {
 		Route::get( 'checkout', 'CheckoutController@index' )->name( 'checkout' );
+		Route::post( 'checkout', 'CheckoutController@braintree' );
 		Route::get( 'checkout/{transaction_id}', 'PaymentController@checkout' );
 	} );
 

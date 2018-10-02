@@ -59,6 +59,6 @@
 
 @section('script')
 
-    <script src="https://js.stripe.com/v3/"></script>
+    {{--<script src="https://js.stripe.com/v3/"></script>--}}
 
 @endsection

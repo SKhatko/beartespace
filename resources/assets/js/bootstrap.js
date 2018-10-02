@@ -1,10 +1,9 @@
-
 window.get = require('lodash.get');
 window.Vue = require('vue');
 window.Vuex = require('vuex');
 window.SocialSharing = require('vue-social-sharing');
-
-// window._ = require('lodash');
+window.braintree = require('braintree-web-drop-in');
+// window.braintree = require('braintree-web');
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -16,7 +15,8 @@ try {
     // window.$ = window.jQuery = require('jquery');
 
     // require('bootstrap-sass');
-} catch (e) {}
+} catch (e) {
+}
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
