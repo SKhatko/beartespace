@@ -2,19 +2,14 @@
 
     <el-main class="app--wrapper">
 
-        <el-breadcrumb separator-class="el-icon-arrow-right" style="margin: 30px 0;">
-            <el-breadcrumb-item><a href="/">Home</a></el-breadcrumb-item>
-            <el-breadcrumb-item>Select Delivery Address</el-breadcrumb-item>
-        </el-breadcrumb>
-
-        <div class="app-address">
+        <div class="app-cart-shipping">
 
             <el-card class="box-card">
                 <div slot="header" class="h4">Select delivery Address</div>
 
                 <el-form :model="deliveryAddress" status-icon :rules="addressesRules" ref="addresses"
                          @submit.native.prevent="saveAddresses" method="POST"
-                         :action="'/address/' + deliveryAddress.selected">
+                         :action="'/cart/shipping/' + deliveryAddress.selected">
                     <input type="hidden" name="_token" :value="csrf">
 
                     <el-form-item prop="selected">
@@ -51,7 +46,7 @@
                    :before-close="handleCloseDialog">
 
             <el-form :model="address" status-icon :rules="rules" ref="address"
-                     @submit.native.prevent="save" method="POST" action="/address">
+                     @submit.native.prevent="save" method="POST" action="/cart/shipping">
                 <input type="hidden" name="_token" :value="csrf">
 
                 <errors></errors>

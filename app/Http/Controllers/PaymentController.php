@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Jobs\CreateSale;
 use App\Jobs\OrderCreated;
 use App\Payment;
 use Illuminate\Http\Request;
@@ -22,6 +21,12 @@ class PaymentController extends Controller {
 		$payments = Payment::all();
 
 		return view( 'dashboard.admin.payments', compact( 'payments' ) );
+	}
+
+	public function payment() {
+		$address = auth()->user()->primaryAddress;
+
+		return view( 'checkout.index', compact( 'address' ) );
 	}
 
 	public function checkout( $transaction_id ) {

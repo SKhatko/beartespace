@@ -96,16 +96,18 @@ Route::group( [ 'middleware' => 'web' ], function () {
 	Route::get( 'cart/item/{id}/add', 'CartController@addItem' )->name( 'cart.item.add' );
 	Route::get( 'cart/item/{id}/remove', 'CartController@removeItem' )->name( 'cart.item.remove' );
 
-	// Checkout
+	// Shipping
+	Route::get( 'cart/shipping', 'CartCheckoutController@shipping' )->middleware( ['auth','shopping-cart'] )->name( 'cart.shipping' );
+	Route::post( 'cart/shipping/{id}', 'CartCheckoutController@setPrimaryShippingAddress' )->middleware( 'auth', 'shopping-cart' );
+
+	// Cart Checkout
 	Route::middleware( [ 'auth', 'shopping-cart', 'has-primary-address' ] )->group( function () {
-		Route::get( 'checkout', 'CheckoutController@index' )->name( 'checkout' );
+		Route::get( 'cart/checkout', 'CartCheckoutController@checkout' )->name( 'cart.checkout' );
 		Route::post( 'checkout', 'CheckoutController@braintree' );
 		Route::get( 'checkout/{transaction_id}', 'PaymentController@checkout' );
+		Route::get('payment', 'PaymentController@payment')->name('payment')->middleware('has-payment-method');
 	} );
 
-	// Address
-	Route::get( 'address', 'AddressController@index' )->middleware( 'auth' )->name( 'address' );
-	Route::post( 'address/{id}', 'AddressController@setPrimaryAddress' )->middleware( 'auth' );
 
 	// Pages
 	Route::get( 'about', 'HomeController@about' )->name( 'about' );
@@ -172,16 +174,4 @@ Route::group( [ 'middleware' => 'web' ], function () {
 //Post bid
 Route::post( '{id}/post-new', [ 'as' => 'post_bid', 'uses' => 'BidController@postBid' ] );
 
-
-//Checkout payment
-Route::post( 'checkout/{transaction_id?}', [ 'uses' => 'PaymentController@chargePayment' ] );
-//Payment success url
-Route::any( 'checkout/{transaction_id}/payment-success', [
-	'as'   => 'payment_success_url',
-	'uses' => 'PaymentController@paymentSuccess'
-] );
-Route::any( 'checkout/{transaction_id}/paypal-notify', [
-	'as'   => 'paypal_notify_url',
-	'uses' => 'PaymentController@paypalNotify'
-] );
 

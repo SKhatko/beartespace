@@ -11,8 +11,7 @@ class CartController extends Controller {
 	public $response;
 
 	public function index() {
-//		dd( Cart::content());
-		return view( 'cart.index' );
+		return view( 'cart.cart' );
 	}
 
 	public function apiToggleCart( Request $request, $id ) {
@@ -95,11 +94,6 @@ class CartController extends Controller {
 		}
 
 		return redirect()->route('cart');
-
-		return redirect()->back()->with( 'message', [
-			'status'  => 'success',
-			'message' => $artwork->name . ' removed from shopping cart'
-		] );
 	}
 
 }

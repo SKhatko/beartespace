@@ -53,15 +53,12 @@ class CreateUsersTable extends Migration {
 			$table->boolean( 'is_online' )->nullable();
 			$table->timestamp( 'last_login' )->nullable();
 
-			// Stripe
-			$table->string('stripe_id')->nullable();
-			// End Stripe
-			$table->string('card_brand')->nullable();
-			$table->string('card_last_four')->nullable();
-			$table->timestamp('trial_ends_at')->nullable();
 			// Braintree
 			$table->string('braintree_id')->nullable();
 			$table->string('paypal_email')->nullable();
+			$table->string('card_brand')->nullable();
+			$table->string('card_last_four')->nullable();
+			$table->timestamp('trial_ends_at')->nullable();
 			// End Braintree
 
 			$table->rememberToken();

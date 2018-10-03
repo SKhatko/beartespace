@@ -18,7 +18,7 @@ class HasPrimaryAddress
 	    if(auth()->user() && auth()->user()->primaryAddress) {
 		    return $next($request);
 	    } else {
-		    return redirect( route( 'address' ));
+		    return redirect( route( 'cart.shipping' ));
 	    }
     }
 }

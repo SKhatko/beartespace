@@ -10,24 +10,23 @@ use App\Artwork;
 
 class CheckoutController extends Controller {
 
-	public function index() {
+	public function braintree( Request $request ) {
 
-		$address = auth()->user()->primaryAddress;
+		$request->validate([
+			'nonce' => 'required',
+		]);
 
-		return view( 'checkout.index', compact( 'address' ) );
-	}
+		$nonce = $request->input( 'nonce' );
 
-	public function braintree(Request $request) {
+		$user = auth()->user();
 
-//		return $request->all();
-
-		// tokencc_bj_kpj6s3_sj2bmn_5g4kkb_d3vbn3_k22
-
-		if($request->input('nonce')) {
-			auth()->user()->updateCard($request->input('nonce'));
+		if ( $user->hasBraintreeId() ) {
+			$user->updateCard( $nonce );
+		} else {
+			$user->createAsBraintreeCustomer( $nonce );
 		}
 
-		return auth()->user();
+		return redirect()->route('payment');
 	}
 
 }

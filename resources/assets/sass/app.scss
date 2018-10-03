@@ -888,41 +888,6 @@ body, html {
 
 }
 
-.app-checkout {
-  width: 100%;
-  max-width: 800px;
-  margin: 0 auto;
-
-  .checkout {
-
-    &-payment {
-
-      &-price {
-        @extend .h2;
-        text-align: left;
-        padding: 50px 0;
-      }
-
-      &-form {
-        //text-align: center;
-      }
-
-    }
-
-    &-address {
-      margin-top: 20px;
-    }
-
-    &-cart {
-      margin-top: 20px;
-
-      &-item {
-        display: flex;
-        align-items: center;
-      }
-    }
-  }
-}
 
 .app-cart {
   width: 100%;
@@ -1027,16 +992,7 @@ body, html {
 
 }
 
-.app-favorites {
-  padding: 15px;
-
-  .app-artworks-list {
-    column-count: 4;
-  }
-
-}
-
-.app-address {
+.app-cart-shipping {
   max-width: 400px;
   width: 100%;
   margin: 0 auto;
@@ -1059,6 +1015,51 @@ body, html {
       }
     }
   }
+}
+
+.app-cart-checkout {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+
+  .checkout {
+
+    &-payment {
+
+      &-price {
+        @extend .h2;
+        text-align: left;
+        padding: 50px 0;
+      }
+
+    }
+
+    &-address {
+      margin-top: 20px;
+    }
+
+    &-cart {
+      margin-top: 20px;
+
+      &-item {
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
+}
+
+.app-cart-payment {
+
+}
+
+.app-favorites {
+  padding: 15px;
+
+  .app-artworks-list {
+    column-count: 4;
+  }
+
 }
 
 .app-profile {
