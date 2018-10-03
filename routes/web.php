@@ -65,6 +65,8 @@ Route::group( [ 'middleware' => 'web' ], function () {
 
 	Route::get( '/', 'HomeController@index' )->name( 'home' );
 	Route::get( '/home', 'HomeController@index' );
+	Route::get( '/sell', 'HomeController@sell' );
+
 	Route::get( '/auction', 'AuctionController@index' )->name( 'auctions' );
 	Route::get( '/auction/{id}', 'AuctionController@show' )->name( 'auction' );
 	Route::get( '/artwork', 'ArtworkController@artworks' )->name( 'artworks' );
@@ -97,11 +99,11 @@ Route::group( [ 'middleware' => 'web' ], function () {
 	Route::get( 'cart/item/{id}/remove', 'CartController@removeItem' )->name( 'cart.item.remove' );
 
 	// Shipping
-	Route::get( 'cart/shipping', 'CartCheckoutController@shipping' )->middleware( ['auth','shopping-cart'] )->name( 'cart.shipping' );
-	Route::post( 'cart/shipping/{id}', 'CartCheckoutController@setPrimaryShippingAddress' )->middleware( 'auth', 'shopping-cart' );
+	Route::get( 'cart/shipping', 'CartCheckoutController@shipping' )->middleware( ['auth','has-shopping-cart'] )->name( 'cart.shipping' );
+	Route::post( 'cart/shipping/{id}', 'CartCheckoutController@setPrimaryShippingAddress' )->middleware( 'auth', 'has-shopping-cart' );
 
 	// Cart Checkout
-	Route::middleware( [ 'auth', 'shopping-cart', 'has-primary-address' ] )->group( function () {
+	Route::middleware( [ 'auth', 'has-shopping-cart', 'has-primary-address' ] )->group( function () {
 //		Route::get( 'checkout/{transaction_id}', 'PaymentController@checkout' );
 		Route::get('cart/payment', 'CartCheckoutController@payment')->name('cart.payment');
 		Route::post( 'cart/payment', 'CartCheckoutController@savePaymentMethod' );
@@ -121,7 +123,6 @@ Route::group( [ 'middleware' => 'web' ], function () {
 		'prefix'     => 'dashboard',
 		'middleware' => [
 			'auth',
-			'dashboard',
 			'confirmed-email',
 			'has-profile-avatar',
 		]

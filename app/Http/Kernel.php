@@ -64,14 +64,13 @@ class Kernel extends HttpKernel {
 		'can'                              => \Illuminate\Auth\Middleware\Authorize::class,
 		'guest'                            => \App\Http\Middleware\RedirectIfAuthenticated::class,
 		'throttle'                         => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-		'dashboard'                        => \App\Http\Middleware\DashboardArea::class,
 		'confirmed-email'                  => \App\Http\Middleware\ConfirmedEmail::class,
 		'admin'                            => \App\Http\Middleware\OnlyAdminAccess::class,
 		'artist'                           => \App\Http\Middleware\OnlyArtistAccess::class,
 		'has-profile-avatar'               => \App\Http\Middleware\CheckProfileAvatar::class,
 		'has-primary-address'              => \App\Http\Middleware\HasPrimaryAddress::class,
 		'has-payment-method'              => \App\Http\Middleware\HasPaymentMethod::class,
-		'shopping-cart'                    => \App\Http\Middleware\ShoppingCart::class,
+		'has-shopping-cart'                    => \App\Http\Middleware\HasShoppingCart::class,
 
 	];
 }

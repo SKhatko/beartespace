@@ -66,7 +66,7 @@
 
         <div class="app-header-auth">
 
-            <a href="#" style="margin-right: 20px;">Sell on BearteSpace</a>
+            <a href="/sell" style="margin-right: 20px;">Sell on BearteSpace</a>
 
             @if (Auth::guest())
 
@@ -81,14 +81,10 @@
                         trigger="click">
 
                     <el-dropdown-item>
-                        <a href="{{route('dashboard.profile')}}">View Profile</a>
+                        <a href="{{route('dashboard')}}">View Profile</a>
                     </el-dropdown-item>
 
                     <el-dropdown-item divided>
-                        <a href="{{route('dashboard')}}" class="el-dropdown-link">Dashboard</a>
-                    </el-dropdown-item>
-
-                    <el-dropdown-item>
                         <a href="{{route('dashboard.favorites')}}" class="el-dropdown-link">Favorites</a>
                     </el-dropdown-item>
 

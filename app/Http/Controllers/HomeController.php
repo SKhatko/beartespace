@@ -51,6 +51,10 @@ class HomeController extends Controller {
 
 	}
 
+	public function sell() {
+		return view('pages.sell');
+	}
+
 	public function about() {
 		return view( 'pages.about' );
 	}

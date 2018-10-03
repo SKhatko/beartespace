@@ -71,6 +71,10 @@ body, html {
     .bottom {
 
     }
+
+    .app-header-search {
+      margin: 20px 0;
+    }
   }
 
   &--left {
@@ -90,7 +94,6 @@ body, html {
     display: flex;
     align-items: center;
     font-size: 13px;
-    margin-bottom: 20px;
 
     a {
       font-size: 13px;
