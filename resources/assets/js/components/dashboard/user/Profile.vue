@@ -8,13 +8,6 @@
             </div>
         </div>
 
-        <!--<div class="h2">-->
-            <!--{{ user.name }}-->
-            <!--<a href="" class="el-button el-button&#45;&#45;default el-button&#45;&#45;mini">Following</a>-->
-            <!--<a href="" class="el-button el-button&#45;&#45;default el-button&#45;&#45;mini">Followers</a>-->
-        <!--</div>-->
-
-
         <el-form label-position="top">
 
             <el-row :gutter="20">

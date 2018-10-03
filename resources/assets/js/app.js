@@ -74,8 +74,8 @@ Vue.component('errors', require('./components/partials/Errors.vue'));
 Vue.component('follow-button', require('./components/partials/FollowButton.vue'));
 
 // Checkout
-Vue.component('address-form', require('./components/AddressForm.vue'));
-Vue.component('checkout-form', require('./components/CheckoutForm.vue'));
+Vue.component('cart-shipping-form', require('./components/cart/ShippingForm.vue'));
+Vue.component('cart-payment-form', require('./components/cart/PaymentForm.vue'));
 
 const app = new Vue({
     el: '#app',
@@ -83,7 +83,7 @@ const app = new Vue({
     components: {},
     data: {
         showArtworkImageDialog: false,
-        showRegisterDialog: false
+        fullScreenLoading: false
     },
     mounted() {
 

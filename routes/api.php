@@ -41,15 +41,12 @@ Route::group( [ 'middleware' => 'auth:api' ], function () {
 	// Change email
 	Route::post( 'change-email', 'Auth\ConfirmEmailController@changeEmail' );
 
-	// Adds
-//	Route::get( 'user-add/{name}/{price}/{period?}', 'Api\AddController@createUserAdd' );
-//	Route::get( 'artwork-add/{id}/{name}/{price}/{period?}', 'Api\AddController@createArtworkAdd' );
-
 	// Checkout
 	Route::post( 'checkout/checkout', 'Api\CheckoutController@checkout' );
 
 	// Address
-	Route::post( 'address', 'Api\AddressController@store');
+	Route::post( 'address', 'Api\AddressController@store' );
+	Route::delete( 'address/{id}', 'Api\AddressController@destroy' );
 
 } );
 

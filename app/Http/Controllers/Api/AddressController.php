@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Address;
 
 class AddressController extends Controller {
+
 	public function store( Request $request ) {
 
 		$this->validate( $request, [
@@ -21,16 +22,20 @@ class AddressController extends Controller {
 
 		if ( $request->input( 'id' ) ) {
 			$address = Address::findOrFail( $request->input( 'id' ) );
-
-			$address->fill($request->all());
-
+			$address->fill( $request->all() );
 			$address->save();
-
-//			auth()->user()->addresses()->save( $address );
 		} else {
 			auth()->user()->addresses()->create( $request->all() );
 		}
 
 		return [ 'status' => 'success', 'message' => 'Address saved', 'data' => auth()->user()->addresses ];
+	}
+
+	public function destroy($id) {
+
+		$address = Address::findOrFail($id);
+		$address->delete();
+
+		return [ 'status' => 'success', 'message' => 'Address removed', 'data' => auth()->user()->addresses ];
 	}
 }

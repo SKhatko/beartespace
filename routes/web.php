@@ -102,10 +102,12 @@ Route::group( [ 'middleware' => 'web' ], function () {
 
 	// Cart Checkout
 	Route::middleware( [ 'auth', 'shopping-cart', 'has-primary-address' ] )->group( function () {
-		Route::get( 'cart/checkout', 'CartCheckoutController@checkout' )->name( 'cart.checkout' );
-		Route::post( 'checkout', 'CheckoutController@braintree' );
-		Route::get( 'checkout/{transaction_id}', 'PaymentController@checkout' );
-		Route::get('payment', 'PaymentController@payment')->name('payment')->middleware('has-payment-method');
+//		Route::get( 'checkout/{transaction_id}', 'PaymentController@checkout' );
+		Route::get('cart/payment', 'CartCheckoutController@payment')->name('cart.payment');
+		Route::post( 'cart/payment', 'CartCheckoutController@savePaymentMethod' );
+		Route::get( 'cart/checkout', 'CartCheckoutController@checkout' )->name( 'cart.checkout' )->middleware('has-payment-method');
+		Route::post( 'cart/checkout', 'CartCheckoutController@checkoutPost' )->middleware('has-payment-method');
+
 	} );
 
 

@@ -16270,8 +16270,8 @@ Vue.component('errors', __webpack_require__(51));
 Vue.component('follow-button', __webpack_require__(232));
 
 // Checkout
-Vue.component('address-form', __webpack_require__(213));
-Vue.component('checkout-form', __webpack_require__(216));
+Vue.component('cart-shipping-form', __webpack_require__(280));
+Vue.component('cart-payment-form', __webpack_require__(276));
 
 var app = new Vue({
     el: '#app',
@@ -16279,7 +16279,7 @@ var app = new Vue({
     components: {},
     data: {
         showArtworkImageDialog: false,
-        showRegisterDialog: false
+        fullScreenLoading: false
     },
     mounted: function mounted() {
 
@@ -18404,246 +18404,7 @@ function mergeFn (a, b) {
 
 
 /***/ }),
-/* 123 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    props: {
-        addresses_: {},
-        selected_: null
-    },
-    data: function data() {
-        return {
-            showAddressForm: false,
-            deliveryAddress: {
-                selected: null
-            },
-            addressesRules: {
-                selected: [{ required: true, message: 'Please select delivery address', trigger: 'blur' }]
-            },
-            addresses: {},
-            address: {},
-            countries: '',
-            rules: {
-                name: [{ required: true, message: 'Please enter delivery name', trigger: 'blur' }],
-                country_id: [{ required: true, message: 'Please select country', trigger: 'blur' }],
-                address: [{ required: true, message: 'Please enter address', trigger: 'blur' }],
-                optional_address: [{}],
-                city: [{ required: true, message: 'Please enter city', trigger: 'blur' }],
-                region: [{ required: true, message: 'Please enter region', trigger: 'blur' }],
-                postcode: [{ required: true, message: 'Please enter postcode', trigger: 'blur' }],
-                email: [{ required: true, type: 'email', message: 'Please enter valid email', trigger: 'blur' }],
-                phone: [{ required: true, message: 'Please enter valid phone number', trigger: 'blur' }]
-            },
-            csrf: ''
-        };
-    },
-    mounted: function mounted() {
-        var _this = this;
-
-        this.csrf = window.csrf;
-
-        axios.get('/api/countries').then(function (response) {
-            _this.countries = response.data;
-        });
-
-        if (this.addresses_) {
-            this.addresses = JSON.parse(this.addresses_);
-        }
-
-        console.log(this.selected_, 'selected');
-
-        if (this.selected_) {
-            this.deliveryAddress.selected = Number(this.selected_);
-        }
-
-        if (!this.addresses.length) {
-            this.showAddressForm = true;
-        }
-
-        console.log(this.addresses);
-    },
-
-    methods: {
-        edit: function edit(address) {
-            this.address = Object.assign({}, address);
-            this.showAddressForm = true;
-        },
-        save: function save() {
-            var _this2 = this;
-
-            this.$refs['address'].validate(function (valid) {
-                if (valid) {
-                    // this.$refs['address'].$el.submit();
-                    axios.post('/api/address', _this2.address).then(function (response) {
-                        console.log(response.data);
-                        _this2.$message({
-                            showClose: true,
-                            message: response.data.message,
-                            type: response.data.status
-                        });
-                        _this2.addresses = response.data.data;
-                        _this2.handleCloseDialog();
-                    }).catch(function (error) {
-                        _this2.$store.commit('setErrors', error.response.data.errors);
-                        console.log(error);
-                    });
-                }
-            });
-        },
-        saveAddresses: function saveAddresses() {
-            var _this3 = this;
-
-            this.$refs['addresses'].validate(function (valid) {
-                if (valid) {
-                    _this3.$refs['addresses'].$el.submit();
-                }
-            });
-        },
-        handleCloseDialog: function handleCloseDialog() {
-            this.$refs['address'].resetFields();
-            this.showAddressForm = false;
-        },
-        getCountyName: function getCountyName(id) {
-            var countryName = '';
-            if (this.countries.length) {
-                this.countries.map(function (country) {
-                    if (country.id === id) {
-                        countryName = country.country_name;
-                    }
-                });
-            }
-
-            return countryName;
-        },
-        createAddress: function createAddress() {
-            this.address = {};
-            this.showAddressForm = true;
-        }
-    }
-});
-
-/***/ }),
+/* 123 */,
 /* 124 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -19111,99 +18872,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 126 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    props: {
-        authorization_: ''
-    },
-    data: function data() {
-        return {
-            loading: false,
-            csrf: ''
-        };
-    },
-    mounted: function mounted() {
-        this.csrf = window.csrf;
-
-        var form = document.querySelector('#payment-form');
-        braintree.create({
-            authorization: 'sandbox_9qqqx29m_8zf5jpxstv3pkjwy',
-            selector: '#bt-dropin',
-            card: {
-                cardholderName: true
-            },
-            paypal: {
-                flow: 'vault',
-                buttonStyle: {
-                    label: 'paypal',
-                    shape: 'rect',
-                    size: 'medium'
-                }
-
-            }
-        }, function (createErr, instance) {
-            if (createErr) {
-                console.log('Create Error', createErr);
-                return;
-            }
-            form.addEventListener('submit', function (event) {
-                event.preventDefault();
-                this.loading = true;
-                instance.requestPaymentMethod(function (err, payload) {
-                    if (err) {
-                        this.loading = false;
-                        console.log('Request Payment Method Error', err);
-                        return;
-                    }
-
-                    console.log(payload, 'payload');
-                    // Add the nonce to the form and submit
-                    document.querySelector('#nonce').value = payload.nonce;
-                    console.log(form);
-                    form.submit();
-                });
-            });
-        });
-    },
-
-    methods: {}
-});
-
-/***/ }),
+/* 126 */,
 /* 127 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -21323,13 +20992,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -22845,13 +22507,7 @@ exports = module.exports = __webpack_require__(18)();
 exports.push([module.i, "/*.avatar-uploader .el-upload, .image-uploader .el-upload {*/\n/*border: 1px dashed #d9d9d9;*/\n/*border-radius: 6px;*/\n/*cursor: pointer;*/\n/*position: relative;*/\n/*overflow: hidden;*/\n/*&:hover {*/\n/*border-color: #409EFF;*/\n/*}*/\n/*}*/\n/*.avatar {*/\n/*width: 178px;*/\n/*height: 178px;*/\n/*display: block;*/\n/*}*/\n/*.image {*/\n/*!*width: 178px;*!*/\n/*height: 178px;*/\n/*display: block;*/\n/*}*/\n", ""]);
 
 /***/ }),
-/* 181 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(18)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
-
-/***/ }),
+/* 181 */,
 /* 182 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -65422,44 +65078,7 @@ var index = (function () {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(20), __webpack_require__(78)))
 
 /***/ }),
-/* 213 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-/* styles */
-__webpack_require__(260)
-
-var Component = __webpack_require__(0)(
-  /* script */
-  __webpack_require__(123),
-  /* template */
-  __webpack_require__(246),
-  /* scopeId */
-  "data-v-66c62927",
-  /* cssModules */
-  null
-)
-Component.options.__file = "/Users/skhatko/code/larabid/resources/assets/js/components/AddressForm.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] AddressForm.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-66c62927", Component.options)
-  } else {
-    hotAPI.reload("data-v-66c62927", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
+/* 213 */,
 /* 214 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -65528,40 +65147,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 216 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Component = __webpack_require__(0)(
-  /* script */
-  __webpack_require__(126),
-  /* template */
-  __webpack_require__(252),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "/Users/skhatko/code/larabid/resources/assets/js/components/CheckoutForm.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] CheckoutForm.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-9359c02a", Component.options)
-  } else {
-    hotAPI.reload("data-v-9359c02a", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
+/* 216 */,
 /* 217 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -68128,7 +67714,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1)], 1), _vm._v(" "), _c('el-card', {
     staticStyle: {
-      "margin-bottom": "20px"
+      "margin-bottom": "20px",
+      "display": "none"
     }
   }, [_c('div', {
     attrs: {
@@ -69160,336 +68747,7 @@ if (false) {
 }
 
 /***/ }),
-/* 246 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('el-main', {
-    staticClass: "app--wrapper"
-  }, [_c('div', {
-    staticClass: "app-cart-shipping"
-  }, [_c('el-card', {
-    staticClass: "box-card"
-  }, [_c('div', {
-    staticClass: "h4",
-    attrs: {
-      "slot": "header"
-    },
-    slot: "header"
-  }, [_vm._v("Select delivery Address")]), _vm._v(" "), _c('el-form', {
-    ref: "addresses",
-    attrs: {
-      "model": _vm.deliveryAddress,
-      "status-icon": "",
-      "rules": _vm.addressesRules,
-      "method": "POST",
-      "action": '/cart/shipping/' + _vm.deliveryAddress.selected
-    },
-    nativeOn: {
-      "submit": function($event) {
-        $event.preventDefault();
-        return _vm.saveAddresses($event)
-      }
-    }
-  }, [_c('input', {
-    attrs: {
-      "type": "hidden",
-      "name": "_token"
-    },
-    domProps: {
-      "value": _vm.csrf
-    }
-  }), _vm._v(" "), _c('el-form-item', {
-    attrs: {
-      "prop": "selected"
-    }
-  }, [_c('el-radio-group', {
-    model: {
-      value: (_vm.deliveryAddress.selected),
-      callback: function($$v) {
-        _vm.$set(_vm.deliveryAddress, "selected", $$v)
-      },
-      expression: "deliveryAddress.selected"
-    }
-  }, _vm._l((_vm.addresses), function(address) {
-    return _c('div', {
-      key: address.id
-    }, [_c('el-radio', {
-      staticClass: "radio",
-      attrs: {
-        "label": address.id
-      }
-    }, [_c('span', {
-      staticClass: "address"
-    }, [_vm._v(_vm._s(address.address_string))]), _vm._v(" "), _c('span', {
-      staticClass: "address-edit",
-      on: {
-        "click": function($event) {
-          $event.preventDefault();
-          _vm.edit(address)
-        }
-      }
-    }, [_vm._v("Edit address")])])], 1)
-  }))], 1), _vm._v(" "), _c('el-button', {
-    attrs: {
-      "type": "text"
-    },
-    on: {
-      "click": _vm.createAddress
-    }
-  }, [_vm._v("Create new Address")]), _vm._v(" "), _c('div', {
-    staticStyle: {
-      "margin-top": "20px"
-    }
-  }, [_c('el-button', {
-    attrs: {
-      "type": "primary",
-      "native-type": "submit"
-    }
-  }, [_vm._v("Checkout")]), _vm._v(" "), _c('el-button', {
-    attrs: {
-      "type": "warning"
-    }
-  }, [_c('a', {
-    attrs: {
-      "href": "/cart"
-    }
-  }, [_vm._v("Back to Cart")])])], 1)], 1)], 1)], 1), _vm._v(" "), _c('el-dialog', {
-    attrs: {
-      "visible": _vm.showAddressForm,
-      "width": "30%",
-      "title": "Delivery Address",
-      "before-close": _vm.handleCloseDialog
-    },
-    on: {
-      "update:visible": function($event) {
-        _vm.showAddressForm = $event
-      }
-    }
-  }, [_c('el-form', {
-    ref: "address",
-    attrs: {
-      "model": _vm.address,
-      "status-icon": "",
-      "rules": _vm.rules,
-      "method": "POST",
-      "action": "/cart/shipping"
-    },
-    nativeOn: {
-      "submit": function($event) {
-        $event.preventDefault();
-        return _vm.save($event)
-      }
-    }
-  }, [_c('input', {
-    attrs: {
-      "type": "hidden",
-      "name": "_token"
-    },
-    domProps: {
-      "value": _vm.csrf
-    }
-  }), _vm._v(" "), _c('errors'), _vm._v(" "), _c('el-form-item', {
-    attrs: {
-      "prop": "name"
-    }
-  }, [_c('el-input', {
-    attrs: {
-      "placeholder": "Enter name for delivery",
-      "name": "name"
-    },
-    model: {
-      value: (_vm.address.name),
-      callback: function($$v) {
-        _vm.$set(_vm.address, "name", $$v)
-      },
-      expression: "address.name"
-    }
-  })], 1), _vm._v(" "), _c('el-form-item', {
-    attrs: {
-      "prop": "country_id"
-    }
-  }, [_c('el-select', {
-    attrs: {
-      "value": "",
-      "name": "country_id",
-      "filterable": "",
-      "placeholder": "Select country"
-    },
-    model: {
-      value: (_vm.address.country_id),
-      callback: function($$v) {
-        _vm.$set(_vm.address, "country_id", $$v)
-      },
-      expression: "address.country_id"
-    }
-  }, _vm._l((_vm.countries), function(country) {
-    return _c('el-option', {
-      key: country.id,
-      attrs: {
-        "label": country.country_name,
-        "value": country.id
-      }
-    })
-  }))], 1), _vm._v(" "), _c('el-form-item', {
-    attrs: {
-      "prop": "address"
-    }
-  }, [_c('el-input', {
-    attrs: {
-      "placeholder": "Address",
-      "name": "address"
-    },
-    model: {
-      value: (_vm.address.address),
-      callback: function($$v) {
-        _vm.$set(_vm.address, "address", $$v)
-      },
-      expression: "address.address"
-    }
-  })], 1), _vm._v(" "), _c('el-form-item', {
-    attrs: {
-      "prop": "optional_address"
-    }
-  }, [_c('el-input', {
-    attrs: {
-      "placeholder": "Optional Address",
-      "name": "address_2"
-    },
-    model: {
-      value: (_vm.address.address_2),
-      callback: function($$v) {
-        _vm.$set(_vm.address, "address_2", $$v)
-      },
-      expression: "address.address_2"
-    }
-  })], 1), _vm._v(" "), _c('el-form-item', {
-    attrs: {
-      "prop": "city"
-    }
-  }, [_c('el-input', {
-    attrs: {
-      "placeholder": "City",
-      "name": "city"
-    },
-    model: {
-      value: (_vm.address.city),
-      callback: function($$v) {
-        _vm.$set(_vm.address, "city", $$v)
-      },
-      expression: "address.city"
-    }
-  })], 1), _vm._v(" "), _c('el-row', {
-    attrs: {
-      "gutter": 20
-    }
-  }, [_c('el-col', {
-    attrs: {
-      "span": 16
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "prop": "region"
-    }
-  }, [_c('el-input', {
-    attrs: {
-      "placeholder": "State / Region / Province",
-      "name": "region"
-    },
-    model: {
-      value: (_vm.address.region),
-      callback: function($$v) {
-        _vm.$set(_vm.address, "region", $$v)
-      },
-      expression: "address.region"
-    }
-  })], 1)], 1), _vm._v(" "), _c('el-col', {
-    attrs: {
-      "span": 8
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "prop": "postcode"
-    }
-  }, [_c('el-input', {
-    attrs: {
-      "placeholder": "Postcode",
-      "name": "postcode"
-    },
-    model: {
-      value: (_vm.address.postcode),
-      callback: function($$v) {
-        _vm.$set(_vm.address, "postcode", $$v)
-      },
-      expression: "address.postcode"
-    }
-  })], 1)], 1)], 1), _vm._v(" "), _c('el-form-item', {
-    attrs: {
-      "prop": "email"
-    }
-  }, [_c('el-input', {
-    attrs: {
-      "placeholder": "Email",
-      "name": "email"
-    },
-    model: {
-      value: (_vm.address.email),
-      callback: function($$v) {
-        _vm.$set(_vm.address, "email", $$v)
-      },
-      expression: "address.email"
-    }
-  })], 1), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.address.phone),
-      expression: "address.phone"
-    }],
-    attrs: {
-      "type": "hidden",
-      "name": "phone"
-    },
-    domProps: {
-      "value": (_vm.address.phone)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.$set(_vm.address, "phone", $event.target.value)
-      }
-    }
-  }), _vm._v(" "), _c('el-form-item', {
-    attrs: {
-      "prop": "phone"
-    }
-  }, [_c('vue-tel-input', {
-    attrs: {
-      "preferredCountries": ['us', 'dk', 'ua']
-    },
-    model: {
-      value: (_vm.address.phone),
-      callback: function($$v) {
-        _vm.$set(_vm.address, "phone", $$v)
-      },
-      expression: "address.phone"
-    }
-  })], 1), _vm._v(" "), _c('el-button', {
-    attrs: {
-      "native-type": "submit",
-      "type": "primary"
-    }
-  }, [_vm._v("Save")])], 1)], 1)], 1)
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-66c62927", module.exports)
-  }
-}
-
-/***/ }),
+/* 246 */,
 /* 247 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -69953,69 +69211,7 @@ if (false) {
 }
 
 /***/ }),
-/* 252 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('el-card', {
-    staticClass: "box-card"
-  }, [_c('div', {
-    staticClass: "h4",
-    attrs: {
-      "slot": "header"
-    },
-    slot: "header"
-  }, [_c('div', {
-    staticStyle: {
-      "margin-bottom": "10px"
-    }
-  }, [_vm._v("Enter your payment details")]), _vm._v(" "), _c('div', {
-    staticClass: "small"
-  }, [_vm._v("Your will not be charged until you review this order on the next page.")])]), _vm._v(" "), _vm._t("default"), _vm._v(" "), _c('el-form', {
-    attrs: {
-      "id": "payment-form",
-      "method": "POST",
-      "action": "/cart/checkout"
-    }
-  }, [_c('input', {
-    attrs: {
-      "type": "hidden",
-      "name": "_token"
-    },
-    domProps: {
-      "value": _vm.csrf
-    }
-  }), _vm._v(" "), _c('input', {
-    attrs: {
-      "type": "hidden",
-      "id": "nonce",
-      "name": "nonce"
-    }
-  }), _vm._v(" "), _c('div', {
-    attrs: {
-      "id": "bt-dropin"
-    }
-  }), _vm._v(" "), _c('el-button', {
-    staticStyle: {
-      "margin-top": "20px",
-      "width": "100%"
-    },
-    attrs: {
-      "type": "primary",
-      "native-type": "submit",
-      "loading": _vm.loading
-    }
-  }, [_vm._v("\n            Review your order\n        ")])], 1)], 2)
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-9359c02a", module.exports)
-  }
-}
-
-/***/ }),
+/* 252 */,
 /* 253 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -70638,32 +69834,7 @@ if(false) {
 }
 
 /***/ }),
-/* 260 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(181);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(19)("7351a5d6", content, false);
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-66c62927\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AddressForm.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-66c62927\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AddressForm.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
+/* 260 */,
 /* 261 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -87007,6 +86178,856 @@ module.exports = VenmoView;
 });
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(20)))
+
+/***/ }),
+/* 272 */,
+/* 273 */,
+/* 274 */,
+/* 275 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: {
+        authorization_: ''
+    },
+    data: function data() {
+        return {
+            loading: false,
+            csrf: ''
+        };
+    },
+    mounted: function mounted() {
+        this.csrf = window.csrf;
+
+        var form = document.querySelector('#payment-form');
+        braintree.create({
+            authorization: this.authorization_,
+            selector: '#bt-dropin',
+            card: {
+                cardholderName: true
+            },
+            paypal: {
+                flow: 'vault',
+                buttonStyle: {
+                    label: 'paypal',
+                    shape: 'rect',
+                    size: 'medium'
+                }
+
+            }
+        }, function (createErr, instance) {
+            if (createErr) {
+                console.log('Create Error', createErr);
+                return;
+            }
+            form.addEventListener('submit', function (event) {
+                event.preventDefault();
+                this.loading = true;
+                instance.requestPaymentMethod(function (err, payload) {
+                    if (err) {
+                        this.loading = false;
+                        console.log('Request Payment Method Error', err);
+                        return;
+                    }
+
+                    console.log(payload, 'payload');
+                    // Add the nonce to the form and submit
+                    document.querySelector('#nonce').value = payload.nonce;
+                    console.log(form);
+                    form.submit();
+                });
+            });
+        });
+    },
+
+    methods: {}
+});
+
+/***/ }),
+/* 276 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(275),
+  /* template */
+  __webpack_require__(277),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/skhatko/code/larabid/resources/assets/js/components/cart/PaymentForm.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] PaymentForm.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-3929fa08", Component.options)
+  } else {
+    hotAPI.reload("data-v-3929fa08", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 277 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('el-card', {
+    staticClass: "box-card"
+  }, [_c('div', {
+    staticClass: "h4",
+    attrs: {
+      "slot": "header"
+    },
+    slot: "header"
+  }, [_c('div', {
+    staticStyle: {
+      "margin-bottom": "10px"
+    }
+  }, [_vm._v("Enter your payment details")]), _vm._v(" "), _c('div', {
+    staticClass: "small"
+  }, [_vm._v("Your will not be charged until you review this order on the next page.")])]), _vm._v(" "), _vm._t("default"), _vm._v(" "), _c('el-form', {
+    attrs: {
+      "id": "payment-form",
+      "method": "POST",
+      "action": "/cart/payment"
+    }
+  }, [_c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "_token"
+    },
+    domProps: {
+      "value": _vm.csrf
+    }
+  }), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "hidden",
+      "id": "nonce",
+      "name": "nonce"
+    }
+  }), _vm._v(" "), _c('div', {
+    attrs: {
+      "id": "bt-dropin"
+    }
+  }), _vm._v(" "), _c('el-button', {
+    staticStyle: {
+      "margin-top": "20px",
+      "width": "100%"
+    },
+    attrs: {
+      "type": "primary",
+      "native-type": "submit",
+      "loading": _vm.loading
+    }
+  }, [_vm._v("\n            Review your order\n        ")])], 1)], 2)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-3929fa08", module.exports)
+  }
+}
+
+/***/ }),
+/* 278 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: {
+        addresses_: {},
+        selected_: null
+    },
+    data: function data() {
+        return {
+            showAddressForm: false,
+            deliveryAddress: {
+                selected: null
+            },
+            addressesRules: {
+                selected: [{ required: true, message: 'Please select delivery address', trigger: 'blur' }]
+            },
+            addresses: {},
+            address: {},
+            countries: '',
+            rules: {
+                name: [{ required: true, message: 'Please enter delivery name', trigger: 'blur' }],
+                country_id: [{ required: true, message: 'Please select country', trigger: 'blur' }],
+                address: [{ required: true, message: 'Please enter address', trigger: 'blur' }],
+                optional_address: [{}],
+                city: [{ required: true, message: 'Please enter city', trigger: 'blur' }],
+                region: [{ required: true, message: 'Please enter region', trigger: 'blur' }],
+                postcode: [{ required: true, message: 'Please enter postcode', trigger: 'blur' }],
+                email: [{ required: true, type: 'email', message: 'Please enter valid email', trigger: 'blur' }],
+                phone: [{ required: true, message: 'Please enter valid phone number', trigger: 'blur' }]
+            },
+            csrf: ''
+        };
+    },
+    mounted: function mounted() {
+        var _this = this;
+
+        this.csrf = window.csrf;
+
+        axios.get('/api/countries').then(function (response) {
+            _this.countries = response.data;
+        });
+
+        if (this.addresses_) {
+            this.addresses = JSON.parse(this.addresses_);
+        }
+
+        if (this.selected_) {
+            this.deliveryAddress.selected = Number(this.selected_);
+        }
+
+        if (!this.addresses.length) {
+            this.showAddressForm = true;
+        }
+    },
+
+    methods: {
+        edit: function edit(address) {
+            this.address = Object.assign({}, address);
+            this.showAddressForm = true;
+        },
+        remove: function remove(address) {
+            var _this2 = this;
+
+            this.$confirm('This will permanently delete this address. Continue?', 'Warning', {
+                confirmButtonText: 'OK',
+                cancelButtonText: 'Cancel',
+                type: 'warning'
+            }).then(function () {
+                axios.delete('/api/address/' + address.id).then(function (response) {
+                    _this2.$message({
+                        type: response.data.type,
+                        message: response.data.message
+                    });
+
+                    _this2.addresses = response.data.data;
+                    _this2.deliveryAddress.selected = null;
+                });
+            });
+        },
+        save: function save() {
+            var _this3 = this;
+
+            this.$refs['address'].validate(function (valid) {
+                if (valid) {
+                    // this.$refs['address'].$el.submit();
+                    axios.post('/api/address', _this3.address).then(function (response) {
+                        console.log(response.data);
+                        _this3.$message({
+                            showClose: true,
+                            message: response.data.message,
+                            type: response.data.status
+                        });
+                        _this3.addresses = response.data.data;
+                        _this3.handleCloseDialog();
+                    }).catch(function (error) {
+                        _this3.$store.commit('setErrors', error.response.data.errors);
+                        console.log(error);
+                    });
+                }
+            });
+        },
+        saveAddresses: function saveAddresses() {
+            var _this4 = this;
+
+            this.$refs['addresses'].validate(function (valid) {
+                if (valid) {
+                    _this4.$refs['addresses'].$el.submit();
+                }
+            });
+        },
+        handleCloseDialog: function handleCloseDialog() {
+            this.$refs['address'].resetFields();
+            this.showAddressForm = false;
+        },
+        getCountyName: function getCountyName(id) {
+            var countryName = '';
+            if (this.countries.length) {
+                this.countries.map(function (country) {
+                    if (country.id === id) {
+                        countryName = country.country_name;
+                    }
+                });
+            }
+
+            return countryName;
+        },
+        createAddress: function createAddress() {
+            this.address = {};
+            this.showAddressForm = true;
+        }
+    }
+});
+
+/***/ }),
+/* 279 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(18)();
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+/***/ }),
+/* 280 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+/* styles */
+__webpack_require__(282)
+
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(278),
+  /* template */
+  __webpack_require__(281),
+  /* scopeId */
+  "data-v-2a8fea20",
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/skhatko/code/larabid/resources/assets/js/components/cart/ShippingForm.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] ShippingForm.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-2a8fea20", Component.options)
+  } else {
+    hotAPI.reload("data-v-2a8fea20", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 281 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('el-main', {
+    staticClass: "app--wrapper"
+  }, [_c('div', {
+    staticClass: "app-cart-shipping"
+  }, [_c('el-card', {
+    staticClass: "box-card"
+  }, [_c('div', {
+    staticClass: "h4",
+    attrs: {
+      "slot": "header"
+    },
+    slot: "header"
+  }, [_vm._v("Select delivery Address")]), _vm._v(" "), _c('el-form', {
+    ref: "addresses",
+    attrs: {
+      "model": _vm.deliveryAddress,
+      "status-icon": "",
+      "rules": _vm.addressesRules,
+      "method": "POST",
+      "action": '/cart/shipping/' + _vm.deliveryAddress.selected
+    },
+    nativeOn: {
+      "submit": function($event) {
+        $event.preventDefault();
+        return _vm.saveAddresses($event)
+      }
+    }
+  }, [_c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "_token"
+    },
+    domProps: {
+      "value": _vm.csrf
+    }
+  }), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "prop": "selected"
+    }
+  }, [_c('el-radio-group', {
+    model: {
+      value: (_vm.deliveryAddress.selected),
+      callback: function($$v) {
+        _vm.$set(_vm.deliveryAddress, "selected", $$v)
+      },
+      expression: "deliveryAddress.selected"
+    }
+  }, _vm._l((_vm.addresses), function(address) {
+    return _c('div', {
+      key: address.id
+    }, [_c('el-radio', {
+      staticClass: "radio",
+      attrs: {
+        "label": address.id
+      }
+    }, [_c('span', {
+      staticClass: "address"
+    }, [_vm._v(_vm._s(address.address_string))]), _vm._v(" "), _c('span', {
+      staticClass: "address-edit",
+      on: {
+        "click": function($event) {
+          $event.preventDefault();
+          _vm.edit(address)
+        }
+      }
+    }, [_vm._v("Edit address")]), _vm._v(" "), _c('span', {
+      staticClass: "address-delete",
+      on: {
+        "click": function($event) {
+          $event.preventDefault();
+          _vm.remove(address)
+        }
+      }
+    }, [_vm._v("Delete")])])], 1)
+  }))], 1), _vm._v(" "), _c('el-button', {
+    staticStyle: {
+      "margin-bottom": "10px"
+    },
+    attrs: {
+      "type": "text"
+    },
+    on: {
+      "click": _vm.createAddress
+    }
+  }, [_vm._v("Create new Address\n                ")]), _vm._v(" "), _c('el-button', {
+    staticStyle: {
+      "display": "block",
+      "width": "100%",
+      "margin": "0"
+    },
+    attrs: {
+      "type": "primary",
+      "native-type": "submit"
+    }
+  }, [_vm._v("\n                    Checkout\n                ")])], 1)], 1)], 1), _vm._v(" "), _c('el-dialog', {
+    attrs: {
+      "visible": _vm.showAddressForm,
+      "width": "30%",
+      "title": "Delivery Address",
+      "before-close": _vm.handleCloseDialog
+    },
+    on: {
+      "update:visible": function($event) {
+        _vm.showAddressForm = $event
+      }
+    }
+  }, [_c('el-form', {
+    ref: "address",
+    attrs: {
+      "model": _vm.address,
+      "status-icon": "",
+      "rules": _vm.rules,
+      "method": "POST",
+      "action": "/cart/shipping"
+    },
+    nativeOn: {
+      "submit": function($event) {
+        $event.preventDefault();
+        return _vm.save($event)
+      }
+    }
+  }, [_c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "_token"
+    },
+    domProps: {
+      "value": _vm.csrf
+    }
+  }), _vm._v(" "), _c('errors'), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "prop": "name"
+    }
+  }, [_c('el-input', {
+    attrs: {
+      "placeholder": "Enter name for delivery",
+      "name": "name"
+    },
+    model: {
+      value: (_vm.address.name),
+      callback: function($$v) {
+        _vm.$set(_vm.address, "name", $$v)
+      },
+      expression: "address.name"
+    }
+  })], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "prop": "country_id"
+    }
+  }, [_c('el-select', {
+    attrs: {
+      "value": "",
+      "name": "country_id",
+      "filterable": "",
+      "placeholder": "Select country"
+    },
+    model: {
+      value: (_vm.address.country_id),
+      callback: function($$v) {
+        _vm.$set(_vm.address, "country_id", $$v)
+      },
+      expression: "address.country_id"
+    }
+  }, _vm._l((_vm.countries), function(country) {
+    return _c('el-option', {
+      key: country.id,
+      attrs: {
+        "label": country.country_name,
+        "value": country.id
+      }
+    })
+  }))], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "prop": "address"
+    }
+  }, [_c('el-input', {
+    attrs: {
+      "placeholder": "Address",
+      "name": "address"
+    },
+    model: {
+      value: (_vm.address.address),
+      callback: function($$v) {
+        _vm.$set(_vm.address, "address", $$v)
+      },
+      expression: "address.address"
+    }
+  })], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "prop": "optional_address"
+    }
+  }, [_c('el-input', {
+    attrs: {
+      "placeholder": "Optional Address",
+      "name": "address_2"
+    },
+    model: {
+      value: (_vm.address.address_2),
+      callback: function($$v) {
+        _vm.$set(_vm.address, "address_2", $$v)
+      },
+      expression: "address.address_2"
+    }
+  })], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "prop": "city"
+    }
+  }, [_c('el-input', {
+    attrs: {
+      "placeholder": "City",
+      "name": "city"
+    },
+    model: {
+      value: (_vm.address.city),
+      callback: function($$v) {
+        _vm.$set(_vm.address, "city", $$v)
+      },
+      expression: "address.city"
+    }
+  })], 1), _vm._v(" "), _c('el-row', {
+    attrs: {
+      "gutter": 20
+    }
+  }, [_c('el-col', {
+    attrs: {
+      "span": 16
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "prop": "region"
+    }
+  }, [_c('el-input', {
+    attrs: {
+      "placeholder": "State / Region / Province",
+      "name": "region"
+    },
+    model: {
+      value: (_vm.address.region),
+      callback: function($$v) {
+        _vm.$set(_vm.address, "region", $$v)
+      },
+      expression: "address.region"
+    }
+  })], 1)], 1), _vm._v(" "), _c('el-col', {
+    attrs: {
+      "span": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "prop": "postcode"
+    }
+  }, [_c('el-input', {
+    attrs: {
+      "placeholder": "Postcode",
+      "name": "postcode"
+    },
+    model: {
+      value: (_vm.address.postcode),
+      callback: function($$v) {
+        _vm.$set(_vm.address, "postcode", $$v)
+      },
+      expression: "address.postcode"
+    }
+  })], 1)], 1)], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "prop": "email"
+    }
+  }, [_c('el-input', {
+    attrs: {
+      "placeholder": "Email",
+      "name": "email"
+    },
+    model: {
+      value: (_vm.address.email),
+      callback: function($$v) {
+        _vm.$set(_vm.address, "email", $$v)
+      },
+      expression: "address.email"
+    }
+  })], 1), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.address.phone),
+      expression: "address.phone"
+    }],
+    attrs: {
+      "type": "hidden",
+      "name": "phone"
+    },
+    domProps: {
+      "value": (_vm.address.phone)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.$set(_vm.address, "phone", $event.target.value)
+      }
+    }
+  }), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "prop": "phone"
+    }
+  }, [_c('vue-tel-input', {
+    attrs: {
+      "preferredCountries": ['us', 'dk', 'ua']
+    },
+    model: {
+      value: (_vm.address.phone),
+      callback: function($$v) {
+        _vm.$set(_vm.address, "phone", $$v)
+      },
+      expression: "address.phone"
+    }
+  })], 1), _vm._v(" "), _c('el-button', {
+    attrs: {
+      "native-type": "submit",
+      "type": "primary"
+    }
+  }, [_vm._v("Save")])], 1)], 1)], 1)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-2a8fea20", module.exports)
+  }
+}
+
+/***/ }),
+/* 282 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(279);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(19)("46babd97", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-2a8fea20\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ShippingForm.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-2a8fea20\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ShippingForm.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
 
 /***/ })
 /******/ ]);

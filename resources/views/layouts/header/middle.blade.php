@@ -65,9 +65,10 @@
         </div>
 
         <div class="app-header-auth">
-            @if (Auth::guest())
 
-                <a href="#" style="margin-right: 20px;">Sell on BearteSpace</a>
+            <a href="#" style="margin-right: 20px;">Sell on BearteSpace</a>
+
+            @if (Auth::guest())
 
                 <a href="/register">{{ trans('portal.register') }}</a>
 
@@ -203,12 +204,6 @@
             <span class="app-header-cart-title">Cart</span>
         </a>
 
-        @if(auth()->user() && auth()->user()->user_type === 'artist')
-            <a href="{{ route('dashboard.artwork.create') }}" class="el-button el-button--success el-button--mini"
-               style="margin-left: 10px;">
-                Upload Artwork
-            </a>
-        @endif
     </div>
 
 </div>

@@ -293,7 +293,7 @@
 
         </el-card>
 
-        <el-card style="margin-bottom: 20px;">
+        <el-card style="margin-bottom: 20px;display: none;">
             <div slot="header">Auction settings</div>
 
             <el-row :gutter="20" style="margin-bottom: 20px;">

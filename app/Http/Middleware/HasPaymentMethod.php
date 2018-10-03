@@ -15,10 +15,10 @@ class HasPaymentMethod
      */
     public function handle($request, Closure $next)
     {
-    	if(auth()->user() && auth()->user()->paymentMethod()) {
+    	if(auth()->user()->hasBraintreeId() && auth()->user()->paymentMethod()) {
 		    return $next($request);
 	    } else {
-    		return redirect()->route('checkout');
+    		return redirect()->route('cart.payment');
 	    }
     }
 }

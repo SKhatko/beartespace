@@ -23,12 +23,6 @@ class PaymentController extends Controller {
 		return view( 'dashboard.admin.payments', compact( 'payments' ) );
 	}
 
-	public function payment() {
-		$address = auth()->user()->primaryAddress;
-
-		return view( 'checkout.index', compact( 'address' ) );
-	}
-
 	public function checkout( $transaction_id ) {
 
 		$payment = auth()->user()->payments()->whereTransactionId( $transaction_id )->firstOrCreate( [
