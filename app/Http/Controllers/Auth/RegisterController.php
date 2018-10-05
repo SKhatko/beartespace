@@ -26,13 +26,6 @@ class RegisterController extends Controller {
 
 	use RegistersUsers;
 
-	public function showRegistrationForm(Request $request)
-	{
-		$userType = $request->input('u');
-
-		return view('auth.register', compact('userType'));
-	}
-
 	/**
 	 * Handle a registration request for the application.
 	 *
@@ -47,7 +40,7 @@ class RegisterController extends Controller {
 			'last_name'  => 'required|string|max:255',
 			'email'      => 'required|string|email|max:255|unique:users',
 			'password'   => 'required|string|min:6',
-			'user_type'  => 'required|string|in:user,artist,gallery',
+//			'user_type'  => 'required|string|in:user,artist,gallery',
 //			'g-recaptcha-response' => 'required|captcha'
 		] );
 
@@ -56,7 +49,7 @@ class RegisterController extends Controller {
 			'last_name'        => $request->input( 'last_name' ),
 			'email'            => $request->input( 'email' ),
 			'password'         => bcrypt( $request->input( 'password' ) ),
-			'user_type'        => $request->input( 'user_type' ),
+			'user_type'        => 'user',
 			'activation_token' => str_random( 60 )
 //			'g-recaptcha-response' => 'required|captcha'
 		] );
@@ -72,7 +65,7 @@ class RegisterController extends Controller {
 
 		$user->notify( new SignupActivate( $user ) );
 
-		return view( 'auth.confirm', compact( 'user' ) );
+		return redirect($this->redirectTo);
 	}
 
 	/**
