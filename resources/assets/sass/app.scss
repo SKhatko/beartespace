@@ -45,6 +45,15 @@ body, html {
       color: #ffffff;
       text-transform: uppercase;
     }
+
+    .email {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 10px 15px;
+      color: #ffffff;
+      text-align: center;
+
+    }
   }
 
   &--middle {
