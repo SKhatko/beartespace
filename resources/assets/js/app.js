@@ -45,7 +45,8 @@ Vue.use(SocialSharing);
 
 
 Vue.component('subscription-form', require('./components/payment/SubscriptionForm.vue'));
-Vue.component('partials-artwork', require('./components/partials/Artwork.vue'));
+Vue.component('artwork-index', require('./components/partials/ArtworkIndex.vue'));
+Vue.component('artwork-show-carousel', require('./components/partials/ArtworkShowCarousel.vue'));
 
 Vue.component('artworks-menu', require('./components/ArtworksMenu.vue'));
 Vue.component('artists-menu', require('./components/ArtistsMenu.vue'));
@@ -65,6 +66,7 @@ Vue.component('pages', require('./components/dashboard/admin/Pages.vue'));
 Vue.component('users', require('./components/dashboard/admin/Users.vue'));
 
 // User
+Vue.component('dashboard', require('./components/dashboard/Dashboard.vue'));
 Vue.component('profile', require('./components/dashboard/user/Profile.vue'));
 Vue.component('artwork-form', require('./components/dashboard/ArtworkForm.vue'));
 
@@ -82,7 +84,6 @@ const app = new Vue({
     store: new Vuex.Store(store),
     components: {},
     data: {
-        showArtworkImageDialog: false,
         fullScreenLoading: false
     },
     mounted() {

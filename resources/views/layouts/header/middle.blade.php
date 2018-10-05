@@ -164,7 +164,7 @@
 
                     <div slot="reference" class="app-header-auth-dropdown">
                               <span class="app-header-auth-avatar">
-                                  <img src="/imagecache/mini-avatar/{{ auth()->user()->avatar_url}}"/>
+                                  <img src="/imagecache/fit-25/{{ auth()->user()->avatar_url}}"/>
                               </span>
                         <div class="app-header-auth-name">
                             You

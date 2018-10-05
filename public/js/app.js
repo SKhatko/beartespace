@@ -16241,7 +16241,8 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_3_vue_tel_input___default.a);
 Vue.use(SocialSharing);
 
 Vue.component('subscription-form', __webpack_require__(233));
-Vue.component('partials-artwork', __webpack_require__(231));
+Vue.component('artwork-index', __webpack_require__(289));
+Vue.component('artwork-show-carousel', __webpack_require__(292));
 
 Vue.component('artworks-menu', __webpack_require__(215));
 Vue.component('artists-menu', __webpack_require__(214));
@@ -16261,6 +16262,7 @@ Vue.component('pages', __webpack_require__(225));
 Vue.component('users', __webpack_require__(228));
 
 // User
+Vue.component('dashboard', __webpack_require__(285));
 Vue.component('profile', __webpack_require__(229));
 Vue.component('artwork-form', __webpack_require__(223));
 
@@ -16278,7 +16280,6 @@ var app = new Vue({
     store: new Vuex.Store(__WEBPACK_IMPORTED_MODULE_1__store_js__["a" /* default */]),
     components: {},
     data: {
-        showArtworkImageDialog: false,
         fullScreenLoading: false
     },
     mounted: function mounted() {
@@ -21225,97 +21226,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 141 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-
-    props: {
-        artwork_: {}
-    },
-
-    data: function data() {
-        return {
-            artwork: {}
-        };
-    },
-    mounted: function mounted() {
-        if (this.artwork_) {
-            this.artwork = JSON.parse(this.artwork_);
-        }
-    },
-
-
-    methods: {},
-    computed: {
-        favoriteIconClass: function favoriteIconClass() {
-            var _this = this;
-
-            if (this.$store.state.favoriteArtworks.find(function (artwork) {
-                return artwork.id === _this.artwork.id;
-            })) {
-                return 'el-icon-star-on';
-            }
-            return 'el-icon-star-off';
-        },
-        artworkInShoppingCartType: function artworkInShoppingCartType() {
-            var _this2 = this;
-
-            if (this.$store.state.shoppingCart.find(function (item) {
-                return item.id === _this2.artwork.id;
-            })) {
-                return 'primary';
-            }
-            return '';
-        }
-    }
-});
-
-/***/ }),
+/* 141 */,
 /* 142 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -65599,40 +65510,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 231 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Component = __webpack_require__(0)(
-  /* script */
-  __webpack_require__(141),
-  /* template */
-  __webpack_require__(250),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "/Users/skhatko/code/larabid/resources/assets/js/components/partials/Artwork.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] Artwork.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-86aa9110", Component.options)
-  } else {
-    hotAPI.reload("data-v-86aa9110", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
+/* 231 */,
 /* 232 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -66192,7 +66070,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("*Must be a .jpg, .gif or .png file smaller than 10MB and at least 400px by 400px.")]), _vm._v(" "), (_vm.user.avatar_url) ? _c('img', {
     staticClass: "avatar",
     attrs: {
-      "src": '/imagecache/avatar' + _vm.user.avatar_url
+      "src": '/imagecache/fit-290' + _vm.user.avatar_url
     }
   }) : _vm._e()], 1)], 1)], 1), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-col', {
     attrs: {
@@ -69108,78 +68986,7 @@ if (false) {
 }
 
 /***/ }),
-/* 250 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return (_vm.artwork) ? _c('el-card', {
-    staticClass: "artwork",
-    attrs: {
-      "shadow": "hover"
-    }
-  }, [_c('div', {
-    staticClass: "artwork-top"
-  }, [_c('a', {
-    staticClass: "artwork-image",
-    attrs: {
-      "href": '/artwork/' + _vm.artwork.id,
-      "target": "_blank"
-    }
-  }, [_c('img', {
-    attrs: {
-      "src": '/imagecache/original/' + _vm.artwork.image_url
-    }
-  })]), _vm._v(" "), _c('div', {
-    staticClass: "artwork-panel"
-  }, [_c('el-button', {
-    staticClass: "artwork-panel-favorite",
-    attrs: {
-      "icon": _vm.favoriteIconClass,
-      "circle": ""
-    },
-    on: {
-      "click": function($event) {
-        _vm.$store.commit('toggleFavorites', _vm.artwork)
-      }
-    }
-  }), _vm._v(" "), _c('el-button', {
-    staticClass: "artwork-panel-cart",
-    attrs: {
-      "circle": "",
-      "type": _vm.artworkInShoppingCartType
-    },
-    on: {
-      "click": function($event) {
-        _vm.$store.commit('toggleShoppingCart', _vm.artwork)
-      }
-    }
-  }, [_c('i', {
-    staticClass: "el-icon-goods"
-  })])], 1)]), _vm._v(" "), _c('a', {
-    staticClass: "artwork-name",
-    attrs: {
-      "href": '/artwork/' + _vm.artwork.id,
-      "target": "_blank"
-    }
-  }, [_vm._v("\n        " + _vm._s(_vm.artwork.name) + "\n    ")]), _vm._v(" "), _c('div', {
-    staticClass: "artwork-bottom"
-  }, [(_vm.artwork.user) ? _c('div', {
-    staticClass: "artwork-info"
-  }, [_c('div', {
-    staticClass: "artwork-artist"
-  }, [_vm._v(_vm._s(_vm.artwork.user.name))])]) : _vm._e(), _vm._v(" "), _c('div', {
-    staticClass: "artwork-price"
-  }, [_vm._v("\n            " + _vm._s(_vm.artwork.formatted_price) + "\n            ")])])]) : _vm._e()
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-86aa9110", module.exports)
-  }
-}
-
-/***/ }),
+/* 250 */,
 /* 251 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -87027,6 +86834,536 @@ if(false) {
  }
  // When the module is disposed, remove the <style> tags
  module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 283 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {};
+    },
+
+    methods: {}
+});
+
+/***/ }),
+/* 284 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(18)();
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+/***/ }),
+/* 285 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+/* styles */
+__webpack_require__(287)
+
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(283),
+  /* template */
+  __webpack_require__(286),
+  /* scopeId */
+  "data-v-03665fa8",
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/skhatko/code/larabid/resources/assets/js/components/dashboard/Dashboard.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Dashboard.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-03665fa8", Component.options)
+  } else {
+    hotAPI.reload("data-v-03665fa8", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 286 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c("div")
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-03665fa8", module.exports)
+  }
+}
+
+/***/ }),
+/* 287 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(284);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(19)("220a974b", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-03665fa8\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Dashboard.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-03665fa8\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Dashboard.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 288 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+
+    props: {
+        artwork_: {}
+    },
+
+    data: function data() {
+        return {
+            artwork: {}
+        };
+    },
+    mounted: function mounted() {
+        if (this.artwork_) {
+            this.artwork = JSON.parse(this.artwork_);
+        }
+    },
+
+
+    methods: {},
+    computed: {
+        favoriteIconClass: function favoriteIconClass() {
+            var _this = this;
+
+            if (this.$store.state.favoriteArtworks.find(function (artwork) {
+                return artwork.id === _this.artwork.id;
+            })) {
+                return 'el-icon-star-on';
+            }
+            return 'el-icon-star-off';
+        },
+        artworkInShoppingCartType: function artworkInShoppingCartType() {
+            var _this2 = this;
+
+            if (this.$store.state.shoppingCart.find(function (item) {
+                return item.id === _this2.artwork.id;
+            })) {
+                return 'primary';
+            }
+            return '';
+        }
+    }
+});
+
+/***/ }),
+/* 289 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(288),
+  /* template */
+  __webpack_require__(290),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/skhatko/code/larabid/resources/assets/js/components/partials/ArtworkIndex.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] ArtworkIndex.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-ce696d2c", Component.options)
+  } else {
+    hotAPI.reload("data-v-ce696d2c", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 290 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return (_vm.artwork) ? _c('el-card', {
+    staticClass: "artwork",
+    attrs: {
+      "shadow": "hover"
+    }
+  }, [_c('div', {
+    staticClass: "artwork-top"
+  }, [_c('a', {
+    staticClass: "artwork-image",
+    attrs: {
+      "href": '/artwork/' + _vm.artwork.id,
+      "target": "_blank"
+    }
+  }, [_c('img', {
+    attrs: {
+      "src": '/imagecache/width-430/' + _vm.artwork.image_url
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "artwork-panel"
+  }, [_c('el-button', {
+    staticClass: "artwork-panel-favorite",
+    attrs: {
+      "icon": _vm.favoriteIconClass,
+      "circle": ""
+    },
+    on: {
+      "click": function($event) {
+        _vm.$store.commit('toggleFavorites', _vm.artwork)
+      }
+    }
+  }), _vm._v(" "), _c('el-button', {
+    staticClass: "artwork-panel-cart",
+    attrs: {
+      "circle": "",
+      "type": _vm.artworkInShoppingCartType
+    },
+    on: {
+      "click": function($event) {
+        _vm.$store.commit('toggleShoppingCart', _vm.artwork)
+      }
+    }
+  }, [_c('i', {
+    staticClass: "el-icon-goods"
+  })])], 1)]), _vm._v(" "), _c('a', {
+    staticClass: "artwork-name",
+    attrs: {
+      "href": '/artwork/' + _vm.artwork.id,
+      "target": "_blank"
+    }
+  }, [_vm._v("\n        " + _vm._s(_vm.artwork.name) + "\n    ")]), _vm._v(" "), _c('div', {
+    staticClass: "artwork-bottom"
+  }, [(_vm.artwork.user) ? _c('div', {
+    staticClass: "artwork-info"
+  }, [_c('div', {
+    staticClass: "artwork-artist"
+  }, [_vm._v(_vm._s(_vm.artwork.user.name))])]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "artwork-price"
+  }, [_vm._v("\n            " + _vm._s(_vm.artwork.formatted_price) + "\n            ")])])]) : _vm._e()
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-ce696d2c", module.exports)
+  }
+}
+
+/***/ }),
+/* 291 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+
+    props: {
+        artwork_: {}
+    },
+
+    data: function data() {
+        return {
+            showArtworkImageDialog: false,
+            activeSlide: 0,
+            artwork: {}
+        };
+    },
+    mounted: function mounted() {
+        if (this.artwork_) {
+            this.artwork = JSON.parse(this.artwork_);
+        }
+
+        console.log(this.artwork.images);
+    },
+
+
+    methods: {
+        setActiveSlide: function setActiveSlide(activeSlide) {
+            this.activeSlide = activeSlide;
+        }
+    },
+    computed: {
+        favoriteIconClass: function favoriteIconClass() {
+            var _this = this;
+
+            if (this.$store.state.favoriteArtworks.find(function (artwork) {
+                return artwork.id === _this.artwork.id;
+            })) {
+                return 'el-icon-star-on';
+            }
+            return 'el-icon-star-off';
+        },
+        activeImagePath: function activeImagePath() {
+            if (this.activeSlide === 0) {
+                return this.artwork.image_url;
+            } else {
+                return this.artwork.images[--this.activeSlide].url;
+            }
+        }
+    }
+});
+
+/***/ }),
+/* 292 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(291),
+  /* template */
+  __webpack_require__(293),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/skhatko/code/larabid/resources/assets/js/components/partials/ArtworkShowCarousel.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] ArtworkShowCarousel.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-1f12f895", Component.options)
+  } else {
+    hotAPI.reload("data-v-1f12f895", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 293 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "artwork-images"
+  }, [_c('el-button', {
+    staticClass: "artwork-images-favorite",
+    attrs: {
+      "icon": _vm.favoriteIconClass,
+      "circle": ""
+    },
+    on: {
+      "click": function($event) {
+        _vm.$store.commit('toggleFavorites', _vm.artwork)
+      }
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "artwork-carousel"
+  }, [_c('el-button', {
+    staticClass: "artwork-images-zoom",
+    attrs: {
+      "plain": "",
+      "circle": ""
+    },
+    on: {
+      "click": function($event) {
+        _vm.showArtworkImageDialog = !_vm.showArtworkImageDialog
+      }
+    }
+  }, [_c('i', {
+    staticClass: "el-icon-zoom-in"
+  })]), _vm._v(" "), _c('el-carousel', {
+    attrs: {
+      "trigger": "click",
+      "indicator-position": "outside",
+      "height": "500px",
+      "interval": 0
+    },
+    on: {
+      "change": _vm.setActiveSlide
+    }
+  }, [_c('el-carousel-item', [_c('div', {
+    staticClass: "artwork-image"
+  }, [_c('img', {
+    attrs: {
+      "src": '/imagecache/height-500' + _vm.artwork.image_url,
+      "alt": ""
+    }
+  })])]), _vm._v(" "), _vm._l((_vm.artwork.images), function(image) {
+    return _c('el-carousel-item', {
+      key: image.id
+    }, [_c('div', {
+      staticClass: "artwork-image"
+    }, [_c('img', {
+      attrs: {
+        "src": '/imagecache/height-500' + image.url,
+        "alt": ""
+      }
+    })])])
+  })], 2)], 1), _vm._v(" "), _c('el-dialog', {
+    attrs: {
+      "fullscreen": "",
+      "visible": _vm.showArtworkImageDialog,
+      "center": ""
+    },
+    on: {
+      "update:visible": function($event) {
+        _vm.showArtworkImageDialog = $event
+      }
+    }
+  }, [_c('div', {
+    staticStyle: {
+      "text-align": "center"
+    }
+  }, [_c('img', {
+    staticStyle: {
+      "max-height": "90vh"
+    },
+    attrs: {
+      "src": '/imagecache/original' + _vm.activeImagePath,
+      "alt": ""
+    }
+  })])])], 1)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-1f12f895", module.exports)
+  }
 }
 
 /***/ })

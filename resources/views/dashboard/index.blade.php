@@ -2,6 +2,7 @@
 
 @section('content')
 
-    @yield('admin-content')
+    @yield('dashboard-content')
+
 
 @endsection

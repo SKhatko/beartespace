@@ -4,7 +4,7 @@
 
         @foreach($artworks as $artwork)
 
-            <partials-artwork artwork_="{{ $artwork }}"></partials-artwork>
+            <artwork-index artwork_="{{ $artwork }}"></artwork-index>
 
         @endforeach
     </div>

@@ -24,7 +24,7 @@
                         <div class="artist">
                             <div class="artist-header">
                                 <a href="{{ route('artist', $artist->id) }}" class="artist-avatar">
-                                    <img src="/imagecache/avatar{{ $artist->avatar_url }}"
+                                    <img src="/imagecache/fit-290{{ $artist->avatar_url }}"
                                          alt="{{ $artist->avatar ? $artist->avatar->name : $artist->name }}">
                                 </a>
 

@@ -1,20 +1,13 @@
 @extends('dashboard.index')
 
-@section('admin-content')
+@section('dashboard-content')
 
     <el-main class="app--wrapper">
 
         <div class="app-orders">
 
-            <el-breadcrumb separator-class="el-icon-arrow-right" style="margin: 30px 0;">
-                <el-breadcrumb-item><a href="/">Home</a></el-breadcrumb-item>
-                <el-breadcrumb-item><a href="/dashboard">Dashboard</a></el-breadcrumb-item>
-                <el-breadcrumb-item>Orders</el-breadcrumb-item>
-            </el-breadcrumb>
-
             <el-card class="box-card orders">
                 <div slot="header" class="clearfix h4">Orders</div>
-
 
                 @if(auth()->user()->orders()->count() > 0)
 

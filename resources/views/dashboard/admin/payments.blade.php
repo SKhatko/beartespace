@@ -1,6 +1,6 @@
 @extends('dashboard.index')
 
-@section('admin-content')
+@section('dashboard-content')
 
     <div class="app--wrapper">
         <div class="app-payments">

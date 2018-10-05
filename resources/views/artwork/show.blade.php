@@ -19,17 +19,7 @@
 
                     <div class="artwork--top">
 
-                        <div class="artwork-image" @click="showArtworkImageDialog = !showArtworkImageDialog">
-                            <img src="/imagecache/height-200/{{ $artwork->image_url }}"
-                                 alt="">
-                        </div>
-
-                        <el-dialog :visible.sync="showArtworkImageDialog" center>
-                            <div style="text-align: center;">
-                                <img src="/imagecache/original/{{ $artwork->image_url }}"
-                                     alt="">
-                            </div>
-                        </el-dialog>
+                        <artwork-show-carousel artwork_="{{ $artwork }}"></artwork-show-carousel>
 
                         <div class="artwork--right">
                             <el-card class="artwork-description">
@@ -145,7 +135,7 @@
                                 <a href="{{ route('artist', $artwork->user->id) }}" class="artwork-artist">
                                     Artist:
                                     <span class="artwork-artist-avatar">
-                                        <img src="/imagecache/mini-avatar/{{ $artwork->user->avatar_url}}"/>
+                                        <img src="/imagecache/fit-25/{{ $artwork->user->avatar_url}}"/>
                                     </span>
 
                                     {{ $artwork->user->name }}
@@ -179,21 +169,6 @@
 
 
                         </div>
-
-                    </div>
-
-                    <div class="artwork-images">
-                        <el-carousel indicator-position="outside">
-
-                            @foreach($artwork->images as $image)
-                                <el-carousel-item key="{{ $image->id }}">
-                                    <div class="artwork-image">
-                                        <img src="/imagecache/height-200/{{ $image->url }}" alt="">
-                                    </div>
-                                </el-carousel-item>
-                            @endforeach
-
-                        </el-carousel>
 
                     </div>
 

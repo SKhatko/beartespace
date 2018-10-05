@@ -55,13 +55,16 @@ return array(
         'small' => 'Intervention\Image\Templates\Small',
         'medium' => 'Intervention\Image\Templates\Medium',
         'large' => 'Intervention\Image\Templates\Large',
-	    'avatar' => 'App\Filters\Avatar',
-	    'mini-avatar' => 'App\Filters\MiniAvatar',
+        'height-40' => 'App\Filters\Height40',
+        'height-80' => 'App\Filters\Height80',
 	    'height-100' => 'App\Filters\Height100',
 	    'height-200' => 'App\Filters\Height200',
-	    'height-40' => 'App\Filters\Height40',
-	    'height-80' => 'App\Filters\Height80',
-	    'fit-290' => 'App\Filters\Fit290'
+	    'height-500' => 'App\Filters\Height500',
+
+	    'fit-25' => 'App\Filters\Fit25',
+	    'fit-290' => 'App\Filters\Fit290',
+
+	    'width-430' => 'App\Filters\Width430',
     ),
 
     /*

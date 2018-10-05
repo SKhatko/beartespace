@@ -8,11 +8,6 @@
 
         <div class="app-artworks">
 
-            <el-breadcrumb separator-class="el-icon-arrow-right" style="margin: 30px 0;">
-                <el-breadcrumb-item><a href="/">Home</a></el-breadcrumb-item>
-                <el-breadcrumb-item>Artworks</el-breadcrumb-item>
-            </el-breadcrumb>
-
             <main>
 
                 <div class="artworks">

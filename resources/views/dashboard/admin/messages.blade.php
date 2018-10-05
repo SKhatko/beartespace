@@ -3,7 +3,7 @@
 
 @section('title') @if( ! empty($title)) {{ $title }} | @endif @parent @endsection
 
-@section('admin-content')
+@section('dashboard-content')
 
    <div class="app--wrapper">
       <div class="app-messages">

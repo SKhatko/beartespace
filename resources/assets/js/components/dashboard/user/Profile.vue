@@ -40,7 +40,7 @@
                             <el-button slot="trigger" icon="el-icon-picture"  class="profile-avatar-button" circle></el-button>
                             <div slot="tip" class="el-upload__tip">*Must be a .jpg, .gif or .png file smaller than 10MB and at least 400px by 400px.</div>
 
-                            <img v-if="user.avatar_url" :src="'/imagecache/avatar' + user.avatar_url"
+                            <img v-if="user.avatar_url" :src="'/imagecache/fit-290' + user.avatar_url"
                                  class="avatar">
                         </el-upload>
 
