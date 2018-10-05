@@ -9,11 +9,27 @@
 
             <div class="app-artwork">
 
-                <el-breadcrumb separator-class="el-icon-arrow-right" style="margin: 30px 0;">
-                    <el-breadcrumb-item><a href="/">Home</a></el-breadcrumb-item>
-                    <el-breadcrumb-item><a href="/artwork">Artworks</a></el-breadcrumb-item>
-                    <el-breadcrumb-item>{{ $artwork->name }}</el-breadcrumb-item>
-                </el-breadcrumb>
+                <div class="artist">
+                    <div class="artist-info">
+                        <img src="/imagecache/original{{ $artwork->user->avatar_url }}" class="artist-avatar" alt="">
+                        <a href="{{ route('artist', $artwork->user->id) }}"
+                           class="artist-name">{{ $artwork->user->name }}</a>
+
+                        @if($artwork->user->followedBy->count() > 0)
+                            <div class="artist-followed">
+                                Followed by {{ $artwork->user->followedBy->count() }} people
+                            </div>
+                        @endif
+
+                        <el-button plain size="mini" style="margin-top: 10px;">
+                            Follow {{ $artwork->user->name }}</el-button>
+                    </div>
+
+                    <div class="artist-artworks">
+                        Artworks
+                    </div>
+
+                </div>
 
                 <div class="artwork">
 

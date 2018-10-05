@@ -659,7 +659,31 @@ body, html {
 }
 
 .app-artwork {
-  padding: 0 15px;
+  padding: 15px;
+
+  .artist {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+
+    &-info {
+      flex: 1;
+    }
+
+    &-avatar {
+      float: left;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      overflow: hidden;
+      margin-right: 20px;
+    }
+
+    &-name {
+      font-weight: bold;
+      display: block;
+    }
+  }
 
   .artwork {
 
@@ -675,6 +699,25 @@ body, html {
       min-width: 400px;
       max-width: 1000px;
       position: relative;
+
+      &-carousel {
+        position: relative;
+
+        &:hover .artwork-images-zoom {
+          visibility: visible;
+          opacity: 0.6;
+        }
+      }
+
+      .image {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        img {
+          max-height: 100%;
+        }
+      }
 
       &-zoom {
         font-size: 25px;
@@ -699,27 +742,8 @@ body, html {
       }
     }
 
-    &-carousel {
-      position: relative;
-
-      &:hover .artwork-images-zoom {
-        visibility: visible;
-        opacity: 1;
-      }
-    }
-
-    &-image {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      img {
-        max-height: 100%;
-      }
-    }
-
     &--right {
-      width: 400px;
+      width: 300px;
     }
 
     &-description {

@@ -5,7 +5,7 @@
         <el-button :icon="favoriteIconClass" class="artwork-images-favorite" circle
                    @click="$store.commit('toggleFavorites', artwork)"></el-button>
 
-        <div class="artwork-carousel">
+        <div class="artwork-images-carousel">
 
             <el-button plain class="artwork-images-zoom" circle @click="showArtworkImageDialog = !showArtworkImageDialog"><i
                     class="el-icon-zoom-in"></i>
@@ -14,13 +14,13 @@
             <el-carousel trigger="click" indicator-position="outside" height="500px" :interval="0" @change="setActiveSlide">
 
                 <el-carousel-item>
-                    <div class="artwork-image">
+                    <div class="image">
                         <img :src="'/imagecache/height-500' + artwork.image_url" alt="">
                     </div>
                 </el-carousel-item>
 
                 <el-carousel-item v-for="image in artwork.images" :key="image.id">
-                    <div class="artwork-image">
+                    <div class="image">
                         <img :src="'/imagecache/height-500' + image.url" alt="">
                     </div>
                 </el-carousel-item>

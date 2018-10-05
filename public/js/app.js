@@ -87291,7 +87291,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }), _vm._v(" "), _c('div', {
-    staticClass: "artwork-carousel"
+    staticClass: "artwork-images-carousel"
   }, [_c('el-button', {
     staticClass: "artwork-images-zoom",
     attrs: {
@@ -87316,7 +87316,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "change": _vm.setActiveSlide
     }
   }, [_c('el-carousel-item', [_c('div', {
-    staticClass: "artwork-image"
+    staticClass: "image"
   }, [_c('img', {
     attrs: {
       "src": '/imagecache/height-500' + _vm.artwork.image_url,
@@ -87326,7 +87326,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     return _c('el-carousel-item', {
       key: image.id
     }, [_c('div', {
-      staticClass: "artwork-image"
+      staticClass: "image"
     }, [_c('img', {
       attrs: {
         "src": '/imagecache/height-500' + image.url,
