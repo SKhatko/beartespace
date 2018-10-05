@@ -18,7 +18,7 @@
 
                 @if(Cart::count() > 0)
                     @include('cart.cart-items', ['cart' => Cart::content()])
-               @else
+                @else
 
                     <div class="cart-empty">
                         Your cart is empty. Let's get some art!
@@ -32,19 +32,23 @@
 
             </el-card>
 
-            <el-card class="total">
-                <div class="total-vat">
-                    <span>Item total (incl. VAT)</span>
-                    <span>{{ currency(Cart::total()) }}</span>
-                </div>
-                <hr>
-                <div class="total-summary">
-                    <span>Order total ({{ Cart::count() }})</span>
-                    <span>{{ currency(Cart::total()) }}</span>
-                </div>
+            @if(Cart::count() > 0)
 
-                <a href="/cart/checkout" class="el-button el-button--primary" style="width: 100%;">Proceed to Checkout</a>
-            </el-card>
+                <el-card class="total">
+                    <div class="total-vat">
+                        <span>Item total (incl. VAT)</span>
+                        <span>{{ currency(Cart::total()) }}</span>
+                    </div>
+                    <hr>
+                    <div class="total-summary">
+                        <span>Order total ({{ Cart::count() }})</span>
+                        <span>{{ currency(Cart::total()) }}</span>
+                    </div>
+
+                    <a href="/cart/checkout" class="el-button el-button--primary" style="width: 100%;">Proceed to
+                        Checkout</a>
+                </el-card>
+            @endif
 
         </div>
 

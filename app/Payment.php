@@ -16,7 +16,7 @@ class Payment extends Model {
 		return $this->belongsTo( Order::class );
 	}
 
-	public function getChargeAttribute($value) {
+	public function getTransactionAttribute($value) {
 		return unserialize($value);
 	}
 

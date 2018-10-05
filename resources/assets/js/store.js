@@ -38,7 +38,7 @@ let store = {
 
                 state.shoppingCartCount = response.data.data.length ;
 
-                console.log(response.data.data, 'got data');
+                // console.log(response.data.data, 'got data');
 
                 // this._vm.$message({
                 //     dangerouslyUseHTMLString: true,

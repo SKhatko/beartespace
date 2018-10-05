@@ -109,9 +109,10 @@ Route::group( [ 'middleware' => 'web' ], function () {
 		Route::post( 'cart/payment', 'CartCheckoutController@savePaymentMethod' );
 		Route::get( 'cart/checkout', 'CartCheckoutController@checkout' )->name( 'cart.checkout' )->middleware('has-payment-method');
 		Route::post( 'cart/checkout', 'CartCheckoutController@checkoutPost' )->middleware('has-payment-method');
-
 	} );
 
+	Route::get('cart/checkout/success', 'CartCheckoutController@checkoutSuccess')->name('cart.checkout.success')->middleware('auth');
+	Route::get('cart/checkout/failure', 'CartCheckoutController@checkoutSuccess')->name('cart.checkout.failure')->middleware('auth');
 
 	// Pages
 	Route::get( 'about', 'HomeController@about' )->name( 'about' );

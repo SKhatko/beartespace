@@ -20,17 +20,17 @@ class OrderCreated implements ShouldQueue {
 	 *
 	 * @return void
 	 */
-	public function __construct( \App\Order $order ) {
+	public function __construct( Order $order ) {
 
 		$this->order = $order;
 
-//		logger( 'Order Created job, send email to ' . $this->order->user->email );
-
-		dispatch( new CreateSale( $this->order ) );
-
-//		$this->dispatch(new CreateSale($this->order));
-
+//		Mail::to( 's.a.hatko@gmail.com' )->queue( new \App\Mail\OrderCreated( $this->order ) );
 		Mail::to( $this->order->user )->queue( new \App\Mail\OrderCreated( $this->order ) );
+
+		foreach ($this->order->sales as $sale) {
+			Mail::to( $sale->user )->queue( new \App\Mail\SaleCreated( $sale ) );
+//			Mail::to( 's.a.hatko@gmail.com' )->queue( new \App\Mail\SaleCreated( $sale ) );
+		}
 
 	}
 

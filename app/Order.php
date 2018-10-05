@@ -7,9 +7,9 @@ use App\Country;
 
 class Order extends Model {
 
-	public $incrementing = true;
+//	public $incrementing = true;
 
-	protected $fillable = [ 'user_id', 'payment_id', 'address', 'content', 'amount', 'status' ];
+	protected $fillable = [ 'address', 'content', 'amount', 'status' ];
 
 	public function getCartAttribute( $value ) {
 		return json_decode( $value );
@@ -28,7 +28,7 @@ class Order extends Model {
 	}
 
 	public function payment() {
-		return $this->belongsTo( Payment::class );
+		return $this->hasOne( Payment::class );
 	}
 
 	public function scopeConfirmed( $query ) {

@@ -33,8 +33,9 @@ class AddressController extends Controller {
 
 	public function destroy($id) {
 
-		$address = Address::findOrFail($id);
-		$address->delete();
+		auth()->user()->addresses()->detach($id);
+//		$address = Address::findOrFail($id);
+//		$address->delete();
 
 		return [ 'status' => 'success', 'message' => 'Address removed', 'data' => auth()->user()->addresses ];
 	}

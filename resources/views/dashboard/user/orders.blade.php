@@ -23,6 +23,7 @@
                             <div class="order-top">
                                 Order #{{ $order->id }} from {{ $order->created_at->diffForHumans() }}
                             </div>
+
                             @foreach($order->sales as $sale)
                                 <div class="artwork">
                                     {{----}}

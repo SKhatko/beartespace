@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\OrderCreated;
 use App\Order;
+use App\Sale;
 use Illuminate\Http\Request;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Mail;
@@ -14,19 +16,18 @@ class OrderController extends Controller {
 
 		$orders = auth()->user()->orders()->get();
 
-//		$payment = auth()->user()->payments()->first();
+		$order = auth()->user()->orders()->first();
+
+//		Mail::to( 'support@beartespace.com' )->queue( new \App\Mail\OrderCreated( $order ) );
+
+//		return $order;
+
+//		return new \App\Mail\OrderCreated( $order );
 
 
-//		Mail::to( $orders->first()->user )->send( new \App\Mail\OrderCreated( $orders->first() ) );
-//		foreach ( $orders->first()->sales as $sale ) {
-//			Mail::to( $orders->first()->user )->send( new \App\Mail\SaleCreated( $sale ) );
-//		}
+//		OrderCreated::dispatch($order);
+//		CreateSale::dispatch( $order );
 
-//		\App\Jobs\CreateSale::dispatch($orders->first());
-
-//		\App\Jobs\OrderCreated::dispatch($orders->first());
-
-//		\App\Jobs\CreateSale::dispatch( $orders->first() );
 
 
 		// TODO looks too creepy, takes ids from cart and push it to one dimensional array of id's

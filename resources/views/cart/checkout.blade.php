@@ -17,6 +17,8 @@
             <el-card>
                 <div slot="header" class="h4">Please confirm and submit your order</div>
 
+                @include('partials.errors')
+
                 <div class="checkout">
 
                     <div class="checkout-address">

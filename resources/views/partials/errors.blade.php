@@ -38,7 +38,7 @@
 @endif
 
 @if(session('inline-error'))
-    <el-alert style="margin-bottom: 5px;"
+    <el-alert style="margin-bottom: 10px;"
               title="Error"
               type="error"
               description="{!! session('inline-error') !!}"

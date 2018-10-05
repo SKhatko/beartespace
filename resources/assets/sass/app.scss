@@ -907,7 +907,7 @@ body, html {
   display: flex;
 
   .cart {
-    flex: 1;
+    flex: 5;
 
     &-header {
       display: flex;
@@ -924,7 +924,7 @@ body, html {
   }
 
   .total {
-    width: 300px;
+    flex: 2;
     margin-left: 20px;
 
     &-vat {
