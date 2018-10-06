@@ -67,7 +67,7 @@ class CartController extends Controller {
 		} else {
 			Cart::add( $artwork );
 
-			$this->response = redirect()->route( 'checkout' );
+			$this->response = redirect()->route( 'cart.checkout' );
 
 		}
 

@@ -62,6 +62,8 @@ return array(
 	    'height-500' => 'App\Filters\Height500',
 
 	    'fit-25' => 'App\Filters\Fit25',
+	    'fit-50' => 'App\Filters\Fit50',
+	    'fit-75' => 'App\Filters\Fit75',
 	    'fit-290' => 'App\Filters\Fit290',
 
 	    'width-430' => 'App\Filters\Width430',

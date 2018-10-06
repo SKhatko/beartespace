@@ -11,7 +11,7 @@
 
                 <div class="artist">
                     <div class="artist-info">
-                        <img src="/imagecache/original{{ $artwork->user->avatar_url }}" class="artist-avatar" alt="">
+                        <img src="/imagecache/fit-75{{ $artwork->user->avatar_url }}" class="artist-avatar" alt="">
                         <a href="{{ route('artist', $artwork->user->id) }}"
                            class="artist-name">{{ $artwork->user->name }}</a>
 
@@ -21,119 +21,173 @@
                             </div>
                         @endif
 
-                        <el-button plain size="mini" style="margin-top: 10px;">
-                            Follow {{ $artwork->user->name }}</el-button>
+                        @if(auth()->user())
+                            <follow-button
+                                    follow_="{{ auth()->user()->followedUsers->contains($artwork->user->id) }}"
+                                    user-id_="{{ $artwork->user->id }}">
+                                {{ $artwork->user->name }}
+                            </follow-button>
+                        @endif
                     </div>
 
-                    <div class="artist-artworks">
-                        Artworks
-                    </div>
+                    @if($artwork->user->artworks->count() > 3)
+                        <div class="artist-artworks">
+                            @foreach($artwork->user->artworks->take(3) as $artwork)
+                                <a href="{{ route('artwork', $artwork->id) }}" class="artist-artwork">
+                                    <img src="/imagecache/fit-75{{ $artwork->image_url }}" alt="">
+                                </a>
+                            @endforeach
+                            <a href="{{ route('artist', $artwork->user->id) }}" class="artist-artwork">
+                                <span>
+                                       <span class="h2" style="display: block;">
+                                          {{ $artwork->user->artworks->count() }}
+                                    </span><br>
+                                Artworks
+                                </span>
+                            </a>
+                        </div>
+                    @endif
 
                 </div>
 
                 <div class="artwork">
 
-                    <div class="artwork--top">
+                    <div class="artwork--left">
 
                         <artwork-show-carousel artwork_="{{ $artwork }}"></artwork-show-carousel>
 
-                        <div class="artwork--right">
-                            <el-card class="artwork-description">
+                        <el-collapse v-model="activeCollapseArtworkShow">
+                            <el-collapse-item title="Description" name="description">
+                                {{ $artwork->description }}
+                            </el-collapse-item>
+                            <el-collapse-item title="Inspiration" name="inspiration">
 
-                                <div class="artwork-name">{{ $artwork->name }} by <a
-                                            href="{{ route('artist', $artwork->user->id) }}"><b>{{ $artwork->user->name }}</b></a>
+                                {{ $artwork->inspiration }}
+                            </el-collapse-item>
+                        </el-collapse>
+
+                    </div>
+
+                    <div class="artwork--right">
+                        <el-card class="artwork-description">
+
+                            <div class="artwork-name">{{ $artwork->name }} by
+                                <b>{{ $artwork->made_by ?? $artwork->user->name }}</b>
+                            </div>
+
+                            <div class="artwork-price">
+                                {{ $artwork->formatted_price }}
+                            </div>
+
+                            <div class="artwork-shipping">
+                                Free shipping @if($artwork->processing_time)
+                                    within {{ $artwork->processing_time }} @endif
+                            </div>
+
+
+                            @if($artwork->availableInStockWithQuantity() !== 'available')
+                                <div class="artwork-status">
+                                    {{ trans('stock-status.' . $artwork->availableInStockWithQuantity()) }}
+                                </div>
+                            @else
+                                <div class="artwork-status available">
+                                    {{ trans('stock-status.' . $artwork->availableInStockWithQuantity()) }}
                                 </div>
 
-                                @if($artwork->user->country)
-                                    <div class="artwork-country">
-                                        Location: {{ $artwork->user->country['country_name'] }}
+                                @if($artwork->quantity > 1)
+                                    <div class="artwork-qty" style="margin-bottom: 10px;">
+                                        Qty: {{ $artwork->quantity }} pc
                                     </div>
                                 @endif
 
-                                @if($artwork->availableInStockWithQuantity() !== 'available')
-                                    <div class="artwork-status">
-                                        {{ trans('stock-status.' . $artwork->availableInStockWithQuantity()) }}
-                                    </div>
-                                @else
-                                    <div class="artwork-status available">
-                                        {{ trans('stock-status.' . $artwork->availableInStockWithQuantity()) }}
-                                    </div>
+                                {{--<el-input-number size="mini" value="1" :min="Number('1')"--}}
+                                {{--:max="Number('{{ $artwork->quantity }}')"></el-input-number>--}}
 
-                                    @if($artwork->quantity > 1)
-                                        <div class="artwork-qty">
-                                            Qty: {{ $artwork->quantity }} pc
-                                        </div>
-                                    @endif
+                            @endif
 
-                                    {{--<el-input-number size="mini" value="1" :min="Number('1')"--}}
-                                    {{--:max="Number('{{ $artwork->quantity }}')"></el-input-number>--}}
+                            @if(!$artwork->sold && $artwork->available)
 
+                                <a href="{{ route('cart.item.buy-now', $artwork->id) }}"
+                                   class="el-button el-button--default is-plain artwork-buy">Buy Now</a>
+
+                                <a href="{{ route('cart.item.add', $artwork->id) }}"
+                                   class="el-button el-button--primary artwork-add">Add to cart</a>
+                            @endif
+
+                            @if($artwork->favoredUsers()->count() > 1 )
+                                <div class="artwork-favored">
+                                    <i class="el-icon-info"></i> <b>Almost
+                                        gone.</b> {{ $artwork->favoredUsers()->count() }} people watch it
+                                </div>
+                            @endif
+
+                            <social-sharing inline-template quote="Quote here" url="{{ url()->current() }}"
+                                            title="Title here" description="Description here">
+                                <div class="artwork-share">
+                                    <network network="facebook"
+                                             class="el-button el-button--default el-button--mini facebook">
+                                        <i class="icon-facebook"></i> Share
+                                    </network>
+
+                                    <network network="googleplus"
+                                             class="el-button el-button--default el-button--mini google">
+                                        <i class="icon-googleplus"></i> Share
+                                    </network>
+
+                                    <network network="twitter"
+                                             class="el-button el-button--default el-button--mini twitter">
+                                        <i class="icon-twitter"></i> Tweet
+                                    </network>
+                                </div>
+                            </social-sharing>
+
+                        </el-card>
+
+                        <el-card style="margin-bottom: 20px;">
+
+                            <div slot="header">Overview:</div>
+
+                            <div class="artwork-overviews">
+
+                                @if($artwork->height)
+                                    <div>Height: {{ $artwork->height }} cm</div>
                                 @endif
 
-
-                                <div class="artwork-price">
-                                    {{ $artwork->formatted_price }}
-                                </div>
-
-                                @if(!$artwork->sold && $artwork->available)
-
-                                    <a href="{{ route('cart.item.buy-now', $artwork->id) }}"
-                                       class="el-button el-button--default is-plain artwork-buy">Buy Now</a>
-
-                                    <a href="{{ route('cart.item.add', $artwork->id) }}"
-                                       class="el-button el-button--primary artwork-add">Add to cart</a>
+                                @if($artwork->width)
+                                    <div>Width: {{ $artwork->width }} cm</div>
                                 @endif
 
-                                <div class="artwork-favorite">
-                                    @if(auth()->user() && auth()->user()->favoriteArtworks->contains('id', $artwork->id))
-                                        <el-tag type="info">Artwork is added to Favorite</el-tag>
+                                @if($artwork->depth)
+                                    <div>Depth: {{ $artwork->depth }} cm</div>
+                                @endif
 
-                                        <el-button type="text">
-                                            <a href="{{ route('favorite.toggle', $artwork->id) }}">Remove</a>
-                                        </el-button>
-                                    @else
-                                        <el-button style="display: block;width: 100%;">
-                                            <a href="{{ route('favorite.toggle', $artwork->id) }}">Add to Favorite <i
-                                                        class="el-icon-star-off"></i></a>
-                                        </el-button>
-                                    @endif
-                                </div>
+                                @if($artwork->weight)
+                                    <div>Weight: {{ $artwork->weight }} g</div>
+                                @endif
 
+                            <!-- Optional -->
+                                @if($artwork->b_height)
+                                    <div>Total Height: {{ $artwork->b_height }} cm</div>
+                                @endif
 
-                                <social-sharing inline-template quote="Quote here" url="{{ url()->current() }}"
-                                                title="Title here" description="Description here">
-                                    <div class="artwork-share">
-                                        <el-button size="mini">
-                                            <network network="facebook">
-                                                <i class="fa fa-fw fa-facebook"></i> Share
-                                            </network>
-                                        </el-button>
+                                @if($artwork->b_width)
+                                    <div>Total Width: {{ $artwork->b_width }} cm</div>
+                                @endif
 
-                                        <el-button size="mini">
-                                            <network network="googleplus">
-                                                <i class="fa fa-fw fa-google-plus"></i> Share
-                                            </network>
-                                        </el-button>
+                                @if($artwork->b_depth)
+                                    <div>Total Depth: {{ $artwork->b_depth }} cm</div>
+                                @endif
 
-                                        <el-button size="mini">
-                                            <network network="twitter">
-                                                <i class="fa fa-fw fa-twitter"></i> Tweet
-                                            </network>
-                                        </el-button>
+                                @if($artwork->b_weight)
+                                    <div>Total Weight: {{ $artwork->b_weight }} cm</div>
+                                @endif
 
-                                    </div>
-                                </social-sharing>
-
-                            </el-card>
-
-                            <el-card style="margin-bottom: 20px;">
+                                @if($artwork->date_of_completion)
+                                    <div>Completion date: {{ $artwork->date_of_completion->year }}</div>
+                                @endif
 
                                 <div class="artwork-category">
                                     Category: {{ trans('category.' . $artwork->category) }}
-                                </div>
-
-                                <div class="artwork-size">
-                                    Size: {{ $artwork->width }} x {{ $artwork->height }} x {{ $artwork->depth }}
                                 </div>
 
                                 <div class="artwork-medium">
@@ -142,55 +196,63 @@
                                     @endforeach
                                 </div>
 
-                                @if($artwork->favoritedUsers()->count())
-                                    <div class="artwork-favorited">
-                                        Favorited by: {{ $artwork->favoritedUsers()->count() }} people
-                                    </div>
-                                @endif
-
-                                <a href="{{ route('artist', $artwork->user->id) }}" class="artwork-artist">
-                                    Artist:
-                                    <span class="artwork-artist-avatar">
-                                        <img src="/imagecache/fit-25/{{ $artwork->user->avatar_url}}"/>
-                                    </span>
-
-                                    {{ $artwork->user->name }}
-                                </a>
-                            </el-card>
-
-                            <el-card>
-                                <div class="h4">
-                                    Shipping & returns
+                                <div class="artwork-direction">
+                                    Art Direction: @foreach($artwork->direction as $direction)
+                                        {{ trans_input('direction.' . $direction ) }},
+                                    @endforeach
                                 </div>
 
-                                <div class="p">
-                                    Ready to ship in 1–2 business days
+                                <div class="artwork-theme">
+                                    Theme: @foreach($artwork->theme as $theme)
+                                        {{ trans_input('theme.' . $theme ) }},
+                                    @endforeach
                                 </div>
 
-                                <div class="p">
-                                    From {{ $artwork->user->country['country_name'] }}
+                                {{--                                    {{ $artwork->color }}--}}
+                                {{--                                    {{ $artwork->shape }}--}}
+
+                            </div>
+
+
+                        </el-card>
+
+                        <el-card>
+                            <div slot="header">Shipping & returns</div>
+
+                            @if($artwork->processing_time)
+                                <div>Ready to ship in {{ $artwork->processing_time }}</div>
+                            @endif
+
+                            @if($artwork->country)
+                                <div class="artwork-country">
+                                    Shipping from <b>{{ $artwork->country['country_name'] }}</b>
                                 </div>
+                            @endif
 
-                                <div class="p">
-                                    Free shipping to {{ geoip(request()->ip())->country }}
-                                </div>
+                            <div class="artwork-country">
+                                Free shipping to <b>{{ geoip(request()->ip())->country }}</b>
+                            </div>
 
-                                <div class="p">
-                                    See
-                                    <a href="{{ route('page', 'freight')}}">Shipping</a> and
-                                    <a href="{{ route('page', 'right-of-cancellation')}}">Rights to Cancellation</a>
-                                </div>
+                            <div class="p">
+                                See
+                                <a href="{{ route('page', 'freight')}}">Shipping</a> and
+                                <a href="{{ route('page', 'right-of-cancellation')}}">Rights to Cancellation</a>
+                            </div>
 
-                            </el-card>
+                        </el-card>
 
-
-                        </div>
 
                     </div>
 
-
                 </div>
 
+                <div class="other">
+                    Other
+                </div>
+
+                <div class="similar">
+                    Similar
+                </div>
 
             </div>
 

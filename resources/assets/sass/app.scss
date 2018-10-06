@@ -673,8 +673,8 @@ body, html {
     &-avatar {
       float: left;
       border-radius: 50%;
-      width: 50px;
-      height: 50px;
+      width: 70px;
+      height: 70px;
       overflow: hidden;
       margin-right: 20px;
     }
@@ -683,21 +683,40 @@ body, html {
       font-weight: bold;
       display: block;
     }
+
+    &-artworks {
+      display: flex;
+    }
+
+    &-artwork {
+      box-shadow: $--box-shadow-base;
+      margin-left: 10px;
+      width: 75px;
+      height: 75px;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &:hover {
+        box-shadow: $--box-shadow-dark;
+      }
+    }
   }
 
   .artwork {
+    display: flex;
+    flex-wrap: wrap;
 
-    &--top {
-      display: flex;
-      margin-bottom: 50px;
-      flex-wrap: wrap;
-    }
-
-    &-images {
+    &--left {
       margin-right: 20px;
       flex: 1;
       min-width: 400px;
       max-width: 1000px;
+    }
+
+    &-images {
+      margin-bottom: 30px;
       position: relative;
 
       &-carousel {
@@ -743,7 +762,7 @@ body, html {
     }
 
     &--right {
-      width: 300px;
+      width: 350px;
     }
 
     &-description {
@@ -756,15 +775,26 @@ body, html {
     }
 
     &-country {
-      @extend .h4;
-      margin-top: 20px;
-      margin-bottom: 20px;
+      //margin-top: 20px;
+      //margin-bottom: 20px;
     }
 
     &-share {
       margin-top: 20px;
       display: flex;
       justify-content: space-between;
+
+      .google i {
+        color: #e82e2b;
+      }
+
+      .facebook i {
+        color: #4267b2;
+      }
+
+      .twitter i {
+        color: #1da1f2;
+      }
     }
 
     &-status {
@@ -788,12 +818,9 @@ body, html {
       margin: 10px 0 0;
     }
 
-    &-favorite {
+    &-favored {
+      text-align: center;
       margin-top: 20px;
-    }
-
-    &-size {
-      @extend .h4;
     }
 
     &-price {
@@ -802,19 +829,14 @@ body, html {
       margin: 10px 0;
     }
 
-    &-artist {
-      display: flex;
-      align-items: center;
+    &-overviews {
 
-      &-avatar {
-        display: inline-block;
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        overflow: hidden;
-        margin: 0 10px;
+      div {
+        margin: 5px 0;
       }
     }
+
+
 
   }
 }

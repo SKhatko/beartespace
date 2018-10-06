@@ -50,3 +50,9 @@
 .icon-art-gallery::before { content: "\e806"; }
 
 .icon-picture::before { content: "\e805"; }
+
+.icon-googleplus::before { content: "\e807"; }
+
+.icon-twitter::before { content: "\e808"; }
+
+.icon-facebook::before { content: "\e809"; }

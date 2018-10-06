@@ -84,6 +84,7 @@ const app = new Vue({
     store: new Vuex.Store(store),
     components: {},
     data: {
+        activeCollapseArtworkShow: ['description', 'inspiration'],
         fullScreenLoading: false
     },
     mounted() {

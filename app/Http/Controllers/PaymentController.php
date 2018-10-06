@@ -48,7 +48,7 @@ class PaymentController extends Controller {
 			$payment->save();
 
 			// The card has been declined or any other error
-			return redirect()->route( 'checkout' )->with( 'error', $ex->getMessage() );
+			return redirect()->route( 'cart.checkout' )->with( 'error', $ex->getMessage() );
 		}
 
 		if ( $charge->status == 'succeeded' ) {

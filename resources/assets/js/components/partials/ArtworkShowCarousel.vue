@@ -11,7 +11,7 @@
                     class="el-icon-zoom-in"></i>
             </el-button>
 
-            <el-carousel trigger="click" indicator-position="outside" height="500px" :interval="0" @change="setActiveSlide">
+            <el-carousel arrow="always" trigger="click" indicator-position="outside" height="500px" :interval="0" @change="setActiveSlide">
 
                 <el-carousel-item>
                     <div class="image">

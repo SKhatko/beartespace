@@ -1,9 +1,13 @@
 <template>
 
-    <span>
-        <el-button v-if="follow" plain icon="el-icon-close" @click="unfollowUser">Unfollow</el-button>
-        <el-button v-else plain icon="el-icon-plus" @click="followUser">Follow</el-button>
-    </span>
+    <div style="margin-top: 10px;">
+        <el-button v-if="follow" size="mini" plain @click="unfollowUser"><i class="el-icon-star-on"></i> Unfollow
+            <slot></slot>
+        </el-button>
+        <el-button v-else plain size="mini" @click="followUser"><i class="el-icon-star-off"></i> Follow
+            <slot></slot>
+        </el-button>
+    </div>
 </template>
 
 <script>

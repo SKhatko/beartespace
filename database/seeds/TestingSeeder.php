@@ -37,7 +37,7 @@ class TestingSeeder extends Seeder {
 		foreach ( $users as $user ) {
 
 			if ( $user->user_type == 'artist' ) {
-				$user->artworks()->saveMany( factory( App\Artwork::class, 3 )->make() );
+				$user->artworks()->saveMany( factory( App\Artwork::class, 10 )->make() );
 
 //				$user->avatar()->associate( factory( App\Media::class )->create( [
 //					'url' => 'https://picsum.photos/290/290',

@@ -17,6 +17,13 @@ class Artwork extends Model implements Buyable {
 		'image_url'
 	];
 
+	protected $dates = [
+		'created_at',
+		'updated_at',
+		'deleted_at',
+		'date_of_completion'
+	];
+
 	protected $casts = [
 		'tags'      => 'array',
 		'medium'    => 'array',
@@ -46,7 +53,7 @@ class Artwork extends Model implements Buyable {
 		return $this->belongsTo( User::class );
 	}
 
-	public function favoritedUsers() {
+	public function favoredUsers() {
 		return $this->belongsToMany( User::class, 'favorites' );
 	}
 

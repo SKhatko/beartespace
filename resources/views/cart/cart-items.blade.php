@@ -12,7 +12,7 @@
 
                 <a href="{{ route('artist', $artwork->model->user->id) }}" class="item-artist">
                                     <span class="item-artist-avatar">
-                                        <img src="/imagecache/mini-avatar/{{ $artwork->model->user->avatar_url}}"/>
+                                        <img src="/imagecache/fit-25{{ $artwork->model->user->avatar_url}}"/>
                                     </span>
 
                     {{ $artwork->model->user->name }}

@@ -137,7 +137,6 @@ Route::group( [ 'middleware' => 'web' ], function () {
 
 		Route::get( 'order', 'OrderController@index' )->name( 'dashboard.orders' );
 
-		Route::get( 'favorite/{id}/toggle', 'FavoriteController@toggleFavoriteArtwork' )->name( 'favorite.toggle' )->middleware( 'auth' );
 		Route::get( 'favorites', 'UserController@favoriteArtworks' )->name( 'dashboard.favorites' );
 
 		// Not user (admin, artist, gallery)
