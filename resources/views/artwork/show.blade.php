@@ -4,7 +4,6 @@
 
 @section('content')
 
-    @if($artwork)
         <div class="app--wrapper">
 
             <div class="app-artwork">
@@ -246,17 +245,19 @@
 
                 </div>
 
-                <div class="other">
-                    Other
-                </div>
-
-                <div class="similar">
-                    Similar
-                </div>
-
             </div>
 
+            <div class="app-artwork-other">
+                <div class="h3">Other Artworks</div>
+                <artworks-block artworks_="{{ $artwork->user->artworks->take(4) }}"></artworks-block>
+            </div>
+
+            <div class="app-artwork-similar">
+                <div class="h3">You also might like</div>
+                <artworks-block artworks_="{{ $artwork->user->artworks->take(4) }}"></artworks-block>
+            </div>
+
+
         </div>
-    @endif
 
 @endsection

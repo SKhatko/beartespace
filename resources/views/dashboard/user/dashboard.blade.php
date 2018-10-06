@@ -16,7 +16,7 @@
                 <div class="dashboard">
 
                     <div class="dashboard-avatar">
-                        <img src="/imagecache/avatar{{ $user->avatar_url }}" alt="">
+                        <img src="/imagecache/fit-290{{ $user->avatar_url }}" alt="">
                     </div>
 
                     <div class="dashboard-info">

@@ -46,6 +46,7 @@ Vue.use(SocialSharing);
 
 Vue.component('subscription-form', require('./components/payment/SubscriptionForm.vue'));
 Vue.component('artwork-index', require('./components/partials/ArtworkIndex.vue'));
+Vue.component('artworks-block', require('./components/partials/ArtworksBlock.vue'));
 Vue.component('artwork-show-carousel', require('./components/partials/ArtworkShowCarousel.vue'));
 
 Vue.component('artworks-menu', require('./components/ArtworksMenu.vue'));

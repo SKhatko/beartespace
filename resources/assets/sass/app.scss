@@ -836,9 +836,18 @@ body, html {
       }
     }
 
-
-
   }
+
+}
+
+.app-artwork-other {
+  margin-top: 30px;
+  padding: 15px;
+}
+
+.app-artwork-similar {
+  margin-top: 30px;
+  padding: 15px;
 }
 
 .app-artwork-form {
@@ -963,6 +972,66 @@ body, html {
       margin-top: 10px;
     }
 
+  }
+
+}
+
+.app-artworks-block {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -15px;
+
+  .artwork {
+    flex: 1;
+    margin: 15px;
+    max-width: 400px;
+
+    &-top {
+      position: relative;
+    }
+
+    &-image {
+      display: block;
+
+      img {
+        width: 100%;
+      }
+    }
+
+    &-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    &-name {
+      @extend .h4;
+      margin-bottom: 10px;
+    }
+
+    &-price {
+      font-weight: bold;
+    }
+
+    &-favorite {
+      position: absolute;
+      display: flex;
+      justify-content: flex-end;
+      top: 5px;
+      right: 5px;
+      text-align: right;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.7s ease;
+      font-size: 25px;
+      padding: 7px;
+    }
+
+    &:hover .artwork-favorite {
+      opacity: 0.8;
+      visibility: visible;
+    }
   }
 
 }
@@ -1240,7 +1309,7 @@ body, html {
       &-button {
         position: absolute;
         left: 175px;
-        bottom: 35px;
+        bottom: 25px;
         font-size: 20px;
       }
     }

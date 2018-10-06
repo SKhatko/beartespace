@@ -125,7 +125,6 @@ Route::group( [ 'middleware' => 'web' ], function () {
 		'middleware' => [
 			'auth',
 			'confirmed-email',
-			'has-profile-avatar',
 		]
 	], function () {
 

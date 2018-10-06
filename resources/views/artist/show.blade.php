@@ -8,14 +8,6 @@
 
         <div class="app-artist">
 
-            <div class="app--wrapper">
-                <el-breadcrumb separator-class="el-icon-arrow-right" style="margin: 30px 0;">
-                    <el-breadcrumb-item><a href="/">Home</a></el-breadcrumb-item>
-                    <el-breadcrumb-item><a href="/artist">Artists</a></el-breadcrumb-item>
-                    <el-breadcrumb-item>{{ $artist->name }}</el-breadcrumb-item>
-                </el-breadcrumb>
-            </div>
-
             <div class="artist">
 
                 <div class="artist-image"
@@ -29,7 +21,7 @@
                                     @if($loop->index > 0)
                                         |
                                     @endif
-                                    {{ trans('profession.' . $profession) }}
+                                    {{ trans_input('profession.' . $profession) }}
                                 @endforeach
                             </div>
                             <div class="h4" style="margin-bottom: 30px;">

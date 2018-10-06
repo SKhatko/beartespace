@@ -67,7 +67,6 @@ class Kernel extends HttpKernel {
 		'confirmed-email'                  => \App\Http\Middleware\ConfirmedEmail::class,
 		'admin'                            => \App\Http\Middleware\OnlyAdminAccess::class,
 		'artist'                           => \App\Http\Middleware\OnlyArtistAccess::class,
-		'has-profile-avatar'               => \App\Http\Middleware\CheckProfileAvatar::class,
 		'has-primary-address'              => \App\Http\Middleware\HasPrimaryAddress::class,
 		'has-payment-method'              => \App\Http\Middleware\HasPaymentMethod::class,
 		'has-shopping-cart'                    => \App\Http\Middleware\HasShoppingCart::class,

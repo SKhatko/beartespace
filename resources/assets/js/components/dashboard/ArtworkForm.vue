@@ -101,8 +101,8 @@
             <el-form-item label="Artwork Description" required prop="description">
                 <el-input type="textarea" placeholder="Please input" v-model="artwork.description"></el-input>
                 <!--<vue-editor id="description" v-model="artwork.description"-->
-                            <!--placeholder="Artwork description"-->
-                            <!--:editorToolbar="artworkEditorToolbar"></vue-editor>-->
+                <!--placeholder="Artwork description"-->
+                <!--:editorToolbar="artworkEditorToolbar"></vue-editor>-->
             </el-form-item>
 
             <el-form-item>
@@ -110,8 +110,8 @@
                 <el-input type="textarea" placeholder="Please input" v-model="artwork.inspiration"></el-input>
 
                 <!--<vue-editor id="inspiration" v-model="artwork.inspiration"-->
-                            <!--placeholder="Things that inspire you"-->
-                            <!--:editorToolbar="artworkEditorToolbar"></vue-editor>-->
+                <!--placeholder="Things that inspire you"-->
+                <!--:editorToolbar="artworkEditorToolbar"></vue-editor>-->
             </el-form-item>
 
             <el-row :gutter="20">
@@ -273,22 +273,22 @@
 
             </el-row>
 
-            <!--<el-row :gutter="20">-->
+            <el-row :gutter="20" style="display: none;">
 
-            <el-col :sm="8">
-                <el-form-item label="Mark artwork as sold">
-                    <el-checkbox v-model="artwork.sold" @click="">Sold</el-checkbox>
-                </el-form-item>
-            </el-col>
+                <el-col :sm="8">
+                    <el-form-item label="Mark artwork as sold">
+                        <el-checkbox v-model="artwork.sold" @click="">Sold</el-checkbox>
+                    </el-form-item>
+                </el-col>
 
-            <el-col :sm="8">
-                <el-switch
-                        v-model="artwork.available"
-                        active-text="Artwork available for sale"
-                        inactive-text="Temporary unavailable">
-                </el-switch>
-            </el-col>
-            <!--</el-row>-->
+                <el-col :sm="8">
+                    <el-switch
+                            v-model="artwork.available"
+                            active-text="Artwork available for sale"
+                            inactive-text="Temporary unavailable">
+                    </el-switch>
+                </el-col>
+            </el-row>
 
 
         </el-card>
@@ -366,7 +366,7 @@
                    @click="saveArtwork" :loading="loading">Save
         </el-button>
 
-        <el-button type="success" style="margin-top: 20px" size="big">
+        <el-button type="success" style="margin-top: 20px" v-if="artwork_">
             <a :href="'/artwork/' + artwork.id" target="_blank">Preview</a>
         </el-button>
 

@@ -19,7 +19,7 @@
                     </div>
                 </el-carousel-item>
 
-                <el-carousel-item v-for="image in artwork.images" :key="image.id">
+                <el-carousel-item v-if="artwork.images" v-for="image in artwork.images" :key="image.id">
                     <div class="image">
                         <img :src="'/imagecache/height-500' + image.url" alt="">
                     </div>
@@ -61,8 +61,6 @@
             if (this.artwork_) {
                 this.artwork = JSON.parse(this.artwork_);
             }
-
-            console.log(this.artwork.images);
         },
 
         methods: {
