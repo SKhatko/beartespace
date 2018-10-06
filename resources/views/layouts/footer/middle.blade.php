@@ -6,7 +6,7 @@
 
                 <div class="app-footer-submenu">
 
-                    <div class="h4">@lang('portal.about-us')</div>
+                    <div class="h5">@lang('portal.about-us')</div>
 
                     <a href="{{ route('page', 'about-beartespace')}}">About BeArteSpace</a>
                     <a href="{{ route('page', 'about-beartegallery')}}">BeArte Gallery</a>
@@ -16,7 +16,7 @@
 
                 <div class="app-footer-submenu">
 
-                    <div class="h4">For Clients</div>
+                    <div class="h5">For Clients</div>
 
                     <a href="{{ route('artists')}}">@lang('portal.artists')</a>
                     <a href="{{ route('artworks')}}">@lang('portal.artworks')</a>
@@ -27,7 +27,7 @@
 
 
                 <div class="app-footer-submenu">
-                    <div class="h4">@lang('portal.information')</div>
+                    <div class="h5">@lang('portal.information')</div>
 
                     <a href="{{ route('page', 'terms-and-conditions')}}">Terms and Conditions</a>
                     <a href="{{ route('page', 'right-of-cancellation')}}">Rights to Cancellation</a>
@@ -39,7 +39,7 @@
                 </div>
 
                 <div class="app-footer-submenu">
-                    <div class="h4">@lang('portal.auction')</div>
+                    <div class="h5">@lang('portal.auction')</div>
 
                     <a href="{{ route('auctions')}}">Go to Online Auction</a>
                 </div>
@@ -48,9 +48,9 @@
             <el-col :sm="6" class="app-footer-column">
 
                 <div class="app-footer-submenu">
-                    <div class="h4">@lang('portal.contact')</div>
+                    <div class="h5">@lang('portal.contact')</div>
 
-                    {!! showPage('contacts-in-footer') !!}
+{{--                    {!! showPage('contacts-in-footer') !!}--}}
                 </div>
 
                 <div class="app-footer-submenu" style="display: none;">
@@ -99,16 +99,12 @@
 
                 <div class="app-footer-submenu">
 
-                    <div class="h4">Stay connected</div>
+                    <div class="h5">Stay connected</div>
 
-                    <div class="app-footer-social">
-                        <a href="#"><i class="fa fa-facebook"></i></a>
-                        <a href="#"><i class="fa fa-twitter"></i> </a>
-                        <a href="#"><i class="fa fa-google-plus"></i> </a>
-                        <a href="#"><i class="fa fa-youtube"></i> </a>
-                        <a href="#"><i class="fa fa-linkedin"></i> </a>
-                        <a href="#"><i class="fa fa-dribbble"></i> </a>
-                    </div>
+                    <a href="#"><i class="icon-facebook"></i> Facebook</a>
+                    <a href="#"><i class="icon-twitter"></i> Twitter</a>
+                    <a href="#"><i class="icon-googleplus"></i> Google+</a>
+                    <a href="#"><i class="icon-instagram"></i> Instagram</a>
 
                 </div>
 

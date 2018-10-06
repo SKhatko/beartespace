@@ -32,7 +32,7 @@
                             <div class="h1" style="margin-bottom: 50px;font-size: 70px;">{{ $artist->name }} </div>
 
                             <div class="artist-avatar">
-                                <img src="/imagecache/avatar{{ $artist->avatar_url }}"
+                                <img src="/imagecache/fit-290{{ $artist->avatar_url }}"
                                      alt="{{ $artist->avatar ? $artist->avatar->name : $artist->name }}">
                             </div>
 
@@ -99,7 +99,8 @@
 
                         <h2>Other artworks</h2>
 
-                        @include('partials.artworks', ['artworks' => $artist->artworks])
+                            <artworks-block artworks_="{{ $artist->artworks }}"></artworks-block>
+{{--                        @include('partials.artworks', ['artworks' => $artist->artworks])--}}
 
                     </div>
 

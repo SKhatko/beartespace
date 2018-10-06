@@ -1,6 +1,6 @@
 <template>
 
-    <div class="app-artworks-menu">
+    <div class="artworks-menu">
 
         <el-button plain @click="showFilters = !showFilters" style="margin-bottom: 20px;">Filters</el-button>
 

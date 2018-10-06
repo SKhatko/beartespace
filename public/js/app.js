@@ -84583,11 +84583,7 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "app-artists-menu",
-    staticStyle: {
-      "text-align": "center",
-      "margin": "40px 0"
-    }
+    staticClass: "artists-menu"
   }, [_c('el-form', {
     attrs: {
       "inline": ""
@@ -85013,7 +85009,7 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "app-artworks-menu"
+    staticClass: "artworks-menu"
   }, [_c('el-button', {
     staticStyle: {
       "margin-bottom": "20px"

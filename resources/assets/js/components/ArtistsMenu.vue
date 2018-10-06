@@ -1,6 +1,6 @@
 <template>
 
-    <div class="app-artists-menu" style="text-align: center;margin: 40px 0;">
+    <div class="artists-menu">
 
         <el-form inline>
 

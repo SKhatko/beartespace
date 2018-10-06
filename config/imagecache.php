@@ -64,6 +64,8 @@ return array(
 	    'fit-25' => 'App\Filters\Fit25',
 	    'fit-50' => 'App\Filters\Fit50',
 	    'fit-75' => 'App\Filters\Fit75',
+	    'fit-100' => 'App\Filters\Fit100',
+	    'fit-150' => 'App\Filters\Fit150',
 	    'fit-290' => 'App\Filters\Fit290',
 
 	    'width-430' => 'App\Filters\Width430',
