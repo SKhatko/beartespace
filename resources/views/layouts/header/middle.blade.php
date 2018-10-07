@@ -4,14 +4,21 @@
 
         <div class="app-header--left">
 
+            <div class="app-header-toggle hidden-sm-and-up" @click="showMainMenu = !showMainMenu">
+                <i class="el-icon-minus"></i>
+                <i class="el-icon-minus"></i>
+                <i class="el-icon-minus"></i>
+            </div>
+
             <div class="app-header-logo">
                 <a href="{{ route('home') }}">
-                    <img src="/imagecache/height-40/logo.png" alt="BeArteSpace logo"/>
+                    <img src="/imagecache/height-40/logo.png" alt="BeArteSpace logo" class="hidden-xs-only"/>
+                    <img src="/imagecache/height-40/b-favicon-64.png" alt="BeArteSpace logo" class="hidden-sm-and-up"/>
                 </a>
             </div>
 
             @if(Route::currentRouteName() !== 'home')
-                <div class="app-header-search">
+                <div class="app-header-search hidden-xs-only">
                     <el-form action="{{ route('search') }}">
                         {{ csrf_field() }}
 
@@ -66,7 +73,7 @@
 
         <div class="app-header-auth">
 
-            <a href="/sell" style="margin-right: 20px;">Sell on BearteSpace</a>
+            <a href="/sell" style="margin-right: 20px;">Sell <span class="hidden-xs-only">on BearteSpace</span></a>
 
             @if (Auth::guest())
 
@@ -166,9 +173,8 @@
                               <span class="app-header-auth-avatar">
                                   <img src="/imagecache/fit-25/{{ auth()->user()->avatar_url}}"/>
                               </span>
-                        <div class="app-header-auth-name">
+                        <div class="app-header-auth-name hidden-xs-only">
                             You
-                            {{--                            {{ auth()->user()->name }}--}}
 
                             <i class="el-icon-arrow-down el-icon--right"></i>
                         </div>
@@ -186,7 +192,7 @@
             <sup>@{{ $store.state.favoriteArtworksCount }}</sup>
         </template>
         </span>
-                <span class="app-header-favorites-title">Favorites</span>
+                <span class="app-header-favorites-title hidden-xs-only">Favorites</span>
             </a>
         @endif
 
@@ -197,7 +203,7 @@
                 <sup>@{{ $store.state.shoppingCartCount }}</sup>
             </template>
             </span>
-            <span class="app-header-cart-title">Cart</span>
+            <span class="app-header-cart-title hidden-xs-only">Cart</span>
         </a>
 
     </div>

@@ -1,6 +1,6 @@
 <div class="app-header--bottom">
 
-    <nav class="app-header-nav">
+    <nav class="app-header-nav" v-if="showMainMenu">
 
         <a href="{{ route('artists') }}">@lang('portal.artists')</a>
         <a href="{{ route('artworks') }}">@lang('portal.artworks')</a>

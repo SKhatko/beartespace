@@ -4,11 +4,11 @@
 
         <el-form inline>
 
-            <el-form-item>
+            <el-form-item label="Filter by artist name" size="mini">
                 <el-input v-model="artistFilters.artist" placeholder="Filter by artist name"></el-input>
             </el-form-item>
 
-            <el-form-item>
+            <el-form-item label="Filter by country" size="mini">
                 <el-select value="" v-model="artistFilters.country" filterable multiple collapse-tags
                            placeholder="Filter by country">
                     <el-option
@@ -20,7 +20,7 @@
                 </el-select>
             </el-form-item>
 
-            <el-form-item>
+            <el-form-item label="Filter by profession" size="mini">
                 <el-select value="" v-model="artistFilters.profession" allow-create filterable multiple collapse-tags
                            placeholder="Filter by profession">
                     <el-option
@@ -32,7 +32,7 @@
                 </el-select>
             </el-form-item>
 
-            <el-form-item>
+            <el-form-item label="Filter by materials" size="mini">
                 <el-select value="" v-model="artistFilters.medium" allow-create filterable multiple collapse-tags
                            placeholder="Filter by medium">
                     <el-option
@@ -44,7 +44,7 @@
                 </el-select>
             </el-form-item>
 
-            <el-form-item>
+            <el-form-item label="Filter by Art direction" size="mini">
                 <el-select value="" v-model="artistFilters.direction" allow-create filterable multiple collapse-tags
                            placeholder="Filter by direction">
                     <el-option
@@ -57,9 +57,9 @@
             </el-form-item>
 
 
-            <el-button style="margin-bottom: 20px;" @click="setSearchQuery" plain>Filter</el-button>
+            <el-button type="primary" style="margin-bottom: 20px;" size="mini" @click="setSearchQuery" plain>Filter</el-button>
 
-            <el-button type="warning" @click="clearFilters" plain>Clear filters</el-button>
+            <el-button type="warning" size="mini" @click="clearFilters" plain>Clear filters</el-button>
 
         </el-form>
 

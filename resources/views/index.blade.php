@@ -14,15 +14,16 @@
 
     <div class="app-index">
         @if($randomArtwork && $randomArtwork->image)
-            <div class="app-index-banner" style="background-image: url('/imagecache/original{{ $randomArtwork->image_url }}')">
+            <div class="app-index-banner"
+                 style="background-image: url('/imagecache/original{{ $randomArtwork->image_url }}')">
 
                 <div class="banner--fade">
 
                     <h1 class="banner-title">We sell Art - Join Us</h1>
 
                     <div class="banner-buttons">
-                        <a href="{{ route('artworks') }}">Buy Art</a>
-                        <a href="{{ route('auctions') }}">Go to Auctions</a>
+                        <a href="{{ route('artworks') }}" class="el-button el-button--default is-plain">Buy Art</a>
+                        <a href="{{ route('auctions') }}" class="el-button el-button--default is-plain">Go to Auctions</a>
                     </div>
 
                     <div class="banner-info">
@@ -54,37 +55,15 @@
 
                 <div class="auctions">
 
-                    @foreach($auctions as $auction)
+                    <artworks-block artworks_="{{ $auctions }}"></artworks-block>
 
-                        @if($auction->image)
-
-                            <div class="auction">
-                                <a href="{{ route('auction', $auction->id) }}" class="auction-image">
-                                    <img src="/imagecache/fit-290{{ $auction->image_url }}"
-                                         alt="{{ $auction->image->name }}">
-                                </a>
-
-                                <a href="{{ route('auction', $auction->id) }}" class="auction-title">
-                                    {{ $auction->title }}
-                                </a>
-
-                                <div class="auction-artist">
-                                    {{ $auction->user->name }}
-                                </div>
-
-                                <div class="auction-ends">
-                                    Ends {{ date('F jS\. Y', strtotime($auction->auction_end)) }}
-                                    {{--Ends August 6th. 2018--}}
-                                </div>
-                            </div>
-                        @endif
-
-                    @endforeach
+                    {{--                    Ends {{ date('F jS\. Y', strtotime($auction->auction_end)) }}--}}
 
                 </div>
 
                 <div class="auctions-bottom">
-                    <a href="{{ route('auctions') }}" class="auctions-bottom-link">More auctions</a>
+                    <a href="{{ route('auctions') }}"
+                       class="auctions-bottom-link el-button el-button--default is-plain">More auctions</a>
                 </div>
 
             </div>
@@ -117,7 +96,8 @@
                 </div>
 
                 <div class="articles-bottom">
-                    <a href="{{ route('auctions') }}" class="articles-bottom-link">More articles</a>
+                    <a href="{{ route('articles') }}"
+                       class="articles-bottom-link el-button el-button--default is-plain">More Articles</a>
                 </div>
 
             </div>
@@ -138,23 +118,14 @@
 
                 <div class="artworks">
 
-                    @foreach($auctions as $artwork)
-                        @if($artwork->image)
-                            <div class="artwork">
-                                <a href="{{ route('artwork', $artwork->id) }}" class="artwork-image">
-                                    <img src="/imagecache/fit-290{{ $artwork->image_url }}"
-                                         alt="{{ $artwork->image->name }}">
-                                </a>
-                            </div>
-                        @endif
-
-                    @endforeach
+                    <artworks-block artworks_="{{ $auctions }}"></artworks-block>
 
                 </div>
 
                 <div class="artworks-bottom">
-                    <a href="{{ route('selected-artworks') }}" class="artworks-bottom-link">The full selection from our
-                        curator</a>
+                    <a href="{{ route('selected-artworks') }}"
+                       class="artworks-bottom-link el-button el-button--default is-plain">
+                        The full selection from our curator</a>
                 </div>
 
             </div>

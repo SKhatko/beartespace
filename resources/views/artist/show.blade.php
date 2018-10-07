@@ -6,17 +6,28 @@
 
     @if($artist)
 
-        <div class="app-artist">
+        <div class="app--wrapper">
 
-            <div class="artist">
+            <div class="app-artist" style="background-image: url('/imagecache/original{{ $artist->image_url }}')">
 
-                <div class="artist-image"
-                     style="background-image: url({{ '/imagecache/original' .  $artist->image_url }});">
+                <div class="artist">
 
-                    <div class="artist-image--fade">
+                    <div class="artist-info">
 
-                        <div class="artist-info">
-                            <div class="h2" style="margin-bottom: 20px;">
+                        <div class="artist--left">
+
+                            <div class="artist-avatar">
+                                <img src="/imagecache/fit-290{{ $artist->avatar_url }}"
+                                     alt="">
+                            </div>
+
+                        </div>
+
+                        <div class="artist--right">
+
+                            <div class="h1">{{ $artist->name }} </div>
+
+                            <div class="h5" style="margin-bottom: 20px;">
                                 @foreach($artist->profession as $profession)
                                     @if($loop->index > 0)
                                         |
@@ -25,15 +36,7 @@
                                 @endforeach
                             </div>
                             <div class="h4" style="margin-bottom: 30px;">
-                                {{ $artist->country['country_name'] ?? '' }}
-                            </div>
-
-
-                            <div class="h1" style="margin-bottom: 50px;font-size: 70px;">{{ $artist->name }} </div>
-
-                            <div class="artist-avatar">
-                                <img src="/imagecache/fit-290{{ $artist->avatar_url }}"
-                                     alt="{{ $artist->avatar ? $artist->avatar->name : $artist->name }}">
+                                {{ $artist->country['country_name'] }}
                             </div>
 
                             @if(auth()->user())
@@ -44,7 +47,7 @@
                             @endif
 
                             @if($artist->created_at)
-                                <div class="h3">
+                                <div>
                                     Joined BearteSpace {{ $artist->created_at->diffForHumans() }}
                                 </div>
                             @endif
@@ -68,39 +71,13 @@
 
                         </div>
 
-
                     </div>
 
-                </div>
 
-                <div class="app--wrapper">
+                    <div class="artist-artworks">
 
-                    <div class="artist-info">
-
-
-
-                    </div>
-
-                </div>
-
-                <div class="artist-artworks">
-
-                    <div class="app--wrapper">
-
-                        @if($artist->favoriteArtworks->count())
-                            <div class="artist-artworks-favorite">
-
-                                <h2 class="h2">Artist's favorite artworks</h2>
-                                @include('partials.artworks', ['artworks' => $artist->favoriteArtworks])
-
-                            </div>
-                        @endif
-
-
-                        <h2>Other artworks</h2>
-
-                            <artworks-block artworks_="{{ $artist->artworks }}"></artworks-block>
-{{--                        @include('partials.artworks', ['artworks' => $artist->artworks])--}}
+                        <div class="h2">Artworks</div>
+                        <artworks-block artworks_="{{ $artist->artworks }}"></artworks-block>
 
                     </div>
 

@@ -85,6 +85,7 @@ const app = new Vue({
     store: new Vuex.Store(store),
     components: {},
     data: {
+        showMainMenu: false,
         activeCollapseArtworkShow: ['description', 'inspiration'],
         fullScreenLoading: false
     },

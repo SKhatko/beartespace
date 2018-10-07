@@ -55,9 +55,7 @@ class RegisterController extends Controller {
 		] );
 
 		// Save shopping cart to db;
-		Cart::store($user->id);
-
-//		$user = User::find(74);
+		Cart::instance('shoppingcart')->store($user->id);
 
 		event( new Registered( $user ) );
 

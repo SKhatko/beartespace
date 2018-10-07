@@ -7,8 +7,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Support\Facades\Hash;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 class ConfirmEmailController extends Controller {
+
 	public function changeEmail( Request $request ) {
 
 		$request->validate( [
@@ -40,7 +42,6 @@ class ConfirmEmailController extends Controller {
 		if ( ! $user ) {
 			return redirect( '/' );
 		} else if ( $user->email_verified ) {
-//			auth()->logout();
 			return redirect( '/' );
 		}
 
@@ -50,9 +51,14 @@ class ConfirmEmailController extends Controller {
 
 		auth()->login( $user );
 
-
 		if ( $user->user_type == 'artist' ) {
 			return redirect()->route( 'dashboard' );
+		}
+
+		try{
+			Cart::instance('shoppingcart')->restore($user->id);
+		} catch (\Exception $err) {
+			dump($err->getMessage());
 		}
 
 		return redirect()->route( 'dashboard' );

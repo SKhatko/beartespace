@@ -2,20 +2,19 @@
 
     <div class="artworks-menu">
 
-        <el-button plain @click="showFilters = !showFilters" style="margin-bottom: 20px;">Filters</el-button>
+        <!--<el-button plain @click="showFilters = !showFilters" style="margin-bottom: 20px;">Filters</el-button>-->
 
-        <el-form inline v-if="showFilters" style="margin-bottom: 20px;">
+        <el-form v-if="showFilters" style="margin-bottom: 20px;">
 
-            <el-form-item>
+            <el-form-item label="Filter by artist name" size="mini">
                 <el-input v-model="artworkFilters.artist" placeholder="Filter by artist name"></el-input>
             </el-form-item>
 
-            <el-form-item>
+            <el-form-item label="Filter by artist title" size="mini">
                 <el-input v-model="artworkFilters.artwork" placeholder="Filter by artwork title"></el-input>
             </el-form-item>
 
-            <el-form-item>
-
+            <el-form-item label="Filter by category" size="mini">
                 <el-select value="" v-model="artworkFilters.category" filterable multiple collapse-tags allow-create
                            placeholder="Filter by category">
                     <el-option
@@ -25,11 +24,9 @@
                             :value="key">
                     </el-option>
                 </el-select>
-
             </el-form-item>
 
-            <el-form-item>
-
+            <el-form-item label="Filter by material" size="mini">
                 <el-select value="" v-model="artworkFilters.medium" filterable multiple collapse-tags allow-create
                            placeholder="Filter by medium">
                     <el-option
@@ -39,11 +36,9 @@
                             :value="key">
                     </el-option>
                 </el-select>
-
             </el-form-item>
 
-            <el-form-item>
-
+            <el-form-item label="Filter by theme" size="mini">
                 <el-select value="" v-model="artworkFilters.theme" filterable multiple collapse-tags allow-create
                            placeholder="Filter by theme">
                     <el-option
@@ -53,11 +48,9 @@
                             :value="key">
                     </el-option>
                 </el-select>
-
             </el-form-item>
 
-            <el-form-item>
-
+            <el-form-item label="Filter by direction" size="mini">
                 <el-select value="" v-model="artworkFilters.direction" filterable multiple collapse-tags allow-create
                            placeholder="Filter by direction">
                     <el-option
@@ -67,11 +60,9 @@
                             :value="key">
                     </el-option>
                 </el-select>
-
             </el-form-item>
 
-            <el-form-item>
-
+            <el-form-item label="Filter by country" size="mini">
                 <el-select value="" v-model="artworkFilters.country" filterable multiple collapse-tags
                            placeholder="Filter by country">
                     <el-option
@@ -81,11 +72,9 @@
                             :value="country.id">
                     </el-option>
                 </el-select>
-
             </el-form-item>
 
-            <el-form-item>
-
+            <el-form-item label="Filter by shape" size="mini">
                 <el-select value="" v-model="artworkFilters.shape" filterable multiple collapse-tags
                            placeholder="Filter by shape">
                     <el-option
@@ -95,7 +84,6 @@
                             :value="key">
                     </el-option>
                 </el-select>
-
             </el-form-item>
 
             <!--<el-form-item>-->
@@ -109,8 +97,7 @@
 
             <!--</el-form-item>-->
 
-            <el-form-item>
-
+            <el-form-item label="Filter by color" size="mini">
                 <el-select value="" v-model="artworkFilters.color" filterable multiple collapse-tags
                            placeholder="Filter by color">
                     <el-option
@@ -121,21 +108,20 @@
                         <span :style="{float: 'left', marginRight: '10px', width: '30px',height: '30px',backgroundColor: key}"></span> {{ color }}
                     </el-option>
                 </el-select>
-
             </el-form-item>
 
 
-            <el-form-item label="Price from">
+            <el-form-item label="Price from" size="mini">
                 <el-input-number v-model="artworkFilters.price_min" :step="100"></el-input-number>
             </el-form-item>
 
-            <el-form-item label="Price to">
+            <el-form-item label="Price max" size="mini">
                 <el-input-number v-model="artworkFilters.price_max" :step="100"></el-input-number>
             </el-form-item>
 
-            <el-button type="primary" style="margin-bottom: 20px;" @click="setSearchQuery">Filter</el-button>
+            <el-button type="primary" size="mini" style="margin-bottom: 20px;" @click="setSearchQuery">Filter</el-button>
 
-            <el-button @click="clearFilters" type="warning" plain>Clear filters</el-button>
+            <el-button @click="clearFilters" size="mini" type="warning" plain>Clear filters</el-button>
 
         </el-form>
 

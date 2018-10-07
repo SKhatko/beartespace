@@ -16281,6 +16281,7 @@ var app = new Vue({
     store: new Vuex.Store(__WEBPACK_IMPORTED_MODULE_1__store_js__["a" /* default */]),
     components: {},
     data: {
+        showMainMenu: false,
         activeCollapseArtworkShow: ['description', 'inspiration'],
         fullScreenLoading: false
     },
@@ -18589,20 +18590,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -82193,7 +82180,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('span', [_vm._v("Your Public Profile")]), _vm._v(" "), _c('a', {
     staticClass: "el-button el-button--default el-button--mini",
     attrs: {
-      "href": "/"
+      "href": '/artist/' + _vm.user.id,
+      "target": "_blank"
     }
   }, [_vm._v("View profile")])])]), _vm._v(" "), _c('el-form', {
     attrs: {
@@ -84588,7 +84576,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "inline": ""
     }
-  }, [_c('el-form-item', [_c('el-input', {
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Filter by artist name",
+      "size": "mini"
+    }
+  }, [_c('el-input', {
     attrs: {
       "placeholder": "Filter by artist name"
     },
@@ -84599,7 +84592,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "artistFilters.artist"
     }
-  })], 1), _vm._v(" "), _c('el-form-item', [_c('el-select', {
+  })], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "label": "Filter by country",
+      "size": "mini"
+    }
+  }, [_c('el-select', {
     attrs: {
       "value": "",
       "filterable": "",
@@ -84622,7 +84620,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "value": country.id
       }
     })
-  }))], 1), _vm._v(" "), _c('el-form-item', [_c('el-select', {
+  }))], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "label": "Filter by profession",
+      "size": "mini"
+    }
+  }, [_c('el-select', {
     attrs: {
       "value": "",
       "allow-create": "",
@@ -84646,7 +84649,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "value": key
       }
     })
-  }))], 1), _vm._v(" "), _c('el-form-item', [_c('el-select', {
+  }))], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "label": "Filter by materials",
+      "size": "mini"
+    }
+  }, [_c('el-select', {
     attrs: {
       "value": "",
       "allow-create": "",
@@ -84670,7 +84678,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "value": key
       }
     })
-  }))], 1), _vm._v(" "), _c('el-form-item', [_c('el-select', {
+  }))], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "label": "Filter by Art direction",
+      "size": "mini"
+    }
+  }, [_c('el-select', {
     attrs: {
       "value": "",
       "allow-create": "",
@@ -84699,6 +84712,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "margin-bottom": "20px"
     },
     attrs: {
+      "type": "primary",
+      "size": "mini",
       "plain": ""
     },
     on: {
@@ -84707,6 +84722,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("Filter")]), _vm._v(" "), _c('el-button', {
     attrs: {
       "type": "warning",
+      "size": "mini",
       "plain": ""
     },
     on: {
@@ -85010,26 +85026,16 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "artworks-menu"
-  }, [_c('el-button', {
+  }, [(_vm.showFilters) ? _c('el-form', {
     staticStyle: {
       "margin-bottom": "20px"
-    },
-    attrs: {
-      "plain": ""
-    },
-    on: {
-      "click": function($event) {
-        _vm.showFilters = !_vm.showFilters
-      }
     }
-  }, [_vm._v("Filters")]), _vm._v(" "), (_vm.showFilters) ? _c('el-form', {
-    staticStyle: {
-      "margin-bottom": "20px"
-    },
+  }, [_c('el-form-item', {
     attrs: {
-      "inline": ""
+      "label": "Filter by artist name",
+      "size": "mini"
     }
-  }, [_c('el-form-item', [_c('el-input', {
+  }, [_c('el-input', {
     attrs: {
       "placeholder": "Filter by artist name"
     },
@@ -85040,7 +85046,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "artworkFilters.artist"
     }
-  })], 1), _vm._v(" "), _c('el-form-item', [_c('el-input', {
+  })], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "label": "Filter by artist title",
+      "size": "mini"
+    }
+  }, [_c('el-input', {
     attrs: {
       "placeholder": "Filter by artwork title"
     },
@@ -85051,7 +85062,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "artworkFilters.artwork"
     }
-  })], 1), _vm._v(" "), _c('el-form-item', [_c('el-select', {
+  })], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "label": "Filter by category",
+      "size": "mini"
+    }
+  }, [_c('el-select', {
     attrs: {
       "value": "",
       "filterable": "",
@@ -85075,7 +85091,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "value": key
       }
     })
-  }))], 1), _vm._v(" "), _c('el-form-item', [_c('el-select', {
+  }))], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "label": "Filter by material",
+      "size": "mini"
+    }
+  }, [_c('el-select', {
     attrs: {
       "value": "",
       "filterable": "",
@@ -85099,7 +85120,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "value": key
       }
     })
-  }))], 1), _vm._v(" "), _c('el-form-item', [_c('el-select', {
+  }))], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "label": "Filter by theme",
+      "size": "mini"
+    }
+  }, [_c('el-select', {
     attrs: {
       "value": "",
       "filterable": "",
@@ -85123,7 +85149,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "value": key
       }
     })
-  }))], 1), _vm._v(" "), _c('el-form-item', [_c('el-select', {
+  }))], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "label": "Filter by direction",
+      "size": "mini"
+    }
+  }, [_c('el-select', {
     attrs: {
       "value": "",
       "filterable": "",
@@ -85147,7 +85178,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "value": key
       }
     })
-  }))], 1), _vm._v(" "), _c('el-form-item', [_c('el-select', {
+  }))], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "label": "Filter by country",
+      "size": "mini"
+    }
+  }, [_c('el-select', {
     attrs: {
       "value": "",
       "filterable": "",
@@ -85170,7 +85206,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "value": country.id
       }
     })
-  }))], 1), _vm._v(" "), _c('el-form-item', [_c('el-select', {
+  }))], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "label": "Filter by shape",
+      "size": "mini"
+    }
+  }, [_c('el-select', {
     attrs: {
       "value": "",
       "filterable": "",
@@ -85193,7 +85234,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "value": key
       }
     })
-  }))], 1), _vm._v(" "), _c('el-form-item', [_c('el-select', {
+  }))], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "label": "Filter by color",
+      "size": "mini"
+    }
+  }, [_c('el-select', {
     attrs: {
       "value": "",
       "filterable": "",
@@ -85226,7 +85272,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }), _vm._v(" " + _vm._s(color) + "\n                ")])
   }))], 1), _vm._v(" "), _c('el-form-item', {
     attrs: {
-      "label": "Price from"
+      "label": "Price from",
+      "size": "mini"
     }
   }, [_c('el-input-number', {
     attrs: {
@@ -85241,7 +85288,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1), _vm._v(" "), _c('el-form-item', {
     attrs: {
-      "label": "Price to"
+      "label": "Price max",
+      "size": "mini"
     }
   }, [_c('el-input-number', {
     attrs: {
@@ -85259,13 +85307,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "margin-bottom": "20px"
     },
     attrs: {
-      "type": "primary"
+      "type": "primary",
+      "size": "mini"
     },
     on: {
       "click": _vm.setSearchQuery
     }
   }, [_vm._v("Filter")]), _vm._v(" "), _c('el-button', {
     attrs: {
+      "size": "mini",
       "type": "warning",
       "plain": ""
     },

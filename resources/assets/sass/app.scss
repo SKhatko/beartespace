@@ -3,6 +3,8 @@
 @import "~normalize.css";
 //@import "~font-awesome/css/font-awesome";
 @import "~element-ui/packages/theme-chalk/src/index";
+@import '~element-ui/lib/theme-chalk/display.css';
+
 @import '~vue-tel-input/dist/vue-tel-input';
 
 body, html {
@@ -70,7 +72,7 @@ body, html {
       display: flex;
       align-items: center;
       margin-bottom: 20px;
-      padding: 15px;
+      padding: 7px 15px;
       width: 100%;
     }
   }
@@ -96,6 +98,19 @@ body, html {
   &--left {
     flex: 1;
     display: flex;
+  }
+
+  &-toggle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 23px;
+    margin-right: 10px;
+
+    i {
+      line-height: 5px;
+    }
   }
 
   &-logo {
@@ -221,9 +236,8 @@ body, html {
 
   }
 
-  @media (max-width: 768px) {
-    background-color: red;
-
+  @media only screen and (max-width: 767px) {
+    //background-color: red;
   }
 }
 
@@ -264,15 +278,17 @@ body, html {
         display: flex;
         justify-content: center;
         align-items: center;
+        flex-wrap: wrap;
 
         & a {
-          margin: 0 10px;
+          margin: 10px;
           background-color: rgba(0, 0, 0, 0.5);
           padding: 15px 20px;
           font-size: 22px;
           color: #fff;
           min-width: 200px;
           border: 1px solid #fff;
+
           //box-shadow: 0 0 1px #fff;
         }
       }
@@ -316,41 +332,6 @@ body, html {
       &-link {
         text-transform: uppercase;
         font-weight: bold;
-        border: 1px solid black;
-        padding: 7px 20px;
-        display: inline-block;
-      }
-    }
-
-    .auction {
-      padding: 15px;
-      flex: 1 0 0;
-      text-align: left;
-
-      &-image {
-        margin-bottom: 10px;
-        display: flex;
-        align-items: center;
-        overflow: hidden;
-
-        img {
-          width: 100%;
-        }
-      }
-
-      &-title {
-        font-size: 22px;
-        font-weight: 300;
-        display: block;
-        width: 200px;
-      }
-
-      &-artist {
-        font-size: 18px;
-      }
-
-      &-ends {
-        font-weight: bold;
       }
     }
 
@@ -375,9 +356,6 @@ body, html {
       &-link {
         text-transform: uppercase;
         font-weight: bold;
-        border: 1px solid black;
-        padding: 7px 20px;
-        display: inline-block;
       }
     }
 
@@ -421,11 +399,8 @@ body, html {
       padding-top: 10px;
 
       &-link {
-        text-transform: uppercase;
-        font-weight: bold;
-        border: 1px solid black;
-        padding: 7px 20px;
-        display: inline-block;
+        //text-transform: uppercase;
+        //font-weight: bold;
       }
     }
 
@@ -512,7 +487,7 @@ body, html {
 
     &-menu {
       flex: 1;
-      max-width: 220px;
+      max-width: 175px;
       margin-right: 20px;
     }
 
@@ -575,30 +550,10 @@ body, html {
 
 .app-artist {
   width: 100%;
+  background-repeat: no-repeat;
 
   .artist {
-
-    &-image {
-      text-align: center;
-      position: relative;
-      background-color: #fff;
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: cover;
-      background-attachment: fixed;
-      margin-bottom: 30px;
-      color: #fff;
-
-      &--fade {
-        background-color: rgba(0, 0, 0, 0.4);
-        padding: 50px 15px;
-      }
-
-      img {
-        max-width: 100%;
-        max-height: 100%
-      }
-    }
+    background-color: rgba(255, 255, 255, 0.7);
 
     &-avatar {
       overflow: hidden;
@@ -616,9 +571,22 @@ body, html {
     }
 
     &-info {
-      margin-bottom: 20px;
       padding: 15px;
-      text-align: center;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    &--left {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    &--right {
+      flex: 3;
+      margin-left: 20px;
+      min-width: 400px;
     }
   }
 
@@ -639,7 +607,8 @@ body, html {
 
     &-menu {
       flex: 1;
-      max-width: 220px;
+      max-width: 175px;
+      margin-right: 20px;
     }
   }
 
@@ -968,11 +937,13 @@ body, html {
   display: flex;
   flex-wrap: wrap;
   margin: 0 -15px;
+  text-align: left;
 
   .artwork {
     flex: 1;
     margin: 15px;
     max-width: 400px;
+    min-width: 250px;
 
     &-top {
       position: relative;
@@ -1347,15 +1318,18 @@ body, html {
 
   &-promos {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
-    padding: 60px 0;
+    padding: 30px 0;
 
     .promo {
-      flex: 1 1 22%;
+      flex: 1;
+      min-width: 290px;
       display: flex;
       justify-content: space-between;
       flex-direction: column;
       align-items: center;
+      margin-bottom: 20px;
 
       &--top {
         display: flex;
