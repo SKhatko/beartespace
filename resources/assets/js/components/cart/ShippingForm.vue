@@ -39,7 +39,7 @@
 
         </div>
 
-        <el-dialog :visible.sync="showAddressForm" width="30%" title="Delivery Address"
+        <el-dialog :visible.sync="showAddressForm" width="290px" title="Delivery Address"
                    :before-close="handleCloseDialog">
 
             <el-form :model="address" status-icon :rules="rules" ref="address"

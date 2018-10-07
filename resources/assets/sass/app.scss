@@ -4,7 +4,6 @@
 //@import "~font-awesome/css/font-awesome";
 @import "~element-ui/packages/theme-chalk/src/index";
 @import '~element-ui/lib/theme-chalk/display.css';
-
 @import '~vue-tel-input/dist/vue-tel-input';
 
 body, html {
@@ -20,6 +19,10 @@ body, html {
   width: 100%;
   margin: 0 auto;
   max-width: 1200px;
+}
+
+.app--margin {
+  margin: 0 -15px;
 }
 
 .app--dashboard {
@@ -75,6 +78,10 @@ body, html {
       padding: 7px 15px;
       width: 100%;
     }
+
+    .app-header-search {
+      margin-left: 20px;
+    }
   }
 
   &--bottom {
@@ -114,11 +121,6 @@ body, html {
   }
 
   &-logo {
-    margin-right: 20px;
-
-    a {
-      display: block;
-    }
   }
 
   &-nav {
@@ -152,10 +154,15 @@ body, html {
     align-items: center;
   }
 
+  &-sell {
+    margin-right: 2%;
+    white-space: nowrap;
+  }
+
   &-auth {
     display: flex;
     align-items: center;
-    margin: 0 0 0 15px;
+    margin: 0 0 0 2%;
     cursor: pointer;
 
     & a:hover {
@@ -164,13 +171,14 @@ body, html {
 
     &-dropdown {
       text-align: center;
+      margin-left: 15px;
+      margin-right: 5px;
     }
 
     &-name {
       display: flex;
       align-items: center;
       font-size: 12px;
-
     }
 
     &-avatar {
@@ -184,7 +192,7 @@ body, html {
 
   &-cart {
     text-align: center;
-    margin-left: 20px;
+    margin-left: 4%;
 
     &:hover {
       color: $--color-primary;
@@ -211,7 +219,7 @@ body, html {
 
   &-favorites {
     text-align: center;
-    margin-left: 20px;
+    margin-left: 2%;
 
     &:hover {
       color: $--color-primary;
@@ -236,7 +244,7 @@ body, html {
 
   }
 
-  @media only screen and (max-width: 767px) {
+  @media only screen and (max-width: $--sm) {
     //background-color: red;
   }
 }
@@ -297,6 +305,7 @@ body, html {
         display: flex;
         justify-content: center;
         margin-top: 50px;
+        flex-wrap: wrap;
         //align-items: center;
 
         & span {
@@ -318,7 +327,6 @@ body, html {
     padding: 90px 15px;
 
     .auctions {
-      margin: 0 -15px;
       padding-top: 50px;
       display: flex;
       flex-wrap: wrap;
@@ -387,7 +395,6 @@ body, html {
     padding: 90px 15px;
 
     .artworks {
-      margin: 0 -15px;
       padding-top: 50px;
       display: flex;
       flex-wrap: wrap;
@@ -480,6 +487,10 @@ body, html {
 
   main {
     display: flex;
+
+    @media only screen and (max-width: $--sm) {
+      display: block;
+    }
   }
 
   .artists {
@@ -489,6 +500,12 @@ body, html {
       flex: 1;
       max-width: 175px;
       margin-right: 20px;
+
+      @media only screen and (max-width: $--sm) {
+        .artists-menu-form {
+          position: absolute;
+        }
+      }
     }
 
     &-bottom {
@@ -499,9 +516,13 @@ body, html {
     .artist {
       position: relative;
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
+      margin: 0 -15px;
 
       &-info {
+        flex: 1;
+        padding: 0 15px;
         min-width: 220px;
         display: flex;
         flex-direction: column;
@@ -519,8 +540,9 @@ body, html {
       }
 
       &-artworks {
+        flex: 3;
+        padding: 0 15px;
         margin: 0 -15px;
-        margin-left: 20px;
         display: flex;
         flex-wrap: wrap;
         align-items: center;
@@ -533,8 +555,8 @@ body, html {
         display: flex;
         align-items: center;
         overflow: hidden;
-        min-width: 150px;
-        max-width: 150px;
+        min-width: 140px;
+        //max-width: 150px;
 
         img {
 
@@ -561,7 +583,6 @@ body, html {
 
       img {
         border-radius: 50%;
-        border: 5px solid white;
         box-shadow: 0 0 1px white;
       }
     }
@@ -570,13 +591,18 @@ body, html {
       font-size: 20px;
     }
 
-    &-info {
+    &-profile {
       padding: 15px;
+    }
+
+    &-info {
       display: flex;
       flex-wrap: wrap;
+      margin: 0 -15px;
     }
 
     &--left {
+      padding: 0 15px;
       flex: 1;
       display: flex;
       justify-content: center;
@@ -584,9 +610,8 @@ body, html {
     }
 
     &--right {
+      padding: 0 15px;
       flex: 3;
-      margin-left: 20px;
-      min-width: 400px;
     }
   }
 
@@ -605,10 +630,20 @@ body, html {
   .artworks {
     display: flex;
 
+    @media only screen and (max-width: $--sm) {
+      display: block;
+    }
+
     &-menu {
       flex: 1;
       max-width: 175px;
       margin-right: 20px;
+
+      @media only screen and (max-width: $--sm) {
+        .artworks-menu-form {
+          position: absolute;
+        }
+      }
     }
   }
 
@@ -663,12 +698,14 @@ body, html {
   .artwork {
     display: flex;
     flex-wrap: wrap;
+    margin: 0 -15px;
 
     &--left {
-      margin-right: 20px;
-      flex: 1;
-      min-width: 400px;
-      max-width: 1000px;
+      padding: 15px;
+      //margin-right: 20px;
+      flex: 3;
+      min-width: 290px;
+      //max-width: 1000px;
     }
 
     &-images {
@@ -718,7 +755,8 @@ body, html {
     }
 
     &--right {
-      width: 350px;
+      padding: 15px;
+      flex: 1;
     }
 
     &-description {
@@ -736,9 +774,13 @@ body, html {
     }
 
     &-share {
-      margin-top: 20px;
       display: flex;
-      justify-content: space-between;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+
+      .el-button {
+        margin: 0px 10px 10px 0;
+      }
 
       .google i {
         color: #e82e2b;
@@ -852,6 +894,10 @@ body, html {
   flex: 1;
   column-count: 2;
   column-gap: 15px;
+
+  @media only screen and (max-width: 500px) {
+    column-count: 1;
+  }
 
   .artwork {
     display: inline-block;
@@ -1031,9 +1077,11 @@ body, html {
   max-width: 800px;
   margin: 0 auto;
   display: flex;
+  flex-wrap: wrap;
 
   .cart {
     flex: 5;
+    padding: 15px;
 
     &-header {
       display: flex;
@@ -1050,8 +1098,18 @@ body, html {
   }
 
   .total {
+    padding: 15px;
+    min-width: 290px;
     flex: 2;
-    margin-left: 20px;
+
+    @media only screen and (max-width: $--sm) {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 5;
+      padding: 0;
+    }
 
     &-vat {
       display: flex;
@@ -1070,9 +1128,11 @@ body, html {
 }
 
 .app-cart-items {
+
   .item {
     margin-bottom: 30px;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
 
     &-image {
@@ -1134,7 +1194,6 @@ body, html {
       color: red;
     }
   }
-
 }
 
 .app-cart-shipping {
@@ -1169,9 +1228,12 @@ body, html {
 
   .checkout {
     display: flex;
+    flex-wrap: wrap;
 
     &-payment {
       flex: 2;
+      min-width: 270px;
+      margin-bottom: 20px;
 
       &-method {
         margin: 10px 0;
@@ -1187,11 +1249,21 @@ body, html {
 
     &-address {
       flex: 2;
+      min-width: 270px;
+      margin-bottom: 20px;
     }
 
     &-total {
       flex: 3;
-      margin-bottom: 30px;
+
+      @media only screen and (max-width: $--sm) {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 5;
+        padding: 0;
+      }
 
       &-vat {
         display: flex;
@@ -1309,10 +1381,11 @@ body, html {
   }
 
   &--bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    //display: flex;
+    //justify-content: space-between;
+    //align-items: center;
     margin-top: 20px;
+    text-align: center;
     box-shadow: 0 -2px 12px 0 rgba(0, 0, 0, 0.1);
   }
 
@@ -1329,7 +1402,7 @@ body, html {
       justify-content: space-between;
       flex-direction: column;
       align-items: center;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
 
       &--top {
         display: flex;
@@ -1405,37 +1478,26 @@ body, html {
 
   &-subscribe {
     padding: 30px 0;
-
-    .el-form-item__content {
-      text-align: center;
-    }
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
     .el-input {
       max-width: 400px;
     }
 
-    label {
+    &-label {
       line-height: 20px;
-      margin: 10px 0;
       text-align: center;
       padding: 0;
+      margin-bottom: 20px;
     }
-
-    .el-form-item {
-      margin-right: 0;
-    }
-
   }
 
   &-copy {
     white-space: nowrap;
-  }
-
-  &-logo {
-
-    a {
-      margin-right: 20px;
-    }
+    padding: 15px;
   }
 }
 
@@ -1444,6 +1506,8 @@ body, html {
 
   .dashboard {
     display: flex;
+    flex-wrap: wrap;
+    margin: 0 -15px;
 
     &-header {
       display: flex;
@@ -1451,7 +1515,11 @@ body, html {
     }
 
     &-avatar {
-      margin-right: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex: 1;
+      padding: 15px;
 
       img {
         border-radius: 50%;
@@ -1460,7 +1528,8 @@ body, html {
     }
 
     &-info {
-
+      flex: 3;
+      padding: 15px;
     }
   }
 }

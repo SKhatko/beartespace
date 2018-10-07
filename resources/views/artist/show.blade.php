@@ -8,66 +8,73 @@
 
         <div class="app--wrapper">
 
-            <div class="app-artist" style="background-image: url('/imagecache/original{{ $artist->image_url }}')">
+
+            <div class="app-artist"
+                 @if($artist->image) style="background-image: url('/imagecache/original{{ $artist->image_url }}')" @endif>
 
                 <div class="artist">
 
-                    <div class="artist-info">
+                    <div class="artist-profile">
 
-                        <div class="artist--left">
+                        <div class="artist-info">
 
-                            <div class="artist-avatar">
-                                <img src="/imagecache/fit-290{{ $artist->avatar_url }}"
-                                     alt="">
-                            </div>
+                            <div class="artist--left">
 
-                        </div>
-
-                        <div class="artist--right">
-
-                            <div class="h1">{{ $artist->name }} </div>
-
-                            <div class="h5" style="margin-bottom: 20px;">
-                                @foreach($artist->profession as $profession)
-                                    @if($loop->index > 0)
-                                        |
-                                    @endif
-                                    {{ trans_input('profession.' . $profession) }}
-                                @endforeach
-                            </div>
-                            <div class="h4" style="margin-bottom: 30px;">
-                                {{ $artist->country['country_name'] }}
-                            </div>
-
-                            @if(auth()->user())
-                                <follow-button
-                                        follow_="{{ auth()->user()->followedUsers->contains($artist->id) }}"
-                                        user-id_="{{ $artist->id }}">
-                                </follow-button>
-                            @endif
-
-                            @if($artist->created_at)
-                                <div>
-                                    Joined BearteSpace {{ $artist->created_at->diffForHumans() }}
+                                <div class="artist-avatar">
+                                    <img src="/imagecache/fit-290{{ $artist->avatar_url }}"
+                                         alt="">
                                 </div>
-                            @endif
 
-                            @if($artist->followedBy)
-                                Followed by {{ $artist->followedBy->count() }} people
-                            @endif
+                            </div>
 
-                            @if($artist->inspiration)
-                                Inspiration: {{ $artist->inspiration }}
-                            @endif
+                            <div class="artist--right">
 
-                            @if($artist->exhibition)
-                                Exhibition: {{ $artist->exhibition }}
-                            @endif
+                                <div class="h1">{{ $artist->name }} </div>
 
-                            <div class="artist-gender">{{ $artist->gender }}</div>
+                                <div class="h5" style="margin-bottom: 20px;">
+                                    @foreach($artist->profession as $profession)
+                                        @if($loop->index > 0)
+                                            |
+                                        @endif
+                                        {{ trans_input('profession.' . $profession) }}
+                                    @endforeach
+                                </div>
+                                <div class="h4" style="margin-bottom: 30px;">
+                                    {{ $artist->country['country_name'] }}
+                                </div>
 
-                            <div class="artist-education">Education: {{ $artist->education }}</div>
-                            <div class="artist-education-title">Education title: {{ $artist->education_title }}</div>
+                                @if(auth()->user())
+                                    <follow-button
+                                            follow_="{{ auth()->user()->followedUsers->contains($artist->id) }}"
+                                            user-id_="{{ $artist->id }}">
+                                    </follow-button>
+                                @endif
+
+                                @if($artist->created_at)
+                                    <div>
+                                        Joined BearteSpace {{ $artist->created_at->diffForHumans() }}
+                                    </div>
+                                @endif
+
+                                @if($artist->followedBy)
+                                    Followed by {{ $artist->followedBy->count() }} people
+                                @endif
+
+                                @if($artist->inspiration)
+                                    Inspiration: {{ $artist->inspiration }}
+                                @endif
+
+                                @if($artist->exhibition)
+                                    Exhibition: {{ $artist->exhibition }}
+                                @endif
+
+                                <div class="artist-gender">{{ $artist->gender }}</div>
+
+                                <div class="artist-education">Education: {{ $artist->education }}</div>
+                                <div class="artist-education-title">Education
+                                    title: {{ $artist->education_title }}</div>
+
+                            </div>
 
                         </div>
 

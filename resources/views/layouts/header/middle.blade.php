@@ -10,12 +10,10 @@
                 <i class="el-icon-minus"></i>
             </div>
 
-            <div class="app-header-logo">
-                <a href="{{ route('home') }}">
-                    <img src="/imagecache/height-40/logo.png" alt="BeArteSpace logo" class="hidden-xs-only"/>
-                    <img src="/imagecache/height-40/b-favicon-64.png" alt="BeArteSpace logo" class="hidden-sm-and-up"/>
-                </a>
-            </div>
+            <a href="{{ route('home') }}" class="app-header-logo">
+                <img src="/imagecache/height-40/logo.png" alt="BeArteSpace logo" class="hidden-xs-only"/>
+                <img src="/imagecache/height-40/b-favicon-64.png" alt="BeArteSpace logo" class="hidden-sm-and-up"/>
+            </a>
 
             @if(Route::currentRouteName() !== 'home')
                 <div class="app-header-search hidden-xs-only">
@@ -73,19 +71,21 @@
 
         <div class="app-header-auth">
 
-            <a href="/sell" style="margin-right: 20px;">Sell <span class="hidden-xs-only">on BearteSpace</span></a>
+            <a href="/sell" class="app-header-sell">Sell <span class="hidden-xs-only">on BearteSpace</span></a>
 
             @if (Auth::guest())
 
-                <a href="/register">{{ trans('portal.register') }}</a>
+                | <a href="/register" style="margin-left: 2%;">{{ trans('portal.register') }}</a>
 
-                <a href="{{ route('login') }}" style="margin-left: 10px;"
-                   class="el-button el-button--default is-plain">@lang('portal.sign-in')</a> &nbsp;
+                <a href="{{ route('login') }}"
+                   class="el-button el-button--default is-plain hidden-xs-only" style="margin-left: 2%;">@lang('portal.sign-in')</a> &nbsp;
+                <a href="{{ route('login') }}" style="margin-left: 2%;"
+                   class="el-button el-button--default is-plain hidden-sm-and-up el-button--mini">@lang('portal.sign-in')</a> &nbsp;
             @else
                 <el-popover
                         placement="bottom"
                         width="230"
-                        trigger="click">
+                        trigger="click" class="app-header-auth-dropdown">
 
                     <el-dropdown-item>
                         <a href="{{route('dashboard')}}">View Profile</a>
@@ -169,7 +169,7 @@
                         </form>
                     </el-dropdown-item>
 
-                    <div slot="reference" class="app-header-auth-dropdown">
+                    <div slot="reference">
                               <span class="app-header-auth-avatar">
                                   <img src="/imagecache/fit-25/{{ auth()->user()->avatar_url}}"/>
                               </span>

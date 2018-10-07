@@ -30,7 +30,7 @@
                     </div>
 
                     @if($artwork->user->artworks->count() > 3)
-                        <div class="artist-artworks">
+                        <div class="artist-artworks hidden-xs-only">
                             @foreach($artwork->user->artworks->take(3) as $artwork)
                                 <a href="{{ route('artwork', $artwork->id) }}" class="artist-artwork">
                                     <img src="/imagecache/fit-75{{ $artwork->image_url }}" alt="">
@@ -109,7 +109,7 @@
                                 <a href="{{ route('cart.item.buy-now', $artwork->id) }}"
                                    class="el-button el-button--default is-plain artwork-buy">Buy Now</a>
 
-                                <a href="{{ route('cart.item.add', $artwork->id) }}"
+                                <a href="{{ route('cart.item.add', $artwork->id) }}" style="margin-bottom: 20px;"
                                    class="el-button el-button--primary artwork-add">Add to cart</a>
                             @endif
 

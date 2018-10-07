@@ -18484,6 +18484,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -18497,7 +18499,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 direction: []
             },
 
-            countries: ''
+            countries: '',
+            showFilters: true
         };
     },
     mounted: function mounted() {
@@ -21673,6 +21676,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
 //
 //
 //
@@ -83081,7 +83086,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('img', {
     staticStyle: {
-      "max-height": "90vh"
+      "max-height": "90vh",
+      "max-width": "100%"
     },
     attrs: {
       "src": '/imagecache/original' + _vm.activeImagePath,
@@ -83199,7 +83205,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("\n                    Checkout\n                ")])], 1)], 1)], 1), _vm._v(" "), _c('el-dialog', {
     attrs: {
       "visible": _vm.showAddressForm,
-      "width": "30%",
+      "width": "290px",
       "title": "Delivery Address",
       "before-close": _vm.handleCloseDialog
     },
@@ -84572,10 +84578,21 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "artists-menu"
-  }, [_c('el-form', {
+  }, [_c('el-button', {
+    staticClass: "hidden-sm-and-up",
+    staticStyle: {
+      "margin-bottom": "20px"
+    },
     attrs: {
-      "inline": ""
+      "plain": ""
+    },
+    on: {
+      "click": function($event) {
+        _vm.showFilters = !_vm.showFilters
+      }
     }
+  }, [_vm._v("Filters")]), _vm._v(" "), (_vm.showFilters) ? _c('el-form', {
+    staticClass: "artists-menu-form"
   }, [_c('el-form-item', {
     attrs: {
       "label": "Filter by artist name",
@@ -84728,7 +84745,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.clearFilters
     }
-  }, [_vm._v("Clear filters")])], 1)], 1)
+  }, [_vm._v("Clear filters")])], 1) : _vm._e()], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -85026,10 +85043,21 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "artworks-menu"
-  }, [(_vm.showFilters) ? _c('el-form', {
+  }, [_c('el-button', {
+    staticClass: "hidden-sm-and-up",
     staticStyle: {
       "margin-bottom": "20px"
+    },
+    attrs: {
+      "plain": ""
+    },
+    on: {
+      "click": function($event) {
+        _vm.showFilters = !_vm.showFilters
+      }
     }
+  }, [_vm._v("Filters")]), _vm._v(" "), (_vm.showFilters) ? _c('el-form', {
+    staticClass: "artworks-menu-form"
   }, [_c('el-form-item', {
     attrs: {
       "label": "Filter by artist name",

@@ -2,9 +2,9 @@
 
     <div class="artworks-menu">
 
-        <!--<el-button plain @click="showFilters = !showFilters" style="margin-bottom: 20px;">Filters</el-button>-->
+        <el-button plain @click="showFilters = !showFilters" style="margin-bottom: 20px;" class="hidden-sm-and-up">Filters</el-button>
 
-        <el-form v-if="showFilters" style="margin-bottom: 20px;">
+        <el-form v-if="showFilters" class="artworks-menu-form">
 
             <el-form-item label="Filter by artist name" size="mini">
                 <el-input v-model="artworkFilters.artist" placeholder="Filter by artist name"></el-input>

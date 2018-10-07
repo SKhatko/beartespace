@@ -69,7 +69,7 @@
                             </el-form>
                         </el-card>
 
-                        <div class="checkout-total-bottom">
+                        <div class="checkout-total-bottom hidden-xs-only">
                             By clicking Pay Now, you agree to BearteSpace's <a href="/page/terms">Terms of Use</a> and
                             <a href="/page/privacy">Privacy Policy</a>
                         </div>
@@ -82,7 +82,7 @@
             </el-card>
 
 
-            <el-card class="box-card checkout-cart">
+            <el-card class="box-card checkout-cart" style="margin-bottom: 80px;">
                 <div slot="header" class="h4">Review items</div>
 
                 @include('cart.cart-items', ['cart' => Cart::content()])

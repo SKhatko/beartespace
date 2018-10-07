@@ -46,7 +46,7 @@
 
                                 <div class="artist-artworks">
 
-                                    @foreach($artist->artworks->take(8) as $artwork)
+                                    @foreach($artist->artworks->take(4) as $artwork)
 
                                         <a href="{{ route('artwork', $artwork->id) }}" target="_blank" class="artist-artwork">
                                             <img src="/imagecache/fit-150{{ $artwork->image_url }}"

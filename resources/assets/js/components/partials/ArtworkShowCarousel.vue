@@ -7,11 +7,13 @@
 
         <div class="artwork-images-carousel">
 
-            <el-button plain class="artwork-images-zoom" circle @click="showArtworkImageDialog = !showArtworkImageDialog"><i
+            <el-button plain class="artwork-images-zoom" circle
+                       @click="showArtworkImageDialog = !showArtworkImageDialog"><i
                     class="el-icon-zoom-in"></i>
             </el-button>
 
-            <el-carousel arrow="always" trigger="click" indicator-position="outside" height="500px" :interval="0" @change="setActiveSlide">
+            <el-carousel arrow="always" trigger="click" indicator-position="outside" height="500px" :interval="0"
+                         @change="setActiveSlide">
 
                 <el-carousel-item>
                     <div class="image">
@@ -32,7 +34,7 @@
         <el-dialog fullscreen :visible.sync="showArtworkImageDialog" center>
             <div style="text-align: center;">
                 <img :src="'/imagecache/original' + activeImagePath"
-                     alt="" style="max-height: 90vh;">
+                     alt="" style="max-height: 90vh;max-width: 100%">
             </div>
         </el-dialog>
 

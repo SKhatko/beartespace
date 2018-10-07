@@ -16,7 +16,7 @@
                 <div class="dashboard">
 
                     <div class="dashboard-avatar">
-                        <img src="/imagecache/fit-290{{ $user->avatar_url }}" alt="">
+                        <img src="/imagecache/fit-150{{ $user->avatar_url }}" alt="">
                     </div>
 
                     <div class="dashboard-info">
@@ -27,7 +27,7 @@
                             <a href="/dashboard/favorites"><b>{{ $user->followedUsers->count() }}</b> Followers</a>
                         </div>
 
-                        <a href="/dashboard/profile" class="el-button el-button--default" style="width: 100%">Edit profile</a>
+                        <a href="/dashboard/profile" class="el-button el-button--default">Edit profile</a>
 
                     </div>
                 </div>

@@ -2,7 +2,9 @@
 
     <div class="artists-menu">
 
-        <el-form inline>
+        <el-button plain @click="showFilters = !showFilters" style="margin-bottom: 20px;" class="hidden-sm-and-up">Filters</el-button>
+
+        <el-form  v-if="showFilters" class="artists-menu-form">
 
             <el-form-item label="Filter by artist name" size="mini">
                 <el-input v-model="artistFilters.artist" placeholder="Filter by artist name"></el-input>
@@ -84,6 +86,7 @@
                 },
 
                 countries: '',
+                showFilters: true
             }
         },
 

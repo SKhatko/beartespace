@@ -23,7 +23,8 @@
 
                     <div class="banner-buttons">
                         <a href="{{ route('artworks') }}" class="el-button el-button--default is-plain">Buy Art</a>
-                        <a href="{{ route('auctions') }}" class="el-button el-button--default is-plain">Go to Auctions</a>
+                        <a href="{{ route('auctions') }}" class="el-button el-button--default is-plain">Go to
+                            Auctions</a>
                     </div>
 
                     <div class="banner-info">
@@ -41,9 +42,10 @@
             </div>
         @endif
 
-        <div class="app-index-auctions">
+        <div class="app--wrapper">
 
-            <div class="app--wrapper">
+            <div class="app-index-auctions">
+
 
                 <div class="h2">
                     Next coming auction
@@ -69,9 +71,9 @@
             </div>
         </div>
 
-        <div class="app-index-articles">
+        <div class="app--wrapper">
 
-            <div class="app--wrapper">
+            <div class="app-index-articles">
 
                 <div class="articles">
                     <!-- slides -->
@@ -103,10 +105,9 @@
             </div>
         </div>
 
+        <div class="app--wrapper">
 
-        <div class="app-index-artworks">
-
-            <div class="app--wrapper">
+            <div class="app-index-artworks">
 
                 <div class="h2">
                     Selected artworks by our curator
