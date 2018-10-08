@@ -13,7 +13,7 @@
                             <div class="cart-header">
                                 <span>Shopping cart</span>
                                 <a href="/" class="el-button el-button--default el-button--mini">Keep shopping</a>
-                            </div>p
+                            </div>
                         </div>
 
                         @include('partials.errors')
