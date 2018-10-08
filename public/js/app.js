@@ -19441,6 +19441,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -19450,6 +19453,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             loading: false,
+            errorMessage: '',
             csrf: ''
         };
     },
@@ -19457,9 +19461,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.csrf = window.csrf;
 
         var form = document.querySelector('#payment-form');
+        var vm = this;
+
         braintree.create({
             authorization: this.authorization_,
             selector: '#bt-dropin',
+            vaultManager: true,
             card: {
                 cardholderName: true
             },
@@ -19479,18 +19486,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
             form.addEventListener('submit', function (event) {
                 event.preventDefault();
-                this.loading = true;
+                vm.loading = true;
                 instance.requestPaymentMethod(function (err, payload) {
                     if (err) {
-                        this.loading = false;
+                        vm.loading = false;
+                        vm.errorMessage = err.message;
                         console.log('Request Payment Method Error', err);
                         return;
                     }
 
-                    console.log(payload, 'payload');
+                    // console.log(payload, 'payload');
                     // Add the nonce to the form and submit
                     document.querySelector('#payment').value = payload.nonce;
-                    console.log(form);
                     form.submit();
                 });
             });
@@ -20821,8 +20828,9 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
         if (this.languages_) {
             this.languages = this.languages_;
         }
-        if (Object.keys(this.translations_)) {
-            this.translations = this.translations_;
+
+        if (this.translations_) {
+            this.translations = JSON.parse(this.translations_);
         }
     },
 
@@ -84601,11 +84609,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "id": "payment",
       "name": "payment"
     }
-  }), _vm._v(" "), _c('div', {
+  }), _vm._v(" "), _c('el-form-item', [_c('div', {
     attrs: {
       "id": "bt-dropin"
     }
-  }), _vm._v(" "), _c('el-button', {
+  }), _vm._v(" "), _c('div', {
+    staticClass: "el-form-item__error"
+  }, [_vm._v(_vm._s(_vm.errorMessage))])]), _vm._v(" "), _c('el-button', {
     staticStyle: {
       "margin-top": "20px",
       "width": "100%"

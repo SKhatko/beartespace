@@ -481,6 +481,11 @@ body, html {
       margin-left: 20px;
     }
 
+    &-artist {
+      display: flex;
+      align-items: center;
+    }
+
     &-info {
       flex: 3;
       min-width: 158px;

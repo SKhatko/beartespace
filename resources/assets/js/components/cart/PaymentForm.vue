@@ -12,7 +12,10 @@
             <input type="hidden" name="_token" :value="csrf">
             <input type="hidden" id="payment" name="payment">
 
-            <div id="bt-dropin"></div>
+            <el-form-item>
+                <div id="bt-dropin"></div>
+                <div class="el-form-item__error">{{ errorMessage }}</div>
+            </el-form-item>
 
             <el-button type="primary" native-type="submit" :loading="loading" style="margin-top: 20px;width: 100%;">
                 Review your order
@@ -36,16 +39,20 @@
         data() {
             return {
                 loading: false,
+                errorMessage: '',
                 csrf: '',
             }
         },
         mounted() {
             this.csrf = window.csrf;
 
-            var form = document.querySelector('#payment-form');
+            let form = document.querySelector('#payment-form');
+            let vm = this;
+
             braintree.create({
                 authorization: this.authorization_,
                 selector: '#bt-dropin',
+                vaultManager: true,
                 card: {
                     cardholderName: true,
                 },
@@ -65,18 +72,18 @@
                 }
                 form.addEventListener('submit', function (event) {
                     event.preventDefault();
-                    this.loading = true;
+                    vm.loading = true;
                     instance.requestPaymentMethod(function (err, payload) {
                         if (err) {
-                            this.loading = false;
+                            vm.loading = false;
+                            vm.errorMessage = err.message;
                             console.log('Request Payment Method Error', err);
                             return;
                         }
 
-                        console.log(payload, 'payload');
+                        // console.log(payload, 'payload');
                         // Add the nonce to the form and submit
                         document.querySelector('#payment').value = payload.nonce;
-                        console.log(form);
                         form.submit();
                     });
                 });

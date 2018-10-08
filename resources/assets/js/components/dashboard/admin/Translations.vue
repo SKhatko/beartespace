@@ -87,9 +87,11 @@
             if (this.languages_) {
                 this.languages = this.languages_;
             }
-            if (Object.keys(this.translations_)) {
-                this.translations = this.translations_;
+
+            if (this.translations_) {
+                this.translations = JSON.parse(this.translations_);
             }
+
         },
 
         methods: {

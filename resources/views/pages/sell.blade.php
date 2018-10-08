@@ -5,7 +5,8 @@
 @section('content')
 
     <div class="app--wrapper">
-        Sell Artworks with us
-
+        <div class="app-sell">
+            Sell Artworks with us. Here would be all information about subscriptions and tariffs
+        </div>
     </div>
 @stop

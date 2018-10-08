@@ -9,7 +9,7 @@
             <el-card class="box-card orders">
                 <div slot="header" class="clearfix h4">Orders</div>
 
-                @if(auth()->user()->orders()->count() > 0)
+                @if(auth()->user()->orders()->count() > 0)pa
 
                     @foreach(auth()->user()->orders as $order)
                         <div class="order">
@@ -26,6 +26,12 @@
                                     </div>
 
                                     <div class="artwork-info">
+
+                                        <a href="{{ route('artist', $sale->artwork->user->id) }}" class="artwork-artist">
+                                            <img src="/imagecache/fit-25{{ $sale->artwork->user->avatar_url }}" alt="">
+
+                                            {{ $sale->artwork->user->name }}
+                                        </a>
 
                                         <a href="{{ route('artwork', $sale->artwork->id) }}" class="h5">
                                             {{ $sale->artwork->name }}
