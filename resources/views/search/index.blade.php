@@ -14,17 +14,9 @@
             </el-breadcrumb>
 
             @if(count($artworks))
-                @foreach($artworks as $artwork)
-                    <div class="artwork">
-                        <a href="{{ route('artwork', $artwork->id) }}">{{ $artwork->name }}</a>
-                    </div>
-                @endforeach
+                <artworks-block artworks_="{{ $artworks }}"></artworks-block>
             @elseif(count($artists))
-                @foreach($artists as $artist)
-                    <div class="artist">
-                        <a href="{{ route('artist', $artist->id) }}">{{ $artist->name }}</a>
-                    </div>
-                @endforeach
+                @include('artist.artists-block', ['artists' => $artists])
             @else
                 <div class="h3" style="text-align: center;">Nothing found</div>
             @endif

@@ -117,7 +117,8 @@ class TranslationsTableSeeder extends Seeder {
 			'gender'       => [
 				[ 'Male', 'Man' ],
 				[ 'Female', 'Kwine' ],
-				[ 'Third', '' ]
+				[ 'Third', '' ],
+				[ 'None', '' ]
 			],
 			'stock-status' => [
 				[ 'Available', '' ],

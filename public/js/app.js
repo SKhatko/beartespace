@@ -21347,6 +21347,37 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -82188,7 +82219,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "href": '/artist/' + _vm.user.id,
       "target": "_blank"
     }
-  }, [_vm._v("View profile")])])]), _vm._v(" "), _c('el-form', {
+  }, [_vm._v("View\n                profile")])])]), _vm._v(" "), _c('el-form', {
     attrs: {
       "label-position": "top"
     }
@@ -82243,7 +82274,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "slot": "tip"
     },
     slot: "tip"
-  }, [_vm._v("*Must be a .jpg, .gif or .png file smaller than 10MB and at least 400px by 400px.")]), _vm._v(" "), (_vm.user.avatar_url) ? _c('img', {
+  }, [_vm._v("*Must be a .jpg, .gif or .png file smaller than 10MB\n                            and at least 400px by 400px.\n                        ")]), _vm._v(" "), (_vm.user.avatar_url) ? _c('img', {
     staticClass: "avatar",
     attrs: {
       "src": '/imagecache/fit-290' + _vm.user.avatar_url
@@ -82295,7 +82326,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "slot": "tip"
     },
     slot: "tip"
-  }, [_vm._v("*Must be a .jpg file smaller than 10MB and at least 980px width.")]), _vm._v(" "), _c('img', {
+  }, [_vm._v("*Must be a .jpg file smaller than 10MB and at least\n                            980px width.\n                        ")]), _vm._v(" "), _c('img', {
     staticClass: "image",
     attrs: {
       "src": '/imagecache/height-200' + _vm.user.image_url
@@ -82314,7 +82345,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('el-col', {
     attrs: {
-      "sm": 12
+      "sm": 8
     }
   }, [_c('el-form-item', {
     attrs: {
@@ -82331,7 +82362,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1)], 1), _vm._v(" "), _c('el-col', {
     attrs: {
-      "sm": 12
+      "sm": 8
     }
   }, [_c('el-form-item', {
     attrs: {
@@ -82347,10 +82378,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       expression: "user.last_name"
     }
   })], 1)], 1)], 1), _vm._v(" "), _c('el-row', {
+    staticStyle: {
+      "display": "none"
+    },
     attrs: {
       "gutter": 20
     }
-  }, [(_vm.user.profile_premium_add && _vm.user.user_type === 'artist') ? _c('el-col', [_c('el-form-item', {
+  }, [(_vm.user.user_type === 'artist') ? _c('el-col', [_c('el-form-item', {
     attrs: {
       "label": "Your public username ( Personal profile url link )",
       "prop": "user_name"
@@ -82432,7 +82466,27 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.optional_email"
     }
-  })], 1)], 1) : _vm._e()], 1), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-row', {
+  })], 1)], 1) : _vm._e()], 1), _vm._v(" "), _c('el-row', [_c('el-form-item', {
+    attrs: {
+      "label": "Gender",
+      "prop": "gender"
+    }
+  }, [_c('el-radio-group', {
+    model: {
+      value: (_vm.user.gender),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "gender", $$v)
+      },
+      expression: "user.gender"
+    }
+  }, _vm._l((_vm.options('gender')), function(gender) {
+    return _c('el-radio', {
+      key: gender.value,
+      attrs: {
+        "label": gender.value
+      }
+    }, [_vm._v(_vm._s(gender.label) + "\n                    ")])
+  }))], 1)], 1), _vm._v(" "), _c('el-row', {
     attrs: {
       "gutter": 20
     }
@@ -82467,6 +82521,115 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     })
   }))], 1)], 1), _vm._v(" "), _c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "City",
+      "prop": "city"
+    }
+  }, [_c('el-input', {
+    attrs: {
+      "placeholder": "City"
+    },
+    model: {
+      value: (_vm.user.city),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "city", $$v)
+      },
+      expression: "user.city"
+    }
+  })], 1)], 1)], 1), _vm._v(" "), _c('el-row', [_c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Birthday",
+      "prop": "dob"
+    }
+  }, [_c('el-date-picker', {
+    attrs: {
+      "type": "date",
+      "value-format": "yyyy-MM-dd",
+      "placeholder": "yyyy-mm-dd"
+    },
+    model: {
+      value: (_vm.user.dob),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "dob", $$v)
+      },
+      expression: "user.dob"
+    }
+  })], 1)], 1)], 1), _vm._v(" "), _c('el-row', [_c('el-col', {
+    attrs: {
+      "sm": 18
+    }
+  }, [_c('el-form-item', [_c('span', {
+    attrs: {
+      "slot": "label"
+    },
+    slot: "label"
+  }, [_vm._v("About")]), _vm._v(" "), _c('el-input', {
+    attrs: {
+      "type": "textarea",
+      "placeholder": "Let people something about you"
+    },
+    model: {
+      value: (_vm.user.about),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "about", $$v)
+      },
+      expression: "user.about"
+    }
+  })], 1)], 1)], 1), _vm._v(" "), _c('el-button', {
+    staticStyle: {
+      "margin-top": "20px"
+    },
+    attrs: {
+      "type": "primary",
+      "size": "big",
+      "loading": _vm.loading
+    },
+    on: {
+      "click": function($event) {
+        _vm.save()
+      }
+    }
+  }, [_vm._v("\n            Save\n        ")]), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-button', {
+    staticStyle: {
+      "margin-top": "20px"
+    }
+  }, [_c('a', {
+    attrs: {
+      "href": '/artist/' + _vm.user.id,
+      "target": "_blank"
+    }
+  }, [_vm._v("Preview")])]) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'user' && _vm.profileSaved) ? _c('el-button', {
+    staticStyle: {
+      "margin-top": "20px"
+    },
+    attrs: {
+      "type": "text"
+    }
+  }, [_c('a', {
+    attrs: {
+      "href": "/artwork"
+    }
+  }, [_vm._v("Show Artworks")])]) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-button', {
+    attrs: {
+      "type": "success"
+    }
+  }, [_c('a', {
+    attrs: {
+      "href": "/dashboard/artwork/create"
+    }
+  }, [_vm._v("Upload\n                Artwork")])]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticStyle: {
+      "display": "none"
+    }
+  }, [_c('el-row', [_c('el-col', {
     attrs: {
       "sm": 8
     }
@@ -82530,7 +82693,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "value": profession.value
       }
     })
-  }))], 1)], 1)], 1) : _vm._e(), _vm._v(" "), _c('el-row', {
+  }))], 1)], 1)], 1), _vm._v(" "), _c('el-row', {
     attrs: {
       "gutter": 20
     }
@@ -82602,61 +82765,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.education_born"
     }
-  })], 1)], 1)], 1), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-row', {
+  })], 1)], 1)], 1), _vm._v(" "), _c('el-row', {
     attrs: {
       "gutter": 20
     }
   }, [_c('el-col', {
-    attrs: {
-      "sm": 8
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Date of birth",
-      "prop": "dob"
-    }
-  }, [_c('el-date-picker', {
-    attrs: {
-      "type": "date",
-      "value-format": "yyyy-MM-dd",
-      "placeholder": "yyyy-mm-dd"
-    },
-    model: {
-      value: (_vm.user.dob),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "dob", $$v)
-      },
-      expression: "user.dob"
-    }
-  })], 1)], 1), _vm._v(" "), _c('el-col', {
-    attrs: {
-      "sm": 8
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Gender",
-      "prop": "gender"
-    }
-  }, [_c('el-select', {
-    attrs: {
-      "value": "user.gender"
-    },
-    model: {
-      value: (_vm.user.gender),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "gender", $$v)
-      },
-      expression: "user.gender"
-    }
-  }, _vm._l((_vm.options('gender')), function(gender) {
-    return _c('el-option', {
-      key: gender.value,
-      attrs: {
-        "label": gender.label,
-        "value": gender.value
-      }
-    })
-  }))], 1)], 1), _vm._v(" "), _c('el-col', {
     attrs: {
       "sm": 8
     }
@@ -82679,28 +82792,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.phone"
     }
-  })], 1)], 1)], 1) : _vm._e(), _vm._v(" "), _c('el-row', {
+  })], 1)], 1)], 1), _vm._v(" "), _c('el-row', {
     attrs: {
       "gutter": 20
     }
   }, [_c('el-col', {
-    attrs: {
-      "sm": 8
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "City",
-      "prop": "city"
-    }
-  }, [_c('el-input', {
-    model: {
-      value: (_vm.user.city),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "city", $$v)
-      },
-      expression: "user.city"
-    }
-  })], 1)], 1), _vm._v(" "), _c('el-col', {
     attrs: {
       "sm": 8
     }
@@ -82799,49 +82895,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.exhibition"
     }
-  })], 1)], 1)], 1), _vm._v(" "), _c('el-button', {
-    staticStyle: {
-      "margin-top": "20px"
-    },
-    attrs: {
-      "type": "primary",
-      "size": "big",
-      "loading": _vm.loading
-    },
-    on: {
-      "click": function($event) {
-        _vm.save()
-      }
-    }
-  }, [_vm._v("\n            Save\n        ")]), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-button', {
-    staticStyle: {
-      "margin-top": "20px"
-    }
-  }, [_c('a', {
-    attrs: {
-      "href": '/artist/' + _vm.user.id,
-      "target": "_blank"
-    }
-  }, [_vm._v("Preview")])]) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'user' && _vm.profileSaved) ? _c('el-button', {
-    staticStyle: {
-      "margin-top": "20px"
-    },
-    attrs: {
-      "type": "text"
-    }
-  }, [_c('a', {
-    attrs: {
-      "href": "/artwork"
-    }
-  }, [_vm._v("Show Artworks")])]) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-button', {
-    attrs: {
-      "type": "success"
-    }
-  }, [_c('a', {
-    attrs: {
-      "href": "/dashboard/artwork/create"
-    }
-  }, [_vm._v("Upload\n                Artwork")])]) : _vm._e()], 1)], 1) : _vm._e()
+  })], 1)], 1)], 1)], 1)], 1)], 1) : _vm._e()
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

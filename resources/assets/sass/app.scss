@@ -518,55 +518,58 @@ body, html {
       text-align: center;
       margin-bottom: 50px;
     }
+  }
 
-    .artist {
-      position: relative;
+}
+
+.app-artists-block {
+
+  .artist {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 0 -15px;
+
+    &-info {
+      flex: 1;
+      padding: 0 15px;
+      min-width: 220px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &-avatar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+
+    &-artworks {
+      flex: 3;
+      padding: 0 15px;
+      margin: 0 -15px;
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      margin: 0 -15px;
+      justify-content: flex-start;
+    }
 
-      &-info {
-        flex: 1;
-        padding: 0 15px;
-        min-width: 220px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-      }
+    &-artwork {
+      padding: 15px;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      min-width: 140px;
+      //max-width: 150px;
 
-      &-avatar {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 50%;
-        overflow: hidden;
-        margin-bottom: 10px;
-      }
-
-      &-artworks {
-        flex: 3;
-        padding: 0 15px;
-        margin: 0 -15px;
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: flex-start;
-      }
-
-      &-artwork {
-        padding: 15px;
-        flex: 1;
-        display: flex;
-        align-items: center;
-        overflow: hidden;
-        min-width: 140px;
-        //max-width: 150px;
-
-        img {
-
-        }
+      img {
 
       }
 
@@ -1052,10 +1055,6 @@ body, html {
   & img {
     max-width: 100%;
   }
-}
-
-.app-change-password {
-  padding: 15px;
 }
 
 .app-auth {
@@ -1562,6 +1561,15 @@ body, html {
 
 .app-payments {
   padding: 15px;
+}
+
+.app-account {
+  padding: 15px;
+
+  .account {
+    max-width: 290px;
+    margin: 0 auto;
+  }
 }
 
 .app-translations {

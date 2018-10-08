@@ -13,7 +13,10 @@
                         <artworks-block artworks_="{{ $artworks }}"></artworks-block>
 {{--                        @include('partials.artworks', $artworks)--}}
                     </el-tab-pane>
-                    <el-tab-pane label="Followed People" name="artists">Followed People</el-tab-pane>
+                    <el-tab-pane label="Followed People" name="artists">
+
+                        @include('artist.artists-block', ['artists' => $artists])
+                    </el-tab-pane>
                 </el-tabs>
             </el-card>
 

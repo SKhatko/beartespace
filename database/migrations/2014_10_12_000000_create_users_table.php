@@ -32,7 +32,7 @@ class CreateUsersTable extends Migration {
 			$table->integer( 'currency_id' )->nullable();
 			$table->string( 'city' )->nullable();
 			$table->string( 'postcode' )->nullable();
-			$table->enum( 'gender', [ 'male', 'female', 'third' ] )->nullable();
+			$table->enum( 'gender', [ 'male', 'female', 'third', 'none' ] )->nullable();
 			$table->integer('address_id')->nullable();
 			$table->string( 'address' )->nullable();
 			$table->string( 'address_2' )->nullable();
@@ -41,6 +41,7 @@ class CreateUsersTable extends Migration {
 			$table->string( 'education' )->nullable();
 			$table->string( 'education_title' )->nullable();
 			$table->boolean( 'education_born' )->nullable();
+			$table->text( 'about' )->nullable();
 			$table->text( 'inspiration' )->nullable();
 			$table->text( 'exhibition' )->nullable();
 

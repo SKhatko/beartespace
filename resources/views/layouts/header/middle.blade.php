@@ -78,9 +78,11 @@
                 | <a href="/register" style="margin-left: 2%;">{{ trans('portal.register') }}</a>
 
                 <a href="{{ route('login') }}"
-                   class="el-button el-button--default is-plain hidden-xs-only" style="margin-left: 2%;">@lang('portal.sign-in')</a> &nbsp;
+                   class="el-button el-button--default is-plain hidden-xs-only"
+                   style="margin-left: 2%;">@lang('portal.sign-in')</a> &nbsp;
                 <a href="{{ route('login') }}" style="margin-left: 2%;"
-                   class="el-button el-button--default is-plain hidden-sm-and-up el-button--mini">@lang('portal.sign-in')</a> &nbsp;
+                   class="el-button el-button--default is-plain hidden-sm-and-up el-button--mini">@lang('portal.sign-in')</a>
+                &nbsp;
             @else
                 <el-popover
                         placement="bottom"
@@ -152,8 +154,7 @@
                     @endif
 
                     <el-dropdown-item>
-                        <a href="{{route('dashboard.change-password')}}" class="el-dropdown-link">Change
-                            Password</a>
+                        <a href="{{route('dashboard.account')}}" class="el-dropdown-link">Account Settings</a>
                     </el-dropdown-item>
 
                     <el-dropdown-item divided>

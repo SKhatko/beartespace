@@ -43,6 +43,10 @@ class UserController extends Controller {
 		return view( 'dashboard.user.profile', compact( 'title', 'user' ) );
 	}
 
+	public function accountSettings() {
+		return view( 'dashboard.user.account' );
+	}
+
 
 	public function artists( Request $request ) {
 
@@ -111,8 +115,9 @@ class UserController extends Controller {
 		$user = auth()->user();
 
 		$artworks = $user->favoriteArtworks()->orderBy( 'id', 'desc' )->get();
+		$artists = $user->followedUsers()->orderBy( 'id', 'desc' )->get();
 
-		return view( 'dashboard.user.favorites', compact( 'artworks' ) );
+		return view( 'dashboard.user.favorites', compact( 'artworks', 'artists') );
 	}
 
 
@@ -181,12 +186,6 @@ class UserController extends Controller {
 		//
 	}
 
-	public function changePassword() {
-		$title = trans( 'portal.change_password' );
-
-		return view( 'dashboard.user.change-password', compact( 'title' ) );
-	}
-
 	public function changePasswordPost( Request $request ) {
 
 		$this->validate( $request, [
@@ -208,7 +207,7 @@ class UserController extends Controller {
 				return redirect()->back()->with( ['message' => ['message' => 'Password changed successfully'] ]);
 			}
 
-			return redirect()->back()->with( 'error', 'Wrong Old password' );
+			return redirect()->back()->with( 'inline-error', 'Wrong Old password' );
 		}
 	}
 }
