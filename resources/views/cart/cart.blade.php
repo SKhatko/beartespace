@@ -16,7 +16,9 @@
                             </div>
                         </div>
 
-                        @include('partials.errors')
+                        <div style="margin-bottom: 10px;">
+                            @include('partials.errors')
+                        </div>
 
                         @if(Cart::count() > 0)
                             @include('cart.cart-items', ['cart' => Cart::content()])

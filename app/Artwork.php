@@ -69,7 +69,7 @@ class Artwork extends Model implements Buyable {
 		return $this->hasMany( Add::class );
 	}
 
-	public function statusString() {
+	public function statusString($quantity = 1) {
 
 		if ( $this->sold_at ) {
 			return 'sold';
@@ -79,23 +79,11 @@ class Artwork extends Model implements Buyable {
 			return 'temporarily-unavailable';
 		}
 
-		if ( $this->attributes['quantity'] ) {
+		if ( $this->quantity >= $quantity ) {
 			return 'available';
 		}
 
 		return 'unavailable';
-	}
-
-	public function availableInStockWithQuantity( $quantity = 1 ) {
-		if ( $this->attributes['sold_at'] ) {
-			return 'sold';
-		} else if ( ! $this->attributes['available'] ) {
-			return 'temporarily-unavailable';
-		} else if ( $quantity <= $this->attributes['quantity'] ) {
-			return 'available';
-		} else {
-			return 'unavailable';
-		}
 	}
 
 	public function scopeAvailable( $query ) {
@@ -124,6 +112,10 @@ class Artwork extends Model implements Buyable {
 
 	public function getAvailableAttribute( $value ) {
 		return ! ! $value;
+	}
+
+	public function getMadeByAttribute($value) {
+		return $value ?? null;
 	}
 
 	public function getFormattedPriceAttribute() {

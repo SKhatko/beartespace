@@ -19,15 +19,11 @@ class HasShoppingCart {
 	public function handle( $request, Closure $next ) {
 		if ( Cart::count() > 0 ) {
 
-			$cartArtworks = Cart::content()->pluck( 'qty', 'id' );
-
-			$artworks = Artwork::whereIn( 'id', $cartArtworks->keys() )->get();
-
-			foreach ( $artworks as $artwork ) {
-				if ( $artwork->availableInStockWithQuantity( $cartArtworks[ $artwork->id ] ) !== 'available' ) {
+			foreach ( Cart::content() as $item ) {
+				if ( $item->model->statusString( $item->qty ) !== 'available' ) {
 					return redirect( route( 'cart' ) )->with( 'inline-warning', 'Not all items from your shopping cart are available. Remove them from your cart to continue' );
 				}
-			};
+			}
 
 			return $next( $request );
 

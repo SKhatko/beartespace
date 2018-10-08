@@ -15,7 +15,7 @@ class CreateArtworksTable extends Migration {
 			$table->integer( 'user_id' );
 			$table->string( 'slug' )->nullable();
 			$table->string( 'name' );
-			$table->string('made_by');
+			$table->string('made_by')->nullable()->default(null);
 			$table->text( 'description' );
 			$table->text( 'inspiration' )->nullable();
 			$table->boolean( 'optional_size' )->nullable();

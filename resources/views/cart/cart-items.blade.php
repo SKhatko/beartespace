@@ -1,44 +1,44 @@
 <div class="app-cart-items">
-    @foreach($cart as $artwork)
+    @foreach($cart as $item)
 
         <div class="item">
             <div class="item-image">
-                <img src="/imagecache/fit-100{{ $artwork->model->image_url }}"
-                     alt="{{ $artwork->model->image ? $artwork->model->image->original_name : 'image' }}">
+                <img src="/imagecache/fit-100{{ $item->model->image_url }}"
+                     alt="{{ $item->model->image ? $item->model->image->original_name : 'image' }}">
             </div>
 
             <div class="item-info">
 
-                <a href="{{ route('artist', $artwork->model->user->id) }}" class="item-artist">
+                <a href="{{ route('artist', $item->model->user->id) }}" class="item-artist">
                                     <span class="item-artist-avatar">
-                                        <img src="/imagecache/fit-25{{ $artwork->model->user->avatar_url}}"/>
+                                        <img src="/imagecache/fit-25{{ $item->model->user->avatar_url}}"/>
                                     </span>
 
-                    {{ $artwork->model->user->name }}
+                    {{ $item->model->user->name }}
                 </a>
 
-                <a href="{{ route('artwork', $artwork->id) }}" class="item-description">
-                    {{ $artwork->name }}
+                <a href="{{ route('artwork', $item->id) }}" class="item-description">
+                    {{ $item->name }}
                 </a>
 
-                <a href="{{ route('cart.item.remove', $artwork->model->id) }}" class="item-remove">Remove</a>
+                <a href="{{ route('cart.item.remove', $item->model->id) }}" class="item-remove">Remove</a>
             </div>
 
             <div class="item--right">
 
                 <div class="item-qty">
-                    Qty: {{ $artwork->qty }}
+                    Qty: {{ $item->qty }}
                 </div>
 
-                @if($artwork->model->availableInStockWithQuantity($artwork->qty) === 'available')
+                @if($item->model->statusString($item->qty) === 'available')
 
                     <div class="item-price">
-                        {{ $artwork->model->formatted_price }}
+                        {{ $item->model->formatted_price }}
                     </div>
 
                 @else
                     <div class="item-status">
-                        @lang('stock-status.' . $artwork->model->availableInStockWithQuantity($artwork->qty))
+                        @lang('stock-status.' . $item->model->statusString($item->qty))
                     </div>
                 @endif
             </div>

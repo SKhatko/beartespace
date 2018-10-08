@@ -112,9 +112,8 @@ class ArtworkController extends Controller {
 
 	public function artwork( $id ) {
 
-		$artwork = Artwork::find( $id )->load( 'images' );
+		$artwork = Artwork::findOrFail( $id )->load( 'images' );
 
-//		return $artwork;
 		return view( 'artwork.show', compact( 'artwork' ) );
 	}
 
