@@ -10,7 +10,7 @@
 
         <el-form id="payment-form" method="POST" action="/cart/payment">
             <input type="hidden" name="_token" :value="csrf">
-            <input type="hidden" id="nonce" name="nonce">
+            <input type="hidden" id="payment" name="payment">
 
             <div id="bt-dropin"></div>
 
@@ -75,7 +75,7 @@
 
                         console.log(payload, 'payload');
                         // Add the nonce to the form and submit
-                        document.querySelector('#nonce').value = payload.nonce;
+                        document.querySelector('#payment').value = payload.nonce;
                         console.log(form);
                         form.submit();
                     });

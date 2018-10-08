@@ -6,14 +6,14 @@
 
         <div class="app-cart">
 
-            <div class="app--margin">
+            <div class="app-cart-wrapper">
                 <div class="cart">
                     <el-card>
                         <div slot="header">
                             <div class="cart-header">
                                 <span>Shopping cart</span>
                                 <a href="/" class="el-button el-button--default el-button--mini">Keep shopping</a>
-                            </div>
+                            </div>p
                         </div>
 
                         @include('partials.errors')

@@ -48,10 +48,10 @@ class CartCheckoutController extends Controller {
 	public function savePaymentMethod( Request $request ) {
 
 		$request->validate( [
-			'nonce' => 'required',
+			'payment' => 'required',
 		] );
 
-		$nonce = $request->input( 'nonce' );
+		$nonce = $request->input( 'payment' );
 
 		$user = auth()->user();
 

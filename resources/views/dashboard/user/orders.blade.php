@@ -19,23 +19,18 @@
 
                             @foreach($order->sales as $sale)
                                 <div class="artwork">
-                                    {{----}}
-                                    {{--<div class="artwork-image">--}}
-                                    {{--<img src="/imagecache/height-100{{ $artwork->image_url }}"--}}
-                                    {{--alt="{{ $artwork->image ? $artwork->image->original_name : 'image' }}"--}}
-                                    {{--style="height: 100px;">--}}
-                                    {{--</div>--}}
+
+                                    <div class="artwork-image">
+                                        <img src="/imagecache/fit-100{{ $sale->artwork->image_url }}"
+                                             alt="{{ $sale->artwork->image ? $sale->artwork->image->original_name : 'image' }}">
+                                    </div>
 
                                     <div class="artwork-info">
-
-                                        {{--<a href="{{ route('artist', $artwork->user_id) }}" class="h5"--}}
-                                        {{--style="margin-bottom: 6px;font-weight: bold;display: block;">--}}
-                                        {{--{{ $artwork->user->name }}--}}
-                                        {{--</a>--}}
 
                                         <a href="{{ route('artwork', $sale->artwork->id) }}" class="h5">
                                             {{ $sale->artwork->name }}
                                         </a>
+
                                     </div>
 
                                     <div class="artwork--right">

@@ -21,10 +21,6 @@ body, html {
   max-width: 1200px;
 }
 
-.app--margin {
-  margin: 0 -15px;
-}
-
 .app--dashboard {
   width: 100%;
   margin: 0 auto;
@@ -77,6 +73,7 @@ body, html {
       margin-bottom: 20px;
       padding: 7px 15px;
       width: 100%;
+      position: relative;
     }
 
     .app-header-search {
@@ -447,6 +444,7 @@ body, html {
 .app-orders {
 
   .orders {
+
   }
 
   .order {
@@ -467,17 +465,25 @@ body, html {
   }
 
   .artwork {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
 
+    &-image {
+      margin-right: 15px;
+    }
+
     &--right {
+      flex: 1;
       display: flex;
+      justify-content: space-between;
       margin-left: 20px;
     }
 
     &-info {
-      flex: 1;
+      flex: 3;
+      min-width: 158px;
     }
   }
 }
@@ -1076,8 +1082,12 @@ body, html {
   width: 100%;
   max-width: 800px;
   margin: 0 auto;
-  display: flex;
-  flex-wrap: wrap;
+
+  &-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -15px;
+  }
 
   .cart {
     flex: 5;
@@ -1140,7 +1150,8 @@ body, html {
     }
 
     &-info {
-      flex: 1;
+      flex: 3;
+      min-width: 180px;
     }
 
     &-remove {
@@ -1184,14 +1195,21 @@ body, html {
       display: flex;
       align-items: center;
       margin-left: 20px;
+      flex: 1;
+      justify-content: space-between;
     }
 
     &-qty {
       margin-right: 20px;
+      white-space: nowrap;
     }
 
     &-status {
       color: red;
+    }
+
+    &-price {
+      white-space: nowrap;
     }
   }
 }
@@ -1268,6 +1286,10 @@ body, html {
       &-vat {
         display: flex;
         justify-content: space-between;
+
+        .price {
+          white-space: nowrap;
+        }
       }
 
       &-summary {
@@ -1275,6 +1297,10 @@ body, html {
         justify-content: space-between;
         font-weight: bold;
         margin-bottom: 20px;
+
+        .price {
+          white-space: nowrap;
+        }
       }
 
       &-bottom {
@@ -1496,7 +1522,7 @@ body, html {
   }
 
   &-copy {
-    white-space: nowrap;
+    //white-space: nowrap;
     padding: 15px;
   }
 }

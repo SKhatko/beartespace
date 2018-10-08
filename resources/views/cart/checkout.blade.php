@@ -50,13 +50,13 @@
                     <div class="checkout-total">
                         <el-card>
                             <div class="checkout-total-vat">
-                                <span>Item total (incl. VAT)</span>
-                                <span>{{ currency(Cart::total()) }}</span>
+                                <div>Item total (incl. VAT)</div>
+                                <div class="price">{{ currency(Cart::total()) }}</div>
                             </div>
                             <hr>
                             <div class="checkout-total-summary">
-                                <span>Order total ({{ Cart::count() }})</span>
-                                <span>{{ currency(Cart::total()) }}</span>
+                                <div>Order total ({{ Cart::count() }})</div>
+                                <div class="price">{{ currency(Cart::total()) }}</div>
                             </div>
 
                             <el-form action="/cart/checkout" method="POST">
@@ -74,13 +74,9 @@
                             <a href="/page/privacy">Privacy Policy</a>
                         </div>
 
-
                     </div>
                 </div>
-
-
             </el-card>
-
 
             <el-card class="box-card checkout-cart" style="margin-bottom: 80px;">
                 <div slot="header" class="h4">Review items</div>

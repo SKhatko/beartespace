@@ -19489,7 +19489,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
                     console.log(payload, 'payload');
                     // Add the nonce to the form and submit
-                    document.querySelector('#nonce').value = payload.nonce;
+                    document.querySelector('#payment').value = payload.nonce;
                     console.log(form);
                     form.submit();
                 });
@@ -84544,8 +84544,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v(" "), _c('input', {
     attrs: {
       "type": "hidden",
-      "id": "nonce",
-      "name": "nonce"
+      "id": "payment",
+      "name": "payment"
     }
   }), _vm._v(" "), _c('div', {
     attrs: {

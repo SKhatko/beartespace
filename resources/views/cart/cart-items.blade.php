@@ -3,9 +3,8 @@
 
         <div class="item">
             <div class="item-image">
-                <img src="/imagecache/height-100{{ $artwork->model->image_url }}"
-                     alt="{{ $artwork->model->image ? $artwork->model->image->original_name : 'image' }}"
-                     style="height: 100px;">
+                <img src="/imagecache/fit-100{{ $artwork->model->image_url }}"
+                     alt="{{ $artwork->model->image ? $artwork->model->image->original_name : 'image' }}">
             </div>
 
             <div class="item-info">
