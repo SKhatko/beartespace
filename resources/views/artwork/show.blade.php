@@ -83,14 +83,13 @@
                                     within {{ $artwork->processing_time }} @endif
                             </div>
 
-
-                            @if($artwork->availableInStockWithQuantity() !== 'available')
+                            @if($artwork->statusString() !== 'available')
                                 <div class="artwork-status">
-                                    {{ trans('stock-status.' . $artwork->availableInStockWithQuantity()) }}
+                                    {{ trans('stock-status.' . $artwork->statusString()) }}
                                 </div>
                             @else
                                 <div class="artwork-status available">
-                                    {{ trans('stock-status.' . $artwork->availableInStockWithQuantity()) }}
+                                    {{ trans('stock-status.' . $artwork->statusString()) }}
                                 </div>
 
                                 @if($artwork->quantity > 1)

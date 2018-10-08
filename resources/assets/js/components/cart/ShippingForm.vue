@@ -16,7 +16,7 @@
                         <el-radio-group v-model="deliveryAddress.selected">
                             <div v-for="address in addresses" :key="address.id">
                                 <el-radio class="radio" :label="address.id">
-                                    <span class="address">{{ address.address_string }}</span>
+                                    <span class="address" v-html="address.address_string"></span>
                                     <span class="address-edit" @click.prevent="edit(address)">Edit address</span>
                                     <span class="address-delete" @click.prevent="remove(address)">Delete</span>
                                 </el-radio>

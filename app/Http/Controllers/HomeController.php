@@ -16,15 +16,13 @@ class HomeController extends Controller {
 
 		$articles = Article::where( 'active', 1 )->take( 2 )->get();
 
-		$artwork = Artwork::inRandomOrder()->with( 'images', 'user' )->first();
+		$randomArtwork = Artwork::auction(false)->notSold()->available()->quantity()->with('image')->inRandomOrder()->first();
 
-		$randomArtwork = Artwork::first();
+		$artworks = Artwork::auction(false)->notSold()->available()->quantity()->with('image')->inRandomOrder()->take(4)->get();
 
-//		return $randomArtwork;
+		$auctions = Artwork::auction()->notSold()->available()->quantity()->with('image')->inRandomOrder()->take( 4 )->get();
 
-		$auctions = Artwork::auction()->orderBy( 'id', 'desc' )->take( 4 )->get();
-
-		return view( 'index', compact( 'artwork', 'auctions', 'articles', 'randomArtwork' ) );
+		return view( 'index', compact( 'artworks', 'auctions', 'articles', 'randomArtwork' ) );
 	}
 
 	public function selectedArtists() {

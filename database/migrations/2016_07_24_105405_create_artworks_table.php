@@ -39,8 +39,6 @@ class CreateArtworksTable extends Migration {
 			$table->json( 'theme' )->nullable();
 			$table->json( 'color' )->nullable();
 			$table->string( 'shape' )->nullable();
-			$table->boolean( 'sold' )->nullable();
-			$table->string( 'sold_by' )->nullable();
 			$table->boolean( 'available' )->nullable()->default( 1 );
 			$table->integer( 'image_id' );
 			$table->integer( 'quantity' )->default( 1 );
@@ -51,6 +49,10 @@ class CreateArtworksTable extends Migration {
 			$table->decimal( 'auction_price', 12, 2 )->nullable();
 			$table->timestamp( 'auction_start' )->nullable();
 			$table->timestamp( 'auction_end' )->nullable();
+			$table->string( 'sold_by' )->nullable();
+			$table->timestamp('auction_start_at')->nullable();
+			$table->timestamp('auction_end_at')->nullable();
+			$table->timestamp( 'sold_at' )->nullable();
 			$table->timestamps();
 		} );
 	}

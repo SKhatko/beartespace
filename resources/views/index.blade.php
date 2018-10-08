@@ -119,7 +119,7 @@
 
                 <div class="artworks">
 
-                    <artworks-block artworks_="{{ $auctions }}"></artworks-block>
+                    <artworks-block artworks_="{{ $artworks }}"></artworks-block>
 
                 </div>
 

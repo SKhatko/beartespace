@@ -69,8 +69,25 @@ class Artwork extends Model implements Buyable {
 		return $this->hasMany( Add::class );
 	}
 
+	public function statusString() {
+
+		if ( $this->sold_at ) {
+			return 'sold';
+		}
+
+		if ( ! $this->available ) {
+			return 'temporarily-unavailable';
+		}
+
+		if ( $this->attributes['quantity'] ) {
+			return 'available';
+		}
+
+		return 'unavailable';
+	}
+
 	public function availableInStockWithQuantity( $quantity = 1 ) {
-		if ( $this->attributes['sold'] ) {
+		if ( $this->attributes['sold_at'] ) {
 			return 'sold';
 		} else if ( ! $this->attributes['available'] ) {
 			return 'temporarily-unavailable';
@@ -85,12 +102,16 @@ class Artwork extends Model implements Buyable {
 		return $query->where( 'available', true );
 	}
 
-	public function scopeNotSold( $query ) {
-		return $query->where( 'sold', false );
+	public function scopeQuantity( $query, $value = 1 ) {
+		return $query->where( 'quantity', '>=', $value );
 	}
 
-	public function scopeAuction( $query ) {
-		return $query->whereAuctionStatus( '1' );
+	public function scopeNotSold( $query ) {
+		return $query->whereNull( 'sold_at' );
+	}
+
+	public function scopeAuction( $query, $status = true ) {
+		return $query->whereAuctionStatus( $status );
 	}
 
 	public function getOptionalSizeAttribute( $value ) {
@@ -98,10 +119,6 @@ class Artwork extends Model implements Buyable {
 	}
 
 	public function getAuctionStatusAttribute( $value ) {
-		return ! ! $value;
-	}
-
-	public function getSoldAttribute( $value ) {
 		return ! ! $value;
 	}
 

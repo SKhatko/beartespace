@@ -9,10 +9,9 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 
 class ArtworkController extends Controller {
 
-
 	public function artworks( Request $request ) {
 
-		$artworks = Artwork::query();
+		$artworks = Artwork::query()->auction( false )->notSold()->available()->quantity()->with( 'image' );
 
 		if ( $request->input( 'artist' ) ) {
 			$artist = $request->input( 'artist' );
@@ -84,12 +83,12 @@ class ArtworkController extends Controller {
 		}
 
 		if ( $request->input( 'price_min' ) ) {
-			$priceMin = currency($request->input( 'price_min' ), session('currency'), 'EUR',false);
+			$priceMin = currency( $request->input( 'price_min' ), session( 'currency' ), 'EUR', false );
 			$artworks->where( 'price', '>=', $priceMin );
 		}
 
 		if ( $request->input( 'price_max' ) ) {
-			$priceMax = currency($request->input( 'price_max' ), session('currency'), 'EUR',false);
+			$priceMax = currency( $request->input( 'price_max' ), session( 'currency' ), 'EUR', false );
 			$artworks->where( 'price', '<=', $priceMax );
 		}
 
@@ -106,35 +105,21 @@ class ArtworkController extends Controller {
 			$items = $request->get( 'items' );
 		}
 
-		$artworks = $artworks->notSold()->available()->with( 'images', 'user.country' )->paginate( $items );
+		$artworks = $artworks->with( 'images', 'user.country' )->paginate( $items );
 
 		return view( 'artwork.index', compact( 'artworks' ) );
 	}
 
 	public function artwork( $id ) {
 
-		$artwork = Artwork::find( $id )->load('images');
+		$artwork = Artwork::find( $id )->load( 'images' );
 
+//		return $artwork;
 		return view( 'artwork.show', compact( 'artwork' ) );
 	}
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
 	public function index() {
 		$title = 'My artworks';
-
-		$order = auth()->user()->orders()->first();
-
-//		return Cart::content();
-//		return new \App\Mail\OrderPaid($order);
-//		dd($order->content);
-//
-
-//
-//		Mail::to( $artwork->user )->send( new OrderPaid( $order ) );
 
 		$user = Auth::user();
 
@@ -143,11 +128,6 @@ class ArtworkController extends Controller {
 		return view( 'dashboard.artworks.index', compact( 'title', 'artworks' ) );
 	}
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
 	public function create() {
 
 		$title = 'Upload New Artwork';
@@ -155,36 +135,6 @@ class ArtworkController extends Controller {
 		return view( 'dashboard.artworks.create', compact( 'title' ) );
 	}
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @param  \Illuminate\Http\Request $request
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
-	public function store( Request $request ) {
-
-
-	}
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int $id
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
-	public function show( $id ) {
-		//
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int $id
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
 	public function edit( $id ) {
 
 		$title = 'Edit Artwork';
@@ -204,29 +154,11 @@ class ArtworkController extends Controller {
 
 	}
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  \Illuminate\Http\Request $request
-	 * @param  int $id
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
-	public function update( Request $request, $id ) {
-		//
-	}
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int $id
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
 	public function destroy( Request $request, $id ) {
 		$artwork = Artwork::find( $id );
 
 		$artwork->images()->delete();
+		$artwork->image()->delete();
 		$artwork->delete();
 	}
 }

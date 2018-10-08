@@ -27,7 +27,7 @@
                                 Edit
                             </a></div>
 
-                        <div class="p">{{ $address->address_string }}</div>
+                        <div class="p">{!! $address->address_string !!}</div>
 
                     </div>
 

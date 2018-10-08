@@ -22,7 +22,6 @@ $factory->define( App\Artwork::class, function ( Faker $faker ) {
 		'status'             => $faker->randomElement( [ 0, 1, 2, 3 ] ),
 		'available'          => $faker->boolean,
 		'quantity'           => $faker->randomNumber(),
-		'sold'               => $faker->boolean,
 		'auction_status'     => $faker->boolean,
 		'auction_price'      => $faker->randomFloat( 2 ),
 		'auction_start'      => \Carbon\Carbon::now()->toDateTimeString(),

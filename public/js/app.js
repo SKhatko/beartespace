@@ -83228,8 +83228,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "label": address.id
       }
     }, [_c('span', {
-      staticClass: "address"
-    }, [_vm._v(_vm._s(address.address_string))]), _vm._v(" "), _c('span', {
+      staticClass: "address",
+      domProps: {
+        "innerHTML": _vm._s(address.address_string)
+      }
+    }), _vm._v(" "), _c('span', {
       staticClass: "address-edit",
       on: {
         "click": function($event) {

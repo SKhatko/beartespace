@@ -20,8 +20,9 @@ Your artwork **{{ $sale->artwork->name }}** has been sold for **{{ currency($sal
 {{--You sent a payment of **{{ currency($order->amount) }}** to BeArteSpace--}}
 
 <hr>
-Your profit from this sale is **{{ currency($sale->total() / 100 * 85) }}** and will be available on your balance after you customer confirms receiving the artwork.
-Please confirm shipping.
+
+Your profit from this sale is **{{ currency($sale->total() / 100 * 85) }}** and will be available after the customer 14-days return right.
+Please confirm shipping
 
 @component('mail::button', ['url' => url('/dashboard/order')])
 Confirm shipping of artwork

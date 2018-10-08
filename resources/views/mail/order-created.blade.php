@@ -1,12 +1,11 @@
 
 @component('mail::message')
 
-Hello {{ $order->user->name }},
+Dear {{ $order->user->name }},
 
-##Order confirmation from **{{ $order->created_at->toFormattedDateString() }}**
+##This is your reservation confirmation from **{{ $order->created_at->toFormattedDateString() }}**
 
-You sent a payment of **{{ currency($order->amount) }}** to BeArteSpace
-
+You sent a payment of **{{ currency($order->amount) }}** to BeArteSpace, which we have received on behalf of artist.
 
 ##Order content
 @component('mail::table')
@@ -21,8 +20,11 @@ You sent a payment of **{{ currency($order->amount) }}** to BeArteSpace
 ##Shipping address
 {{ $order->addressString() }}
 
+We have informed the artist about your reservation of the artwork. Soon he will confirm date of shipping, which we will pass to you.
 
-You will be notified when your order is shipped. Click the button to check order status
+When the artwork has been shipped, you will be notified in a separate mail, which will also include your invoice and a Track & Trace number, so you can follow your shipment.
+
+Click the button to check order status
 @component('mail::button', ['url' => url('/dashboard/order')])
 Check order status
 @endcomponent

@@ -37,13 +37,7 @@ class Address extends Model {
 		$addressString = '';
 
 		if ( $this->name ) {
-			$addressString .= $this->name . ', ';
-		}
-		if ( $this->email ) {
-			$addressString .= $this->email . ', ';
-		}
-		if ( $this->phone ) {
-			$addressString .= $this->phone . ', ';
+			$addressString .= $this->name . '<br>';
 		}
 		if ( $this->address ) {
 			$addressString .= $this->address . ', ';
@@ -52,17 +46,23 @@ class Address extends Model {
 			$addressString .= $this->address_2 . ', ';
 		}
 		if ( $this->city ) {
-			$addressString .= $this->city . ', ';
+			$addressString .= '<br>' . $this->city . ', ';
 		}
 		if ( $this->region ) {
-			$addressString .= $this->region . ', ';
+			$addressString .= $this->region . '<br>';
 		}
 		if ( $this->postcode ) {
 			$addressString .= $this->postcode . ', ';
 		}
 		if ( $this->country_id ) {
 			$country       = Country::findOrFail( $this->country_id );
-			$addressString .= $country->country_name;
+			$addressString .= $country->country_name . '<br>';
+		}
+		if ( $this->email ) {
+			$addressString .= $this->email . '<br>';
+		}
+		if ( $this->phone ) {
+			$addressString .= $this->phone . ', ';
 		}
 
 		return $addressString;

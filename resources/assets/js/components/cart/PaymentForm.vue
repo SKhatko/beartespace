@@ -64,7 +64,7 @@
                         size: 'medium'
                     }
 
-                }
+                },
             }, function (createErr, instance) {
                 if (createErr) {
                     console.log('Create Error', createErr);
