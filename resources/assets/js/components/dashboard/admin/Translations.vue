@@ -75,8 +75,8 @@
 
         data() {
             return {
-                languages: [],
-                translations: [],
+                languages: {},
+                translations: {},
                 activeGroup: '',
                 newGroup: '',
             }
@@ -84,13 +84,16 @@
 
         mounted() {
 
+            console.log(JSON.parse(this.languages_));
             if (this.languages_) {
-                this.languages = this.languages_;
+                this.languages = JSON.parse(this.languages_);
             }
 
+            console.log(JSON.parse(this.translations_));
             if (this.translations_) {
                 this.translations = JSON.parse(this.translations_);
             }
+
 
         },
 
