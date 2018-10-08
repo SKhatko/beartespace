@@ -23,7 +23,7 @@ Your artwork **{{ $sale->artwork->name }}** has been sold for **{{ currency($sal
 Your profit from this sale is **{{ currency($sale->total() / 100 * 85) }}** and will be available on your balance after you customer confirms receiving the artwork.
 Please confirm shipping.
 
-@component('mail::button', ['url' => '/dashboard/order/'])
+@component('mail::button', ['url' => url('/dashboard/order')])
 Confirm shipping of artwork
 @endcomponent
 

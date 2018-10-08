@@ -23,7 +23,7 @@ You sent a payment of **{{ currency($order->amount) }}** to BeArteSpace
 
 
 You will be notified when your order is shipped. Click the button to check order status
-@component('mail::button', ['url' => '/dashboard/order'])
+@component('mail::button', ['url' => url('/dashboard/order')])
 Check order status
 @endcomponent
 
