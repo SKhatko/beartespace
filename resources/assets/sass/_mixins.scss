@@ -1,0 +1,13 @@
+%dashboard-with-profile {
+  display: flex;
+  margin: 0 -15px;
+
+  .app-dashboard-profile {
+    max-width: 300px;
+    padding: 0 15px;
+
+    @media only screen and (max-width: $--sm) {
+      display: none;
+    }
+  }
+}

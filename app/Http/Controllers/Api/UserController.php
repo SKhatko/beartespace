@@ -128,8 +128,7 @@ class UserController extends Controller {
 		$user->avatar()->associate( $image );
 		$user->save();
 
-		return [ 'status' => 'success', 'message' => 'Profile avatar saved', 'data' => $user->avatar_url ];
-
+		return [ 'status' => 'success', 'message' => 'Profile avatar saved', 'data' => $image ];
 	}
 
 	public function uploadUserImage( Request $request ) {
@@ -160,6 +159,6 @@ class UserController extends Controller {
 		$user->image()->associate( $image );
 		$user->save();
 
-		return [ 'status' => 'success', 'message' => 'Profile background saved', 'data' => $user->image_url ];
+		return [ 'status' => 'success', 'message' => 'Profile background saved', 'data' => $image ];
 	}
 }

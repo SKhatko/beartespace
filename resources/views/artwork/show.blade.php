@@ -119,25 +119,38 @@
                             </div>
                         @endif
 
-                        <social-sharing inline-template quote="Quote here" url="{{ url()->current() }}"
-                                        title="Title here" description="Description here">
+                        <social-sharing
+                                inline-template quote="Quote here"
+                                url="{{ url()->current() }}"
+                                title="Title here"
+                                description="Description here"
+                                quote="See more quote"
+                                hashtags="art,tags,hashtags"
+                                twitter-user="twitterUserTest">
                             <div class="artwork-share">
-                                <network network="facebook"
-                                         class="el-button el-button--default el-button--mini facebook">
-                                    <i class="icon-facebook"></i> Share
+                                <network network="facebook" class="facebook">
+                                    <i class="icon-facebook"></i>
                                 </network>
 
                                 <network network="googleplus"
-                                         class="el-button el-button--default el-button--mini google">
-                                    <i class="icon-googleplus"></i> Share
+                                         class="google">
+                                    <i class="icon-googleplus"></i>
                                 </network>
 
-                                <network network="twitter"
-                                         class="el-button el-button--default el-button--mini twitter">
-                                    <i class="icon-twitter"></i> Tweet
+                                <network network="twitter" class="twitter">
+                                    <i class="icon-twitter"></i>
+                                </network>
+
+                                <network network="linkedin" class="linkedin">
+                                    <i class="icon-linkedin"></i>
+                                </network>
+
+                                <network network="email" class="email">
+                                    <i class="el-icon-message"></i>
                                 </network>
                             </div>
                         </social-sharing>
+
 
                     </el-card>
 

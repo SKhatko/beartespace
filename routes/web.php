@@ -134,7 +134,7 @@ Route::group( [ 'middleware' => 'web' ], function () {
 		Route::post( 'change-password', 'UserController@changePasswordPost' )->name( 'dashboard.change-password' );
 
 		Route::get( 'account', 'UserController@accountSettings')->name('dashboard.account');
-		Route::get( 'order', 'OrderController@index' )->name( 'dashboard.orders' );
+		Route::get( 'order', 'UserController@orders' )->name( 'dashboard.orders' );
 
 		Route::get( 'favorites', 'UserController@favoriteArtworks' )->name( 'dashboard.favorites' );
 

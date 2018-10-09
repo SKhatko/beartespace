@@ -2,13 +2,19 @@
 
 @section('dashboard-content')
 
-    <el-main class="app--wrapper">
-        <div class="app-account">
+    <div class="app-dashboard-account">
 
-                <div class="account">
+        @include('dashboard.partials.profile')
 
-                    <el-card style="margin-bottom: 20px;">
-                        <div slot="header">Change password</div>
+        <div class="account">
+
+            <change-email-form></change-email-form>
+
+            <el-card>
+                <div slot="header">Change password</div>
+
+                <el-row>
+                    <el-col :md="8">
                         <el-form method="POST" action="{{ route('dashboard.change-password') }}">
 
                             @include('partials.errors')
@@ -33,20 +39,18 @@
                                           name="new_password_confirmation"></el-input>
                             </el-form-item>
 
-
-                            <el-form-item>
-                                <el-button type="primary" native-type="submit">Save</el-button>
-
-                                <el-button type="text"><a href="/">Return to home page</a></el-button>
-                            </el-form-item>
+                            <el-button type="primary" native-type="submit">Save</el-button>
 
                         </el-form>
 
-                    </el-card>
+                    </el-col>
 
-                </div>
+                </el-row>
+
+            </el-card>
 
         </div>
-    </el-main>
+
+    </div>
 
 @endsection

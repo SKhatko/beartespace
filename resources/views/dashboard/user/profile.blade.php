@@ -4,12 +4,10 @@
 
 @section('dashboard-content')
 
-    <div class="app--wrapper">
-        <div class="app-profile">
+    <div class="app-dashboard-profile-edit">
 
-            <profile user_="{{ $user }}"></profile>
+        <profile user_="{{ $user }}"></profile>
 
-        </div>
     </div>
 
 @endsection

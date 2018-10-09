@@ -1,10 +1,12 @@
 @import "variables";
 @import "element-variables";
+@import "mixins";
 @import "~normalize.css";
 //@import "~font-awesome/css/font-awesome";
 @import "~element-ui/packages/theme-chalk/src/index";
 @import '~element-ui/lib/theme-chalk/display.css';
 @import '~vue-tel-input/dist/vue-tel-input';
+
 
 body, html {
   margin: 0;
@@ -441,58 +443,6 @@ body, html {
   }
 }
 
-.app-orders {
-
-  .orders {
-
-  }
-
-  .order {
-    margin-bottom: 30px;
-
-    &-top {
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-
-    &-bottom {
-      font-weight: bold;
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 10px;
-    }
-
-  }
-
-  .artwork {
-    margin-bottom: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-
-    &-image {
-      margin-right: 15px;
-    }
-
-    &--right {
-      flex: 1;
-      display: flex;
-      justify-content: space-between;
-      margin-left: 20px;
-    }
-
-    &-artist {
-      display: flex;
-      align-items: center;
-    }
-
-    &-info {
-      flex: 3;
-      min-width: 158px;
-    }
-  }
-}
-
 .app-artists {
   padding: 15px;
 
@@ -798,14 +748,27 @@ body, html {
 
       .google i {
         color: #e82e2b;
+        font-size: 25px;
       }
 
       .facebook i {
         color: #4267b2;
+        font-size: 25px;
       }
 
       .twitter i {
         color: #1da1f2;
+        font-size: 25px;
+      }
+
+      .linkedin i {
+        color: #1da1f2;
+        font-size: 25px;
+      }
+
+      .email i {
+        color: #1da1f2;
+        font-size: 25px;
       }
     }
 
@@ -1338,61 +1301,12 @@ body, html {
 
 .app-favorites {
   padding: 15px;
+  display: flex;
 
   .app-artworks-list {
     column-count: 4;
   }
 
-}
-
-.app-profile {
-  padding: 15px;
-
-  .profile {
-
-    &-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    &-avatar {
-      line-height: initial;
-      //display: flex;
-
-      & img {
-        border-radius: 50%;
-        overflow: hidden;
-        width: 180px;
-        height: 180px;
-      }
-
-      &-button {
-        position: absolute;
-        left: 175px;
-        bottom: 25px;
-        font-size: 20px;
-      }
-    }
-
-    &-image {
-      line-height: initial;
-
-      & img {
-        max-width: 290px;
-        height: 180px;
-        overflow: hidden;
-      }
-
-      &-button {
-        position: absolute;
-        left: 175px;
-        bottom: 20px;
-        font-size: 20px;
-      }
-    }
-
-  }
 }
 
 .app-footer {
@@ -1534,8 +1448,88 @@ body, html {
 
 .app-dashboard {
   padding: 15px;
+}
 
-  .dashboard {
+.app-dashboard-index {
+
+}
+
+.app-dashboard-account {
+  @extend %dashboard-with-profile;
+
+  .account {
+    flex: 1;
+    padding: 0 15px;
+    //max-width: 290px;
+  }
+}
+
+.app-dashboard-orders {
+  @extend %dashboard-with-profile;
+
+  .orders {
+    flex: 1;
+    padding: 0 15px;
+  }
+
+  .order {
+    margin-bottom: 30px;
+
+    &-top {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    &-bottom {
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+  }
+
+  .artwork {
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+    &-image {
+      margin-right: 15px;
+    }
+
+    &--right {
+      flex: 1;
+      display: flex;
+      justify-content: space-between;
+      margin-left: 20px;
+    }
+
+    &-artist {
+      display: flex;
+      align-items: center;
+    }
+
+    &-info {
+      flex: 3;
+      min-width: 158px;
+    }
+  }
+}
+
+.app-dashboard-favorites {
+  @extend %dashboard-with-profile;
+
+  .favorites {
+    flex: 1;
+    padding: 0 15px;
+  }
+}
+
+.app-dashboard-profile {
+
+  .profile {
     display: flex;
     flex-wrap: wrap;
     margin: 0 -15px;
@@ -1563,19 +1557,61 @@ body, html {
       padding: 15px;
     }
   }
+
 }
+
+.app-dashboard-profile-edit {
+
+  .profile {
+
+    &-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    &-avatar {
+      line-height: initial;
+      //display: flex;
+
+      & img {
+        border-radius: 50%;
+        overflow: hidden;
+        width: 180px;
+        height: 180px;
+      }
+
+      &-button {
+        position: absolute;
+        left: 175px;
+        bottom: 25px;
+        font-size: 20px;
+      }
+    }
+
+    &-image {
+      line-height: initial;
+
+      & img {
+        max-width: 290px;
+        height: 180px;
+        overflow: hidden;
+      }
+
+      &-button {
+        position: absolute;
+        left: 175px;
+        bottom: 20px;
+        font-size: 20px;
+      }
+    }
+
+  }
+}
+
 
 .app-payments {
   padding: 15px;
-}
-
-.app-account {
-  padding: 15px;
-
-  .account {
-    max-width: 290px;
-    margin: 0 auto;
-  }
 }
 
 .app-translations {

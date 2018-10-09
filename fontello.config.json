@@ -95,6 +95,12 @@
       "css": "instagram",
       "code": 59402,
       "src": "elusive"
+    },
+    {
+      "uid": "09cad6e46ec29b279626434802012bba",
+      "css": "linkedin",
+      "code": 59403,
+      "src": "elusive"
     }
   ]
 }

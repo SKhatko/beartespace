@@ -121,23 +121,6 @@
                 </el-col>
             </el-row>
 
-            <el-row :gutter="20">
-                <el-col :sm="8">
-                    <el-form-item prop="email">
-                        <span slot="label">Email <change-email-form></change-email-form></span>
-                        <el-input v-model="user.email" disabled
-                                  style="max-width: 290px;margin-right: 20px;"></el-input>
-                    </el-form-item>
-                </el-col>
-
-                <el-col :sm="8" v-if="user.user_type === 'artist'">
-                    <el-form-item label="Optional Email for client communication" prop="optional_email">
-                        <el-input type="email" v-model="user.optional_email"
-                                  style="max-width: 290px;margin-right: 20px;"></el-input>
-                    </el-form-item>
-                </el-col>
-            </el-row>
-
             <el-row>
                 <el-form-item label="Gender" prop="gender">
                     <el-radio-group v-model="user.gender">
@@ -188,7 +171,8 @@
                 <el-col :sm="18">
                     <el-form-item>
                         <span slot="label">About</span>
-                        <el-input type="textarea" v-model="user.about" placeholder="Let people something about you"></el-input>
+                        <el-input type="textarea" v-model="user.about"
+                                  placeholder="Let people something about you"></el-input>
                     </el-form-item>
                 </el-col>
             </el-row>
@@ -204,14 +188,6 @@
                 <a :href="'/artist/' + user.id" target="_blank">Preview</a>
             </el-button>
 
-            <el-button style="margin-top: 20px" v-if="user.user_type === 'user' && profileSaved" type="text">
-                <a href="/artwork">Show Artworks</a>
-            </el-button>
-
-            <el-button v-if="user.user_type === 'artist'" type="success">
-                <a href="/dashboard/artwork/create">Upload
-                    Artwork</a>
-            </el-button>
 
             <div style="display: none;">
 
@@ -375,16 +351,12 @@
             return {
                 loading: false,
                 user: {},
-                profileSaved: false,
                 rules: {
                     first_name: [
                         {required: true, message: 'Please enter first name', trigger: 'blur'}
                     ],
                     last_name: [
                         {required: true, message: 'Please enter last name', trigger: 'blur'}
-                    ],
-                    optional_email: [
-                        {type: 'email', message: 'Email is not valid', trigger: 'blur'}
                     ],
                     user_name: [
                         {validator: userNameValidator, trigger: 'blur'}
@@ -427,13 +399,14 @@
 
             handleAvatarSuccess(response, file) {
                 console.log(response);
-                this.user.avatar_url = response.data;
+                this.user.avatar_url = response.data.url;
+                this.user.avatar_id = response.data.id;
             },
 
             handleImageSuccess(response, file) {
                 console.log(response);
-                this.user.image_url = response.data;
-            },
+                this.user.image_url = response.data.url;
+                this.user.image_id = response.data.id;            },
 
             beforeAvatarUpload(file) {
                 console.log(file);
@@ -467,17 +440,11 @@
                 this.$refs['profile'].validate((valid) => {
                     if (valid) {
                         this.loading = true;
+                        console.log(this.user);
                         axios.post('/api/profile/', this.user)
                             .then((response) => {
                                 console.log(response.data);
-                                this.$message({
-                                    showClose: true,
-                                    message: response.data.message,
-                                    type: response.data.status
-                                });
-                                this.profileSaved = true;
-                                this.loading = false;
-                                console.log(response.data);
+                                // window.location = '/dashboard';
                             }).catch(error => {
                             console.log(error.response);
                         });
@@ -495,31 +462,5 @@
 </script>
 
 <style lang="scss">
-
-    /*.avatar-uploader .el-upload, .image-uploader .el-upload {*/
-    /*border: 1px dashed #d9d9d9;*/
-    /*border-radius: 6px;*/
-    /*cursor: pointer;*/
-    /*position: relative;*/
-    /*overflow: hidden;*/
-
-    /*&:hover {*/
-    /*border-color: #409EFF;*/
-    /*}*/
-    /*}*/
-
-    /*.avatar {*/
-    /*width: 178px;*/
-    /*height: 178px;*/
-    /*display: block;*/
-    /*}*/
-
-    /*.image {*/
-    /*!*width: 178px;*!*/
-
-    /*height: 178px;*/
-    /*display: block;*/
-    /*}*/
-
 
 </style>

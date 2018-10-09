@@ -1,41 +1,39 @@
 <template>
 
-    <span>
-        <el-button type="text" @click="showChangeEmailForm = true">change <i class="el-icon-edit-outline"></i></el-button>
+    <el-card style="margin-bottom: 20px;">
+        <div slot="header">Change Email</div>
 
-        <el-dialog
-                title="Change Email"
-                :visible.sync="showChangeEmailForm"
-                width="290px">
-            <el-form :model="newEmail" :rules="newEmailRules" ref="newEmail">
+        <el-row>
+            <el-col :md="8">
 
-                <errors></errors>
+                <el-form :model="newEmail" :rules="newEmailRules" ref="newEmail">
 
-                <el-form-item label="Enter new E-Mail Address" prop="email">
-                    <el-input type="email" placeholder="Email" v-model="newEmail.email" name="email"
-                              autofocus></el-input>
-                </el-form-item>
+                    <errors></errors>
 
-                <el-form-item label="Confirm new E-Mail Address" prop="email_confirmation">
-                    <el-input type="email" placeholder="Email" v-model="newEmail.email_confirmation"
-                              name="email_confirmation"></el-input>
-                </el-form-item>
+                    <el-form-item label="Enter new E-Mail Address" prop="email">
+                        <el-input type="email" placeholder="Email" v-model="newEmail.email" name="email"
+                                  autofocus></el-input>
+                    </el-form-item>
 
-                <el-form-item label="Password" prop="password">
-                    <el-input :type="passwordType" placeholder="Password" v-model="newEmail.password" name="password">
-                        <el-button slot="append" icon="el-icon-view" @click="togglePasswordView"></el-button>
-                    </el-input>
-                </el-form-item>
+                    <el-form-item label="Confirm new E-Mail Address" prop="email_confirmation">
+                        <el-input type="email" placeholder="Email" v-model="newEmail.email_confirmation"
+                                  name="email_confirmation"></el-input>
+                    </el-form-item>
 
-            </el-form>
+                    <el-form-item label="Password" prop="password">
+                        <el-input :type="passwordType" placeholder="Password" v-model="newEmail.password" name="password">
+                            <el-button slot="append" icon="el-icon-view" @click="togglePasswordView"></el-button>
+                        </el-input>
+                    </el-form-item>
 
-            <span slot="footer" class="dialog-footer">
-                <el-button type="primary" @click="changeEmail" :loading="loading">Confirm</el-button>
-              </span>
+                    <el-button type="primary" @click="changeEmail" :loading="loading">Confirm</el-button>
 
-        </el-dialog>
-    </span>
+                </el-form>
 
+            </el-col>
+        </el-row>
+
+    </el-card>
 
 </template>
 
@@ -43,7 +41,7 @@
     export default {
         data() {
 
-            var emailValidator = (rule, value, callback) => {
+            let emailValidator = (rule, value, callback) => {
                 if (value === '') {
                     callback(new Error('Please confirm email'));
                 } else if (value !== this.newEmail.email) {

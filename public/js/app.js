@@ -18908,8 +18908,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -21364,30 +21362,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -21423,11 +21397,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             loading: false,
             user: {},
-            profileSaved: false,
             rules: {
                 first_name: [{ required: true, message: 'Please enter first name', trigger: 'blur' }],
                 last_name: [{ required: true, message: 'Please enter last name', trigger: 'blur' }],
-                optional_email: [{ type: 'email', message: 'Email is not valid', trigger: 'blur' }],
                 user_name: [{ validator: userNameValidator, trigger: 'blur' }]
             },
             csrf: '',
@@ -21464,11 +21436,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         handleAvatarSuccess: function handleAvatarSuccess(response, file) {
             console.log(response);
-            this.user.avatar_url = response.data;
+            this.user.avatar_url = response.data.url;
+            this.user.avatar_id = response.data.id;
         },
         handleImageSuccess: function handleImageSuccess(response, file) {
             console.log(response);
-            this.user.image_url = response.data;
+            this.user.image_url = response.data.url;
+            this.user.image_id = response.data.id;
         },
         beforeAvatarUpload: function beforeAvatarUpload(file) {
             console.log(file);
@@ -21502,16 +21476,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$refs['profile'].validate(function (valid) {
                 if (valid) {
                     _this3.loading = true;
+                    console.log(_this3.user);
                     axios.post('/api/profile/', _this3.user).then(function (response) {
                         console.log(response.data);
-                        _this3.$message({
-                            showClose: true,
-                            message: response.data.message,
-                            type: response.data.status
-                        });
-                        _this3.profileSaved = true;
-                        _this3.loading = false;
-                        console.log(response.data);
+                        // window.location = '/dashboard';
                     }).catch(function (error) {
                         console.log(error.response);
                     });
@@ -38396,14 +38364,14 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(19)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 /* 184 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(19)();
-exports.push([module.i, "/*.avatar-uploader .el-upload, .image-uploader .el-upload {*/\n/*border: 1px dashed #d9d9d9;*/\n/*border-radius: 6px;*/\n/*cursor: pointer;*/\n/*position: relative;*/\n/*overflow: hidden;*/\n/*&:hover {*/\n/*border-color: #409EFF;*/\n/*}*/\n/*}*/\n/*.avatar {*/\n/*width: 178px;*/\n/*height: 178px;*/\n/*display: block;*/\n/*}*/\n/*.image {*/\n/*!*width: 178px;*!*/\n/*height: 178px;*/\n/*display: block;*/\n/*}*/\n", ""]);
+exports.push([module.i, "", ""]);
 
 /***/ }),
 /* 185 */
@@ -81803,27 +81771,18 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('span', [_c('el-button', {
-    attrs: {
-      "type": "text"
-    },
-    on: {
-      "click": function($event) {
-        _vm.showChangeEmailForm = true
-      }
+  return _c('el-card', {
+    staticStyle: {
+      "margin-bottom": "20px"
     }
-  }, [_vm._v("change "), _c('i', {
-    staticClass: "el-icon-edit-outline"
-  })]), _vm._v(" "), _c('el-dialog', {
+  }, [_c('div', {
     attrs: {
-      "title": "Change Email",
-      "visible": _vm.showChangeEmailForm,
-      "width": "290px"
+      "slot": "header"
     },
-    on: {
-      "update:visible": function($event) {
-        _vm.showChangeEmailForm = $event
-      }
+    slot: "header"
+  }, [_vm._v("Change Email")]), _vm._v(" "), _c('el-row', [_c('el-col', {
+    attrs: {
+      "md": 8
     }
   }, [_c('el-form', {
     ref: "newEmail",
@@ -81895,13 +81854,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "click": _vm.togglePasswordView
     },
     slot: "append"
-  })], 1)], 1)], 1), _vm._v(" "), _c('span', {
-    staticClass: "dialog-footer",
-    attrs: {
-      "slot": "footer"
-    },
-    slot: "footer"
-  }, [_c('el-button', {
+  })], 1)], 1), _vm._v(" "), _c('el-button', {
     attrs: {
       "type": "primary",
       "loading": _vm.loading
@@ -81909,7 +81862,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.changeEmail
     }
-  }, [_vm._v("Confirm")])], 1)], 1)], 1)
+  }, [_vm._v("Confirm")])], 1)], 1)], 1)], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -82420,63 +82373,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "href": _vm.userName,
       "target": "_blank"
     }
-  }, [_vm._v("\n                            " + _vm._s(_vm.userName) + "\n                        ")])])], 1)], 1) : _vm._e()], 1), _vm._v(" "), _c('el-row', {
-    attrs: {
-      "gutter": 20
-    }
-  }, [_c('el-col', {
-    attrs: {
-      "sm": 8
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "prop": "email"
-    }
-  }, [_c('span', {
-    attrs: {
-      "slot": "label"
-    },
-    slot: "label"
-  }, [_vm._v("Email "), _c('change-email-form')], 1), _vm._v(" "), _c('el-input', {
-    staticStyle: {
-      "max-width": "290px",
-      "margin-right": "20px"
-    },
-    attrs: {
-      "disabled": ""
-    },
-    model: {
-      value: (_vm.user.email),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "email", $$v)
-      },
-      expression: "user.email"
-    }
-  })], 1)], 1), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-col', {
-    attrs: {
-      "sm": 8
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Optional Email for client communication",
-      "prop": "optional_email"
-    }
-  }, [_c('el-input', {
-    staticStyle: {
-      "max-width": "290px",
-      "margin-right": "20px"
-    },
-    attrs: {
-      "type": "email"
-    },
-    model: {
-      value: (_vm.user.optional_email),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "optional_email", $$v)
-      },
-      expression: "user.optional_email"
-    }
-  })], 1)], 1) : _vm._e()], 1), _vm._v(" "), _c('el-row', [_c('el-form-item', {
+  }, [_vm._v("\n                            " + _vm._s(_vm.userName) + "\n                        ")])])], 1)], 1) : _vm._e()], 1), _vm._v(" "), _c('el-row', [_c('el-form-item', {
     attrs: {
       "label": "Gender",
       "prop": "gender"
@@ -82616,26 +82513,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "href": '/artist/' + _vm.user.id,
       "target": "_blank"
     }
-  }, [_vm._v("Preview")])]) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'user' && _vm.profileSaved) ? _c('el-button', {
-    staticStyle: {
-      "margin-top": "20px"
-    },
-    attrs: {
-      "type": "text"
-    }
-  }, [_c('a', {
-    attrs: {
-      "href": "/artwork"
-    }
-  }, [_vm._v("Show Artworks")])]) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-button', {
-    attrs: {
-      "type": "success"
-    }
-  }, [_c('a', {
-    attrs: {
-      "href": "/dashboard/artwork/create"
-    }
-  }, [_vm._v("Upload\n                Artwork")])]) : _vm._e(), _vm._v(" "), _c('div', {
+  }, [_vm._v("Preview")])]) : _vm._e(), _vm._v(" "), _c('div', {
     staticStyle: {
       "display": "none"
     }

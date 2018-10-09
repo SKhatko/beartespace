@@ -117,17 +117,18 @@ class UserController extends Controller {
 		$artworks = $user->favoriteArtworks()->orderBy( 'id', 'desc' )->get();
 		$artists = $user->followedUsers()->orderBy( 'id', 'desc' )->get();
 
-		return view( 'dashboard.user.favorites', compact( 'artworks', 'artists') );
+		return view( 'dashboard.user.favorites', compact( 'artworks', 'artists', 'user') );
 	}
 
+	public function orders() {
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
-	public function create() {
+		$user = auth()->user();
 
+		$orders = $user->orders()->get();
+
+		$order = auth()->user()->orders()->first();
+
+		return view( 'dashboard.user.orders', compact( 'orders', 'user' ) );
 	}
 
 	/**
