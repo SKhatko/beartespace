@@ -5,22 +5,37 @@ namespace App\Http\Controllers;
 use App\Article;
 use Illuminate\Http\Request;
 
-class ArticleController extends Controller
-{
+class ArticleController extends Controller {
 	public function index() {
 
-		return view('dashboard.admin.articles');
+		$articles = Article::all();
+
+		return view( 'dashboard.article.index', compact( 'articles' ) );
 	}
 
-    public function articles() {
-    	$articles = Article::all();
+	public function create() {
 
-    	return $articles;
+		return view('dashboard.article.create');
+	}
 
-    	return view('article.index', compact('articles'));
-    }
+	public function edit($id) {
 
-    public function article($id) {
-    	return 'article ' . $id;
-    }
+		$article = Article::findOrFail( $id );
+
+		return view('dashboard.article.edit', compact('article'));
+	}
+
+	public function articles() {
+
+		$articles = Article::all();
+
+		return view( 'article.index', compact( 'articles' ) );
+	}
+
+	public function article( $id ) {
+
+		$article = Article::findOrFail( $id );
+
+		return view( 'article.show', compact( 'article' ) );
+	}
 }

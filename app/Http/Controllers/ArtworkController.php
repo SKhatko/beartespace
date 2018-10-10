@@ -131,7 +131,7 @@ class ArtworkController extends Controller {
 
 		$title = 'Upload New Artwork';
 
-		return view( 'dashboard.artworks.create', compact( 'title' ) );
+		return view( 'dashboard.artwork.create', compact( 'title' ) );
 	}
 
 	public function edit( $id ) {
@@ -140,13 +140,10 @@ class ArtworkController extends Controller {
 
 		$artwork = Artwork::whereId( $id )->with( 'images' )->firstOrFail();
 
-//		return $artwork;
 		$user = auth()->user();
 
-//		return $artwork;
-
 		if ( $artwork->user_id === $user->id || $user->isAdmin() ) {
-			return view( 'dashboard.artworks.edit', compact( 'title', 'artwork' ) );
+			return view( 'dashboard.artwork.edit', compact( 'title', 'artwork' ) );
 		} else {
 			return redirect( route( 'dashboard' ) )->with( 'error', trans( 'app.access_restricted' ) );
 		}

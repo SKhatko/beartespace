@@ -159,7 +159,9 @@ Route::group( [ 'middleware' => 'web' ], function () {
 			Route::get( 'pages', 'PageController@index' )->name( 'admin.pages' );
 			Route::get( 'messages', 'MessageController@index' )->name( 'admin.messages' );
 			Route::get( 'settings', 'SettingController@index' )->name( 'admin.settings' );
-			Route::get( 'articles', 'ArticleController@index' )->name( 'admin.articles' );
+			Route::get( 'article', 'ArticleController@index' )->name( 'admin.articles' );
+			Route::get( 'article/create', 'ArticleController@create' )->name( 'admin.articles.create' );
+			Route::get( 'article/{id}/edit', 'ArticleController@edit' )->name( 'admin.articles.edit' );
 		} );
 
 		Route::group( [ 'prefix' => 'u' ], function () {
