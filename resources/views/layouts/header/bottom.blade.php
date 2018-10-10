@@ -5,7 +5,7 @@
         <a href="{{ route('artists') }}">@lang('portal.artists')</a>
         <a href="{{ route('artworks') }}">@lang('portal.artworks')</a>
         {{--<a href="{{ route('auctions') }}">on-line auctions</a>--}}
-        {{--<a href="{{ route('articles') }}">Articles</a>--}}
+        <a href="{{ route('articles') }}">Articles</a>
 
     </nav>
 
@@ -14,7 +14,7 @@
         <a href="{{ route('artists') }}">@lang('portal.artists')</a>
         <a href="{{ route('artworks') }}">@lang('portal.artworks')</a>
         {{--<a href="{{ route('auctions') }}">on-line auctions</a>--}}
-        {{--<a href="{{ route('articles') }}">Articles</a>--}}
+        <a href="{{ route('articles') }}">Articles</a>
 
     </nav>
 

@@ -7,7 +7,6 @@
 @import '~element-ui/lib/theme-chalk/display.css';
 @import '~vue-tel-input/dist/vue-tel-input';
 
-
 body, html {
   margin: 0;
   padding: 0;
@@ -825,8 +824,7 @@ body, html {
   padding: 15px;
 }
 
-.app-artwork-form {
-  padding: 15px;
+.app-dashboard-artwork {
 
   .artwork {
 
@@ -1299,14 +1297,12 @@ body, html {
   margin: 0 auto;
 }
 
-.app-favorites {
-  padding: 15px;
+.app-sell {
+  margin: 80px 0;
   display: flex;
-
-  .app-artworks-list {
-    column-count: 4;
-  }
-
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .app-footer {
@@ -1454,13 +1450,112 @@ body, html {
 
 }
 
+.app-dashboard-artworks {
+  @extend %dashboard-with-profile;
+
+  .artworks {
+    flex: 1;
+    padding: 0 15px;
+
+    .artwork {
+      margin-bottom: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+
+      &-image {
+        margin-right: 20px;
+      }
+
+      &-info {
+        flex: 1;
+        min-width: 200px;
+      }
+
+      &-manage {
+        flex: 1;
+        align-items: center;
+        justify-content: flex-end;
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      &-name {
+        margin-bottom: 10px;
+      }
+
+      &-artist {
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      &-status {
+        font-weight: bold;
+      }
+
+      &-qty {
+        margin-right: 10px;
+      }
+
+      &-price {
+        margin-right: 10px;
+      }
+
+    }
+
+  }
+}
+
 .app-dashboard-account {
   @extend %dashboard-with-profile;
 
   .account {
     flex: 1;
     padding: 0 15px;
-    //max-width: 290px;
+  }
+}
+
+.app-dashboard-sales {
+  @extend %dashboard-with-profile;
+
+  .sales {
+    flex: 1;
+    padding: 0 15px;
+
+    .artwork {
+      display: flex;
+      flex-wrap: wrap;
+      //align-items: center;
+
+      &-shipping {
+        flex: 1;
+        min-width: 200px;
+      }
+
+      &-user {
+        margin-bottom: 10px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+
+         img {
+           border-radius: 50%;
+           overflow: hidden;
+           margin-right: 5px;
+         }
+      }
+
+      &-manage {
+        flex: 1;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+      }
+
+      &-image {
+        margin-right: 20px;
+      }
+    }
   }
 }
 
@@ -1509,6 +1604,12 @@ body, html {
     &-artist {
       display: flex;
       align-items: center;
+
+      img {
+        border-radius: 50%;
+        overflow: hidden;
+        margin-right: 5px;
+      }
     }
 
     &-info {
@@ -1608,7 +1709,6 @@ body, html {
 
   }
 }
-
 
 .app-payments {
   padding: 15px;

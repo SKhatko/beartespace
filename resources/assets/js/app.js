@@ -67,9 +67,9 @@ Vue.component('pages', require('./components/dashboard/admin/Pages.vue'));
 Vue.component('users', require('./components/dashboard/admin/Users.vue'));
 
 // User
-Vue.component('dashboard', require('./components/dashboard/Dashboard.vue'));
-Vue.component('profile', require('./components/dashboard/user/Profile.vue'));
-Vue.component('artwork-form', require('./components/dashboard/ArtworkForm.vue'));
+Vue.component('dashboard-profile', require('./components/dashboard/user/DashboardProfile.vue'));
+Vue.component('dashboard-artwork', require('./components/dashboard/user/DashbordArtwork.vue'));
+Vue.component('dashboard-artworks', require('./components/dashboard/user/DashboardArtworks.vue'));
 
 // Global components
 Vue.component('pagination', require('./components/global/Pagination.vue'));

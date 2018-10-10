@@ -6,7 +6,10 @@
 
     <div class="app--wrapper">
         <div class="app-sell">
-            Sell Artworks with us. Here would be all information about subscriptions and tariffs
+
+            <div class="h2">Thousand of art lovers can’t wait to see your art</div>
+
+            <a href="/register" class="el-button el-button--default is-plain" style="margin-top: 40px;">Start to sell on BearteSpace</a>
         </div>
     </div>
 @stop

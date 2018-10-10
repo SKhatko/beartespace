@@ -10,7 +10,7 @@
             <el-card>
                 <div slot="header" class="clearfix h4">Orders</div>
 
-                @if(auth()->user()->orders()->count() > 0)pa
+                @if(auth()->user()->orders()->count() > 0)
 
                 @foreach(auth()->user()->orders as $order)
                     <div class="order">

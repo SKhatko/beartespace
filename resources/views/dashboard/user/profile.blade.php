@@ -6,7 +6,7 @@
 
     <div class="app-dashboard-profile-edit">
 
-        <profile user_="{{ $user }}"></profile>
+        <dashboard-profile user_="{{ $user }}"></dashboard-profile>
 
     </div>
 

@@ -35,19 +35,15 @@ class Order extends Model {
 		return $query->where( 'confirmed_at', '<', now() );
 	}
 
+
 	public function addressString() {
 		$addressString = '';
 
 		$address = json_decode( $this->attributes['address'] );
 
+
 		if ( $address->name ) {
-			$addressString .= $address->name . ', ';
-		}
-		if ( $address->email ) {
-			$addressString .= $address->email . ', ';
-		}
-		if ( $address->phone ) {
-			$addressString .= $address->phone . ', ';
+			$addressString .= $address->name . '<br>';
 		}
 		if ( $address->address ) {
 			$addressString .= $address->address . ', ';
@@ -56,17 +52,23 @@ class Order extends Model {
 			$addressString .= $address->address_2 . ', ';
 		}
 		if ( $address->city ) {
-			$addressString .= $address->city . ', ';
+			$addressString .= '<br>' . $address->city . ', ';
 		}
 		if ( $address->region ) {
-			$addressString .= $address->region . ', ';
+			$addressString .= $address->region . '<br>';
 		}
 		if ( $address->postcode ) {
 			$addressString .= $address->postcode . ', ';
 		}
 		if ( $address->country_id ) {
 			$country       = Country::findOrFail( $address->country_id );
-			$addressString .= $country->country_name;
+			$addressString .= $country->country_name . '<br>';
+		}
+		if ( $address->email ) {
+			$addressString .= $address->email . '<br>';
+		}
+		if ( $address->phone ) {
+			$addressString .= $address->phone . ', ';
 		}
 
 		return $addressString;

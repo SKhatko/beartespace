@@ -73,8 +73,8 @@ Route::group( [ 'middleware' => 'web' ], function () {
 	Route::get( '/artwork/{id}', 'ArtworkController@artwork' )->name( 'artwork' );
 	Route::get( '/artist', 'UserController@artists' )->name( 'artists' );
 	Route::get( '/artist/{id}', 'UserController@artist' )->name( 'artist' );
-	Route::get( '/article', 'ArticleController@index' )->name( 'articles' );
-	Route::get( '/article/{id}', 'ArticleController@show' )->name( 'article' );
+	Route::get( '/article', 'ArticleController@articles' )->name( 'articles' );
+	Route::get( '/article/{id}', 'ArticleController@article' )->name( 'article' );
 	Route::get( '/selection/artist', 'HomeController@selectedArtists' )->name( 'selected-artists' );
 	Route::get( '/selection/artwork', 'HomeController@selectedArtworks' )->name( 'selected-artworks' );
 
@@ -140,9 +140,14 @@ Route::group( [ 'middleware' => 'web' ], function () {
 
 		// Not user (admin, artist, gallery)
 		Route::group( [ 'middleware' => 'artist' ], function () {
+			// Artworks
 			Route::get( 'artwork', 'ArtworkController@index' )->name( 'dashboard.artworks' );
 			Route::get( 'artwork/create', 'ArtworkController@create' )->name( 'dashboard.artwork.create' );
 			Route::get( 'artwork/{id}/edit', 'ArtworkController@edit' )->name( 'dashboard.artwork.edit' );
+
+			// Sales
+			Route::get( 'sale/', 'SaleController@index' )->name( 'dashboard.sale' );
+
 		} );
 
 		// Admin only
@@ -154,11 +159,11 @@ Route::group( [ 'middleware' => 'web' ], function () {
 			Route::get( 'pages', 'PageController@index' )->name( 'admin.pages' );
 			Route::get( 'messages', 'MessageController@index' )->name( 'admin.messages' );
 			Route::get( 'settings', 'SettingController@index' )->name( 'admin.settings' );
+			Route::get( 'articles', 'ArticleController@index' )->name( 'admin.articles' );
 		} );
 
 		Route::group( [ 'prefix' => 'u' ], function () {
 			Route::group( [ 'prefix' => 'posts' ], function () {
-
 				//bids
 				Route::get( 'bids/{ad_id}', [ 'as' => 'auction_bids', 'uses' => 'BidController@index' ] );
 				Route::post( 'bids/action', [ 'as' => 'bid_action', 'uses' => 'BidController@bidAction' ] );

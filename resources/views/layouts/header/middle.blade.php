@@ -148,6 +148,10 @@
                         </el-dropdown-item>
 
                         <el-dropdown-item>
+                            <a href="{{ route('admin.articles') }}"><i class="el-icon-document"></i> Articles</a>
+                        </el-dropdown-item>
+
+                        <el-dropdown-item>
                             <a href="/horizon"><i class="el-icon-service"></i> Horizon</a>
                         </el-dropdown-item>
 

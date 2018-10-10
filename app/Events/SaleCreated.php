@@ -29,7 +29,7 @@ class SaleCreated {
 		}
 
 		if ( $artwork->quantity < 1 ) {
-			$artwork->sold = true;
+			$artwork->sold_at = now();
 			$artwork->save();
 		}
 	}

@@ -21,6 +21,7 @@ class Artwork extends Model implements Buyable {
 		'created_at',
 		'updated_at',
 		'deleted_at',
+		'sold_at',
 		'date_of_completion'
 	];
 
@@ -69,7 +70,7 @@ class Artwork extends Model implements Buyable {
 		return $this->hasMany( Add::class );
 	}
 
-	public function statusString($quantity = 1) {
+	public function statusString( $quantity = 1 ) {
 
 		if ( $this->sold_at ) {
 			return 'sold';
@@ -114,8 +115,14 @@ class Artwork extends Model implements Buyable {
 		return ! ! $value;
 	}
 
-	public function getMadeByAttribute($value) {
+	public function getMadeByAttribute( $value ) {
 		return $value ?? null;
+	}
+
+	public function setSoldAtAttribute( $value ) {
+//		$this->sold_at = $value ? now() : null;
+		return now();
+		$this->sold_at = now();
 	}
 
 	public function getFormattedPriceAttribute() {
