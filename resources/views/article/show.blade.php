@@ -10,13 +10,21 @@
 
             <div class="article">
 
+                <div class="article-image">
+                    <img src="/imagecache/original{{ $article->image_url }}" alt="">
+                </div>
 
-                article
+                <div class="article-name">
+                    {{ $article->name }}
+                </div>
+
+                <div class="article-content">
+                    {!! $article->content !!}
+                </div>
+
             </div>
 
-
         </div>
-
 
     </div>
 
