@@ -47,23 +47,23 @@ class TestingSeeder extends Seeder {
 //				$user->image()->associate( factory( App\Media::class )->create() );
 //				$user->save();
 //
-//				$user->articles()->saveMany( factory( App\Article::class, 5 )->make() );
+				$user->articles()->saveMany( factory( App\Article::class, 5 )->make() );
 			}
 		}
 
 		$artworks = Artwork::all();
 
 		foreach ( $artworks as $artwork ) {
-			$artwork->image()->associate( factory( App\Media::class )->create(['folder' => '/artwork-image']) );
+			$artwork->image()->associate( factory( App\Media::class )->create( [ 'folder' => '/artwork-image' ] ) );
 			$artwork->save();
-			$artwork->images()->saveMany( factory( App\Media::class, random_int( 1, 4 ) )->make(['folder' => '/artwork-image']) );
+			$artwork->images()->saveMany( factory( App\Media::class, random_int( 1, 4 ) )->make( [ 'folder' => '/artwork-image' ] ) );
 		}
 
-//		$articles = Article::all();
-//
-//		foreach ( $articles as $article ) {
-//			$article->image()->associate( factory( App\Media::class )->make() );
-//		$article->save():
-//		}
+		$articles = Article::all();
+
+		foreach ( $articles as $article ) {
+			$article->image()->associate( factory( App\Media::class )->create(['folder' => '/artwork-image']));
+			$article->save();
+		}
 	}
 }

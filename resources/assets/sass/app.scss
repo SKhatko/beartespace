@@ -536,9 +536,22 @@ body, html {
 .app-articles {
   padding: 15px;
 
-  img {
-    max-width: 100%;
+
+  .articles {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -15px;
   }
+
+  .article {
+    padding: 0 15px;
+    margin-bottom: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+
 }
 
 .app-artist {
@@ -1574,8 +1587,46 @@ body, html {
   }
 
   .article {
-    display: block;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
     margin-bottom: 20px;
+
+    &-image {
+      margin-right: 20px;
+    }
+
+    &-name {
+      flex: 1;
+    }
+  }
+}
+
+.app-dashboard-article {
+
+  .article {
+
+    &-image {
+      margin-right: 10px;
+      display: flex;
+
+      .el-upload--picture-card {
+        line-height: initial;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      img {
+        max-height: 100%;
+        max-width: 100%;
+      }
+
+      &-label {
+
+      }
+    }
+
   }
 }
 

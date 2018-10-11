@@ -16266,7 +16266,7 @@ Vue.component('dashboard-article', __webpack_require__(303));
 
 // User
 Vue.component('dashboard-profile', __webpack_require__(288));
-Vue.component('dashboard-artwork', __webpack_require__(279));
+Vue.component('dashboard-artwork', __webpack_require__(307));
 Vue.component('dashboard-artworks', __webpack_require__(283));
 
 // Global components
@@ -84765,7 +84765,1901 @@ module.exports = __webpack_require__(81);
 /* 275 */,
 /* 276 */,
 /* 277 */,
-/* 278 */
+/* 278 */,
+/* 279 */,
+/* 280 */,
+/* 281 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: {
+        artworks_: {}
+    },
+
+    data: function data() {
+        return {
+            artworks: {}
+        };
+    },
+    mounted: function mounted() {
+        if (this.artworks_) {
+            this.artworks = JSON.parse(this.artworks_);
+        }
+
+        console.log(this.artworks);
+    },
+
+    methods: {
+        markArtworkAsSold: function markArtworkAsSold(artwork) {
+            var _this = this;
+
+            this.$prompt('Where did you sell your artwork ', 'Mark as sold', {
+                confirmButtonText: 'Confirm',
+                cancelButtonText: 'Cancel',
+                inputPattern: /^\S+$/,
+                inputErrorMessage: 'Enter the source where you sold artwork'
+            }).then(function (result) {
+
+                console.log(result);
+                artwork.sold_by = result.value;
+                artwork.sold_at = result.action;
+
+                axios.post('/api/artwork/', artwork).then(function (response) {
+                    console.log(response.data);
+
+                    _this.artworks = _this.artworks.map(function (item) {
+                        if (item.id === response.data.data.id) {
+                            return response.data.data;
+                        } else {
+                            return item;
+                        }
+                    });
+                }).catch(function (error) {
+                    console.log(error.response);
+                });
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
+    }
+
+});
+
+/***/ }),
+/* 282 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(19)();
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+/***/ }),
+/* 283 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+/* styles */
+__webpack_require__(285)
+
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(281),
+  /* template */
+  __webpack_require__(284),
+  /* scopeId */
+  "data-v-7e32e84b",
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/skhatko/code/larabid/resources/assets/js/components/dashboard/user/DashboardArtworks.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] DashboardArtworks.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-7e32e84b", Component.options)
+  } else {
+    hotAPI.reload("data-v-7e32e84b", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 284 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "artworks"
+  }, [_c('el-card', _vm._l((_vm.artworks), function(artwork) {
+    return (artwork) ? _c('div', {
+      staticClass: "artwork"
+    }, [_c('a', {
+      staticClass: "artwork-image",
+      attrs: {
+        "href": '/artwork/' + artwork.id,
+        "target": "_blank"
+      }
+    }, [_c('img', {
+      attrs: {
+        "src": '/imagecache/fit-100' + artwork.image_url,
+        "alt": ""
+      }
+    })]), _vm._v(" "), _c('a', {
+      staticClass: "artwork-info",
+      attrs: {
+        "href": '/artwork/' + artwork.id,
+        "target": "_blank"
+      }
+    }, [_c('div', {
+      staticClass: "artwork-name"
+    }, [_vm._v(_vm._s(artwork.name))]), _vm._v(" "), _c('div', {
+      staticClass: "artwork-artist"
+    }, [_vm._v(_vm._s(artwork.made_by))]), _vm._v(" "), _c('div', {
+      staticClass: "artwork-status"
+    }, [_vm._v(_vm._s(artwork.statusString))])]), _vm._v(" "), _c('div', {
+      staticClass: "artwork-manage"
+    }, [_c('div', {
+      staticClass: "artwork-qty"
+    }, [_vm._v(_vm._s(artwork.quantity) + " pc")]), _vm._v(" "), _c('div', {
+      staticClass: "artwork-price"
+    }, [_vm._v(_vm._s(artwork.formatted_price))]), _vm._v(" "), _c('a', {
+      staticClass: "el-button el-button--default el-button--mini",
+      staticStyle: {
+        "margin-right": "10px"
+      },
+      attrs: {
+        "href": '/dashboard/artwork/edit/' + artwork.id
+      }
+    }, [_vm._v("Edit")]), _vm._v(" "), _c('el-checkbox', {
+      staticStyle: {
+        "margin-right": "10px"
+      },
+      attrs: {
+        "disabled": artwork.sold_at ? true : false,
+        "value": "artwork.sold_at"
+      },
+      on: {
+        "change": function($event) {
+          _vm.markArtworkAsSold(artwork)
+        }
+      }
+    }, [_vm._v("\n                    Mark Sold\n                ")])], 1)]) : _vm._e()
+  }))], 1)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-7e32e84b", module.exports)
+  }
+}
+
+/***/ }),
+/* 285 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(282);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(20)("561b238c", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-7e32e84b\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./DashboardArtworks.vue", function() {
+     var newContent = require("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-7e32e84b\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./DashboardArtworks.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 286 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+
+    props: {
+        user_: {}
+    },
+
+    data: function data() {
+        var _this = this;
+
+        var userNameValidator = function userNameValidator(rule, value, callback) {
+            if (!value) {
+                callback();
+            } else {
+                axios.get('/api/user/check-username/' + value).then(function (response) {
+                    console.log(response.data);
+                    if (response.data) {
+                        _this.user.user_name = response.data;
+
+                        callback();
+                    } else {
+                        callback(new Error('This username is already taken'));
+                    }
+                }).catch(function (error) {
+                    console.log(error.response);
+                    callback();
+                });
+            }
+        };
+
+        return {
+            loading: false,
+            user: {},
+            rules: {
+                first_name: [{ required: true, message: 'Please enter first name', trigger: 'blur' }],
+                last_name: [{ required: true, message: 'Please enter last name', trigger: 'blur' }],
+                user_name: [{ validator: userNameValidator, trigger: 'blur' }]
+            },
+            csrf: '',
+            countries: [],
+            profileEditorToolbar: [[{ 'size': ['small', false, 'large', 'huge'] }], ['bold', 'italic', 'underline', 'strike'], [{ 'align': '' }, { 'align': 'center' }, { 'align': 'right' }, { 'align': 'justify' }], ['blockquote'], [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'list': 'check' }], [{ 'indent': '-1' }, { 'indent': '+1' }]]
+        };
+    },
+    mounted: function mounted() {
+        var _this2 = this;
+
+        this.csrf = window.csrf;
+
+        if (this.user_) {
+            this.user = JSON.parse(this.user_);
+        }
+
+        axios.get('/api/countries').then(function (response) {
+            _this2.countries = response.data;
+        });
+    },
+
+
+    methods: {
+        setphoneNumber: function setphoneNumber(_ref) {
+            var number = _ref.number,
+                isValid = _ref.isValid,
+                country = _ref.country;
+
+            console.log(number, isValid, country);
+        },
+        handleAvatarSuccess: function handleAvatarSuccess(response, file) {
+            console.log(response);
+            this.user.avatar_url = response.data.url;
+            this.user.avatar_id = response.data.id;
+        },
+        handleImageSuccess: function handleImageSuccess(response, file) {
+            console.log(response);
+            this.user.image_url = response.data.url;
+            this.user.image_id = response.data.id;
+        },
+        beforeAvatarUpload: function beforeAvatarUpload(file) {
+            console.log(file);
+            var isJPG = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/jpg';
+            var isLt2M = file.size / 1024 / 1024 < 2;
+
+            if (!isJPG) {
+                this.$message.error('Avatar picture must be JPG, JPEG, or PNG format!');
+            }
+            if (!isLt2M) {
+                this.$message.error('Avatar picture size can not exceed 2MB!');
+            }
+            return isJPG && isLt2M;
+        },
+        beforeImageUpload: function beforeImageUpload(file) {
+            console.log(file);
+            var isJPG = file.type === 'image/jpeg' || file.type === 'image/jpg';
+            var isLt2M = file.size / 1024 / 1024 < 10;
+
+            if (!isJPG) {
+                this.$message.error('Image picture must be JPG or JPEG format!');
+            }
+            if (!isLt2M) {
+                this.$message.error('Image picture size can not exceed 10MB!');
+            }
+            return isJPG && isLt2M;
+        },
+        save: function save() {
+            var _this3 = this;
+
+            this.$refs['profile'].validate(function (valid) {
+                if (valid) {
+                    _this3.loading = true;
+                    console.log(_this3.user);
+                    axios.post('/api/profile/', _this3.user).then(function (response) {
+                        console.log(response.data);
+                        // window.location = '/dashboard';
+                    }).catch(function (error) {
+                        console.log(error.response);
+                    });
+                }
+            });
+        }
+    },
+    computed: {
+        userName: function userName() {
+            return window.location.origin + '/' + (this.user.user_name ? this.user.user_name : 'artist/' + this.user.id);
+        }
+    }
+});
+
+/***/ }),
+/* 287 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(19)();
+exports.push([module.i, "", ""]);
+
+/***/ }),
+/* 288 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+/* styles */
+__webpack_require__(290)
+
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(286),
+  /* template */
+  __webpack_require__(289),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/skhatko/code/larabid/resources/assets/js/components/dashboard/user/DashboardProfile.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] DashboardProfile.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-5784830d", Component.options)
+  } else {
+    hotAPI.reload("data-v-5784830d", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 289 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return (_vm.user) ? _c('el-card', {
+    staticClass: "profile"
+  }, [_c('div', {
+    attrs: {
+      "slot": "header"
+    },
+    slot: "header"
+  }, [_c('div', {
+    staticClass: "profile-header"
+  }, [_c('span', [_vm._v("Your Public Profile")]), _vm._v(" "), _c('a', {
+    staticClass: "el-button el-button--default el-button--mini",
+    attrs: {
+      "href": '/artist/' + _vm.user.id,
+      "target": "_blank"
+    }
+  }, [_vm._v("View\n                profile")])])]), _vm._v(" "), _c('el-form', {
+    attrs: {
+      "label-position": "top"
+    }
+  }, [_c('el-row', {
+    attrs: {
+      "gutter": 20
+    }
+  }, [_c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', [_c('span', {
+    attrs: {
+      "slot": "label"
+    },
+    slot: "label"
+  }, [_c('span', [_vm._v("\n                            Profile Picture\n                        ")]), _vm._v(" "), _c('el-popover', {
+    attrs: {
+      "width": "200",
+      "trigger": "hover"
+    }
+  }, [_c('span', [_vm._v("\n                                        This image represents you here on website.\n                                        Make sure your image is in good quality and has a nice smile :)\n                                    ")]), _vm._v(" "), _c('i', {
+    staticClass: "el-icon-info",
+    attrs: {
+      "slot": "reference"
+    },
+    slot: "reference"
+  })])], 1), _vm._v(" "), _c('el-upload', {
+    staticClass: "profile-avatar",
+    attrs: {
+      "action": "/api/user/upload-user-avatar",
+      "headers": {
+        'X-Requested-With': 'XMLHttpRequest',
+        'X-CSRF-TOKEN': _vm.csrf
+      },
+      "show-file-list": false,
+      "accept": "image/*",
+      "on-success": _vm.handleAvatarSuccess,
+      "before-upload": _vm.beforeAvatarUpload
+    }
+  }, [_c('el-button', {
+    staticClass: "profile-avatar-button",
+    attrs: {
+      "slot": "trigger",
+      "icon": "el-icon-picture",
+      "circle": ""
+    },
+    slot: "trigger"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "el-upload__tip",
+    attrs: {
+      "slot": "tip"
+    },
+    slot: "tip"
+  }, [_vm._v("*Must be a .jpg, .gif or .png file smaller than 10MB\n                            and at least 400px by 400px.\n                        ")]), _vm._v(" "), (_vm.user.avatar_url) ? _c('img', {
+    staticClass: "avatar",
+    attrs: {
+      "src": '/imagecache/fit-290' + _vm.user.avatar_url
+    }
+  }) : _vm._e()], 1)], 1)], 1), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', [_c('span', {
+    attrs: {
+      "slot": "label"
+    },
+    slot: "label"
+  }, [_vm._v("\n                        Profile background image\n                                "), _c('el-popover', {
+    attrs: {
+      "width": "200",
+      "trigger": "hover"
+    }
+  }, [_c('span', [_vm._v("\n                                        Make your profile more professional,\n                                       put on background extra picture of your studio or yourself during\n                                       working or even your favourite art.\n                                    ")]), _vm._v(" "), _c('i', {
+    staticClass: "el-icon-info",
+    attrs: {
+      "slot": "reference"
+    },
+    slot: "reference"
+  })])], 1), _vm._v(" "), _c('el-upload', {
+    staticClass: "profile-image",
+    attrs: {
+      "action": "/api/user/upload-user-image",
+      "headers": {
+        'X-Requested-With': 'XMLHttpRequest',
+        'X-CSRF-TOKEN': _vm.csrf
+      },
+      "show-file-list": false,
+      "accept": "image/*",
+      "on-success": _vm.handleImageSuccess,
+      "before-upload": _vm.beforeImageUpload
+    }
+  }, [_c('el-button', {
+    staticClass: "profile-avatar-button",
+    attrs: {
+      "slot": "trigger",
+      "icon": "el-icon-picture",
+      "circle": ""
+    },
+    slot: "trigger"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "el-upload__tip",
+    attrs: {
+      "slot": "tip"
+    },
+    slot: "tip"
+  }, [_vm._v("*Must be a .jpg file smaller than 10MB and at least\n                            980px width.\n                        ")]), _vm._v(" "), _c('img', {
+    staticClass: "image",
+    attrs: {
+      "src": '/imagecache/height-200' + _vm.user.image_url
+    }
+  })], 1)], 1)], 1) : _vm._e()], 1)], 1), _vm._v(" "), _c('el-form', {
+    ref: "profile",
+    attrs: {
+      "label-position": "top",
+      "model": _vm.user,
+      "status-icon": "",
+      "rules": _vm.rules
+    }
+  }, [_c('el-row', {
+    attrs: {
+      "gutter": 20
+    }
+  }, [_c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "First name",
+      "prop": "first_name"
+    }
+  }, [_c('el-input', {
+    model: {
+      value: (_vm.user.first_name),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "first_name", $$v)
+      },
+      expression: "user.first_name"
+    }
+  })], 1)], 1), _vm._v(" "), _c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Last name",
+      "prop": "last_name"
+    }
+  }, [_c('el-input', {
+    model: {
+      value: (_vm.user.last_name),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "last_name", $$v)
+      },
+      expression: "user.last_name"
+    }
+  })], 1)], 1)], 1), _vm._v(" "), _c('el-row', {
+    staticStyle: {
+      "display": "none"
+    },
+    attrs: {
+      "gutter": 20
+    }
+  }, [(_vm.user.user_type === 'artist') ? _c('el-col', [_c('el-form-item', {
+    attrs: {
+      "label": "Your public username ( Personal profile url link )",
+      "prop": "user_name"
+    }
+  }, [_c('el-input', {
+    staticStyle: {
+      "max-width": "290px",
+      "margin-right": "20px"
+    },
+    model: {
+      value: (_vm.user.user_name),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "user_name", $$v)
+      },
+      expression: "user.user_name"
+    }
+  }), _vm._v(" "), _c('el-button', {
+    attrs: {
+      "type": "text"
+    }
+  }, [_c('a', {
+    attrs: {
+      "href": _vm.userName,
+      "target": "_blank"
+    }
+  }, [_vm._v("\n                            " + _vm._s(_vm.userName) + "\n                        ")])])], 1)], 1) : _vm._e()], 1), _vm._v(" "), _c('el-row', [_c('el-form-item', {
+    attrs: {
+      "label": "Gender",
+      "prop": "gender"
+    }
+  }, [_c('el-radio-group', {
+    model: {
+      value: (_vm.user.gender),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "gender", $$v)
+      },
+      expression: "user.gender"
+    }
+  }, _vm._l((_vm.options('gender')), function(gender) {
+    return _c('el-radio', {
+      key: gender.value,
+      attrs: {
+        "label": gender.value
+      }
+    }, [_vm._v(_vm._s(gender.label) + "\n                    ")])
+  }))], 1)], 1), _vm._v(" "), _c('el-row', {
+    attrs: {
+      "gutter": 20
+    }
+  }, [_c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Country",
+      "prop": "country_id"
+    }
+  }, [_c('el-select', {
+    attrs: {
+      "filterable": "",
+      "value": "user.country_id",
+      "placeholder": "Select country"
+    },
+    model: {
+      value: (_vm.user.country_id),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "country_id", $$v)
+      },
+      expression: "user.country_id"
+    }
+  }, _vm._l((_vm.countries), function(country) {
+    return _c('el-option', {
+      key: country.id,
+      attrs: {
+        "label": country.country_name,
+        "value": country.id
+      }
+    })
+  }))], 1)], 1), _vm._v(" "), _c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "City",
+      "prop": "city"
+    }
+  }, [_c('el-input', {
+    attrs: {
+      "placeholder": "City"
+    },
+    model: {
+      value: (_vm.user.city),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "city", $$v)
+      },
+      expression: "user.city"
+    }
+  })], 1)], 1)], 1), _vm._v(" "), _c('el-row', [_c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Birthday",
+      "prop": "dob"
+    }
+  }, [_c('el-date-picker', {
+    attrs: {
+      "type": "date",
+      "value-format": "yyyy-MM-dd",
+      "placeholder": "yyyy-mm-dd"
+    },
+    model: {
+      value: (_vm.user.dob),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "dob", $$v)
+      },
+      expression: "user.dob"
+    }
+  })], 1)], 1)], 1), _vm._v(" "), _c('el-row', [_c('el-col', {
+    attrs: {
+      "sm": 18
+    }
+  }, [_c('el-form-item', [_c('span', {
+    attrs: {
+      "slot": "label"
+    },
+    slot: "label"
+  }, [_vm._v("About")]), _vm._v(" "), _c('el-input', {
+    attrs: {
+      "type": "textarea",
+      "placeholder": "Let people something about you"
+    },
+    model: {
+      value: (_vm.user.about),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "about", $$v)
+      },
+      expression: "user.about"
+    }
+  })], 1)], 1)], 1), _vm._v(" "), _c('el-button', {
+    staticStyle: {
+      "margin-top": "20px"
+    },
+    attrs: {
+      "type": "primary",
+      "size": "big",
+      "loading": _vm.loading
+    },
+    on: {
+      "click": function($event) {
+        _vm.save()
+      }
+    }
+  }, [_vm._v("\n            Save\n        ")]), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-button', {
+    staticStyle: {
+      "margin-top": "20px"
+    }
+  }, [_c('a', {
+    attrs: {
+      "href": '/artist/' + _vm.user.id,
+      "target": "_blank"
+    }
+  }, [_vm._v("Preview")])]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticStyle: {
+      "display": "none"
+    }
+  }, [_c('el-row', [_c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Nationality",
+      "prop": "nationality_id"
+    }
+  }, [_c('el-select', {
+    attrs: {
+      "filterable": "",
+      "value": "user.nationality_id",
+      "placeholder": "Select your nationality"
+    },
+    model: {
+      value: (_vm.user.nationality_id),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "nationality_id", $$v)
+      },
+      expression: "user.nationality_id"
+    }
+  }, _vm._l((_vm.countries), function(country) {
+    return _c('el-option', {
+      key: country.id,
+      attrs: {
+        "label": country.citizenship,
+        "value": country.id
+      }
+    })
+  }))], 1)], 1), _vm._v(" "), _c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Profession",
+      "prop": "profession"
+    }
+  }, [_c('el-select', {
+    attrs: {
+      "value": "",
+      "multiple": "",
+      "filterable": "",
+      "allow-create": "",
+      "default-first-option": "",
+      "collapse-tags": "",
+      "placeholder": "What is your profession?"
+    },
+    model: {
+      value: (_vm.user.profession),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "profession", $$v)
+      },
+      expression: "user.profession"
+    }
+  }, _vm._l((_vm.options('profession')), function(profession) {
+    return _c('el-option', {
+      key: profession.value,
+      attrs: {
+        "label": profession.label,
+        "value": profession.value
+      }
+    })
+  }))], 1)], 1)], 1), _vm._v(" "), _c('el-row', {
+    attrs: {
+      "gutter": 20
+    }
+  }, [_c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Name of the last finished school ",
+      "prop": "education"
+    }
+  }, [_c('el-input', {
+    model: {
+      value: (_vm.user.education),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "education", $$v)
+      },
+      expression: "user.education"
+    }
+  })], 1)], 1), _vm._v(" "), _c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "University educational title",
+      "prop": "education_title"
+    }
+  }, [_c('el-select', {
+    attrs: {
+      "value": "",
+      "filterable": "",
+      "allow-create": ""
+    },
+    model: {
+      value: (_vm.user.education_title),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "education_title", $$v)
+      },
+      expression: "user.education_title"
+    }
+  }, _vm._l((_vm.options('education')), function(title) {
+    return _c('el-option', {
+      key: title.value,
+      attrs: {
+        "label": title.label,
+        "value": title.value
+      }
+    })
+  }))], 1)], 1), _vm._v(" "), _c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Skill origin",
+      "prop": "education_born"
+    }
+  }, [_c('el-switch', {
+    attrs: {
+      "active-text": "Natural Born Artist",
+      "inactive-text": "Educated Artist"
+    },
+    model: {
+      value: (_vm.user.education_born),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "education_born", $$v)
+      },
+      expression: "user.education_born"
+    }
+  })], 1)], 1)], 1), _vm._v(" "), _c('el-row', {
+    attrs: {
+      "gutter": 20
+    }
+  }, [_c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Phone",
+      "prop": "phone"
+    }
+  }, [_c('vue-tel-input', {
+    attrs: {
+      "preferredCountries": ['us', 'gb', 'ua']
+    },
+    on: {
+      "onInput": _vm.setphoneNumber
+    },
+    model: {
+      value: (_vm.user.phone),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "phone", $$v)
+      },
+      expression: "user.phone"
+    }
+  })], 1)], 1)], 1), _vm._v(" "), _c('el-row', {
+    attrs: {
+      "gutter": 20
+    }
+  }, [_c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Region",
+      "prop": "region"
+    }
+  }, [_c('el-input', {
+    model: {
+      value: (_vm.user.region),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "region", $$v)
+      },
+      expression: "user.region"
+    }
+  })], 1)], 1), _vm._v(" "), _c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Postcode",
+      "prop": "postcode"
+    }
+  }, [_c('el-input', {
+    model: {
+      value: (_vm.user.postcode),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "postcode", $$v)
+      },
+      expression: "user.postcode"
+    }
+  })], 1)], 1), _vm._v(" "), _c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Address",
+      "prop": "address"
+    }
+  }, [_c('el-input', {
+    attrs: {
+      "placeholder": "Address"
+    },
+    model: {
+      value: (_vm.user.address),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "address", $$v)
+      },
+      expression: "user.address"
+    }
+  })], 1)], 1)], 1), _vm._v(" "), _c('el-row', {
+    attrs: {
+      "gutter": 20
+    }
+  }, [_c('el-col', [_c('el-form-item', {
+    attrs: {
+      "prop": "inspiration"
+    }
+  }, [_c('span', {
+    attrs: {
+      "slot": "label"
+    },
+    slot: "label"
+  }, [_vm._v("Inspiration")]), _vm._v(" "), _c('el-input', {
+    attrs: {
+      "type": "textarea"
+    },
+    model: {
+      value: (_vm.user.inspiration),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "inspiration", $$v)
+      },
+      expression: "user.inspiration"
+    }
+  })], 1)], 1), _vm._v(" "), _c('el-col', [_c('el-form-item', {
+    attrs: {
+      "label": "Exhibitions",
+      "prop": "exhibition"
+    }
+  }, [_c('span', {
+    attrs: {
+      "slot": "label"
+    },
+    slot: "label"
+  }, [_vm._v("Exhibitions")]), _vm._v(" "), _c('el-input', {
+    attrs: {
+      "type": "textarea"
+    },
+    model: {
+      value: (_vm.user.exhibition),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "exhibition", $$v)
+      },
+      expression: "user.exhibition"
+    }
+  })], 1)], 1)], 1)], 1)], 1)], 1) : _vm._e()
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-5784830d", module.exports)
+  }
+}
+
+/***/ }),
+/* 290 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(287);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(20)("6053012b", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-5784830d\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../node_modules/sass-loader/lib/loader.js!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./DashboardProfile.vue", function() {
+     var newContent = require("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-5784830d\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../node_modules/sass-loader/lib/loader.js!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./DashboardProfile.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 291 */,
+/* 292 */,
+/* 293 */,
+/* 294 */,
+/* 295 */,
+/* 296 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: {
+        articles_: {}
+    },
+    data: function data() {
+        return {
+            articles: {}
+        };
+    },
+    mounted: function mounted() {
+        if (this.articles_) {
+            this.articles = JSON.parse(this.articles_);
+        }
+    }
+});
+
+/***/ }),
+/* 297 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(19)();
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+/***/ }),
+/* 298 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+/* styles */
+__webpack_require__(300)
+
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(296),
+  /* template */
+  __webpack_require__(299),
+  /* scopeId */
+  "data-v-38e07bc5",
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/skhatko/code/larabid/resources/assets/js/components/dashboard/admin/DashboardArticles.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] DashboardArticles.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-38e07bc5", Component.options)
+  } else {
+    hotAPI.reload("data-v-38e07bc5", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 299 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "app-dashboard-articles"
+  }, [_c('el-card', [_c('a', {
+    staticClass: "el-button el-button--default",
+    attrs: {
+      "href": "/dashboard/article/create"
+    }
+  }, [_vm._v("Add new article")]), _vm._v(" "), _c('div', {
+    staticClass: "articles"
+  }, _vm._l((_vm.articles), function(article) {
+    return _c('div', {
+      staticClass: "article"
+    }, [_c('div', {
+      staticClass: "article-image"
+    }, [_c('img', {
+      attrs: {
+        "src": '/imagecache/fit-75' + article.image_url,
+        "alt": ""
+      }
+    })]), _vm._v(" "), _c('a', {
+      staticClass: "article-name",
+      attrs: {
+        "href": '/article/' + article.id,
+        "target": "_blank"
+      }
+    }, [_vm._v("\n                    " + _vm._s(article.name) + "\n                ")]), _vm._v(" "), _c('a', {
+      staticClass: "el-button el-button--default el-button--mini",
+      attrs: {
+        "href": '/dashboard/article/' + article.id + '/edit'
+      }
+    }, [_vm._v("\n                    edit\n                ")])])
+  }))])], 1)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-38e07bc5", module.exports)
+  }
+}
+
+/***/ }),
+/* 300 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(297);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(20)("02487722", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-38e07bc5\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./DashboardArticles.vue", function() {
+     var newContent = require("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-38e07bc5\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./DashboardArticles.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 301 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue2_editor__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue2_editor___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue2_editor__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+
+    components: {
+        VueEditor: __WEBPACK_IMPORTED_MODULE_0_vue2_editor__["VueEditor"]
+    },
+
+    props: {
+        article_: {}
+    },
+    data: function data() {
+        return {
+            csrf: '',
+            article: {
+                image: []
+            },
+            dialogImageUrl: '',
+            dialogVisible: false,
+            loading: false,
+            rules: {
+                image: [{
+                    required: true,
+                    message: 'Please upload at least one image for your article',
+                    trigger: ['blur', 'change']
+                }],
+                name: [{ required: true, message: 'Please enter the name of article', trigger: ['blur', 'change'] }],
+                content: [{ required: true, message: 'Content is required', trigger: ['blur', 'change'] }]
+            }
+        };
+    },
+    mounted: function mounted() {
+        this.csrf = window.csrf;
+
+        if (this.article_) {
+            this.article = JSON.parse(this.article_);
+            this.article.image = [this.article.image];
+        }
+
+        console.log(this.article);
+    },
+
+    methods: {
+        handlePictureCardPreview: function handlePictureCardPreview(file) {
+            this.dialogImageUrl = file.url;
+            this.dialogVisible = true;
+        },
+        handleRemoveImage: function handleRemoveImage(file, fileList) {
+            this.article.image = [];
+            this.article.image_id = null;
+        },
+        beforeImageUpload: function beforeImageUpload(file) {
+            console.log(file);
+            var isJPG = file.type === 'image/jpeg' || file.type === 'image/jpg';
+            var isLt2M = file.size / 1024 / 1024 < 10;
+
+            if (!isJPG) {
+                this.$message.error('Image picture must be JPG or JPEG format!');
+            }
+            if (!isLt2M) {
+                this.$message.error('Image picture size can not exceed 10MB!');
+            }
+            return isJPG && isLt2M;
+        },
+        handleImageSuccess: function handleImageSuccess(response, file) {
+            console.log(response.data);
+            this.article.image = [response.data];
+            this.article.image_id = response.data.id;
+        },
+        save: function save() {
+            var _this = this;
+
+            this.$refs['article'].validate(function (valid) {
+                if (valid) {
+                    _this.loading = true;
+                    console.log(_this.article);
+
+                    if (_this.article_) {
+                        axios.post('/api/article/' + _this.article.id, _this.article).then(function (response) {
+                            console.log(response.data);
+                            window.location = '/dashboard/article';
+                        }).catch(function (error) {
+                            console.log(error.response);
+                        });
+                    } else {
+                        axios.post('/api/article/', _this.article).then(function (response) {
+                            console.log(response.data);
+                            window.location = '/dashboard/article';
+                        }).catch(function (error) {
+                            console.log(error.response);
+                        });
+                    }
+                }
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 302 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(19)();
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+/***/ }),
+/* 303 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+/* styles */
+__webpack_require__(305)
+
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(301),
+  /* template */
+  __webpack_require__(304),
+  /* scopeId */
+  "data-v-7554491e",
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/skhatko/code/larabid/resources/assets/js/components/dashboard/admin/DashboardArticle.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] DashboardArticle.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-7554491e", Component.options)
+  } else {
+    hotAPI.reload("data-v-7554491e", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 304 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "app-dashboard-article"
+  }, [_c('el-card', [(_vm.article) ? _c('el-form', {
+    ref: "article",
+    staticClass: "article",
+    attrs: {
+      "label-position": "top",
+      "model": _vm.article,
+      "rules": _vm.rules
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Title",
+      "prop": "name",
+      "required": ""
+    }
+  }, [_c('el-input', {
+    model: {
+      value: (_vm.article.name),
+      callback: function($$v) {
+        _vm.$set(_vm.article, "name", $$v)
+      },
+      expression: "article.name"
+    }
+  })], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "required": "",
+      "prop": "image"
+    }
+  }, [_c('el-upload', {
+    staticClass: "article-image",
+    attrs: {
+      "list-type": "picture-card",
+      "file-list": _vm.article.image,
+      "action": "/api/article/upload-article-image",
+      "headers": {
+        'X-Requested-With': 'XMLHttpRequest',
+        'X-CSRF-TOKEN': _vm.csrf
+      },
+      "accept": ".jpg, .jpeg",
+      "on-preview": _vm.handlePictureCardPreview,
+      "on-remove": _vm.handleRemoveImage,
+      "on-success": _vm.handleImageSuccess,
+      "before-upload": _vm.beforeImageUpload
+    }
+  }, [_c('div', {
+    staticClass: "article-image-label"
+  }, [_c('i', {
+    staticClass: "el-icon-picture"
+  }), _vm._v(" "), _c('div', [_vm._v("Primary image")])])]), _vm._v(" "), _c('el-dialog', {
+    attrs: {
+      "visible": _vm.dialogVisible
+    },
+    on: {
+      "update:visible": function($event) {
+        _vm.dialogVisible = $event
+      }
+    }
+  }, [_c('img', {
+    attrs: {
+      "width": "100%",
+      "src": _vm.dialogImageUrl,
+      "alt": ""
+    }
+  })])], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "label": "content",
+      "required": "",
+      "prop": "content"
+    }
+  }, [_c('vue-editor', {
+    model: {
+      value: (_vm.article.content),
+      callback: function($$v) {
+        _vm.$set(_vm.article, "content", $$v)
+      },
+      expression: "article.content"
+    }
+  })], 1), _vm._v(" "), _c('el-button', {
+    on: {
+      "click": function($event) {
+        _vm.save()
+      }
+    }
+  }, [_vm._v("Save")])], 1) : _vm._e()], 1)], 1)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-7554491e", module.exports)
+  }
+}
+
+/***/ }),
+/* 305 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(302);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(20)("4d38c1db", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-7554491e\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./DashboardArticle.vue", function() {
+     var newContent = require("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-7554491e\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./DashboardArticle.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 306 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -85306,22 +87200,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 279 */
+/* 307 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(278),
+  __webpack_require__(306),
   /* template */
-  __webpack_require__(280),
+  __webpack_require__(308),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/skhatko/code/larabid/resources/assets/js/components/dashboard/user/DashbordArtwork.vue"
+Component.options.__file = "/Users/skhatko/code/larabid/resources/assets/js/components/dashboard/user/DashboardArtwork.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] DashbordArtwork.vue: functional components are not supported with templates, they should use render functions.")}
+if (Component.options.functional) {console.error("[vue-loader] DashboardArtwork.vue: functional components are not supported with templates, they should use render functions.")}
 
 /* hot reload */
 if (false) {(function () {
@@ -85330,9 +87224,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-8335210a", Component.options)
+    hotAPI.createRecord("data-v-9d419850", Component.options)
   } else {
-    hotAPI.reload("data-v-8335210a", Component.options)
+    hotAPI.reload("data-v-9d419850", Component.options)
   }
 })()}
 
@@ -85340,7 +87234,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 280 */
+/* 308 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -86300,1765 +88194,8 @@ module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-8335210a", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-9d419850", module.exports)
   }
-}
-
-/***/ }),
-/* 281 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    props: {
-        artworks_: {}
-    },
-
-    data: function data() {
-        return {
-            artworks: {}
-        };
-    },
-    mounted: function mounted() {
-        if (this.artworks_) {
-            this.artworks = JSON.parse(this.artworks_);
-        }
-
-        console.log(this.artworks);
-    },
-
-    methods: {
-        markArtworkAsSold: function markArtworkAsSold(artwork) {
-            var _this = this;
-
-            this.$prompt('Where did you sell your artwork ', 'Mark as sold', {
-                confirmButtonText: 'Confirm',
-                cancelButtonText: 'Cancel',
-                inputPattern: /^\S+$/,
-                inputErrorMessage: 'Enter the source where you sold artwork'
-            }).then(function (result) {
-
-                console.log(result);
-                artwork.sold_by = result.value;
-                artwork.sold_at = result.action;
-
-                axios.post('/api/artwork/', artwork).then(function (response) {
-                    console.log(response.data);
-
-                    _this.artworks = _this.artworks.map(function (item) {
-                        if (item.id === response.data.data.id) {
-                            return response.data.data;
-                        } else {
-                            return item;
-                        }
-                    });
-                }).catch(function (error) {
-                    console.log(error.response);
-                });
-            }).catch(function (error) {
-                console.log(error);
-            });
-        }
-    }
-
-});
-
-/***/ }),
-/* 282 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(19)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
-
-/***/ }),
-/* 283 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-/* styles */
-__webpack_require__(285)
-
-var Component = __webpack_require__(0)(
-  /* script */
-  __webpack_require__(281),
-  /* template */
-  __webpack_require__(284),
-  /* scopeId */
-  "data-v-7e32e84b",
-  /* cssModules */
-  null
-)
-Component.options.__file = "/Users/skhatko/code/larabid/resources/assets/js/components/dashboard/user/DashboardArtworks.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] DashboardArtworks.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-7e32e84b", Component.options)
-  } else {
-    hotAPI.reload("data-v-7e32e84b", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 284 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "artworks"
-  }, [_c('el-card', _vm._l((_vm.artworks), function(artwork) {
-    return (artwork) ? _c('div', {
-      staticClass: "artwork"
-    }, [_c('a', {
-      staticClass: "artwork-image",
-      attrs: {
-        "href": '/artwork/' + artwork.id,
-        "target": "_blank"
-      }
-    }, [_c('img', {
-      attrs: {
-        "src": '/imagecache/fit-100' + artwork.image_url,
-        "alt": ""
-      }
-    })]), _vm._v(" "), _c('a', {
-      staticClass: "artwork-info",
-      attrs: {
-        "href": '/artwork/' + artwork.id,
-        "target": "_blank"
-      }
-    }, [_c('div', {
-      staticClass: "artwork-name"
-    }, [_vm._v(_vm._s(artwork.name))]), _vm._v(" "), _c('div', {
-      staticClass: "artwork-artist"
-    }, [_vm._v(_vm._s(artwork.made_by))]), _vm._v(" "), _c('div', {
-      staticClass: "artwork-status"
-    }, [_vm._v(_vm._s(artwork.statusString))])]), _vm._v(" "), _c('div', {
-      staticClass: "artwork-manage"
-    }, [_c('div', {
-      staticClass: "artwork-qty"
-    }, [_vm._v(_vm._s(artwork.quantity) + " pc")]), _vm._v(" "), _c('div', {
-      staticClass: "artwork-price"
-    }, [_vm._v(_vm._s(artwork.formatted_price))]), _vm._v(" "), _c('a', {
-      staticClass: "el-button el-button--default el-button--mini",
-      staticStyle: {
-        "margin-right": "10px"
-      },
-      attrs: {
-        "href": '/dashboard/artwork/edit/' + artwork.id
-      }
-    }, [_vm._v("Edit")]), _vm._v(" "), _c('el-checkbox', {
-      staticStyle: {
-        "margin-right": "10px"
-      },
-      attrs: {
-        "disabled": artwork.sold_at ? true : false,
-        "value": "artwork.sold_at"
-      },
-      on: {
-        "change": function($event) {
-          _vm.markArtworkAsSold(artwork)
-        }
-      }
-    }, [_vm._v("\n                    Mark Sold\n                ")])], 1)]) : _vm._e()
-  }))], 1)
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-7e32e84b", module.exports)
-  }
-}
-
-/***/ }),
-/* 285 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(282);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(20)("561b238c", content, false);
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-7e32e84b\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./DashboardArtworks.vue", function() {
-     var newContent = require("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-7e32e84b\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./DashboardArtworks.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 286 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue2_editor__ = __webpack_require__(52);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue2_editor___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue2_editor__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-
-    props: {
-        user_: {}
-    },
-
-    data: function data() {
-        var _this = this;
-
-        var userNameValidator = function userNameValidator(rule, value, callback) {
-            if (!value) {
-                callback();
-            } else {
-                axios.get('/api/user/check-username/' + value).then(function (response) {
-                    console.log(response.data);
-                    if (response.data) {
-                        _this.user.user_name = response.data;
-
-                        callback();
-                    } else {
-                        callback(new Error('This username is already taken'));
-                    }
-                }).catch(function (error) {
-                    console.log(error.response);
-                    callback();
-                });
-            }
-        };
-
-        return {
-            loading: false,
-            user: {},
-            rules: {
-                first_name: [{ required: true, message: 'Please enter first name', trigger: 'blur' }],
-                last_name: [{ required: true, message: 'Please enter last name', trigger: 'blur' }],
-                user_name: [{ validator: userNameValidator, trigger: 'blur' }]
-            },
-            csrf: '',
-            countries: [],
-            profileEditorToolbar: [[{ 'size': ['small', false, 'large', 'huge'] }], ['bold', 'italic', 'underline', 'strike'], [{ 'align': '' }, { 'align': 'center' }, { 'align': 'right' }, { 'align': 'justify' }], ['blockquote'], [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'list': 'check' }], [{ 'indent': '-1' }, { 'indent': '+1' }]],
-            dialogs: {
-                profileBackgroundImageAddDialog: false
-            }
-
-        };
-    },
-    mounted: function mounted() {
-        var _this2 = this;
-
-        this.csrf = window.csrf;
-
-        if (this.user_) {
-            this.user = JSON.parse(this.user_);
-        }
-
-        axios.get('/api/countries').then(function (response) {
-            _this2.countries = response.data;
-        });
-    },
-
-
-    methods: {
-        setphoneNumber: function setphoneNumber(_ref) {
-            var number = _ref.number,
-                isValid = _ref.isValid,
-                country = _ref.country;
-
-            console.log(number, isValid, country);
-        },
-        handleAvatarSuccess: function handleAvatarSuccess(response, file) {
-            console.log(response);
-            this.user.avatar_url = response.data.url;
-            this.user.avatar_id = response.data.id;
-        },
-        handleImageSuccess: function handleImageSuccess(response, file) {
-            console.log(response);
-            this.user.image_url = response.data.url;
-            this.user.image_id = response.data.id;
-        },
-        beforeAvatarUpload: function beforeAvatarUpload(file) {
-            console.log(file);
-            var isJPG = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/jpg';
-            var isLt2M = file.size / 1024 / 1024 < 2;
-
-            if (!isJPG) {
-                this.$message.error('Avatar picture must be JPG, JPEG, or PNG format!');
-            }
-            if (!isLt2M) {
-                this.$message.error('Avatar picture size can not exceed 2MB!');
-            }
-            return isJPG && isLt2M;
-        },
-        beforeImageUpload: function beforeImageUpload(file) {
-            console.log(file);
-            var isJPG = file.type === 'image/jpeg' || file.type === 'image/jpg';
-            var isLt2M = file.size / 1024 / 1024 < 10;
-
-            if (!isJPG) {
-                this.$message.error('Image picture must be JPG or JPEG format!');
-            }
-            if (!isLt2M) {
-                this.$message.error('Image picture size can not exceed 10MB!');
-            }
-            return isJPG && isLt2M;
-        },
-        save: function save() {
-            var _this3 = this;
-
-            this.$refs['profile'].validate(function (valid) {
-                if (valid) {
-                    _this3.loading = true;
-                    console.log(_this3.user);
-                    axios.post('/api/profile/', _this3.user).then(function (response) {
-                        console.log(response.data);
-                        // window.location = '/dashboard';
-                    }).catch(function (error) {
-                        console.log(error.response);
-                    });
-                }
-            });
-        }
-    },
-    computed: {
-        userName: function userName() {
-            return window.location.origin + '/' + (this.user.user_name ? this.user.user_name : 'artist/' + this.user.id);
-        }
-    }
-});
-
-/***/ }),
-/* 287 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(19)();
-exports.push([module.i, "", ""]);
-
-/***/ }),
-/* 288 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-/* styles */
-__webpack_require__(290)
-
-var Component = __webpack_require__(0)(
-  /* script */
-  __webpack_require__(286),
-  /* template */
-  __webpack_require__(289),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "/Users/skhatko/code/larabid/resources/assets/js/components/dashboard/user/DashboardProfile.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] DashboardProfile.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-5784830d", Component.options)
-  } else {
-    hotAPI.reload("data-v-5784830d", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 289 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return (_vm.user) ? _c('el-card', {
-    staticClass: "profile"
-  }, [_c('div', {
-    attrs: {
-      "slot": "header"
-    },
-    slot: "header"
-  }, [_c('div', {
-    staticClass: "profile-header"
-  }, [_c('span', [_vm._v("Your Public Profile")]), _vm._v(" "), _c('a', {
-    staticClass: "el-button el-button--default el-button--mini",
-    attrs: {
-      "href": '/artist/' + _vm.user.id,
-      "target": "_blank"
-    }
-  }, [_vm._v("View\n                profile")])])]), _vm._v(" "), _c('el-form', {
-    attrs: {
-      "label-position": "top"
-    }
-  }, [_c('el-row', {
-    attrs: {
-      "gutter": 20
-    }
-  }, [_c('el-col', {
-    attrs: {
-      "sm": 12
-    }
-  }, [_c('el-form-item', [_c('span', {
-    attrs: {
-      "slot": "label"
-    },
-    slot: "label"
-  }, [_c('span', [_vm._v("\n                            Profile Picture\n                        ")]), _vm._v(" "), _c('el-popover', {
-    attrs: {
-      "width": "200",
-      "trigger": "hover"
-    }
-  }, [_c('span', [_vm._v("\n                                        This image represents you here on website.\n                                        Make sure your image is in good quality and has a nice smile :)\n                                    ")]), _vm._v(" "), _c('i', {
-    staticClass: "el-icon-info",
-    attrs: {
-      "slot": "reference"
-    },
-    slot: "reference"
-  })])], 1), _vm._v(" "), _c('el-upload', {
-    staticClass: "profile-avatar",
-    attrs: {
-      "action": "/api/user/upload-user-avatar",
-      "headers": {
-        'X-Requested-With': 'XMLHttpRequest',
-        'X-CSRF-TOKEN': _vm.csrf
-      },
-      "show-file-list": false,
-      "accept": "image/*",
-      "on-success": _vm.handleAvatarSuccess,
-      "before-upload": _vm.beforeAvatarUpload
-    }
-  }, [_c('el-button', {
-    staticClass: "profile-avatar-button",
-    attrs: {
-      "slot": "trigger",
-      "icon": "el-icon-picture",
-      "circle": ""
-    },
-    slot: "trigger"
-  }), _vm._v(" "), _c('div', {
-    staticClass: "el-upload__tip",
-    attrs: {
-      "slot": "tip"
-    },
-    slot: "tip"
-  }, [_vm._v("*Must be a .jpg, .gif or .png file smaller than 10MB\n                            and at least 400px by 400px.\n                        ")]), _vm._v(" "), (_vm.user.avatar_url) ? _c('img', {
-    staticClass: "avatar",
-    attrs: {
-      "src": '/imagecache/fit-290' + _vm.user.avatar_url
-    }
-  }) : _vm._e()], 1)], 1)], 1), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-col', {
-    attrs: {
-      "sm": 12
-    }
-  }, [_c('el-form-item', [_c('span', {
-    attrs: {
-      "slot": "label"
-    },
-    slot: "label"
-  }, [_vm._v("\n                        Profile background image\n                                "), _c('el-popover', {
-    attrs: {
-      "width": "200",
-      "trigger": "hover"
-    }
-  }, [_c('span', [_vm._v("\n                                        Make your profile more professional,\n                                       put on background extra picture of your studio or yourself during\n                                       working or even your favourite art.\n                                    ")]), _vm._v(" "), _c('i', {
-    staticClass: "el-icon-info",
-    attrs: {
-      "slot": "reference"
-    },
-    slot: "reference"
-  })])], 1), _vm._v(" "), _c('el-upload', {
-    staticClass: "profile-image",
-    attrs: {
-      "action": "/api/user/upload-user-image",
-      "headers": {
-        'X-Requested-With': 'XMLHttpRequest',
-        'X-CSRF-TOKEN': _vm.csrf
-      },
-      "show-file-list": false,
-      "accept": "image/*",
-      "on-success": _vm.handleImageSuccess,
-      "before-upload": _vm.beforeImageUpload
-    }
-  }, [_c('el-button', {
-    staticClass: "profile-avatar-button",
-    attrs: {
-      "slot": "trigger",
-      "icon": "el-icon-picture",
-      "circle": ""
-    },
-    slot: "trigger"
-  }), _vm._v(" "), _c('div', {
-    staticClass: "el-upload__tip",
-    attrs: {
-      "slot": "tip"
-    },
-    slot: "tip"
-  }, [_vm._v("*Must be a .jpg file smaller than 10MB and at least\n                            980px width.\n                        ")]), _vm._v(" "), _c('img', {
-    staticClass: "image",
-    attrs: {
-      "src": '/imagecache/height-200' + _vm.user.image_url
-    }
-  })], 1)], 1)], 1) : _vm._e()], 1)], 1), _vm._v(" "), _c('el-form', {
-    ref: "profile",
-    attrs: {
-      "label-position": "top",
-      "model": _vm.user,
-      "status-icon": "",
-      "rules": _vm.rules
-    }
-  }, [_c('el-row', {
-    attrs: {
-      "gutter": 20
-    }
-  }, [_c('el-col', {
-    attrs: {
-      "sm": 8
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "First name",
-      "prop": "first_name"
-    }
-  }, [_c('el-input', {
-    model: {
-      value: (_vm.user.first_name),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "first_name", $$v)
-      },
-      expression: "user.first_name"
-    }
-  })], 1)], 1), _vm._v(" "), _c('el-col', {
-    attrs: {
-      "sm": 8
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Last name",
-      "prop": "last_name"
-    }
-  }, [_c('el-input', {
-    model: {
-      value: (_vm.user.last_name),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "last_name", $$v)
-      },
-      expression: "user.last_name"
-    }
-  })], 1)], 1)], 1), _vm._v(" "), _c('el-row', {
-    staticStyle: {
-      "display": "none"
-    },
-    attrs: {
-      "gutter": 20
-    }
-  }, [(_vm.user.user_type === 'artist') ? _c('el-col', [_c('el-form-item', {
-    attrs: {
-      "label": "Your public username ( Personal profile url link )",
-      "prop": "user_name"
-    }
-  }, [_c('el-input', {
-    staticStyle: {
-      "max-width": "290px",
-      "margin-right": "20px"
-    },
-    model: {
-      value: (_vm.user.user_name),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "user_name", $$v)
-      },
-      expression: "user.user_name"
-    }
-  }), _vm._v(" "), _c('el-button', {
-    attrs: {
-      "type": "text"
-    }
-  }, [_c('a', {
-    attrs: {
-      "href": _vm.userName,
-      "target": "_blank"
-    }
-  }, [_vm._v("\n                            " + _vm._s(_vm.userName) + "\n                        ")])])], 1)], 1) : _vm._e()], 1), _vm._v(" "), _c('el-row', [_c('el-form-item', {
-    attrs: {
-      "label": "Gender",
-      "prop": "gender"
-    }
-  }, [_c('el-radio-group', {
-    model: {
-      value: (_vm.user.gender),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "gender", $$v)
-      },
-      expression: "user.gender"
-    }
-  }, _vm._l((_vm.options('gender')), function(gender) {
-    return _c('el-radio', {
-      key: gender.value,
-      attrs: {
-        "label": gender.value
-      }
-    }, [_vm._v(_vm._s(gender.label) + "\n                    ")])
-  }))], 1)], 1), _vm._v(" "), _c('el-row', {
-    attrs: {
-      "gutter": 20
-    }
-  }, [_c('el-col', {
-    attrs: {
-      "sm": 8
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Country",
-      "prop": "country_id"
-    }
-  }, [_c('el-select', {
-    attrs: {
-      "filterable": "",
-      "value": "user.country_id",
-      "placeholder": "Select country"
-    },
-    model: {
-      value: (_vm.user.country_id),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "country_id", $$v)
-      },
-      expression: "user.country_id"
-    }
-  }, _vm._l((_vm.countries), function(country) {
-    return _c('el-option', {
-      key: country.id,
-      attrs: {
-        "label": country.country_name,
-        "value": country.id
-      }
-    })
-  }))], 1)], 1), _vm._v(" "), _c('el-col', {
-    attrs: {
-      "sm": 8
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "City",
-      "prop": "city"
-    }
-  }, [_c('el-input', {
-    attrs: {
-      "placeholder": "City"
-    },
-    model: {
-      value: (_vm.user.city),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "city", $$v)
-      },
-      expression: "user.city"
-    }
-  })], 1)], 1)], 1), _vm._v(" "), _c('el-row', [_c('el-col', {
-    attrs: {
-      "sm": 8
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Birthday",
-      "prop": "dob"
-    }
-  }, [_c('el-date-picker', {
-    attrs: {
-      "type": "date",
-      "value-format": "yyyy-MM-dd",
-      "placeholder": "yyyy-mm-dd"
-    },
-    model: {
-      value: (_vm.user.dob),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "dob", $$v)
-      },
-      expression: "user.dob"
-    }
-  })], 1)], 1)], 1), _vm._v(" "), _c('el-row', [_c('el-col', {
-    attrs: {
-      "sm": 18
-    }
-  }, [_c('el-form-item', [_c('span', {
-    attrs: {
-      "slot": "label"
-    },
-    slot: "label"
-  }, [_vm._v("About")]), _vm._v(" "), _c('el-input', {
-    attrs: {
-      "type": "textarea",
-      "placeholder": "Let people something about you"
-    },
-    model: {
-      value: (_vm.user.about),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "about", $$v)
-      },
-      expression: "user.about"
-    }
-  })], 1)], 1)], 1), _vm._v(" "), _c('el-button', {
-    staticStyle: {
-      "margin-top": "20px"
-    },
-    attrs: {
-      "type": "primary",
-      "size": "big",
-      "loading": _vm.loading
-    },
-    on: {
-      "click": function($event) {
-        _vm.save()
-      }
-    }
-  }, [_vm._v("\n            Save\n        ")]), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-button', {
-    staticStyle: {
-      "margin-top": "20px"
-    }
-  }, [_c('a', {
-    attrs: {
-      "href": '/artist/' + _vm.user.id,
-      "target": "_blank"
-    }
-  }, [_vm._v("Preview")])]) : _vm._e(), _vm._v(" "), _c('div', {
-    staticStyle: {
-      "display": "none"
-    }
-  }, [_c('el-row', [_c('el-col', {
-    attrs: {
-      "sm": 8
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Nationality",
-      "prop": "nationality_id"
-    }
-  }, [_c('el-select', {
-    attrs: {
-      "filterable": "",
-      "value": "user.nationality_id",
-      "placeholder": "Select your nationality"
-    },
-    model: {
-      value: (_vm.user.nationality_id),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "nationality_id", $$v)
-      },
-      expression: "user.nationality_id"
-    }
-  }, _vm._l((_vm.countries), function(country) {
-    return _c('el-option', {
-      key: country.id,
-      attrs: {
-        "label": country.citizenship,
-        "value": country.id
-      }
-    })
-  }))], 1)], 1), _vm._v(" "), _c('el-col', {
-    attrs: {
-      "sm": 8
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Profession",
-      "prop": "profession"
-    }
-  }, [_c('el-select', {
-    attrs: {
-      "value": "",
-      "multiple": "",
-      "filterable": "",
-      "allow-create": "",
-      "default-first-option": "",
-      "collapse-tags": "",
-      "placeholder": "What is your profession?"
-    },
-    model: {
-      value: (_vm.user.profession),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "profession", $$v)
-      },
-      expression: "user.profession"
-    }
-  }, _vm._l((_vm.options('profession')), function(profession) {
-    return _c('el-option', {
-      key: profession.value,
-      attrs: {
-        "label": profession.label,
-        "value": profession.value
-      }
-    })
-  }))], 1)], 1)], 1), _vm._v(" "), _c('el-row', {
-    attrs: {
-      "gutter": 20
-    }
-  }, [_c('el-col', {
-    attrs: {
-      "sm": 8
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Name of the last finished school ",
-      "prop": "education"
-    }
-  }, [_c('el-input', {
-    model: {
-      value: (_vm.user.education),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "education", $$v)
-      },
-      expression: "user.education"
-    }
-  })], 1)], 1), _vm._v(" "), _c('el-col', {
-    attrs: {
-      "sm": 8
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "University educational title",
-      "prop": "education_title"
-    }
-  }, [_c('el-select', {
-    attrs: {
-      "value": "",
-      "filterable": "",
-      "allow-create": ""
-    },
-    model: {
-      value: (_vm.user.education_title),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "education_title", $$v)
-      },
-      expression: "user.education_title"
-    }
-  }, _vm._l((_vm.options('education')), function(title) {
-    return _c('el-option', {
-      key: title.value,
-      attrs: {
-        "label": title.label,
-        "value": title.value
-      }
-    })
-  }))], 1)], 1), _vm._v(" "), _c('el-col', {
-    attrs: {
-      "sm": 8
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Skill origin",
-      "prop": "education_born"
-    }
-  }, [_c('el-switch', {
-    attrs: {
-      "active-text": "Natural Born Artist",
-      "inactive-text": "Educated Artist"
-    },
-    model: {
-      value: (_vm.user.education_born),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "education_born", $$v)
-      },
-      expression: "user.education_born"
-    }
-  })], 1)], 1)], 1), _vm._v(" "), _c('el-row', {
-    attrs: {
-      "gutter": 20
-    }
-  }, [_c('el-col', {
-    attrs: {
-      "sm": 8
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Phone",
-      "prop": "phone"
-    }
-  }, [_c('vue-tel-input', {
-    attrs: {
-      "preferredCountries": ['us', 'gb', 'ua']
-    },
-    on: {
-      "onInput": _vm.setphoneNumber
-    },
-    model: {
-      value: (_vm.user.phone),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "phone", $$v)
-      },
-      expression: "user.phone"
-    }
-  })], 1)], 1)], 1), _vm._v(" "), _c('el-row', {
-    attrs: {
-      "gutter": 20
-    }
-  }, [_c('el-col', {
-    attrs: {
-      "sm": 8
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Region",
-      "prop": "region"
-    }
-  }, [_c('el-input', {
-    model: {
-      value: (_vm.user.region),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "region", $$v)
-      },
-      expression: "user.region"
-    }
-  })], 1)], 1), _vm._v(" "), _c('el-col', {
-    attrs: {
-      "sm": 8
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Postcode",
-      "prop": "postcode"
-    }
-  }, [_c('el-input', {
-    model: {
-      value: (_vm.user.postcode),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "postcode", $$v)
-      },
-      expression: "user.postcode"
-    }
-  })], 1)], 1), _vm._v(" "), _c('el-col', {
-    attrs: {
-      "sm": 8
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Address",
-      "prop": "address"
-    }
-  }, [_c('el-input', {
-    attrs: {
-      "placeholder": "Address"
-    },
-    model: {
-      value: (_vm.user.address),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "address", $$v)
-      },
-      expression: "user.address"
-    }
-  })], 1)], 1)], 1), _vm._v(" "), _c('el-row', {
-    attrs: {
-      "gutter": 20
-    }
-  }, [_c('el-col', [_c('el-form-item', {
-    attrs: {
-      "prop": "inspiration"
-    }
-  }, [_c('span', {
-    attrs: {
-      "slot": "label"
-    },
-    slot: "label"
-  }, [_vm._v("Inspiration")]), _vm._v(" "), _c('el-input', {
-    attrs: {
-      "type": "textarea"
-    },
-    model: {
-      value: (_vm.user.inspiration),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "inspiration", $$v)
-      },
-      expression: "user.inspiration"
-    }
-  })], 1)], 1), _vm._v(" "), _c('el-col', [_c('el-form-item', {
-    attrs: {
-      "label": "Exhibitions",
-      "prop": "exhibition"
-    }
-  }, [_c('span', {
-    attrs: {
-      "slot": "label"
-    },
-    slot: "label"
-  }, [_vm._v("Exhibitions")]), _vm._v(" "), _c('el-input', {
-    attrs: {
-      "type": "textarea"
-    },
-    model: {
-      value: (_vm.user.exhibition),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "exhibition", $$v)
-      },
-      expression: "user.exhibition"
-    }
-  })], 1)], 1)], 1)], 1)], 1)], 1) : _vm._e()
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-5784830d", module.exports)
-  }
-}
-
-/***/ }),
-/* 290 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(287);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(20)("6053012b", content, false);
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-5784830d\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../node_modules/sass-loader/lib/loader.js!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./DashboardProfile.vue", function() {
-     var newContent = require("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-5784830d\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../node_modules/sass-loader/lib/loader.js!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./DashboardProfile.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 291 */,
-/* 292 */,
-/* 293 */,
-/* 294 */,
-/* 295 */,
-/* 296 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    props: {
-        articles_: {}
-    },
-    data: function data() {
-        return {
-            articles: {}
-        };
-    },
-    mounted: function mounted() {
-        if (this.articles_) {
-            this.articles = JSON.parse(this.articles_);
-        }
-    }
-});
-
-/***/ }),
-/* 297 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(19)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
-
-/***/ }),
-/* 298 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-/* styles */
-__webpack_require__(300)
-
-var Component = __webpack_require__(0)(
-  /* script */
-  __webpack_require__(296),
-  /* template */
-  __webpack_require__(299),
-  /* scopeId */
-  "data-v-38e07bc5",
-  /* cssModules */
-  null
-)
-Component.options.__file = "/Users/skhatko/code/larabid/resources/assets/js/components/dashboard/admin/DashboardArticles.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] DashboardArticles.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-38e07bc5", Component.options)
-  } else {
-    hotAPI.reload("data-v-38e07bc5", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 299 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "app-dashboard-articles"
-  }, [_c('el-card', [_c('a', {
-    staticClass: "el-button el-button--default",
-    attrs: {
-      "href": "/dashboard/article/create"
-    }
-  }, [_vm._v("Add new article")]), _vm._v(" "), _c('div', {
-    staticClass: "articles"
-  }, _vm._l((_vm.articles), function(article) {
-    return _c('div', {
-      staticClass: "article"
-    }, [_c('a', {
-      staticClass: "articles-item",
-      attrs: {
-        "href": '/dashboard/article/' + article.id + '/edit'
-      }
-    }, [_vm._v("\n                    " + _vm._s(article.name) + "\n                ")])])
-  }))])], 1)
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-38e07bc5", module.exports)
-  }
-}
-
-/***/ }),
-/* 300 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(297);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(20)("02487722", content, false);
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-38e07bc5\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./DashboardArticles.vue", function() {
-     var newContent = require("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-38e07bc5\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./DashboardArticles.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 301 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue2_editor__ = __webpack_require__(52);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue2_editor___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue2_editor__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-
-    components: {
-        VueEditor: __WEBPACK_IMPORTED_MODULE_0_vue2_editor__["VueEditor"]
-    },
-
-    props: {
-        article_: {}
-    },
-    data: function data() {
-        return {
-            article: {}
-        };
-    },
-    mounted: function mounted() {
-        if (this.article_) {
-            this.article = JSON.parse(this.article_);
-        }
-    },
-
-    methods: {
-        save: function save() {
-            // this.$refs['article'].validate((valid) => {
-            //     if (valid) {
-            //         this.loading = true;
-            console.log(this.article);
-
-            if (this.article_) {
-                axios.post('/api/article/' + this.article.id, this.article).then(function (response) {
-                    console.log(response.data);
-                    window.location = '/dashboard/article';
-                }).catch(function (error) {
-                    console.log(error.response);
-                });
-            } else {
-                axios.post('/api/article/', this.article).then(function (response) {
-                    console.log(response.data);
-                    window.location = '/dashboard/article';
-                }).catch(function (error) {
-                    console.log(error.response);
-                });
-            }
-
-            // }
-            // });
-        }
-    }
-});
-
-/***/ }),
-/* 302 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(19)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
-
-/***/ }),
-/* 303 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-/* styles */
-__webpack_require__(305)
-
-var Component = __webpack_require__(0)(
-  /* script */
-  __webpack_require__(301),
-  /* template */
-  __webpack_require__(304),
-  /* scopeId */
-  "data-v-7554491e",
-  /* cssModules */
-  null
-)
-Component.options.__file = "/Users/skhatko/code/larabid/resources/assets/js/components/dashboard/admin/DashboardArticle.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] DashboardArticle.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-7554491e", Component.options)
-  } else {
-    hotAPI.reload("data-v-7554491e", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 304 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "app-dashboard-article"
-  }, [_c('el-card', [_c('el-form', [_c('el-form-item', {
-    attrs: {
-      "label": "Title"
-    }
-  }, [_c('el-input', {
-    model: {
-      value: (_vm.article.name),
-      callback: function($$v) {
-        _vm.$set(_vm.article, "name", $$v)
-      },
-      expression: "article.name"
-    }
-  })], 1), _vm._v(" "), _c('el-form-item', {
-    attrs: {
-      "label": "content"
-    }
-  }, [_c('vue-editor', {
-    model: {
-      value: (_vm.article.content),
-      callback: function($$v) {
-        _vm.$set(_vm.article, "content", $$v)
-      },
-      expression: "article.content"
-    }
-  })], 1), _vm._v(" "), _c('el-button', {
-    on: {
-      "click": function($event) {
-        _vm.save()
-      }
-    }
-  }, [_vm._v("Save")])], 1)], 1)], 1)
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-7554491e", module.exports)
-  }
-}
-
-/***/ }),
-/* 305 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(302);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(20)("4d38c1db", content, false);
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-7554491e\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./DashboardArticle.vue", function() {
-     var newContent = require("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-7554491e\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./DashboardArticle.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
 }
 
 /***/ })

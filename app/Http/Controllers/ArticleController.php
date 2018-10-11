@@ -21,14 +21,14 @@ class ArticleController extends Controller {
 
 	public function edit($id) {
 
-		$article = Article::findOrFail( $id );
+		$article = Article::whereId( $id )->with( 'images' )->firstOrFail();
 
 		return view('dashboard.article.edit', compact('article'));
 	}
 
 	public function articles() {
 
-		$articles = Article::all();
+		$articles = Article::with( 'images' )->paginate();
 
 		return view( 'article.index', compact( 'articles' ) );
 	}

@@ -290,8 +290,6 @@
                         <el-form-item prop="inspiration">
                             <span slot="label">Inspiration</span>
                             <el-input type="textarea" v-model="user.inspiration"></el-input>
-                            <!--<vue-editor id="inspiration" v-model="user.inspiration"-->
-                            <!--:editorToolbar="profileEditorToolbar"></vue-editor>-->
                         </el-form-item>
 
                     </el-col>
@@ -300,9 +298,6 @@
                         <el-form-item label="Exhibitions" prop="exhibition">
                             <span slot="label">Exhibitions</span>
                             <el-input type="textarea" v-model="user.exhibition"></el-input>
-
-                            <!--<vue-editor id="exhibition" v-model="user.exhibition"-->
-                            <!--:editorToolbar="profileEditorToolbar"></vue-editor>-->
                         </el-form-item>
                     </el-col>
 
@@ -317,7 +312,6 @@
 </template>
 
 <script>
-    import {VueEditor} from 'vue2-editor'
 
     export default {
 
@@ -372,11 +366,6 @@
                     [{'list': 'ordered'}, {'list': 'bullet'}, {'list': 'check'}],
                     [{'indent': '-1'}, {'indent': '+1'}],
                 ],
-                dialogs: {
-                    profileBackgroundImageAddDialog: false,
-                }
-
-
             }
         },
 
@@ -406,7 +395,8 @@
             handleImageSuccess(response, file) {
                 console.log(response);
                 this.user.image_url = response.data.url;
-                this.user.image_id = response.data.id;            },
+                this.user.image_id = response.data.id;
+            },
 
             beforeAvatarUpload(file) {
                 console.log(file);

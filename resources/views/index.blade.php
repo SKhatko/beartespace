@@ -79,7 +79,7 @@
                     <!-- slides -->
                     @foreach($articles as $article)
 
-                        <a href="{{ route('artwork', $article->id) }}" class="article">
+                        <a href="{{ route('artwork', $article->id) }}" target="_blank" class="article">
                             @if($article->image)
                                 <div class="article-image">
                                     <img src="/imagecache/fit-290{{ $article->image_url }}"
@@ -87,8 +87,7 @@
                                 </div>
                             @endif
                             <div class="article-content">
-                                <div class="h2">{{ $article->title }}</div>
-                                <div class="h5">{{ $article->content }}</div>
+                                <div class="h3">{{ $article->name }}</div>
                             </div>
                         </a>
 

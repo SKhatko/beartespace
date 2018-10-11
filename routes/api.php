@@ -21,7 +21,10 @@ Route::group( [ 'middleware' => 'auth:api' ], function () {
 	Route::post( 'languages', 'Api\LanguageController@store' );
 	Route::post( 'profile', 'Api\UserController@update' );
 	Route::post( 'pages', 'Api\PageController@store' );
+
+	// Article
 	Route::post( 'article', 'Api\ArticleController@store' );
+	Route::any( 'article/upload-article-image', 'Api\ArticleController@uploadArticleImage' );
 	Route::post( 'article/{id}', 'Api\ArticleController@update' );
 
 	Route::put( 'user/favorite/{id}/toggle', 'Api\UserController@toggleFavoriteArtwork' );

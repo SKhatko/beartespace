@@ -70,7 +70,7 @@ Vue.component('dashboard-article', require('./components/dashboard/admin/Dashboa
 
 // User
 Vue.component('dashboard-profile', require('./components/dashboard/user/DashboardProfile.vue'));
-Vue.component('dashboard-artwork', require('./components/dashboard/user/DashbordArtwork.vue'));
+Vue.component('dashboard-artwork', require('./components/dashboard/user/DashboardArtwork.vue'));
 Vue.component('dashboard-artworks', require('./components/dashboard/user/DashboardArtworks.vue'));
 
 // Global components
