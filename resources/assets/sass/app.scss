@@ -533,6 +533,14 @@ body, html {
 
 }
 
+.app-articles {
+  padding: 15px;
+
+  img {
+    max-width: 100%;
+  }
+}
+
 .app-artist {
   width: 100%;
   background-repeat: no-repeat;
@@ -1561,8 +1569,14 @@ body, html {
 
 .app-dashboard-articles {
 
+  .articles {
+    margin-top: 20px;
+  }
 
-
+  .article {
+    display: block;
+    margin-bottom: 20px;
+  }
 }
 
 .app-dashboard-orders {

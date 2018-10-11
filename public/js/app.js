@@ -87742,6 +87742,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -87764,7 +87766,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(19)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 /* 298 */
@@ -87822,10 +87824,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     return _c('div', {
       staticClass: "article"
     }, [_c('a', {
+      staticClass: "articles-item",
       attrs: {
-        "href": '/dashboard/article/' + article.id
+        "href": '/dashboard/article/' + article.id + '/edit'
       }
-    }, [_vm._v(_vm._s(article.title))])])
+    }, [_vm._v("\n                    " + _vm._s(article.name) + "\n                ")])])
   }))])], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
@@ -87868,6 +87871,11 @@ if(false) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue2_editor__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue2_editor___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue2_editor__);
+//
+//
+//
 //
 //
 //
@@ -87884,7 +87892,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+
+    components: {
+        VueEditor: __WEBPACK_IMPORTED_MODULE_0_vue2_editor__["VueEditor"]
+    },
+
     props: {
         article_: {}
     },
@@ -87901,20 +87916,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         save: function save() {
-            var _this = this;
+            // this.$refs['article'].validate((valid) => {
+            //     if (valid) {
+            //         this.loading = true;
+            console.log(this.article);
 
-            this.$refs['article'].validate(function (valid) {
-                if (valid) {
-                    _this.loading = true;
-                    console.log(_this.article);
-                    axios.post('/api/article/', _this.user).then(function (response) {
-                        console.log(response.data);
-                        // window.location = '/dashboard';
-                    }).catch(function (error) {
-                        console.log(error.response);
-                    });
-                }
-            });
+            if (this.article_) {
+                axios.post('/api/article/' + this.article.id, this.article).then(function (response) {
+                    console.log(response.data);
+                    window.location = '/dashboard/article';
+                }).catch(function (error) {
+                    console.log(error.response);
+                });
+            } else {
+                axios.post('/api/article/', this.article).then(function (response) {
+                    console.log(response.data);
+                    window.location = '/dashboard/article';
+                }).catch(function (error) {
+                    console.log(error.response);
+                });
+            }
+
+            // }
+            // });
         }
     }
 });
@@ -87924,7 +87948,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(19)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 /* 303 */
@@ -87987,7 +88011,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "label": "content"
     }
-  }, [_c('el-input', {
+  }, [_c('vue-editor', {
     model: {
       value: (_vm.article.content),
       callback: function($$v) {
@@ -87995,7 +88019,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "article.content"
     }
-  })], 1)], 1)], 1)], 1)
+  })], 1), _vm._v(" "), _c('el-button', {
+    on: {
+      "click": function($event) {
+        _vm.save()
+      }
+    }
+  }, [_vm._v("Save")])], 1)], 1)], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

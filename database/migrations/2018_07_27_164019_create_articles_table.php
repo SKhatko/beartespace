@@ -16,13 +16,14 @@ class CreateArticlesTable extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->nullable();
-            $table->json('content')->nullable();
+            $table->longText('content')->nullable();
             $table->string('slug')->nullable();
             $table->integer('language_id')->nullable();
             $table->boolean('active')->nullable();
             $table->boolean('show_index')->nullable();
             $table->integer('user_id');
-            $table->integer('image_id');
+            $table->integer('image_id')->nullable();
+            $table->timestamp('publish_at')->nullable();
             $table->timestamps();
         });
     }

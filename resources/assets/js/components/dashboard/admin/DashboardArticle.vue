@@ -6,15 +6,25 @@
                     <el-input v-model="article.name"></el-input>
                 </el-form-item>
                 <el-form-item label="content">
-                    <el-input v-model="article.content"></el-input>
+                    <vue-editor v-model="article.content"></vue-editor>
+                    <!--<el-input v-model="article.content"></el-input>-->
                 </el-form-item>
+
+                <el-button @click="save()">Save</el-button>
             </el-form>
         </el-card>
     </div>
 </template>
 
 <script>
+    import { VueEditor } from 'vue2-editor'
+
     export default {
+
+        components: {
+            VueEditor
+        },
+
         props: {
             article_: {},
         },
@@ -31,19 +41,31 @@
         methods: {
 
             save() {
-                this.$refs['article'].validate((valid) => {
-                    if (valid) {
-                        this.loading = true;
+                // this.$refs['article'].validate((valid) => {
+                //     if (valid) {
+                //         this.loading = true;
                         console.log(this.article);
-                        axios.post('/api/article/', this.user)
-                            .then((response) => {
-                                console.log(response.data);
-                                // window.location = '/dashboard';
-                            }).catch(error => {
-                            console.log(error.response);
-                        });
-                    }
-                });
+
+                        if(this.article_) {
+                            axios.post('/api/article/' + this.article.id, this.article)
+                                .then((response) => {
+                                    console.log(response.data);
+                                    window.location = '/dashboard/article';
+                                }).catch(error => {
+                                console.log(error.response);
+                            });
+                        } else {
+                            axios.post('/api/article/', this.article)
+                                .then((response) => {
+                                    console.log(response.data);
+                                    window.location = '/dashboard/article';
+                                }).catch(error => {
+                                console.log(error.response);
+                            });
+                        }
+
+                    // }
+                // });
             },
         }
     }

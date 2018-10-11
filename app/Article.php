@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model {
 	protected $appends = [ 'image_url' ];
+	protected $fillable = ['name', 'content'];
 
 	public function images() {
 		return $this->belongsToMany( Media::class, 'article_images', 'article_id', 'media_id' );

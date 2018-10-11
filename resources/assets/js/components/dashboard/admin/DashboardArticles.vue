@@ -6,7 +6,9 @@
 
             <div class="articles">
                 <div class="article" v-for="article in articles">
-                    <a :href="'/dashboard/article/' + article.id">{{ article.title }}</a>
+                    <a :href="'/dashboard/article/' + article.id + '/edit'" class="articles-item">
+                        {{ article.name }}
+                    </a>
                 </div>
             </div>
         </el-card>
