@@ -124,7 +124,7 @@ class ArtworkController extends Controller {
 
 		$artworks = $user->artworks()->orderBy( 'id', 'desc' )->with( 'images' )->get();
 
-		return view( 'dashboard.artworks.index', compact( 'title', 'artworks' ) );
+		return view( 'dashboard.artwork.index', compact( 'title', 'artworks' ) );
 	}
 
 	public function create() {

@@ -113,14 +113,16 @@
 
         mounted() {
             if (this.languages_) {
-                this.languages = this.languages_;
+                this.languages = JSON.parse(this.languages_);
             }
 
-
-            if (Object.keys(this.translatedLanguages_)) {
-                this.translatedLanguages = this.translatedLanguages_;
-
+            if (this.translatedLanguages_) {
+                this.translatedLanguages = JSON.parse(this.translatedLanguages_);
             }
+
+            console.log(this.languages);
+            console.log(this.translatedLanguages);
+
         },
 
         methods: {

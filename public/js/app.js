@@ -19880,12 +19880,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     mounted: function mounted() {
         if (this.languages_) {
-            this.languages = this.languages_;
+            this.languages = JSON.parse(this.languages_);
         }
 
-        if (Object.keys(this.translatedLanguages_)) {
-            this.translatedLanguages = this.translatedLanguages_;
+        if (this.translatedLanguages_) {
+            this.translatedLanguages = JSON.parse(this.translatedLanguages_);
         }
+
+        console.log(this.languages);
+        console.log(this.translatedLanguages);
     },
 
 
@@ -20021,10 +20024,10 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
     mounted: function mounted() {
 
         if (this.languages_) {
-            this.languages = this.languages_;
+            this.languages = JSON.parse(this.languages_);
         }
         if (this.pages_) {
-            this.pages = this.pages_;
+            this.pages = JSON.parse(this.pages_);
         }
     },
 
@@ -20049,7 +20052,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
                 return _this.$set(page.content, language.code, "");
             });
 
-            this.pages.push(page);
+            this.pages.unshift(page);
             this.activePage = 0;
         },
         removeTranslation: function removeTranslation(pageIndex) {
@@ -81691,7 +81694,21 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "type": "card"
       }
-    }), _vm._v(" "), _c('el-button', {
+    }, [_vm._l((_vm.languages), function(language) {
+      return [_c('el-tab-pane', {
+        attrs: {
+          "label": language.name
+        }
+      }, [_c('vue-editor', {
+        model: {
+          value: (page.content[language.code]),
+          callback: function($$v) {
+            _vm.$set(page.content, language.code, $$v)
+          },
+          expression: "page.content[language.code]"
+        }
+      })], 1)]
+    })], 2), _vm._v(" "), _c('el-button', {
       staticStyle: {
         "margin-top": "20px"
       },
@@ -84821,6 +84838,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -84881,7 +84901,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(19)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 /* 283 */
@@ -84928,7 +84948,12 @@ module.exports = Component.exports
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "artworks"
-  }, [_c('el-card', _vm._l((_vm.artworks), function(artwork) {
+  }, [_c('el-card', [_c('a', {
+    staticClass: "el-button el-button--default",
+    attrs: {
+      "href": "/dashboard/artwork/create"
+    }
+  }, [_vm._v("Upload Artwork")]), _vm._v(" "), _vm._l((_vm.artworks), function(artwork) {
     return (artwork) ? _c('div', {
       staticClass: "artwork"
     }, [_c('a', {
@@ -84982,7 +85007,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     }, [_vm._v("\n                    Mark Sold\n                ")])], 1)]) : _vm._e()
-  }))], 1)
+  })], 2)], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

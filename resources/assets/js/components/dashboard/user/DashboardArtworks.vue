@@ -2,6 +2,8 @@
     <div class="artworks">
         <el-card>
 
+            <a href="/dashboard/artwork/create" class="el-button el-button--default">Upload Artwork</a>
+
             <div class="artwork" v-for="artwork in artworks" v-if="artwork">
 
                 <a :href="'/artwork/' + artwork.id" class="artwork-image" target="_blank">
@@ -42,6 +44,7 @@
             </div>
 
         </el-card>
+
     </div>
 
 </template>

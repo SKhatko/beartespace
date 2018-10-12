@@ -37,15 +37,15 @@
 
                         <!-- TODO fix pages -->
 
-                        <!--<template v-for="language in languages">-->
+                        <template v-for="language in languages">
 
-                            <!--<el-tab-pane :label="language.name"> 123-->
+                            <el-tab-pane :label="language.name">
 
-                                <!--<vue-editor v-model="page.content[language.code]"></vue-editor>-->
+                                <vue-editor v-model="page.content[language.code]"></vue-editor>
 
-                            <!--</el-tab-pane>-->
+                            </el-tab-pane>
 
-                        <!--</template>-->
+                        </template>
 
                     </el-tabs>
 
@@ -86,10 +86,10 @@
         mounted() {
 
             if (this.languages_) {
-                this.languages = this.languages_;
+                this.languages = JSON.parse(this.languages_);
             }
             if (this.pages_) {
-                this.pages = this.pages_;
+                this.pages = JSON.parse(this.pages_);
             }
 
         },
@@ -110,7 +110,7 @@
                     ([langIndex, language]) => this.$set(page.content, language.code, "")
                 );
 
-                this.pages.push(page);
+                this.pages.unshift(page);
                 this.activePage = 0;
             },
 
