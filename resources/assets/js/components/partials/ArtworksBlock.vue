@@ -6,7 +6,7 @@
 
             <div class="artwork-top">
                 <a :href="'/artwork/' + artwork.id" target="_blank" class="artwork-image">
-                    <img :src="'/imagecache/fit-290/' + artwork.image_url">
+                    <img :src="'/imagecache/fit-290' + artwork.image_url">
                 </a>
 
                 <el-button :icon="favoriteIconClass(artwork)" class="artwork-favorite" circle

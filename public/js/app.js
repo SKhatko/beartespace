@@ -82022,7 +82022,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('img', {
       attrs: {
-        "src": '/imagecache/fit-290/' + artwork.image_url
+        "src": '/imagecache/fit-290' + artwork.image_url
       }
     })]), _vm._v(" "), _c('el-button', {
       staticClass: "artwork-favorite",
