@@ -32,9 +32,10 @@
 
                 </el-form-item>
 
-                <el-form-item label="content" required prop="content">
-                    <vue-editor v-model="article.content"></vue-editor>
-                    <!--<el-input v-model="article.content"></el-input>-->
+                <el-form-item label="Content" required prop="content">
+
+                    <quill-editor v-model="article.content"></quill-editor>
+
                 </el-form-item>
 
                 <el-button @click="save()">Save</el-button>
@@ -44,13 +45,8 @@
 </template>
 
 <script>
-    import {VueEditor} from 'vue2-editor'
 
     export default {
-
-        components: {
-            VueEditor
-        },
 
         props: {
             article_: {},
@@ -90,6 +86,7 @@
             }
 
             console.log(this.article);
+
         },
         methods: {
             handlePictureCardPreview(file) {

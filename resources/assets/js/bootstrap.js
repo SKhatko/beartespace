@@ -3,6 +3,7 @@ window.Vue = require('vue');
 window.Vuex = require('vuex');
 window.SocialSharing = require('vue-social-sharing');
 window.braintree = require('braintree-web-drop-in');
+window.Quill = require('quill');
 // window.braintree = require('braintree-web');
 
 /**

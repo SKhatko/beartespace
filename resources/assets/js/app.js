@@ -16,7 +16,8 @@ require('./bootstrap');
 import ElementUI from 'element-ui';
 import store from './store.js';
 import locale from 'element-ui/lib/locale/lang/en';
-import VueTelInput from 'vue-tel-input'
+import VueTelInput from 'vue-tel-input';
+import VueQuillEditor from 'vue-quill-editor';
 
 // Trans function takes translation from db return it on frontend
 Vue.prototype.trans = (key) => {
@@ -42,6 +43,8 @@ Vue.use(Vuex);
 Vue.use(ElementUI, {locale});
 Vue.use(VueTelInput);
 Vue.use(SocialSharing);
+Vue.use(VueQuillEditor, /* { default global options } */)
+
 
 
 Vue.component('subscription-form', require('./components/payment/SubscriptionForm.vue'));

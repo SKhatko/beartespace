@@ -41,7 +41,7 @@
 
                             <el-tab-pane :label="language.name">
 
-                                <vue-editor v-model="page.content[language.code]"></vue-editor>
+                                <quill-editor v-model="page.content[language.code]"></quill-editor>
 
                             </el-tab-pane>
 

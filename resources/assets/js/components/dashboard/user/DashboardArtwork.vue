@@ -101,18 +101,11 @@
 
                 <el-form-item label="Artwork Description" required prop="description">
                     <el-input type="textarea" placeholder="Please input" v-model="artwork.description"></el-input>
-                    <!--<vue-editor id="description" v-model="artwork.description"-->
-                    <!--placeholder="Artwork description"-->
-                    <!--:editorToolbar="artworkEditorToolbar"></vue-editor>-->
                 </el-form-item>
 
                 <el-form-item>
                     <span slot="label">Inspiration</span>
                     <el-input type="textarea" placeholder="Please input" v-model="artwork.inspiration"></el-input>
-
-                    <!--<vue-editor id="inspiration" v-model="artwork.inspiration"-->
-                    <!--placeholder="Things that inspire you"-->
-                    <!--:editorToolbar="artworkEditorToolbar"></vue-editor>-->
                 </el-form-item>
 
                 <el-row :gutter="20">
@@ -380,7 +373,6 @@
 
 <script>
 
-    import {VueEditor} from 'vue2-editor'
 
     export default {
 
@@ -439,15 +431,6 @@
                         {required: true, message: 'Select your processing time', trigger: ['blur', 'change']}
                     ]
                 },
-
-                artworkEditorToolbar: [
-                    [{'size': ['small', false, 'large', 'huge']}],
-                    ['bold', 'italic', 'underline', 'strike'],
-                    [{'align': ''}, {'align': 'center'}, {'align': 'right'}, {'align': 'justify'}],
-                    ['blockquote'],
-                    [{'list': 'ordered'}, {'list': 'bullet'}, {'list': 'check'}],
-                    [{'indent': '-1'}, {'indent': '+1'}],
-                ],
 
                 artworkSaved: false,
                 loading: false,

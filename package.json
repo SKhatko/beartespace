@@ -18,7 +18,6 @@
     "jquery": "^3.3.1",
     "laravel-mix": "^0.12.1",
     "lodash": "^4.17.10",
-    "uglifyjs-webpack-plugin": "^2.0.1",
     "vue": "^2.5.17",
     "webpack-bundle-analyzer": "^2.13.1"
   },
@@ -32,10 +31,10 @@
     "fontello-webpack-plugin": "^0.4.8",
     "lodash.get": "^4.4.2",
     "normalize.css": "^8.0.0",
+    "vue-quill-editor": "^3.0.6",
     "vue-social-sharing": "^2.3.3",
     "vue-tel-input": "^2.0.5",
     "vue-template-compiler": "^2.5.17",
-    "vue2-editor": "^2.4.3",
     "vuex": "^3.0.1"
   }
 }
