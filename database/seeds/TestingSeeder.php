@@ -62,7 +62,7 @@ class TestingSeeder extends Seeder {
 		$articles = Article::all();
 
 		foreach ( $articles as $article ) {
-			$article->image()->associate( factory( App\Media::class )->create(['folder' => '/artwork-image']));
+			$article->image()->associate( factory( App\Media::class )->create(['folder' => '/article-image']));
 			$article->save();
 		}
 	}

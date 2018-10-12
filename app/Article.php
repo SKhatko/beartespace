@@ -21,7 +21,7 @@ class Article extends Model {
 		if ( $this->image && file_exists( public_path( 'storage' . $this->image->url ) ) ) {
 			return $this->image->url;
 		} else {
-			return '';
+			return '/no-image-placeholder.png';
 		}
 	}
 }
