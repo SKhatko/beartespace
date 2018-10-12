@@ -13,6 +13,10 @@ class Article extends Model {
 		return $this->belongsToMany( Media::class, 'article_images', 'article_id', 'media_id' );
 	}
 
+	public function user() {
+		return $this->belongsTo(User::class);
+	}
+
 	public function image() {
 		return $this->belongsTo( Media::class );
 	}

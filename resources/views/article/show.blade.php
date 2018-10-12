@@ -10,16 +10,31 @@
 
             <div class="article">
 
-                <div class="article-image">
-                    <img src="/imagecache/original{{ $article->image_url }}" alt="">
-                </div>
+                <el-breadcrumb separator-class="el-icon-arrow-right" style="margin: 30px 0;">
+                    <el-breadcrumb-item><a href="/">Home</a></el-breadcrumb-item>
+                    <el-breadcrumb-item><a href="/article">Articles</a></el-breadcrumb-item>
+                    <el-breadcrumb-item>{{ $article->name }}</el-breadcrumb-item>
+                </el-breadcrumb>
+
 
                 <div class="article-name">
                     {{ $article->name }}
                 </div>
 
-                <div class="article-content">
-                    {!! $article->content !!}
+                @include('partials.share')
+
+                <div class="article-image">
+                    <img src="/imagecache/height-500{{ $article->image_url }}" alt="">
+                </div>
+
+                <div class="article--wrapper">
+                    <div class="article-author">
+                        By <a href="#">{{ $article->user->name }}</a>
+                    </div>
+
+                    <div class="article-content">
+                        {!! $article->content !!}
+                    </div>
                 </div>
 
             </div>

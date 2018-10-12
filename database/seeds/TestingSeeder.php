@@ -46,7 +46,9 @@ class TestingSeeder extends Seeder {
 //
 //				$user->image()->associate( factory( App\Media::class )->create() );
 //				$user->save();
-//
+			}
+
+			if($user->user_type == 'admin') {
 				$user->articles()->saveMany( factory( App\Article::class, 5 )->make() );
 			}
 		}

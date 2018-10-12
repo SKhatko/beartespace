@@ -563,12 +563,30 @@ body, html {
 
   .article {
 
-    &-image {
-      margin-bottom: 50px;
+    &-name {
+      @extend .h1;
+      margin-bottom: 30px;
     }
 
-    &-name {
-      @extend .h3;
+    &-image {
+      margin-top: 30px;
+      margin-bottom: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      img {
+        max-width: 100%;
+      }
+    }
+
+    &--wrapper {
+      max-width: 800px;
+      text-align: left;
+      margin: 40px auto;
+    }
+
+    &-author {
       margin-bottom: 30px;
     }
 
@@ -781,41 +799,6 @@ body, html {
       //margin-bottom: 20px;
     }
 
-    &-share {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: flex-start;
-
-      .el-button {
-        margin: 0px 10px 10px 0;
-      }
-
-      .google i {
-        color: #e82e2b;
-        font-size: 25px;
-      }
-
-      .facebook i {
-        color: #4267b2;
-        font-size: 25px;
-      }
-
-      .twitter i {
-        color: #1da1f2;
-        font-size: 25px;
-      }
-
-      .linkedin i {
-        color: #1da1f2;
-        font-size: 25px;
-      }
-
-      .email i {
-        color: #1da1f2;
-        font-size: 25px;
-      }
-    }
-
     &-status {
       color: darkred;
       font-size: 20px;
@@ -908,6 +891,45 @@ body, html {
       bottom: 0;
     }
   }
+}
+
+.app-partial-share {
+
+  .share {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+
+    .el-button {
+      margin: 0px 10px 10px 0;
+    }
+
+    .google i {
+      color: #e82e2b;
+      font-size: 25px;
+    }
+
+    .facebook i {
+      color: #4267b2;
+      font-size: 25px;
+    }
+
+    .twitter i {
+      color: #1da1f2;
+      font-size: 25px;
+    }
+
+    .linkedin i {
+      color: #1da1f2;
+      font-size: 25px;
+    }
+
+    .email i {
+      color: #1da1f2;
+      font-size: 25px;
+    }
+  }
+
 }
 
 .app-artworks-list {
