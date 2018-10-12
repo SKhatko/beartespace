@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Article extends Model {
 	protected $appends = [ 'image_url' ];
 
-	protected $fillable = ['name', 'content', 'image_id'];
+	protected $fillable = [ 'name', 'content', 'image_id' ];
 
 	public function images() {
 		return $this->belongsToMany( Media::class, 'article_images', 'article_id', 'media_id' );
@@ -18,8 +18,8 @@ class Article extends Model {
 	}
 
 	public function getImageUrlAttribute() {
-		if ( $this->image && file_exists( public_path( 'storage' . $this->image->url ) ) ) {
-			return '/storage' . $this->image->url;
+		if ( $this->image && file_exists( public_path( $this->image->url ) ) ) {
+			return $this->image->url;
 		} else {
 			return '/no-image-placeholder.png';
 		}

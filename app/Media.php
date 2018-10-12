@@ -18,7 +18,7 @@ class Media extends Model {
 	];
 
 	public function getUrlAttribute() {
-		return $this->attributes['folder'] . '/' . $this->attributes['name'];
+		return '/storage' . $this->attributes['folder'] . '/' . $this->attributes['name'];
 	}
 
 //	public function setUrlAttribute() {
