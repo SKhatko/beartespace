@@ -19,7 +19,7 @@ class Article extends Model {
 
 	public function getImageUrlAttribute() {
 		if ( $this->image && file_exists( public_path( 'storage' . $this->image->url ) ) ) {
-			return $this->image->url;
+			return '/storage' . $this->image->url;
 		} else {
 			return '/no-image-placeholder.png';
 		}
