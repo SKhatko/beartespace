@@ -48,8 +48,8 @@ class User extends Authenticatable {
 		return $this->hasMany( Artwork::class );
 	}
 
-	public function payments(){
-		return $this->hasMany(Payment::class);
+	public function payments() {
+		return $this->hasMany( Payment::class );
 	}
 
 	public function articles() {
@@ -57,7 +57,7 @@ class User extends Authenticatable {
 	}
 
 	public function sales() {
-		return $this->hasMany(Sale::class);
+		return $this->hasMany( Sale::class );
 	}
 
 	public function favoriteArtworks() {
@@ -120,8 +120,8 @@ class User extends Authenticatable {
 		return $query->where( 'user_type', 'artist' );
 	}
 
-	public function getNameAttribute($value) {
-		return $value ??  trim( $this->first_name ) . ' ' . trim( $this->last_name );
+	public function getNameAttribute( $value ) {
+		return $value ?? trim( $this->first_name ) . ' ' . trim( $this->last_name );
 	}
 
 	public function plans() {
@@ -129,7 +129,8 @@ class User extends Authenticatable {
 	}
 
 	public function getAvatarUrlAttribute() {
-		if ( $this->avatar && file_exists( public_path( 'storage' . $this->avatar->url ) ) ) {
+
+		if ( $this->avatar && file_exists( public_path( $this->avatar->url ) ) ) {
 			return $this->avatar->url;
 		} else {
 //			file_exists(public_path('images/avatar-placeholder.png'));
