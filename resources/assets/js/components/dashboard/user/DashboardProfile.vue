@@ -368,6 +368,8 @@
                 this.user = JSON.parse(this.user_);
             }
 
+            console.log(this.user);
+
             axios.get('/api/countries').then(response => {
                 this.countries = response.data;
             });
