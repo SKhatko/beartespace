@@ -1038,7 +1038,7 @@ body, html {
   .artwork {
     flex: 1;
     margin: 15px;
-    max-width: 400px;
+    max-width: 290px;
     min-width: 250px;
 
     &-top {
@@ -1061,7 +1061,8 @@ body, html {
 
     &-name {
       @extend .h4;
-      margin-bottom: 10px;
+      @extend %text-truncate;
+      margin: 10px 0;
     }
 
     &-price {
