@@ -25,7 +25,7 @@ class SocialLogin extends Controller {
 
 			return redirect()->intended( route( 'dashboard' ) );
 		} catch ( \Exception $e ) {
-			return redirect( route( 'login' ) )->with( 'errors', $e->getMessage() );
+			return redirect( route( 'login' ) )->with( 'inline-error', $e->getMessage() );
 		}
 	}
 
@@ -48,7 +48,7 @@ class SocialLogin extends Controller {
 		} catch ( \Exception $e ) {
 			//return $e->getMessage();
 			logger($e->getMessage());
-			return redirect( route( 'login' ) )->with( 'errors', $e->getMessage() );
+			return redirect( route( 'login' ) )->with( 'inline-error', $e->getMessage() );
 		}
 	}
 
@@ -68,7 +68,7 @@ class SocialLogin extends Controller {
 			return redirect()->intended( route( 'dashboard' ) );
 		} catch ( \Exception $e ) {
 			//return $e->getMessage();
-			return redirect( route( 'login' ) )->with( 'errors', $e->getMessage() );
+			return redirect( route( 'login' ) )->with( 'inline-errors', $e->getMessage() );
 		}
 	}
 
