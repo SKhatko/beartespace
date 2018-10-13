@@ -358,14 +358,6 @@
                 },
                 csrf: '',
                 countries: [],
-                profileEditorToolbar: [
-                    [{'size': ['small', false, 'large', 'huge']}],
-                    ['bold', 'italic', 'underline', 'strike'],
-                    [{'align': ''}, {'align': 'center'}, {'align': 'right'}, {'align': 'justify'}],
-                    ['blockquote'],
-                    [{'list': 'ordered'}, {'list': 'bullet'}, {'list': 'check'}],
-                    [{'indent': '-1'}, {'indent': '+1'}],
-                ],
             }
         },
 
@@ -434,8 +426,9 @@
                         axios.post('/api/profile/', this.user)
                             .then((response) => {
                                 console.log(response.data);
-                                // window.location = '/dashboard';
+                                window.location = '/dashboard';
                             }).catch(error => {
+                            this.loading = false;
                             console.log(error.response);
                         });
                     }
