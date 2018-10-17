@@ -359,6 +359,7 @@ body, html {
     .articles {
       padding-top: 50px;
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
       margin: 0 -15px;
     }
@@ -377,6 +378,7 @@ body, html {
       padding: 15px;
       text-align: left;
       flex: 1;
+      min-width: 270px;
 
       &-image {
         margin-bottom: 10px;
@@ -402,9 +404,9 @@ body, html {
 
     .artworks {
       padding-top: 50px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
+      //display: flex;
+      //flex-wrap: wrap;
+      //justify-content: space-between;
     }
 
     .artworks-bottom {
@@ -908,8 +910,8 @@ body, html {
     flex-wrap: wrap;
     justify-content: flex-start;
 
-    .el-button {
-      margin: 0px 10px 10px 0;
+    span {
+      cursor: pointer;
     }
 
     .google i {
@@ -933,8 +935,9 @@ body, html {
     }
 
     .email i {
-      color: #1da1f2;
-      font-size: 25px;
+      color: #f43b39;
+      font-size: 32px;
+      line-height: 28px;
     }
   }
 
@@ -1029,17 +1032,18 @@ body, html {
 }
 
 .app-artworks-block {
-  margin-top: 20px;
-  display: flex;
-  flex-wrap: wrap;
-  margin: 0 -15px;
-  text-align: left;
+  //margin-top: 20px;
+  //display: flex;
+  //flex-wrap: wrap;
+  //margin: 0 -15px;
+  //text-align: left;
 
-  .artwork {
-    flex: 1;
-    margin: 15px;
-    max-width: 290px;
-    min-width: 250px;
+  .block {
+    margin-bottom: 20px;
+    //flex: 1;
+    //margin: 15px;
+    //max-width: 290px;
+    //min-width: 250px;
 
     &-top {
       position: relative;
@@ -1057,10 +1061,12 @@ body, html {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      text-align: left;
     }
 
     &-name {
-      @extend .h4;
+      font-weight: 300;
+      font-size: 18px;
       @extend %text-truncate;
       margin: 10px 0;
     }

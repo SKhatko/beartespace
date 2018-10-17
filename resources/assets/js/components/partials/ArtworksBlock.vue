@@ -1,31 +1,33 @@
 <template>
 
-    <div class="app-artworks-block">
+    <el-row gutter="20" class="app-artworks-block">
+        <el-col :xs="12" :sm="6" :md="6" v-for="artwork in artworks" :key="artwork.id" class="block">
+            <el-card shadow="hover">
 
-        <el-card class="artwork" v-for="artwork in artworks" shadow="hover" :key="artwork.id">
+                <div class="block-top">
+                    <a :href="'/artwork/' + artwork.id" target="_blank" class="block-image">
+                        <img :src="'/imagecache/fit-290' + artwork.image_url">
+                    </a>
 
-            <div class="artwork-top">
-                <a :href="'/artwork/' + artwork.id" target="_blank" class="artwork-image">
-                    <img :src="'/imagecache/fit-290' + artwork.image_url">
-                </a>
-
-                <el-button :icon="favoriteIconClass(artwork)" class="artwork-favorite" circle
-                           @click="$store.commit('toggleFavorites', artwork)"></el-button>
-            </div>
-
-            <div class="artwork-info">
-                <a :href="'/artwork/' + artwork.id" target="_blank" class="artwork-name">
-                    {{ artwork.name }}
-                </a>
-
-                <div class="artwork-price">
-                    {{ artwork.formatted_price }}
+                    <el-button :icon="favoriteIconClass(artwork)" class="block-favorite" circle
+                               @click="$store.commit('toggleFavorites', artwork)"></el-button>
                 </div>
-            </div>
+
+                <div class="block-info">
+                    <a :href="'/artwork/' + artwork.id" target="_blank" class="block-name">
+                        {{ artwork.name }}
+                    </a>
+
+                    <div class="block-price">
+                        {{ artwork.formatted_price }}
+                    </div>
+                </div>
 
 
-        </el-card>
-    </div>
+            </el-card>
+
+        </el-col>
+    </el-row>
 
 </template>
 

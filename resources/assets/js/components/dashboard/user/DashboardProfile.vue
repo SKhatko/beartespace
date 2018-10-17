@@ -172,7 +172,7 @@
                     <el-form-item>
                         <span slot="label">About</span>
                         <el-input type="textarea" v-model="user.about"
-                                  placeholder="Let people something about you"></el-input>
+                                  placeholder="Let people know something about you"></el-input>
                     </el-form-item>
                 </el-col>
             </el-row>
