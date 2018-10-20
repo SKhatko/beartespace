@@ -97100,7 +97100,7 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('el-row', {
-    staticClass: "app-artworks-block",
+    staticClass: "app-artworks-blocks",
     attrs: {
       "gutter": 20
     }
@@ -97118,9 +97118,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "shadow": "hover"
       }
     }, [_c('div', {
-      staticClass: "block-top"
+      staticClass: "block-artwork"
+    }, [_c('div', {
+      staticClass: "block-artwork-top"
     }, [_c('a', {
-      staticClass: "block-image",
+      staticClass: "block-artwork-image",
       attrs: {
         "href": '/artwork/' + artwork.id,
         "target": "_blank"
@@ -97130,7 +97132,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "src": '/imagecache/fit-290' + artwork.image_url
       }
     })]), _vm._v(" "), _c('el-button', {
-      staticClass: "block-favorite",
+      staticClass: "block-artwork-favorite",
       attrs: {
         "icon": _vm.favoriteIconClass(artwork),
         "circle": ""
@@ -97141,16 +97143,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     })], 1), _vm._v(" "), _c('div', {
-      staticClass: "block-info"
+      staticClass: "block-artwork-info"
     }, [_c('a', {
-      staticClass: "block-name",
+      staticClass: "block-artwork-name",
       attrs: {
         "href": '/artwork/' + artwork.id,
         "target": "_blank"
       }
-    }, [_vm._v("\n                    " + _vm._s(artwork.name) + "\n                ")]), _vm._v(" "), _c('div', {
-      staticClass: "block-price"
-    }, [_vm._v("\n                    " + _vm._s(artwork.formatted_price) + "\n                ")])])])], 1)
+    }, [_vm._v("\n                        " + _vm._s(artwork.name) + "\n                    ")]), _vm._v(" "), _c('div', {
+      staticClass: "block-artwork-price"
+    }, [_vm._v("\n                        " + _vm._s(artwork.formatted_price) + "\n                    ")])])])])], 1)
   }))
 },staticRenderFns: []}
 module.exports.render._withStripped = true

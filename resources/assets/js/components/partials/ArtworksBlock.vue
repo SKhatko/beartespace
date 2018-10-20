@@ -1,28 +1,28 @@
 <template>
 
-    <el-row :gutter="20" class="app-artworks-block">
+    <el-row :gutter="20" class="app-artworks-blocks">
         <el-col :xs="12" :sm="6" :md="6" v-for="artwork in artworks" :key="artwork.id" class="block">
             <el-card shadow="hover">
+                <div class="block-artwork">
+                    <div class="block-artwork-top">
+                        <a :href="'/artwork/' + artwork.id" target="_blank" class="block-artwork-image">
+                            <img :src="'/imagecache/fit-290' + artwork.image_url">
+                        </a>
 
-                <div class="block-top">
-                    <a :href="'/artwork/' + artwork.id" target="_blank" class="block-image">
-                        <img :src="'/imagecache/fit-290' + artwork.image_url">
-                    </a>
+                        <el-button :icon="favoriteIconClass(artwork)" class="block-artwork-favorite" circle
+                                   @click="$store.commit('toggleFavorites', artwork)"></el-button>
+                    </div>
 
-                    <el-button :icon="favoriteIconClass(artwork)" class="block-favorite" circle
-                               @click="$store.commit('toggleFavorites', artwork)"></el-button>
-                </div>
+                    <div class="block-artwork-info">
+                        <a :href="'/artwork/' + artwork.id" target="_blank" class="block-artwork-name">
+                            {{ artwork.name }}
+                        </a>
 
-                <div class="block-info">
-                    <a :href="'/artwork/' + artwork.id" target="_blank" class="block-name">
-                        {{ artwork.name }}
-                    </a>
-
-                    <div class="block-price">
-                        {{ artwork.formatted_price }}
+                        <div class="block-artwork-price">
+                            {{ artwork.formatted_price }}
+                        </div>
                     </div>
                 </div>
-
 
             </el-card>
 
