@@ -13,36 +13,38 @@
 @section('content')
 
     <div class="app-index">
-        @if($randomArtwork && $randomArtwork->image)
-            <div class="app-index-banner"
-                 style="background-image: url('/imagecache/original{{ $randomArtwork->image_url }}')">
-
-                <div class="banner--fade">
-
-                    <h1 class="banner-title">We sell Art - Join Us</h1>
-
-                    <div class="banner-buttons">
-                        <a href="{{ route('artworks') }}" class="el-button el-button--default is-plain">Buy Art</a>
-                        <a href="{{ route('auctions') }}" class="el-button el-button--default is-plain">Go to
-                            Auctions</a>
-                    </div>
-
-                    <div class="banner-info">
-                        <span>{{ $randomArtwork->user->name }}</span>
-                        <span>{{ $randomArtwork->title }}</span>
-                        <span>{{ $randomArtwork->size() }}</span>
-                        <span>
-                            @foreach($randomArtwork->medium as $medium)
-                                {{ trans('medium.' . $medium) && strpos(trans('medium.' . $medium), 'medium') !== false ? $medium : trans('medium.' . $medium)}}
-                            @endforeach
-                        </span>
-                    </div>
-
-                </div>
-            </div>
-        @endif
 
         <div class="app--wrapper">
+
+            @if($randomArtwork && $randomArtwork->image)
+                <div class="app-index-banner"
+                     style="background-image: url('/imagecache/fit-1200{{ $randomArtwork->image_url }}')">
+
+                    <div class="banner--fade">
+
+                        <h1 class="banner-title">We sell Art - Join Us</h1>
+
+                        <div class="banner-buttons">
+                            <a href="{{ route('artworks') }}" class="el-button el-button--default is-plain">Buy Art</a>
+                            <a href="{{ route('auctions') }}" class="el-button el-button--default is-plain">Go to
+                                Auctions</a>
+                        </div>
+
+                        <div class="banner-info">
+                            <span>{{ $randomArtwork->user->name }}</span>
+                            <span>{{ $randomArtwork->title }}</span>
+                            <span>{{ $randomArtwork->size() }}</span>
+                            <span>
+                            @foreach($randomArtwork->medium as $medium)
+                                    {{ trans('medium.' . $medium) && strpos(trans('medium.' . $medium), 'medium') !== false ? $medium : trans('medium.' . $medium)}}
+                                @endforeach
+                        </span>
+                        </div>
+
+                    </div>
+                </div>
+            @endif
+
 
             <div class="app-index-auctions">
 
@@ -69,42 +71,37 @@
                 </div>
 
             </div>
-        </div>
-
-        <div class="app--wrapper">
 
             <div class="app-index-articles">
 
-                <div class="articles">
-                    <!-- slides -->
-                    @foreach($articles as $article)
+                <el-row :gutter="20">
 
-                        <a href="{{ route('artwork', $article->id) }}" target="_blank" class="article">
-                            @if($article->image)
-                                <div class="article-image">
-                                    <img src="/imagecache/fit-290{{ $article->image_url }}"
-                                         alt="{{ $article->image->name }}">
+                    @foreach($articles as $article)
+                        <el-col :xs="12" :sm="6">
+
+                            <a href="{{ route('article', $article->id) }}" target="_blank" class="article">
+                                @if($article->image)
+                                    <div class="article-image">
+                                        <img src="/imagecache/fit-290{{ $article->image_url }}"
+                                             alt="{{ $article->image->name }}">
+                                    </div>
+                                @endif
+                                <div class="article-name">
+                                    {{ $article->name }}
                                 </div>
-                            @endif
-                            <div class="article-content">
-                                <div class="h3">{{ $article->name }}</div>
-                            </div>
-                        </a>
+                            </a>
+                        </el-col>
 
                     @endforeach
 
+                </el-row>
 
-                </div>
-
-                <div class="articles-bottom">
+                <div class="app-index-articles-bottom">
                     <a href="{{ route('articles') }}"
-                       class="articles-bottom-link el-button el-button--default is-plain">More Articles</a>
+                       class="app-index-articles-bottom-link el-button el-button--default is-plain">More Articles</a>
                 </div>
 
             </div>
-        </div>
-
-        <div class="app--wrapper">
 
             <div class="app-index-artworks">
 
@@ -129,6 +126,7 @@
                 </div>
 
             </div>
+
         </div>
 
 

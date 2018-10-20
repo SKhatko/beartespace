@@ -345,7 +345,6 @@ body, html {
         font-weight: bold;
       }
     }
-
   }
 
   &-articles {
@@ -353,15 +352,7 @@ body, html {
     text-align: center;
     padding: 45px 15px;
 
-    .articles {
-      padding-top: 50px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      margin: 0 -15px;
-    }
-
-    .articles-bottom {
+    &-bottom {
       text-align: right;
       padding-top: 10px;
 
@@ -372,23 +363,28 @@ body, html {
     }
 
     .article {
+      display: block;
       padding: 15px;
       text-align: left;
-      flex: 1;
-      min-width: 270px;
+
+      &:hover {
+        //box-shadow: $--box-shadow-light;
+        text-decoration: underline;
+      }
 
       &-image {
         margin-bottom: 10px;
         display: block;
 
         img {
-          height: 300px;
-          max-width: 400px;
+          width: 100%;
         }
       }
 
-      &-content {
-        //margin-left: 20px;
+      &-name {
+        font-weight: 400;
+        font-size: 20px;
+        margin: 10px 0;
       }
 
     }
