@@ -34,6 +34,10 @@ class UserController extends Controller {
 		return view( 'dashboard.admin.users', compact( 'title', 'users' ) );
 	}
 
+	public function people($id) {
+		return $id;
+	}
+
 	public function profile() {
 
 		$title = trans( 'portal.profile' );

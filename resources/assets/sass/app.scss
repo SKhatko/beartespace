@@ -6,7 +6,6 @@
 @import "~element-ui/packages/theme-chalk/src/index";
 @import '~element-ui/lib/theme-chalk/display.css';
 @import '~vue-tel-input/dist/vue-tel-input';
-
 @import '~quill/dist/quill.core.css';
 @import '~quill/dist/quill.snow.css';
 @import '~quill/dist/quill.bubble.css';
@@ -539,20 +538,28 @@ body, html {
 .app-articles {
   padding: 15px;
 
-
   .articles {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 0 -15px;
+
   }
 
   .article {
-    padding: 0 15px;
-    margin-bottom: 20px;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
+    display: block;
+
+    &-image {
+      margin-bottom: 10px;
+
+      img {
+        width: 100%;
+      }
+    }
+
+    &-name {
+      width: 400px;
+      max-width: 100%;
+      font-size: 18px;
+      @extend %text-truncate;
+    }
+
   }
 
 }
@@ -586,11 +593,24 @@ body, html {
     }
 
     &-author {
+      @extend .h4;
       margin-bottom: 30px;
+
+      a {
+        text-decoration: underline;
+
+        &:hover {
+          text-decoration: none;
+        }
+      }
     }
 
-
     &-content {
+      line-height: 25px;
+
+      p {
+        @extend .p;
+      }
 
       img {
         max-width: 100%;
@@ -1610,11 +1630,11 @@ body, html {
         display: flex;
         align-items: center;
 
-         img {
-           border-radius: 50%;
-           overflow: hidden;
-           margin-right: 5px;
-         }
+        img {
+          border-radius: 50%;
+          overflow: hidden;
+          margin-right: 5px;
+        }
       }
 
       &-manage {

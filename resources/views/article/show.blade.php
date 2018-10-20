@@ -33,7 +33,7 @@
                     </div>
 
                     <div class="article-published">
-                        Published {{ $article->publish_at->diffForHumans() }}
+{{--                        Published {{ $article->publish_at->diffForHumans() }}--}}
                     </div>
 
                     <div class="article-content">

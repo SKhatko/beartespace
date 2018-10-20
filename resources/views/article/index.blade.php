@@ -8,20 +8,22 @@
 
         <div class="app-articles">
 
-            <div class="articles">
-
+            <el-row :gutter="20" class="articles">
 
                 @foreach($articles as $article)
-                    <a href="{{ route('article', $article->id) }}" target="_blank" class="article">
-                        <div class="article-image">
-                            <img src="/imagecache/fit-290{{ $article->image_url }}" alt="">
-                        </div>
+                    <el-col :xs="12" :sm="6" style="margin-bottom: 20px;">
+                        <a href="{{ route('article', $article->id) }}" target="_blank" class="article">
+                            <div class="article-image">
+                                <img src="/imagecache/fit-290{{ $article->image_url }}" alt="">
+                            </div>
 
-                        <div class="h2">{{ $article->name }}</div>
-                    </a>
+                            <div class="article-name">{{ $article->name }}</div>
+                        </a>
+                    </el-col>
 
                 @endforeach
-            </div>
+
+            </el-row>
 
             <div class="articles-bottom" style="text-align: center;margin: 50px 0;">
 
