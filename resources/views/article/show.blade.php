@@ -29,7 +29,11 @@
 
                 <div class="article--wrapper">
                     <div class="article-author">
-                        By <a href="#">{{ $article->user->name }}</a>
+                        By <a href="{{ route('people', $article->user->id) }}">{{ $article->user->name }}</a>
+                    </div>
+
+                    <div class="article-published">
+                        Published {{ $article->publish_at->diffForHumans() }}
                     </div>
 
                     <div class="article-content">
