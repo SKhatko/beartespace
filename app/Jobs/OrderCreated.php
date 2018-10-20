@@ -24,13 +24,13 @@ class OrderCreated implements ShouldQueue {
 
 		$this->order = $order;
 
-//		Mail::to( 's.a.hatko@gmail.com' )->queue( new \App\Mail\OrderCreated( $this->order ) );
-		Mail::to( $this->order->user )->queue( new \App\Mail\OrderCreated( $this->order ) );
+		Mail::to( 's.a.hatko@gmail.com' )->queue( new \App\Mail\OrderCreated( $this->order ) );
+//		Mail::to( $this->order->user )->queue( new \App\Mail\OrderCreated( $this->order ) );
 
 		foreach ($this->order->sales as $sale) {
-			Mail::to( $sale->user )->queue( new \App\Mail\SaleCreated( $sale ) );
+//			Mail::to( $sale->user )->queue( new \App\Mail\SaleCreated( $sale ) );
 //			Mail::to( $this->order->user )->queue( new \App\Mail\SaleCreated( $sale ) );
-//			Mail::to( 's.a.hatko@gmail.com' )->queue( new \App\Mail\SaleCreated( $sale ) );
+			Mail::to( 's.a.hatko@gmail.com' )->queue( new \App\Mail\SaleCreated( $sale ) );
 		}
 
 	}
