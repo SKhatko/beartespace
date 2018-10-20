@@ -31,7 +31,7 @@ class OrderCreated extends Mailable
     public function build()
     {
         return $this->markdown('mail.order-created')
-	        ->subject( 'Order confirmation from ' . $this->order->created_at->toFormattedDateString() );
+	        ->subject( 'Reservation confirmation from ' . $this->order->created_at->toFormattedDateString() );
 
     }
 }

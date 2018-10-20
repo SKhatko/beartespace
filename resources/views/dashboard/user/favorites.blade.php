@@ -13,13 +13,22 @@
                 <el-tabs value="artworks">
 
                     <el-tab-pane label="Artworks" name="artworks">
-                        <artworks-block artworks_="{{ $artworks }}"></artworks-block>
+                        @if($artworks->count())
+                            <artworks-block artworks_="{{ $artworks }}"></artworks-block>
+                        @else
+
+                            <a href="/artwork" class="el-button el-button--default">Add favorite artworks</a>
+                        @endif
                         {{--                        @include('partials.artworks', $artworks)--}}
                     </el-tab-pane>
 
                     <el-tab-pane label="Followed People" name="artists">
+                        @if($artists->count())
+                            @include('artist.artists-block', ['artists' => $artists])
+                        @else
 
-                        @include('artist.artists-block', ['artists' => $artists])
+                            <a href="/artist" class="el-button el-button--default">Add favorite artists</a>
+                        @endif
                     </el-tab-pane>
                 </el-tabs>
             </el-card>

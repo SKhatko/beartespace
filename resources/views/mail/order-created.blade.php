@@ -18,7 +18,7 @@ You sent a payment of **{{ currency($order->amount) }}** to BeArteSpace, which w
 @endcomponent
 
 ##Shipping address
-{{ $order->addressString() }}
+{!! $order->addressString() !!}
 
 We have informed the artist about your reservation of the artwork. Soon he will confirm date of shipping, which we will pass to you.
 

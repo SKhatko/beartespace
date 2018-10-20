@@ -14,7 +14,8 @@ Your artwork **{{ $sale->artwork->name }}** has been sold for **{{ currency($sal
 
 <hr>
 ##Shipping address
-{{ $sale->order->addressString() }}
+{!! $sale->order->addressString() !!}
+
 {{--##Order confirmation from **{{ $order->created_at->toFormattedDateString() }}**--}}
 
 {{--You sent a payment of **{{ currency($order->amount) }}** to BeArteSpace--}}

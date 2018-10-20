@@ -6,9 +6,11 @@ use App\Artwork;
 use App\Article;
 use App\Contact_query;
 use App\Country;
+use App\Order;
 use App\User;
 use Illuminate\Http\Request;
 use App\Setting;
+use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller {
 

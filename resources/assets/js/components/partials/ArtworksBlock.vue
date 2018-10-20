@@ -1,6 +1,6 @@
 <template>
 
-    <el-row gutter="20" class="app-artworks-block">
+    <el-row :gutter="20" class="app-artworks-block">
         <el-col :xs="12" :sm="6" :md="6" v-for="artwork in artworks" :key="artwork.id" class="block">
             <el-card shadow="hover">
 
