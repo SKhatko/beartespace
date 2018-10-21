@@ -14,6 +14,7 @@
 
                     <artworks-menu></artworks-menu>
 
+                    {{--<artworks-block artworks_="{{ $artworks->data }}"></artworks-block>--}}
                     @include('partials.artworks', $artworks)
 
                 </div>

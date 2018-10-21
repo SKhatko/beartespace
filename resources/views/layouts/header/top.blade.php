@@ -8,15 +8,15 @@
         </div>
     @endif
 
-    @if(auth()->user() && !auth()->user()->email_verified)
-        <div class="app-wrapper">
-            <div class="email">
-                <div class="h4">Hi, your account is unconfirmed.</div>
-                <div class="p"> Confirm <b>{{ auth()->user()->email }}</b> for access to all functionality BearteSpace.</div>
-                <a href="{{ route('confirm-email.resend') }}" class="el-button el-button--default el-button--mini" style="margin-right: 10px;">Resend email</a>
-                <a href="{{ route('dashboard.profile') }}">Change your email</a>
-            </div>
-        </div>
+    {{--@if(auth()->user() && !auth()->user()->email_verified)--}}
+        {{--<div class="app-wrapper">--}}
+            {{--<div class="email">--}}
+                {{--<div class="h4">Hi, your account is unconfirmed.</div>--}}
+                {{--<div class="p"> Confirm <b>{{ auth()->user()->email }}</b> for access to all functionality BearteSpace.</div>--}}
+                {{--<a href="{{ route('confirm-email.resend') }}" class="el-button el-button--default el-button--mini" style="margin-right: 10px;">Resend email</a>--}}
+                {{--<a href="{{ route('dashboard.profile') }}">Change your email</a>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+    {{--@endif--}}
 
-    @endif
 </div>

@@ -10,7 +10,7 @@
 
         <div class="favorites">
             <el-card>
-                <el-tabs value="artworks">
+                <el-tabs value="{{ $category ? $category : 'artworks' }}">
 
                     <el-tab-pane label="Artworks" name="artworks">
                         @if($artworks->count())

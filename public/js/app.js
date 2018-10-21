@@ -97177,13 +97177,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     slot: "header"
   }, [_c('div', {
     staticClass: "profile-header"
-  }, [_c('span', [_vm._v("Your Public Profile")]), _vm._v(" "), _c('a', {
+  }, [_c('span', [_vm._v("Your Public Profile")]), _vm._v(" "), (!_vm.user.user_type === 'user') ? _c('a', {
     staticClass: "el-button el-button--default el-button--mini",
     attrs: {
       "href": '/artist/' + _vm.user.id,
       "target": "_blank"
     }
-  }, [_vm._v("View\n                profile")])])]), _vm._v(" "), _c('el-form', {
+  }, [_vm._v("View\n                profile")]) : _vm._e()])]), _vm._v(" "), _c('el-form', {
     attrs: {
       "label-position": "top"
     }

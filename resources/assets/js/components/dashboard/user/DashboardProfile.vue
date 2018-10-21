@@ -4,7 +4,7 @@
         <div slot="header">
             <div class="profile-header">
                 <span>Your Public Profile</span>
-                <a :href="'/artist/' + user.id" target="_blank" class="el-button el-button--default el-button--mini">View
+                <a v-if="!user.user_type === 'user'" :href="'/artist/' + user.id" target="_blank" class="el-button el-button--default el-button--mini">View
                     profile</a>
             </div>
         </div>

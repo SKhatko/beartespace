@@ -12,31 +12,41 @@
                     <div class="h2" style="margin-bottom: 10px;">{{ auth()->user()->name }}</div>
 
                     <div class="h6" style="margin-bottom: 10px;">
-                        <a href="/dashboard/favorites"
+                        <a href="/dashboard/favorites/artists"
                            style="margin-right: 10px;"><b>{{ auth()->user()->followedBy->count() }}</b> Following</a>
-                        <a href="/dashboard/favorites"><b>{{ auth()->user()->followedUsers->count() }}</b> Followers</a>
+                        {{--                        @if(auth()->user()->canUpload())--}}
+                        {{--<a href="/dashboard/favorites"><b>{{ auth()->user()->followedUsers->count() }}</b> Followers</a>--}}
+                        {{--@endif--}}
+
+                        <a style="margin-right: 10px;"
+                           href="/dashboard/favorites/artworks"><b>{{ auth()->user()->favoriteArtworks->count() }}</b>
+                            Favorite Artworks</a>
+                        <a style="margin-right: 10px;"
+                           href="/dashboard/order"><b>{{ auth()->user()->orders->count() }}</b> Orders</a>
+
                     </div>
 
                     <hr>
-                    <div class="h6" style="margin-bottom: 10px;">
-                        <a href="/dashboard/order"><b>{{ auth()->user()->orders->count() }}</b> Orders</a>
-                    </div>
 
-                    <div class="h6" style="margin-bottom: 10px;">
-                        <a href="/dashboard/artwork"><b>{{ auth()->user()->artworks->count() }}</b> Artworks</a>
-                    </div>
+                    @if(auth()->user()->canUpload())
+                        <div class="h6" style="margin-bottom: 10px;">
+                            <a href="/dashboard/artwork"><b>{{ auth()->user()->artworks->count() }}</b> Artworks</a>
+                        </div>
 
-                    <div class="h6" style="margin-bottom: 10px;">
-                        <a href="/dashboard/sale"><b>{{ auth()->user()->sales->count() }}</b> Sales</a>
-                    </div>
+                        <div class="h6" style="margin-bottom: 10px;">
+                            <a href="/dashboard/sale"><b>{{ auth()->user()->sales->count() }}</b> Sales</a>
+                        </div>
+                    @endif
 
                     <a href="/dashboard/profile" class="el-button el-button--default" style="margin-bottom: 20px;">Edit
                         profile</a>
-                    <a href="/dashboard/account" class="el-button el-button--default">Edit account</a>
+                    <a href="/dashboard/account" class="el-button el-button--default">Account Settings</a>
 
 
-                    <a href="/dashboard/artwork/create" class="el-button el-button--default">Upload Artwork</a>
-                    <a href="/dashboard/artwork" class="el-button el-button--default">Artworks</a>
+                    @if(auth()->user()->canUpload())
+                        <a href="/dashboard/artwork/create" class="el-button el-button--default">Upload Artwork</a>
+                        <a href="/dashboard/artwork" class="el-button el-button--default">Artworks</a>
+                    @endif
                 </div>
             </div>
 

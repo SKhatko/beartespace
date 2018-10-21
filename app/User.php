@@ -116,6 +116,10 @@ class User extends Authenticatable {
 		return $this->user_type == 'artist';
 	}
 
+	public function canUpload() {
+		return $this->user_type === 'artist' || $this->user_type === 'gallery';
+	}
+
 	public function scopeArtist( $query ) {
 		return $query->where( 'user_type', 'artist' );
 	}

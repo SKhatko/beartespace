@@ -114,14 +114,14 @@ class UserController extends Controller {
 		return view( 'artist.show', compact( 'artist' ) );
 	}
 
-	public function favoriteArtworks() {
+	public function favoriteArtworks($category = 'artworks') {
 
 		$user = auth()->user();
 
 		$artworks = $user->favoriteArtworks()->orderBy( 'id', 'desc' )->get();
 		$artists = $user->followedUsers()->orderBy( 'id', 'desc' )->get();
 
-		return view( 'dashboard.user.favorites', compact( 'artworks', 'artists', 'user') );
+		return view( 'dashboard.user.favorites', compact( 'artworks', 'artists', 'user', 'category') );
 	}
 
 	public function orders() {

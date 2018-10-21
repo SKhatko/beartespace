@@ -137,7 +137,7 @@ Route::group( [ 'middleware' => 'web' ], function () {
 		Route::get( 'account', 'UserController@accountSettings')->name('dashboard.account');
 		Route::get( 'order', 'UserController@orders' )->name( 'dashboard.orders' );
 
-		Route::get( 'favorites', 'UserController@favoriteArtworks' )->name( 'dashboard.favorites' );
+		Route::get( 'favorites/{category?}', 'UserController@favoriteArtworks' )->name( 'dashboard.favorites' );
 
 		// Not user (admin, artist, gallery)
 		Route::group( [ 'middleware' => 'artist' ], function () {
