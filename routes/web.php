@@ -65,8 +65,12 @@ Route::group( [ 'middleware' => 'web' ], function () {
 
 	Route::get( '/', 'HomeController@index' )->name( 'home' );
 	Route::get( '/home', 'HomeController@index' );
+
+	// Sell
+	Route::get( '/sell', 'HomeController@sell' );
 	Route::get( '/sell', 'HomeController@sell' );
 
+	// General routes
 	Route::get( '/auction', 'AuctionController@index' )->name( 'auctions' );
 	Route::get( '/auction/{id}', 'AuctionController@show' )->name( 'auction' );
 	Route::get( '/artwork', 'ArtworkController@artworks' )->name( 'artworks' );

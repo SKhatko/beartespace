@@ -1,69 +1,33 @@
 <template>
 
-    <el-main class="app-auth">
+    <el-form :model="user" :rules="rules" ref="user" method="post" action="/login"
+             @submit.native.prevent="login">
 
-        <el-card class="box-card app-auth-login">
-            <div slot="header" class="clearfix">Sign in</div>
+        <input type="hidden" name="_token" :value="csrf">
 
-            <slot></slot>
+        <el-form-item label="E-Mail Address" prop="email">
+            <el-input type="email" placeholder="Email" v-model="user.email" name="email" autofocus></el-input>
+        </el-form-item>
 
-            <el-form :model="user" :rules="rules" ref="user" method="post" action="/login"
-                     @submit.native.prevent="login">
+        <el-form-item label="Password" prop="password">
+            <el-input :type="passwordType" placeholder="Password" v-model="user.password" name="password">
+                <el-button slot="append" icon="el-icon-view" @click="togglePasswordView"></el-button>
+            </el-input>
+        </el-form-item>
 
-                <input type="hidden" name="_token" :value="csrf">
+        <el-form-item>
+            <el-checkbox name="remember" :checked="user.remember">Remember Me</el-checkbox>
 
-                <el-form-item label="E-Mail Address" prop="email">
-                    <el-input type="email" placeholder="Email" v-model="user.email" name="email" autofocus></el-input>
-                </el-form-item>
+            <a href="/password/reset" style="float: right;text-decoration: underline;">Forgot Your Password?</a>
+        </el-form-item>
 
-                <el-form-item label="Password" prop="password">
-                    <el-input :type="passwordType" placeholder="Password" v-model="user.password" name="password">
-                        <el-button slot="append" icon="el-icon-view" @click="togglePasswordView"></el-button>
-                    </el-input>
-                </el-form-item>
+        <el-form-item>
+            <el-button type="primary" native-type="submit" :loading="loading" style="width:100%">
+                Sign in
+            </el-button>
+        </el-form-item>
 
-                <el-form-item>
-                    <el-checkbox name="remember" :checked="user.remember">Remember Me</el-checkbox>
-
-                    <a href="/password/reset" style="float: right;text-decoration: underline;">Forgot Your Password?</a>
-                </el-form-item>
-
-                <el-form-item>
-                    <el-button type="primary" native-type="submit" :loading="loading" style="width:100%">
-                        Sign in
-                    </el-button>
-                </el-form-item>
-
-            </el-form>
-
-            <div class="h5" style="margin: 20px 0; text-align: center;">or</div>
-
-            <a href="/login/facebook" class="el-button el-button--default is-plain" style="display: block;">
-                Continue with Facebook
-            </a>
-
-            <a href="/login/google" class="el-button el-button--default is-plain"
-               style="display: block;margin: 15px 0;">
-                Continue with Google
-            </a>
-
-            <!--<a href="/login/twitter" class="el-button el-button&#45;&#45;default is-plain" style="display: block;margin: 0;">-->
-                <!--Continue with Twitter-->
-            <!--</a>-->
-
-            <p class="small">
-                By Registering, you agree that you've read and accepted our <a href="/pages/user-agreement"
-                                                                               target="_blank"
-                                                                               style="font-weight: bold;">User
-                Agreement</a>, you're at least 18 years
-                old, and you consent to our <a href="/page/cookies-and-privacy" target="_blank"
-                                               style="font-weight: bold;">Privacy Notice</a> and receiving marketing
-                communications from us.
-            </p>
-
-        </el-card>
-
-    </el-main>
+    </el-form>
 
 </template>
 

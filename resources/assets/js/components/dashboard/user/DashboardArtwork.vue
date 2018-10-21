@@ -5,7 +5,7 @@
             <el-card style="margin-bottom: 20px;">
                 <div slot="header" class="artwork-header">
                     <span>Photos</span>
-                    <a href="/" target="_blank" class="el-button el-button--default el-button--mini">Preview</a>
+                    <a v-if="artwork_" href="/" target="_blank" class="el-button el-button--default el-button--mini">Preview</a>
                 </div>
 
                 <el-form-item label="Upload primary photo of your artwork." required prop="image">
@@ -188,9 +188,11 @@
                     </el-col>
                     <el-col :sm="4" style="margin-top: 50px;">
                         <el-form-item>
-                            <el-checkbox v-model="artwork.optional_size" v-if="artwork.category === 'painting'">Has frame
+                            <el-checkbox v-model="artwork.optional_size" v-if="artwork.category === 'painting'">Has
+                                frame
                             </el-checkbox>
-                            <el-checkbox v-model="artwork.optional_size" v-if="artwork.category === 'sculpture'">Has base
+                            <el-checkbox v-model="artwork.optional_size" v-if="artwork.category === 'sculpture'">Has
+                                base
                             </el-checkbox>
                         </el-form-item>
                     </el-col>
@@ -343,7 +345,8 @@
                         <el-form-item label="Processing time" required prop="processing_time">
                             <el-select filterable value="artwork.processing_time" v-model="artwork.processing_time"
                                        placeholder="Select your processing time">
-                                <el-option v-for="time in options('processing-time')" :key="time.value" :label="time.label"
+                                <el-option v-for="time in options('processing-time')" :key="time.value"
+                                           :label="time.label"
                                            :value="time.value"></el-option>
                             </el-select>
                         </el-form-item>
@@ -471,21 +474,7 @@
                                 if (response.data.data) {
                                     console.log(response.data);
 
-                                    let test = false;
-
-                                    if (test) {
-                                        this.$message({
-                                            showClose: true,
-                                            message: response.data.message,
-                                            type: response.data.status
-                                        });
-
-                                        this.artwork = response.data.data;
-                                        this.artwork.image = [response.data.data.image]
-                                        this.loading = false;
-                                    } else {
-                                        window.location.pathname = '/dashboard/artwork';
-                                    }
+                                    window.location.pathname = '/dashboard/artwork';
                                 } else {
                                     console.log(response.data);
                                 }

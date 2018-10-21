@@ -97,9 +97,11 @@
                         <a href="{{route('dashboard.favorites')}}" class="el-dropdown-link">Favorites</a>
                     </el-dropdown-item>
 
-                    <el-dropdown-item>
-                        <a href="{{ route('dashboard.orders') }}" class="el-dropdown-link">Orders</a>
-                    </el-dropdown-item>
+                    @if(auth()->user()->orders->count() > 0 )
+                        <el-dropdown-item>
+                            <a href="{{ route('dashboard.orders') }}" class="el-dropdown-link">Orders</a>
+                        </el-dropdown-item>
+                    @endif
 
                     @if(!auth()->user()->isUser())
 

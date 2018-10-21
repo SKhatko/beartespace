@@ -320,27 +320,6 @@
         },
 
         data() {
-            let userNameValidator = (rule, value, callback) => {
-                if (!value) {
-                    callback();
-                } else {
-                    axios.get('/api/user/check-username/' + value)
-                        .then(response => {
-                            console.log(response.data);
-                            if (response.data) {
-                                this.user.user_name = response.data;
-
-                                callback();
-                            } else {
-                                callback(new Error('This username is already taken'));
-                            }
-                        })
-                        .catch(error => {
-                            console.log(error.response);
-                            callback()
-                        });
-                }
-            };
 
             return {
                 loading: false,

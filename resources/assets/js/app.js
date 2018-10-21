@@ -62,6 +62,9 @@ Vue.component('password-reset-form', require('./components/auth/PasswordResetFor
 Vue.component('login-form', require('./components/auth/LoginForm.vue'));
 Vue.component('change-email-form', require('./components/auth/ChangeEmailForm.vue'));
 
+// Sell
+Vue.component('username-form', require('./components/sell/UsernameForm.vue'));
+
 // Admin
 Vue.component('settings', require('./components/dashboard/admin/Settings'));
 Vue.component('translations', require('./components/dashboard/admin/Translations.vue'));
