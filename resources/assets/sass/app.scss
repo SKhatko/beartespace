@@ -150,6 +150,14 @@ body, html {
     }
   }
 
+  &-sell {
+    flex: 1;
+
+    .el-step__head {
+      margin-bottom: 3px;
+    }
+  }
+
   &-search {
     display: flex;
     align-items: center;
@@ -875,7 +883,7 @@ body, html {
   padding: 15px;
 }
 
-.app-dashboard-artwork {
+.app-artwork-form {
 
   .artwork {
 
@@ -1390,11 +1398,109 @@ body, html {
 }
 
 .app-sell {
-  margin: 80px 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+
+  &-index {
+    margin: 80px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &-profile {
+    padding: 15px;
+  }
+
+  &-artworks {
+    padding: 15px;
+
+    .sell-artwork {
+      margin-bottom: 20px;
+
+      &-new {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 180px;
+
+        &-link {
+
+        }
+      }
+
+      &-image {
+        position: relative;
+
+        img {
+          width: 100%;
+        }
+      }
+
+      &-edit {
+        position: absolute;
+        right: 20px;
+        top: 20px;
+      }
+
+      &-name {
+        font-size: 18px;
+        margin: 5px 0;
+        @extend %text-truncate;
+      }
+
+    }
+
+  }
+
+  &-artwork {
+    padding: 15px;
+  }
+}
+
+.app-profile-form {
+
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &-avatar {
+    line-height: initial;
+    //display: flex;
+
+    & img {
+      border-radius: 50%;
+      overflow: hidden;
+      width: 180px;
+      height: 180px;
+    }
+
+    &-button {
+      position: absolute;
+      left: 175px;
+      bottom: 25px;
+      font-size: 20px;
+    }
+  }
+
+  &-image {
+    line-height: initial;
+
+    & img {
+      max-width: 290px;
+      height: 180px;
+      overflow: hidden;
+    }
+
+    &-button {
+      position: absolute;
+      left: 175px;
+      bottom: 20px;
+      font-size: 20px;
+    }
+  }
+
 }
 
 .app-footer {
@@ -1545,57 +1651,58 @@ body, html {
 .app-dashboard-artworks {
   @extend %dashboard-with-profile;
 
-  .artworks {
-    flex: 1;
-    padding: 0 15px;
+}
 
-    .artwork {
-      margin-bottom: 20px;
+.app-dashboard-artworks-block {
+  //flex: 1;
+  //padding: 0 15px;
+
+  .artwo .rk {
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+    &-image {
+      margin-right: 20px;
+    }
+
+    &-info {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    &-manage {
+      flex: 1;
+      align-items: center;
+      justify-content: flex-end;
       display: flex;
       flex-wrap: wrap;
-      align-items: center;
+    }
 
-      &-image {
-        margin-right: 20px;
-      }
+    &-name {
+      margin-bottom: 10px;
+    }
 
-      &-info {
-        flex: 1;
-        min-width: 200px;
-      }
+    &-artist {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
 
-      &-manage {
-        flex: 1;
-        align-items: center;
-        justify-content: flex-end;
-        display: flex;
-        flex-wrap: wrap;
-      }
+    &-status {
+      font-weight: bold;
+    }
 
-      &-name {
-        margin-bottom: 10px;
-      }
+    &-qty {
+      margin-right: 10px;
+    }
 
-      &-artist {
-        font-weight: bold;
-        margin-bottom: 10px;
-      }
-
-      &-status {
-        font-weight: bold;
-      }
-
-      &-qty {
-        margin-right: 10px;
-      }
-
-      &-price {
-        margin-right: 10px;
-      }
-
+    &-price {
+      margin-right: 10px;
     }
 
   }
+
 }
 
 .app-dashboard-account {
@@ -1801,55 +1908,6 @@ body, html {
     }
   }
 
-}
-
-.app-dashboard-profile-edit {
-
-  .profile {
-
-    &-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    &-avatar {
-      line-height: initial;
-      //display: flex;
-
-      & img {
-        border-radius: 50%;
-        overflow: hidden;
-        width: 180px;
-        height: 180px;
-      }
-
-      &-button {
-        position: absolute;
-        left: 175px;
-        bottom: 25px;
-        font-size: 20px;
-      }
-    }
-
-    &-image {
-      line-height: initial;
-
-      & img {
-        max-width: 290px;
-        height: 180px;
-        overflow: hidden;
-      }
-
-      &-button {
-        position: absolute;
-        left: 175px;
-        bottom: 20px;
-        font-size: 20px;
-      }
-    }
-
-  }
 }
 
 .app-payments {

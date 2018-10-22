@@ -30,7 +30,7 @@ Route::group( [ 'middleware' => 'auth:api' ], function () {
 	Route::put( 'user/favorite/{id}/toggle', 'Api\UserController@toggleFavoriteArtwork' );
 	Route::put( 'user/followed/{id}/toggle', 'Api\UserController@toggleFollowedUser' );
 
-	Route::get( 'user/check-username/{username}', 'Api\UserController@checkUsername' );
+	Route::post( 'user/check-username', 'Api\UserController@checkUsername' );
 	Route::post( 'user', 'Api\UserController@destroy' )->middleware( 'admin' );
 
 

@@ -13,17 +13,18 @@ class UserController extends Controller {
 		return auth()->user();
 	}
 
-	public function checkUsername( $username = null ) {
+	public function checkUsername( Request $request ) {
 
-		$username = str_slug( $username );
+		$requestUsername = str_slug( $request->input( 'username' ) );
+		$user            = auth()->user();
 
-		$user = User::whereUserName( $username )->first();
+		$users = User::where( 'id', '!=', $user->id )->whereUserName( $requestUsername )->get();
 
-		if ( $user && $user->id !== auth()->user()->id ) {
+		if ( $users->count() ) {
 			return '';
-		} else {
-			return $username;
 		}
+
+		return $requestUsername;
 	}
 
 	public function update( Request $request ) {
@@ -143,8 +144,8 @@ class UserController extends Controller {
 			$user->image->delete();
 		}
 
-		$file      = $validation['file']; // get the validated file
-		$fileName  = time() . '-' . str_random( 60 ) . '.' . $request->file( 'file' )->getClientOriginalExtension();
+		$file     = $validation['file']; // get the validated file
+		$fileName = time() . '-' . str_random( 60 ) . '.' . $request->file( 'file' )->getClientOriginalExtension();
 
 		$file->storeAs( 'public/user-image/', $fileName );
 

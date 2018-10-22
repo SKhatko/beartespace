@@ -14,7 +14,6 @@
 
         <div class="app-cart-payment">
 
-            <!-- TODO input generated token -->
             <cart-payment-form
                     authorization_="{{ $clientToken }}">
                 @include('partials.errors')

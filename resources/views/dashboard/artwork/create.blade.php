@@ -11,6 +11,6 @@
         <el-breadcrumb-item>Add new Artwork</el-breadcrumb-item>
     </el-breadcrumb>
 
-    <dashboard-artwork currencies_="{{ json_encode(currency()->all()) }}"></dashboard-artwork>
+    <artwork-form currencies_="{{ json_encode(currency()->all()) }}"></artwork-form>
 
 @endsection

@@ -4,18 +4,7 @@
         <el-button plain @click="usernameDialog = true" style="margin-top: 20px;">Start to Sell</el-button>
 
         <el-dialog :visible.sync="usernameDialog" title="Your public username">
-            <el-form label-position="top" :model="user" status-icon :rules="rules" ref="username" action="/"
-                     @submit.native.prevent="checkUsername">
-                <el-form-item label="Enter your public username ( Personal profile url link )" prop="user_name">
-                    <el-input v-model="user.user_name" style="max-width: 290px; margin-right: 20px;"></el-input>
 
-                    <el-button native-type="submit">Check</el-button>
-                </el-form-item>
-
-                <p>Your profile url will look like</p>
-                <p><b>{{ userName }}</b></p>
-
-            </el-form>
 
             <div slot="footer" class="dialog-footer">
                 <el-button @click="usernameDialog = false">Skip for now</el-button>
@@ -83,23 +72,7 @@
             },
         },
         methods: {
-            checkUsername() {
-                this.$refs['username'].validate((valid) => {
-                    if (valid) {
-                        console.log('not valid username');
-                        // this.loading = true;
-                        // console.log(this.user);
-                        // axios.post('/api/profile/', this.user)
-                        //     .then((response) => {
-                        //         console.log(response.data);
-                        //         window.location = '/dashboard';
-                        //     }).catch(error => {
-                        //     this.loading = false;
-                        //     console.log(error.response);
-                        // });
-                    }
-                });
-            }
+
         }
     }
 </script>

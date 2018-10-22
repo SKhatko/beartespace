@@ -64,6 +64,7 @@ Vue.component('change-email-form', require('./components/auth/ChangeEmailForm.vu
 
 // Sell
 Vue.component('username-form', require('./components/sell/UsernameForm.vue'));
+Vue.component('cart-payment-form', require('./components/sell/PaymentForm.vue'));
 
 // Admin
 Vue.component('settings', require('./components/dashboard/admin/Settings'));
@@ -75,9 +76,9 @@ Vue.component('dashboard-articles', require('./components/dashboard/admin/Dashbo
 Vue.component('dashboard-article', require('./components/dashboard/admin/DashboardArticle.vue'));
 
 // User
-Vue.component('dashboard-profile', require('./components/dashboard/user/DashboardProfile.vue'));
-Vue.component('dashboard-artwork', require('./components/dashboard/user/DashboardArtwork.vue'));
-Vue.component('dashboard-artworks', require('./components/dashboard/user/DashboardArtworks.vue'));
+Vue.component('profile-form', require('./components/dashboard/user/ProfileForm.vue'));
+Vue.component('artwork-form', require('./components/dashboard/user/ArtworkForm.vue'));
+Vue.component('dashboard-artworks-block', require('./components/dashboard/user/DashboardArtworksBlock.vue'));
 
 // Global components
 Vue.component('pagination', require('./components/global/Pagination.vue'));

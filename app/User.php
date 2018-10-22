@@ -128,6 +128,10 @@ class User extends Authenticatable {
 		return $value ?? trim( $this->first_name ) . ' ' . trim( $this->last_name );
 	}
 
+	public function getUserNameAttribute( $value) {
+		return $value ?? str_slug($this->name);
+	}
+
 	public function plans() {
 		return $this->hasMany( Plan::class, 'user_type', 'user_type' );
 	}

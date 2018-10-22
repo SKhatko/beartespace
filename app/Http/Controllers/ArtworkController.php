@@ -120,7 +120,7 @@ class ArtworkController extends Controller {
 	public function index() {
 		$title = 'My artworks';
 
-		$user = Auth::user();
+		$user = auth()->user();
 
 		$artworks = $user->artworks()->orderBy( 'id', 'desc' )->with( 'images' )->get();
 

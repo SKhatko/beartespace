@@ -11,15 +11,15 @@
 
             <login-form></login-form>
 
-            <div class="h5" style="margin: 20px 0; text-align: center;">or</div>
+            <div class="h5" style="margin: 20px 0; text-align: center;">or continue with</div>
 
             <a href="/login/facebook" class="el-button el-button--default is-plain" style="display: block;">
-                Continue with Facebook
+               <i class="icon-facebook"></i> Facebook
             </a>
 
             <a href="/login/google" class="el-button el-button--default is-plain"
                style="display: block;margin: 15px 0;">
-                Continue with Google
+                <i class="icon-googleplus"></i> Google
             </a>
 
             <!--<a href="/login/twitter" class="el-button el-button&#45;&#45;default is-plain" style="display: block;margin: 0;">-->

@@ -4,11 +4,7 @@
 
 @section('dashboard-content')
 
-    <div class="app-dashboard-profile-edit">
-
-        <dashboard-profile user_="{{ $user }}"></dashboard-profile>
-
-    </div>
+    <profile-form user_="{{ $user }}"></profile-form>
 
 @endsection
 
