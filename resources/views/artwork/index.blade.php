@@ -14,8 +14,8 @@
 
                     <artworks-menu></artworks-menu>
 
-                    {{--<artworks-block artworks_="{{ $artworks->data }}"></artworks-block>--}}
-                    @include('partials.artworks', $artworks)
+                    <artworks-block artworks_="{{ json_encode($artworks->items()) }}"></artworks-block>
+{{--                    @include('partials.artworks', $artworks)--}}
 
                 </div>
 
