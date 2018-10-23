@@ -1455,6 +1455,11 @@ body, html {
   &-artwork {
     padding: 15px;
   }
+
+  &-payments {
+    max-width: 400px;
+    margin: 0 auto;
+  }
 }
 
 .app-profile-form {

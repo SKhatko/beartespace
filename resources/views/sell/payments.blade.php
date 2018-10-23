@@ -13,10 +13,10 @@
     <div class="app--wrapper">
         <div class="app-sell-payments">
 
-            <sell-payments-form
+            <sell-payment-form
                     authorization_="{{ $clientToken }}">
                 @include('partials.errors')
-            </sell-payments-form>
+            </sell-payment-form>
 
         </div>
     </div>

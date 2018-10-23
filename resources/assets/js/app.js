@@ -64,7 +64,7 @@ Vue.component('change-email-form', require('./components/auth/ChangeEmailForm.vu
 
 // Sell
 Vue.component('username-form', require('./components/sell/UsernameForm.vue'));
-Vue.component('cart-payment-form', require('./components/sell/PaymentForm.vue'));
+Vue.component('sell-payment-form', require('./components/sell/PaymentForm.vue'));
 
 // Admin
 Vue.component('settings', require('./components/dashboard/admin/Settings'));

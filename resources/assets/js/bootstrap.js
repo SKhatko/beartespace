@@ -4,7 +4,7 @@ window.Vuex = require('vuex');
 window.SocialSharing = require('vue-social-sharing');
 window.braintree = require('braintree-web-drop-in');
 window.Quill = require('quill');
-// window.braintree = require('braintree-web');
+// window.braintreeWeb = require('braintree-web');
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
