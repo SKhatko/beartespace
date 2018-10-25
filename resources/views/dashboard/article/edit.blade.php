@@ -11,7 +11,7 @@
         <el-breadcrumb-item>Edit article</el-breadcrumb-item>
     </el-breadcrumb>
 
-    <dashboard-article article_="{{ $article }}"></dashboard-article>
+    <article-form article_="{{ $article }}"></article-form>
 
 @endsection
 

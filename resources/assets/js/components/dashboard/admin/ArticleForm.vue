@@ -7,6 +7,33 @@
                     <el-input v-model="article.name"></el-input>
                 </el-form-item>
 
+                <el-row :gutter="20">
+                    <el-col :sm="12">
+                        <el-form-item label="Source">
+                            <el-input v-model="article.source"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :sm="12">
+                        <el-form-item label="Source url">
+                            <el-input v-model="article.source_url"></el-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+
+                <el-row :gutter="20">
+                    <el-col :sm="8">
+                        <el-form-item label="Tags">
+                            <el-select value="" v-model="article.tags" multiple filterable allow-create collapse-tags
+                                       default-first-option placeholder="Select tags">
+                                <el-option v-for="tag in article.tags" :key="tag" :label="tag"
+                                           :value="tag"></el-option>
+                            </el-select>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+
+
+
                 <el-form-item required prop="image">
 
                     <el-upload
@@ -56,6 +83,7 @@
                 csrf: '',
                 article: {
                     image: [],
+                    tags: [],
                 },
                 dialogImageUrl: '',
                 dialogVisible: false,

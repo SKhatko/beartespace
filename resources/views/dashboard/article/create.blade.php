@@ -12,7 +12,7 @@
         <el-breadcrumb-item>Create article</el-breadcrumb-item>
     </el-breadcrumb>
 
-    <dashboard-article></dashboard-article>
+    <article-form></article-form>
 
 @endsection
 

@@ -17,8 +17,6 @@ class ArticleController extends Controller {
 			'images',
 		] ) ) );
 
-
-
 //		$article = Article::updateOrCreate( [
 //			'id'      => $request->input( 'id' ),
 //			'user_id' => $user->id
