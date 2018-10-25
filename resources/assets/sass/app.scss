@@ -580,6 +580,7 @@ body, html {
     &-name {
       @extend .h1;
       margin-bottom: 30px;
+      text-align: center;
     }
 
     &-image {
@@ -595,7 +596,7 @@ body, html {
     }
 
     &--wrapper {
-      max-width: 800px;
+      max-width: 600px;
       text-align: left;
       margin: 40px auto;
     }
@@ -613,11 +614,28 @@ body, html {
       }
     }
 
+    &-source {
+      margin: 20px 0;
+      font-size: 15px;
+    }
+
+    &-tags {
+      margin: 20px 0;
+      font-size: 16px;
+    }
+
+
+
     &-content {
       line-height: 25px;
 
       p {
         @extend .p;
+        //text-indent: 20px;
+
+        &:first-letter {
+          font-size: 15px;
+        }
       }
 
       img {

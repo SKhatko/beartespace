@@ -51,21 +51,34 @@ class ArticleController extends Controller {
 
 	public function uploadArticleImage( Request $request ) {
 
-		if ( $request->file( 'file' ) ) {
+		$fileName = uniqid( time() . '-' ) . '.' . $request->file( 'file' )->getClientOriginalExtension();
 
-			$fileName = uniqid( time() . '-' ) . '.' . $request->file( 'file' )->getClientOriginalExtension();
+		$request->file( 'file' )->storeAs( '/public/article-image', $fileName );
 
-			$request->file( 'file' )->storeAs( '/public/article-image', $fileName );
+		$image = Media::create( [
+			'original_name' => $request->file( 'file' )->getClientOriginalName(),
+			'name'          => $fileName,
+			'slug'          => str_slug( $request->file( 'file' )->getClientOriginalName() ),
+			'folder'        => '/article-image'
+		] );
 
-			$image = Media::create( [
-				'original_name' => $request->file( 'file' )->getClientOriginalName(),
-				'name'          => $fileName,
-				'slug'          => str_slug( $request->file( 'file' )->getClientOriginalName() ),
-				'folder'        => '/article-image'
-			] );
+		return [ 'status' => 'success', 'message' => 'Primary Image Uploaded', 'data' => $image ];
+	}
 
-			return [ 'status' => 'success', 'message' => 'Primary Image Uploaded', 'data' => $image ];
-		}
+	public function uploadArticleImages( Request $request ) {
+
+		$fileName = uniqid( time() . '-' ) . '.' . $request->file( 'file' )->getClientOriginalExtension();
+
+		$request->file( 'file' )->storeAs( '/public/article-images', $fileName );
+
+		$image = Media::create( [
+			'original_name' => $request->file( 'file' )->getClientOriginalName(),
+			'name'          => $fileName,
+			'slug'          => str_slug( $request->file( 'file' )->getClientOriginalName() ),
+			'folder'        => '/article-images'
+		] );
+
+		return [ 'status' => 'success', 'message' => 'Primary Image Uploaded', 'data' => $image ];
 	}
 
 }

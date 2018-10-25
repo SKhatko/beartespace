@@ -131,7 +131,14 @@ class TranslationsTableSeeder extends Seeder {
 				['2 weeks', ''],
 				['1 month', ''],
 				['Unknown', ''],
-			]
+			],
+			'article-category'     => [
+				[ 'Painting', 'Maleri' ],
+				[ 'Sculpture', 'Skulptur' ],
+				[ 'Drawing', '' ],
+				[ 'Glass Art', '' ],
+				[ 'Ceramic', '' ],
+			],
 		];
 
 		foreach ( $translations as $group => $trans ) {

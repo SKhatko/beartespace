@@ -21,7 +21,7 @@
                 </el-row>
 
                 <el-row :gutter="20">
-                    <el-col :sm="8">
+                    <el-col :sm="12">
                         <el-form-item label="Tags">
                             <el-select value="" v-model="article.tags" multiple filterable allow-create collapse-tags
                                        default-first-option placeholder="Select tags">
@@ -30,11 +30,18 @@
                             </el-select>
                         </el-form-item>
                     </el-col>
+                    <el-col :sm="12">
+                        <el-form-item label="Category" prop="category">
+                            <el-select value="" v-model="article.category" placeholder="Select Category">
+                                <el-option v-for="(label, value) in trans('article-category')" :key="value" :value="value"
+                                           :label="label"></el-option>
+                            </el-select>
+                        </el-form-item>
+                    </el-col>
                 </el-row>
 
 
-
-                <el-form-item required prop="image">
+                <el-form-item>
 
                     <el-upload
                             class="article-image"
@@ -61,7 +68,9 @@
 
                 <el-form-item label="Content" required prop="content">
 
-                    <quill-editor v-model="article.content"></quill-editor>
+                    <quill-editor v-model="article.content"
+                                  ref="myQuillEditor"
+                                  :options="editorOption"></quill-editor>
 
                 </el-form-item>
 
@@ -73,7 +82,16 @@
 
 <script>
 
+    import {quillEditor, Quill} from 'vue-quill-editor'
+    import {container, ImageExtend, QuillWatch} from 'quill-image-extend-module'
+    import ImageResize from 'quill-image-resize-module'
+
+    Quill.register('modules/ImageExtend', ImageExtend);
+    // use resize module
+    Quill.register('modules/ImageResize', ImageResize);
+
     export default {
+        components: {quillEditor},
 
         props: {
             article_: {},
@@ -89,19 +107,41 @@
                 dialogVisible: false,
                 loading: false,
                 rules: {
-                    image: [
-                        {
-                            required: true,
-                            message: 'Please upload at least one image for your article',
-                            trigger: ['blur', 'change']
-                        },
-                    ],
                     name: [
                         {required: true, message: 'Please enter the name of article', trigger: ['blur', 'change']},
                     ],
                     content: [
                         {required: true, message: 'Content is required', trigger: ['blur', 'change']},
                     ],
+                },
+                editorOption: {
+                    modules: {
+                        ImageResize: {},
+                        ImageExtend: {
+                            name: 'file',
+                            size: 10,  // 2m, 1M = 1024KB
+                            action: '/api/article/upload-article-images',
+                            headers: (xhr) => {
+                                xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+                                xhr.setRequestHeader('X-CSRF-TOKEN' , this.csrf);
+                            },
+                            sizeError: () => {
+                                alert('Max image size is 10Mb')
+                            },
+                            response: (res) => {
+                                console.log(res);
+                                return res.data.url
+                            }
+                        },
+                        toolbar: {
+                            container: container,
+                            handlers: {
+                                'image': function () {
+                                    QuillWatch.emit(this.quill.id)
+                                }
+                            }
+                        }
+                    }
                 }
             }
         },

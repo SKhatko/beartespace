@@ -19,6 +19,7 @@ class CreateArticlesTable extends Migration
             $table->string('source')->nullable();
             $table->string('source_url')->nullable();
             $table->json('tags')->nullable();
+            $table->string('category')->nullable();
             $table->longText('content')->nullable();
             $table->string('slug')->nullable();
             $table->integer('language_id')->nullable();

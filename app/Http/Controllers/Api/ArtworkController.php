@@ -25,11 +25,11 @@ class ArtworkController extends Controller {
 
 //		if ( $request->input( 'images' ) ) {
 
-			$ids = array_pluck( $request->input( 'images' ), 'id' );
+		$ids = array_pluck( $request->input( 'images' ), 'id' );
 
-			$images = Media::findMany( $ids );
+		$images = Media::findMany( $ids );
 
-			$artwork->images()->sync( $images );
+		$artwork->images()->sync( $images );
 //		}
 
 		$artwork = $artwork->whereId( $artwork->id )->with( 'images', 'image' )->first();
@@ -39,60 +39,34 @@ class ArtworkController extends Controller {
 
 	public function uploadArtworkImage( Request $request ) {
 
-		if ( $request->file( 'file' ) ) {
+		$fileName = uniqid( time() . '-' ) . '.' . $request->file( 'file' )->getClientOriginalExtension();
 
-			$fileName = uniqid( time() . '-' ) . '.' . $request->file( 'file' )->getClientOriginalExtension();
+		$request->file( 'file' )->storeAs( '/public/artwork-image', $fileName );
 
-			$request->file( 'file' )->storeAs( '/public/artwork-image', $fileName );
+		$image = Media::create( [
+			'original_name' => $request->file( 'file' )->getClientOriginalName(),
+			'name'          => $fileName,
+			'slug'          => str_slug( $request->file( 'file' )->getClientOriginalName() ),
+			'folder'        => '/artwork-image'
+		] );
 
-			$image = Media::create( [
-				'original_name' => $request->file( 'file' )->getClientOriginalName(),
-				'name'          => $fileName,
-				'slug'          => str_slug( $request->file( 'file' )->getClientOriginalName() ),
-				'folder'        => '/artwork-image'
-			] );
-
-			return [ 'status' => 'success', 'message' => 'Primary Image Uploaded', 'data' => $image ];
-		}
-
+		return [ 'status' => 'success', 'message' => 'Primary Image Uploaded', 'data' => $image ];
 	}
 
 	public function uploadArtworkImages( Request $request ) {
 
+		$fileName = uniqid( time() . '-' ) . '.' . $request->file( 'file' )->getClientOriginalExtension();
 
-		if ( $request->file( 'file' ) ) {
+		$request->file( 'file' )->storeAs( '/public/artwork-images', $fileName );
 
-			$fileName = uniqid( time() . '-' ) . '.' . $request->file( 'file' )->getClientOriginalExtension();
+		$image = Media::create( [
+			'original_name' => $request->file( 'file' )->getClientOriginalName(),
+			'name'          => $fileName,
+			'slug'          => str_slug( $request->file( 'file' )->getClientOriginalName() ),
+			'folder'        => '/artwork-images'
+		] );
 
-			$request->file( 'file' )->storeAs( '/public/artwork-images', $fileName );
-
-			$image = Media::create( [
-				'original_name' => $request->file( 'file' )->getClientOriginalName(),
-				'name'          => $fileName,
-				'slug'          => str_slug( $request->file( 'file' )->getClientOriginalName() ),
-				'folder'        => '/artwork-images'
-			] );
-
-			return [ 'status' => 'success', 'message' => 'Primary Image Uploaded', 'data' => $image ];
-		}
-
-
-//		$artwork = Artwork::find( $id );
-
-//		$fileName = time() . '-' . str_random( 60 ) . '.' . $request->file( 'file' )->getClientOriginalExtension();
-
-//		$request->file( 'file' )->storeAs( '/public/artwork-images', $fileName );
-
-//		$image = $artwork->images()->create( [
-//			'original_name' => $request->file( 'file' )->getClientOriginalName(),
-//			'name'          => $fileName,
-//			'slug'          => str_slug( $request->file( 'file' )->getClientOriginalName() ),
-//			'folder'        => '/artwork-images'
-//		] );
-
-//		$artwork = $artwork->fresh();
-
-//		return [ 'status' => 'success', 'message' => 'Image Uploaded', 'data' => $artwork->images ];
+		return [ 'status' => 'success', 'message' => 'Primary Image Uploaded', 'data' => $image ];
 	}
 
 

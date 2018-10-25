@@ -5,7 +5,6 @@
 @section('content')
 
     <div class="app--wrapper">
-
         <div class="app-article">
 
             <div class="article">
@@ -21,19 +20,38 @@
                     {{ $article->name }}
                 </div>
 
-                @include('partials.share')
 
-                <div class="article-image">
-                    <img src="/imagecache/height-500{{ $article->image_url }}" alt="">
-                </div>
+                @if($article->image)
+                    <div class="article-image">
+                        <img src="/imagecache/height-500{{ $article->image_url }}" alt="">
+                    </div>
+                @endif
 
                 <div class="article--wrapper">
+
+                    @include('partials.share')
+
+                    <div class="article-source">
+                        Source: <a href="{{ $article->source_url }}">{{ $article->source }}</a>
+                    </div>
+
+                    <div class="article-category">
+                        Category: {{ trans_input('article-category.' . $article->category) }}
+                    </div>
+
+                    <div class="article-tags">
+                        Tags:
+                        @foreach($article->tags as $tag)
+                            {{ $tag }},
+                        @endforeach
+                    </div>
+
                     <div class="article-author">
                         By <a href="{{ route('people', $article->user->id) }}">{{ $article->user->name }}</a>
                     </div>
 
                     <div class="article-published">
-{{--                        Published {{ $article->publish_at->diffForHumans() }}--}}
+                        {{--                        Published {{ $article->publish_at->diffForHumans() }}--}}
                     </div>
 
                     <div class="article-content">
@@ -44,7 +62,6 @@
             </div>
 
         </div>
-
     </div>
 
 @endsection

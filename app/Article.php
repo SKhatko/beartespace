@@ -11,7 +11,7 @@ class Article extends Model {
 		'tags'      => 'array',
 	];
 
-	protected $fillable = [ 'name', 'content', 'image_id', 'source', 'source_url' ];
+	protected $fillable = [ 'name', 'content', 'image_id', 'source', 'source_url', 'tags', 'category'];
 
 	public function images() {
 		return $this->belongsToMany( Media::class, 'article_images', 'article_id', 'media_id' );
