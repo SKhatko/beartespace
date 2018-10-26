@@ -41,9 +41,11 @@
 
                     <div class="article-tags">
                         Tags:
-                        @foreach($article->tags as $tag)
-                            {{ $tag }},
-                        @endforeach
+                        @if(count($article->tags) > 0)
+                            @foreach($article->tags as $tag)
+                                {{ $tag }},
+                            @endforeach
+                        @endif
                     </div>
 
                     <div class="article-author">
