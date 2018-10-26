@@ -83,7 +83,8 @@
 <script>
 
     import {quillEditor, Quill} from 'vue-quill-editor'
-    import {container, ImageExtend, QuillWatch} from 'quill-image-extend-module'
+    // import {container, ImageExtend, QuillWatch} from 'quill-image-extend-module'
+    import {container, ImageExtend, QuillWatch} from './../../../vendor/quill-image-extend-module'
     import ImageResize from 'quill-image-resize-module'
 
     Quill.register('modules/ImageExtend', ImageExtend);
