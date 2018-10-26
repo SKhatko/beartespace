@@ -34,6 +34,14 @@ class UserController extends Controller {
 		return view( 'dashboard.admin.users', compact( 'title', 'users' ) );
 	}
 
+	public function seller( $seller ) {
+
+		$artist = User::where( 'user_name', $seller )->with( 'image', 'avatar', 'artworks.images' )->firstOrFail();
+
+		return view( 'seller.show', compact( 'artist' ) );
+
+	}
+
 	public function people($id) {
 		return $id;
 	}

@@ -13,7 +13,7 @@
 
         @if($user->followedUsers->count())
             <div class="h3" style="margin-bottom: 20px;">Followed Artists</div>
-            @include('artist.artists-block', ['artists' => $user->followedUsers->take(4)])
+            @include('seller.artists-block', ['artists' => $user->followedUsers->take(4)])
         @endif
 
     </div>

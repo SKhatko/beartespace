@@ -1423,10 +1423,24 @@ body, html {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 15px;
   }
 
   &-profile {
     padding: 15px;
+  }
+
+  &-profile-name {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100%;
+    text-align: center;
+    position: relative;
+
+    &-bottom {
+      @extend %bottom-fixed;
+    }
   }
 
   &-artworks {
@@ -1481,6 +1495,7 @@ body, html {
 }
 
 .app-profile-form {
+  margin-bottom: 100px;
 
   &-header {
     display: flex;
@@ -1524,6 +1539,10 @@ body, html {
     }
   }
 
+  &-bottom {
+    @extend %bottom-fixed;
+  }
+
 }
 
 .app-footer {
@@ -1543,9 +1562,6 @@ body, html {
   }
 
   &--bottom {
-    //display: flex;
-    //justify-content: space-between;
-    //align-items: center;
     margin-top: 20px;
     text-align: center;
     box-shadow: 0 -2px 12px 0 rgba(0, 0, 0, 0.1);

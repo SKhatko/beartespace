@@ -68,6 +68,8 @@ Route::group( [ 'middleware' => 'web' ], function () {
 
 	// Sell
 	Route::get( '/sell', 'SellController@sell' );
+	Route::get( '/sell/profile-name', 'SellController@profileName' )->name('sell.profile-name')->middleware('auth');
+	Route::post( '/sell/profile-name', 'SellController@postProfileName' )->middleware('auth');
 	Route::get( '/sell/profile', 'SellController@profile' )->middleware('auth');
 	Route::get( '/sell/artwork', 'SellController@artworks' )->name('sell.artwork')->middleware(['auth']);
 	Route::get( '/sell/artwork/{id}/edit', 'SellController@editArtwork' )->name('sell.artwork.edit')->middleware(['auth']);
@@ -131,11 +133,22 @@ Route::group( [ 'middleware' => 'web' ], function () {
 	//Dashboard Route
 	Route::group( [
 		'prefix'     => 'dashboard',
-		'middleware' => [
-			'auth',
-			'confirmed-email',
-		]
+//		'middleware' => [
+//			'auth',
+//			'confirmed-email',
+//		]
 	], function () {
+
+		// Not user (admin, sellers)
+		Route::group( [ 'middleware' => ['has-profile-name','has-completed-profile', 'has-seller-access'] ], function () {
+			// Artworks
+			Route::get( 'artwork', 'ArtworkController@index' )->name( 'dashboard.artworks' );
+			Route::get( 'artwork/create', 'ArtworkController@create' )->name( 'dashboard.artwork.create' );
+			Route::get( 'artwork/{id}/edit', 'ArtworkController@edit' )->name( 'dashboard.artwork.edit' );
+
+			// Sales
+			Route::get( 'sale/', 'SaleController@index' )->name( 'dashboard.sale' );
+		} );
 
 		// All users access
 		Route::get( '/', 'DashboardController@dashboard' )->name( 'dashboard' );
@@ -147,20 +160,9 @@ Route::group( [ 'middleware' => 'web' ], function () {
 
 		Route::get( 'favorites/{category?}', 'UserController@favoriteArtworks' )->name( 'dashboard.favorites' );
 
-		// Not user (admin, artist, gallery)
-		Route::group( [ 'middleware' => 'artist' ], function () {
-			// Artworks
-			Route::get( 'artwork', 'ArtworkController@index' )->name( 'dashboard.artworks' );
-			Route::get( 'artwork/create', 'ArtworkController@create' )->name( 'dashboard.artwork.create' );
-			Route::get( 'artwork/{id}/edit', 'ArtworkController@edit' )->name( 'dashboard.artwork.edit' );
-
-			// Sales
-			Route::get( 'sale/', 'SaleController@index' )->name( 'dashboard.sale' );
-
-		} );
 
 		// Admin only
-		Route::group( [ 'middleware' => 'admin' ], function () {
+		Route::group( [ 'middleware' => ['auth', 'admin'] ], function () {
 			Route::get( 'payments', 'PaymentController@index' )->name( 'admin.payments' );
 			Route::get( 'users', 'UserController@index' )->name( 'admin.users' );
 			Route::get( 'translations', 'TranslationController@index' )->name( 'admin.translations' );
@@ -184,8 +186,10 @@ Route::group( [ 'middleware' => 'web' ], function () {
 
 	} );
 
-	// Global artist profile search
-	Route::get( '{artist}', 'HomeController@artistProfile' )->name( 'artist-profile' );
+	// Global seller profile search
+	Route::get( '{seller}', 'UserController@seller' )->name( 'seller' );
+	Route::get( '{seller}/artwork', 'ArtworkController@sellerArtworks' )->name( 'seller.artworks' );
+	Route::get( '{seller}/artwork/{id}/{slug?}', 'ArtworkController@sellerArtwork' )->name( 'seller.artwork' );
 
 } );
 

@@ -56,12 +56,14 @@ Vue.component('artists-menu', require('./components/ArtistsMenu.vue'));
 // Auth
 Vue.component('password-reset-new-password', require('./components/auth/PasswordResetNewPassword.vue'));
 Vue.component('register-form', require('./components/auth/RegisterForm.vue'));
+Vue.component('modal-register-form', require('./components/auth/ModalRegisterForm.vue'));
 Vue.component('password-reset-form', require('./components/auth/PasswordResetForm.vue'));
 Vue.component('login-form', require('./components/auth/LoginForm.vue'));
+Vue.component('modal-login-form', require('./components/auth/ModalLoginForm.vue'));
 Vue.component('change-email-form', require('./components/auth/ChangeEmailForm.vue'));
 
-// Sell
-Vue.component('username-form', require('./components/sell/UsernameForm.vue'));
+// Seller (Sell)
+Vue.component('profile-name-form', require('./components/sell/ProfileNameForm.vue'));
 Vue.component('sell-payment-form', require('./components/sell/PaymentForm.vue'));
 
 // Admin

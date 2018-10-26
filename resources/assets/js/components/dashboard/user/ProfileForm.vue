@@ -1,10 +1,10 @@
 <template>
 
-    <el-card v-if="user" class="app-profile-form">
+    <el-card v-if="showForSeller" class="app-profile-form">
         <div slot="header">
             <div class="app-profile-form-header">
                 <span>Your Public Profile</span>
-                <a v-if="!user.user_type === 'user'" :href="'/people/' + user.id" target="_blank"
+                <a v-if="!sellRequest_" :href="'/' + user.user_name" target="_blank"
                    class="el-button el-button--default el-button--mini">View
                     profile</a>
             </div>
@@ -52,7 +52,7 @@
                     </el-form-item>
                 </el-col>
 
-                <el-col :sm="12" v-if="showForUserType">
+                <el-col :sm="12" v-if="showForSeller">
                     <el-form-item>
                         <span slot="label">
                             Profile background image
@@ -87,22 +87,6 @@
                 </el-col>
 
             </el-row>
-
-        </el-form>
-
-        <el-form label-position="top" :model="user" status-icon :rules="rules" ref="username" action="/"
-                 @submit.native.prevent="checkUserName">
-            <el-form-item label="Enter your public username ( Personal profile url link )" prop="user_name">
-                <el-input v-model="user.user_name"
-                          style="max-width: 290px; margin-right: 20px;margin-bottom:10px"></el-input>
-
-                <el-button native-type="submit" :loading="usernameLoading">
-                    Check
-                </el-button>
-
-                <div class="small" v-text="userProfileLink" style="margin-top: 10px;"></div>
-
-            </el-form-item>
 
         </el-form>
 
@@ -179,15 +163,19 @@
             </el-row>
 
 
-            <el-button type="primary" style="margin-top: 20px"
-                       size="big"
-                       @click="save()" :loading="loading">
-                Save
-            </el-button>
+            <div class="app-profile-form-bottom">
+                <div class="app--wrapper">
 
-            <el-button style="margin-top: 20px" v-if="showForUserType && !page_">
-                <a :href="'/artist/' + user.id" target="_blank">Preview</a>
-            </el-button>
+                    <el-button style="margin-top: 20px" v-if="showForSeller && !sellRequest_">
+                        <a :href="'/artist/' + user.id" target="_blank">Preview</a>
+                    </el-button>
+
+                    <el-button type="primary" @click="save()" :loading="loading">
+                        Save and Continue
+                    </el-button>
+
+                </div>
+            </div>
 
 
             <div style="display: none;">
@@ -310,6 +298,141 @@
 
     </el-card>
 
+    <el-card v-else class="app-profile-form">
+
+        <div slot="header">
+            <div class="app-profile-form-header">
+                <span>Your Public Profile</span>
+            </div>
+        </div>
+
+        <el-form label-position="top">
+            <el-row :gutter="20">
+                <el-col :sm="12">
+                    <el-form-item>
+                        <span slot="label">
+                            <span>
+                                Profile Picture
+                            </span>
+                              <el-popover
+                                      width="200"
+                                      trigger="hover">
+                                        <span>
+                                            This image represents you here on website.
+                                            Make sure your image is in good quality and has a nice smile :)
+                                        </span>
+                                       <i slot="reference" class="el-icon-info"></i>
+                               </el-popover>
+                        </span>
+
+                        <el-upload
+                                class="app-profile-form-avatar"
+                                action="/api/user/upload-user-avatar"
+                                :headers="{'X-Requested-With': 'XMLHttpRequest', 'X-CSRF-TOKEN' : csrf}"
+                                :show-file-list="false"
+                                accept="image/*"
+                                :on-success="handleAvatarSuccess"
+                                :before-upload="beforeAvatarUpload">
+                            <el-button slot="trigger" icon="el-icon-picture" class="app-profile-form-avatar-button"
+                                       circle></el-button>
+                            <div slot="tip" class="el-upload__tip">*Must be a .jpg, .gif or .png file smaller than 10MB
+                                and at least 400px by 400px.
+                            </div>
+
+                            <img v-if="user.avatar_url" :src="'/imagecache/fit-290' + user.avatar_url"
+                                 class="avatar">
+                        </el-upload>
+
+                    </el-form-item>
+                </el-col>
+            </el-row>
+        </el-form>
+
+        <el-form label-position="top" :model="user" status-icon :rules="userRules" ref="profile">
+
+            <el-row :gutter="20">
+                <el-col :sm="8">
+                    <el-form-item label="First name" prop="first_name">
+                        <el-input v-model="user.first_name"></el-input>
+                    </el-form-item>
+                </el-col>
+                <el-col :sm="8">
+                    <el-form-item label="Last name" prop="last_name">
+                        <el-input v-model="user.last_name"></el-input>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+
+            <el-row>
+                <el-form-item label="Gender" prop="gender">
+                    <el-radio-group v-model="user.gender">
+                        <el-radio v-for="gender in options('gender')" :key="gender.value" :label="gender.value">{{
+                            gender.label }}
+                        </el-radio>
+                    </el-radio-group>
+                </el-form-item>
+            </el-row>
+
+            <el-row :gutter="20">
+                <el-col :sm="8">
+                    <el-form-item label="Country" prop="country_id">
+                        <el-select filterable value="user.country_id" v-model="user.country_id"
+                                   placeholder="Select country">
+                            <el-option
+                                    v-for="country in countries"
+                                    :key="country.id"
+                                    :label="country.country_name"
+                                    :value="country.id">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                </el-col>
+
+                <el-col :sm="8">
+                    <el-form-item label="City" prop="city">
+                        <el-input v-model="user.city" placeholder="City"></el-input>
+                    </el-form-item>
+                </el-col>
+
+            </el-row>
+
+            <el-row>
+                <el-col :sm="8">
+                    <el-form-item label="Birthday" prop="dob">
+                        <el-date-picker
+                                v-model="user.dob"
+                                type="date"
+                                value-format="yyyy-MM-dd"
+                                placeholder="yyyy-mm-dd">
+                        </el-date-picker>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+
+            <el-row>
+                <el-col :sm="18">
+                    <el-form-item>
+                        <span slot="label">About</span>
+                        <el-input type="textarea" v-model="user.about"
+                                  placeholder="Let people know something about you"></el-input>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+
+
+            <div class="app-profile-form-bottom">
+                <div class="app--wrapper">
+                    <el-button type="primary" @click="save()" :loading="loading">
+                        Save
+                    </el-button>
+                </div>
+            </div>
+        </el-form>
+
+
+    </el-card>
+
+
 </template>
 
 <script>
@@ -318,50 +441,30 @@
 
         props: {
             user_: {},
-            page_: '',
+            sellRequest_: null,
         },
 
         data() {
 
-            let userNameValidator = (rule, value, callback) => {
-                if (value === '') {
-                    callback();
-                    this.setUserProfileLink();
-                } else {
-                    console.log(value);
-                    axios.post('/api/user/check-username', {'username': value})
-                        .then(response => {
-                            if (!response.data) {
-                                callback(new Error('This username is already taken'));
-                            }
-
-                            this.user.user_name = response.data;
-                            this.setUserProfileLink();
-                            callback();
-                        })
-                        .catch(error => {
-                            console.log(error);
-                            callback('Server error')
-                        });
-                }
-            };
-
             return {
-                showForUserType: false,
+                showForSeller: false,
                 loading: false,
-                usernameLoading: false,
-                userProfileLink: '',
                 user: {},
-                rules: {
+                sellerRules: {
                     first_name: [
                         {required: true, message: 'Please enter first name', trigger: 'blur'}
                     ],
                     last_name: [
                         {required: true, message: 'Please enter last name', trigger: 'blur'}
+                    ]
+                },
+                userRules: {
+                    first_name: [
+                        {required: true, message: 'Please enter first name', trigger: 'blur'}
                     ],
-                    user_name: [
-                        {validator: userNameValidator, trigger: 'submit'}
-                    ],
+                    last_name: [
+                        {required: true, message: 'Please enter last name', trigger: 'blur'}
+                    ]
                 },
                 csrf: '',
                 countries: [],
@@ -375,9 +478,8 @@
                 this.user = JSON.parse(this.user_);
             }
 
-            if (this.page_ || this.user.user_type === 'artist' || this.user.user_type === 'gallery') {
-                this.showForUserType = true;
-                this.setUserProfileLink();
+            if (this.sellRequest_ || this.user.user_type === 'artist' || this.user.user_type === 'gallery') {
+                this.showForSeller = true;
             }
 
             console.log(this.user);
@@ -388,9 +490,7 @@
         },
 
         methods: {
-            setUserProfileLink() {
-                this.userProfileLink = window.location.origin + '/' + (this.user.user_name ? this.user.user_name : 'artist/' + this.user.id);
-            },
+
             setPhoneNumber({number, isValid, country}) {
                 console.log(number, isValid, country);
             },
@@ -444,7 +544,7 @@
                             .then((response) => {
                                 console.log(response.data);
 
-                                if(this.page_) {
+                                if (this.sellRequest_) {
                                     window.location = '/sell/artwork';
                                 } else {
                                     window.location = '/dashboard';
@@ -456,20 +556,7 @@
                     }
                 });
             },
-
-            checkUserName() {
-                this.usernameLoading = true;
-                this.$refs['username'].validate((valid) => {
-                    this.usernameLoading = false;
-                });
-            }
         },
-
-        computed: {
-            userName() {
-                return window.location.origin + '/' + (this.user.user_name ? this.user.user_name : 'artist/' + this.user.id);
-            },
-        }
     }
 </script>
 

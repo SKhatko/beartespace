@@ -16,7 +16,7 @@
             @if(count($artworks))
                 <artworks-block artworks_="{{ $artworks }}"></artworks-block>
             @elseif(count($artists))
-                @include('artist.artists-block', ['artists' => $artists])
+                @include('seller.artists-block', ['artists' => $artists])
             @else
                 <div class="h3" style="text-align: center;">Nothing found</div>
             @endif

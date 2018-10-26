@@ -6,12 +6,32 @@ use App\Artwork;
 use App\User;
 use Braintree\ClientToken;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class SellController extends Controller {
 
 	public function sell() {
 
 		return view( 'sell.index' );
+	}
+
+	public function profileName() {
+		return view('sell.profile-name');
+	}
+
+	public function postProfileName(Request $request) {
+
+		$user = auth()->user();
+
+		$request->validate( [
+			'user_name' => ['required', 'max:25', Rule::unique('users')->ignore($user->id)]
+		] );
+
+
+		$user->user_name = $request->user_name;
+		$user->save();
+
+		return redirect('/sell/profile');
 	}
 
 	public function profile() {

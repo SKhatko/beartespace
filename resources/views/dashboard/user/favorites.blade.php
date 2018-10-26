@@ -24,7 +24,7 @@
 
                     <el-tab-pane label="Followed People" name="artists">
                         @if($artists->count())
-                            @include('artist.artists-block', ['artists' => $artists])
+                            @include('seller.artists-block', ['artists' => $artists])
                         @else
 
                             <a href="/artist" class="el-button el-button--default">Add favorite artists</a>

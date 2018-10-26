@@ -17,3 +17,17 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+%bottom-fixed {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: right;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.3);
+  background-color: #fff;
+
+  .app--wrapper {
+    padding: 15px;
+  }
+}

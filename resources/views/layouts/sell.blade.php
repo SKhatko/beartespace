@@ -6,6 +6,6 @@
     @include('layouts.header.sell')
 @endsection
 
-@section('footer')
-    @include('layouts.footer.bottom')
-@endsection
+{{--@section('footer')--}}
+    {{--@include('layouts.footer.bottom')--}}
+{{--@endsection--}}

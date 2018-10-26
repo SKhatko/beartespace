@@ -43,14 +43,6 @@ class HomeController extends Controller {
 		return view( 'artwork.index', compact( 'artworks', 'countries' ) );
 	}
 
-	public function artistProfile( $artist ) {
-
-		$artist = User::where( 'user_name', $artist )->with( 'image', 'avatar', 'artworks.images' )->firstOrFail();
-
-		return view( 'artist.show', compact( 'artist' ) );
-
-	}
-
 	public function about() {
 		return view( 'pages.about' );
 	}

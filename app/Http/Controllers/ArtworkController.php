@@ -3,11 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Artwork;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
 class ArtworkController extends Controller {
+
+	public function sellerArtwork($seller, $id, $slug = '') {
+		$seller = User::where('user_name', $seller)->first();
+
+		return 1;
+	}
 
 	public function artworks( Request $request ) {
 

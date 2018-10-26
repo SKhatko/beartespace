@@ -58,18 +58,24 @@ class Kernel extends HttpKernel {
 	 * @var array
 	 */
 	protected $routeMiddleware = [
-		'auth'                             => \Illuminate\Auth\Middleware\Authenticate::class,
-		'auth.basic'                       => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-		'bindings'                         => \Illuminate\Routing\Middleware\SubstituteBindings::class,
-		'can'                              => \Illuminate\Auth\Middleware\Authorize::class,
-		'guest'                            => \App\Http\Middleware\RedirectIfAuthenticated::class,
-		'throttle'                         => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-		'confirmed-email'                  => \App\Http\Middleware\ConfirmedEmail::class,
-		'admin'                            => \App\Http\Middleware\OnlyAdminAccess::class,
-		'artist'                           => \App\Http\Middleware\OnlyArtistAccess::class,
-		'has-primary-address'              => \App\Http\Middleware\HasPrimaryAddress::class,
-		'has-payment-method'              => \App\Http\Middleware\HasPaymentMethod::class,
-		'has-shopping-cart'                    => \App\Http\Middleware\HasShoppingCart::class,
+		'auth'                => \Illuminate\Auth\Middleware\Authenticate::class,
+		'auth.basic'          => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+		'bindings'            => \Illuminate\Routing\Middleware\SubstituteBindings::class,
+		'can'                 => \Illuminate\Auth\Middleware\Authorize::class,
+		'guest'               => \App\Http\Middleware\RedirectIfAuthenticated::class,
+		'throttle'            => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+		'confirmed-email'     => \App\Http\Middleware\ConfirmedEmail::class,
+		'admin'               => \App\Http\Middleware\OnlyAdminAccess::class,
+
+		// Sell
+		'has-profile-name'   => \App\Http\Middleware\HasProfileName::class,
+		'has-completed-profile'   => \App\Http\Middleware\HasCompletedProfile::class,
+		'has-seller-access'   => \App\Http\Middleware\HasSellserAccess::class,
+
+		// CartCheckout
+		'has-primary-address' => \App\Http\Middleware\HasPrimaryAddress::class,
+		'has-payment-method'  => \App\Http\Middleware\HasPaymentMethod::class,
+		'has-shopping-cart'   => \App\Http\Middleware\HasShoppingCart::class,
 
 	];
 }

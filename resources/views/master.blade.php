@@ -63,6 +63,8 @@
             @yield('footer')
         </el-footer>
 
+        @include('partials.dialogs')
+
     </el-container>
 
 </el-col>
