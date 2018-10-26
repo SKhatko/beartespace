@@ -929,15 +929,10 @@ body, html {
         max-height: 100%;
         max-width: 100%;
       }
-
-      &-label {
-
-      }
     }
 
     &-bottom {
-      position: fixed;
-      bottom: 0;
+      @extend %bottom-fixed;
     }
   }
 }
@@ -1480,12 +1475,17 @@ body, html {
         @extend %text-truncate;
       }
 
+      &-bottom {
+        @extend %bottom-fixed;
+      }
+
     }
 
   }
 
   &-artwork {
     padding: 15px;
+    margin-bottom: 100px;
   }
 
   &-payments {

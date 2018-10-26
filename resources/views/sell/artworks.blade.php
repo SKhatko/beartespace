@@ -1,7 +1,8 @@
 @extends('layouts.sell')
 
 @section('sell-status')
-    <el-steps :active="1" align-center finish-status="success" class="app-header-sell">
+    <el-steps :active="2" align-center finish-status="success" class="app-header-sell">
+        <el-step description="Name"></el-step>
         <el-step description="Profile"></el-step>
         <el-step description="Artworks"></el-step>
         <el-step description="Payments"></el-step>
@@ -49,13 +50,16 @@
 
                 </el-row>
 
-                @if($artworks->count() > 0)
-                    <a href="/sell/payments" class="el-button el-button--primary">Continue</a>
-                @endif
+                <div class="sell-artwork-bottom">
+                    <div class="app--wrapper">
 
-                <a href="/sell/profile" class="el-button el-button--default">Edit profile</a>
+                        <a href="/sell/profile" class="el-button el-button--default">Edit profile</a>
+                        @if($artworks->count() > 0)
+                            <a href="/sell/payments" class="el-button el-button--primary">Continue</a>
+                        @endif
 
-
+                    </div>
+                </div>
             </el-card>
 
         </div>

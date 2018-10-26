@@ -148,7 +148,7 @@ class User extends Authenticatable {
 
 	public function getImageUrlAttribute() {
 //		if($this->image){
-		if ( $this->image && file_exists( public_path( 'storage' . $this->image->url ) ) ) {
+		if ( $this->image && file_exists( public_path( $this->image->url ) ) ) {
 			return $this->image->url;
 		} else {
 //			file_exists(public_path('images/avatar-placeholder.png'));

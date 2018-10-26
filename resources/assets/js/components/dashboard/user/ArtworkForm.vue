@@ -246,10 +246,10 @@
 
                 <el-row :gutter="20">
                     <el-col :sm="12">
-                        <el-form-item label="Price, Eur" required prop="price">
-                            <el-input-number value="2" v-model="artwork.price" :min="1" :max="50000"></el-input-number>
+                        <el-form-item label="Price, Eur" required prop="price" >
+                            <el-input-number value="2" v-model="artwork.price" :min="1" :max="50000" @blur="countPrice"></el-input-number>
 
-                            <span class="h4">Your profit: {{ artwork.price }} - 15% = {{ profitPrice }} Eur</span>
+                            <span class="h5" style="padding-left: 10px;">{{ nettoIncome }}</span>
                             <!--<el-select value="" v-model="artwork.currency" placeholder="Select currency"-->
                             <!--style="max-width: 200px;margin-left: 20px;">-->
                             <!--<el-option v-for="(label, value) in currencies" :key="value" :value="value"-->
@@ -355,20 +355,18 @@
 
             </el-card>
 
-            <!--<el-card class="artwork-bottom">-->
-            <!--<div class="app&#45;&#45;wrapper">-->
+            <div class="artwork-bottom">
+                <div class="app--wrapper">
 
-            <el-button type="primary" style="margin-top: 20px"
-                       size="big"
-                       @click="saveArtwork" :loading="loading">Save
-            </el-button>
+                    <el-button type="primary" @click="saveArtwork" :loading="loading">Save and Continue
+                    </el-button>
 
-            <el-button type="success" style="margin-top: 20px" v-if="artwork_ && !page_">
-                <a :href="'/artwork/' + artwork.id" target="_blank">Preview</a>
-            </el-button>
+                    <el-button type="success" v-if="artwork_ && !page_">
+                        <a :href="'/artwork/' + artwork.id" target="_blank">Preview</a>
+                    </el-button>
 
-            <!--</div>-->
-            <!--</el-card>-->
+                </div>
+            </div>
 
         </el-form>
     </div>
@@ -438,7 +436,8 @@
 
                 artworkSaved: false,
                 loading: false,
-
+                nettoIncome: 0,
+                totalPrice: 0,
                 dialogImageUrl: '',
                 dialogVisible: false
             }
@@ -460,9 +459,15 @@
                 this.countries = response.data;
             });
 
+            this.countPrice();
+
         },
 
         methods: {
+
+            countPrice() {
+                this.nettoIncome = this.artwork.price / 100 * 75 + ' Eur'
+            },
 
             saveArtwork() {
                 this.$refs['artwork'].validate((valid) => {
@@ -529,10 +534,6 @@
             },
         },
         computed: {
-
-            profitPrice() {
-                return this.artwork.price - (this.artwork.price * 15 / 100);
-            },
             showArtworkQuantity() {
                 return this.artwork.unique;
             },

@@ -32670,8 +32670,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -32715,7 +32713,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             artworkSaved: false,
             loading: false,
-
+            nettoIncome: 0,
+            totalPrice: 0,
             dialogImageUrl: '',
             dialogVisible: false
         };
@@ -32735,10 +32734,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         axios.get('/api/countries').then(function (response) {
             _this.countries = response.data;
         });
+
+        this.countPrice();
     },
 
 
     methods: {
+        countPrice: function countPrice() {
+            this.nettoIncome = this.artwork.price / 100 * 75 + ' Eur';
+        },
         saveArtwork: function saveArtwork() {
             var _this2 = this;
 
@@ -32802,9 +32806,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     computed: {
-        profitPrice: function profitPrice() {
-            return this.artwork.price - this.artwork.price * 15 / 100;
-        },
         showArtworkQuantity: function showArtworkQuantity() {
             return this.artwork.unique;
         }
@@ -97726,6 +97727,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "min": 1,
       "max": 50000
     },
+    on: {
+      "blur": _vm.countPrice
+    },
     model: {
       value: (_vm.artwork.price),
       callback: function($$v) {
@@ -97734,8 +97738,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       expression: "artwork.price"
     }
   }), _vm._v(" "), _c('span', {
-    staticClass: "h4"
-  }, [_vm._v("Your profit: " + _vm._s(_vm.artwork.price) + " - 15% = " + _vm._s(_vm.profitPrice) + " Eur")])], 1)], 1)], 1), _vm._v(" "), _c('el-row', {
+    staticClass: "h5",
+    staticStyle: {
+      "padding-left": "10px"
+    }
+  }, [_vm._v(_vm._s(_vm.nettoIncome))])], 1)], 1)], 1), _vm._v(" "), _c('el-row', {
     attrs: {
       "gutter": 20
     }
@@ -97966,22 +97973,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "value": time.value
       }
     })
-  }))], 1)], 1)], 1)], 1), _vm._v(" "), _c('el-button', {
-    staticStyle: {
-      "margin-top": "20px"
-    },
+  }))], 1)], 1)], 1)], 1), _vm._v(" "), _c('div', {
+    staticClass: "artwork-bottom"
+  }, [_c('div', {
+    staticClass: "app--wrapper"
+  }, [_c('el-button', {
     attrs: {
       "type": "primary",
-      "size": "big",
       "loading": _vm.loading
     },
     on: {
       "click": _vm.saveArtwork
     }
-  }, [_vm._v("Save\n        ")]), _vm._v(" "), (_vm.artwork_ && !_vm.page_) ? _c('el-button', {
-    staticStyle: {
-      "margin-top": "20px"
-    },
+  }, [_vm._v("Save and Continue\n                ")]), _vm._v(" "), (_vm.artwork_ && !_vm.page_) ? _c('el-button', {
     attrs: {
       "type": "success"
     }
@@ -97990,7 +97994,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "href": '/artwork/' + _vm.artwork.id,
       "target": "_blank"
     }
-  }, [_vm._v("Preview")])]) : _vm._e()], 1) : _vm._e()], 1)
+  }, [_vm._v("Preview")])]) : _vm._e()], 1)])], 1) : _vm._e()], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -100631,9 +100635,9 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return (_vm.showForSeller) ? _c('el-card', {
+  return _c('el-card', {
     staticClass: "app-profile-form"
-  }, [_c('div', {
+  }, [(_vm.showForSeller) ? [_c('div', {
     attrs: {
       "slot": "header"
     },
@@ -100646,9 +100650,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "href": '/' + _vm.user.user_name,
       "target": "_blank"
     }
-  }, [_vm._v("View\n                profile")]) : _vm._e()])]), _vm._v(" "), _c('el-form', {
+  }, [_vm._v("View\n                    profile")]) : _vm._e()])]), _vm._v(" "), _c('el-form', {
+    ref: "profile",
     attrs: {
-      "label-position": "top"
+      "label-position": "top",
+      "model": _vm.user,
+      "status-icon": "",
+      "rules": _vm.sellerRules
     }
   }, [_c('el-row', {
     attrs: {
@@ -100658,7 +100666,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "sm": 12
     }
-  }, [_c('el-form-item', [_c('span', {
+  }, [_c('el-form-item', {
+    attrs: {
+      "prop": "image",
+      "required": ""
+    }
+  }, [_c('span', {
     attrs: {
       "slot": "label"
     },
@@ -100701,12 +100714,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "slot": "tip"
     },
     slot: "tip"
-  }, [_vm._v("*Must be a .jpg, .gif or .png file smaller than 10MB\n                            and at least 400px by 400px.\n                        ")]), _vm._v(" "), (_vm.user.avatar_url) ? _c('img', {
+  }, [_vm._v("*Must be a .jpg, .gif or .png file smaller than 10MB\n                                and at least 400px by 400px.\n                            ")]), _vm._v(" "), (_vm.user.avatar_url) ? _c('img', {
     staticClass: "avatar",
     attrs: {
       "src": '/imagecache/fit-290' + _vm.user.avatar_url
     }
-  }) : _vm._e()], 1)], 1)], 1), _vm._v(" "), (_vm.showForSeller) ? _c('el-col', {
+  }) : _vm._e()], 1)], 1)], 1), _vm._v(" "), _c('el-col', {
     attrs: {
       "sm": 12
     }
@@ -100753,20 +100766,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "slot": "tip"
     },
     slot: "tip"
-  }, [_vm._v("*Must be a .jpg file smaller than 10MB and at least\n                            980px width.\n                        ")]), _vm._v(" "), _c('img', {
+  }, [_vm._v("*Must be a .jpg file smaller than 10MB and at least\n                                980px width.\n                            ")]), _vm._v(" "), _c('img', {
     staticClass: "image",
     attrs: {
       "src": '/imagecache/height-200' + _vm.user.image_url
     }
-  })], 1)], 1)], 1) : _vm._e()], 1)], 1), _vm._v(" "), _c('el-form', {
-    ref: "profile",
-    attrs: {
-      "label-position": "top",
-      "model": _vm.user,
-      "status-icon": "",
-      "rules": _vm.rules
-    }
-  }, [_c('el-row', {
+  })], 1)], 1)], 1)], 1), _vm._v(" "), _c('el-row', {
     attrs: {
       "gutter": 20
     }
@@ -100777,7 +100782,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('el-form-item', {
     attrs: {
       "label": "First name",
-      "prop": "first_name"
+      "prop": "first_name",
+      "required": ""
     }
   }, [_c('el-input', {
     model: {
@@ -100794,7 +100800,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('el-form-item', {
     attrs: {
       "label": "Last name",
-      "prop": "last_name"
+      "prop": "last_name",
+      "required": ""
     }
   }, [_c('el-input', {
     model: {
@@ -100823,7 +100830,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "label": gender.value
       }
-    }, [_vm._v(_vm._s(gender.label) + "\n                    ")])
+    }, [_vm._v(_vm._s(gender.label) + "\n                        ")])
   }))], 1)], 1), _vm._v(" "), _c('el-row', {
     attrs: {
       "gutter": 20
@@ -100835,7 +100842,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('el-form-item', {
     attrs: {
       "label": "Country",
-      "prop": "country_id"
+      "prop": "country_id",
+      "required": ""
     }
   }, [_c('el-select', {
     attrs: {
@@ -100925,7 +100933,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "app-profile-form-bottom"
   }, [_c('div', {
     staticClass: "app--wrapper"
-  }, [(_vm.showForSeller && !_vm.sellRequest_) ? _c('el-button', {
+  }, [(!_vm.sellRequest_) ? _c('el-button', {
     staticStyle: {
       "margin-top": "20px"
     }
@@ -100944,7 +100952,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.save()
       }
     }
-  }, [_vm._v("\n                    Save and Continue\n                ")])], 1)]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                        Save and Continue\n                    ")])], 1)]), _vm._v(" "), _c('div', {
     staticStyle: {
       "display": "none"
     }
@@ -101214,9 +101222,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.exhibition"
     }
-  })], 1)], 1)], 1)], 1)], 1)], 1) : _c('el-card', {
-    staticClass: "app-profile-form"
-  }, [_c('div', {
+  })], 1)], 1)], 1)], 1)], 1)] : [_c('div', {
     attrs: {
       "slot": "header"
     },
@@ -101278,7 +101284,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "slot": "tip"
     },
     slot: "tip"
-  }, [_vm._v("*Must be a .jpg, .gif or .png file smaller than 10MB\n                            and at least 400px by 400px.\n                        ")]), _vm._v(" "), (_vm.user.avatar_url) ? _c('img', {
+  }, [_vm._v("*Must be a .jpg, .gif or .png file smaller than 10MB\n                                and at least 400px by 400px.\n                            ")]), _vm._v(" "), (_vm.user.avatar_url) ? _c('img', {
     staticClass: "avatar",
     attrs: {
       "src": '/imagecache/fit-290' + _vm.user.avatar_url
@@ -101348,7 +101354,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "label": gender.value
       }
-    }, [_vm._v(_vm._s(gender.label) + "\n                    ")])
+    }, [_vm._v(_vm._s(gender.label) + "\n                        ")])
   }))], 1)], 1), _vm._v(" "), _c('el-row', {
     attrs: {
       "gutter": 20
@@ -101460,7 +101466,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.save()
       }
     }
-  }, [_vm._v("\n                    Save\n                ")])], 1)])], 1)], 1)
+  }, [_vm._v("\n                        Save\n                    ")])], 1)])], 1)]], 2)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

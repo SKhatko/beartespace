@@ -142,10 +142,11 @@ class UserController extends Controller {
 
 		if ( $user->image ) {
 			$user->image->delete();
+			$user->image()->dissociate();
 		}
 
 		$file     = $validation['file']; // get the validated file
-		$fileName = time() . '-' . str_random( 60 ) . '.' . $request->file( 'file' )->getClientOriginalExtension();
+		$fileName = uniqid( time() . '-' ) . '.' . $request->file( 'file' )->getClientOriginalExtension();
 
 		$file->storeAs( 'public/user-image/', $fileName );
 

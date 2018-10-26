@@ -1,7 +1,8 @@
 @extends('layouts.sell')
 
 @section('sell-status')
-    <el-steps :active="1" align-center finish-status="success" class="app-header-sell">
+    <el-steps :active="2" align-center finish-status="success" class="app-header-sell">
+        <el-step description="Name"></el-step>
         <el-step description="Profile"></el-step>
         <el-step description="Artwork Upload"></el-step>
         <el-step description="Payments"></el-step>

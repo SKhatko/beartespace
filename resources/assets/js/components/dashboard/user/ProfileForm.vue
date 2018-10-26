@@ -1,21 +1,24 @@
 <template>
 
-    <el-card v-if="showForSeller" class="app-profile-form">
-        <div slot="header">
-            <div class="app-profile-form-header">
-                <span>Your Public Profile</span>
-                <a v-if="!sellRequest_" :href="'/' + user.user_name" target="_blank"
-                   class="el-button el-button--default el-button--mini">View
-                    profile</a>
+    <el-card  class="app-profile-form">
+
+        <!-- Seller -->
+        <template v-if="showForSeller">
+            <div slot="header">
+                <div class="app-profile-form-header">
+                    <span>Your Public Profile</span>
+                    <a v-if="!sellRequest_" :href="'/' + user.user_name" target="_blank"
+                       class="el-button el-button--default el-button--mini">View
+                        profile</a>
+                </div>
             </div>
-        </div>
 
-        <el-form label-position="top">
+            <el-form label-position="top" :model="user" status-icon :rules="sellerRules" ref="profile">
 
-            <el-row :gutter="20">
+                <el-row :gutter="20">
 
-                <el-col :sm="12">
-                    <el-form-item>
+                    <el-col :sm="12">
+                        <el-form-item prop="image" required>
                         <span slot="label">
                             <span>
                                 Profile Picture
@@ -31,29 +34,29 @@
                                </el-popover>
                         </span>
 
-                        <el-upload
-                                class="app-profile-form-avatar"
-                                action="/api/user/upload-user-avatar"
-                                :headers="{'X-Requested-With': 'XMLHttpRequest', 'X-CSRF-TOKEN' : csrf}"
-                                :show-file-list="false"
-                                accept="image/*"
-                                :on-success="handleAvatarSuccess"
-                                :before-upload="beforeAvatarUpload">
-                            <el-button slot="trigger" icon="el-icon-picture" class="app-profile-form-avatar-button"
-                                       circle></el-button>
-                            <div slot="tip" class="el-upload__tip">*Must be a .jpg, .gif or .png file smaller than 10MB
-                                and at least 400px by 400px.
-                            </div>
+                            <el-upload
+                                    class="app-profile-form-avatar"
+                                    action="/api/user/upload-user-avatar"
+                                    :headers="{'X-Requested-With': 'XMLHttpRequest', 'X-CSRF-TOKEN' : csrf}"
+                                    :show-file-list="false"
+                                    accept="image/*"
+                                    :on-success="handleAvatarSuccess"
+                                    :before-upload="beforeAvatarUpload">
+                                <el-button slot="trigger" icon="el-icon-picture" class="app-profile-form-avatar-button"
+                                           circle></el-button>
+                                <div slot="tip" class="el-upload__tip">*Must be a .jpg, .gif or .png file smaller than 10MB
+                                    and at least 400px by 400px.
+                                </div>
 
-                            <img v-if="user.avatar_url" :src="'/imagecache/fit-290' + user.avatar_url"
-                                 class="avatar">
-                        </el-upload>
+                                <img v-if="user.avatar_url" :src="'/imagecache/fit-290' + user.avatar_url"
+                                     class="avatar">
+                            </el-upload>
 
-                    </el-form-item>
-                </el-col>
+                        </el-form-item>
+                    </el-col>
 
-                <el-col :sm="12" v-if="showForSeller">
-                    <el-form-item>
+                    <el-col :sm="12">
+                        <el-form-item>
                         <span slot="label">
                             Profile background image
                                     <el-popover
@@ -67,129 +70,61 @@
                                        <i slot="reference" class="el-icon-info"></i>
                                    </el-popover>
                         </span>
-                        <el-upload
-                                class="app-profile-form-image"
-                                action="/api/user/upload-user-image"
-                                :headers="{'X-Requested-With': 'XMLHttpRequest', 'X-CSRF-TOKEN' : csrf}"
-                                :show-file-list="false"
-                                accept="image/*"
-                                :on-success="handleImageSuccess"
-                                :before-upload="beforeImageUpload">
-                            <el-button slot="trigger" icon="el-icon-picture" class="app-profile-form-avatar-button"
-                                       circle></el-button>
-                            <div slot="tip" class="el-upload__tip">*Must be a .jpg file smaller than 10MB and at least
-                                980px width.
-                            </div>
+                            <el-upload
+                                    class="app-profile-form-image"
+                                    action="/api/user/upload-user-image"
+                                    :headers="{'X-Requested-With': 'XMLHttpRequest', 'X-CSRF-TOKEN' : csrf}"
+                                    :show-file-list="false"
+                                    accept="image/*"
+                                    :on-success="handleImageSuccess"
+                                    :before-upload="beforeImageUpload">
+                                <el-button slot="trigger" icon="el-icon-picture" class="app-profile-form-avatar-button"
+                                           circle></el-button>
+                                <div slot="tip" class="el-upload__tip">*Must be a .jpg file smaller than 10MB and at least
+                                    980px width.
+                                </div>
 
-                            <img :src="'/imagecache/height-200' + user.image_url" class="image">
-                        </el-upload>
-                    </el-form-item>
-                </el-col>
+                                <img :src="'/imagecache/height-200' + user.image_url" class="image">
+                            </el-upload>
+                        </el-form-item>
+                    </el-col>
 
-            </el-row>
-
-        </el-form>
-
-        <el-form label-position="top" :model="user" status-icon :rules="rules" ref="profile">
-
-            <el-row :gutter="20">
-                <el-col :sm="8">
-                    <el-form-item label="First name" prop="first_name">
-                        <el-input v-model="user.first_name"></el-input>
-                    </el-form-item>
-                </el-col>
-                <el-col :sm="8">
-                    <el-form-item label="Last name" prop="last_name">
-                        <el-input v-model="user.last_name"></el-input>
-                    </el-form-item>
-                </el-col>
-            </el-row>
+                </el-row>
 
 
-            <el-row>
-                <el-form-item label="Gender" prop="gender">
-                    <el-radio-group v-model="user.gender">
-                        <el-radio v-for="gender in options('gender')" :key="gender.value" :label="gender.value">{{
-                            gender.label }}
-                        </el-radio>
-                    </el-radio-group>
-                </el-form-item>
-            </el-row>
-
-            <el-row :gutter="20">
-                <el-col :sm="8">
-                    <el-form-item label="Country" prop="country_id">
-                        <el-select filterable value="user.country_id" v-model="user.country_id"
-                                   placeholder="Select country">
-                            <el-option
-                                    v-for="country in countries"
-                                    :key="country.id"
-                                    :label="country.country_name"
-                                    :value="country.id">
-                            </el-option>
-                        </el-select>
-                    </el-form-item>
-                </el-col>
-
-                <el-col :sm="8">
-                    <el-form-item label="City" prop="city">
-                        <el-input v-model="user.city" placeholder="City"></el-input>
-                    </el-form-item>
-                </el-col>
-
-            </el-row>
-
-            <el-row>
-                <el-col :sm="8">
-                    <el-form-item label="Birthday" prop="dob">
-                        <el-date-picker
-                                v-model="user.dob"
-                                type="date"
-                                value-format="yyyy-MM-dd"
-                                placeholder="yyyy-mm-dd">
-                        </el-date-picker>
-                    </el-form-item>
-                </el-col>
-            </el-row>
-
-            <el-row>
-                <el-col :sm="18">
-                    <el-form-item>
-                        <span slot="label">About</span>
-                        <el-input type="textarea" v-model="user.about"
-                                  placeholder="Let people know something about you"></el-input>
-                    </el-form-item>
-                </el-col>
-            </el-row>
-
-
-            <div class="app-profile-form-bottom">
-                <div class="app--wrapper">
-
-                    <el-button style="margin-top: 20px" v-if="showForSeller && !sellRequest_">
-                        <a :href="'/artist/' + user.id" target="_blank">Preview</a>
-                    </el-button>
-
-                    <el-button type="primary" @click="save()" :loading="loading">
-                        Save and Continue
-                    </el-button>
-
-                </div>
-            </div>
-
-
-            <div style="display: none;">
+                <el-row :gutter="20">
+                    <el-col :sm="8">
+                        <el-form-item label="First name" prop="first_name" required>
+                            <el-input v-model="user.first_name"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :sm="8">
+                        <el-form-item label="Last name" prop="last_name" required>
+                            <el-input v-model="user.last_name"></el-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
 
 
                 <el-row>
+                    <el-form-item label="Gender" prop="gender">
+                        <el-radio-group v-model="user.gender">
+                            <el-radio v-for="gender in options('gender')" :key="gender.value" :label="gender.value">{{
+                                gender.label }}
+                            </el-radio>
+                        </el-radio-group>
+                    </el-form-item>
+                </el-row>
+
+                <el-row :gutter="20">
                     <el-col :sm="8">
-                        <el-form-item label="Nationality" prop="nationality_id">
-                            <el-select filterable value="user.nationality_id" v-model="user.nationality_id"
-                                       placeholder="Select your nationality">
+                        <el-form-item label="Country" prop="country_id" required>
+                            <el-select filterable value="user.country_id" v-model="user.country_id"
+                                       placeholder="Select country">
                                 <el-option
                                         v-for="country in countries"
                                         :key="country.id"
-                                        :label="country.citizenship"
+                                        :label="country.country_name"
                                         :value="country.id">
                                 </el-option>
                             </el-select>
@@ -197,119 +132,185 @@
                     </el-col>
 
                     <el-col :sm="8">
-                        <el-form-item label="Profession" prop="profession">
-                            <el-select value="" v-model="user.profession" multiple filterable allow-create
-                                       default-first-option collapse-tags
-                                       placeholder="What is your profession?">
-                                <el-option v-for="profession in options('profession')" :key="profession.value"
-                                           :label="profession.label"
-                                           :value="profession.value"></el-option>
-                            </el-select>
-                        </el-form-item>
-                    </el-col>
-                </el-row>
-
-                <el-row :gutter="20">
-                    <el-col :sm="8">
-                        <el-form-item label="Name of the last finished school " prop="education">
-                            <el-input v-model="user.education"></el-input>
-                        </el-form-item>
-                    </el-col>
-
-                    <el-col :sm="8">
-                        <el-form-item label="University educational title" prop="education_title">
-                            <el-select value="" v-model="user.education_title" filterable allow-create>
-                                <el-option v-for="title in options('education')" :key="title.value" :label="title.label"
-                                           :value="title.value"></el-option>
-                            </el-select>
-                        </el-form-item>
-                    </el-col>
-
-                    <el-col :sm="8">
-                        <el-form-item label="Skill origin" prop="education_born">
-                            <el-switch
-                                    v-model="user.education_born"
-                                    active-text="Natural Born Artist"
-                                    inactive-text="Educated Artist">
-                            </el-switch>
+                        <el-form-item label="City" prop="city">
+                            <el-input v-model="user.city" placeholder="City"></el-input>
                         </el-form-item>
                     </el-col>
 
                 </el-row>
 
-                <el-row :gutter="20">
-
-
+                <el-row>
                     <el-col :sm="8">
-                        <el-form-item label="Phone" prop="phone">
-                            <vue-tel-input v-model="user.phone" @onInput="setPhoneNumber"
-                                           :preferredCountries="['us', 'gb', 'ua']"></vue-tel-input>
+                        <el-form-item label="Birthday" prop="dob">
+                            <el-date-picker
+                                    v-model="user.dob"
+                                    type="date"
+                                    value-format="yyyy-MM-dd"
+                                    placeholder="yyyy-mm-dd">
+                            </el-date-picker>
                         </el-form-item>
                     </el-col>
-
                 </el-row>
 
-                <el-row :gutter="20">
-
-                    <el-col :sm="8">
-                        <el-form-item label="Region" prop="region">
-                            <el-input v-model="user.region"></el-input>
-                        </el-form-item>
-                    </el-col>
-
-                    <el-col :sm="8">
-                        <el-form-item label="Postcode" prop="postcode">
-                            <el-input v-model="user.postcode"></el-input>
-                        </el-form-item>
-                    </el-col>
-
-                    <el-col :sm="8">
-                        <el-form-item label="Address" prop="address">
-                            <el-input placeholder="Address" v-model="user.address">
-                            </el-input>
+                <el-row>
+                    <el-col :sm="18">
+                        <el-form-item>
+                            <span slot="label">About</span>
+                            <el-input type="textarea" v-model="user.about"
+                                      placeholder="Let people know something about you"></el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
 
 
-                <el-row :gutter="20">
+                <div class="app-profile-form-bottom">
+                    <div class="app--wrapper">
 
-                    <el-col>
+                        <el-button style="margin-top: 20px" v-if="!sellRequest_">
+                            <a :href="'/artist/' + user.id" target="_blank">Preview</a>
+                        </el-button>
 
-                        <el-form-item prop="inspiration">
-                            <span slot="label">Inspiration</span>
-                            <el-input type="textarea" v-model="user.inspiration"></el-input>
-                        </el-form-item>
+                        <el-button type="primary" @click="save()" :loading="loading">
+                            Save and Continue
+                        </el-button>
 
-                    </el-col>
+                    </div>
+                </div>
 
-                    <el-col>
-                        <el-form-item label="Exhibitions" prop="exhibition">
-                            <span slot="label">Exhibitions</span>
-                            <el-input type="textarea" v-model="user.exhibition"></el-input>
-                        </el-form-item>
-                    </el-col>
 
-                </el-row>
+                <div style="display: none;">
+
+
+                    <el-row>
+                        <el-col :sm="8">
+                            <el-form-item label="Nationality" prop="nationality_id">
+                                <el-select filterable value="user.nationality_id" v-model="user.nationality_id"
+                                           placeholder="Select your nationality">
+                                    <el-option
+                                            v-for="country in countries"
+                                            :key="country.id"
+                                            :label="country.citizenship"
+                                            :value="country.id">
+                                    </el-option>
+                                </el-select>
+                            </el-form-item>
+                        </el-col>
+
+                        <el-col :sm="8">
+                            <el-form-item label="Profession" prop="profession">
+                                <el-select value="" v-model="user.profession" multiple filterable allow-create
+                                           default-first-option collapse-tags
+                                           placeholder="What is your profession?">
+                                    <el-option v-for="profession in options('profession')" :key="profession.value"
+                                               :label="profession.label"
+                                               :value="profession.value"></el-option>
+                                </el-select>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+
+                    <el-row :gutter="20">
+                        <el-col :sm="8">
+                            <el-form-item label="Name of the last finished school " prop="education">
+                                <el-input v-model="user.education"></el-input>
+                            </el-form-item>
+                        </el-col>
+
+                        <el-col :sm="8">
+                            <el-form-item label="University educational title" prop="education_title">
+                                <el-select value="" v-model="user.education_title" filterable allow-create>
+                                    <el-option v-for="title in options('education')" :key="title.value" :label="title.label"
+                                               :value="title.value"></el-option>
+                                </el-select>
+                            </el-form-item>
+                        </el-col>
+
+                        <el-col :sm="8">
+                            <el-form-item label="Skill origin" prop="education_born">
+                                <el-switch
+                                        v-model="user.education_born"
+                                        active-text="Natural Born Artist"
+                                        inactive-text="Educated Artist">
+                                </el-switch>
+                            </el-form-item>
+                        </el-col>
+
+                    </el-row>
+
+                    <el-row :gutter="20">
+
+
+                        <el-col :sm="8">
+                            <el-form-item label="Phone" prop="phone">
+                                <vue-tel-input v-model="user.phone" @onInput="setPhoneNumber"
+                                               :preferredCountries="['us', 'gb', 'ua']"></vue-tel-input>
+                            </el-form-item>
+                        </el-col>
+
+                    </el-row>
+
+                    <el-row :gutter="20">
+
+                        <el-col :sm="8">
+                            <el-form-item label="Region" prop="region">
+                                <el-input v-model="user.region"></el-input>
+                            </el-form-item>
+                        </el-col>
+
+                        <el-col :sm="8">
+                            <el-form-item label="Postcode" prop="postcode">
+                                <el-input v-model="user.postcode"></el-input>
+                            </el-form-item>
+                        </el-col>
+
+                        <el-col :sm="8">
+                            <el-form-item label="Address" prop="address">
+                                <el-input placeholder="Address" v-model="user.address">
+                                </el-input>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+
+
+                    <el-row :gutter="20">
+
+                        <el-col>
+
+                            <el-form-item prop="inspiration">
+                                <span slot="label">Inspiration</span>
+                                <el-input type="textarea" v-model="user.inspiration"></el-input>
+                            </el-form-item>
+
+                        </el-col>
+
+                        <el-col>
+                            <el-form-item label="Exhibitions" prop="exhibition">
+                                <span slot="label">Exhibitions</span>
+                                <el-input type="textarea" v-model="user.exhibition"></el-input>
+                            </el-form-item>
+                        </el-col>
+
+                    </el-row>
+                </div>
+
+
+            </el-form>
+
+        </template>
+
+        <!-- User -->
+        <template v-else>
+
+            <div slot="header">
+                <div class="app-profile-form-header">
+                    <span>Your Public Profile</span>
+                </div>
             </div>
 
-
-        </el-form>
-
-    </el-card>
-
-    <el-card v-else class="app-profile-form">
-
-        <div slot="header">
-            <div class="app-profile-form-header">
-                <span>Your Public Profile</span>
-            </div>
-        </div>
-
-        <el-form label-position="top">
-            <el-row :gutter="20">
-                <el-col :sm="12">
-                    <el-form-item>
+            <el-form label-position="top">
+                <el-row :gutter="20">
+                    <el-col :sm="12">
+                        <el-form-item>
                         <span slot="label">
                             <span>
                                 Profile Picture
@@ -325,113 +326,112 @@
                                </el-popover>
                         </span>
 
-                        <el-upload
-                                class="app-profile-form-avatar"
-                                action="/api/user/upload-user-avatar"
-                                :headers="{'X-Requested-With': 'XMLHttpRequest', 'X-CSRF-TOKEN' : csrf}"
-                                :show-file-list="false"
-                                accept="image/*"
-                                :on-success="handleAvatarSuccess"
-                                :before-upload="beforeAvatarUpload">
-                            <el-button slot="trigger" icon="el-icon-picture" class="app-profile-form-avatar-button"
-                                       circle></el-button>
-                            <div slot="tip" class="el-upload__tip">*Must be a .jpg, .gif or .png file smaller than 10MB
-                                and at least 400px by 400px.
-                            </div>
+                            <el-upload
+                                    class="app-profile-form-avatar"
+                                    action="/api/user/upload-user-avatar"
+                                    :headers="{'X-Requested-With': 'XMLHttpRequest', 'X-CSRF-TOKEN' : csrf}"
+                                    :show-file-list="false"
+                                    accept="image/*"
+                                    :on-success="handleAvatarSuccess"
+                                    :before-upload="beforeAvatarUpload">
+                                <el-button slot="trigger" icon="el-icon-picture" class="app-profile-form-avatar-button"
+                                           circle></el-button>
+                                <div slot="tip" class="el-upload__tip">*Must be a .jpg, .gif or .png file smaller than 10MB
+                                    and at least 400px by 400px.
+                                </div>
 
-                            <img v-if="user.avatar_url" :src="'/imagecache/fit-290' + user.avatar_url"
-                                 class="avatar">
-                        </el-upload>
+                                <img v-if="user.avatar_url" :src="'/imagecache/fit-290' + user.avatar_url"
+                                     class="avatar">
+                            </el-upload>
 
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+            </el-form>
+
+            <el-form label-position="top" :model="user" status-icon :rules="userRules" ref="profile">
+
+                <el-row :gutter="20">
+                    <el-col :sm="8">
+                        <el-form-item label="First name" prop="first_name">
+                            <el-input v-model="user.first_name"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :sm="8">
+                        <el-form-item label="Last name" prop="last_name">
+                            <el-input v-model="user.last_name"></el-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+
+                <el-row>
+                    <el-form-item label="Gender" prop="gender">
+                        <el-radio-group v-model="user.gender">
+                            <el-radio v-for="gender in options('gender')" :key="gender.value" :label="gender.value">{{
+                                gender.label }}
+                            </el-radio>
+                        </el-radio-group>
                     </el-form-item>
-                </el-col>
-            </el-row>
-        </el-form>
+                </el-row>
 
-        <el-form label-position="top" :model="user" status-icon :rules="userRules" ref="profile">
+                <el-row :gutter="20">
+                    <el-col :sm="8">
+                        <el-form-item label="Country" prop="country_id">
+                            <el-select filterable value="user.country_id" v-model="user.country_id"
+                                       placeholder="Select country">
+                                <el-option
+                                        v-for="country in countries"
+                                        :key="country.id"
+                                        :label="country.country_name"
+                                        :value="country.id">
+                                </el-option>
+                            </el-select>
+                        </el-form-item>
+                    </el-col>
 
-            <el-row :gutter="20">
-                <el-col :sm="8">
-                    <el-form-item label="First name" prop="first_name">
-                        <el-input v-model="user.first_name"></el-input>
-                    </el-form-item>
-                </el-col>
-                <el-col :sm="8">
-                    <el-form-item label="Last name" prop="last_name">
-                        <el-input v-model="user.last_name"></el-input>
-                    </el-form-item>
-                </el-col>
-            </el-row>
+                    <el-col :sm="8">
+                        <el-form-item label="City" prop="city">
+                            <el-input v-model="user.city" placeholder="City"></el-input>
+                        </el-form-item>
+                    </el-col>
 
-            <el-row>
-                <el-form-item label="Gender" prop="gender">
-                    <el-radio-group v-model="user.gender">
-                        <el-radio v-for="gender in options('gender')" :key="gender.value" :label="gender.value">{{
-                            gender.label }}
-                        </el-radio>
-                    </el-radio-group>
-                </el-form-item>
-            </el-row>
+                </el-row>
 
-            <el-row :gutter="20">
-                <el-col :sm="8">
-                    <el-form-item label="Country" prop="country_id">
-                        <el-select filterable value="user.country_id" v-model="user.country_id"
-                                   placeholder="Select country">
-                            <el-option
-                                    v-for="country in countries"
-                                    :key="country.id"
-                                    :label="country.country_name"
-                                    :value="country.id">
-                            </el-option>
-                        </el-select>
-                    </el-form-item>
-                </el-col>
+                <el-row>
+                    <el-col :sm="8">
+                        <el-form-item label="Birthday" prop="dob">
+                            <el-date-picker
+                                    v-model="user.dob"
+                                    type="date"
+                                    value-format="yyyy-MM-dd"
+                                    placeholder="yyyy-mm-dd">
+                            </el-date-picker>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
 
-                <el-col :sm="8">
-                    <el-form-item label="City" prop="city">
-                        <el-input v-model="user.city" placeholder="City"></el-input>
-                    </el-form-item>
-                </el-col>
-
-            </el-row>
-
-            <el-row>
-                <el-col :sm="8">
-                    <el-form-item label="Birthday" prop="dob">
-                        <el-date-picker
-                                v-model="user.dob"
-                                type="date"
-                                value-format="yyyy-MM-dd"
-                                placeholder="yyyy-mm-dd">
-                        </el-date-picker>
-                    </el-form-item>
-                </el-col>
-            </el-row>
-
-            <el-row>
-                <el-col :sm="18">
-                    <el-form-item>
-                        <span slot="label">About</span>
-                        <el-input type="textarea" v-model="user.about"
-                                  placeholder="Let people know something about you"></el-input>
-                    </el-form-item>
-                </el-col>
-            </el-row>
+                <el-row>
+                    <el-col :sm="18">
+                        <el-form-item>
+                            <span slot="label">About</span>
+                            <el-input type="textarea" v-model="user.about"
+                                      placeholder="Let people know something about you"></el-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
 
 
-            <div class="app-profile-form-bottom">
-                <div class="app--wrapper">
-                    <el-button type="primary" @click="save()" :loading="loading">
-                        Save
-                    </el-button>
+                <div class="app-profile-form-bottom">
+                    <div class="app--wrapper">
+                        <el-button type="primary" @click="save()" :loading="loading">
+                            Save
+                        </el-button>
+                    </div>
                 </div>
-            </div>
-        </el-form>
+            </el-form>
 
-
+        </template>
     </el-card>
-
 
 </template>
 
