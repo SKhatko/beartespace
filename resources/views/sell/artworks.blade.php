@@ -41,8 +41,6 @@
 
                             <div class="artwork-info">
                                 <div class="sell-artwork-name">{{ $artwork->name }}</div>
-                                <div class="sell-artwork-qty">{{ $artwork->quantity }} pc</div>
-                                <div class="sell-artwork-price">{{ $artwork->formatted_price }}</div>
                             </div>
 
                         </el-col>

@@ -1,21 +1,17 @@
 <template>
 
-    <el-card>
+    <el-card class="app-sell-profile-name-form">
 
         <el-form label-position="top" :model="user" status-icon :rules="rules" ref="username" action="/sell/profile-name" method="POST"
                  @submit.native.prevent="submitForm">
 
             <slot></slot>
 
-
             <div class="h3">Personal profile url link</div>
 
-
             <el-form-item label="Enter your public username" prop="user_name">
-                <el-input v-model="user.user_name" name="user_name"
-                          style="max-width: 290px; margin-right: 20px;margin-bottom:10px"></el-input>
+                <el-input v-model="user.user_name" name="user_name"></el-input>
             </el-form-item>
-
 
             <el-button @click="checkUserName()" :loading="usernameLoading">
                 Check
@@ -45,7 +41,7 @@
             let userNameValidator = (rule, value, callback) => {
                 if (value === '') {
                     callback(new Error("Name can't be empty"));
-                    this.setUserProfileLink();
+                    this.userProfileLink = '';
                 } else {
                     console.log(value);
                     axios.post('/api/user/check-username', {'username': value})
@@ -73,7 +69,7 @@
                 user: {},
                 rules: {
                     user_name: [
-                        {validator: userNameValidator}
+                        {validator: userNameValidator, trigger: 'submit'}
                     ],
                 },
             }

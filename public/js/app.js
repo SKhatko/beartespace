@@ -103129,10 +103129,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -103144,7 +103140,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var userNameValidator = function userNameValidator(rule, value, callback) {
             if (value === '') {
                 callback(new Error("Name can't be empty"));
-                _this.setUserProfileLink();
+                _this.userProfileLink = '';
             } else {
                 console.log(value);
                 axios.post('/api/user/check-username', { 'username': value }).then(function (response) {
@@ -103169,7 +103165,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             userProfileLink: '',
             user: {},
             rules: {
-                user_name: [{ validator: userNameValidator }]
+                user_name: [{ validator: userNameValidator, trigger: 'submit' }]
             }
         };
     },
@@ -103218,7 +103214,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(5)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 /* 318 */
@@ -103263,7 +103259,9 @@ module.exports = Component.exports
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('el-card', [_c('el-form', {
+  return _c('el-card', {
+    staticClass: "app-sell-profile-name-form"
+  }, [_c('el-form', {
     ref: "username",
     attrs: {
       "label-position": "top",
@@ -103287,11 +103285,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "prop": "user_name"
     }
   }, [_c('el-input', {
-    staticStyle: {
-      "max-width": "290px",
-      "margin-right": "20px",
-      "margin-bottom": "10px"
-    },
     attrs: {
       "name": "user_name"
     },

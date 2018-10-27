@@ -1426,12 +1426,16 @@ body, html {
   }
 
   &-profile-name {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100%;
+    //display: flex;
+    //justify-content: center;
     text-align: center;
     position: relative;
+
+    &-form {
+      max-width: 500px;
+      text-align: center;
+      margin: 0 auto;
+    }
 
     &-bottom {
       @extend %bottom-fixed;
