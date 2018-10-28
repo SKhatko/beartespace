@@ -70,7 +70,7 @@ class Kernel extends HttpKernel {
 		// Sell
 		'has-profile-name'   => \App\Http\Middleware\HasProfileName::class,
 		'has-completed-profile'   => \App\Http\Middleware\HasCompletedProfile::class,
-		'has-seller-access'   => \App\Http\Middleware\HasSellserAccess::class,
+		'has-seller-artworks'   => \App\Http\Middleware\HasSellerArtworks::class,
 
 		// CartCheckout
 		'has-primary-address' => \App\Http\Middleware\HasPrimaryAddress::class,

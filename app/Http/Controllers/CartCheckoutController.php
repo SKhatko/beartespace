@@ -93,7 +93,7 @@ class CartCheckoutController extends Controller {
 		return view( 'cart.checkout', compact( 'address', 'paymentMethod' ) );
 	}
 
-	public function checkoutPost( Request $request ) {
+	public function postCheckout( Request $request ) {
 
 		$user = auth()->user();
 

@@ -75,6 +75,7 @@ Route::group( [ 'middleware' => 'web' ], function () {
 	Route::get( '/sell/artwork/{id}/edit', 'SellController@editArtwork' )->name('sell.artwork.edit')->middleware(['auth', 'has-profile-name']);
 	Route::get( '/sell/artwork/create', 'SellController@createArtwork' )->name('sell.artwork.create')->middleware(['auth', 'has-profile-name']);
 	Route::get( '/sell/payments', 'SellController@payments' )->middleware(['auth', 'has-profile-name', 'has-seller-artworks']);
+	Route::post( '/sell/payments', 'SellController@postPayments' )->middleware(['auth', 'has-profile-name', 'has-seller-artworks']);
 
 	// General routes
 	Route::get( '/auction', 'AuctionController@index' )->name( 'auctions' );
@@ -119,7 +120,7 @@ Route::group( [ 'middleware' => 'web' ], function () {
 		Route::get('cart/payment', 'CartCheckoutController@payment')->name('cart.payment');
 		Route::post( 'cart/payment', 'CartCheckoutController@savePaymentMethod' );
 		Route::get( 'cart/checkout', 'CartCheckoutController@checkout' )->name( 'cart.checkout' )->middleware('has-payment-method');
-		Route::post( 'cart/checkout', 'CartCheckoutController@checkoutPost' )->middleware('has-payment-method');
+		Route::post( 'cart/checkout', 'CartCheckoutController@postCheckout' )->middleware('has-payment-method');
 	} );
 
 	Route::get('cart/checkout/success', 'CartCheckoutController@checkoutSuccess')->name('cart.checkout.success')->middleware('auth');
@@ -140,7 +141,7 @@ Route::group( [ 'middleware' => 'web' ], function () {
 	], function () {
 
 		// Not user (admin, sellers)
-		Route::group( [ 'middleware' => ['has-profile-name','has-completed-profile', 'has-seller-access'] ], function () {
+		Route::group( [ 'middleware' => ['has-profile-name','has-completed-profile'] ], function () {
 			// Artworks
 			Route::get( 'artwork', 'ArtworkController@index' )->name( 'dashboard.artworks' );
 			Route::get( 'artwork/create', 'ArtworkController@create' )->name( 'dashboard.artwork.create' );

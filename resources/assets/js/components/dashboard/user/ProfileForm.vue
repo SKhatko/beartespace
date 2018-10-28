@@ -163,10 +163,10 @@
                 </el-row>
 
 
-                <div class="app-profile-form-bottom">
+                <div class="app--fixed-bottom">
                     <div class="app--wrapper">
 
-                        <el-button style="margin-top: 20px" v-if="!sellRequest_">
+                        <el-button v-if="!sellRequest_">
                             <a :href="'/artist/' + user.id" target="_blank">Preview</a>
                         </el-button>
 
@@ -421,7 +421,7 @@
                 </el-row>
 
 
-                <div class="app-profile-form-bottom">
+                <div class="app--fixed-bottom">
                     <div class="app--wrapper">
                         <el-button type="primary" @click="save()" :loading="loading">
                             Save

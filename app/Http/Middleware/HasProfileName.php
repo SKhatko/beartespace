@@ -16,7 +16,6 @@ class HasProfileName
     public function handle($request, Closure $next)
     {
     	if(auth()->user() && auth()->user()->user_name) {
-    		dump(1);
 		    return $next($request);
 	    } else {
     		return redirect(route('sell.profile-name'));

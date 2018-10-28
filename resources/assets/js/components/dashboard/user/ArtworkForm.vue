@@ -5,7 +5,8 @@
             <el-card style="margin-bottom: 20px;">
                 <div slot="header" class="artwork-header">
                     <span>Photos</span>
-                    <a v-if="artwork_ && !page_" :href="'/artwork/' + artwork.id" target="_blank" class="el-button el-button--default el-button--mini">Preview</a>
+                    <a v-if="artwork_ && !page_" :href="'/artwork/' + artwork.id" target="_blank"
+                       class="el-button el-button--default el-button--mini">Preview</a>
                 </div>
 
                 <el-form-item label="Upload primary photo of your artwork." required prop="image">
@@ -246,8 +247,9 @@
 
                 <el-row :gutter="20">
                     <el-col :sm="12">
-                        <el-form-item label="Price, Eur" required prop="price" >
-                            <el-input-number value="2" v-model="artwork.price" :min="1" :max="50000" @blur="countPrice"></el-input-number>
+                        <el-form-item label="Price, Eur" required prop="price">
+                            <el-input-number value="2" v-model="artwork.price" :min="1" :max="50000"
+                                             @blur="countPrice"></el-input-number>
 
                             <span class="h5" style="padding-left: 10px;">{{ nettoIncome }}</span>
                             <!--<el-select value="" v-model="artwork.currency" placeholder="Select currency"-->
@@ -355,7 +357,7 @@
 
             </el-card>
 
-            <div class="artwork-bottom">
+            <div class="app--fixed-bottom">
                 <div class="app--wrapper">
 
                     <el-button type="primary" @click="saveArtwork" :loading="loading">Save and Continue
@@ -367,6 +369,7 @@
 
                 </div>
             </div>
+
 
         </el-form>
     </div>
@@ -479,7 +482,7 @@
                                 if (response.data.data) {
                                     console.log(response.data);
 
-                                    if(this.page_) {
+                                    if (this.page_) {
                                         window.location.pathname = '/sell/artwork';
                                     } else {
                                         window.location.pathname = '/dashboard/artwork';

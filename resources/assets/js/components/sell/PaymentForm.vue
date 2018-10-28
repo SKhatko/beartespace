@@ -2,13 +2,13 @@
 
     <el-card class="box-card">
         <div slot="header" class="h4">
-            <div style="margin-bottom: 10px;">Enter your payment details</div>
-            <div class="small">Your will not be charged until you review this order on the next page.</div>
+            <div style="margin-bottom: 10px;">How you'll get paid</div>
+            <div class="small">Choose how you want to receive payments for your sales.</div>
         </div>
 
         <slot></slot>
 
-        <el-form id="payment-form" method="POST" action="/cart/payment">
+        <el-form id="payment-form" method="POST" action="/sell/payments">
             <input type="hidden" name="_token" :value="csrf">
             <input type="hidden" id="payment" name="payment">
 
@@ -17,15 +17,17 @@
                 <div class="el-form-item__error">{{ errorMessage }}</div>
             </el-form-item>
 
-            <el-button type="primary" native-type="submit" :loading="loading" style="margin-top: 20px;width: 100%;">
-                Review your order
-            </el-button>
+            <div class="app--fixed-bottom">
+                <div class="app--wrapper">
+                    <el-button type="primary" native-type="submit" :loading="loading">
+                        Save and Continue
+                    </el-button>
+                </div>
+            </div>
 
         </el-form>
 
-
     </el-card>
-
 
 </template>
 

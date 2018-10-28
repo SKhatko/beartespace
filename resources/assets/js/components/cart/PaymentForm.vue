@@ -17,9 +17,13 @@
                 <div class="el-form-item__error">{{ errorMessage }}</div>
             </el-form-item>
 
-            <el-button type="primary" native-type="submit" :loading="loading" style="margin-top: 20px;width: 100%;">
-                Review your order
-            </el-button>
+            <div class="app--fixed-bottom">
+                <div class="app--wrapper">
+                    <el-button type="primary" native-type="submit" :loading="loading">
+                        Review your order
+                    </el-button>
+                </div>
+            </div>
 
         </el-form>
 

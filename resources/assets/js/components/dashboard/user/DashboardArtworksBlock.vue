@@ -4,25 +4,24 @@
 
         <el-row :gutter="20" class="app-dashboard-artworks-block">
 
-            <el-col :xs="12" :sm="8" :md="6" class="artwork" v-for="artwork in artworks" :key="artwork.id" style="margin-bottom: 20px;">
+            <el-col :xs="12" :sm="8" :md="6" class="block-artwork-new">
+                <a href="/dashboard/artwork/create" class="el-button el-button--default">Upload
+                    Artwork</a>
+            </el-col>
 
-                <a :href="'/artwork/' + artwork.id" class="artwork-image" target="_blank">
+            <el-col :xs="12" :sm="8" :md="6" class="block-artwork" v-for="artwork in artworks" :key="artwork.id" style="margin-bottom: 20px;">
+
+                <a :href="'/artwork/' + artwork.id" class="block-artwork-image" target="_blank">
                     <img :src="'/imagecache/fit-290' + artwork.image_url" alt="">
                 </a>
 
-                <a :href="'/artwork/' + artwork.id" target="_blank" class="artwork-info">
-                    <div class="artwork-name">{{ artwork.name }}</div>
-                    <div class="artwork-artist">{{ artwork.made_by }}</div>
-                    <div class="artwork-status">{{ artwork.statusString }}</div>
-                </a>
+                <div class="block-artwork-manage">
 
-                <div class="artwork-manage">
+                    <div class="block-artwork-qty">{{ artwork.quantity }} pc</div>
 
-                    <div class="artwork-qty">{{ artwork.quantity }} pc</div>
+                    <div class="block-artwork-price">{{ artwork.formatted_price }}</div>
 
-                    <div class="artwork-price">{{ artwork.formatted_price }}</div>
-
-                    <a :href="'/dashboard/artwork/edit/' + artwork.id"
+                    <a :href="'/dashboard/artwork/' + artwork.id + '/edit'"
                        class="el-button el-button--default el-button--mini" style="margin-right: 10px;">Edit</a>
 
                     <el-checkbox :disabled="artwork.sold_at ? true : false" value="artwork.sold_at"
@@ -44,9 +43,6 @@
             </el-col>
 
         </el-row>
-
-        <a href="/dashboard/artwork/create" class="el-button el-button--default" style="margin-bottom: 20px;">Upload
-            Artwork</a>
 
 
     </el-card>

@@ -75,4 +75,14 @@ class SellController extends Controller {
 
 		return view( 'sell.payments', compact( 'clientToken' ) );
 	}
+
+	public function postPayments(Request $request) {
+
+		$user = auth()->user();
+
+		$user->user_type = 'artist';
+		$user->save();
+
+		return redirect('/dashboard');
+	}
 }

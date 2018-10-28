@@ -48,7 +48,7 @@
 
                 </el-row>
 
-                <div class="sell-artwork-bottom">
+                <div class="app--fixed-bottom">
                     <div class="app--wrapper">
 
                         <a href="/sell/profile" class="el-button el-button--default">Edit profile</a>

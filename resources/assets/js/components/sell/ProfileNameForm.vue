@@ -2,16 +2,21 @@
 
     <el-card class="app-sell-profile-name-form">
 
-        <el-form label-position="top" :model="user" status-icon :rules="rules" ref="username" action="/sell/profile-name" method="POST"
+        <el-form label-position="top" :model="user" status-icon :rules="rules" ref="username"
+                 action="/sell/profile-name" method="POST"
                  @submit.native.prevent="submitForm">
 
             <slot></slot>
 
             <div class="h3">Personal profile url link</div>
 
-            <el-form-item label="Enter your public username" prop="user_name">
+            <el-form-item label="Enter your public profile name" prop="user_name">
                 <el-input v-model="user.user_name" name="user_name"></el-input>
             </el-form-item>
+
+            <div style="margin-bottom: 20px;">Your profile name will appear in url of your personal page and your
+                artworks. You'll not be able to change your profile name after validation your profile
+            </div>
 
             <el-button @click="checkUserName()" :loading="usernameLoading">
                 Check
@@ -19,11 +24,12 @@
 
             <div class="small" v-text="userProfileLink" style="margin-top: 10px;"></div>
 
-            <div class="app-sell-profile-name-bottom">
+            <div class="app--fixed-bottom">
                 <div class="app--wrapper">
                     <el-button type="primary" native-type="submit" :loading="loading">Save and Continue</el-button>
                 </div>
             </div>
+
 
         </el-form>
     </el-card>
@@ -95,7 +101,7 @@
 
             submitForm() {
                 this.$refs['username'].validate((valid) => {
-                    if(valid) {
+                    if (valid) {
                         this.loading = true;
                         this.$refs['username'].$el.submit();
                     }

@@ -38,6 +38,20 @@ body, html {
   align-items: center;
 }
 
+.app--fixed-bottom {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: right;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.3);
+  background-color: #fff;
+
+  .app--wrapper {
+    padding: 15px;
+  }
+}
+
 .app {
   display: flex;
   flex-direction: column;
@@ -930,10 +944,6 @@ body, html {
         max-width: 100%;
       }
     }
-
-    &-bottom {
-      @extend %bottom-fixed;
-    }
   }
 }
 
@@ -1426,8 +1436,6 @@ body, html {
   }
 
   &-profile-name {
-    //display: flex;
-    //justify-content: center;
     text-align: center;
     position: relative;
 
@@ -1435,10 +1443,6 @@ body, html {
       max-width: 500px;
       text-align: center;
       margin: 0 auto;
-    }
-
-    &-bottom {
-      @extend %bottom-fixed;
     }
   }
 
@@ -1453,10 +1457,6 @@ body, html {
         justify-content: center;
         align-items: center;
         min-height: 180px;
-
-        &-link {
-
-        }
       }
 
       &-image {
@@ -1477,10 +1477,6 @@ body, html {
         font-size: 18px;
         margin: 5px 0;
         @extend %text-truncate;
-      }
-
-      &-bottom {
-        @extend %bottom-fixed;
       }
 
     }
@@ -1542,11 +1538,6 @@ body, html {
       font-size: 20px;
     }
   }
-
-  &-bottom {
-    @extend %bottom-fixed;
-  }
-
 }
 
 .app-footer {
@@ -1697,53 +1688,35 @@ body, html {
 }
 
 .app-dashboard-artworks-block {
-  //flex: 1;
-  //padding: 0 15px;
 
-  .artwo .rk {
-    margin-bottom: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
+  .block-artwork {
+
+    &-new {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 180px;
+    }
 
     &-image {
-      margin-right: 20px;
+      position: relative;
+
+      img {
+        width: 100%;
+      }
     }
 
-    &-info {
-      flex: 1;
-      min-width: 200px;
-    }
-
-    &-manage {
-      flex: 1;
-      align-items: center;
-      justify-content: flex-end;
-      display: flex;
-      flex-wrap: wrap;
+    &-edit {
+      position: absolute;
+      right: 20px;
+      top: 20px;
     }
 
     &-name {
-      margin-bottom: 10px;
+      font-size: 18px;
+      margin: 5px 0;
+      @extend %text-truncate;
     }
-
-    &-artist {
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-
-    &-status {
-      font-weight: bold;
-    }
-
-    &-qty {
-      margin-right: 10px;
-    }
-
-    &-price {
-      margin-right: 10px;
-    }
-
   }
 
 }
@@ -2006,6 +1979,7 @@ body, html {
   }
 }
 
+// Vue phone input
 .vue-tel-input {
   border: $--border-base !important;
   line-height: 25px;
@@ -2017,6 +1991,38 @@ body, html {
     bottom: 33px;
   }
 }
-
 // End vue phone number input
+
+// Braintree
+#bt-dropin {
+
+  & .braintree-option {
+    border: none;
+    padding: 15px 0;
+  }
+
+  & .braintree-sheet {
+    border: none;
+
+    &__header {
+      padding: 15px 0;
+    }
+
+    &__content {
+      padding: 15px 0;
+    }
+
+    .braintree-form__hosted-field {
+      border: $--input-border;
+      border-radius: $--input-border-radius;
+
+      &:hover, &:focus, &:active {
+        border-color: $--input-border-color-hover;
+      }
+    }
+
+  }
+}
+
+// End braintree
 
