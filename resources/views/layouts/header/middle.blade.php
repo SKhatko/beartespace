@@ -71,7 +71,11 @@
 
         <div class="app-header-auth">
 
-            <a href="/sell" class="app-header-sell">Sell <span class="hidden-xs-only">on BearteSpace</span></a>
+            @if(auth()->user() && auth()->user()->isSeller())
+                <a href="/dashboard/artwork" class="app-header-sell">My Artworks</a>
+            @else
+                <a href="/sell" class="app-header-sell">Sell <span class="hidden-xs-only">on BearteSpace</span></a>
+            @endif
 
             @if (Auth::guest())
 
