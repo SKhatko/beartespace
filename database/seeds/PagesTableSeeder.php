@@ -12,7 +12,7 @@ class PagesTableSeeder extends Seeder {
 
 		DB::table( 'pages' )->insert( [
 			[
-				"title"   => "Contacts block in footer",
+				"name"   => "Contacts block in footer",
 				"slug"    => "contacts-in-footer",
 				"content" => json_encode( [
 					"en" => "<p>Information</p><p>Gallery BeArte</p><p>Hoejtoften 12</p><p>2690 Karlslunde</p><p>VAT number:&nbsp;DK34129894</p><p>Bankoplysninger: Sparekassen Sj&aelig;lland</p>",
@@ -20,7 +20,7 @@ class PagesTableSeeder extends Seeder {
 				] )
 			],
 			[
-				"title"   => "Terms and Conditions",
+				"name"   => "Terms and Conditions",
 				"slug"    => "terms-and-conditions",
 				"content" => json_encode( [
 					"en" => "Terms and Conditions",
@@ -28,7 +28,7 @@ class PagesTableSeeder extends Seeder {
 				] )
 			],
 			[
-				"title"   => "Right of cancellation",
+				"name"   => "Right of cancellation",
 				"slug"    => "right-of-cancellation",
 				"content" => json_encode( [
 					"en" => "Right of Cancellation
@@ -36,7 +36,7 @@ When you shop at Gallery BeArte, you have 14 days of withdrawal from the day you
 It is the duty of the gallery to specify where exactly you must send the item to. Under usual circumstances, the return address is Hoejtoften 12, 2690 Karlslunde, Denmark. However, this may differ.
 You must notify the gallery that you wish to return it within 14 days of receipt of your order. You can do this by sending an e-mail to us. We will confirm your right of withdrawal by answering your inquiry.
 After this you have 14 days to return the item.
-Take care of the item. The product should appear as new at a return point and be able to be sold to another customer. However, you must unpack it, examine it and rate it. If the product is characterized as used or damaged, you will not lose your right of withdrawal for that reason, but you should expect to pay for the impairment. If the product is worthless, you are not entitled to your money back. You must therefore consider whether you will use your right of withdrawal in that situation. It is the gallery that assesses the possible depreciation of the product.
+Take care of the item. The product should appear as new at a return point and be able to be sold to another customer. However, you must unpack it, examine it and rate it. If the product is characterized as used or damaged, you will not lose your right of withdrawal for that reason, but you should expect to pay for the impairment. If the product is worthless, you are not ennamed to your money back. You must therefore consider whether you will use your right of withdrawal in that situation. It is the gallery that assesses the possible depreciation of the product.
 For safety reasons, keep the instructions, labels, molded plastic, and so on, so that we can get it back if you return your purchase.
 When you return a purchase, you are responsible for the item until it returns to the gallery. This means that you should expect to pay if the product gets damaged or disappears during its transportation back to the gallery.
 You must pay the return shipment yourself. Get a receipt from the postal service or courier you use.
@@ -47,7 +47,7 @@ Items specially made for you - so-called purchase orders (the items that are mad
 				] )
 			],
 			[
-				"title"   => "Warranty",
+				"name"   => "Warranty",
 				"slug"    => "warranty",
 				"content" => json_encode( [
 					"en" => "Warranty",
@@ -55,7 +55,7 @@ Items specially made for you - so-called purchase orders (the items that are mad
 				] )
 			],
 			[
-				"title"   => "Taxes",
+				"name"   => "Taxes",
 				"slug"    => "taxes",
 				"content" => json_encode( [
 					"en" => "Taxes",
@@ -63,7 +63,7 @@ Items specially made for you - so-called purchase orders (the items that are mad
 				] )
 			],
 			[
-				"title"   => "Freight",
+				"name"   => "Freight",
 				"slug"    => "freight",
 				"content" => json_encode( [
 					"en" => "Freight",
@@ -71,7 +71,7 @@ Items specially made for you - so-called purchase orders (the items that are mad
 				] )
 			],
 			[
-				"title"   => "Cookies and Privacy",
+				"name"   => "Cookies and Privacy",
 				"slug"    => "cookies-and-privacy",
 				"content" => json_encode( [
 					"en" => "Cookies and Privacy",
@@ -81,7 +81,7 @@ Items specially made for you - so-called purchase orders (the items that are mad
 
 			//region About
 			[
-				"title"   => "About BearteSpace",
+				"name"   => "About BearteSpace",
 				"slug"    => "about-beartespace",
 				"content" => json_encode( [
 					"en" => "About BearteSpace",
@@ -90,7 +90,7 @@ Items specially made for you - so-called purchase orders (the items that are mad
 			],
 
 			[
-				"title"   => "About BearteGallery",
+				"name"   => "About BearteGallery",
 				"slug"    => "about-BearteGallery",
 				"content" => json_encode( [
 					"en" => "About BearteGallery",
@@ -99,7 +99,7 @@ Items specially made for you - so-called purchase orders (the items that are mad
 			],
 
 			[
-				"title"   => "About BeArte Design",
+				"name"   => "About BeArte Design",
 				"slug"    => "about-BeArte Design",
 				"content" => json_encode( [
 					"en" => "About BeArte Design",
@@ -110,7 +110,7 @@ Items specially made for you - so-called purchase orders (the items that are mad
 
 			//region Agreements
 			[
-				"title"   => "User Agreement",
+				"name"   => "User Agreement",
 				"slug"    => "user-agreement",
 				"content" => json_encode( [
 					"en" => "User agreement",
@@ -119,7 +119,7 @@ Items specially made for you - so-called purchase orders (the items that are mad
 			],
 
 			[
-				"title"   => "Artist Agreement",
+				"name"   => "Artist Agreement",
 				"slug"    => "artist-agreement",
 				"content" => json_encode( [
 					"en" => "Artist agreement",
@@ -128,7 +128,7 @@ Items specially made for you - so-called purchase orders (the items that are mad
 			],
 
 			[
-				"title"   => "Gallery Agreement",
+				"name"   => "Gallery Agreement",
 				"slug"    => "gallery-agreement",
 				"content" => json_encode( [
 					"en" => "Gallery agreement",

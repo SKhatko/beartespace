@@ -171,9 +171,14 @@ Route::group( [ 'middleware' => 'web' ], function () {
 			Route::get( 'users', 'UserController@index' )->name( 'admin.users' );
 			Route::get( 'translations', 'TranslationController@index' )->name( 'admin.translations' );
 			Route::get( 'languages', 'LanguageController@index' )->name( 'admin.languages' );
+
 			Route::get( 'pages', 'PageController@index' )->name( 'admin.pages' );
+			Route::get( 'page/create', 'PageController@create' )->name( 'admin.pages.create' );
+			Route::get( 'page/{id}/edit', 'PageController@edit' )->name( 'admin.pages.edit' );
+
 			Route::get( 'messages', 'MessageController@index' )->name( 'admin.messages' );
 			Route::get( 'settings', 'SettingController@index' )->name( 'admin.settings' );
+
 			Route::get( 'article', 'ArticleController@index' )->name( 'admin.articles' );
 			Route::get( 'article/create', 'ArticleController@create' )->name( 'admin.articles.create' );
 			Route::get( 'article/{id}/edit', 'ArticleController@edit' )->name( 'admin.articles.edit' );

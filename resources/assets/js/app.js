@@ -72,6 +72,7 @@ Vue.component('settings', require('./components/dashboard/admin/Settings'));
 Vue.component('translations', require('./components/dashboard/admin/Translations.vue'));
 Vue.component('languages', require('./components/dashboard/admin/Languages.vue'));
 Vue.component('pages', require('./components/dashboard/admin/Pages.vue'));
+Vue.component('page-form', require('./components/dashboard/admin/PageForm.vue'));
 Vue.component('users', require('./components/dashboard/admin/Users.vue'));
 Vue.component('dashboard-articles', require('./components/dashboard/admin/DashboardArticles.vue'));
 Vue.component('article-form', require('./components/dashboard/admin/ArticleForm.vue'));

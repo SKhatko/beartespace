@@ -128,7 +128,6 @@
                                 alert('Max image size is 10Mb')
                             },
                             response: (res) => {
-                                console.log(res);
                                 return res.data.url
                             }
                         },

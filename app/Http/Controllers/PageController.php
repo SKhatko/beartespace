@@ -14,7 +14,7 @@ class PageController extends Controller {
 		$pages     = Page::all();
 		$languages = Language::all();
 
-		return view( 'dashboard.admin.pages', compact( 'title', 'pages', 'languages' ) );
+		return view( 'dashboard.page.index', compact( 'title', 'pages', 'languages' ) );
 	}
 
 	public function show( $slug ) {
@@ -22,5 +22,17 @@ class PageController extends Controller {
 		$page = Page::whereSlug( $slug )->firstOrFail();
 
 		return view( 'pages.page', compact( 'page' ) );
+	}
+
+	public function create() {
+
+		return view('dashboard.page.create');
+	}
+
+	public function edit($id) {
+
+		$page = Page::findOrFail($id);
+
+		return view('dashboard.page.edit', compact('page'));
 	}
 }
