@@ -35,13 +35,11 @@
 
                     <el-tabs type="card">
 
-                        <!-- TODO fix pages -->
-
                         <template v-for="language in languages">
 
                             <el-tab-pane :label="language.name">
 
-                                <quill-editor v-model="page.content[language.code]"></quill-editor>
+                                <quill-editor v-model="page.content[language.code]" ></quill-editor>
 
                             </el-tab-pane>
 
@@ -65,8 +63,10 @@
 </template>
 
 <script>
+    import quillEditor from 'vue-quill-editor'
 
     export default {
+        components: quillEditor,
 
         props: {
             pages_: {},
@@ -77,7 +77,11 @@
             return {
                 languages: [],
                 pages: [],
-                activePage: ''
+                activePage: '',
+                editorOption: {
+
+                }
+
             }
         },
 

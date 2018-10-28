@@ -110,7 +110,7 @@ Route::group( [ 'middleware' => 'web' ], function () {
 	Route::get( 'cart', 'CartController@index' )->name( 'cart' );
 	Route::get( 'cart/item/{id}/toggle', 'CartController@apiToggleCart' );
 	Route::get( 'cart/item/{id}/buy-now', 'CartController@buyNow' )->name( 'cart.item.buy-now' );
-	Route::get( 'cart/item/{id}/add', 'CartController@addItem' )->name( 'cart.item.add' );
+	Route::post( 'cart/item/{id}/add', 'CartController@addItem' )->name( 'cart.item.add' );
 	Route::get( 'cart/item/{id}/remove', 'CartController@removeItem' )->name( 'cart.item.remove' );
 
 	// Shipping

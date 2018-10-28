@@ -640,9 +640,14 @@ body, html {
       font-size: 16px;
     }
 
+    &-share {
+      margin-bottom: 10px;
+    }
+
     &-content {
       line-height: 25px;
       text-align: center;
+      margin-bottom: 20px;
 
       p {
         @extend .p;

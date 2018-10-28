@@ -9,7 +9,7 @@
 
             <div class="item-info">
 
-                <a href="{{ route('artist', $item->model->user->id) }}" class="item-artist">
+                <a href="{{ $item->model->user->url }}" class="item-artist">
                                     <span class="item-artist-avatar">
                                         <img src="/imagecache/fit-25{{ $item->model->user->avatar_url}}"/>
                                     </span>

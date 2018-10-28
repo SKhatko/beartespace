@@ -75,11 +75,21 @@ class CartController extends Controller {
 	}
 
 	public function addItem( Request $request, $id ) {
+
 		$artwork = Artwork::findOrFail( $id );
 
-		if ( ! Cart::content()->contains( 'id', $artwork->id ) ) {
-			Cart::add( $artwork );
-		}
+		Cart::add( $artwork, $request->input( 'qty' ) );
+
+
+//		if ( ! Cart::content()->contains( 'id', $artwork->id ) ) {
+//			Cart::add( $artwork, $request->input( 'qty' ) );
+//		} else {
+//			foreach ( Cart::content() as $item ) {
+//				if ( $item->id == $artwork->id ) {
+//					Cart::update( $item->rowId, $request->input( 'qty' ) );
+//				}
+//			}
+//		}
 
 		return redirect()->route( 'cart' );
 	}
@@ -93,7 +103,7 @@ class CartController extends Controller {
 			Cart::remove( $item->rowId );
 		}
 
-		return redirect()->route('cart');
+		return redirect()->route( 'cart' );
 	}
 
 }

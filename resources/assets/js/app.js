@@ -17,6 +17,7 @@ import store from './store.js';
 import locale from 'element-ui/lib/locale/lang/en';
 import VueTelInput from 'vue-tel-input';
 
+
 // Trans function takes translation from db return it on frontend
 Vue.prototype.trans = (key) => {
     let defaultValue = key.split('.');
@@ -84,6 +85,7 @@ Vue.component('dashboard-artworks-block', require('./components/dashboard/user/D
 Vue.component('pagination', require('./components/global/Pagination.vue'));
 Vue.component('errors', require('./components/partials/Errors.vue'));
 Vue.component('follow-button', require('./components/partials/FollowButton.vue'));
+Vue.component('artwork-quantity-input', require('./components/partials/ArtworkQuantityInput.vue'));
 
 // Checkout
 Vue.component('cart-shipping-form', require('./components/cart/ShippingForm.vue'));
@@ -96,7 +98,7 @@ const app = new Vue({
     data: {
         showMainMenu: false,
         activeCollapseArtworkShow: ['description', 'inspiration'],
-        fullScreenLoading: false
+        fullScreenLoading: false,
     },
     mounted() {
 

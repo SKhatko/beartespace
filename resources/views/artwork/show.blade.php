@@ -83,34 +83,41 @@
                                 within {{ $artwork->processing_time }} @endif
                         </div>
 
-                        @if($artwork->statusString() !== 'available')
-                            <div class="artwork-status">
-                                {{ trans('stock-status.' . $artwork->statusString()) }}
-                            </div>
-                        @else
-                            <div class="artwork-status available">
-                                {{ trans('stock-status.' . $artwork->statusString()) }}
-                            </div>
+                        <el-form action="{{ route('cart.item.add', $artwork->id) }}" method="POST">
+                            {{ csrf_field() }}
 
-                            @if($artwork->quantity > 1)
-                                <div class="artwork-qty" style="margin-bottom: 10px;">
-                                    Qty: {{ $artwork->quantity }} pc
+                            @if($artwork->statusString() !== 'available')
+                                <div class="artwork-status">
+                                    {{ trans('stock-status.' . $artwork->statusString()) }}
                                 </div>
+                            @else
+                                <div class="artwork-status available">
+                                    {{ trans('stock-status.' . $artwork->statusString()) }}
+                                </div>
+
+                                @if($artwork->quantity > 1)
+                                    <div class="artwork-qty" style="margin-bottom: 10px;">
+                                        Qty: {{ $artwork->quantity }} pc
+                                    </div>
+
+                                    <artwork-quantity-input artwork_="{{ $artwork }}"></artwork-quantity-input>
+
+                                @endif
+
                             @endif
 
-                            {{--<el-input-number size="mini" value="1" :min="Number('1')"--}}
-                            {{--:max="Number('{{ $artwork->quantity }}')"></el-input-number>--}}
+                            @if($artwork->statusString() === 'available')
 
-                        @endif
+                                <el-button plain class="artwork-buy" native-type="submit">Buy Now</el-button>
 
-                        @if($artwork->statusString() === 'available')
+                                {{--<a href="{{ route('cart.item.buy-now', $artwork->id) }}"--}}
+                                   {{--class="el-button el-button--default is-plain ">Buy Now</a>--}}
 
-                            <a href="{{ route('cart.item.buy-now', $artwork->id) }}"
-                               class="el-button el-button--default is-plain artwork-buy">Buy Now</a>
+                                <el-button type="primary" native-type="submit" style="margin-bottom: 20px;" class="artwork-add">Add to cart</el-button>
 
-                            <a href="{{ route('cart.item.add', $artwork->id) }}" style="margin-bottom: 20px;"
-                               class="el-button el-button--primary artwork-add">Add to cart</a>
-                        @endif
+                            @endif
+                        </el-form>
+
 
                         @if($artwork->favoredUsers()->count() > 1 )
                             <div class="artwork-favored">
