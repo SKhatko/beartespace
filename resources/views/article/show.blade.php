@@ -29,6 +29,11 @@
 
                 <div class="article--wrapper">
 
+                    <div class="article-content">
+                        {!! $article->content !!}
+                    </div>
+
+
                     @include('partials.share')
 
                     <div class="article-source">
@@ -39,14 +44,16 @@
                         Category: {{ trans_input('article-category.' . $article->category) }}
                     </div>
 
-                    <div class="article-tags">
-                        Tags:
-                        @if(count($article->tags) > 0)
+                    @if($article->tags && count($article->tags) > 0)
+
+                        <div class="article-tags">
+                            Tags:
                             @foreach($article->tags as $tag)
                                 {{ $tag }},
                             @endforeach
-                        @endif
-                    </div>
+                        </div>
+                    @endif
+
 
                     <div class="article-author">
                         By <a href="{{ route('people', $article->user->id) }}">{{ $article->user->name }}</a>
@@ -54,10 +61,6 @@
 
                     <div class="article-published">
                         {{--                        Published {{ $article->publish_at->diffForHumans() }}--}}
-                    </div>
-
-                    <div class="article-content">
-                        {!! $article->content !!}
                     </div>
                 </div>
 

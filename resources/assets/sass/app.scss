@@ -642,9 +642,11 @@ body, html {
 
     &-content {
       line-height: 25px;
+      text-align: center;
 
       p {
         @extend .p;
+        text-align: left;
         //text-indent: 20px;
 
         &:first-letter {
@@ -1776,23 +1778,30 @@ body, html {
 
 .app-dashboard-articles {
 
-  .articles {
-    margin-top: 20px;
+  &__row {
+    margin: 20px 0;
   }
 
-  .article {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
+  &__col {
     margin-bottom: 20px;
+  }
 
-    &-image {
-      margin-right: 20px;
-    }
+  &__image {
+    position: relative;
+  }
 
-    &-name {
-      flex: 1;
-    }
+  &__edit {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+
+  &__name {
+    display: block;
+    width: 150px;
+    max-width: 100%;
+    font-size: 16px;
+    @extend %text-truncate;
   }
 }
 

@@ -9,7 +9,7 @@ class ArticleController extends Controller {
 
 	public function index() {
 
-		$articles = Article::all();
+		$articles = Article::orderBy('created_at', 'desc')->get();
 
 		return view( 'dashboard.article.index', compact( 'articles' ) );
 	}
@@ -28,7 +28,8 @@ class ArticleController extends Controller {
 
 	public function articles() {
 
-		$articles = Article::with( 'images' )->paginate();
+		$articles = Article::orderBy('created_at', 'desc')->paginate();
+//		$articles = Article::with( 'images' )->paginate();
 
 		return view( 'article.index', compact( 'articles' ) );
 	}

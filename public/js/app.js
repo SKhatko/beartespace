@@ -31559,6 +31559,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -31566,12 +31571,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     data: function data() {
         return {
+            filter: '',
             articles: {}
         };
     },
     mounted: function mounted() {
         if (this.articles_) {
             this.articles = JSON.parse(this.articles_);
+        }
+    },
+
+    methods: {
+        filterArticles: function filterArticles() {
+            var _this = this;
+
+            this.articles = JSON.parse(this.articles_).filter(function (article) {
+                return article.name.toLowerCase().indexOf(_this.filter.toLowerCase()) >= 0;
+            });
         }
     }
 });
@@ -50968,7 +50984,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(5)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 /* 193 */
@@ -98825,31 +98841,56 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "href": "/dashboard/article/create"
     }
-  }, [_vm._v("Add new article")]), _vm._v(" "), _c('div', {
-    staticClass: "articles"
+  }, [_vm._v("Add new article")]), _vm._v(" "), _c('el-input', {
+    staticStyle: {
+      "max-width": "290px"
+    },
+    attrs: {
+      "placeholder": "Filter"
+    },
+    on: {
+      "input": _vm.filterArticles
+    },
+    model: {
+      value: (_vm.filter),
+      callback: function($$v) {
+        _vm.filter = $$v
+      },
+      expression: "filter"
+    }
+  }), _vm._v(" "), _c('el-row', {
+    staticClass: "app-dashboard-articles__row",
+    attrs: {
+      "gutter": 20
+    }
   }, _vm._l((_vm.articles), function(article) {
-    return _c('div', {
-      staticClass: "article"
+    return _c('el-col', {
+      key: article.id,
+      staticClass: "app-dashboard-articles__col",
+      attrs: {
+        "xs": 12,
+        "sm": 6
+      }
     }, [_c('div', {
-      staticClass: "article-image"
+      staticClass: "app-dashboard-articles__image"
     }, [_c('img', {
       attrs: {
-        "src": '/imagecache/fit-75' + article.image_url,
+        "src": '/imagecache/fit-150' + article.image_url,
         "alt": ""
       }
-    })]), _vm._v(" "), _c('a', {
-      staticClass: "article-name",
+    }), _vm._v(" "), _c('a', {
+      staticClass: "el-button el-button--default el-button--mini app-dashboard-articles__edit",
+      attrs: {
+        "href": '/dashboard/article/' + article.id + '/edit'
+      }
+    }, [_vm._v("\n                        edit\n                    ")])]), _vm._v(" "), _c('a', {
+      staticClass: "app-dashboard-articles__name",
       attrs: {
         "href": '/article/' + article.id,
         "target": "_blank"
       }
-    }, [_vm._v("\n                    " + _vm._s(article.name) + "\n                ")]), _vm._v(" "), _c('a', {
-      staticClass: "el-button el-button--default el-button--mini",
-      attrs: {
-        "href": '/dashboard/article/' + article.id + '/edit'
-      }
-    }, [_vm._v("\n                    edit\n                ")])])
-  }))])], 1)
+    }, [_vm._v("\n                    " + _vm._s(article.name) + "\n                ")])])
+  }))], 1)], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
