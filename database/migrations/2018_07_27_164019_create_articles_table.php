@@ -22,6 +22,7 @@ class CreateArticlesTable extends Migration
             $table->string('category')->nullable();
             $table->longText('content')->nullable();
             $table->string('slug')->nullable();
+            $table->string('url')->nullable();
             $table->integer('language_id')->nullable();
             $table->boolean('active')->nullable();
             $table->boolean('show_index')->nullable();

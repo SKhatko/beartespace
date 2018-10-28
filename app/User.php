@@ -128,8 +128,8 @@ class User extends Authenticatable {
 		return $value ?? trim( $this->first_name ) . ' ' . trim( $this->last_name );
 	}
 
-	public function getUserNameAttribute( $value) {
-		return $value ?? str_slug($this->name);
+	public function getUserNameAttribute( $value ) {
+		return $value ?? str_slug( $this->name );
 	}
 
 	public function plans() {
@@ -147,11 +147,9 @@ class User extends Authenticatable {
 	}
 
 	public function getImageUrlAttribute() {
-//		if($this->image){
 		if ( $this->image && file_exists( public_path( $this->image->url ) ) ) {
 			return $this->image->url;
 		} else {
-//			file_exists(public_path('images/avatar-placeholder.png'));
 			return '/no-image-placeholder.png';
 		}
 	}
@@ -165,35 +163,16 @@ class User extends Authenticatable {
 		$this->save();
 	}
 
-	public function getProfilePremiumAddAttribute() {
-		return $this->adds()->whereName( 'profile_premium_add' )->where( 'rebill_at', '>', Carbon::now() )->first();
-	}
-
-	public function getProfileEducationAddAttribute() {
-		return $this->adds()->whereName( 'profile_education_add' )->first();
-	}
-
-	public function getProfileInspirationAddAttribute() {
-		return $this->adds()->whereName( 'profile_inspiration_add' )->first();
-	}
-
-	public function getProfileExhibitionAddAttribute() {
-		return $this->adds()->whereName( 'profile_exhibition_add' )->first();
-	}
-
-	public function getProfileBackgroundImageAddAttribute() {
-		return $this->adds()->whereName( 'profile_background_image_add' )->first();
+	public function getUrlAttribute() {
+		return action( 'UserController@user', $this->user_name );
 	}
 
 	public function getMediumAttribute() {
-//		return $this->artworks()->medium;
-
 		$mediumm = $this->artworks->map( function ( $artwork ) {
 			return $artwork->pluck( [ 'medium', 'id' ] );
 		} );
 
 		return $mediumm;
-
 	}
 
 	public function getProfessionAttribute() {

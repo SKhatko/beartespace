@@ -34,16 +34,11 @@ class UserController extends Controller {
 		return view( 'dashboard.admin.users', compact( 'title', 'users' ) );
 	}
 
-	public function seller( $seller ) {
+	public function user( $username ) {
 
-		$artist = User::where( 'user_name', $seller )->with( 'image', 'avatar', 'artworks.images' )->firstOrFail();
+		$user = User::where( 'user_name', $username )->with( 'image', 'avatar', 'artworks.images' )->firstOrFail();
 
-		return view( 'seller.show', compact( 'artist' ) );
-
-	}
-
-	public function people($id) {
-		return $id;
+		return view( 'seller.show', compact( 'user' ) );
 	}
 
 	public function profile() {
@@ -122,14 +117,14 @@ class UserController extends Controller {
 		return view( 'artist.show', compact( 'artist' ) );
 	}
 
-	public function favoriteArtworks($category = 'artworks') {
+	public function favoriteArtworks( $category = 'artworks' ) {
 
 		$user = auth()->user();
 
 		$artworks = $user->favoriteArtworks()->orderBy( 'id', 'desc' )->get();
-		$artists = $user->followedUsers()->orderBy( 'id', 'desc' )->get();
+		$artists  = $user->followedUsers()->orderBy( 'id', 'desc' )->get();
 
-		return view( 'dashboard.user.favorites', compact( 'artworks', 'artists', 'user', 'category') );
+		return view( 'dashboard.user.favorites', compact( 'artworks', 'artists', 'user', 'category' ) );
 	}
 
 	public function orders() {
@@ -217,7 +212,7 @@ class UserController extends Controller {
 				$logged_user->password = Hash::make( $new_password );
 				$logged_user->save();
 
-				return redirect()->back()->with( ['message' => ['message' => 'Password changed successfully'] ]);
+				return redirect()->back()->with( [ 'message' => [ 'message' => 'Password changed successfully' ] ] );
 			}
 
 			return redirect()->back()->with( 'inline-error', 'Wrong Old password' );

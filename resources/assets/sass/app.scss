@@ -588,8 +588,16 @@ body, html {
 
 .app-article {
   padding: 15px;
+  display: flex;
 
-  .article {
+  &__sidebar {
+    flex: 1;
+    max-width: 200px;
+  }
+
+  &__article {
+    flex: 1;
+    max-width: 600px;
 
     &-name {
       @extend .h1;
@@ -607,12 +615,6 @@ body, html {
       img {
         max-width: 100%;
       }
-    }
-
-    &--wrapper {
-      max-width: 600px;
-      text-align: left;
-      margin: 40px auto;
     }
 
     &-author {
@@ -637,8 +639,6 @@ body, html {
       margin: 20px 0;
       font-size: 16px;
     }
-
-
 
     &-content {
       line-height: 25px;

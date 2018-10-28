@@ -82,11 +82,12 @@ Route::group( [ 'middleware' => 'web' ], function () {
 	Route::get( '/auction/{id}', 'AuctionController@show' )->name( 'auction' );
 	Route::get( '/artwork', 'ArtworkController@artworks' )->name( 'artworks' );
 	Route::get( '/artwork/{id}', 'ArtworkController@artwork' )->name( 'artwork' );
-	Route::get('/people/{id}', 'UserController@people')->name('people');
 	Route::get( '/artist', 'UserController@artists' )->name( 'artists' );
 	Route::get( '/artist/{id}', 'UserController@artist' )->name( 'artist' );
+
 	Route::get( '/article', 'ArticleController@articles' )->name( 'articles' );
 	Route::get( '/article/{id}/{slug?}', 'ArticleController@article' )->name( 'article' );
+
 	Route::get( '/selection/artist', 'HomeController@selectedArtists' )->name( 'selected-artists' );
 	Route::get( '/selection/artwork', 'HomeController@selectedArtworks' )->name( 'selected-artworks' );
 
@@ -187,10 +188,10 @@ Route::group( [ 'middleware' => 'web' ], function () {
 
 	} );
 
-	// Global seller profile search
-	Route::get( '{seller}', 'UserController@seller' )->name( 'seller' );
-	Route::get( '{seller}/artwork', 'ArtworkController@sellerArtworks' )->name( 'seller.artworks' );
-	Route::get( '{seller}/artwork/{id}/{slug?}', 'ArtworkController@sellerArtwork' )->name( 'seller.artwork' );
+	// Global user profile search
+	Route::get( '{user}', 'UserController@user' )->name( 'user' );
+	Route::get( '{user}/artwork', 'ArtworkController@userArtworks' )->name( 'user.artworks' );
+	Route::get( '{user}/artwork/{id}/{slug?}', 'ArtworkController@userArtwork' )->name( 'user.artwork' );
 
 } );
 

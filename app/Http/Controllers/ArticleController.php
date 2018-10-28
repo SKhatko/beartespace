@@ -38,6 +38,10 @@ class ArticleController extends Controller {
 
 		$article = Article::findOrFail( $id );
 
+		if ($slug !== $article->slug) {
+			return redirect($article->url);
+		}
+
 		return view( 'article.show', compact( 'article' ) );
 	}
 }

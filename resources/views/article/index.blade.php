@@ -12,7 +12,7 @@
 
                 @foreach($articles as $article)
                     <el-col :xs="12" :sm="6" style="margin-bottom: 20px;">
-                        <a href="{{ route('article', $article->id) }}" target="_blank" class="article">
+                        <a href="{{ $article->url }}" target="_blank" class="article">
                             <div class="article-image">
                                 <img src="/imagecache/fit-290{{ $article->image_url }}" alt="">
                             </div>

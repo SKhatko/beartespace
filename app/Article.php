@@ -32,4 +32,12 @@ class Article extends Model {
 			return '/no-image-placeholder.png';
 		}
 	}
+
+	public function getUrlAttribute() {
+		return action('ArticleController@article', [$this->id, $this->slug]);
+	}
+
+	public function getSlugAttribute() {
+		return str_slug($this->name);
+	}
 }

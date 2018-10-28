@@ -17,13 +17,14 @@ class CreateUsersTable extends Migration {
 			$table->string( 'name' )->nullable();
 			$table->string( 'first_name' )->nullable();
 			$table->string( 'last_name' )->nullable();
+			$table->string( 'url' )->nullable();
 			$table->string( 'user_name' )->nullable();
 			$table->string( 'email' )->unique()->nullable();
 			$table->string( 'password' )->nullable();
 			$table->integer( 'balance' )->default( 0 );
 			$table->json( 'profession' )->nullable();
-			$table->integer('avatar_id')->nullable();
-			$table->integer('image_id')->nullable();
+			$table->integer( 'avatar_id' )->nullable();
+			$table->integer( 'image_id' )->nullable();
 
 			$table->date( 'dob' )->nullable();
 			$table->integer( 'country_id' )->nullable();
@@ -32,7 +33,7 @@ class CreateUsersTable extends Migration {
 			$table->string( 'city' )->nullable();
 			$table->string( 'postcode' )->nullable();
 			$table->enum( 'gender', [ 'male', 'female', 'third', 'none' ] )->nullable();
-			$table->integer('address_id')->nullable();
+			$table->integer( 'address_id' )->nullable();
 			$table->string( 'address' )->nullable();
 			$table->string( 'address_2' )->nullable();
 			$table->string( 'region' )->nullable();
@@ -43,7 +44,7 @@ class CreateUsersTable extends Migration {
 			$table->text( 'about' )->nullable();
 			$table->text( 'inspiration' )->nullable();
 			$table->text( 'exhibition' )->nullable();
-			$table->boolean('seller')->nullable();
+			$table->boolean( 'seller' )->nullable();
 
 			$table->enum( 'user_type', [ 'user', 'admin', 'artist', 'gallery' ] )->nullable();
 			$table->string( 'activation_token' )->nullable();
@@ -55,11 +56,11 @@ class CreateUsersTable extends Migration {
 			$table->timestamp( 'last_login' )->nullable();
 
 			// Braintree
-			$table->string('braintree_id')->nullable();
-			$table->string('paypal_email')->nullable();
-			$table->string('card_brand')->nullable();
-			$table->string('card_last_four')->nullable();
-			$table->timestamp('trial_ends_at')->nullable();
+			$table->string( 'braintree_id' )->nullable();
+			$table->string( 'paypal_email' )->nullable();
+			$table->string( 'card_brand' )->nullable();
+			$table->string( 'card_last_four' )->nullable();
+			$table->timestamp( 'trial_ends_at' )->nullable();
 			// End Braintree
 
 			$table->rememberToken();
