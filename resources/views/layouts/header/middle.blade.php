@@ -71,7 +71,7 @@
 
         <div class="app-header-auth">
 
-            @if(auth()->user() && auth()->user()->isSeller())
+            @if(auth()->user() && auth()->user()->seller)
                 <a href="/dashboard/artwork" class="app-header-sell">My Artworks</a>
             @else
                 <a href="/sell" class="app-header-sell">Sell <span class="hidden-xs-only">on BearteSpace</span></a>

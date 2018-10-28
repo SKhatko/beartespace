@@ -100,10 +100,6 @@ class User extends Authenticatable {
 		return $this->hasMany( Add::class, 'user_id' );
 	}
 
-	public function isSeller() {
-		return $this->user_type == 'artist' || $this->user_type == 'gallery';
-	}
-
 	public function isAdmin() {
 		return $this->user_type == 'admin';
 	}

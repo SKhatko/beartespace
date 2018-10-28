@@ -43,6 +43,7 @@ class CreateUsersTable extends Migration {
 			$table->text( 'about' )->nullable();
 			$table->text( 'inspiration' )->nullable();
 			$table->text( 'exhibition' )->nullable();
+			$table->boolean('seller')->nullable();
 
 			$table->enum( 'user_type', [ 'user', 'admin', 'artist', 'gallery' ] )->nullable();
 			$table->string( 'activation_token' )->nullable();

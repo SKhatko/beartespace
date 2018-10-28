@@ -80,7 +80,7 @@ class SellController extends Controller {
 
 		$user = auth()->user();
 
-		$user->user_type = 'artist';
+		$user->seller = true;
 		$user->save();
 
 		return redirect('/dashboard');
