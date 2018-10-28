@@ -10,8 +10,8 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 
 class ArtworkController extends Controller {
 
-	public function sellerArtwork($seller, $id, $slug = '') {
-		$seller = User::where('user_name', $seller)->first();
+	public function sellerArtwork( $seller, $id, $slug = '' ) {
+		$seller = User::where( 'user_name', $seller )->first();
 
 		return 1;
 	}
@@ -117,9 +117,13 @@ class ArtworkController extends Controller {
 		return view( 'artwork.index', compact( 'artworks' ) );
 	}
 
-	public function artwork( $id ) {
+	public function artwork( $id, $slug = '' ) {
 
 		$artwork = Artwork::findOrFail( $id )->load( 'images' );
+
+		if ( $slug !== $artwork->slug ) {
+			return redirect( $artwork->url );
+		}
 
 		return view( 'artwork.show', compact( 'artwork' ) );
 	}

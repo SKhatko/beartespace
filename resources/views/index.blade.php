@@ -36,7 +36,7 @@
                             <span>{{ $randomArtwork->size() }}</span>
                             <span>
                             @foreach($randomArtwork->medium as $medium)
-                                    {{ trans('medium.' . $medium) && strpos(trans('medium.' . $medium), 'medium') !== false ? $medium : trans('medium.' . $medium)}}
+                                    {{ trans_input('medium.' . $medium) }}
                                 @endforeach
                         </span>
                         </div>

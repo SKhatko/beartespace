@@ -11,7 +11,7 @@
             <div class="artist">
                 <div class="artist-info">
                     <img src="/imagecache/fit-75{{ $artwork->user->avatar_url }}" class="artist-avatar" alt="">
-                    <a href="{{ route('artist', $artwork->user->id) }}"
+                    <a href="{{ $artwork->user->url }}"
                        class="artist-name">{{ $artwork->user->name }}</a>
 
                     @if($artwork->user->followedBy->count() > 0)
@@ -32,11 +32,11 @@
                 @if($artwork->user->artworks->count() > 3)
                     <div class="artist-artworks hidden-xs-only">
                         @foreach($artwork->user->artworks->take(3) as $userArtwork)
-                            <a href="{{ route('artwork', $userArtwork->id) }}" class="artist-artwork">
+                            <a href="{{ $userArtwork->url }}" class="artist-artwork">
                                 <img src="/imagecache/fit-75{{ $userArtwork->image_url }}" alt="">
                             </a>
                         @endforeach
-                        <a href="{{ route('artist', $artwork->user->id) }}" class="artist-artwork">
+                        <a href="{{ $artwork->user->url }}" class="artist-artwork">
                                 <span>
                                        <span class="h2" style="display: block;">
                                           {{ $artwork->user->artworks->count() }}

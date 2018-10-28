@@ -18,7 +18,7 @@
 
                     <div class="h5">For Clients</div>
 
-                    <a href="{{ route('artists')}}">@lang('portal.artists')</a>
+                    <a href="{{ route('people')}}">@lang('portal.artists')</a>
                     <a href="{{ route('artworks')}}">@lang('portal.artworks')</a>
                 </div>
 

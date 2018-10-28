@@ -36,9 +36,9 @@ class UserController extends Controller {
 
 	public function user( $username ) {
 
-		$user = User::where( 'user_name', $username )->with( 'image', 'avatar', 'artworks.images' )->firstOrFail();
+		$artist = User::where( 'user_name', $username )->with( 'image', 'avatar', 'artworks.images' )->firstOrFail();
 
-		return view( 'seller.show', compact( 'user' ) );
+		return view( 'seller.show', compact( 'artist' ) );
 	}
 
 	public function profile() {
@@ -55,7 +55,7 @@ class UserController extends Controller {
 	}
 
 
-	public function artists( Request $request ) {
+	public function people( Request $request ) {
 
 		$artists = User::query()->artist();
 
@@ -107,7 +107,7 @@ class UserController extends Controller {
 
 		$artists = $artists->paginate( $items );
 
-		return view( 'artist.index', compact( 'artists' ) );
+		return view( 'seller.index', compact( 'artists' ) );
 	}
 
 	public function artist( $id ) {

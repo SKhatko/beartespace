@@ -13,7 +13,7 @@
 
                 <div class="artists">
 
-                    @include('artist/artists-block', ['artists' => $artists])
+                    @include('seller/artists-block', ['artists' => $artists])
 
                 </div>
 

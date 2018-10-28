@@ -32,7 +32,7 @@
                 @if($articles->hasMorePages())
                     <el-button><a href="{{  $articles->nextPageUrl() }}">See more Articles</a></el-button>
                 @endif
-                <el-button><a href="{{ route('artists') }}">Browse Artists</a></el-button>
+                <el-button><a href="{{ route('people') }}">Browse Artists</a></el-button>
                 <el-button><a href="{{ route('auctions') }}">Go to Auctions</a></el-button>
             </div>
 

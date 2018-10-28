@@ -7,17 +7,17 @@
 
                     <div class="artist-info">
 
-                        <a href="{{ route('artist', $artist->id) }}" class="artist-avatar">
+                        <a href="{{ route('user', $artist->id) }}" class="artist-avatar">
                             <img src="/imagecache/fit-150{{ $artist->avatar_url }}"
                                  alt="{{ $artist->avatar ? $artist->avatar->name : $artist->name }}">
                         </a>
 
-                        <a href="{{ route('artist', $artist->id) }}" class="h2"
+                        <a href="{{ $artist->url }}" class="h2"
                            style="margin-bottom: 20px;">
                             {{ $artist->name }}
                         </a>
 
-                        <a href="{{ route('artist', $artist->id) }}" class="h3">
+                        <a href="{{ $artist->url }}" class="h3">
                             {{ $artist->country['country_name'] }}
                         </a>
 

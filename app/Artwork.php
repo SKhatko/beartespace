@@ -103,28 +103,33 @@ class Artwork extends Model implements Buyable {
 		return $query->whereAuctionStatus( $status );
 	}
 
-	public function getSlugAttribute()
-	{
-		return str_slug($this->name);
+	public function getUrlAttribute() {
+
+		return action( 'ArtworkController@artwork', [ $this->id, $this->slug ] );
 	}
 
-	public function getUrlAttribute() {
-//		return action( 'ArtworkController@seller', [ $this->id, $this->slug ] );
+	public function getSlugAttribute() {
+
+		return str_slug( $this->name );
 	}
 
 	public function getOptionalSizeAttribute( $value ) {
+
 		return ! ! $value;
 	}
 
 	public function getAuctionStatusAttribute( $value ) {
+
 		return ! ! $value;
 	}
 
 	public function getAvailableAttribute( $value ) {
+
 		return ! ! $value;
 	}
 
 	public function getMadeByAttribute( $value ) {
+
 		return $value ?? null;
 	}
 

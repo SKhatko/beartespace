@@ -80,10 +80,12 @@ Route::group( [ 'middleware' => 'web' ], function () {
 	// General routes
 	Route::get( '/auction', 'AuctionController@index' )->name( 'auctions' );
 	Route::get( '/auction/{id}', 'AuctionController@show' )->name( 'auction' );
+
 	Route::get( '/artwork', 'ArtworkController@artworks' )->name( 'artworks' );
-	Route::get( '/artwork/{id}', 'ArtworkController@artwork' )->name( 'artwork' );
-	Route::get( '/artist', 'UserController@artists' )->name( 'artists' );
-	Route::get( '/artist/{id}', 'UserController@artist' )->name( 'artist' );
+	Route::get( '/artwork/{id}/{slug?}', 'ArtworkController@artwork' )->name( 'artwork' );
+
+	Route::get( '/people', 'UserController@people' )->name( 'people' );
+	Route::get( '/people/{id}/{slug?}', 'UserController@user' )->name( 'user' );
 
 	Route::get( '/article', 'ArticleController@articles' )->name( 'articles' );
 	Route::get( '/article/{id}/{slug?}', 'ArticleController@article' )->name( 'article' );
