@@ -1788,6 +1788,10 @@ body, html {
 
   &__image {
     position: relative;
+
+    img {
+      width: 100%;
+    }
   }
 
   &__edit {

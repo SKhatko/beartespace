@@ -3,9 +3,10 @@
     <div class="app-dashboard-articles">
         <el-card>
 
-            <a href="/dashboard/article/create" class="el-button el-button--default">Add new article</a>
+            <a href="/dashboard/article/create" class="el-button el-button--default el-button--success" style="margin-bottom: 20px;">Add new article</a>
+            <br>
             <el-input v-model="filter" placeholder="Filter" @input="filterArticles"
-                      style="max-width: 290px"></el-input>
+                      style="max-width: 290px; margin-bottom: 20px;"></el-input>
 
             <el-row :gutter="20" class="app-dashboard-articles__row">
                 <el-col :xs="12" :sm="6" class="app-dashboard-articles__col" v-for="article in articles" :key="article.id">

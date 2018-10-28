@@ -86,7 +86,7 @@ Route::group( [ 'middleware' => 'web' ], function () {
 	Route::get( '/artist', 'UserController@artists' )->name( 'artists' );
 	Route::get( '/artist/{id}', 'UserController@artist' )->name( 'artist' );
 	Route::get( '/article', 'ArticleController@articles' )->name( 'articles' );
-	Route::get( '/article/{id}', 'ArticleController@article' )->name( 'article' );
+	Route::get( '/article/{id}/{slug?}', 'ArticleController@article' )->name( 'article' );
 	Route::get( '/selection/artist', 'HomeController@selectedArtists' )->name( 'selected-artists' );
 	Route::get( '/selection/artwork', 'HomeController@selectedArtworks' )->name( 'selected-artworks' );
 

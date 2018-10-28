@@ -36,9 +36,11 @@
 
                     @include('partials.share')
 
-                    <div class="article-source">
-                        Source: <a href="{{ $article->source_url }}">{{ $article->source }}</a>
-                    </div>
+                    @if($article->source)
+                        <div class="article-source">
+                            Source: <a href="{{ $article->source_url }}">{{ $article->source }}</a>
+                        </div>
+                    @endif
 
                     <div class="article-category">
                         Category: {{ trans_input('article-category.' . $article->category) }}

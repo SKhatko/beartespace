@@ -34,7 +34,7 @@ class ArticleController extends Controller {
 		return view( 'article.index', compact( 'articles' ) );
 	}
 
-	public function article( $id ) {
+	public function article( $id, $slug = '') {
 
 		$article = Article::findOrFail( $id );
 

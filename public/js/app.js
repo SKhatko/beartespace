@@ -31564,6 +31564,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -50984,7 +50985,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(5)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 /* 193 */
@@ -98837,13 +98838,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', {
     staticClass: "app-dashboard-articles"
   }, [_c('el-card', [_c('a', {
-    staticClass: "el-button el-button--default",
+    staticClass: "el-button el-button--default el-button--success",
+    staticStyle: {
+      "margin-bottom": "20px"
+    },
     attrs: {
       "href": "/dashboard/article/create"
     }
-  }, [_vm._v("Add new article")]), _vm._v(" "), _c('el-input', {
+  }, [_vm._v("Add new article")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('el-input', {
     staticStyle: {
-      "max-width": "290px"
+      "max-width": "290px",
+      "margin-bottom": "20px"
     },
     attrs: {
       "placeholder": "Filter"
