@@ -11,9 +11,7 @@
 
     <nav class="app-header-nav hidden-sm-and-up" v-if="showMainMenu">
 
-        @foreach()
 
-            @endforeach
         <a href="{{ route('people') }}">@lang('portal.artists')</a>
         <a href="{{ route('artworks') }}">@lang('portal.artworks')</a>
         {{--<a href="{{ route('auctions') }}">on-line auctions</a>--}}
