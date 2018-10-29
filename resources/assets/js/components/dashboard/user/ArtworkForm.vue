@@ -81,7 +81,7 @@
                     <el-col :sm="8">
                         <el-form-item label="What is it?" prop="category" required>
                             <el-select value="" v-model="artwork.category" placeholder="Select Category">
-                                <el-option v-for="(label, value) in trans('category')" :key="value" :value="value"
+                                <el-option v-for="(label, value) in trans('artwork-category')" :key="value" :value="value"
                                            :label="label"></el-option>
                             </el-select>
                         </el-form-item>

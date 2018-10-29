@@ -18,7 +18,7 @@
                 <el-select value="" v-model="artworkFilters.category" filterable multiple collapse-tags allow-create
                            placeholder="Filter by category">
                     <el-option
-                            v-for="(category, key) in trans('category')"
+                            v-for="(category, key) in trans('artwork-category')"
                             :key="key"
                             :label="category"
                             :value="key">
@@ -190,9 +190,9 @@
                     this.artworkFilters['medium'] = medium.split(',');
                 }
 
-                let category = this.getQueryVariable('category');
+                let category = this.getQueryVariable('artowrk-category');
                 if (category) {
-                    this.artworkFilters['category'] = category.split(',');
+                    this.artworkFilters['artwork-category'] = category.split(',');
                 }
 
                 let theme = this.getQueryVariable('theme');

@@ -30292,9 +30292,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.artworkFilters['medium'] = medium.split(',');
             }
 
-            var category = this.getQueryVariable('category');
+            var category = this.getQueryVariable('artowrk-category');
             if (category) {
-                this.artworkFilters['category'] = category.split(',');
+                this.artworkFilters['artwork-category'] = category.split(',');
             }
 
             var theme = this.getQueryVariable('theme');
@@ -97643,7 +97643,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "artwork.category"
     }
-  }, _vm._l((_vm.trans('category')), function(label, value) {
+  }, _vm._l((_vm.trans('artwork-category')), function(label, value) {
     return _c('el-option', {
       key: value,
       attrs: {
@@ -100011,7 +100011,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "artworkFilters.category"
     }
-  }, _vm._l((_vm.trans('category')), function(category, key) {
+  }, _vm._l((_vm.trans('artwork-category')), function(category, key) {
     return _c('el-option', {
       key: key,
       attrs: {

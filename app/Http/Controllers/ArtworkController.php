@@ -37,8 +37,8 @@ class ArtworkController extends Controller {
 			$artworks->whereRaw( 'LOWER(name) LIKE ?', '%' . $artwork . '%' );
 		}
 
-		if ( $request->input( 'category' ) ) {
-			$queries = explode( ',', $request->input( 'category' ) );
+		if ( $request->input( 'artwork-category' ) ) {
+			$queries = explode( ',', $request->input( 'artwork-category' ) );
 			foreach ( $queries as $query ) {
 				$artworks->whereRaw( 'LOWER(category) LIKE ?', '%' . $query . '%' );
 			}

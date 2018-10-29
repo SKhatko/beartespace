@@ -31,7 +31,7 @@ class TranslationsTableSeeder extends Seeder {
 				[ 'Expanded', '' ],
 				[ 'Trial', '' ],
 			],
-			'category'     => [
+			'artwork-category'     => [
 				[ 'Painting', 'Maleri' ],
 				[ 'Sculpture', 'Skulptur' ],
 				[ 'Drawing', '' ],
