@@ -74,27 +74,7 @@
 
             <div class="app-index-articles">
 
-                <el-row :gutter="20">
-
-                    @foreach($articles as $article)
-                        <el-col :xs="12" :sm="6">
-
-                            <a href="{{ route('article', $article->id) }}" target="_blank" class="article">
-                                @if($article->image)
-                                    <div class="article-image">
-                                        <img src="/imagecache/fit-290{{ $article->image_url }}"
-                                             alt="{{ $article->image->name }}">
-                                    </div>
-                                @endif
-                                <div class="article-name">
-                                    {{ $article->name }}
-                                </div>
-                            </a>
-                        </el-col>
-
-                    @endforeach
-
-                </el-row>
+                @include('partials.articles-block', $articles)
 
                 <div class="app-index-articles-bottom">
                     <a href="{{ route('articles') }}"

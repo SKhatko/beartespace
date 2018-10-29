@@ -32,7 +32,7 @@ class ArticleController extends Controller {
 		$articles = Article::query();
 
 		if ( $request->input( 'article-category' ) ) {
-			$queries = explode( ',', $request->input( 'artwork-category' ) );
+			$queries = explode( ',', $request->input( 'article-category' ) );
 			foreach ( $queries as $query ) {
 				$articles->whereRaw( 'LOWER(category) LIKE ?', '%' . $query . '%' );
 			}
@@ -61,7 +61,7 @@ class ArticleController extends Controller {
 			return redirect($article->url);
 		}
 
-		$articles = Article::whereCategory($article->category)->where('id', $article->id)
+		$articles = Article::where('id', '!=', $article->id)->inRandomOrder()->take(4)->get();
 
 		return view( 'article.show', compact( 'article', 'articles' ) );
 	}
