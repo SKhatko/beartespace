@@ -190,9 +190,9 @@
                     this.artworkFilters['medium'] = medium.split(',');
                 }
 
-                let category = this.getQueryVariable('artowrk-category');
+                let category = this.getQueryVariable('artwork-category');
                 if (category) {
-                    this.artworkFilters['artwork-category'] = category.split(',');
+                    this.artworkFilters['category'] = category.split(',');
                 }
 
                 let theme = this.getQueryVariable('theme');
@@ -240,10 +240,11 @@
             setSearchQuery() {
                 let query = '?';
                 for (let filter in this.artworkFilters) {
-                    query += filter + '=' + this.artworkFilters[filter] + '&';
-                    console.log(filter);
+
+                    if(this.artworkFilters[filter].length) {
+                        query += filter + '=' + this.artworkFilters[filter] + '&';
+                    }
                 }
-                console.log(query);
 
                 window.location.search = query;
             },

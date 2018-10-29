@@ -1,25 +1,40 @@
 <div class="app-header--bottom">
 
+{{--    @dd(trans('artwork-category'))--}}
     <nav class="app-header-nav hidden-xs-only">
 
 
         <el-popover
                 placement="bottom"
-                {{--width="400"--}}
                 trigger="hover">
 
-            @foreach(trans('artwork-category') as $artworkCategory)
+            @foreach(trans('artwork-category') as $key => $trans)
                 <el-dropdown-item>
-                    <a href="/artwork?artwork-category={{ $artworkCategory }}"
-                       style="display: block;margin:10px 0">{{ $artworkCategory }}</a>
+                    <a href="/artwork?artwork-category={{ $key }}"
+                       style="display: block;margin:10px 0">{{ $trans }}</a>
                 </el-dropdown-item>
             @endforeach
 
             <a href="{{ route('artworks') }}" slot="reference">Artworks</a>
         </el-popover>
 
+        <el-popover
+                placement="bottom"
+                trigger="hover">
 
-        <a href="{{ route('people') }}">@lang('portal.artists')</a>
+            @foreach(trans('profession') as $key => $trans)
+                <el-dropdown-item>
+                    <a href="/people?profession={{ $key }}"
+                       style="display: block;margin:10px 0">{{ $trans }}</a>
+                </el-dropdown-item>
+            @endforeach
+
+            <a href="{{ route('people') }}" slot="reference">Artists</a>
+        </el-popover>
+
+
+
+        {{--<a href="{{ route('people') }}">@lang('portal.artists')</a>--}}
         {{--<a href="{{ route('artworks') }}">@lang('portal.artworks')</a>--}}
         {{--<a href="{{ route('auctions') }}">on-line auctions</a>--}}
         <a href="{{ route('articles') }}">Articles</a>

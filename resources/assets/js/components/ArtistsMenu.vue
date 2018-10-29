@@ -145,10 +145,10 @@
             setSearchQuery() {
                 let query = '?';
                 for (let filter in this.artistFilters) {
-                    query += filter + '=' + this.artistFilters[filter] + '&';
-                    console.log(filter);
+                    if(this.artistFilters[filter].length) {
+                        query += filter + '=' + this.artistFilters[filter] + '&';
+                    }
                 }
-                console.log(query);
 
                 window.location.search = query;
             },

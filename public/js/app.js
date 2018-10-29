@@ -30065,10 +30065,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         setSearchQuery: function setSearchQuery() {
             var query = '?';
             for (var filter in this.artistFilters) {
-                query += filter + '=' + this.artistFilters[filter] + '&';
-                console.log(filter);
+                if (this.artistFilters[filter].length) {
+                    query += filter + '=' + this.artistFilters[filter] + '&';
+                }
             }
-            console.log(query);
 
             window.location.search = query;
         },
@@ -30292,9 +30292,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.artworkFilters['medium'] = medium.split(',');
             }
 
-            var category = this.getQueryVariable('artowrk-category');
+            var category = this.getQueryVariable('artwork-category');
             if (category) {
-                this.artworkFilters['artwork-category'] = category.split(',');
+                this.artworkFilters['category'] = category.split(',');
             }
 
             var theme = this.getQueryVariable('theme');
@@ -30341,10 +30341,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         setSearchQuery: function setSearchQuery() {
             var query = '?';
             for (var filter in this.artworkFilters) {
-                query += filter + '=' + this.artworkFilters[filter] + '&';
-                console.log(filter);
+
+                if (this.artworkFilters[filter].length) {
+                    query += filter + '=' + this.artworkFilters[filter] + '&';
+                }
             }
-            console.log(query);
 
             window.location.search = query;
         },
@@ -33671,7 +33672,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 window.location.search = newQuery;
             } else {
                 var query = window.location.search.substring(1);
-                query += variable + '=' + value + '&';
+
+                if (query.length && query[query.length - 1] === '&') {
+                    query += variable + '=' + value + '&';
+                } else {
+                    query += '&' + variable + '=' + value + '&';
+                }
+
                 window.location.search = query;
             }
         },

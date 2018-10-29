@@ -485,6 +485,10 @@ body, html {
       max-width: 175px;
       margin-right: 20px;
 
+      .el-form-item__label {
+        font-size: 12px;
+      }
+
       @media only screen and (max-width: $--sm) {
         .artists-menu-form {
           position: absolute;
@@ -734,6 +738,10 @@ body, html {
       flex: 1;
       max-width: 175px;
       margin-right: 20px;
+
+      .el-form-item__label {
+        font-size: 12px;
+      }
 
       @media only screen and (max-width: $--sm) {
         .artworks-menu-form {

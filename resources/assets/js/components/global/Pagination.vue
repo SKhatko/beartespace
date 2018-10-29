@@ -72,10 +72,17 @@
 
                 } else {
                     let query = window.location.search.substring(1);
-                    query += variable + '=' + value + '&';
+
+                    if(query.length && query[query.length - 1] === '&') {
+                        query += variable + '=' + value + '&';
+                    } else {
+                        query += '&' + variable + '=' + value + '&';
+                    }
+
                     window.location.search = query;
                 }
             },
+
             getQueryVariable(variable) {
                 let query = window.location.search.substring(1);
                 let vars = query.split('&');
