@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class LanguageController extends Controller {
+
 	public function store( Request $request ) {
 
 		$languageIds = array_pluck( $request->all(), 'id' );

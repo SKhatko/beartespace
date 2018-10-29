@@ -7,12 +7,20 @@ use App\Http\Controllers\Controller;
 use App\Page;
 
 class PageController extends Controller {
+
 	public function store( Request $request ) {
 
-		Page::updateOrCreate( [ 'id' => $request->input( 'id' ) ], $request->except(['id']) );
+		$page = Page::create($request->all());
 
-		$pages = Page::all();
+		return [ 'status' => 'success', 'message' => 'Saved', 'data' => $page ];
+	}
 
-		return [ 'status' => 'success', 'message' => 'Saved', 'data' => $pages ];
+	public function update( Request $request ) {
+
+		$page = Page::findOrFail( $request->id );
+
+		$page->update( $request->all() );
+
+		return $page;
 	}
 }

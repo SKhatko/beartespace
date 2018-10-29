@@ -12,51 +12,7 @@
             Add new page
         </el-button>
 
-        <el-collapse v-for="page in pages" :key="page.id" accordion v-model="activePage">
 
-            <el-collapse-item :title="page.title" :name="page.id">
-
-                <el-form>
-                    <el-row :gutter="20" style="margin-bottom: 20px" align="middle">
-
-                        <el-col :span="12">
-                            <el-form-item label="Title">
-                                <el-input v-model="page.title" placeholder="Title"></el-input>
-                            </el-form-item>
-                        </el-col>
-
-                        <el-col :span="12">
-                            <el-form-item label="Slug">
-                                <el-input v-model="page.slug"
-                                          placeholder="Slug"></el-input>
-                            </el-form-item>
-                        </el-col>
-                    </el-row>
-
-                    <el-tabs type="card">
-
-                        <template v-for="language in languages">
-
-                            <el-tab-pane :label="language.name">
-
-                                <quill-editor v-model="page.content[language.code]" ></quill-editor>
-
-                            </el-tab-pane>
-
-                        </template>
-
-                    </el-tabs>
-
-                    <el-button type="primary" style="margin-top: 20px"
-                               size="big"
-                               @click="save(page)">
-                        Save
-                    </el-button>
-                </el-form>
-
-            </el-collapse-item>
-
-        </el-collapse>
 
     </el-card>
 

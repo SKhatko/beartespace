@@ -8,13 +8,15 @@ use App\Language;
 
 class PageController extends Controller {
 
-	public function index() {
+	public function page($id, $slug = '') {
 
-		$title     = 'Pages';
-		$pages     = Page::all();
-		$languages = Language::all();
+		$page = Page::findOrFail( $id );
 
-		return view( 'dashboard.page.index', compact( 'title', 'pages', 'languages' ) );
+		if ($slug !== $page->slug) {
+			return redirect($page->url);
+		}
+
+		return view( 'pages.page', compact( 'page' ) );
 	}
 
 	public function show( $slug ) {
@@ -22,6 +24,15 @@ class PageController extends Controller {
 		$page = Page::whereSlug( $slug )->firstOrFail();
 
 		return view( 'pages.page', compact( 'page' ) );
+	}
+
+
+	public function index() {
+
+		$title     = 'Pages';
+		$pages     = Page::orderBy('id', 'desc')->get();
+
+		return view( 'dashboard.page.index', compact( 'title', 'pages' ) );
 	}
 
 	public function create() {

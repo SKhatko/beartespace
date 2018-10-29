@@ -15,4 +15,13 @@ class Page extends Model
 
 	protected $casts = ['content' => 'array'];
 
+	public function getSlugAttribute() {
+		return str_slug($this->name);
+	}
+
+	public function getUrlAttribute() {
+		return action( 'PageController@page', [ $this->id, $this->slug ] );
+
+	}
+
 }

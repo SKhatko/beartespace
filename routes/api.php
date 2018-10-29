@@ -28,6 +28,10 @@ Route::group( [ 'middleware' => 'auth:api' ], function () {
 	Route::any( 'article/upload-article-images', 'Api\ArticleController@uploadArticleImages' );
 	Route::post( 'article/{id}', 'Api\ArticleController@update' );
 
+	// Page
+	Route::post( 'page', 'Api\PageController@store' );
+	Route::post( 'page/{id}', 'Api\PageController@update' );
+
 	Route::put( 'user/favorite/{id}/toggle', 'Api\UserController@toggleFavoriteArtwork' );
 	Route::put( 'user/followed/{id}/toggle', 'Api\UserController@toggleFollowedUser' );
 
@@ -56,6 +60,5 @@ Route::group( [ 'middleware' => 'auth:api' ], function () {
 
 } );
 
-//Route::post( 'checkout/address', 'Api\CheckoutController@address' );
-
 Route::get( 'countries', 'Api\DataController@countries' );
+Route::get( 'languages', 'Api\DataController@languages' );
