@@ -14,15 +14,33 @@
 
         <div class="app-article">
 
-            <div class="app-article__sidebar">
-                sidebar with other articles
-            </div>
+            {{--<div class="app-article__sidebar">--}}
+            {{--sidebar with other articles--}}
+            {{--</div>--}}
 
             <div class="app-article__article">
+
+                @if($article->category)
+                    <div class="app-article__article-category">
+                        {{ trans_input('article-category.' . $article->category) }}
+                    </div>
+                @endif
 
                 <div class="app-article__article-name">
                     {{ $article->name }}
                 </div>
+
+
+                @if($article->source)
+                    <div class="app-article__article-source">
+                        Source: <a href="{{ $article->source_url }}">{{ $article->source }}</a>
+                    </div>
+                @else
+                    <div class="app-article__article-author">
+                        <a href="{{ $article->user->url }}">{{ $article->user->name }}</a> *
+                        <span class="app-article__article-published">{{ $article->created_at->format('M d Y') }}</span>
+                    </div>
+                @endif
 
                 @if($article->image)
                     <div class="app-article__article-image">
@@ -34,19 +52,6 @@
                     {!! $article->content !!}
                 </div>
 
-                @include('partials.share')
-
-                @if($article->source)
-                    <div class="app-article__article-source">
-                        Source: <a href="{{ $article->source_url }}">{{ $article->source }}</a>
-                    </div>
-                @endif
-
-                @if($article->category)
-                    <div class="app-article__article-category">
-                        Category: {{ trans_input('article-category.' . $article->category) }}
-                    </div>
-                @endif
 
                 @if($article->tags && count($article->tags) > 0)
 
@@ -58,15 +63,12 @@
                     </div>
                 @endif
 
+                @include('partials.share')
 
-                <div class="app-article__article-author">
-                    By <a href="{{ $article->user->url }}">{{ $article->user->name }}</a>
-                </div>
+            </div>
 
-                <div class="app-article__article-published">
-                    {{--                        Published {{ $article->publish_at->diffForHumans() }}--}}
-                </div>
-
+            <div class="app-article-articles">
+                @include('partials.articles-block', $articles)
             </div>
 
         </div>

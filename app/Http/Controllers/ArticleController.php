@@ -61,6 +61,8 @@ class ArticleController extends Controller {
 			return redirect($article->url);
 		}
 
-		return view( 'article.show', compact( 'article' ) );
+		$articles = Article::whereCategory($article->category)->where('id', $article->id)
+
+		return view( 'article.show', compact( 'article', 'articles' ) );
 	}
 }

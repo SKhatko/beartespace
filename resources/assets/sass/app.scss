@@ -579,11 +579,22 @@ body, html {
       }
     }
 
+    &-category {
+      text-transform: uppercase;
+      color: #acacac;
+      margin-bottom: 5px;
+    }
+    
     &-name {
       width: 400px;
       max-width: 100%;
       font-size: 18px;
       @extend %text-truncate;
+
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
 
   }
@@ -592,7 +603,7 @@ body, html {
 
 .app-article {
   padding: 15px;
-  display: flex;
+  //display: flex;
 
   &__sidebar {
     flex: 1;
@@ -601,10 +612,20 @@ body, html {
 
   &__article {
     flex: 1;
-    max-width: 600px;
+    max-width: 740px;
+    margin: 0 auto;
+    
+    &-category {
+      color: #989595;
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 20px;
+    }
 
     &-name {
-      @extend .h1;
+      //@extend .h1;
+      font-size: 40px;
+      font-weight: normal;
       margin-bottom: 30px;
       text-align: center;
     }
@@ -623,7 +644,9 @@ body, html {
 
     &-author {
       @extend .h4;
+      text-align: center;
       margin-bottom: 30px;
+      color: $--color-info;
 
       a {
         text-decoration: underline;
@@ -637,11 +660,18 @@ body, html {
     &-source {
       margin: 20px 0;
       font-size: 15px;
+      text-align: center;
+    }
+
+    .app-partial-share .share {
+      justify-content: center;
+      margin: 30px 0;
     }
 
     &-tags {
       margin: 20px 0;
       font-size: 16px;
+      color: $--color-info;
     }
 
     &-share {

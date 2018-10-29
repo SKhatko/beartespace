@@ -11,6 +11,10 @@ class Article extends Model {
 		'tags' => 'array',
 	];
 
+	protected $dates = [
+		'created_at', 'published_at', 'updated_at'
+	];
+
 	protected $fillable = [ 'name', 'content', 'image_id', 'source', 'source_url', 'tags', 'category' ];
 
 	public function images() {
