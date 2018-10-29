@@ -32971,6 +32971,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -33469,6 +33471,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -33486,7 +33494,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             user: {},
             sellerRules: {
                 first_name: [{ required: true, message: 'Please enter first name', trigger: 'blur' }],
-                last_name: [{ required: true, message: 'Please enter last name', trigger: 'blur' }]
+                last_name: [{ required: true, message: 'Please enter last name', trigger: 'blur' }],
+                country_id: [{ required: true, message: 'Please specify your country', trigger: 'blur' }]
             },
             userRules: {
                 first_name: [{ required: true, message: 'Please enter first name', trigger: 'blur' }],
@@ -34417,16 +34426,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (value === '') {
                 callback(new Error("Name can't be empty"));
                 _this.userProfileLink = '';
+            } else if (value.length < 5) {
+                callback(new Error("Minimal length 8 symbols"));
+                _this.userProfileLink = '';
             } else {
                 console.log(value);
                 axios.post('/api/user/check-username', { 'username': value }).then(function (response) {
                     if (!response.data) {
                         callback(new Error('This username is already taken'));
+                    } else {
+                        _this.user.user_name = response.data;
+                        _this.setUserProfileLink();
+                        callback();
                     }
-
-                    _this.user.user_name = response.data;
-                    _this.setUserProfileLink();
-                    callback();
                 }).catch(function (error) {
                     console.log(error);
                     callback('Server error');
@@ -50718,7 +50730,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(4)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 /* 193 */
@@ -50746,7 +50758,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(4)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 /* 197 */
@@ -97428,7 +97440,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }, [_vm._v("\n            Check\n        ")]), _vm._v(" "), _c('div', {
-    staticClass: "small",
+    staticClass: "h6",
     staticStyle: {
       "margin-top": "10px"
     },
@@ -99278,8 +99290,9 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('el-card', [_c('el-row', {
-    staticClass: "app-dashboard-artworks-block",
+  return _c('el-card', {
+    staticClass: "app-dashboard-artworks-block"
+  }, [_c('el-row', {
     attrs: {
       "gutter": 20
     }
@@ -99321,6 +99334,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     })]), _vm._v(" "), _c('div', {
       staticClass: "block-artwork-manage"
     }, [_c('div', {
+      staticClass: "block-artwork-name"
+    }, [_vm._v(_vm._s(artwork.name))]), _vm._v(" "), _c('div', {
       staticClass: "block-artwork-qty"
     }, [_vm._v(_vm._s(artwork.quantity) + " pc")]), _vm._v(" "), _c('div', {
       staticClass: "block-artwork-price"
@@ -101177,6 +101192,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "src": '/imagecache/fit-290' + _vm.user.avatar_url
     }
   }) : _vm._e()], 1)], 1)], 1), _vm._v(" "), _c('el-col', {
+    staticStyle: {
+      "display": "none"
+    },
     attrs: {
       "sm": 12
     }

@@ -49,6 +49,13 @@
 
             </div>
 
+            {{--@if(auth()->user() && auth()->user()->id === $artwork->user->id)--}}
+                {{--<div class="app-artwork-artist-panel" style="text-align: center;">--}}
+                    {{--<a href="dashboard/artwork/{{ $artwork->id }}/edit" class="el-button el-button--default el-button--mini">Edit</a>--}}
+                    {{--<a href="/dashboard/artwork" class="el-button el-button--default el-button--mini">Deactivate</a>--}}
+                {{--</div>--}}
+            {{--@endif--}}
+
             <div class="artwork">
 
                 <div class="artwork--left">
@@ -111,9 +118,11 @@
                                 <el-button plain class="artwork-buy" native-type="submit">Buy Now</el-button>
 
                                 {{--<a href="{{ route('cart.item.buy-now', $artwork->id) }}"--}}
-                                   {{--class="el-button el-button--default is-plain ">Buy Now</a>--}}
+                                {{--class="el-button el-button--default is-plain ">Buy Now</a>--}}
 
-                                <el-button type="primary" native-type="submit" style="margin-bottom: 20px;" class="artwork-add">Add to cart</el-button>
+                                <el-button type="primary" native-type="submit" style="margin-bottom: 20px;"
+                                           class="artwork-add">Add to cart
+                                </el-button>
 
                             @endif
                         </el-form>

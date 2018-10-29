@@ -52,9 +52,9 @@
                     <div class="app--wrapper">
 
                         <a href="/sell/profile" class="el-button el-button--default">Edit profile</a>
-                        @if($artworks->count() > 0)
-                            <a href="/sell/payments" class="el-button el-button--primary">Continue</a>
-                        @endif
+
+                        <a href="/sell/payments" class="el-button el-button--primary">Save and Continue</a>
+
 
                     </div>
                 </div>

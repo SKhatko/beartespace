@@ -1445,6 +1445,7 @@ body, html {
   &-profile-name {
     text-align: center;
     position: relative;
+    margin-top: 50px;
 
     &-form {
       max-width: 500px;
@@ -1692,9 +1693,12 @@ body, html {
 .app-dashboard-artworks {
   @extend %dashboard-with-profile;
 
+
+
 }
 
 .app-dashboard-artworks-block {
+  flex: 1;
 
   .block-artwork {
 

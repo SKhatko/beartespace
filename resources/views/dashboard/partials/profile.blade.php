@@ -14,7 +14,7 @@
                     <div class="h6" style="margin-bottom: 10px;">
                         <a href="/dashboard/favorites/artists"
                            style="margin-right: 10px;"><b>{{ auth()->user()->followedBy->count() }}</b> Following</a>
-                        {{--                        @if(auth()->user()->canUpload())--}}
+                        {{--                        @if(auth()->user()->seller)--}}
                         {{--<a href="/dashboard/favorites"><b>{{ auth()->user()->followedUsers->count() }}</b> Followers</a>--}}
                         {{--@endif--}}
 
@@ -28,7 +28,7 @@
 
                     <hr>
 
-                    @if(auth()->user()->canUpload())
+                    @if(auth()->user()->seller)
                         <div class="h6" style="margin-bottom: 10px;">
                             <a href="/dashboard/artwork"><b>{{ auth()->user()->artworks->count() }}</b> Artworks</a>
                         </div>
@@ -43,7 +43,7 @@
                     <a href="/dashboard/account" class="el-button el-button--default">Account Settings</a>
 
 
-                    @if(auth()->user()->canUpload())
+                    @if(auth()->user()->seller)
                         <a href="/dashboard/artwork/create" class="el-button el-button--default">Upload Artwork</a>
                         <a href="/dashboard/artwork" class="el-button el-button--default">Artworks</a>
                     @endif

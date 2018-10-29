@@ -22,7 +22,7 @@
                 Check
             </el-button>
 
-            <div class="small" v-text="userProfileLink" style="margin-top: 10px;"></div>
+            <div class="h6" v-text="userProfileLink" style="margin-top: 10px;"></div>
 
             <div class="app--fixed-bottom">
                 <div class="app--wrapper">
@@ -48,17 +48,20 @@
                 if (value === '') {
                     callback(new Error("Name can't be empty"));
                     this.userProfileLink = '';
+                } else if (value.length < 5) {
+                    callback(new Error("Minimal length 8 symbols"));
+                    this.userProfileLink = '';
                 } else {
                     console.log(value);
                     axios.post('/api/user/check-username', {'username': value})
                         .then(response => {
                             if (!response.data) {
                                 callback(new Error('This username is already taken'));
+                            } else {
+                                this.user.user_name = response.data;
+                                this.setUserProfileLink();
+                                callback();
                             }
-
-                            this.user.user_name = response.data;
-                            this.setUserProfileLink();
-                            callback();
                         })
                         .catch(error => {
                             console.log(error);

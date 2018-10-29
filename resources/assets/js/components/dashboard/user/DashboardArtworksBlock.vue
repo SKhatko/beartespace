@@ -1,8 +1,8 @@
 <template>
 
-    <el-card>
+    <el-card class="app-dashboard-artworks-block">
 
-        <el-row :gutter="20" class="app-dashboard-artworks-block">
+        <el-row :gutter="20">
 
             <el-col :xs="12" :sm="8" :md="6" class="block-artwork-new">
                 <a href="/dashboard/artwork/create" class="el-button el-button--default">Upload
@@ -16,6 +16,8 @@
                 </a>
 
                 <div class="block-artwork-manage">
+
+                    <div class="block-artwork-name">{{ artwork.name }}</div>
 
                     <div class="block-artwork-qty">{{ artwork.quantity }} pc</div>
 

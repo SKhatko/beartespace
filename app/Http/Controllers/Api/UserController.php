@@ -18,6 +18,32 @@ class UserController extends Controller {
 		$requestUsername = str_slug( $request->input( 'username' ) );
 		$user            = auth()->user();
 
+		if ( in_array( $requestUsername, [
+			'confirm-email',
+			'subscription',
+			'search',
+			'login',
+			'home',
+			'auction',
+			'artwork',
+			'article',
+			'artist',
+			'contact-form',
+			'lead',
+			'page',
+			'language',
+			'currency',
+			'cart',
+			'checkout',
+			'address',
+			'about',
+			'rules',
+			'shipping',
+			'dashboard'
+		] ) ) {
+			return '';
+		}
+
 		$users = User::where( 'id', '!=', $user->id )->whereUserName( $requestUsername )->get();
 
 		if ( $users->count() ) {

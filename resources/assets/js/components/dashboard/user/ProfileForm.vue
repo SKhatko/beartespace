@@ -55,7 +55,7 @@
                         </el-form-item>
                     </el-col>
 
-                    <el-col :sm="12">
+                    <el-col :sm="12" style="display: none;">
                         <el-form-item>
                         <span slot="label">
                             Profile background image
@@ -91,6 +91,12 @@
 
                 </el-row>
 
+                <!--<el-row :gutter="20" v-if="sellRequest_">-->
+                    <!--<el-col :sm="8">-->
+                        <!--artist/gallery-->
+
+                    <!--</el-col>-->
+                <!--</el-row>-->
 
                 <el-row :gutter="20">
                     <el-col :sm="8">
@@ -456,6 +462,9 @@
                     ],
                     last_name: [
                         {required: true, message: 'Please enter last name', trigger: 'blur'}
+                    ],
+                    country_id: [
+                        {required:true, message: 'Please specify your country', trigger: 'blur'}
                     ]
                 },
                 userRules: {
