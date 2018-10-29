@@ -32,12 +32,26 @@
             <a href="{{ route('people') }}" slot="reference">Artists</a>
         </el-popover>
 
+        <el-popover
+                placement="bottom"
+                trigger="hover">
+
+            @foreach(trans('article-category') as $key => $trans)
+                <el-dropdown-item>
+                    <a href="/article?article-category={{ $key }}"
+                       style="display: block;margin:10px 0">{{ $trans }}</a>
+                </el-dropdown-item>
+            @endforeach
+
+            <a href="{{ route('articles') }}" slot="reference">Articles</a>
+        </el-popover>
+
 
 
         {{--<a href="{{ route('people') }}">@lang('portal.artists')</a>--}}
         {{--<a href="{{ route('artworks') }}">@lang('portal.artworks')</a>--}}
         {{--<a href="{{ route('auctions') }}">on-line auctions</a>--}}
-        <a href="{{ route('articles') }}">Articles</a>
+        {{--<a href="{{ route('articles') }}">Articles</a>--}}
 
     </nav>
 

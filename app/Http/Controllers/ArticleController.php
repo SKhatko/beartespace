@@ -26,10 +26,29 @@ class ArticleController extends Controller {
 		return view('dashboard.article.edit', compact('article'));
 	}
 
-	public function articles() {
+	public function articles( Request $request ) {
 
-		$articles = Article::orderBy('created_at', 'desc')->paginate();
-//		$articles = Article::with( 'images' )->paginate();
+
+		$articles = Article::query();
+
+		if ( $request->input( 'article-category' ) ) {
+			$queries = explode( ',', $request->input( 'artwork-category' ) );
+			foreach ( $queries as $query ) {
+				$articles->whereRaw( 'LOWER(category) LIKE ?', '%' . $query . '%' );
+			}
+		}
+
+		$items = 15;
+
+		if ( $request->has( 'items' ) && $request->input( 'items' ) > 1 ) {
+			$items = $request->get( 'items' );
+		}
+
+		$articles = $articles->orderBy('created_at', 'desc')->paginate( $items );
+
+//		foreach($articles as $article) {
+//			dump($article->category);
+//		}
 
 		return view( 'article.index', compact( 'articles' ) );
 	}
