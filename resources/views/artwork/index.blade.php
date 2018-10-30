@@ -21,13 +21,12 @@
 
                 <div class="artworks-bottom" style="text-align: center;margin: 50px 0;">
 
-                    <el-button><a href="/selection/artwork">See artworks of the week</a></el-button>
+                    <el-button><a href="/artwork?selected=selected">See artworks of the week</a></el-button>
 
                     @if($artworks->hasMorePages())
                         <el-button><a href="{{  $artworks->nextPageUrl() }}">See more Artworks</a></el-button>
                     @endif
                     <el-button><a href="{{ route('people') }}">Browse Artists</a></el-button>
-                    <el-button><a href="{{ route('auctions') }}">Go to Auctions</a></el-button>
                 </div>
 
                 {{ $artworks->links() }}

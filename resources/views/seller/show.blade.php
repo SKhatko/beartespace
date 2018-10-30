@@ -8,7 +8,6 @@
 
         <div class="app--wrapper">
 
-
             <div class="app-artist"
                  @if($artist->image) style="background-image: url('/imagecache/original{{ $artist->image_url }}')" @endif>
 
@@ -83,8 +82,11 @@
 
                     <div class="artist-artworks">
 
-                        <div class="h2">Artworks</div>
-                        <artworks-block artworks_="{{ $artist->artworks }}"></artworks-block>
+                        <artworks-block artworks_="{{ $artist->artworks->load('user:id,first_name,last_name,user_name,name,url') }}">
+                            <template slot="header">
+                                <div class="h2">Artworks</div>
+                            </template>
+                        </artworks-block>
 
                     </div>
 

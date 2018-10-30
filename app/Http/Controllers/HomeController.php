@@ -16,15 +16,15 @@ class HomeController extends Controller {
 
 	public function index() {
 
-		$articles = Article::where( 'active', 1 )->take( 2 )->get();
+		$articles = Article::where( 'active', 1 )->take( 4 )->get();
 
 		$randomArtwork = Artwork::auction(false)->notSold()->available()->quantity()->with('image')->inRandomOrder()->first();
 
-		$artworks = Artwork::auction(false)->notSold()->available()->quantity()->with('image')->inRandomOrder()->take(4)->get();
+		$artworks = Artwork::auction(false)->notSold()->available()->quantity()->with('image', 'user')->inRandomOrder()->take(4)->get();
 
-		$selectedArtworks = Artwork::whereIn('id', Setting::first()->artworks_of_the_week)->auction(false)->notSold()->available()->quantity()->with('image')->inRandomOrder()->take(4)->get();
+		$selectedArtworks = Artwork::whereIn('id', Setting::first()->artworks_of_the_week)->auction(false)->notSold()->available()->quantity()->with('image', 'user')->inRandomOrder()->take(4)->get();
 
-		$auctions = Artwork::auction()->notSold()->available()->quantity()->with('image')->inRandomOrder()->take( 4 )->get();
+		$auctions = Artwork::auction()->notSold()->available()->quantity()->with('image', 'user')->inRandomOrder()->take( 4 )->get();
 
 		return view( 'index', compact( 'artworks', 'auctions', 'articles', 'randomArtwork', 'selectedArtworks' ) );
 	}

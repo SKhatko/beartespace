@@ -1,6 +1,6 @@
 <template>
 
-    <div class="app-artworks-block">
+    <div class="app-artworks-block" v-if="artworks.length">
 
         <div class="app-artworks-block__header">
             <slot name="header"></slot>
@@ -11,7 +11,7 @@
                 <el-card shadow="hover">
                     <div class="app-artworks-block__artwork">
                         <div class="app-artworks-block__artwork-top">
-                            <a :href="'/artwork/' + artwork.id" target="_blank" class="app-artworks-block__artwork-image">
+                            <a :href="'/artwork/' + artwork.id" class="app-artworks-block__artwork-image">
                                 <img :src="'/imagecache/fit-290' + artwork.image_url">
                             </a>
 
@@ -20,9 +20,11 @@
                         </div>
 
                         <div class="app-artworks-block__artwork-info">
-                            <a :href="'/artwork/' + artwork.id" target="_blank" class="app-artworks-block__artwork-name">
+                            <a :href="'/artwork/' + artwork.id" class="app-artworks-block__artwork-name">
                                 {{ artwork.name }}
                             </a>
+
+                            <a :href="artwork.user.url">{{ artwork.user.name }}</a>
 
                             <div class="app-artworks-block__artwork-price">
                                 {{ artwork.formatted_price }}
@@ -63,7 +65,7 @@
                 this.artworks = JSON.parse(this.artworks_);
             }
 
-            // console.log(this.artworks);
+            console.log(this.artworks);
 
         },
 

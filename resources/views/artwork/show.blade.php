@@ -245,7 +245,7 @@
         </div>
 
         <div class="app-artwork-other">
-            <artworks-block artworks_="{{ $artwork->user->artworks->take(4) }}">
+            <artworks-block artworks_="{{ $artwork->user->artworks->load('user:id,first_name,last_name,user_name,name,url')->take(4) }}">
                 <template slot="header">
                     <div class="h2">Other Artworks</div>
                 </template>
@@ -257,7 +257,7 @@
         </div>
 
         <div class="app-artwork-similar">
-            <artworks-block artworks_="{{ $similareArtworks }}">
+            <artworks-block artworks_="{{ $similarArtworks }}">
                 <template slot="header">
                     <div class="h2">You also might like</div>
                 </template>

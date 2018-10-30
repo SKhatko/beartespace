@@ -33406,6 +33406,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -33424,7 +33426,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.artworks = JSON.parse(this.artworks_);
         }
 
-        // console.log(this.artworks);
+        console.log(this.artworks);
     },
 
 
@@ -98577,7 +98579,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
+  return (_vm.artworks.length) ? _c('div', {
     staticClass: "app-artworks-block"
   }, [_c('div', {
     staticClass: "app-artworks-block__header"
@@ -98606,8 +98608,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('a', {
       staticClass: "app-artworks-block__artwork-image",
       attrs: {
-        "href": '/artwork/' + artwork.id,
-        "target": "_blank"
+        "href": '/artwork/' + artwork.id
       }
     }, [_c('img', {
       attrs: {
@@ -98629,15 +98630,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('a', {
       staticClass: "app-artworks-block__artwork-name",
       attrs: {
-        "href": '/artwork/' + artwork.id,
-        "target": "_blank"
+        "href": '/artwork/' + artwork.id
       }
-    }, [_vm._v("\n                            " + _vm._s(artwork.name) + "\n                        ")]), _vm._v(" "), _c('div', {
+    }, [_vm._v("\n                            " + _vm._s(artwork.name) + "\n                        ")]), _vm._v(" "), _c('a', {
+      attrs: {
+        "href": artwork.user.url
+      }
+    }, [_vm._v(_vm._s(artwork.user.name))]), _vm._v(" "), _c('div', {
       staticClass: "app-artworks-block__artwork-price"
     }, [_vm._v("\n                            " + _vm._s(artwork.formatted_price) + "\n                        ")])])])])], 1)
   })), _vm._v(" "), _c('div', {
     staticClass: "app-artworks-block__footer"
-  }, [_vm._t("footer")], 2)], 1)
+  }, [_vm._t("footer")], 2)], 1) : _vm._e()
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

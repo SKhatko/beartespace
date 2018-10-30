@@ -104,7 +104,7 @@ class ArtworkController extends Controller {
 			$items = $request->get( 'items' );
 		}
 
-		$artworks = $artworks->with( 'images', 'user.country' )->paginate( $items );
+		$artworks = $artworks->with( 'images', 'user' )->paginate( $items );
 
 		return view( 'artwork.index', compact( 'artworks' ) );
 	}
@@ -117,9 +117,10 @@ class ArtworkController extends Controller {
 			return redirect( $artwork->url );
 		}
 
-		$similareArtworks = Artwork::whereCategory($artwork->category)->where( 'id', '!=', $artwork->id )->take( 4 )->get();
+		$similarArtworks = Artwork::whereCategory( $artwork->category )->where( 'id', '!=', $artwork->id )->take( 4 )->with( 'user:id,first_name,last_name,user_name,name,url' )->get();
 
-		return view( 'artwork.show', compact( 'artwork', 'similareArtworks' ) );
+//		return $similarArtworks->user;
+		return view( 'artwork.show', compact( 'artwork', 'similarArtworks' ) );
 	}
 
 	public function index() {
