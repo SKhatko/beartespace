@@ -4,6 +4,27 @@
 
 @section('dashboard-content')
 
+    <div class="app-dashboard-profile-edit">
+
+        @include('dashboard.partials.profile')
+
+        <div class="app-dashboard-profile-edit">
+            <el-card>
+                <el-tabs value="{{ 'artworks' }}">
+
+                    <el-tab-pane label="Artworks" name="artworks">
+                        asdf
+                    </el-tab-pane>
+
+                    <el-tab-pane label="Followed People" name="artists">
+                      asdf
+                    </el-tab-pane>
+                </el-tabs>
+            </el-card>
+        </div>
+    </div>
+
+
     <profile-form user_="{{ $user }}"></profile-form>
 
 @endsection

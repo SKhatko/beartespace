@@ -11,6 +11,11 @@
                 <div class="profile-info">
                     <div class="h2" style="margin-bottom: 10px;">{{ auth()->user()->name }}</div>
 
+                    @if(!auth()->user()->email_verified)
+                        <el-tag type="danger" size="mini" style="margin-bottom: 10px;">Email not confirmed.
+                            </el-tag> <a href="{{ route('confirm-email.resend') }}" class="el-button el-button--text"> Send confirmation</a>
+                    @endif
+
                     <div class="h6" style="margin-bottom: 10px;">
                         <a href="/dashboard/favorites/artists"
                            style="margin-right: 10px;"><b>{{ auth()->user()->followedBy->count() }}</b> Following</a>
@@ -38,12 +43,15 @@
                         </div>
                     @endif
 
-                        <a href="/dashboard/profile" class="el-button el-button--default" style="margin-bottom: 20px;">Edit profile</a>
-                        <a href="/dashboard/account" class="el-button el-button--default" style="margin-left: 0;">Account Settings</a>
+                    <a href="/dashboard/profile" class="el-button el-button--text" style="margin-bottom: 20px;"><i
+                                class="el-icon-edit"></i><span>Edit profile</span></a>
+                    <a href="/dashboard/account" class="el-button el-button--default" style="margin-left: 0;">Account
+                        Settings</a>
 
 
                     @if(auth()->user()->seller)
-                        <a href="/dashboard/artwork/create" class="el-button el-button--default" style="margin-left: 0;">Upload Artwork</a>
+                        <a href="/dashboard/artwork/create" class="el-button el-button--default"
+                           style="margin-left: 0;">Upload Artwork</a>
                         <a href="/dashboard/artwork" class="el-button el-button--default" style="margin-left: 0;">Artworks</a>
                     @endif
                 </div>
