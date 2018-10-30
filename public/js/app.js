@@ -33394,6 +33394,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -98565,15 +98577,19 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('el-row', {
-    staticClass: "app-artworks-blocks",
+  return _c('div', {
+    staticClass: "app-artworks-block"
+  }, [_c('div', {
+    staticClass: "app-artworks-block__header"
+  }, [_vm._t("header")], 2), _vm._v(" "), _c('el-row', {
+    staticClass: "app-artworks-block__row",
     attrs: {
       "gutter": 20
     }
   }, _vm._l((_vm.artworks), function(artwork) {
     return _c('el-col', {
       key: artwork.id,
-      staticClass: "block",
+      staticClass: "app-artworks-block__col",
       attrs: {
         "xs": 12,
         "sm": 6,
@@ -98584,11 +98600,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "shadow": "hover"
       }
     }, [_c('div', {
-      staticClass: "block-artwork"
+      staticClass: "app-artworks-block__artwork"
     }, [_c('div', {
-      staticClass: "block-artwork-top"
+      staticClass: "app-artworks-block__artwork-top"
     }, [_c('a', {
-      staticClass: "block-artwork-image",
+      staticClass: "app-artworks-block__artwork-image",
       attrs: {
         "href": '/artwork/' + artwork.id,
         "target": "_blank"
@@ -98598,7 +98614,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "src": '/imagecache/fit-290' + artwork.image_url
       }
     })]), _vm._v(" "), _c('el-button', {
-      staticClass: "block-artwork-favorite",
+      staticClass: "app-artworks-block__artwork-favorite",
       attrs: {
         "icon": _vm.favoriteIconClass(artwork),
         "circle": ""
@@ -98609,17 +98625,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     })], 1), _vm._v(" "), _c('div', {
-      staticClass: "block-artwork-info"
+      staticClass: "app-artworks-block__artwork-info"
     }, [_c('a', {
-      staticClass: "block-artwork-name",
+      staticClass: "app-artworks-block__artwork-name",
       attrs: {
         "href": '/artwork/' + artwork.id,
         "target": "_blank"
       }
-    }, [_vm._v("\n                        " + _vm._s(artwork.name) + "\n                    ")]), _vm._v(" "), _c('div', {
-      staticClass: "block-artwork-price"
-    }, [_vm._v("\n                        " + _vm._s(artwork.formatted_price) + "\n                    ")])])])])], 1)
-  }))
+    }, [_vm._v("\n                            " + _vm._s(artwork.name) + "\n                        ")]), _vm._v(" "), _c('div', {
+      staticClass: "app-artworks-block__artwork-price"
+    }, [_vm._v("\n                            " + _vm._s(artwork.formatted_price) + "\n                        ")])])])])], 1)
+  })), _vm._v(" "), _c('div', {
+    staticClass: "app-artworks-block__footer"
+  }, [_vm._t("footer")], 2)], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

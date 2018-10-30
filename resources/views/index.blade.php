@@ -48,20 +48,19 @@
 
             <div class="app-index-artworks">
 
-                <div class="h2">Our new coming artworks</div>
-
-                <div class="h4">Go to see the new coming artworks</div>
-
-                <div class="artworks">
-                    <artworks-block artworks_="{{ $auctions }}"></artworks-block>
-                </div>
+                <artworks-block artworks_="{{ $auctions }}">
+                    <template slot="header">
+                        <div class="h2">Our new coming artworks</div>
+                        <div class="h4" style="margin-bottom: 30px;">Go to see the new coming artworks</div>
+                    </template>
+                    <template slot="footer">
+                        <a href="{{ route('auctions') }}"
+                           class="el-button el-button--default is-plain">More artworks</a>
+                    </template>
+                </artworks-block>
 
                 {{--                    Ends {{ date('F jS\. Y', strtotime($auction->auction_end)) }}--}}
 
-                <div class="artworks-bottom">
-                    <a href="{{ route('auctions') }}"
-                       class="el-button el-button--default is-plain">More auctions</a>
-                </div>
 
             </div>
 
@@ -83,24 +82,16 @@
             @if($selectedArtworks->count())
                 <div class="app-index-artworks">
 
-                    <div class="h2">
-                        Selected artworks by our curator
-                    </div>
-
-                    <div class="h4">
-                        Find here our selected artworks
-                    </div>
-
-                    <div class="artworks">
-
-                        <artworks-block artworks_="{{ $selectedArtworks }}"></artworks-block>
-
-                    </div>
-
-                    <div class="artworks-bottom">
-                        <a href="{{ route('selected-artworks') }}" class="el-button el-button--default is-plain">
-                            The full selection from our curator</a>
-                    </div>
+                    <artworks-block artworks_="{{ $selectedArtworks }}">
+                        <template slot="header">
+                            <div class="h2">Selected artworks by our curator</div>
+                            <div class="h4" style="margin-bottom: 30px;">Find here our selected artworks</div>
+                        </template>
+                        <template slot="footer">
+                            <a href="{{ route('selected-artworks') }}" class="el-button el-button--default is-plain">
+                                The full selection from our curator</a>
+                        </template>
+                    </artworks-block>
 
                 </div>
             @endif

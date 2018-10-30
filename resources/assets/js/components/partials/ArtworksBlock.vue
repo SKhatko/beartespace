@@ -1,33 +1,45 @@
 <template>
 
-    <el-row :gutter="20" class="app-artworks-blocks">
-        <el-col :xs="12" :sm="6" :md="6" v-for="artwork in artworks" :key="artwork.id" class="block">
-            <el-card shadow="hover">
-                <div class="block-artwork">
-                    <div class="block-artwork-top">
-                        <a :href="'/artwork/' + artwork.id" target="_blank" class="block-artwork-image">
-                            <img :src="'/imagecache/fit-290' + artwork.image_url">
-                        </a>
+    <div class="app-artworks-block">
 
-                        <el-button :icon="favoriteIconClass(artwork)" class="block-artwork-favorite" circle
-                                   @click="$store.commit('toggleFavorites', artwork)"></el-button>
-                    </div>
+        <div class="app-artworks-block__header">
+            <slot name="header"></slot>
+        </div>
 
-                    <div class="block-artwork-info">
-                        <a :href="'/artwork/' + artwork.id" target="_blank" class="block-artwork-name">
-                            {{ artwork.name }}
-                        </a>
+        <el-row :gutter="20" class="app-artworks-block__row">
+            <el-col :xs="12" :sm="6" :md="6" v-for="artwork in artworks" :key="artwork.id" class="app-artworks-block__col">
+                <el-card shadow="hover">
+                    <div class="app-artworks-block__artwork">
+                        <div class="app-artworks-block__artwork-top">
+                            <a :href="'/artwork/' + artwork.id" target="_blank" class="app-artworks-block__artwork-image">
+                                <img :src="'/imagecache/fit-290' + artwork.image_url">
+                            </a>
 
-                        <div class="block-artwork-price">
-                            {{ artwork.formatted_price }}
+                            <el-button :icon="favoriteIconClass(artwork)" class="app-artworks-block__artwork-favorite" circle
+                                       @click="$store.commit('toggleFavorites', artwork)"></el-button>
+                        </div>
+
+                        <div class="app-artworks-block__artwork-info">
+                            <a :href="'/artwork/' + artwork.id" target="_blank" class="app-artworks-block__artwork-name">
+                                {{ artwork.name }}
+                            </a>
+
+                            <div class="app-artworks-block__artwork-price">
+                                {{ artwork.formatted_price }}
+                            </div>
                         </div>
                     </div>
-                </div>
 
-            </el-card>
+                </el-card>
+            </el-col>
+        </el-row>
 
-        </el-col>
-    </el-row>
+        <div class="app-artworks-block__footer">
+            <slot name="footer"></slot>
+        </div>
+
+    </div>
+
 
 </template>
 

@@ -95,7 +95,7 @@ class ArtworkController extends Controller {
 		}
 
 		if ( $request->input( 'selected' ) ) {
-			$artworks = $artworks->whereIn( 'id', Setting::first()->artworks_of_the_week );
+			$artworks = $artworks->where( 'id', Setting::first()->artworks_of_the_week );
 		}
 
 		$items = 15;
@@ -117,7 +117,9 @@ class ArtworkController extends Controller {
 			return redirect( $artwork->url );
 		}
 
-		return view( 'artwork.show', compact( 'artwork' ) );
+		$similareArtworks = Artwork::whereCategory($artwork->category)->where( 'id', '!=', $artwork->id )->take( 4 )->get();
+
+		return view( 'artwork.show', compact( 'artwork', 'similareArtworks' ) );
 	}
 
 	public function index() {

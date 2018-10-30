@@ -50,10 +50,10 @@
             </div>
 
             {{--@if(auth()->user() && auth()->user()->id === $artwork->user->id)--}}
-                {{--<div class="app-artwork-artist-panel" style="text-align: center;">--}}
-                    {{--<a href="dashboard/artwork/{{ $artwork->id }}/edit" class="el-button el-button--default el-button--mini">Edit</a>--}}
-                    {{--<a href="/dashboard/artwork" class="el-button el-button--default el-button--mini">Deactivate</a>--}}
-                {{--</div>--}}
+            {{--<div class="app-artwork-artist-panel" style="text-align: center;">--}}
+            {{--<a href="dashboard/artwork/{{ $artwork->id }}/edit" class="el-button el-button--default el-button--mini">Edit</a>--}}
+            {{--<a href="/dashboard/artwork" class="el-button el-button--default el-button--mini">Deactivate</a>--}}
+            {{--</div>--}}
             {{--@endif--}}
 
             <div class="artwork">
@@ -245,13 +245,27 @@
         </div>
 
         <div class="app-artwork-other">
-            <div class="h3">Other Artworks</div>
-            <artworks-block artworks_="{{ $artwork->user->artworks->take(4) }}"></artworks-block>
+            <artworks-block artworks_="{{ $artwork->user->artworks->take(4) }}">
+                <template slot="header">
+                    <div class="h2">Other Artworks</div>
+                </template>
+                <template slot="footer">
+                    <a href="{{ $artwork->user->url }}" class="el-button el-button--default">See more artworks
+                        of {{ $artwork->user->name }}</a>
+                </template>
+            </artworks-block>
         </div>
 
         <div class="app-artwork-similar">
-            <div class="h3">You also might like</div>
-            <artworks-block artworks_="{{ $artwork->user->artworks->take(4) }}"></artworks-block>
+            <artworks-block artworks_="{{ $similareArtworks }}">
+                <template slot="header">
+                    <div class="h2">You also might like</div>
+                </template>
+                <template slot="footer">
+                    <a href="/artwork?artwork-category={{$artwork->category}}" class="el-button el-button--default">See
+                        more</a>
+                </template>
+            </artworks-block>
         </div>
 
 

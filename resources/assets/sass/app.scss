@@ -394,17 +394,7 @@ body, html {
   }
 
   &-artworks {
-    text-align: center;
     padding: 90px 15px;
-
-    .artworks {
-      padding-top: 50px;
-    }
-
-    .artworks-bottom {
-      text-align: right;
-      padding-top: 10px;
-    }
   }
 
 }
@@ -1107,67 +1097,78 @@ body, html {
 
 }
 
-.app-artworks-blocks {
+.app-artworks-block {
   flex: 1;
 
-  .block {
+  &__header {
     margin-bottom: 20px;
+    text-align: center;
+  }
 
-    &-artwork {
+  &__footer {
+    text-align: right;
+  }
 
-      &-top {
-        position: relative;
-      }
+  &__row {
+    //margin-bottom: 20px;
+  }
 
-      &-image {
-        display: block;
+  &__col {
+    margin-bottom: 20px;
+  }
 
-        img {
-          width: 100%;
-        }
-      }
+  &__artwork {
 
-      &-info {
-        text-align: left;
-      }
+    &-top {
+      position: relative;
+    }
 
-      &-name {
-        font-size: 18px;
-        margin: 10px 0;
-        width: 300px;
-        max-width: 100%;
-        display: inline-block;
-        vertical-align: middle;
-        @extend %text-truncate;
-      }
+    &-image {
+      display: block;
 
-      &-price {
-        font-weight: bold;
-        display: block;
-      }
-
-      &-favorite {
-        position: absolute;
-        display: flex;
-        justify-content: flex-end;
-        top: 5px;
-        right: 5px;
-        text-align: right;
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.7s ease;
-        font-size: 25px;
-        padding: 7px;
-      }
-
-      &:hover .block-artwork-favorite {
-        opacity: 0.8;
-        visibility: visible;
+      img {
+        width: 100%;
       }
     }
 
-  }
+    &-info {
+      text-align: left;
+    }
 
+    &-name {
+      font-size: 18px;
+      margin: 10px 0;
+      width: 300px;
+      max-width: 100%;
+      display: inline-block;
+      vertical-align: middle;
+      @extend %text-truncate;
+    }
+
+    &-price {
+      font-weight: bold;
+      display: block;
+    }
+
+    &-favorite {
+      position: absolute;
+      display: flex;
+      justify-content: flex-end;
+      top: 5px;
+      right: 5px;
+      text-align: right;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.7s ease;
+      font-size: 25px;
+      padding: 7px;
+    }
+
+    &:hover .block-artwork-favorite {
+      opacity: 0.8;
+      visibility: visible;
+    }
+  }
 }
 
 .app-page {
