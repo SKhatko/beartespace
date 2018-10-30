@@ -69,11 +69,11 @@ Vue.component('sell-payment-form', require('./components/sell/PaymentForm.vue'))
 
 // Admin
 Vue.component('settings-form', require('./components/dashboard/admin/SettingsForm.vue'));
-Vue.component('translations', require('./components/dashboard/admin/Translations.vue'));
-Vue.component('languages', require('./components/dashboard/admin/Languages.vue'));
+Vue.component('translations-form', require('./components/dashboard/admin/TranslationsForm.vue'));
+Vue.component('languages-form', require('./components/dashboard/admin/LanguagesForm.vue'));
 Vue.component('pages', require('./components/dashboard/admin/Pages.vue'));
 Vue.component('page-form', require('./components/dashboard/admin/PageForm.vue'));
-Vue.component('users', require('./components/dashboard/admin/Users.vue'));
+Vue.component('users-form', require('./components/dashboard/admin/UsersForm.vue'));
 Vue.component('dashboard-articles', require('./components/dashboard/admin/DashboardArticles.vue'));
 Vue.component('article-form', require('./components/dashboard/admin/ArticleForm.vue'));
 

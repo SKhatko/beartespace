@@ -44,7 +44,7 @@
 
                 @if($article->image)
                     <div class="app-article__article-image">
-                        <img src="/imagecache/height-500{{ $article->image_url }}" alt="">
+                        <img src="/imagecache/width-700{{ $article->image_url }}" alt="">
                     </div>
                 @endif
 
@@ -58,7 +58,7 @@
                     <div class="article-tags">
                         Tags:
                         @foreach($article->tags as $tag)
-                            {{ $tag }},
+                            <b>#{{ $tag }}</b>,
                         @endforeach
                     </div>
                 @endif

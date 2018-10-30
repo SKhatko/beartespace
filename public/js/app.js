@@ -27759,11 +27759,11 @@ Vue.component('sell-payment-form', __webpack_require__(267));
 
 // Admin
 Vue.component('settings-form', __webpack_require__(327));
-Vue.component('translations', __webpack_require__(255));
-Vue.component('languages', __webpack_require__(251));
+Vue.component('translations-form', __webpack_require__(336));
+Vue.component('languages-form', __webpack_require__(330));
 Vue.component('pages', __webpack_require__(253));
 Vue.component('page-form', __webpack_require__(252));
-Vue.component('users', __webpack_require__(256));
+Vue.component('users-form', __webpack_require__(333));
 Vue.component('dashboard-articles', __webpack_require__(250));
 Vue.component('article-form', __webpack_require__(249));
 
@@ -31599,172 +31599,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 137 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-
-    props: {
-        translatedLanguages_: {},
-        languages_: {}
-    },
-
-    data: function data() {
-        return {
-            languages: [],
-            translatedLanguages: [],
-            newLanguage: {}
-        };
-    },
-    mounted: function mounted() {
-        if (this.languages_) {
-            this.languages = JSON.parse(this.languages_);
-        }
-
-        if (this.translatedLanguages_) {
-            this.translatedLanguages = JSON.parse(this.translatedLanguages_);
-        }
-
-        console.log(this.languages);
-        console.log(this.translatedLanguages);
-    },
-
-
-    methods: {
-        addLanguageField: function addLanguageField() {
-
-            var language = {
-                id: 0,
-                name: this.translatedLanguages[this.newLanguage],
-                code: this.newLanguage,
-                active: false,
-                is_rtl: false
-            };
-
-            // Object.entries(this.languages).forEach(
-            //     ([langCode, language]) => this.$set(language.name, language.code, "")
-            // );
-
-
-            this.languages.push(language);
-        },
-        removeLanguage: function removeLanguage(index) {
-            this.languages.splice(index, 1);
-        },
-        save: function save() {
-
-            axios.post('/api/languages/', this.languages).then(function (response) {
-                if (response.data) {
-                    console.log(response.data);
-                    window.location.reload();
-                } else {
-                    console.log(response.data);
-                }
-            });
-        }
-    }
-});
-
-/***/ }),
+/* 137 */,
 /* 138 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -31990,312 +31825,8 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 
 /***/ }),
 /* 140 */,
-/* 141 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-
-    props: {
-        translations_: {},
-        languages_: {}
-    },
-
-    data: function data() {
-        return {
-            languages: {},
-            translations: {},
-            activeGroup: '',
-            newGroup: ''
-        };
-    },
-    mounted: function mounted() {
-
-        console.log(JSON.parse(this.languages_));
-        if (this.languages_) {
-            this.languages = JSON.parse(this.languages_);
-        }
-
-        console.log(JSON.parse(this.translations_));
-        if (this.translations_) {
-            this.translations = JSON.parse(this.translations_);
-        }
-    },
-
-
-    methods: {
-        addTranslationField: function addTranslationField(groupName) {
-            var _this = this;
-
-            var translation = {
-                id: 0,
-                group: groupName,
-                key: 'variable',
-                text: {}
-            };
-
-            Object.entries(this.languages).forEach(function (_ref) {
-                var _ref2 = _slicedToArray(_ref, 2),
-                    langCode = _ref2[0],
-                    language = _ref2[1];
-
-                return _this.$set(translation.text, langCode, "");
-            });
-
-            console.log(this.translations);
-
-            if (!this.translations[groupName]) {
-                this.translations[groupName] = [];
-            }
-
-            console.log(this.translations[groupName]);
-
-            this.activeGroup = groupName;
-
-            this.translations[groupName].push(translation);
-        },
-        removeTranslation: function removeTranslation(groupName, translationIndex) {
-            this.translations[groupName].splice(translationIndex, 1);
-        },
-        save: function save() {
-            var _this2 = this;
-
-            axios.post('/api/translations/', this.translations).then(function (response) {
-                if (response.data) {
-                    console.log(response.data);
-
-                    _this2.translations = response.data.data;
-
-                    _this2.$message({
-                        showClose: true,
-                        message: response.data.message,
-                        type: response.data.status
-                    });
-                    // window.location.reload();
-                    // window.location.href = '/dashboard';
-                } else {
-                    console.log(response.data);
-                }
-            });
-        }
-    }
-});
-
-/***/ }),
-/* 142 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-
-    props: {
-        users_: {}
-    },
-
-    data: function data() {
-        return {
-            users: {}
-        };
-    },
-    mounted: function mounted() {
-
-        if (this.users_) {
-            this.users = JSON.parse(this.users_);
-        }
-
-        console.log(this.users);
-    },
-
-
-    methods: {
-        deleteUser: function deleteUser(index, rows) {
-            var _this = this;
-
-            this.$confirm('This will permanently delete user. Continue?', 'Warning', {
-                confirmButtonText: 'OK',
-                cancelButtonText: 'Cancel',
-                type: 'warning'
-            }).then(function () {
-                var user = rows[index];
-
-                axios.post('/api/user', user).then(function (response) {
-                    _this.$message({
-                        type: response.data.type,
-                        message: response.data.message
-                    });
-
-                    rows.splice(index, 1);
-                });
-            });
-        },
-        filterTag: function filterTag(value, row, column) {
-            console.log(value);
-            console.log(row);
-            var property = column['property'];
-            return row[property] === value;
-        },
-        save: function save() {
-
-            axios.post('/api/users/', this.users).then(function (response) {
-                if (response.data) {
-                    console.log(response.data);
-                    window.location.reload();
-                } else {
-                    console.log(response.data);
-                }
-            });
-        }
-    }
-});
-
-/***/ }),
+/* 141 */,
+/* 142 */,
 /* 143 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -96116,40 +95647,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 251 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Component = __webpack_require__(0)(
-  /* script */
-  __webpack_require__(137),
-  /* template */
-  __webpack_require__(291),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "/Users/skhatko/code/larabid/resources/assets/js/components/dashboard/admin/Languages.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] Languages.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-68dcddef", Component.options)
-  } else {
-    hotAPI.reload("data-v-68dcddef", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
+/* 251 */,
 /* 252 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -96223,74 +95721,8 @@ module.exports = Component.exports
 
 /***/ }),
 /* 254 */,
-/* 255 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Component = __webpack_require__(0)(
-  /* script */
-  __webpack_require__(141),
-  /* template */
-  __webpack_require__(297),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "/Users/skhatko/code/larabid/resources/assets/js/components/dashboard/admin/Translations.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] Translations.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-a2fa1984", Component.options)
-  } else {
-    hotAPI.reload("data-v-a2fa1984", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 256 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Component = __webpack_require__(0)(
-  /* script */
-  __webpack_require__(142),
-  /* template */
-  __webpack_require__(271),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "/Users/skhatko/code/larabid/resources/assets/js/components/dashboard/admin/Users.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] Users.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-0d0e935c", Component.options)
-  } else {
-    hotAPI.reload("data-v-0d0e935c", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
+/* 255 */,
+/* 256 */,
 /* 257 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -96992,129 +96424,7 @@ if (false) {
 }
 
 /***/ }),
-/* 271 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('el-card', [(_vm.users) ? [(_vm.users.length) ? _c('el-table', {
-    staticStyle: {
-      "width": "100%"
-    },
-    attrs: {
-      "data": _vm.users
-    }
-  }, [_c('el-table-column', {
-    attrs: {
-      "type": "expand"
-    },
-    scopedSlots: _vm._u([{
-      key: "default",
-      fn: function(props) {
-        return [_vm._v("\n                    " + _vm._s(props.row) + "\n                ")]
-      }
-    }])
-  }), _vm._v(" "), _c('el-table-column', {
-    attrs: {
-      "sortable": "",
-      "label": "id"
-    },
-    scopedSlots: _vm._u([{
-      key: "default",
-      fn: function(scope) {
-        return [_vm._v("\n                    " + _vm._s(scope.row.id) + "\n                ")]
-      }
-    }])
-  }), _vm._v(" "), _c('el-table-column', {
-    attrs: {
-      "sortable": "",
-      "label": "Name",
-      "width": "180"
-    },
-    scopedSlots: _vm._u([{
-      key: "default",
-      fn: function(scope) {
-        return [_vm._v("\n                    " + _vm._s(scope.row.name) + "\n                ")]
-      }
-    }])
-  }), _vm._v(" "), _c('el-table-column', {
-    attrs: {
-      "sortable": "",
-      "label": "Email",
-      "width": "180"
-    },
-    scopedSlots: _vm._u([{
-      key: "default",
-      fn: function(scope) {
-        return [_vm._v("\n                    " + _vm._s(scope.row.email) + "\n                ")]
-      }
-    }])
-  }), _vm._v(" "), _c('el-table-column', {
-    attrs: {
-      "filters": [{
-        text: 'Author',
-        value: 'author'
-      }, {
-        text: 'User',
-        value: 'user'
-      }, {
-        text: 'Gallery',
-        value: 'gallery'
-      }, {
-        text: 'Admin',
-        value: 'admin'
-      }],
-      "filter-method": _vm.filterTag,
-      "label": "Type"
-    },
-    scopedSlots: _vm._u([{
-      key: "default",
-      fn: function(scope) {
-        return [_vm._v("\n                    " + _vm._s(scope.row.user_type) + "\n                    ")]
-      }
-    }])
-  }), _vm._v(" "), _c('el-table-column', {
-    attrs: {
-      "label": "Active"
-    },
-    scopedSlots: _vm._u([{
-      key: "default",
-      fn: function(scope) {
-        return [_vm._v("\n                    " + _vm._s(scope.row.active_status) + "\n                    ")]
-      }
-    }])
-  }), _vm._v(" "), _c('el-table-column', {
-    attrs: {
-      "label": ""
-    },
-    scopedSlots: _vm._u([{
-      key: "default",
-      fn: function(scope) {
-        return [(scope.row.user_type !== 'admin') ? _c('el-button', {
-          attrs: {
-            "type": "danger",
-            "icon": "el-icon-delete",
-            "circle": ""
-          },
-          nativeOn: {
-            "click": function($event) {
-              $event.preventDefault();
-              _vm.deleteUser(scope.$index, _vm.users)
-            }
-          }
-        }) : _vm._e()]
-      }
-    }])
-  })], 1) : _vm._e()] : _vm._e()], 2)
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-0d0e935c", module.exports)
-  }
-}
-
-/***/ }),
+/* 271 */,
 /* 272 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -100217,180 +99527,7 @@ if (false) {
 }
 
 /***/ }),
-/* 291 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return (_vm.languages) ? _c('el-card', [_c('h2', [_vm._v("Languages")]), _vm._v(" "), _c('el-row', {
-    attrs: {
-      "gutter": 20
-    }
-  }, [_c('el-col', {
-    attrs: {
-      "sm": 12
-    }
-  }, [_c('el-select', {
-    staticStyle: {
-      "margin-right": "10px"
-    },
-    attrs: {
-      "value": "",
-      "filterable": "",
-      "placeholder": "Select new language"
-    },
-    model: {
-      value: (_vm.newLanguage),
-      callback: function($$v) {
-        _vm.newLanguage = $$v
-      },
-      expression: "newLanguage"
-    }
-  }, _vm._l((_vm.translatedLanguages), function(name, code) {
-    return _c('el-option', {
-      key: code,
-      attrs: {
-        "label": name,
-        "value": code
-      }
-    }, [_vm._v("\n                    " + _vm._s(name) + "\n                ")])
-  }))], 1), _vm._v(" "), _c('el-col', {
-    attrs: {
-      "sm": 12
-    }
-  }, [_c('el-button', {
-    staticStyle: {
-      "margin-bottom": "20px"
-    },
-    attrs: {
-      "size": "big",
-      "type": "success"
-    },
-    on: {
-      "click": function($event) {
-        _vm.addLanguageField()
-      }
-    }
-  }, [_vm._v("\n                Add language\n            ")])], 1)], 1), _vm._v(" "), [_c('el-table', {
-    staticStyle: {
-      "width": "100%"
-    },
-    attrs: {
-      "data": _vm.languages
-    }
-  }, [_c('el-table-column', {
-    attrs: {
-      "label": "id"
-    },
-    scopedSlots: _vm._u([{
-      key: "default",
-      fn: function(scope) {
-        return [_vm._v("\n                    " + _vm._s(scope.row.id) + "\n                ")]
-      }
-    }])
-  }), _vm._v(" "), _c('el-table-column', {
-    attrs: {
-      "label": "Name",
-      "width": "180"
-    },
-    scopedSlots: _vm._u([{
-      key: "default",
-      fn: function(scope) {
-        return [_vm._v("\n                    " + _vm._s(scope.row.name) + "\n                ")]
-      }
-    }])
-  }), _vm._v(" "), _c('el-table-column', {
-    attrs: {
-      "label": "Code",
-      "width": "180"
-    },
-    scopedSlots: _vm._u([{
-      key: "default",
-      fn: function(scope) {
-        return [_vm._v("\n                    " + _vm._s(scope.row.code) + "\n                ")]
-      }
-    }])
-  }), _vm._v(" "), _c('el-table-column', {
-    attrs: {
-      "label": "rtl"
-    },
-    scopedSlots: _vm._u([{
-      key: "default",
-      fn: function(scope) {
-        return [_c('el-checkbox', {
-          model: {
-            value: (_vm.languages[scope.$index].is_rtl),
-            callback: function($$v) {
-              _vm.$set(_vm.languages[scope.$index], "is_rtl", $$v)
-            },
-            expression: "languages[scope.$index].is_rtl"
-          }
-        })]
-      }
-    }])
-  }), _vm._v(" "), _c('el-table-column', {
-    attrs: {
-      "label": "Active"
-    },
-    scopedSlots: _vm._u([{
-      key: "default",
-      fn: function(scope) {
-        return [_c('el-checkbox', {
-          model: {
-            value: (_vm.languages[scope.$index].active),
-            callback: function($$v) {
-              _vm.$set(_vm.languages[scope.$index], "active", $$v)
-            },
-            expression: "languages[scope.$index].active"
-          }
-        })]
-      }
-    }])
-  }), _vm._v(" "), _c('el-table-column', {
-    attrs: {
-      "label": ""
-    },
-    scopedSlots: _vm._u([{
-      key: "default",
-      fn: function(scope) {
-        return [_c('el-button', {
-          attrs: {
-            "size": "mini",
-            "type": "danger",
-            "icon": "el-icon-delete",
-            "circle": ""
-          },
-          on: {
-            "click": function($event) {
-              _vm.removeLanguage(scope.$index)
-            }
-          }
-        })]
-      }
-    }])
-  })], 1)], _vm._v(" "), _c('el-button', {
-    staticStyle: {
-      "margin-top": "20px"
-    },
-    attrs: {
-      "type": "primary",
-      "size": "big"
-    },
-    on: {
-      "click": function($event) {
-        _vm.save()
-      }
-    }
-  }, [_vm._v("\n        Save\n    ")])], 2) : _vm._e()
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-68dcddef", module.exports)
-  }
-}
-
-/***/ }),
+/* 291 */,
 /* 292 */,
 /* 293 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -100651,161 +99788,7 @@ if (false) {
 }
 
 /***/ }),
-/* 297 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return (_vm.translations) ? _c('el-card', [_c('h2', [_vm._v("Translations")]), _vm._v(" "), _vm._l((_vm.translations), function(group, groupName) {
-    return _c('el-collapse', {
-      key: groupName,
-      attrs: {
-        "accordion": ""
-      },
-      model: {
-        value: (_vm.activeGroup),
-        callback: function($$v) {
-          _vm.activeGroup = $$v
-        },
-        expression: "activeGroup"
-      }
-    }, [_c('el-collapse-item', {
-      attrs: {
-        "title": groupName,
-        "name": groupName
-      }
-    }, [_c('el-tabs', {
-      attrs: {
-        "type": "card"
-      }
-    }, [_vm._l((_vm.languages), function(language) {
-      return [_c('el-tab-pane', {
-        attrs: {
-          "label": language.name
-        }
-      }, [_vm._l((group), function(translation, translationIndex) {
-        return _c('el-row', {
-          key: translation.id,
-          staticStyle: {
-            "margin-bottom": "20px"
-          },
-          attrs: {
-            "gutter": 20,
-            "align": "middle"
-          }
-        }, [_c('el-col', {
-          attrs: {
-            "span": 4
-          }
-        }, [_c('el-input', {
-          attrs: {
-            "placeholder": "Variable"
-          },
-          model: {
-            value: (translation.key),
-            callback: function($$v) {
-              _vm.$set(translation, "key", $$v)
-            },
-            expression: "translation.key"
-          }
-        })], 1), _vm._v(" "), _c('el-col', {
-          attrs: {
-            "span": 18
-          }
-        }, [_c('el-input', {
-          attrs: {
-            "placeholder": "Translation"
-          },
-          model: {
-            value: (translation.text[language.code]),
-            callback: function($$v) {
-              _vm.$set(translation.text, language.code, $$v)
-            },
-            expression: "translation.text[language.code]"
-          }
-        })], 1), _vm._v(" "), _c('el-col', {
-          attrs: {
-            "span": 2
-          }
-        }, [_c('el-button', {
-          attrs: {
-            "size": "mini",
-            "type": "danger",
-            "icon": "el-icon-delete",
-            "circle": ""
-          },
-          on: {
-            "click": function($event) {
-              _vm.removeTranslation(groupName, translationIndex)
-            }
-          }
-        })], 1)], 1)
-      }), _vm._v(" "), _c('el-button', {
-        staticStyle: {
-          "margin-bottom": "20px"
-        },
-        attrs: {
-          "size": "big",
-          "type": "success"
-        },
-        on: {
-          "click": function($event) {
-            _vm.addTranslationField(groupName)
-          }
-        }
-      }, [_vm._v("\n                            Add translation to " + _vm._s(groupName) + "\n                        ")]), _vm._v(" "), _c('el-button', {
-        staticStyle: {
-          "margin-top": "20px"
-        },
-        attrs: {
-          "type": "primary",
-          "size": "big"
-        },
-        on: {
-          "click": function($event) {
-            _vm.save()
-          }
-        }
-      }, [_vm._v("\n                            Save\n                        ")])], 2)]
-    })], 2)], 1)], 1)
-  }), _vm._v(" "), _c('el-form', {
-    staticStyle: {
-      "margin-top": "20px"
-    },
-    attrs: {
-      "inline": ""
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Add new group"
-    }
-  }, [_c('el-input', {
-    model: {
-      value: (_vm.newGroup),
-      callback: function($$v) {
-        _vm.newGroup = $$v
-      },
-      expression: "newGroup"
-    }
-  })], 1), _vm._v(" "), _c('el-button', {
-    attrs: {
-      "type": "success"
-    },
-    on: {
-      "click": function($event) {
-        _vm.addTranslationField(_vm.newGroup)
-      }
-    }
-  }, [_vm._v("Add")])], 1)], 2) : _vm._e()
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-a2fa1984", module.exports)
-  }
-}
-
-/***/ }),
+/* 297 */,
 /* 298 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -103635,6 +102618,1010 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
      require("vue-hot-reload-api").rerender("data-v-6c57a863", module.exports)
+  }
+}
+
+/***/ }),
+/* 329 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+
+    props: {
+        translatedLanguages_: {},
+        languages_: {}
+    },
+
+    data: function data() {
+        return {
+            languages: [],
+            translatedLanguages: [],
+            newLanguage: {}
+        };
+    },
+    mounted: function mounted() {
+        if (this.languages_) {
+            this.languages = JSON.parse(this.languages_);
+        }
+
+        if (this.translatedLanguages_) {
+            this.translatedLanguages = JSON.parse(this.translatedLanguages_);
+        }
+
+        console.log(this.languages);
+        console.log(this.translatedLanguages);
+    },
+
+
+    methods: {
+        addLanguageField: function addLanguageField() {
+
+            var language = {
+                id: 0,
+                name: this.translatedLanguages[this.newLanguage],
+                code: this.newLanguage,
+                active: false,
+                is_rtl: false
+            };
+
+            // Object.entries(this.languages).forEach(
+            //     ([langCode, language]) => this.$set(language.name, language.code, "")
+            // );
+
+
+            this.languages.push(language);
+        },
+        removeLanguage: function removeLanguage(index) {
+            this.languages.splice(index, 1);
+        },
+        save: function save() {
+
+            axios.post('/api/languages/', this.languages).then(function (response) {
+                if (response.data) {
+                    console.log(response.data);
+                    window.location.reload();
+                } else {
+                    console.log(response.data);
+                }
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 330 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(329),
+  /* template */
+  __webpack_require__(331),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/skhatko/code/larabid/resources/assets/js/components/dashboard/admin/LanguagesForm.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] LanguagesForm.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-1887c953", Component.options)
+  } else {
+    hotAPI.reload("data-v-1887c953", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 331 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return (_vm.languages) ? _c('el-card', [_c('h2', [_vm._v("Languages")]), _vm._v(" "), _c('el-row', {
+    attrs: {
+      "gutter": 20
+    }
+  }, [_c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-select', {
+    staticStyle: {
+      "margin-right": "10px"
+    },
+    attrs: {
+      "value": "",
+      "filterable": "",
+      "placeholder": "Select new language"
+    },
+    model: {
+      value: (_vm.newLanguage),
+      callback: function($$v) {
+        _vm.newLanguage = $$v
+      },
+      expression: "newLanguage"
+    }
+  }, _vm._l((_vm.translatedLanguages), function(name, code) {
+    return _c('el-option', {
+      key: code,
+      attrs: {
+        "label": name,
+        "value": code
+      }
+    }, [_vm._v("\n                    " + _vm._s(name) + "\n                ")])
+  }))], 1), _vm._v(" "), _c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-button', {
+    staticStyle: {
+      "margin-bottom": "20px"
+    },
+    attrs: {
+      "size": "big",
+      "type": "success"
+    },
+    on: {
+      "click": function($event) {
+        _vm.addLanguageField()
+      }
+    }
+  }, [_vm._v("\n                Add language\n            ")])], 1)], 1), _vm._v(" "), [_c('el-table', {
+    staticStyle: {
+      "width": "100%"
+    },
+    attrs: {
+      "data": _vm.languages
+    }
+  }, [_c('el-table-column', {
+    attrs: {
+      "label": "id"
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function(scope) {
+        return [_vm._v("\n                    " + _vm._s(scope.row.id) + "\n                ")]
+      }
+    }])
+  }), _vm._v(" "), _c('el-table-column', {
+    attrs: {
+      "label": "Name",
+      "width": "180"
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function(scope) {
+        return [_vm._v("\n                    " + _vm._s(scope.row.name) + "\n                ")]
+      }
+    }])
+  }), _vm._v(" "), _c('el-table-column', {
+    attrs: {
+      "label": "Code",
+      "width": "180"
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function(scope) {
+        return [_vm._v("\n                    " + _vm._s(scope.row.code) + "\n                ")]
+      }
+    }])
+  }), _vm._v(" "), _c('el-table-column', {
+    attrs: {
+      "label": "rtl"
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function(scope) {
+        return [_c('el-checkbox', {
+          model: {
+            value: (_vm.languages[scope.$index].is_rtl),
+            callback: function($$v) {
+              _vm.$set(_vm.languages[scope.$index], "is_rtl", $$v)
+            },
+            expression: "languages[scope.$index].is_rtl"
+          }
+        })]
+      }
+    }])
+  }), _vm._v(" "), _c('el-table-column', {
+    attrs: {
+      "label": "Active"
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function(scope) {
+        return [_c('el-checkbox', {
+          model: {
+            value: (_vm.languages[scope.$index].active),
+            callback: function($$v) {
+              _vm.$set(_vm.languages[scope.$index], "active", $$v)
+            },
+            expression: "languages[scope.$index].active"
+          }
+        })]
+      }
+    }])
+  })], 1)], _vm._v(" "), _c('el-button', {
+    staticStyle: {
+      "margin-top": "20px"
+    },
+    attrs: {
+      "type": "primary",
+      "size": "big"
+    },
+    on: {
+      "click": function($event) {
+        _vm.save()
+      }
+    }
+  }, [_vm._v("\n        Save\n    ")])], 2) : _vm._e()
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-1887c953", module.exports)
+  }
+}
+
+/***/ }),
+/* 332 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+
+    props: {
+        users_: {}
+    },
+
+    data: function data() {
+        return {
+            users: {}
+        };
+    },
+    mounted: function mounted() {
+
+        if (this.users_) {
+            this.users = JSON.parse(this.users_);
+        }
+
+        console.log(this.users);
+    },
+
+
+    methods: {
+        deleteUser: function deleteUser(index, rows) {
+            var _this = this;
+
+            this.$confirm('This will permanently delete user. Continue?', 'Warning', {
+                confirmButtonText: 'OK',
+                cancelButtonText: 'Cancel',
+                type: 'warning'
+            }).then(function () {
+                var user = rows[index];
+
+                axios.post('/api/user', user).then(function (response) {
+                    _this.$message({
+                        type: response.data.type,
+                        message: response.data.message
+                    });
+
+                    rows.splice(index, 1);
+                });
+            });
+        },
+        filterTag: function filterTag(value, row, column) {
+            console.log(value);
+            console.log(row);
+            var property = column['property'];
+            return row[property] === value;
+        },
+        save: function save() {
+
+            axios.post('/api/users/', this.users).then(function (response) {
+                if (response.data) {
+                    console.log(response.data);
+                    window.location.reload();
+                } else {
+                    console.log(response.data);
+                }
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 333 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(332),
+  /* template */
+  __webpack_require__(334),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/skhatko/code/larabid/resources/assets/js/components/dashboard/admin/UsersForm.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] UsersForm.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-38d70040", Component.options)
+  } else {
+    hotAPI.reload("data-v-38d70040", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 334 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('el-card', [(_vm.users) ? [(_vm.users.length) ? _c('el-table', {
+    staticStyle: {
+      "width": "100%"
+    },
+    attrs: {
+      "data": _vm.users
+    }
+  }, [_c('el-table-column', {
+    attrs: {
+      "type": "expand"
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function(props) {
+        return [_vm._v("\n                    " + _vm._s(props.row) + "\n                ")]
+      }
+    }])
+  }), _vm._v(" "), _c('el-table-column', {
+    attrs: {
+      "sortable": "",
+      "label": "id"
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function(scope) {
+        return [_vm._v("\n                    " + _vm._s(scope.row.id) + "\n                ")]
+      }
+    }])
+  }), _vm._v(" "), _c('el-table-column', {
+    attrs: {
+      "sortable": "",
+      "label": "Name",
+      "width": "180"
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function(scope) {
+        return [_vm._v("\n                    " + _vm._s(scope.row.name) + "\n                ")]
+      }
+    }])
+  }), _vm._v(" "), _c('el-table-column', {
+    attrs: {
+      "sortable": "",
+      "label": "Email",
+      "width": "180"
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function(scope) {
+        return [_vm._v("\n                    " + _vm._s(scope.row.email) + "\n                ")]
+      }
+    }])
+  }), _vm._v(" "), _c('el-table-column', {
+    attrs: {
+      "filters": [{
+        text: 'Author',
+        value: 'author'
+      }, {
+        text: 'User',
+        value: 'user'
+      }, {
+        text: 'Gallery',
+        value: 'gallery'
+      }, {
+        text: 'Admin',
+        value: 'admin'
+      }],
+      "filter-method": _vm.filterTag,
+      "label": "Type"
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function(scope) {
+        return [_vm._v("\n                    " + _vm._s(scope.row.user_type) + "\n                    ")]
+      }
+    }])
+  }), _vm._v(" "), _c('el-table-column', {
+    attrs: {
+      "label": "Active"
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function(scope) {
+        return [_vm._v("\n                    " + _vm._s(scope.row.active_status) + "\n                    ")]
+      }
+    }])
+  }), _vm._v(" "), _c('el-table-column', {
+    attrs: {
+      "label": ""
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function(scope) {
+        return [(scope.row.user_type !== 'admin') ? _c('el-button', {
+          attrs: {
+            "type": "danger",
+            "icon": "el-icon-delete",
+            "circle": ""
+          },
+          nativeOn: {
+            "click": function($event) {
+              $event.preventDefault();
+              _vm.deleteUser(scope.$index, _vm.users)
+            }
+          }
+        }) : _vm._e()]
+      }
+    }])
+  })], 1) : _vm._e()] : _vm._e()], 2)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-38d70040", module.exports)
+  }
+}
+
+/***/ }),
+/* 335 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+
+    props: {
+        translations_: {},
+        languages_: {}
+    },
+
+    data: function data() {
+        return {
+            languages: {},
+            translations: {},
+            activeGroup: '',
+            newGroup: ''
+        };
+    },
+    mounted: function mounted() {
+
+        console.log(JSON.parse(this.languages_));
+        if (this.languages_) {
+            this.languages = JSON.parse(this.languages_);
+        }
+
+        console.log(JSON.parse(this.translations_));
+        if (this.translations_) {
+            this.translations = JSON.parse(this.translations_);
+        }
+    },
+
+
+    methods: {
+        addTranslationField: function addTranslationField(groupName) {
+            var _this = this;
+
+            var translation = {
+                id: 0,
+                group: groupName,
+                key: 'variable',
+                text: {}
+            };
+
+            Object.entries(this.languages).forEach(function (_ref) {
+                var _ref2 = _slicedToArray(_ref, 2),
+                    langCode = _ref2[0],
+                    language = _ref2[1];
+
+                return _this.$set(translation.text, langCode, "");
+            });
+
+            console.log(this.translations);
+
+            if (!this.translations[groupName]) {
+                this.translations[groupName] = [];
+            }
+
+            console.log(this.translations[groupName]);
+
+            this.activeGroup = groupName;
+
+            this.translations[groupName].push(translation);
+        },
+        removeTranslation: function removeTranslation(groupName, translationIndex) {
+            this.translations[groupName].splice(translationIndex, 1);
+        },
+        save: function save() {
+            var _this2 = this;
+
+            axios.post('/api/translations/', this.translations).then(function (response) {
+                if (response.data) {
+                    console.log(response.data);
+
+                    _this2.translations = response.data.data;
+
+                    _this2.$message({
+                        showClose: true,
+                        message: response.data.message,
+                        type: response.data.status
+                    });
+                    // window.location.reload();
+                    // window.location.href = '/dashboard';
+                } else {
+                    console.log(response.data);
+                }
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 336 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(335),
+  /* template */
+  __webpack_require__(337),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/skhatko/code/larabid/resources/assets/js/components/dashboard/admin/TranslationsForm.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] TranslationsForm.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-47749f22", Component.options)
+  } else {
+    hotAPI.reload("data-v-47749f22", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 337 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return (_vm.translations) ? _c('el-card', [_c('h2', [_vm._v("Translations")]), _vm._v(" "), _vm._l((_vm.translations), function(group, groupName) {
+    return _c('el-collapse', {
+      key: groupName,
+      attrs: {
+        "accordion": ""
+      },
+      model: {
+        value: (_vm.activeGroup),
+        callback: function($$v) {
+          _vm.activeGroup = $$v
+        },
+        expression: "activeGroup"
+      }
+    }, [_c('el-collapse-item', {
+      attrs: {
+        "title": groupName,
+        "name": groupName
+      }
+    }, [_c('el-tabs', {
+      attrs: {
+        "type": "card"
+      }
+    }, [_vm._l((_vm.languages), function(language) {
+      return [_c('el-tab-pane', {
+        attrs: {
+          "label": language.name
+        }
+      }, [_vm._l((group), function(translation, translationIndex) {
+        return _c('el-row', {
+          key: translation.id,
+          staticStyle: {
+            "margin-bottom": "20px"
+          },
+          attrs: {
+            "gutter": 20,
+            "align": "middle"
+          }
+        }, [_c('el-col', {
+          attrs: {
+            "span": 4
+          }
+        }, [_c('el-input', {
+          attrs: {
+            "placeholder": "Variable"
+          },
+          model: {
+            value: (translation.key),
+            callback: function($$v) {
+              _vm.$set(translation, "key", $$v)
+            },
+            expression: "translation.key"
+          }
+        })], 1), _vm._v(" "), _c('el-col', {
+          attrs: {
+            "span": 18
+          }
+        }, [_c('el-input', {
+          attrs: {
+            "placeholder": "Translation"
+          },
+          model: {
+            value: (translation.text[language.code]),
+            callback: function($$v) {
+              _vm.$set(translation.text, language.code, $$v)
+            },
+            expression: "translation.text[language.code]"
+          }
+        })], 1), _vm._v(" "), _c('el-col', {
+          attrs: {
+            "span": 2
+          }
+        }, [_c('el-button', {
+          attrs: {
+            "size": "mini",
+            "type": "danger",
+            "icon": "el-icon-delete",
+            "circle": ""
+          },
+          on: {
+            "click": function($event) {
+              _vm.removeTranslation(groupName, translationIndex)
+            }
+          }
+        })], 1)], 1)
+      }), _vm._v(" "), _c('el-button', {
+        staticStyle: {
+          "margin-bottom": "20px"
+        },
+        attrs: {
+          "size": "big",
+          "type": "success"
+        },
+        on: {
+          "click": function($event) {
+            _vm.addTranslationField(groupName)
+          }
+        }
+      }, [_vm._v("\n                            Add translation to " + _vm._s(groupName) + "\n                        ")]), _vm._v(" "), _c('el-button', {
+        staticStyle: {
+          "margin-top": "20px"
+        },
+        attrs: {
+          "type": "primary",
+          "size": "big"
+        },
+        on: {
+          "click": function($event) {
+            _vm.save()
+          }
+        }
+      }, [_vm._v("\n                            Save\n                        ")])], 2)]
+    })], 2)], 1)], 1)
+  }), _vm._v(" "), _c('el-form', {
+    staticStyle: {
+      "margin-top": "20px"
+    },
+    attrs: {
+      "inline": ""
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Add new group"
+    }
+  }, [_c('el-input', {
+    model: {
+      value: (_vm.newGroup),
+      callback: function($$v) {
+        _vm.newGroup = $$v
+      },
+      expression: "newGroup"
+    }
+  })], 1), _vm._v(" "), _c('el-button', {
+    attrs: {
+      "type": "success"
+    },
+    on: {
+      "click": function($event) {
+        _vm.addTranslationField(_vm.newGroup)
+      }
+    }
+  }, [_vm._v("Add")])], 1)], 2) : _vm._e()
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-47749f22", module.exports)
   }
 }
 

@@ -71,6 +71,7 @@ return array(
 		'fit-1200' => 'App\Filters\Fit1200',
 
 		'width-430' => 'App\Filters\Width430',
+		'width-740' => 'App\Filters\Width740',
 	),
 
 	/*

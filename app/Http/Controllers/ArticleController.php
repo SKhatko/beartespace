@@ -57,6 +57,8 @@ class ArticleController extends Controller {
 
 		$article = Article::findOrFail( $id );
 
+//		return $article;
+
 		if ($slug !== $article->slug) {
 			return redirect($article->url);
 		}

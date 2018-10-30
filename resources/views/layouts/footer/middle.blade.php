@@ -53,7 +53,7 @@
                 <div class="app-footer-submenu">
                     <div class="h5">@lang('portal.contact')</div>
 
-                    {{--                    {!! showPage('contacts-in-footer') !!}--}}
+{{--                    {!! showPageContent(1) !!}--}}
                 </div>
 
                 <div class="app-footer-submenu" style="display: none;">

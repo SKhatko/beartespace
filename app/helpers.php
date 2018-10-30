@@ -29,10 +29,10 @@ if ( ! function_exists( 'getAllTranslations' ) ) {
 	}
 }
 
-if ( ! function_exists( 'showPage' ) ) {
-	function showPage( $slug ) {
+if ( ! function_exists( 'showPageContent' ) ) {
+	function showPageContent( $id ) {
 
-		$page = App\Page::whereSlug( $slug )->first();
+		$page = App\Page::find($id);
 
 		if ( $page ) {
 			return $page->content;

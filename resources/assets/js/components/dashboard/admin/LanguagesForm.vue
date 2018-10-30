@@ -71,14 +71,14 @@
                         <el-checkbox v-model="languages[scope.$index].active"></el-checkbox>
                     </template>
                 </el-table-column>
-                <el-table-column
-                        label="">
-                    <template slot-scope="scope">
-                        <el-button size="mini" type="danger" icon="el-icon-delete" circle
-                                   @click="removeLanguage(scope.$index)">
-                        </el-button>
-                    </template>
-                </el-table-column>
+                <!--<el-table-column-->
+                        <!--label="">-->
+                    <!--<template slot-scope="scope">-->
+                        <!--<el-button size="mini" type="danger" icon="el-icon-delete" circle-->
+                                   <!--@click="removeLanguage(scope.$index)">-->
+                        <!--</el-button>-->
+                    <!--</template>-->
+                <!--</el-table-column>-->
             </el-table>
         </template>
 

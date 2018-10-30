@@ -101,7 +101,8 @@ Route::group( [ 'middleware' => 'web' ], function () {
 	Route::post( 'lead/add-lead', 'LeadController@addLead' )->name( 'add-lead' );
 
 	// Page
-	Route::get( 'page/{slug}', 'PageController@show' )->name( 'page' );
+//	Route::get( 'page/{slug}', 'PageController@show' )->name( 'page' );
+	Route::get( 'page/{id}/{slug?}', 'PageController@page' )->name( 'page' );
 
 	Route::get( 'language/{lang}', 'LanguageController@switchLang' )->name( 'switch-language' );
 	Route::get( 'currency/{code}', 'CurrencyController@switchCurrency' )->name( 'switch-currency' );

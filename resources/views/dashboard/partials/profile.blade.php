@@ -38,14 +38,13 @@
                         </div>
                     @endif
 
-                    <a href="/dashboard/profile" class="el-button el-button--default" style="margin-bottom: 20px;">Edit
-                        profile</a>
-                    <a href="/dashboard/account" class="el-button el-button--default">Account Settings</a>
+                        <a href="/dashboard/profile" class="el-button el-button--default" style="margin-bottom: 20px;">Edit profile</a>
+                        <a href="/dashboard/account" class="el-button el-button--default" style="margin-left: 0;">Account Settings</a>
 
 
                     @if(auth()->user()->seller)
-                        <a href="/dashboard/artwork/create" class="el-button el-button--default">Upload Artwork</a>
-                        <a href="/dashboard/artwork" class="el-button el-button--default">Artworks</a>
+                        <a href="/dashboard/artwork/create" class="el-button el-button--default" style="margin-left: 0;">Upload Artwork</a>
+                        <a href="/dashboard/artwork" class="el-button el-button--default" style="margin-left: 0;">Artworks</a>
                     @endif
                 </div>
             </div>
