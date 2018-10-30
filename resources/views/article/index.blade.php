@@ -8,23 +8,7 @@
 
         <div class="app-articles">
 
-            <el-row :gutter="20" class="articles">
-
-                @foreach($articles as $article)
-                    <el-col :xs="12" :sm="6" style="margin-bottom: 20px;">
-                        <a href="{{ $article->url }}" class="article">
-                            <div class="article-image">
-                                <img src="/imagecache/fit-290{{ $article->image_url }}" alt="">
-                            </div>
-
-                            <div class="article-category">{{ trans_input('article-category.' .$article->category) }}</div>
-                            <div class="article-name">{{ $article->name }}</div>
-                        </a>
-                    </el-col>
-
-                @endforeach
-
-            </el-row>
+            @include('partials.articles-block', $articles)
 
             <div class="articles-bottom" style="text-align: center;margin: 50px 0;">
 

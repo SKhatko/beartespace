@@ -568,7 +568,9 @@ body, html {
 
     &__row {}
 
-    &__col {}
+    &__col {
+      margin-bottom: 20px;
+    }
 
     &__image {
       display: block;
@@ -1153,6 +1155,7 @@ body, html {
 }
 
 .app-artworks-blocks {
+  flex: 1;
 
   .block {
     margin-bottom: 20px;
@@ -1176,7 +1179,6 @@ body, html {
       }
 
       &-name {
-        font-weight: 300;
         font-size: 18px;
         margin: 10px 0;
         width: 300px;
@@ -2027,10 +2029,6 @@ body, html {
 }
 
 .app-languages {
-  padding: 15px;
-}
-
-.app-settings {
   padding: 15px;
 }
 

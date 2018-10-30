@@ -3,18 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Artwork;
+use App\Setting;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
 class ArtworkController extends Controller {
-
-	public function sellerArtwork( $seller, $id, $slug = '' ) {
-		$seller = User::where( 'user_name', $seller )->first();
-
-		return 1;
-	}
 
 	public function artworks( Request $request ) {
 
@@ -99,12 +94,9 @@ class ArtworkController extends Controller {
 			$artworks->where( 'price', '<=', $priceMax );
 		}
 
-//		foreach ( $artworks->get() as $artwork ) {
-//			dump($artwork->price);
-//			dump($artwork->currency);
-//			dump( $artwork->price < $priceMax );
-//			dump( $artwork->price > $priceMin );
-//		}
+		if ( $request->input( 'selected' ) ) {
+			$artworks = $artworks->whereIn( 'id', Setting::first()->artworks_of_the_week );
+		}
 
 		$items = 15;
 

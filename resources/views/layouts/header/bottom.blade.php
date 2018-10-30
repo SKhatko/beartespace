@@ -11,9 +11,12 @@
             @foreach(trans('artwork-category') as $key => $trans)
                 <el-dropdown-item>
                     <a href="/artwork?artwork-category={{ $key }}"
-                       style="display: block;margin:10px 0">{{ $trans }}</a>
+                       >{{ $trans }}</a>
                 </el-dropdown-item>
             @endforeach
+                <el-dropdown-item>
+                    <a href="/artwork?selected=selected">Selected Artworks</a>
+                </el-dropdown-item>
 
             <a href="{{ route('artworks') }}" slot="reference">Artworks</a>
         </el-popover>
@@ -28,6 +31,9 @@
                        style="display: block;margin:10px 0">{{ $trans }}</a>
                 </el-dropdown-item>
             @endforeach
+                <el-dropdown-item>
+                    <a href="/people?selected=selected">Selected Artists</a>
+                </el-dropdown-item>
 
             <a href="{{ route('people') }}" slot="reference">Artists</a>
         </el-popover>

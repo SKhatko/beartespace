@@ -1,6 +1,6 @@
 <template>
 
-    <el-card class="app-settings" >
+    <el-card>
         <div class="h2">Main Settings</div>
 
         <el-form>
@@ -21,7 +21,7 @@
                     <el-option
                             v-for="artwork in artworks"
                             :key="artwork.id"
-                            :label="artwork.title"
+                            :label="artwork.name"
                             :value="artwork.id">
                     </el-option>
                 </el-select>
@@ -30,8 +30,6 @@
             <el-button @click="save">Save Settings</el-button>
         </el-form>
     </el-card>
-
-
 </template>
 
 <script>

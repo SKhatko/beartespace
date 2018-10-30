@@ -22,9 +22,11 @@ class HomeController extends Controller {
 
 		$artworks = Artwork::auction(false)->notSold()->available()->quantity()->with('image')->inRandomOrder()->take(4)->get();
 
+		$selectedArtworks = Artwork::whereIn('id', Setting::first()->artworks_of_the_week)->auction(false)->notSold()->available()->quantity()->with('image')->inRandomOrder()->take(4)->get();
+
 		$auctions = Artwork::auction()->notSold()->available()->quantity()->with('image')->inRandomOrder()->take( 4 )->get();
 
-		return view( 'index', compact( 'artworks', 'auctions', 'articles', 'randomArtwork' ) );
+		return view( 'index', compact( 'artworks', 'auctions', 'articles', 'randomArtwork', 'selectedArtworks' ) );
 	}
 
 	public function selectedArtists() {

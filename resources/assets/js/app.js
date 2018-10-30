@@ -68,7 +68,7 @@ Vue.component('profile-name-form', require('./components/sell/ProfileNameForm.vu
 Vue.component('sell-payment-form', require('./components/sell/PaymentForm.vue'));
 
 // Admin
-Vue.component('settings', require('./components/dashboard/admin/Settings'));
+Vue.component('settings-form', require('./components/dashboard/admin/SettingsForm.vue'));
 Vue.component('translations', require('./components/dashboard/admin/Translations.vue'));
 Vue.component('languages', require('./components/dashboard/admin/Languages.vue'));
 Vue.component('pages', require('./components/dashboard/admin/Pages.vue'));

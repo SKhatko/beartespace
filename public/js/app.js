@@ -27758,7 +27758,7 @@ Vue.component('profile-name-form', __webpack_require__(268));
 Vue.component('sell-payment-form', __webpack_require__(267));
 
 // Admin
-Vue.component('settings', __webpack_require__(254));
+Vue.component('settings-form', __webpack_require__(327));
 Vue.component('translations', __webpack_require__(255));
 Vue.component('languages', __webpack_require__(251));
 Vue.component('pages', __webpack_require__(253));
@@ -31989,102 +31989,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 });
 
 /***/ }),
-/* 140 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-
-    props: {
-        artists_: {},
-        settings_: {},
-        artworks_: {}
-    },
-
-    data: function data() {
-        return {
-            artists: {},
-            settings: {},
-            artworks: {}
-        };
-    },
-    mounted: function mounted() {
-
-        if (this.artists_) {
-            this.artists = JSON.parse(this.artists_);
-        }
-        if (this.settings_) {
-            this.settings = JSON.parse(this.settings_);
-        }
-
-        if (this.artworks_) {
-            this.artworks = JSON.parse(this.artworks_);
-        }
-
-        console.log(this.settings);
-    },
-
-
-    methods: {
-        save: function save() {
-            var _this = this;
-
-            axios.post('/api/settings', this.settings).then(function (response) {
-                if (response.data) {
-                    console.log(response.data);
-                    _this.$message({
-                        showClose: true,
-                        message: response.data.message,
-                        type: response.data.status
-                    });
-                } else {
-                    console.log(response.data);
-                }
-            });
-        }
-    }
-});
-
-/***/ }),
+/* 140 */,
 /* 141 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -96317,40 +96222,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 254 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Component = __webpack_require__(0)(
-  /* script */
-  __webpack_require__(140),
-  /* template */
-  __webpack_require__(292),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "/Users/skhatko/code/larabid/resources/assets/js/components/dashboard/admin/Settings.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] Settings.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-6dd27602", Component.options)
-  } else {
-    hotAPI.reload("data-v-6dd27602", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
+/* 254 */,
 /* 255 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -100519,79 +100391,7 @@ if (false) {
 }
 
 /***/ }),
-/* 292 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('el-card', {
-    staticClass: "app-settings"
-  }, [_c('div', {
-    staticClass: "h2"
-  }, [_vm._v("Main Settings")]), _vm._v(" "), _c('el-form', [_c('el-form-item', {
-    attrs: {
-      "label": "Artists of the week"
-    }
-  }, [_c('el-select', {
-    attrs: {
-      "filterable": "",
-      "multiple": "",
-      "placeholder": "Select Artists"
-    },
-    model: {
-      value: (_vm.settings.artists_of_the_week),
-      callback: function($$v) {
-        _vm.$set(_vm.settings, "artists_of_the_week", $$v)
-      },
-      expression: "settings.artists_of_the_week"
-    }
-  }, _vm._l((_vm.artists), function(artist) {
-    return _c('el-option', {
-      key: artist.id,
-      attrs: {
-        "label": artist.name,
-        "value": artist.id
-      }
-    })
-  }))], 1), _vm._v(" "), _c('el-form-item', {
-    attrs: {
-      "label": "Artworks of the week"
-    }
-  }, [_c('el-select', {
-    attrs: {
-      "filterable": "",
-      "multiple": "",
-      "placeholder": "Select Artists"
-    },
-    model: {
-      value: (_vm.settings.artworks_of_the_week),
-      callback: function($$v) {
-        _vm.$set(_vm.settings, "artworks_of_the_week", $$v)
-      },
-      expression: "settings.artworks_of_the_week"
-    }
-  }, _vm._l((_vm.artworks), function(artwork) {
-    return _c('el-option', {
-      key: artwork.id,
-      attrs: {
-        "label": artwork.title,
-        "value": artwork.id
-      }
-    })
-  }))], 1), _vm._v(" "), _c('el-button', {
-    on: {
-      "click": _vm.save
-    }
-  }, [_vm._v("Save Settings")])], 1)], 1)
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-6dd27602", module.exports)
-  }
-}
-
-/***/ }),
+/* 292 */,
 /* 293 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -103630,6 +103430,213 @@ var index_esm = {
 __webpack_require__(81);
 module.exports = __webpack_require__(82);
 
+
+/***/ }),
+/* 318 */,
+/* 319 */,
+/* 320 */,
+/* 321 */,
+/* 322 */,
+/* 323 */,
+/* 324 */,
+/* 325 */,
+/* 326 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+
+    props: {
+        artists_: {},
+        settings_: {},
+        artworks_: {}
+    },
+
+    data: function data() {
+        return {
+            artists: {},
+            settings: {},
+            artworks: {}
+        };
+    },
+    mounted: function mounted() {
+
+        if (this.artists_) {
+            this.artists = JSON.parse(this.artists_);
+        }
+        if (this.settings_) {
+            this.settings = JSON.parse(this.settings_);
+        }
+
+        if (this.artworks_) {
+            this.artworks = JSON.parse(this.artworks_);
+        }
+
+        console.log(this.settings);
+    },
+
+
+    methods: {
+        save: function save() {
+            var _this = this;
+
+            axios.post('/api/settings', this.settings).then(function (response) {
+                if (response.data) {
+                    console.log(response.data);
+                    _this.$message({
+                        showClose: true,
+                        message: response.data.message,
+                        type: response.data.status
+                    });
+                } else {
+                    console.log(response.data);
+                }
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 327 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(326),
+  /* template */
+  __webpack_require__(328),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/skhatko/code/larabid/resources/assets/js/components/dashboard/admin/SettingsForm.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] SettingsForm.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-6c57a863", Component.options)
+  } else {
+    hotAPI.reload("data-v-6c57a863", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 328 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('el-card', [_c('div', {
+    staticClass: "h2"
+  }, [_vm._v("Main Settings")]), _vm._v(" "), _c('el-form', [_c('el-form-item', {
+    attrs: {
+      "label": "Artists of the week"
+    }
+  }, [_c('el-select', {
+    attrs: {
+      "filterable": "",
+      "multiple": "",
+      "placeholder": "Select Artists"
+    },
+    model: {
+      value: (_vm.settings.artists_of_the_week),
+      callback: function($$v) {
+        _vm.$set(_vm.settings, "artists_of_the_week", $$v)
+      },
+      expression: "settings.artists_of_the_week"
+    }
+  }, _vm._l((_vm.artists), function(artist) {
+    return _c('el-option', {
+      key: artist.id,
+      attrs: {
+        "label": artist.name,
+        "value": artist.id
+      }
+    })
+  }))], 1), _vm._v(" "), _c('el-form-item', {
+    attrs: {
+      "label": "Artworks of the week"
+    }
+  }, [_c('el-select', {
+    attrs: {
+      "filterable": "",
+      "multiple": "",
+      "placeholder": "Select Artists"
+    },
+    model: {
+      value: (_vm.settings.artworks_of_the_week),
+      callback: function($$v) {
+        _vm.$set(_vm.settings, "artworks_of_the_week", $$v)
+      },
+      expression: "settings.artworks_of_the_week"
+    }
+  }, _vm._l((_vm.artworks), function(artwork) {
+    return _c('el-option', {
+      key: artwork.id,
+      attrs: {
+        "label": artwork.name,
+        "value": artwork.id
+      }
+    })
+  }))], 1), _vm._v(" "), _c('el-button', {
+    on: {
+      "click": _vm.save
+    }
+  }, [_vm._v("Save Settings")])], 1)], 1)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-6c57a863", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

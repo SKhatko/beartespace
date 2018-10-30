@@ -8,6 +8,9 @@
 
                     <div class="h5">@lang('portal.about-us')</div>
 
+                    <p>BearteSpace is the marketplace for artists to sell artworks, gain
+                        global exposure, grow social media popularity, and get paid for their work and skills.</p>
+
                     <a href="{{ route('page', 'about-beartespace')}}">About BeArteSpace</a>
                     <a href="{{ route('page', 'about-beartegallery')}}">BeArte Gallery</a>
                     <a href="{{ route('page', 'about-beartedesign')}}">BeArte Design</a>
@@ -50,7 +53,7 @@
                 <div class="app-footer-submenu">
                     <div class="h5">@lang('portal.contact')</div>
 
-{{--                    {!! showPage('contacts-in-footer') !!}--}}
+                    {{--                    {!! showPage('contacts-in-footer') !!}--}}
                 </div>
 
                 <div class="app-footer-submenu" style="display: none;">

@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Artwork;
 use App\Favorite;
 use App\Media;
+use App\Setting;
 use App\User;
 use App\Country;
 
@@ -97,6 +98,10 @@ class UserController extends Controller {
 					$q->whereRaw( 'LOWER(direction) LIKE ?', '%' . $query . '%' );
 				} );
 			}
+		}
+
+		if ( $request->input( 'selected' ) ) {
+			$artists = $artists->whereIn( 'id', Setting::first()->artists_of_the_week );
 		}
 
 		$items = 15;

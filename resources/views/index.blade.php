@@ -95,7 +95,7 @@
 
                 <div class="artworks">
 
-                    <artworks-block artworks_="{{ $artworks }}"></artworks-block>
+                    <artworks-block artworks_="{{ $selectedArtworks }}"></artworks-block>
 
                 </div>
 
