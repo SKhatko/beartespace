@@ -4,31 +4,26 @@
 
 @section('dashboard-content')
 
-    <div class="app-dashboard-profile-edit">
-
+    <div class="app-dashboard-profile">
         @include('dashboard.partials.profile')
 
-        <div class="app-dashboard-profile-edit">
+        <div>
+
             <el-card>
                 <el-tabs value="{{ 'artworks' }}">
 
-                    <el-tab-pane label="Artworks" name="artworks">
-                        asdf
+                    <el-tab-pane label="Your public profile" name="profile">
+
+                        <profile-form user_="{{ $user }}"></profile-form>
+
                     </el-tab-pane>
 
-                    <el-tab-pane label="Followed People" name="artists">
-                      asdf
+                    <el-tab-pane label="Change Password" name="password">
+                        change password
                     </el-tab-pane>
                 </el-tabs>
             </el-card>
         </div>
     </div>
 
-
-    <profile-form user_="{{ $user }}"></profile-form>
-
 @endsection
-
-@section('script')
-    {{--<script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google.api_key') }}&libraries=places"></script>--}}
-@stop

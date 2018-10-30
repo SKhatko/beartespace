@@ -2,9 +2,14 @@
   display: flex;
   margin: 0 -15px;
 
-  .app-dashboard-profile {
+  .app-dashboard-partials-profile {
     max-width: 300px;
     padding: 0 15px;
+
+    & + div {
+      flex: 1;
+      padding: 0 15px;
+    }
 
     @media only screen and (max-width: $--sm) {
       display: none;

@@ -1710,9 +1710,39 @@ body, html {
 
 .app-dashboard {
   padding: 15px;
-}
+  //display: flex;
 
-.app-dashboard-index {
+  &-partials-profile {
+
+    &__avatar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex: 1;
+      padding: 15px;
+
+      img {
+        border-radius: 50%;
+        overflow: hidden;
+      }
+    }
+
+    &__info {
+      flex: 3;
+      padding: 15px;
+    }
+
+  }
+
+  &-index {
+    flex: 1;
+  }
+
+  &-profile {
+    @extend %dashboard-with-profile;
+
+    //flex: 1;
+  }
 
 }
 
@@ -1937,39 +1967,6 @@ body, html {
     flex: 1;
     padding: 0 15px;
   }
-}
-
-.app-dashboard-profile {
-
-  .profile {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 0 -15px;
-
-    &-header {
-      display: flex;
-      justify-content: space-between;
-    }
-
-    &-avatar {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex: 1;
-      padding: 15px;
-
-      img {
-        border-radius: 50%;
-        overflow: hidden;
-      }
-    }
-
-    &-info {
-      flex: 3;
-      padding: 15px;
-    }
-  }
-
 }
 
 .el-dropdown-menu__item {
