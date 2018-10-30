@@ -20,25 +20,25 @@
                 <div class="app-index-banner"
                      style="background-image: url('/imagecache/fit-1200{{ $randomArtwork->image_url }}')">
 
-                    <div class="banner--fade">
+                    <div class="app-index-banner--fade">
 
-                        <h1 class="banner-title">We sell Art - Join Us</h1>
+                        <h1 class="app-index-banner__title">Art for Everyone</h1>
 
-                        <div class="banner-buttons">
+                        <div class="app-index-banner__buttons">
                             <a href="{{ route('artworks') }}" class="el-button el-button--default is-plain">Buy Art</a>
-                            <a href="{{ route('auctions') }}" class="el-button el-button--default is-plain">Go to
-                                Auctions</a>
+                            {{--<a href="{{ route('auctions') }}" class="el-button el-button--default is-plain">Go to--}}
+                                {{--Auctions</a>--}}
                         </div>
 
-                        <div class="banner-info">
-                            <span>{{ $randomArtwork->user->name }}</span>
-                            <span>{{ $randomArtwork->title }}</span>
-                            <span>{{ $randomArtwork->size() }}</span>
-                            <span>
-                            @foreach($randomArtwork->medium as $medium)
-                                    {{ trans_input('medium.' . $medium) }}
-                                @endforeach
-                        </span>
+                        <div class="app-index-banner__info">
+                            <a href="{{ $randomArtwork->user->url }}">{{ $randomArtwork->user->name }}</a>
+                            <a href="{{ $randomArtwork->url }}">{{ $randomArtwork->name }}</a>
+                            <a href="{{ '/artwork?artwork-category=' . $randomArtwork->category }}">{{ trans_input('artwork-category.' . $randomArtwork->category) }}</a>
+                            {{--<span>--}}
+                            {{--@foreach($randomArtwork->medium as $medium)--}}
+                                    {{--{{ trans_input('medium.' . $medium) }}--}}
+                                {{--@endforeach--}}
+                        {{--</span>--}}
                         </div>
 
                     </div>

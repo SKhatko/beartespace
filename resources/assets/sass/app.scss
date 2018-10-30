@@ -295,53 +295,53 @@ body, html {
     background-size: cover;
     background-attachment: fixed;
 
-    .banner {
+    &--fade {
+      background-color: rgba(0, 0, 0, 0.4);
+      padding: 50px 15px;
+    }
 
-      &--fade {
-        background-color: rgba(0, 0, 0, 0.4);
-        padding: 50px 15px;
-      }
+    &__title {
+      color: #fff;
+      font-size: 60px;
+      font-weight: 300;
+      text-shadow: 0 0 3px black;
+    }
 
-      &-title {
+    &__buttons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+
+      & a {
+        margin: 10px;
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 15px 20px;
+        font-size: 22px;
         color: #fff;
-        font-size: 60px;
-        font-weight: 300;
-        text-shadow: 0 0 3px black;
+        min-width: 200px;
+        border: 1px solid #fff;
+
+        //box-shadow: 0 0 1px #fff;
       }
+    }
 
-      &-buttons {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-wrap: wrap;
+    &__info {
+      display: flex;
+      justify-content: center;
+      margin-top: 50px;
+      flex-wrap: wrap;
 
-        & a {
-          margin: 10px;
-          background-color: rgba(0, 0, 0, 0.5);
-          padding: 15px 20px;
-          font-size: 22px;
-          color: #fff;
-          min-width: 200px;
-          border: 1px solid #fff;
+      & a {
+        font-size: 17px;
+        color: #e1e1e1;
+        margin: 0 20px;
+        max-widtH: 290px;
+        text-shadow: 0 0 2px black;
 
-          //box-shadow: 0 0 1px #fff;
-        }
-      }
-
-      &-info {
-        display: flex;
-        justify-content: center;
-        margin-top: 50px;
-        flex-wrap: wrap;
-        //align-items: center;
-
-        & span {
-          //flex: 1;
-          font-size: 17px;
-          color: #e1e1e1;
-          margin: 0 20px;
-          max-widtH: 290px;
-          text-shadow: 0 0 2px black;
+        &:hover {
+          color: #ffffff;
+          text-decoration: underline;
         }
       }
 
@@ -566,7 +566,8 @@ body, html {
 
   &-block {
 
-    &__row {}
+    &__row {
+    }
 
     &__col {
       margin-bottom: 20px;
@@ -618,13 +619,12 @@ body, html {
       color: #acacac;
       margin-bottom: 5px;
     }
-    
+
     &-name {
       width: 400px;
       max-width: 100%;
       font-size: 18px;
       @extend %text-truncate;
-
 
       &:hover {
         text-decoration: underline;
@@ -648,7 +648,7 @@ body, html {
     flex: 1;
     max-width: 740px;
     margin: 0 auto;
-    
+
     &-category {
       color: #989595;
       text-transform: uppercase;
@@ -1765,8 +1765,6 @@ body, html {
 .app-dashboard-artworks {
   @extend %dashboard-with-profile;
 
-
-
 }
 
 .app-dashboard-artworks-block {
@@ -2077,6 +2075,7 @@ body, html {
     bottom: 33px;
   }
 }
+
 // End vue phone number input
 
 // Braintree
