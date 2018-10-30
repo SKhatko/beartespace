@@ -349,38 +349,19 @@ body, html {
 
   }
 
-  &-auctions {
-    text-align: center;
-    padding: 90px 15px;
-
-    .auctions {
-      padding-top: 50px;
-    }
-
-    .auctions-bottom {
-      text-align: right;
-      padding-top: 10px;
-
-      &-link {
-        text-transform: uppercase;
-        font-weight: bold;
-      }
-    }
-  }
-
   &-articles {
+    //background-color: $--color-primary;
     background-color: #82d8d8b5;
     text-align: center;
     padding: 45px 15px;
 
+    .articles {
+      padding-top: 50px;
+    }
+
     &-bottom {
       text-align: right;
       padding-top: 10px;
-
-      &-link {
-        text-transform: uppercase;
-        font-weight: bold;
-      }
     }
 
     .article {
@@ -418,40 +399,12 @@ body, html {
 
     .artworks {
       padding-top: 50px;
-      //display: flex;
-      //flex-wrap: wrap;
-      //justify-content: space-between;
     }
 
     .artworks-bottom {
       text-align: right;
       padding-top: 10px;
-
-      &-link {
-        //text-transform: uppercase;
-        //font-weight: bold;
-      }
     }
-
-    .artwork {
-      flex: 1 0 0;
-      padding: 15px;
-      text-align: left;
-      min-width: 270px;
-
-      &-image {
-        margin-bottom: 10px;
-        display: flex;
-        align-items: center;
-        overflow: hidden;
-
-        img {
-          width: 100%;
-        }
-      }
-
-    }
-
   }
 
 }
