@@ -14,9 +14,8 @@
 
                     <el-tab-pane label="Artworks" name="artworks">
                         @if($artworks->count())
-                            <artworks-block artworks_="{{ $artworks }}"></artworks-block>
+                            <artworks-block artworks_="{{ $artworks->load('user:id,first_name,last_name,name,user_name,url') }}"></artworks-block>
                         @else
-
                             <a href="/artwork" class="el-button el-button--default">Add favorite artworks</a>
                         @endif
                         {{--                        @include('partials.artworks', $artworks)--}}
