@@ -196,10 +196,14 @@ Route::group( [ 'middleware' => 'web' ], function () {
 
 	} );
 
+	// Test routes
+	Route::get('/test/auth', 'TestController@testAuth');
+
 	// Global user profile search
 	Route::get( '{user}', 'UserController@user' )->name( 'user' );
 	Route::get( '{user}/artwork', 'ArtworkController@userArtworks' )->name( 'user.artworks' );
 	Route::get( '{user}/artwork/{id}/{slug?}', 'ArtworkController@userArtwork' )->name( 'user.artwork' );
+
 
 } );
 

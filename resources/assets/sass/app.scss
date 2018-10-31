@@ -1152,6 +1152,7 @@ body, html {
     }
 
     &-favorite {
+      padding: 5px !important;
       position: absolute;
       display: flex;
       justify-content: flex-end;
@@ -1162,7 +1163,6 @@ body, html {
       visibility: hidden;
       transition: opacity 0.7s ease;
       font-size: 25px;
-      padding: 7px;
     }
 
     &:hover .app-artworks-block__artwork-favorite {

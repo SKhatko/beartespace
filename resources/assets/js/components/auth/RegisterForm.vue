@@ -53,11 +53,11 @@
         <!--</a>-->
 
         <p class="small">
-            By Registering, you agree that you've read and accepted our <a href="/pages/user-agreement"
+            By Registering, you agree that you've read and accepted our <a href="/pages/1/user-agreement"
                                                                            target="_blank"
                                                                            style="font-weight: bold;">User
             Agreement</a>, you're at least 18 years
-            old, and you consent to our <a href="/page/cookies-and-privacy" target="_blank"
+            old, and you consent to our <a href="/page/2/cookies-and-privacy" target="_blank"
                                            style="font-weight: bold;">Privacy Notice</a> and receiving marketing
             communications from us.
         </p>

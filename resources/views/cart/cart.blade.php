@@ -50,7 +50,7 @@
                                 <span>{{ currency(Cart::total()) }}</span>
                             </div>
 
-                            <a href="/cart/checkout" class="el-button el-button--primary" style="width: 100%;">Proceed to
+                            <a href="{{ route('cart.checkout') }}" class="el-button el-button--primary" style="width: 100%;">Proceed to
                                 Checkout</a>
                         </el-card>
                     </div>

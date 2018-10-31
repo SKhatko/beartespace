@@ -11,6 +11,25 @@ class PagesTableSeeder extends Seeder {
 	public function run() {
 
 		DB::table( 'pages' )->insert( [
+			// 1
+			[
+				"name"   => "User Agreement",
+				"slug"    => "user-agreement",
+				"content" => json_encode( [
+					"en" => "User agreement",
+					"da" => "User agreement DK"
+				] )
+			],
+			// 2
+			[
+				"name"   => "Cookies and Privacy",
+				"slug"    => "cookies-and-privacy",
+				"content" => json_encode( [
+					"en" => "Cookies and Privacy",
+					"da" => "Cookies and Privacy DK"
+				] )
+			],
+
 			[
 				"name"   => "Contacts block in footer",
 				"slug"    => "contacts-in-footer",
@@ -70,14 +89,7 @@ Items specially made for you - so-called purchase orders (the items that are mad
 					"da" => "Freight"
 				] )
 			],
-			[
-				"name"   => "Cookies and Privacy",
-				"slug"    => "cookies-and-privacy",
-				"content" => json_encode( [
-					"en" => "Cookies and Privacy",
-					"da" => "Cookies and Privacy DK"
-				] )
-			],
+
 
 			//region About
 			[
@@ -109,15 +121,6 @@ Items specially made for you - so-called purchase orders (the items that are mad
 			//endregion
 
 			//region Agreements
-			[
-				"name"   => "User Agreement",
-				"slug"    => "user-agreement",
-				"content" => json_encode( [
-					"en" => "User agreement",
-					"da" => "User agreement DK"
-				] )
-			],
-
 			[
 				"name"   => "Artist Agreement",
 				"slug"    => "artist-agreement",

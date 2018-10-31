@@ -96410,7 +96410,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "font-weight": "bold"
     },
     attrs: {
-      "href": "/pages/user-agreement",
+      "href": "/pages/1/user-agreement",
       "target": "_blank"
     }
   }, [_vm._v("User\n        Agreement")]), _vm._v(", you're at least 18 years\n        old, and you consent to our "), _c('a', {
@@ -96418,7 +96418,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "font-weight": "bold"
     },
     attrs: {
-      "href": "/page/cookies-and-privacy",
+      "href": "/page/2/cookies-and-privacy",
       "target": "_blank"
     }
   }, [_vm._v("Privacy Notice")]), _vm._v(" and receiving marketing\n        communications from us.\n    ")])], 1)
@@ -98936,7 +98936,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "font-weight": "bold"
     },
     attrs: {
-      "href": "/pages/user-agreement",
+      "href": "/pages/1/user-agreement",
       "target": "_blank"
     }
   }, [_vm._v("User\n        Agreement")]), _vm._v(", you're at least 18 years\n        old, and you consent to our "), _c('a', {
@@ -98944,7 +98944,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "font-weight": "bold"
     },
     attrs: {
-      "href": "/page/cookies-and-privacy",
+      "href": "/page/2/cookies-and-privacy",
       "target": "_blank"
     }
   }, [_vm._v("Privacy Notice")]), _vm._v(" and receiving marketing\n        communications from us.\n    ")])], 1)
