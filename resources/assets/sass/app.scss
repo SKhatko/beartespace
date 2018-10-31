@@ -1495,6 +1495,7 @@ body, html {
       }
 
       &-image {
+        display: block;
         position: relative;
 
         img {
@@ -1502,14 +1503,9 @@ body, html {
         }
       }
 
-      &-edit {
-        position: absolute;
-        right: 20px;
-        top: 20px;
-      }
-
       &-name {
-        font-size: 18px;
+        display: block;
+        font-size: 16px;
         margin: 5px 0;
         @extend %text-truncate;
       }

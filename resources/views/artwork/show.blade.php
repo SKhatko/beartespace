@@ -103,11 +103,13 @@
                                 </div>
 
                                 @if($artwork->quantity >= 1)
-                                    <div class="artwork-qty" style="margin-bottom: 10px;">
-                                        Only {{ $artwork->quantity }} available
-                                    </div>
+                                    @if(auth()->user() && auth()->user()->id !== $artwork->user->id)
+                                        <div class="artwork-qty" style="margin-bottom: 10px;">
+                                            Only {{ $artwork->quantity }} available
+                                        </div>
 
-                                    <artwork-quantity-input artwork_="{{ $artwork }}"></artwork-quantity-input>
+                                        <artwork-quantity-input artwork_="{{ $artwork }}"></artwork-quantity-input>
+                                    @endif
                                 @endif
 
                             @endif
@@ -119,9 +121,9 @@
                                 {{--<a href="{{ route('cart.item.buy-now', $artwork->id) }}"--}}
                                 {{--class="el-button el-button--default is-plain ">Buy Now</a>--}}
 
-                                <el-button type="primary" native-type="submit" style="margin-bottom: 20px;"
-                                           class="artwork-add">Add to cart
-                                </el-button>
+                                    <el-button type="primary" native-type="submit" style="margin-bottom: 20px;"
+                                               class="artwork-add" disabled="{{ auth()->user() && auth()->user()->id !== $artwork->user->id ? 'disabled' : '' }}">Add to cart
+                                    </el-button>
 
                             @endif
                         </el-form>
@@ -245,7 +247,7 @@
 
         <div class="app-artwork-other">
             <artworks-block
-                    artworks_="{{ $artwork->user->artworks->load('user:id,first_name,last_name,user_name,name,url')->take(4) }}">
+                    artworks_="{{ $otherArtworks }}">
                 <template slot="header">
                     <div class="h2">Other Artworks</div>
                 </template>

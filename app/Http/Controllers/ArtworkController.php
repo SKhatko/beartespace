@@ -117,10 +117,11 @@ class ArtworkController extends Controller {
 			return redirect( $artwork->url );
 		}
 
+		$otherArtworks = $artwork->user->artworks()->where( 'id', '!=', $artwork->id )->take( 4 )->with( 'user:id,first_name,last_name,user_name,name,url' )->get();
+
 		$similarArtworks = Artwork::whereCategory( $artwork->category )->where( 'id', '!=', $artwork->id )->take( 4 )->with( 'user:id,first_name,last_name,user_name,name,url' )->get();
 
-//		return $similarArtworks->user;
-		return view( 'artwork.show', compact( 'artwork', 'similarArtworks' ) );
+		return view( 'artwork.show', compact( 'artwork', 'similarArtworks', 'otherArtworks' ) );
 	}
 
 	public function index() {

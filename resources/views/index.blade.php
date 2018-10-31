@@ -64,20 +64,23 @@
 
             </div>
 
-            <div class="app-index-articles">
+            @if($articles->count())
+                <div class="app-index-articles">
 
-                <div class="h2">Our Latest Posts and Articles</div>
-                <div class="h4">read more</div>
+                    <div class="h2">Our Latest Posts and Articles</div>
+                    <div class="h4">read more</div>
 
-                <div class="articles">
-                    @include('partials.articles-block', $articles)
+                    <div class="articles">
+                        @include('partials.articles-block', $articles)
+                    </div>
+
+                    <div class="app-index-articles-bottom">
+                        <a href="{{ route('articles') }}" class="el-button el-button--default is-plain">More
+                            Articles</a>
+                    </div>
+
                 </div>
-
-                <div class="app-index-articles-bottom">
-                    <a href="{{ route('articles') }}" class="el-button el-button--default is-plain">More Articles</a>
-                </div>
-
-            </div>
+            @endif
 
             @if($selectedArtworks->count())
                 <div class="app-index-artworks">

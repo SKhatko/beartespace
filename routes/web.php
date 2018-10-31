@@ -198,6 +198,7 @@ Route::group( [ 'middleware' => 'web' ], function () {
 
 	// Test routes
 	Route::get('/test/auth', 'TestController@testAuth');
+	Route::get('/test/auth/view', 'TestController@testAuthView');
 
 	// Global user profile search
 	Route::get( '{user}', 'UserController@user' )->name( 'user' );

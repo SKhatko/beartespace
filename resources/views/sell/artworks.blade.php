@@ -32,16 +32,13 @@
                     @foreach($artworks as $artwork)
                         <el-col :xs="12" :sm="8" :md="6" class="sell-artwork">
 
-                            <div class="sell-artwork-image">
+                            <a href="{{ route('sell.artwork.edit', $artwork->id) }}" class="sell-artwork-image">
                                 <img src="/imagecache/fit-290{{ $artwork->image_url }}" alt="">
+                            </a>
 
-                                <a href="{{ route('sell.artwork.edit', $artwork->id) }}"
-                                   class="el-button el-button--default el-button--mini sell-artwork-edit">Edit</a>
-                            </div>
-
-                            <div class="artwork-info">
+                            <a href="{{ route('sell.artwork.edit', $artwork->id) }}" class="artwork-info">
                                 <div class="sell-artwork-name">{{ $artwork->name }}</div>
-                            </div>
+                            </a>
 
                         </el-col>
                     @endforeach
