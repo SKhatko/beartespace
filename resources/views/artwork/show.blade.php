@@ -8,7 +8,6 @@
 
         <div class="app-artwork">
 
-
             @if(auth()->user() && auth()->user()->id === $artwork->user->id)
                 <div class="app-artwork-artist-panel" style="text-align: center;">
                     <a href="/dashboard/artwork/{{ $artwork->id }}/edit"
