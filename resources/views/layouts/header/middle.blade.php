@@ -107,7 +107,7 @@
                         </el-dropdown-item>
                     @endif
 
-                    @if(!auth()->user()->isUser())
+                    @if(auth()->user()->seller)
 
                         <el-dropdown-item>
                             <a href="{{route('dashboard.artworks')}}" class="el-dropdown-link">Artworks</a>
