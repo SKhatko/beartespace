@@ -11,7 +11,7 @@
 
             <el-col :xs="12" :sm="8" :md="6" class="block-artwork" v-for="artwork in artworks" :key="artwork.id" style="margin-bottom: 20px;">
 
-                <a :href="'/artwork/' + artwork.id" class="block-artwork-image" target="_blank">
+                <a :href="artwork.url" class="block-artwork-image">
                     <img :src="'/imagecache/fit-290' + artwork.image_url" alt="">
                 </a>
 
@@ -19,16 +19,16 @@
 
                     <div class="block-artwork-name">{{ artwork.name }}</div>
 
-                    <div class="block-artwork-price">{{ artwork.formatted_price }}</div>
+                    <!--<div class="block-artwork-price">{{ artwork.formatted_price }}</div>-->
 
-                    <a :href="'/dashboard/artwork/' + artwork.id + '/edit'"
-                       class="el-button el-button--default el-button--mini" style="margin-right: 10px;">Edit</a>
+                    <!--<a :href="'/dashboard/artwork/' + artwork.id + '/edit'"-->
+                       <!--class="el-button el-button&#45;&#45;default el-button&#45;&#45;mini" style="margin-right: 10px;">Edit</a>-->
 
-                    <el-checkbox :disabled="artwork.sold_at ? true : false" value="artwork.sold_at"
-                                 style="margin-right: 10px;"
-                                 @change="markArtworkAsSold(artwork)">
-                        Mark Sold
-                    </el-checkbox>
+                    <!--<el-checkbox :disabled="artwork.sold_at ? true : false" value="artwork.sold_at"-->
+                                 <!--style="margin-right: 10px;"-->
+                                 <!--@change="markArtworkAsSold(artwork)">-->
+                        <!--Mark Sold-->
+                    <!--</el-checkbox>-->
                 </div>
 
 

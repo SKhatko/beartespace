@@ -31140,11 +31140,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             address: {},
             countries: '',
             rules: {
-                name: [{ required: true, message: 'Please enter delivery name', trigger: 'blur' }],
-                country_id: [{ required: true, message: 'Please select country', trigger: 'blur' }],
-                address: [{ required: true, message: 'Please enter address', trigger: 'blur' }],
+                name: [{ required: true, message: 'Please enter delivery name', trigger: 'submit' }],
+                country_id: [{ required: true, message: 'Please select country', trigger: 'submit' }],
+                address: [{ required: true, message: 'Please enter address', trigger: 'submit' }],
                 optional_address: [{}],
-                city: [{ required: true, message: 'Please enter city', trigger: 'blur' }],
+                city: [{ required: true, message: 'Please enter city', trigger: 'submit' }],
                 region: [{ required: true, message: 'Please enter region', trigger: 'blur' }],
                 postcode: [{ required: true, message: 'Please enter postcode', trigger: 'blur' }],
                 email: [{ required: true, type: 'email', message: 'Please enter valid email', trigger: 'blur' }],
@@ -33505,11 +33505,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.userId = this.userId_;
         }
 
-        if (this.follow_ === '1') {
-            this.follow = true;
-        } else {
-            this.follow = false;
-        }
+        this.follow = this.follow_ === '1';
     }
 });
 
@@ -50171,7 +50167,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(4)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 /* 201 */,
@@ -97716,7 +97712,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }), _vm._v(" "), _c('errors'), _vm._v(" "), _c('el-form-item', {
     attrs: {
-      "prop": "name"
+      "prop": "name",
+      "required": ""
     }
   }, [_c('el-input', {
     attrs: {
@@ -97732,7 +97729,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1), _vm._v(" "), _c('el-form-item', {
     attrs: {
-      "prop": "country_id"
+      "prop": "country_id",
+      "required": ""
     }
   }, [_c('el-select', {
     attrs: {
@@ -98369,8 +98367,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('a', {
       staticClass: "block-artwork-image",
       attrs: {
-        "href": '/artwork/' + artwork.id,
-        "target": "_blank"
+        "href": artwork.url
       }
     }, [_c('img', {
       attrs: {
@@ -98381,30 +98378,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "block-artwork-manage"
     }, [_c('div', {
       staticClass: "block-artwork-name"
-    }, [_vm._v(_vm._s(artwork.name))]), _vm._v(" "), _c('div', {
-      staticClass: "block-artwork-price"
-    }, [_vm._v(_vm._s(artwork.formatted_price))]), _vm._v(" "), _c('a', {
-      staticClass: "el-button el-button--default el-button--mini",
-      staticStyle: {
-        "margin-right": "10px"
-      },
-      attrs: {
-        "href": '/dashboard/artwork/' + artwork.id + '/edit'
-      }
-    }, [_vm._v("Edit")]), _vm._v(" "), _c('el-checkbox', {
-      staticStyle: {
-        "margin-right": "10px"
-      },
-      attrs: {
-        "disabled": artwork.sold_at ? true : false,
-        "value": "artwork.sold_at"
-      },
-      on: {
-        "change": function($event) {
-          _vm.markArtworkAsSold(artwork)
-        }
-      }
-    }, [_vm._v("\n                    Mark Sold\n                ")])], 1)])
+    }, [_vm._v(_vm._s(artwork.name))])])])
   })], 2)], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true

@@ -48,11 +48,11 @@
 
                 <errors></errors>
 
-                <el-form-item prop="name">
+                <el-form-item prop="name" required>
                     <el-input placeholder="Enter name for delivery" name="name" v-model="address.name"></el-input>
                 </el-form-item>
 
-                <el-form-item prop="country_id">
+                <el-form-item prop="country_id" required>
                     <el-select value="" name="country_id" v-model="address.country_id" filterable
                                placeholder="Select country">
                         <el-option
@@ -134,17 +134,17 @@
                 countries: '',
                 rules: {
                     name: [
-                        {required: true, message: 'Please enter delivery name', trigger: 'blur'}
+                        {required: true, message: 'Please enter delivery name', trigger: 'submit'}
                     ],
                     country_id: [
-                        {required: true, message: 'Please select country', trigger: 'blur'}
+                        {required: true, message: 'Please select country', trigger: 'submit'}
                     ],
                     address: [
-                        {required: true, message: 'Please enter address', trigger: 'blur'}
+                        {required: true, message: 'Please enter address', trigger: 'submit'}
                     ],
                     optional_address: [{}],
                     city: [
-                        {required: true, message: 'Please enter city', trigger: 'blur'}
+                        {required: true, message: 'Please enter city', trigger: 'submit'}
                     ],
                     region: [
                         {required: true, message: 'Please enter region', trigger: 'blur'}

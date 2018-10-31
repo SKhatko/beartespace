@@ -8,53 +8,53 @@
 
         <div class="app-artwork">
 
-            <div class="artist">
-                <div class="artist-info">
-                    <img src="/imagecache/fit-75{{ $artwork->user->avatar_url }}" class="artist-avatar" alt="">
-                    <a href="{{ $artwork->user->url }}"
-                       class="artist-name">{{ $artwork->user->name }}</a>
 
-                    @if($artwork->user->followedBy->count() > 0)
-                        <div class="artist-followed">
-                            Followed by {{ $artwork->user->followedBy->count() }} people
-                        </div>
-                    @endif
+            @if(auth()->user() && auth()->user()->id === $artwork->user->id)
+                <div class="app-artwork-artist-panel" style="text-align: center;">
+                    <a href="/dashboard/artwork/{{ $artwork->id }}/edit"
+                       class="el-button el-button--default el-button--mini">Edit</a>
+                    {{--<a href="/dashboard/artwork{{ $artwork->id }}/deactivate" class="el-button el-button--default el-button--mini">Deactivate</a>--}}
+                </div>
 
-                    @if(auth()->user())
+            @else
+                <div class="artist">
+                    <div class="artist-info">
+                        <img src="/imagecache/fit-75{{ $artwork->user->avatar_url }}" class="artist-avatar" alt="">
+                        <a href="{{ $artwork->user->url }}"
+                           class="artist-name">{{ $artwork->user->name }}</a>
+
+                        @if($artwork->user->followedBy->count() > 0)
+                            <div class="artist-followed">
+                                Followed by {{ $artwork->user->followedBy->count() }} people
+                            </div>
+                        @endif
+
                         <follow-button
                                 follow_="{{ auth()->user()->followedUsers->contains($artwork->user->id) }}"
                                 user-id_="{{ $artwork->user->id }}">
                             {{ $artwork->user->name }}
                         </follow-button>
-                    @endif
-                </div>
+                    </div>
 
-                @if($artwork->user->artworks->count() > 3)
-                    <div class="artist-artworks hidden-xs-only">
-                        @foreach($artwork->user->artworks->take(3) as $userArtwork)
-                            <a href="{{ $userArtwork->url }}" class="artist-artwork">
-                                <img src="/imagecache/fit-75{{ $userArtwork->image_url }}" alt="">
-                            </a>
-                        @endforeach
-                        <a href="{{ $artwork->user->url }}" class="artist-artwork">
+                    @if($artwork->user->artworks->count() > 3)
+                        <div class="artist-artworks hidden-xs-only">
+                            @foreach($artwork->user->artworks->take(3) as $userArtwork)
+                                <a href="{{ $userArtwork->url }}" class="artist-artwork">
+                                    <img src="/imagecache/fit-75{{ $userArtwork->image_url }}" alt="">
+                                </a>
+                            @endforeach
+                            <a href="{{ $artwork->user->url }}" class="artist-artwork">
                                 <span>
                                        <span class="h2" style="display: block;">
                                           {{ $artwork->user->artworks->count() }}
                                     </span><br>
                                 Artworks
                                 </span>
-                        </a>
-                    </div>
-                @endif
-
-            </div>
-
-            {{--@if(auth()->user() && auth()->user()->id === $artwork->user->id)--}}
-            {{--<div class="app-artwork-artist-panel" style="text-align: center;">--}}
-            {{--<a href="dashboard/artwork/{{ $artwork->id }}/edit" class="el-button el-button--default el-button--mini">Edit</a>--}}
-            {{--<a href="/dashboard/artwork" class="el-button el-button--default el-button--mini">Deactivate</a>--}}
-            {{--</div>--}}
-            {{--@endif--}}
+                            </a>
+                        </div>
+                    @endif
+                </div>
+            @endif
 
             <div class="artwork">
 
@@ -121,9 +121,11 @@
                                 {{--<a href="{{ route('cart.item.buy-now', $artwork->id) }}"--}}
                                 {{--class="el-button el-button--default is-plain ">Buy Now</a>--}}
 
-                                    <el-button type="primary" native-type="submit" style="margin-bottom: 20px;"
-                                               class="artwork-add" disabled="{{ auth()->user() && auth()->user()->id !== $artwork->user->id ? 'disabled' : '' }}">Add to cart
-                                    </el-button>
+                                <el-button type="primary" native-type="submit" style="margin-bottom: 20px;"
+                                           class="artwork-add"
+                                           disabled="{{ auth()->user() && auth()->user()->id !== $artwork->user->id ? 'disabled' : '' }}">
+                                    Add to cart
+                                </el-button>
 
                             @endif
                         </el-form>

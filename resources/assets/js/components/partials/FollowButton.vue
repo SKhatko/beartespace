@@ -62,11 +62,8 @@
                 this.userId = this.userId_;
             }
 
-            if (this.follow_ === '1') {
-                this.follow = true;
-            } else {
-                this.follow = false;
-            }
+            this.follow = this.follow_ === '1';
+
         }
     }
 </script>
