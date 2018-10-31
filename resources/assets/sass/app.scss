@@ -39,6 +39,7 @@ body, html {
 }
 
 .app--fixed-bottom {
+  z-index: 5;
   position: fixed;
   left: 0;
   right: 0;
@@ -1164,7 +1165,7 @@ body, html {
       padding: 7px;
     }
 
-    &:hover .block-artwork-favorite {
+    &:hover .app-artworks-block__artwork-favorite {
       opacity: 0.8;
       visibility: visible;
     }
@@ -1711,6 +1712,10 @@ body, html {
 .app-dashboard {
   padding: 15px;
   //display: flex;
+
+  &-partials-profile-form {
+
+  }
 
   &-partials-profile {
 

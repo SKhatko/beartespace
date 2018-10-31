@@ -138,10 +138,10 @@ Route::group( [ 'middleware' => 'web' ], function () {
 	//Dashboard Route
 	Route::group( [
 		'prefix'     => 'dashboard',
-//		'middleware' => [
-//			'auth',
+		'middleware' => [
+			'auth',
 //			'confirmed-email',
-//		]
+		]
 	], function () {
 
 		// Not user (admin, sellers)

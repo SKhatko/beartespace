@@ -8,8 +8,7 @@
                 <div class="app-profile-form-header">
                     <span>Your Public Profile</span>
                     <a v-if="!sellRequest_" :href="'/' + user.user_name" target="_blank"
-                       class="el-button el-button--default el-button--mini">View
-                        profile</a>
+                       class="el-button el-button--default el-button--mini">View profile</a>
                 </div>
             </div>
 
@@ -173,7 +172,7 @@
                     <div class="app--wrapper">
 
                         <el-button v-if="!sellRequest_">
-                            <a :href="'/artist/' + user.id" target="_blank">Preview</a>
+                            <a :href="'/' + user.user_name" target="_blank">Preview</a>
                         </el-button>
 
                         <el-button type="primary" @click="save()" :loading="loading">

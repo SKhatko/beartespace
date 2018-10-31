@@ -30415,6 +30415,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -30440,10 +30441,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             },
             passwordType: 'password',
             newEmailRules: {
-                email: [{ type: 'email', required: true, message: 'Please enter email', trigger: 'blur' }],
-                email_confirmation: [{ required: true, validator: emailValidator, trigger: 'blur' }],
+                email: [{ type: 'email', required: true, message: 'Please enter email', trigger: 'submit' }],
+                email_confirmation: [{ required: true, validator: emailValidator, trigger: 'submit' }],
 
-                password: [{ required: true, message: 'Please enter password', trigger: 'blur' }]
+                password: [{ required: true, message: 'Please enter password', trigger: 'submit' }]
             }
         };
     },
@@ -30464,6 +30465,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         window.location.reload();
                     }).catch(function (error) {
                         _this2.$store.commit('setErrors', error.response.data.errors);
+
+                        _this2.loading = false;
                     });
                     // this.$refs['user'].$el.submit();
                 }
@@ -32471,7 +32474,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
 //
 //
 //
@@ -50180,7 +50182,7 @@ for (var i = 0; i < DOMIterables.length; i++) {
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(4)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 /* 192 */
@@ -96169,16 +96171,7 @@ module.exports = Component.exports
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('el-card', {
-    staticStyle: {
-      "margin-bottom": "20px"
-    }
-  }, [_c('div', {
-    attrs: {
-      "slot": "header"
-    },
-    slot: "header"
-  }, [_vm._v("Change Email")]), _vm._v(" "), _c('el-row', [_c('el-col', {
+  return _c('el-row', [_c('el-col', {
     attrs: {
       "md": 8
     }
@@ -96252,7 +96245,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "click": _vm.togglePasswordView
     },
     slot: "append"
-  })], 1)], 1), _vm._v(" "), _c('el-button', {
+  })], 1)], 1), _vm._v(" "), _c('div', {
+    staticClass: "app--fixed-bottom"
+  }, [_c('div', {
+    staticClass: "app--wrapper"
+  }, [_c('el-button', {
     attrs: {
       "type": "primary",
       "loading": _vm.loading
@@ -96260,7 +96257,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.changeEmail
     }
-  }, [_vm._v("Confirm")])], 1)], 1)], 1)], 1)
+  }, [_vm._v("Confirm")])], 1)])], 1)], 1)], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -99934,7 +99931,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "href": '/' + _vm.user.user_name,
       "target": "_blank"
     }
-  }, [_vm._v("View\n                    profile")]) : _vm._e()])]), _vm._v(" "), _c('el-form', {
+  }, [_vm._v("View profile")]) : _vm._e()])]), _vm._v(" "), _c('el-form', {
     ref: "profile",
     attrs: {
       "label-position": "top",
@@ -100222,7 +100219,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "app--wrapper"
   }, [(!_vm.sellRequest_) ? _c('el-button', [_c('a', {
     attrs: {
-      "href": '/artist/' + _vm.user.id,
+      "href": '/' + _vm.user.user_name,
       "target": "_blank"
     }
   }, [_vm._v("Preview")])]) : _vm._e(), _vm._v(" "), _c('el-button', {

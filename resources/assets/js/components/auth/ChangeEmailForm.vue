@@ -1,39 +1,40 @@
 <template>
 
-    <el-card style="margin-bottom: 20px;">
-        <div slot="header">Change Email</div>
 
-        <el-row>
-            <el-col :md="8">
+    <el-row>
+        <el-col :md="8">
 
-                <el-form :model="newEmail" :rules="newEmailRules" ref="newEmail">
+            <el-form :model="newEmail" :rules="newEmailRules" ref="newEmail">
 
-                    <errors></errors>
+                <errors></errors>
 
-                    <el-form-item label="Enter new E-Mail Address" prop="email">
-                        <el-input type="email" placeholder="Email" v-model="newEmail.email" name="email"
-                                  autofocus></el-input>
-                    </el-form-item>
+                <el-form-item label="Enter new E-Mail Address" prop="email">
+                    <el-input type="email" placeholder="Email" v-model="newEmail.email" name="email"
+                              autofocus></el-input>
+                </el-form-item>
 
-                    <el-form-item label="Confirm new E-Mail Address" prop="email_confirmation">
-                        <el-input type="email" placeholder="Email" v-model="newEmail.email_confirmation"
-                                  name="email_confirmation"></el-input>
-                    </el-form-item>
+                <el-form-item label="Confirm new E-Mail Address" prop="email_confirmation">
+                    <el-input type="email" placeholder="Email" v-model="newEmail.email_confirmation"
+                              name="email_confirmation"></el-input>
+                </el-form-item>
 
-                    <el-form-item label="Password" prop="password">
-                        <el-input :type="passwordType" placeholder="Password" v-model="newEmail.password" name="password">
-                            <el-button slot="append" icon="el-icon-view" @click="togglePasswordView"></el-button>
-                        </el-input>
-                    </el-form-item>
+                <el-form-item label="Password" prop="password">
+                    <el-input :type="passwordType" placeholder="Password" v-model="newEmail.password" name="password">
+                        <el-button slot="append" icon="el-icon-view" @click="togglePasswordView"></el-button>
+                    </el-input>
+                </el-form-item>
 
-                    <el-button type="primary" @click="changeEmail" :loading="loading">Confirm</el-button>
+                <div class="app--fixed-bottom">
+                    <div class="app--wrapper">
 
-                </el-form>
+                        <el-button type="primary" @click="changeEmail" :loading="loading">Confirm</el-button>
 
-            </el-col>
-        </el-row>
+                    </div>
+                </div>
 
-    </el-card>
+            </el-form>
+        </el-col>
+    </el-row>
 
 </template>
 
@@ -62,14 +63,14 @@
                 passwordType: 'password',
                 newEmailRules: {
                     email: [
-                        {type: 'email', required: true, message: 'Please enter email', trigger: 'blur'}
+                        {type: 'email', required: true, message: 'Please enter email', trigger: 'submit'}
                     ],
                     email_confirmation: [
-                        {required: true, validator: emailValidator, trigger: 'blur'}
+                        {required: true, validator: emailValidator, trigger: 'submit'}
                     ],
 
                     password: [
-                        {required: true, message: 'Please enter password', trigger: 'blur'}
+                        {required: true, message: 'Please enter password', trigger: 'submit'}
                     ],
                 },
             }
@@ -92,6 +93,8 @@
                             })
                             .catch(error => {
                                 this.$store.commit('setErrors', error.response.data.errors);
+
+                                this.loading = false;
                             })
                         // this.$refs['user'].$el.submit();
                     }
