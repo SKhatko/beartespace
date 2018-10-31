@@ -27747,11 +27747,10 @@ Vue.component('artists-menu', __webpack_require__(238));
 // Auth
 Vue.component('password-reset-new-password', __webpack_require__(245));
 Vue.component('register-form', __webpack_require__(246));
-Vue.component('modal-register-form', __webpack_require__(243));
 Vue.component('password-reset-form', __webpack_require__(244));
 Vue.component('login-form', __webpack_require__(241));
-Vue.component('modal-login-form', __webpack_require__(242));
 Vue.component('change-email-form', __webpack_require__(240));
+Vue.component('modal-auth-form', __webpack_require__(348));
 
 // Seller (Sell)
 Vue.component('profile-name-form', __webpack_require__(268));
@@ -27777,6 +27776,7 @@ Vue.component('pagination', __webpack_require__(260));
 Vue.component('errors', __webpack_require__(51));
 Vue.component('follow-button', __webpack_require__(265));
 Vue.component('artwork-quantity-input', __webpack_require__(262));
+Vue.component('buy-now-form', __webpack_require__(338));
 
 // Checkout
 Vue.component('cart-shipping-form', __webpack_require__(248));
@@ -30586,70 +30586,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 128 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            dialogVisible: false
-        };
-    }
-});
-
-/***/ }),
-/* 129 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            dialogVisible: false
-        };
-    }
-});
-
-/***/ }),
+/* 128 */,
+/* 129 */,
 /* 130 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -32411,8 +32349,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -34016,24 +33952,20 @@ var store = {
         shoppingCartCount: 0,
         favoriteArtworks: [],
         favoriteArtworksCount: 0,
-        errors: []
+        errors: [],
+        showAuthForm: false
     },
     mutations: {
         toggleFavorites: function toggleFavorites(state, item) {
+            var _this = this;
 
             axios.put('/api/user/favorite/' + item.id + '/toggle').then(function (response) {
-
-                // this._vm.$message({
-                //     dangerouslyUseHTMLString: true,
-                //     showClose: true,
-                //     message: response.data.message,
-                //     type: response.data.status
-                // });
-
                 state.favoriteArtworks = response.data.data;
                 state.favoriteArtworksCount = response.data.data.length;
             }).catch(function (error) {
                 if (error.response.status === 401) {
+                    console.log(_this);
+                    // state.showAuthForm = true;
                     window.location.href = '/login';
                     console.log(error.response);
                 }
@@ -50217,7 +50149,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(4)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 /* 197 */
@@ -50234,13 +50166,7 @@ exports = module.exports = __webpack_require__(4)();
 exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
-/* 199 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(4)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
-
-/***/ }),
+/* 199 */,
 /* 200 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -50248,13 +50174,7 @@ exports = module.exports = __webpack_require__(4)();
 exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
-/* 201 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(4)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
-
-/***/ }),
+/* 201 */,
 /* 202 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -95337,82 +95257,8 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 242 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-/* styles */
-__webpack_require__(312)
-
-var Component = __webpack_require__(0)(
-  /* script */
-  __webpack_require__(128),
-  /* template */
-  __webpack_require__(299),
-  /* scopeId */
-  "data-v-f4846214",
-  /* cssModules */
-  null
-)
-Component.options.__file = "/Users/skhatko/code/larabid/resources/assets/js/components/auth/ModalLoginForm.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] ModalLoginForm.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-f4846214", Component.options)
-  } else {
-    hotAPI.reload("data-v-f4846214", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 243 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-/* styles */
-__webpack_require__(310)
-
-var Component = __webpack_require__(0)(
-  /* script */
-  __webpack_require__(129),
-  /* template */
-  __webpack_require__(287),
-  /* scopeId */
-  "data-v-5a8e206e",
-  /* cssModules */
-  null
-)
-Component.options.__file = "/Users/skhatko/code/larabid/resources/assets/js/components/auth/ModalRegisterForm.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] ModalRegisterForm.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-5a8e206e", Component.options)
-  } else {
-    hotAPI.reload("data-v-5a8e206e", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
+/* 242 */,
+/* 243 */,
 /* 244 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -98536,8 +98382,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('div', {
       staticClass: "block-artwork-name"
     }, [_vm._v(_vm._s(artwork.name))]), _vm._v(" "), _c('div', {
-      staticClass: "block-artwork-qty"
-    }, [_vm._v(_vm._s(artwork.quantity) + " pc")]), _vm._v(" "), _c('div', {
       staticClass: "block-artwork-price"
     }, [_vm._v(_vm._s(artwork.formatted_price))]), _vm._v(" "), _c('a', {
       staticClass: "el-button el-button--default el-button--mini",
@@ -98930,38 +98774,7 @@ if (false) {
 }
 
 /***/ }),
-/* 287 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('span', {
-    on: {
-      "click": function($event) {
-        _vm.dialogVisible = true
-      }
-    }
-  }, [_vm._t("default")], 2), _vm._v(" "), _c('el-dialog', {
-    attrs: {
-      "title": "Register",
-      "visible": _vm.dialogVisible,
-      "width": "300px"
-    },
-    on: {
-      "update:visible": function($event) {
-        _vm.dialogVisible = $event
-      }
-    }
-  }, [_c('register-form')], 1)], 1)
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-5a8e206e", module.exports)
-  }
-}
-
-/***/ }),
+/* 287 */,
 /* 288 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -99880,38 +99693,7 @@ if (false) {
 }
 
 /***/ }),
-/* 299 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('span', {
-    on: {
-      "click": function($event) {
-        _vm.dialogVisible = true
-      }
-    }
-  }, [_vm._t("default")], 2), _vm._v(" "), _c('el-dialog', {
-    attrs: {
-      "title": "Login",
-      "visible": _vm.dialogVisible,
-      "width": "300px"
-    },
-    on: {
-      "update:visible": function($event) {
-        _vm.dialogVisible = $event
-      }
-    }
-  }, [_c('login-form')], 1)], 1)
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-f4846214", module.exports)
-  }
-}
-
-/***/ }),
+/* 299 */,
 /* 300 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -101336,32 +101118,7 @@ if(false) {
 }
 
 /***/ }),
-/* 310 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(199);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(5)("3d205eb4", content, false);
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-5a8e206e\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ModalRegisterForm.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-5a8e206e\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ModalRegisterForm.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
+/* 310 */,
 /* 311 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -101388,32 +101145,7 @@ if(false) {
 }
 
 /***/ }),
-/* 312 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(201);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(5)("507e0a17", content, false);
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-f4846214\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ModalLoginForm.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-f4846214\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ModalLoginForm.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
+/* 312 */,
 /* 313 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -103642,6 +103374,342 @@ if (false) {
   if (module.hot.data) {
      require("vue-hot-reload-api").rerender("data-v-47749f22", module.exports)
   }
+}
+
+/***/ }),
+/* 338 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(339),
+  /* template */
+  __webpack_require__(340),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/skhatko/code/larabid/resources/assets/js/components/partials/BuyNowForm.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] BuyNowForm.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-bac15d00", Component.options)
+  } else {
+    hotAPI.reload("data-v-bac15d00", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 339 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: {
+        authorization_: ''
+    },
+    data: function data() {
+        return {
+            buyNowDialog: false,
+            loading: false,
+            errorMessage: '',
+            csrf: ''
+        };
+    },
+    mounted: function mounted() {
+        this.csrf = window.csrf;
+
+        var form = document.querySelector('#payment-form');
+        var vm = this;
+
+        braintree.create({
+            authorization: this.authorization_,
+            selector: '#bt-dropin',
+            vaultManager: true,
+            card: {
+                cardholderName: true
+            },
+            paypal: {
+                flow: 'vault',
+                buttonStyle: {
+                    label: 'paypal',
+                    shape: 'rect',
+                    size: 'medium'
+                }
+
+            }
+        }, function (createErr, instance) {
+            if (createErr) {
+                console.log('Create Error', createErr);
+                return;
+            }
+            form.addEventListener('submit', function (event) {
+                event.preventDefault();
+                vm.loading = true;
+                instance.requestPaymentMethod(function (err, payload) {
+                    if (err) {
+                        vm.loading = false;
+                        vm.errorMessage = err.message;
+                        console.log('Request Payment Method Error', err);
+                        return;
+                    }
+
+                    // console.log(payload, 'payload');
+                    // Add the nonce to the form and submit
+                    document.querySelector('#payment').value = payload.nonce;
+                    form.submit();
+                });
+            });
+        });
+    },
+
+    methods: {}
+});
+
+/***/ }),
+/* 340 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('el-button', {
+    staticClass: "artwork-buy",
+    attrs: {
+      "plain": ""
+    },
+    on: {
+      "click": function($event) {
+        _vm.buyNowDialog = true
+      }
+    }
+  }, [_vm._v("Buy it now")]), _vm._v(" "), _c('el-dialog', {
+    attrs: {
+      "visible": _vm.buyNowDialog
+    },
+    on: {
+      "update:visible": function($event) {
+        _vm.buyNowDialog = $event
+      }
+    }
+  }, [_c('el-form', {
+    attrs: {
+      "id": "payment-form",
+      "method": "POST",
+      "action": "/cart/payment"
+    }
+  }, [_c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "_token"
+    },
+    domProps: {
+      "value": _vm.csrf
+    }
+  }), _vm._v(" "), _c('input', {
+    attrs: {
+      "type": "hidden",
+      "id": "payment",
+      "name": "payment"
+    }
+  }), _vm._v(" "), _c('el-form-item', [_c('div', {
+    attrs: {
+      "id": "bt-dropin"
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "el-form-item__error"
+  }, [_vm._v(_vm._s(_vm.errorMessage))])]), _vm._v(" "), _c('el-button', {
+    attrs: {
+      "type": "primary",
+      "native-type": "submit",
+      "loading": _vm.loading
+    }
+  }, [_vm._v("\n                Review your order\n            ")])], 1)], 1)], 1)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-bac15d00", module.exports)
+  }
+}
+
+/***/ }),
+/* 341 */,
+/* 342 */,
+/* 343 */,
+/* 344 */,
+/* 345 */,
+/* 346 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            // dialogVisible: false
+        };
+    },
+
+    computed: {
+        dialogVisible: function dialogVisible() {
+            return this.$store.state.showAuthForm;
+        }
+    }
+
+});
+
+/***/ }),
+/* 347 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(4)();
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+/***/ }),
+/* 348 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+/* styles */
+__webpack_require__(350)
+
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(346),
+  /* template */
+  __webpack_require__(349),
+  /* scopeId */
+  "data-v-50da0c1a",
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/skhatko/code/larabid/resources/assets/js/components/auth/ModalAuthForm.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] ModalAuthForm.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-50da0c1a", Component.options)
+  } else {
+    hotAPI.reload("data-v-50da0c1a", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 349 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('el-dialog', {
+    attrs: {
+      "visible": _vm.dialogVisible
+    },
+    on: {
+      "update:visible": function($event) {
+        _vm.dialogVisible = $event
+      }
+    }
+  }, [_vm._v("\n\n    Signin and Signup\n")])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-50da0c1a", module.exports)
+  }
+}
+
+/***/ }),
+/* 350 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(347);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(5)("14cf5536", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-50da0c1a\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ModalAuthForm.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-50da0c1a\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ModalAuthForm.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
 }
 
 /***/ })

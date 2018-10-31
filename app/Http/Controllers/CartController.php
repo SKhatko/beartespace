@@ -84,13 +84,11 @@ class CartController extends Controller {
 //			}
 //		}
 
-		Cart::add( $artwork, $request->input( 'qty' ) );
+		if ( ! Cart::content()->contains( 'id', $artwork->id ) ) {
+			Cart::add( $artwork, $request->input( 'qty' ) );
+		}
 
-
-
-//		if ( ! Cart::content()->contains( 'id', $artwork->id ) ) {
-//			Cart::add( $artwork, $request->input( 'qty' ) );
-//		} else {
+//		else {
 //			foreach ( Cart::content() as $item ) {
 //				if ( $item->id == $artwork->id ) {
 //					Cart::update( $item->rowId, $request->input( 'qty' ) );

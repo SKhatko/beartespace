@@ -19,8 +19,6 @@
 
                     <div class="block-artwork-name">{{ artwork.name }}</div>
 
-                    <div class="block-artwork-qty">{{ artwork.quantity }} pc</div>
-
                     <div class="block-artwork-price">{{ artwork.formatted_price }}</div>
 
                     <a :href="'/dashboard/artwork/' + artwork.id + '/edit'"

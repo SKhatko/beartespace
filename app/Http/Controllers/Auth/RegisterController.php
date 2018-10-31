@@ -41,7 +41,6 @@ class RegisterController extends Controller {
 			'email'      => 'required|string|email|max:255|unique:users',
 			'password'   => 'required|string|min:6',
 //			'user_type'  => 'required|string|in:user,artist,gallery',
-//			'g-recaptcha-response' => 'required|captcha'
 		] );
 
 		$user = User::create( [
@@ -51,7 +50,6 @@ class RegisterController extends Controller {
 			'password'         => bcrypt( $request->input( 'password' ) ),
 			'user_type'        => 'user',
 			'activation_token' => str_random( 60 )
-//			'g-recaptcha-response' => 'required|captcha'
 		] );
 
 		// Save shopping cart to db;

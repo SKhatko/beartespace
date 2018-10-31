@@ -57,11 +57,10 @@ Vue.component('artists-menu', require('./components/ArtistsMenu.vue'));
 // Auth
 Vue.component('password-reset-new-password', require('./components/auth/PasswordResetNewPassword.vue'));
 Vue.component('register-form', require('./components/auth/RegisterForm.vue'));
-Vue.component('modal-register-form', require('./components/auth/ModalRegisterForm.vue'));
 Vue.component('password-reset-form', require('./components/auth/PasswordResetForm.vue'));
 Vue.component('login-form', require('./components/auth/LoginForm.vue'));
-Vue.component('modal-login-form', require('./components/auth/ModalLoginForm.vue'));
 Vue.component('change-email-form', require('./components/auth/ChangeEmailForm.vue'));
+Vue.component('modal-auth-form', require('./components/auth/ModalAuthForm.vue'));
 
 // Seller (Sell)
 Vue.component('profile-name-form', require('./components/sell/ProfileNameForm.vue'));
@@ -87,6 +86,7 @@ Vue.component('pagination', require('./components/global/Pagination.vue'));
 Vue.component('errors', require('./components/partials/Errors.vue'));
 Vue.component('follow-button', require('./components/partials/FollowButton.vue'));
 Vue.component('artwork-quantity-input', require('./components/partials/ArtworkQuantityInput.vue'));
+Vue.component('buy-now-form', require('./components/partials/BuyNowForm.vue'));
 
 // Checkout
 Vue.component('cart-shipping-form', require('./components/cart/ShippingForm.vue'));
@@ -150,7 +150,6 @@ const app = new Vue({
         if (window.bus.shoppingCart) {
             this.$store.commit('setInitialShoppingCart', window.bus.shoppingCart);
         }
-
 
 
 

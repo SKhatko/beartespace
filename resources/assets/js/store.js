@@ -5,24 +5,19 @@ let store = {
         favoriteArtworks: [],
         favoriteArtworksCount: 0,
         errors: [],
+        showAuthForm: false,
     },
     mutations: {
 
         toggleFavorites(state, item) {
 
             axios.put('/api/user/favorite/' + item.id + '/toggle',).then(response => {
-
-                // this._vm.$message({
-                //     dangerouslyUseHTMLString: true,
-                //     showClose: true,
-                //     message: response.data.message,
-                //     type: response.data.status
-                // });
-
                 state.favoriteArtworks = response.data.data;
                 state.favoriteArtworksCount = response.data.data.length;
             }).catch(error => {
                 if (error.response.status === 401) {
+                    console.log(this);
+                    // state.showAuthForm = true;
                     window.location.href = '/login';
                     console.log(error.response);
                 }
