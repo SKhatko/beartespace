@@ -11,25 +11,23 @@
             <div class="h3">Personal profile url link</div>
 
             <el-form-item label="Enter your public profile name" prop="user_name">
-                <el-input v-model="user.user_name" name="user_name"></el-input>
+                <el-input v-model="user.user_name" name="user_name">
+                    <!--<el-button slot="append" icon="el-icon-search"></el-button>-->
+                    <el-button slot="append" @click="checkUserName()" :loading="usernameLoading">Check</el-button>
+                </el-input>
             </el-form-item>
 
             <div style="margin-bottom: 20px;">Your profile name will appear in url of your personal page and your
                 artworks. You'll not be able to change your profile name after validation your profile
             </div>
 
-            <el-button @click="checkUserName()" :loading="usernameLoading">
-                Check
-            </el-button>
+            <transition name="el-fade-in">
+                <div class="h6" v-html="userProfileLink" style="margin-top: 10px;min-height:18px"></div>
+            </transition>
 
-            <div class="h6" v-text="userProfileLink" style="margin-top: 10px;"></div>
-
-            <div class="app--fixed-bottom">
-                <div class="app--wrapper">
-                    <el-button type="primary" native-type="submit" :loading="loading">Save and Continue</el-button>
-                </div>
+            <div style="text-align: right;margin-top: 20px;">
+                <el-button type="primary" native-type="submit" :loading="loading">Save and Continue</el-button>
             </div>
-
 
         </el-form>
     </el-card>
@@ -99,7 +97,7 @@
         },
         methods: {
             setUserProfileLink() {
-                this.userProfileLink = window.location.origin + '/' + (this.user.user_name ? this.user.user_name : 'artist/' + this.user.id);
+                this.userProfileLink = '<b>Your public url:</b> ' + window.location.origin + '/' + (this.user.user_name ? this.user.user_name : 'artist/' + this.user.id);
             },
 
             submitForm() {

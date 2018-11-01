@@ -115,6 +115,10 @@ class User extends Authenticatable {
 		return $this->user_type == 'artist';
 	}
 
+	public function scopeSeller( $query ) {
+		return $query->whereNotNull( 'seller' );
+	}
+
 	public function scopeArtist( $query ) {
 		return $query->where( 'user_type', 'artist' );
 	}

@@ -28,11 +28,13 @@
                             </div>
                         @endif
 
-                        <follow-button
-                                follow_="{{ auth()->user()->followedUsers->contains($artwork->user->id) }}"
-                                user-id_="{{ $artwork->user->id }}">
-                            {{ $artwork->user->name }}
-                        </follow-button>
+                        @if(auth()->user())
+                            <follow-button
+                                    follow_="{{ auth()->user()->followedUsers->contains($artwork->user->id) }}"
+                                    user-id_="{{ $artwork->user->id }}">
+                                {{ $artwork->user->name }}
+                            </follow-button>
+                        @endif
                     </div>
 
                     @if($artwork->user->artworks->count() > 3)

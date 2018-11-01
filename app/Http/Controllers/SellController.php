@@ -62,20 +62,6 @@ class SellController extends Controller {
 		return view( 'sell.artwork', compact( 'artwork' ) );
 	}
 
-	public function payments() {
-
-		$user = auth()->user();
-
-		if ( $user->hasBraintreeId() ) {
-			$clientToken = ClientToken::generate( [ 'customerId' => $user->braintree_id ] );
-		} else {
-			// TODO move to .env
-			$clientToken = 'sandbox_9qqqx29m_8zf5jpxstv3pkjwy';
-		}
-
-		return view( 'sell.payments', compact( 'clientToken' ) );
-	}
-
 	public function postPayments(Request $request) {
 
 		$user = auth()->user();

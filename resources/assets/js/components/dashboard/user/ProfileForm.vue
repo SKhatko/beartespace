@@ -1,6 +1,6 @@
 <template>
 
-    <el-card  class="app-profile-form">
+    <el-card class="app-profile-form">
 
         <!-- Seller -->
         <template v-if="showForSeller">
@@ -43,7 +43,8 @@
                                     :before-upload="beforeAvatarUpload">
                                 <el-button slot="trigger" icon="el-icon-picture" class="app-profile-form-avatar-button"
                                            circle></el-button>
-                                <div slot="tip" class="el-upload__tip">*Must be a .jpg, .gif or .png file smaller than 10MB
+                                <div slot="tip" class="el-upload__tip">*Must be a .jpg, .gif or .png file smaller than
+                                    10MB
                                     and at least 400px by 400px.
                                 </div>
 
@@ -79,7 +80,8 @@
                                     :before-upload="beforeImageUpload">
                                 <el-button slot="trigger" icon="el-icon-picture" class="app-profile-form-avatar-button"
                                            circle></el-button>
-                                <div slot="tip" class="el-upload__tip">*Must be a .jpg file smaller than 10MB and at least
+                                <div slot="tip" class="el-upload__tip">*Must be a .jpg file smaller than 10MB and at
+                                    least
                                     980px width.
                                 </div>
 
@@ -91,10 +93,10 @@
                 </el-row>
 
                 <!--<el-row :gutter="20" v-if="sellRequest_">-->
-                    <!--<el-col :sm="8">-->
-                        <!--artist/gallery-->
+                <!--<el-col :sm="8">-->
+                <!--artist/gallery-->
 
-                    <!--</el-col>-->
+                <!--</el-col>-->
                 <!--</el-row>-->
 
                 <el-row :gutter="20">
@@ -168,19 +170,24 @@
                 </el-row>
 
 
-                <div class="app--fixed-bottom">
-                    <div class="app--wrapper">
+                <!--<div class="app&#45;&#45;fixed-bottom">-->
+                <!--<div class="app&#45;&#45;wrapper">-->
 
-                        <el-button v-if="!sellRequest_">
-                            <a :href="'/' + user.user_name" target="_blank">Preview</a>
-                        </el-button>
+                <div style="margin-top: 20px;text-align: right;">
+                    <el-button v-if="!sellRequest_">
+                        <a :href="'/' + user.user_name" target="_blank">Preview</a>
+                    </el-button>
 
-                        <el-button type="primary" @click="save()" :loading="loading">
-                            Save and Continue
-                        </el-button>
+                    <a v-if="sellRequest_" href="/sell/profile-name" class="el-button el-button--default">Back to edit profile-name</a>
 
-                    </div>
+
+                    <el-button type="primary" @click="save()" :loading="loading">
+                        Save and Continue
+                    </el-button>
                 </div>
+
+                <!--</div>-->
+                <!--</div>-->
 
 
                 <div style="display: none;">
@@ -224,7 +231,8 @@
                         <el-col :sm="8">
                             <el-form-item label="University educational title" prop="education_title">
                                 <el-select value="" v-model="user.education_title" filterable allow-create>
-                                    <el-option v-for="title in options('education')" :key="title.value" :label="title.label"
+                                    <el-option v-for="title in options('education')" :key="title.value"
+                                               :label="title.label"
                                                :value="title.value"></el-option>
                                 </el-select>
                             </el-form-item>
@@ -341,7 +349,8 @@
                                     :before-upload="beforeAvatarUpload">
                                 <el-button slot="trigger" icon="el-icon-picture" class="app-profile-form-avatar-button"
                                            circle></el-button>
-                                <div slot="tip" class="el-upload__tip">*Must be a .jpg, .gif or .png file smaller than 10MB
+                                <div slot="tip" class="el-upload__tip">*Must be a .jpg, .gif or .png file smaller than
+                                    10MB
                                     and at least 400px by 400px.
                                 </div>
 
@@ -463,7 +472,7 @@
                         {required: true, message: 'Please enter last name', trigger: 'blur'}
                     ],
                     country_id: [
-                        {required:true, message: 'Please specify your country', trigger: 'blur'}
+                        {required: true, message: 'Please specify your country', trigger: 'blur'}
                     ]
                 },
                 userRules: {

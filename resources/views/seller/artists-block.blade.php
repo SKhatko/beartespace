@@ -7,7 +7,7 @@
 
                     <div class="artist-info">
 
-                        <a href="{{ route('user', $artist->id) }}" class="artist-avatar">
+                        <a href="{{ $artist->url }}" class="artist-avatar">
                             <img src="/imagecache/fit-150{{ $artist->avatar_url }}"
                                  alt="{{ $artist->avatar ? $artist->avatar->name : $artist->name }}">
                         </a>

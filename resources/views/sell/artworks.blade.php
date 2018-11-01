@@ -5,7 +5,6 @@
         <el-step description="Name"></el-step>
         <el-step description="Profile"></el-step>
         <el-step description="Artworks"></el-step>
-        <el-step description="Payments"></el-step>
     </el-steps>
 @endsection
 
@@ -48,7 +47,7 @@
                 <div class="app--fixed-bottom">
                     <div class="app--wrapper">
 
-                        <a href="/sell/profile" class="el-button el-button--default">Edit profile</a>
+                        <a href="/sell/profile" class="el-button el-button--default">Back to edit profile</a>
 
                         <a href="/sell/payments" class="el-button el-button--primary">Save and Continue</a>
 

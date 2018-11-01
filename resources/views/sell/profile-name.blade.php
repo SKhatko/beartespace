@@ -5,7 +5,6 @@
         <el-step description="Name"></el-step>
         <el-step description="Profile"></el-step>
         <el-step description="Artworks"></el-step>
-        <el-step description="Payments"></el-step>
     </el-steps>
 @endsection
 

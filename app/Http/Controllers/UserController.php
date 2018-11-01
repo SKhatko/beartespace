@@ -58,7 +58,7 @@ class UserController extends Controller {
 
 	public function people( Request $request ) {
 
-		$artists = User::query()->artist();
+		$artists = User::query()->seller();
 
 		if ( $request->input( 'artist' ) ) {
 			$artist        = $request->input( 'artist' );

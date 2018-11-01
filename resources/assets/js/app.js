@@ -14,6 +14,7 @@ require('./bootstrap');
 
 import ElementUI from 'element-ui';
 import store from './store.js';
+import CollapseTransition from 'element-ui/lib/transitions/collapse-transition';
 import locale from 'element-ui/lib/locale/lang/en';
 import VueTelInput from 'vue-tel-input';
 
@@ -43,6 +44,8 @@ Vue.use(ElementUI, {locale});
 Vue.use(VueTelInput);
 Vue.use(SocialSharing);
 // Vue.use(VueQuillEditor, /* { default global options } */)
+Vue.component(CollapseTransition.name, CollapseTransition)
+
 
 
 
