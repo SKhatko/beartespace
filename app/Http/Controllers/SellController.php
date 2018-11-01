@@ -62,7 +62,7 @@ class SellController extends Controller {
 		return view( 'sell.artwork', compact( 'artwork' ) );
 	}
 
-	public function postPayments(Request $request) {
+	public function complete(Request $request) {
 
 		$user = auth()->user();
 

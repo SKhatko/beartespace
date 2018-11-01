@@ -49,7 +49,7 @@
 
                         <a href="/sell/profile" class="el-button el-button--default">Back to edit profile</a>
 
-                        <a href="/sell/payments" class="el-button el-button--primary">Save and Continue</a>
+                        <a href="/sell/complete" class="el-button el-button--primary">Save and Continue</a>
 
 
                     </div>

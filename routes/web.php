@@ -74,8 +74,7 @@ Route::group( [ 'middleware' => 'web' ], function () {
 	Route::get( '/sell/artwork', 'SellController@artworks' )->name('sell.artwork')->middleware(['auth', 'has-profile-name']);
 	Route::get( '/sell/artwork/{id}/edit', 'SellController@editArtwork' )->name('sell.artwork.edit')->middleware(['auth', 'has-profile-name']);
 	Route::get( '/sell/artwork/create', 'SellController@createArtwork' )->name('sell.artwork.create')->middleware(['auth', 'has-profile-name']);
-	Route::get( '/sell/payments', 'SellController@payments' )->middleware(['auth', 'has-profile-name', 'has-seller-artworks']);
-	Route::post( '/sell/payments', 'SellController@postPayments' )->middleware(['auth', 'has-profile-name', 'has-seller-artworks']);
+	Route::get( '/sell/complete', 'SellController@complete' )->middleware(['auth', 'has-profile-name', 'has-seller-artworks']);
 
 	// General routes
 	Route::get( '/auction', 'AuctionController@index' )->name( 'auctions' );
