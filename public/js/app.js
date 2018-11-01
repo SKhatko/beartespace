@@ -33445,14 +33445,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -101490,7 +101482,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "href": "/sell/profile-name"
     }
-  }, [_vm._v("Back to edit profile-name")]) : _vm._e(), _vm._v(" "), _c('el-button', {
+  }, [_vm._v("Back to edit\n                    profile-name")]) : _vm._e(), _vm._v(" "), _c('el-button', {
     attrs: {
       "type": "primary",
       "loading": _vm.loading
@@ -102001,9 +101993,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       expression: "user.about"
     }
   })], 1)], 1)], 1), _vm._v(" "), _c('div', {
-    staticClass: "app--fixed-bottom"
-  }, [_c('div', {
-    staticClass: "app--wrapper"
+    staticStyle: {
+      "text-align": "right",
+      "margin-top": "20px"
+    }
   }, [_c('el-button', {
     attrs: {
       "type": "primary",
@@ -102014,7 +102007,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.save()
       }
     }
-  }, [_vm._v("\n                        Save\n                    ")])], 1)])], 1)]], 2)
+  })], 1)], 1)]], 2)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

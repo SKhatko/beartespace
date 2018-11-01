@@ -170,24 +170,19 @@
                 </el-row>
 
 
-                <!--<div class="app&#45;&#45;fixed-bottom">-->
-                <!--<div class="app&#45;&#45;wrapper">-->
-
                 <div style="margin-top: 20px;text-align: right;">
                     <el-button v-if="!sellRequest_">
                         <a :href="'/' + user.user_name" target="_blank">Preview</a>
                     </el-button>
 
-                    <a v-if="sellRequest_" href="/sell/profile-name" class="el-button el-button--default">Back to edit profile-name</a>
+                    <a v-if="sellRequest_" href="/sell/profile-name" class="el-button el-button--default">Back to edit
+                        profile-name</a>
 
 
                     <el-button type="primary" @click="save()" :loading="loading">
                         Save and Continue
                     </el-button>
                 </div>
-
-                <!--</div>-->
-                <!--</div>-->
 
 
                 <div style="display: none;">
@@ -435,13 +430,10 @@
                 </el-row>
 
 
-                <div class="app--fixed-bottom">
-                    <div class="app--wrapper">
-                        <el-button type="primary" @click="save()" :loading="loading">
-                            Save
-                        </el-button>
-                    </div>
+                <div style="text-align: right;margin-top: 20px;">
+                    <el-button type="primary" @click="save()" :loading="loading"></el-button>
                 </div>
+
             </el-form>
 
         </template>
