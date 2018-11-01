@@ -13,7 +13,7 @@
     <div class="app--wrapper">
         <div class="app-sell-profile-name">
 
-            <profile-name-form user_="{{ auth()->user() }}">
+            <profile-name-form user_="{{ json_encode($user) }}">
                 {{ csrf_field() }}
                 @include('partials.errors')
             </profile-name-form>

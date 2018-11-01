@@ -3,7 +3,7 @@
     <el-card class="app-profile-form">
 
         <!-- Seller -->
-        <template v-if="showForSeller">
+        <template v-if="user.user_type === 'artist' || user.user_type === 'gallery'">
             <div slot="header">
                 <div class="app-profile-form-header">
                     <span>Your Public Profile</span>
@@ -92,13 +92,6 @@
 
                 </el-row>
 
-                <!--<el-row :gutter="20" v-if="sellRequest_">-->
-                <!--<el-col :sm="8">-->
-                <!--artist/gallery-->
-
-                <!--</el-col>-->
-                <!--</el-row>-->
-
                 <el-row :gutter="20">
                     <el-col :sm="8">
                         <el-form-item label="First name" prop="first_name" required>
@@ -175,9 +168,7 @@
                         <a :href="'/' + user.user_name" target="_blank">Preview</a>
                     </el-button>
 
-                    <a v-if="sellRequest_" href="/sell/profile-name" class="el-button el-button--default">Back to edit
-                        profile-name</a>
-
+                    <a v-if="sellRequest_" href="/sell/profile-name" class="el-button el-button--default">Edit name</a>
 
                     <el-button type="primary" @click="save()" :loading="loading">
                         Save and Continue
@@ -431,7 +422,7 @@
 
 
                 <div style="text-align: right;margin-top: 20px;">
-                    <el-button type="primary" @click="save()" :loading="loading"></el-button>
+                    <el-button type="primary" @click="save()" :loading="loading">Save</el-button>
                 </div>
 
             </el-form>
@@ -453,7 +444,6 @@
         data() {
 
             return {
-                showForSeller: false,
                 loading: false,
                 user: {},
                 sellerRules: {
@@ -485,10 +475,6 @@
 
             if (this.user_) {
                 this.user = JSON.parse(this.user_);
-            }
-
-            if (this.sellRequest_ || this.user.user_type === 'artist' || this.user.user_type === 'gallery') {
-                this.showForSeller = true;
             }
 
             console.log(this.user);

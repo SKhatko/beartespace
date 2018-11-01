@@ -1,10 +1,12 @@
 <template>
 
-    <el-card class="app-sell-profile-name-form">
+    <el-card class="app-sell-profile-name-form" v-if="user">
 
-        <el-form label-position="top" :model="user" status-icon :rules="rules" ref="username"
-                 action="/sell/profile-name" method="POST"
-                 @submit.native.prevent="submitForm">
+
+        <el-form label-position="top" :model="user" status-icon :rules="rules" ref="username" action="/sell/profile-name"
+                 method="POST" @submit.native.prevent="submitForm">
+
+            <input type="hidden" name="user_type" :value="user.user_type">
 
             <slot></slot>
 
@@ -12,8 +14,7 @@
 
             <el-form-item label="Enter your public profile name" prop="user_name">
                 <el-input v-model="user.user_name" name="user_name">
-                    <!--<el-button slot="append" icon="el-icon-search"></el-button>-->
-                    <el-button slot="append" @click="checkUserName()" :loading="usernameLoading">Check</el-button>
+                    <el-button slot="append" @click="checkUserName" :loading="usernameLoading">Check</el-button>
                 </el-input>
             </el-form-item>
 
@@ -30,6 +31,7 @@
             </div>
 
         </el-form>
+
     </el-card>
 
 
@@ -43,8 +45,12 @@
         data() {
 
             let userNameValidator = (rule, value, callback) => {
+                console.log(value);
                 if (value === '') {
                     callback(new Error("Name can't be empty"));
+                    this.userProfileLink = '';
+                } else if (/\s/.test(value)) {
+                    callback(new Error('The name may only include unaccented roman letters, dashes and numbers, without spaces.'));
                     this.userProfileLink = '';
                 } else if (value.length < 5) {
                     callback(new Error("Minimal length 8 symbols"));
@@ -73,6 +79,7 @@
                 loading: false,
                 usernameLoading: false,
                 userProfileLink: '',
+                sellerType: '',
                 user: {},
                 rules: {
                     user_name: [
@@ -85,19 +92,19 @@
             this.csrf = window.csrf;
 
             if (this.user_) {
-                this.user = JSON.parse(this.user_);
+                this.user = JSON.parse(this.user_)
             }
 
             console.log(this.user);
         },
         computed: {
             userName() {
-                return window.location.origin + '/' + (this.user.user_name ? this.user.user_name : 'artist/' + this.user.id);
+                return window.location.origin + '/' + this.user.user_name;
             },
         },
         methods: {
             setUserProfileLink() {
-                this.userProfileLink = '<b>Your public url:</b> ' + window.location.origin + '/' + (this.user.user_name ? this.user.user_name : 'artist/' + this.user.id);
+                this.userProfileLink = '<b>Your public url will be:</b> ' + window.location.origin + '/' + this.user.user_name;
             },
 
             submitForm() {

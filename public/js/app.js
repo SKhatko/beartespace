@@ -33436,15 +33436,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -33457,7 +33448,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
 
         return {
-            showForSeller: false,
             loading: false,
             user: {},
             sellerRules: {
@@ -33480,10 +33470,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         if (this.user_) {
             this.user = JSON.parse(this.user_);
-        }
-
-        if (this.sellRequest_ || this.user.user_type === 'artist' || this.user.user_type === 'gallery') {
-            this.showForSeller = true;
         }
 
         console.log(this.user);
@@ -34503,6 +34489,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -34512,8 +34500,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         var _this = this;
 
         var userNameValidator = function userNameValidator(rule, value, callback) {
+            console.log(value);
             if (value === '') {
                 callback(new Error("Name can't be empty"));
+                _this.userProfileLink = '';
+            } else if (/\s/.test(value)) {
+                callback(new Error('The name may only include unaccented roman letters, dashes and numbers, without spaces.'));
                 _this.userProfileLink = '';
             } else if (value.length < 5) {
                 callback(new Error("Minimal length 8 symbols"));
@@ -34540,6 +34532,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             loading: false,
             usernameLoading: false,
             userProfileLink: '',
+            sellerType: '',
             user: {},
             rules: {
                 user_name: [{ validator: userNameValidator, trigger: 'submit' }]
@@ -34558,12 +34551,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     computed: {
         userName: function userName() {
-            return window.location.origin + '/' + (this.user.user_name ? this.user.user_name : 'artist/' + this.user.id);
+            return window.location.origin + '/' + this.user.user_name;
         }
     },
     methods: {
         setUserProfileLink: function setUserProfileLink() {
-            this.userProfileLink = '<b>Your public url:</b> ' + window.location.origin + '/' + (this.user.user_name ? this.user.user_name : 'artist/' + this.user.id);
+            this.userProfileLink = '<b>Your public url will be:</b> ' + window.location.origin + '/' + this.user.user_name;
         },
         submitForm: function submitForm() {
             var _this2 = this;
@@ -50815,7 +50808,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(5)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 /* 193 */
@@ -97488,7 +97481,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('el-card', {
+  return (_vm.user) ? _c('el-card', {
     staticClass: "app-sell-profile-name-form"
   }, [_c('el-form', {
     ref: "username",
@@ -97506,7 +97499,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         return _vm.submitForm($event)
       }
     }
-  }, [_vm._t("default"), _vm._v(" "), _c('div', {
+  }, [_c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "user_type"
+    },
+    domProps: {
+      "value": _vm.user.user_type
+    }
+  }), _vm._v(" "), _vm._t("default"), _vm._v(" "), _c('div', {
     staticClass: "h3"
   }, [_vm._v("Personal profile url link")]), _vm._v(" "), _c('el-form-item', {
     attrs: {
@@ -97530,9 +97531,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "loading": _vm.usernameLoading
     },
     on: {
-      "click": function($event) {
-        _vm.checkUserName()
-      }
+      "click": _vm.checkUserName
     },
     slot: "append"
   }, [_vm._v("Check")])], 1)], 1), _vm._v(" "), _c('div', {
@@ -97563,7 +97562,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "native-type": "submit",
       "loading": _vm.loading
     }
-  }, [_vm._v("Save and Continue")])], 1)], 2)], 1)
+  }, [_vm._v("Save and Continue")])], 1)], 2)], 1) : _vm._e()
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -101172,7 +101171,7 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('el-card', {
     staticClass: "app-profile-form"
-  }, [(_vm.showForSeller) ? [_c('div', {
+  }, [(_vm.user.user_type === 'artist' || _vm.user.user_type === 'gallery') ? [_c('div', {
     attrs: {
       "slot": "header"
     },
@@ -101482,7 +101481,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "href": "/sell/profile-name"
     }
-  }, [_vm._v("Back to edit\n                    profile-name")]) : _vm._e(), _vm._v(" "), _c('el-button', {
+  }, [_vm._v("Edit name")]) : _vm._e(), _vm._v(" "), _c('el-button', {
     attrs: {
       "type": "primary",
       "loading": _vm.loading
@@ -102007,7 +102006,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.save()
       }
     }
-  })], 1)], 1)]], 2)
+  }, [_vm._v("Save")])], 1)], 1)]], 2)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
