@@ -98011,7 +98011,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('el-input-number', {
     attrs: {
       "min": 0.1,
-      "max": 200,
+      "max": 999,
       "size": "small",
       "precision": 1
     },
@@ -98034,7 +98034,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('el-input-number', {
     attrs: {
       "min": 0.1,
-      "max": 200,
+      "max": 999,
       "size": "small",
       "precision": 1
     },
@@ -98057,7 +98057,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('el-input-number', {
     attrs: {
       "min": 0.1,
-      "max": 200,
+      "max": 999,
       "size": "small",
       "precision": 1
     },
@@ -98126,7 +98126,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('el-input-number', {
     attrs: {
       "min": 0.1,
-      "max": 200,
+      "max": 999,
       "size": "small",
       "precision": 1
     },
@@ -98149,7 +98149,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('el-input-number', {
     attrs: {
       "min": 0.1,
-      "max": 200,
+      "max": 999,
       "size": "small",
       "precision": 1
     },
@@ -98172,7 +98172,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('el-input-number', {
     attrs: {
       "min": 0.1,
-      "max": 200,
+      "max": 999,
       "size": "small",
       "precision": 1
     },

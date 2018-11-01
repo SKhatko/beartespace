@@ -165,19 +165,19 @@
                 <el-row>
                     <el-col :sm="5">
                         <el-form-item label="Width, cm" prop="width">
-                            <el-input-number v-model="artwork.width" :min="0.1" :max="200" size="small"
+                            <el-input-number v-model="artwork.width" :min="0.1" :max="999" size="small"
                                              :precision="1"></el-input-number>
                         </el-form-item>
                     </el-col>
                     <el-col :sm="5">
                         <el-form-item label="Height, cm" prop="height">
-                            <el-input-number v-model="artwork.height" :min="0.1" :max="200" size="small"
+                            <el-input-number v-model="artwork.height" :min="0.1" :max="999" size="small"
                                              :precision="1"></el-input-number>
                         </el-form-item>
                     </el-col>
                     <el-col :sm="5">
                         <el-form-item label="Depth,cm" prop="depth">
-                            <el-input-number v-model="artwork.depth" :min="0.1" :max="200" size="small"
+                            <el-input-number v-model="artwork.depth" :min="0.1" :max="999" size="small"
                                              :precision="1"></el-input-number>
                         </el-form-item>
                     </el-col>
@@ -202,19 +202,19 @@
                 <el-row v-if="artwork.optional_size">
                     <el-col :sm="5">
                         <el-form-item label="Total Width, cm" prop="b_width">
-                            <el-input-number v-model="artwork.b_width" :min="0.1" :max="200" size="small"
+                            <el-input-number v-model="artwork.b_width" :min="0.1" :max="999" size="small"
                                              :precision="1"></el-input-number>
                         </el-form-item>
                     </el-col>
                     <el-col :sm="5">
                         <el-form-item label="Total Height, cm" prop="b_height">
-                            <el-input-number v-model="artwork.b_height" :min="0.1" :max="200" size="small"
+                            <el-input-number v-model="artwork.b_height" :min="0.1" :max="999" size="small"
                                              :precision="1"></el-input-number>
                         </el-form-item>
                     </el-col>
                     <el-col :sm="5">
                         <el-form-item label="Total Depth,cm" prop="b_depth">
-                            <el-input-number v-model="artwork.b_depth" :min="0.1" :max="200" size="small"
+                            <el-input-number v-model="artwork.b_depth" :min="0.1" :max="999" size="small"
                                              :precision="1"></el-input-number>
                         </el-form-item>
                     </el-col>
