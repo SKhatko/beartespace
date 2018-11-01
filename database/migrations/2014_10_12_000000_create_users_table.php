@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration {
 			$table->string( 'last_name' )->nullable();
 			$table->string( 'url' )->nullable();
 			$table->string( 'user_name' )->nullable();
+			$table->string( 'company_name' )->nullable();
 			$table->string( 'email' )->unique()->nullable();
 			$table->string( 'password' )->nullable();
 			$table->integer( 'balance' )->default( 0 );
@@ -45,10 +46,10 @@ class CreateUsersTable extends Migration {
 			$table->text( 'inspiration' )->nullable();
 			$table->text( 'exhibition' )->nullable();
 			$table->boolean( 'seller' )->nullable();
-
+			$table->enum( 'seller_type', ['artist', 'gallery'] )->nullable();
 			$table->enum( 'user_type', [ 'user', 'admin', 'artist', 'gallery' ] )->nullable();
 			$table->string( 'activation_token' )->nullable();
-			//active_status 0:pending, 1:active, 2:block;
+			// active_status 0:pending, 1:active, 2:block;
 			$table->enum( 'active', [ 0, 1, 2 ] )->default( 0 )->nullable;
 			$table->boolean( 'email_verified' )->nullable();
 			//is_online => 0:offline, 1:online;

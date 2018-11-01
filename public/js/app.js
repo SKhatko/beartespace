@@ -33434,8 +33434,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -33453,7 +33451,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             sellerRules: {
                 first_name: [{ required: true, message: 'Please enter first name', trigger: 'blur' }],
                 last_name: [{ required: true, message: 'Please enter last name', trigger: 'blur' }],
-                country_id: [{ required: true, message: 'Please specify your country', trigger: 'blur' }]
+                company_name: [{ required: true, message: 'Please enter the name of your business', trigger: 'blur' }],
+                gender: [{ required: true, message: 'Please specify your sex', trigger: 'blur' }],
+                nationality_id: [{ required: true, message: 'Please enter your nationality', trigger: 'blur' }],
+                profession: [{ required: true, message: 'Please select your profession', trigger: 'blur' }],
+                country_id: [{ required: true, message: 'Please specify your country', trigger: 'blur' }],
+                city: [{ required: true, message: 'Please specify your city', trigger: 'blur' }],
+                region: [{ required: true, message: 'Please specify your region', trigger: 'blur' }],
+                postcode: [{ required: true, message: 'Please specify your postcode', trigger: 'blur' }],
+                address: [{ required: true, message: 'Please enter your address', trigger: 'blur' }],
+                dob: [{ required: true, message: 'Please specify your date of birth', trigger: 'blur' }]
             },
             userRules: {
                 first_name: [{ required: true, message: 'Please enter first name', trigger: 'blur' }],
@@ -101178,7 +101185,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     slot: "header"
   }, [_c('div', {
     staticClass: "app-profile-form-header"
-  }, [_c('span', [_vm._v("Your Public Profile")]), _vm._v(" "), (!_vm.sellRequest_) ? _c('a', {
+  }, [(_vm.sellRequest_) ? _c('span', [_vm._v("Please fill in Profile information")]) : _c('span', [_vm._v("Your Profile")]), _vm._v(" "), (!_vm.sellRequest_) ? _c('a', {
     staticClass: "el-button el-button--default el-button--mini",
     attrs: {
       "href": '/' + _vm.user.user_name,
@@ -101308,7 +101315,27 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "src": '/imagecache/height-200' + _vm.user.image_url
     }
-  })], 1)], 1)], 1)], 1), _vm._v(" "), _c('el-row', {
+  })], 1)], 1)], 1)], 1), _vm._v(" "), (_vm.user.user_type === 'gallery') ? _c('el-row', {
+    attrs: {
+      "gutter": 20
+    }
+  }, [_c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Business name / Gallery name"
+    }
+  }, [_c('el-input', {
+    model: {
+      value: (_vm.user.company_name),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "company_name", $$v)
+      },
+      expression: "user.company_name"
+    }
+  })], 1)], 1)], 1) : _vm._e(), _vm._v(" "), _c('el-row', {
     attrs: {
       "gutter": 20
     }
@@ -101348,7 +101375,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.last_name"
     }
-  })], 1)], 1)], 1), _vm._v(" "), _c('el-row', [_c('el-form-item', {
+  })], 1)], 1)], 1), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-row', [_c('el-form-item', {
     attrs: {
       "label": "Gender",
       "prop": "gender"
@@ -101368,134 +101395,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "label": gender.value
       }
     }, [_vm._v(_vm._s(gender.label) + "\n                        ")])
-  }))], 1)], 1), _vm._v(" "), _c('el-row', {
+  }))], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-row', {
     attrs: {
       "gutter": 20
     }
   }, [_c('el-col', {
-    attrs: {
-      "sm": 8
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Country",
-      "prop": "country_id",
-      "required": ""
-    }
-  }, [_c('el-select', {
-    attrs: {
-      "filterable": "",
-      "value": "user.country_id",
-      "placeholder": "Select country"
-    },
-    model: {
-      value: (_vm.user.country_id),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "country_id", $$v)
-      },
-      expression: "user.country_id"
-    }
-  }, _vm._l((_vm.countries), function(country) {
-    return _c('el-option', {
-      key: country.id,
-      attrs: {
-        "label": country.country_name,
-        "value": country.id
-      }
-    })
-  }))], 1)], 1), _vm._v(" "), _c('el-col', {
-    attrs: {
-      "sm": 8
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "City",
-      "prop": "city"
-    }
-  }, [_c('el-input', {
-    attrs: {
-      "placeholder": "City"
-    },
-    model: {
-      value: (_vm.user.city),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "city", $$v)
-      },
-      expression: "user.city"
-    }
-  })], 1)], 1)], 1), _vm._v(" "), _c('el-row', [_c('el-col', {
-    attrs: {
-      "sm": 8
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Birthday",
-      "prop": "dob"
-    }
-  }, [_c('el-date-picker', {
-    attrs: {
-      "type": "date",
-      "value-format": "yyyy-MM-dd",
-      "placeholder": "yyyy-mm-dd"
-    },
-    model: {
-      value: (_vm.user.dob),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "dob", $$v)
-      },
-      expression: "user.dob"
-    }
-  })], 1)], 1)], 1), _vm._v(" "), _c('el-row', [_c('el-col', {
-    attrs: {
-      "sm": 18
-    }
-  }, [_c('el-form-item', [_c('span', {
-    attrs: {
-      "slot": "label"
-    },
-    slot: "label"
-  }, [_vm._v("About")]), _vm._v(" "), _c('el-input', {
-    attrs: {
-      "type": "textarea",
-      "placeholder": "Let people know something about you"
-    },
-    model: {
-      value: (_vm.user.about),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "about", $$v)
-      },
-      expression: "user.about"
-    }
-  })], 1)], 1)], 1), _vm._v(" "), _c('div', {
-    staticStyle: {
-      "margin-top": "20px",
-      "text-align": "right"
-    }
-  }, [(!_vm.sellRequest_) ? _c('el-button', [_c('a', {
-    attrs: {
-      "href": '/' + _vm.user.user_name,
-      "target": "_blank"
-    }
-  }, [_vm._v("Preview")])]) : _vm._e(), _vm._v(" "), (_vm.sellRequest_) ? _c('a', {
-    staticClass: "el-button el-button--default",
-    attrs: {
-      "href": "/sell/profile-name"
-    }
-  }, [_vm._v("Edit name")]) : _vm._e(), _vm._v(" "), _c('el-button', {
-    attrs: {
-      "type": "primary",
-      "loading": _vm.loading
-    },
-    on: {
-      "click": function($event) {
-        _vm.save()
-      }
-    }
-  }, [_vm._v("\n                    Save and Continue\n                ")])], 1), _vm._v(" "), _c('div', {
-    staticStyle: {
-      "display": "none"
-    }
-  }, [_c('el-row', [_c('el-col', {
     attrs: {
       "sm": 8
     }
@@ -101559,7 +101463,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "value": profession.value
       }
     })
-  }))], 1)], 1)], 1), _vm._v(" "), _c('el-row', {
+  }))], 1)], 1)], 1) : _vm._e(), _vm._v(" "), _c('el-row', {
     attrs: {
       "gutter": 20
     }
@@ -101569,7 +101473,194 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('el-form-item', {
     attrs: {
-      "label": "Name of the last finished school ",
+      "label": "Country",
+      "prop": "country_id",
+      "required": ""
+    }
+  }, [_c('el-select', {
+    attrs: {
+      "filterable": "",
+      "value": "user.country_id",
+      "placeholder": "Select country"
+    },
+    model: {
+      value: (_vm.user.country_id),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "country_id", $$v)
+      },
+      expression: "user.country_id"
+    }
+  }, _vm._l((_vm.countries), function(country) {
+    return _c('el-option', {
+      key: country.id,
+      attrs: {
+        "label": country.country_name,
+        "value": country.id
+      }
+    })
+  }))], 1)], 1), _vm._v(" "), _c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "City",
+      "prop": "city"
+    }
+  }, [_c('el-input', {
+    attrs: {
+      "placeholder": "City"
+    },
+    model: {
+      value: (_vm.user.city),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "city", $$v)
+      },
+      expression: "user.city"
+    }
+  })], 1)], 1)], 1), _vm._v(" "), _c('el-row', {
+    attrs: {
+      "gutter": 20
+    }
+  }, [_c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Region",
+      "prop": "region"
+    }
+  }, [_c('el-input', {
+    model: {
+      value: (_vm.user.region),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "region", $$v)
+      },
+      expression: "user.region"
+    }
+  })], 1)], 1), _vm._v(" "), _c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Postcode",
+      "prop": "postcode"
+    }
+  }, [_c('el-input', {
+    model: {
+      value: (_vm.user.postcode),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "postcode", $$v)
+      },
+      expression: "user.postcode"
+    }
+  })], 1)], 1)], 1), _vm._v(" "), _c('el-row', {
+    attrs: {
+      "gutter": 20
+    }
+  }, [_c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Address",
+      "prop": "address"
+    }
+  }, [_c('el-input', {
+    attrs: {
+      "placeholder": "Address"
+    },
+    model: {
+      value: (_vm.user.address),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "address", $$v)
+      },
+      expression: "user.address"
+    }
+  })], 1)], 1), _vm._v(" "), _c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Phone",
+      "prop": "phone"
+    }
+  }, [_c('vue-tel-input', {
+    attrs: {
+      "preferredCountries": ['us', 'gb', 'ua']
+    },
+    on: {
+      "onInput": _vm.setPhoneNumber
+    },
+    model: {
+      value: (_vm.user.phone),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "phone", $$v)
+      },
+      expression: "user.phone"
+    }
+  })], 1)], 1)], 1), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-row', {
+    attrs: {
+      "gutter": 20
+    }
+  }, [_c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Birthday",
+      "prop": "dob"
+    }
+  }, [_c('el-date-picker', {
+    attrs: {
+      "type": "date",
+      "value-format": "yyyy-MM-dd",
+      "placeholder": "yyyy-mm-dd"
+    },
+    model: {
+      value: (_vm.user.dob),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "dob", $$v)
+      },
+      expression: "user.dob"
+    }
+  })], 1)], 1), _vm._v(" "), _c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Skill origin",
+      "prop": "education_born"
+    }
+  }, [_c('el-switch', {
+    attrs: {
+      "active-text": "Natural Born Artist",
+      "inactive-text": "Educated Artist"
+    },
+    model: {
+      value: (_vm.user.education_born),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "education_born", $$v)
+      },
+      expression: "user.education_born"
+    }
+  })], 1)], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-row', {
+    attrs: {
+      "gutter": 20
+    }
+  }, [_c('el-col', {
+    attrs: {
+      "sm": 8
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Name of the last finished school",
       "prop": "education"
     }
   }, [_c('el-input', {
@@ -101610,117 +101701,40 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "value": title.value
       }
     })
-  }))], 1)], 1), _vm._v(" "), _c('el-col', {
-    attrs: {
-      "sm": 8
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Skill origin",
-      "prop": "education_born"
-    }
-  }, [_c('el-switch', {
-    attrs: {
-      "active-text": "Natural Born Artist",
-      "inactive-text": "Educated Artist"
-    },
-    model: {
-      value: (_vm.user.education_born),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "education_born", $$v)
-      },
-      expression: "user.education_born"
-    }
-  })], 1)], 1)], 1), _vm._v(" "), _c('el-row', {
+  }))], 1)], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-row', {
     attrs: {
       "gutter": 20
     }
   }, [_c('el-col', {
     attrs: {
-      "sm": 8
+      "sm": 16
     }
-  }, [_c('el-form-item', {
+  }, [_c('el-form-item', [_c('span', {
     attrs: {
-      "label": "Phone",
-      "prop": "phone"
-    }
-  }, [_c('vue-tel-input', {
-    attrs: {
-      "preferredCountries": ['us', 'gb', 'ua']
+      "slot": "label"
     },
-    on: {
-      "onInput": _vm.setPhoneNumber
+    slot: "label"
+  }, [_vm._v("About")]), _vm._v(" "), _c('el-input', {
+    attrs: {
+      "type": "textarea",
+      "placeholder": "Let people know something about you"
     },
     model: {
-      value: (_vm.user.phone),
+      value: (_vm.user.about),
       callback: function($$v) {
-        _vm.$set(_vm.user, "phone", $$v)
+        _vm.$set(_vm.user, "about", $$v)
       },
-      expression: "user.phone"
+      expression: "user.about"
     }
-  })], 1)], 1)], 1), _vm._v(" "), _c('el-row', {
+  })], 1)], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-row', {
     attrs: {
       "gutter": 20
     }
   }, [_c('el-col', {
     attrs: {
-      "sm": 8
+      "sm": 16
     }
   }, [_c('el-form-item', {
-    attrs: {
-      "label": "Region",
-      "prop": "region"
-    }
-  }, [_c('el-input', {
-    model: {
-      value: (_vm.user.region),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "region", $$v)
-      },
-      expression: "user.region"
-    }
-  })], 1)], 1), _vm._v(" "), _c('el-col', {
-    attrs: {
-      "sm": 8
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Postcode",
-      "prop": "postcode"
-    }
-  }, [_c('el-input', {
-    model: {
-      value: (_vm.user.postcode),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "postcode", $$v)
-      },
-      expression: "user.postcode"
-    }
-  })], 1)], 1), _vm._v(" "), _c('el-col', {
-    attrs: {
-      "sm": 8
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Address",
-      "prop": "address"
-    }
-  }, [_c('el-input', {
-    attrs: {
-      "placeholder": "Address"
-    },
-    model: {
-      value: (_vm.user.address),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "address", $$v)
-      },
-      expression: "user.address"
-    }
-  })], 1)], 1)], 1), _vm._v(" "), _c('el-row', {
-    attrs: {
-      "gutter": 20
-    }
-  }, [_c('el-col', [_c('el-form-item', {
     attrs: {
       "prop": "inspiration"
     }
@@ -101740,7 +101754,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.inspiration"
     }
-  })], 1)], 1), _vm._v(" "), _c('el-col', [_c('el-form-item', {
+  })], 1)], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-row', [_c('el-col', {
+    attrs: {
+      "sm": 16
+    }
+  }, [_c('el-form-item', {
     attrs: {
       "label": "Exhibitions",
       "prop": "exhibition"
@@ -101761,7 +101779,32 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.exhibition"
     }
-  })], 1)], 1)], 1)], 1)], 1)] : [_c('div', {
+  })], 1)], 1)], 1) : _vm._e(), _vm._v(" "), _c('div', {
+    staticStyle: {
+      "margin-top": "20px",
+      "text-align": "right"
+    }
+  }, [(!_vm.sellRequest_) ? _c('el-button', [_c('a', {
+    attrs: {
+      "href": '/' + _vm.user.user_name,
+      "target": "_blank"
+    }
+  }, [_vm._v("Preview")])]) : _vm._e(), _vm._v(" "), (_vm.sellRequest_) ? _c('a', {
+    staticClass: "el-button el-button--default",
+    attrs: {
+      "href": "/sell/profile-name"
+    }
+  }, [_vm._v("Edit name")]) : _vm._e(), _vm._v(" "), _c('el-button', {
+    attrs: {
+      "type": "primary",
+      "loading": _vm.loading
+    },
+    on: {
+      "click": function($event) {
+        _vm.save()
+      }
+    }
+  }, [_vm._v("\n                    Save and Continue\n                ")])], 1)], 1)] : [_c('div', {
     attrs: {
       "slot": "header"
     },

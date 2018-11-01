@@ -6,7 +6,8 @@
         <template v-if="user.user_type === 'artist' || user.user_type === 'gallery'">
             <div slot="header">
                 <div class="app-profile-form-header">
-                    <span>Your Public Profile</span>
+                    <span v-if="sellRequest_">Please fill in Profile information</span>
+                    <span v-else>Your Profile</span>
                     <a v-if="!sellRequest_" :href="'/' + user.user_name" target="_blank"
                        class="el-button el-button--default el-button--mini">View profile</a>
                 </div>
@@ -92,6 +93,14 @@
 
                 </el-row>
 
+                <el-row :gutter="20" v-if="user.user_type === 'gallery'">
+                    <el-col :sm="8">
+                        <el-form-item label="Business name / Gallery name">
+                            <el-input v-model="user.company_name"></el-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+
                 <el-row :gutter="20">
                     <el-col :sm="8">
                         <el-form-item label="First name" prop="first_name" required>
@@ -106,7 +115,7 @@
                 </el-row>
 
 
-                <el-row>
+                <el-row v-if="user.user_type === 'artist'">
                     <el-form-item label="Gender" prop="gender">
                         <el-radio-group v-model="user.gender">
                             <el-radio v-for="gender in options('gender')" :key="gender.value" :label="gender.value">{{
@@ -114,6 +123,34 @@
                             </el-radio>
                         </el-radio-group>
                     </el-form-item>
+                </el-row>
+
+                <el-row :gutter="20" v-if="user.user_type === 'artist'">
+                    <el-col :sm="8">
+                        <el-form-item label="Nationality" prop="nationality_id">
+                            <el-select filterable value="user.nationality_id" v-model="user.nationality_id"
+                                       placeholder="Select your nationality">
+                                <el-option
+                                        v-for="country in countries"
+                                        :key="country.id"
+                                        :label="country.citizenship"
+                                        :value="country.id">
+                                </el-option>
+                            </el-select>
+                        </el-form-item>
+                    </el-col>
+
+                    <el-col :sm="8">
+                        <el-form-item label="Profession" prop="profession">
+                            <el-select value="" v-model="user.profession" multiple filterable allow-create
+                                       default-first-option collapse-tags
+                                       placeholder="What is your profession?">
+                                <el-option v-for="profession in options('profession')" :key="profession.value"
+                                           :label="profession.label"
+                                           :value="profession.value"></el-option>
+                            </el-select>
+                        </el-form-item>
+                    </el-col>
                 </el-row>
 
                 <el-row :gutter="20">
@@ -139,7 +176,40 @@
 
                 </el-row>
 
-                <el-row>
+                <el-row :gutter="20">
+
+                    <el-col :sm="8">
+                        <el-form-item label="Region" prop="region">
+                            <el-input v-model="user.region"></el-input>
+                        </el-form-item>
+                    </el-col>
+
+                    <el-col :sm="8">
+                        <el-form-item label="Postcode" prop="postcode">
+                            <el-input v-model="user.postcode"></el-input>
+                        </el-form-item>
+                    </el-col>
+
+                </el-row>
+
+                <el-row :gutter="20">
+
+                    <el-col :sm="8">
+                        <el-form-item label="Address" prop="address">
+                            <el-input placeholder="Address" v-model="user.address">
+                            </el-input>
+                        </el-form-item>
+                    </el-col>
+
+                    <el-col :sm="8">
+                        <el-form-item label="Phone" prop="phone">
+                            <vue-tel-input v-model="user.phone" @onInput="setPhoneNumber"
+                                           :preferredCountries="['us', 'gb', 'ua']"></vue-tel-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+
+                <el-row :gutter="20" v-if="user.user_type === 'artist'">
                     <el-col :sm="8">
                         <el-form-item label="Birthday" prop="dob">
                             <el-date-picker
@@ -150,14 +220,60 @@
                             </el-date-picker>
                         </el-form-item>
                     </el-col>
+
+                    <el-col :sm="8">
+                        <el-form-item label="Skill origin" prop="education_born">
+                            <el-switch
+                                    v-model="user.education_born"
+                                    active-text="Natural Born Artist"
+                                    inactive-text="Educated Artist">
+                            </el-switch>
+                        </el-form-item>
+                    </el-col>
                 </el-row>
 
-                <el-row>
-                    <el-col :sm="18">
+                <el-row :gutter="20" v-if="user.user_type === 'artist'">
+                    <el-col :sm="8">
+                        <el-form-item label="Name of the last finished school" prop="education">
+                            <el-input v-model="user.education"></el-input>
+                        </el-form-item>
+                    </el-col>
+
+                    <el-col :sm="8">
+                        <el-form-item label="University educational title" prop="education_title">
+                            <el-select value="" v-model="user.education_title" filterable allow-create>
+                                <el-option v-for="title in options('education')" :key="title.value"
+                                           :label="title.label"
+                                           :value="title.value"></el-option>
+                            </el-select>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+
+                <el-row :gutter="20" v-if="user.user_type === 'artist'">
+                    <el-col :sm="16">
                         <el-form-item>
                             <span slot="label">About</span>
                             <el-input type="textarea" v-model="user.about"
                                       placeholder="Let people know something about you"></el-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+
+                <el-row :gutter="20" v-if="user.user_type === 'artist'">
+                    <el-col :sm="16">
+                        <el-form-item prop="inspiration">
+                            <span slot="label">Inspiration</span>
+                            <el-input type="textarea" v-model="user.inspiration"></el-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+
+                <el-row v-if="user.user_type === 'artist'">
+                    <el-col :sm="16">
+                        <el-form-item label="Exhibitions" prop="exhibition">
+                            <span slot="label">Exhibitions</span>
+                            <el-input type="textarea" v-model="user.exhibition"></el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
@@ -174,124 +290,6 @@
                         Save and Continue
                     </el-button>
                 </div>
-
-
-                <div style="display: none;">
-
-
-                    <el-row>
-                        <el-col :sm="8">
-                            <el-form-item label="Nationality" prop="nationality_id">
-                                <el-select filterable value="user.nationality_id" v-model="user.nationality_id"
-                                           placeholder="Select your nationality">
-                                    <el-option
-                                            v-for="country in countries"
-                                            :key="country.id"
-                                            :label="country.citizenship"
-                                            :value="country.id">
-                                    </el-option>
-                                </el-select>
-                            </el-form-item>
-                        </el-col>
-
-                        <el-col :sm="8">
-                            <el-form-item label="Profession" prop="profession">
-                                <el-select value="" v-model="user.profession" multiple filterable allow-create
-                                           default-first-option collapse-tags
-                                           placeholder="What is your profession?">
-                                    <el-option v-for="profession in options('profession')" :key="profession.value"
-                                               :label="profession.label"
-                                               :value="profession.value"></el-option>
-                                </el-select>
-                            </el-form-item>
-                        </el-col>
-                    </el-row>
-
-                    <el-row :gutter="20">
-                        <el-col :sm="8">
-                            <el-form-item label="Name of the last finished school " prop="education">
-                                <el-input v-model="user.education"></el-input>
-                            </el-form-item>
-                        </el-col>
-
-                        <el-col :sm="8">
-                            <el-form-item label="University educational title" prop="education_title">
-                                <el-select value="" v-model="user.education_title" filterable allow-create>
-                                    <el-option v-for="title in options('education')" :key="title.value"
-                                               :label="title.label"
-                                               :value="title.value"></el-option>
-                                </el-select>
-                            </el-form-item>
-                        </el-col>
-
-                        <el-col :sm="8">
-                            <el-form-item label="Skill origin" prop="education_born">
-                                <el-switch
-                                        v-model="user.education_born"
-                                        active-text="Natural Born Artist"
-                                        inactive-text="Educated Artist">
-                                </el-switch>
-                            </el-form-item>
-                        </el-col>
-
-                    </el-row>
-
-                    <el-row :gutter="20">
-
-
-                        <el-col :sm="8">
-                            <el-form-item label="Phone" prop="phone">
-                                <vue-tel-input v-model="user.phone" @onInput="setPhoneNumber"
-                                               :preferredCountries="['us', 'gb', 'ua']"></vue-tel-input>
-                            </el-form-item>
-                        </el-col>
-
-                    </el-row>
-
-                    <el-row :gutter="20">
-
-                        <el-col :sm="8">
-                            <el-form-item label="Region" prop="region">
-                                <el-input v-model="user.region"></el-input>
-                            </el-form-item>
-                        </el-col>
-
-                        <el-col :sm="8">
-                            <el-form-item label="Postcode" prop="postcode">
-                                <el-input v-model="user.postcode"></el-input>
-                            </el-form-item>
-                        </el-col>
-
-                        <el-col :sm="8">
-                            <el-form-item label="Address" prop="address">
-                                <el-input placeholder="Address" v-model="user.address">
-                                </el-input>
-                            </el-form-item>
-                        </el-col>
-                    </el-row>
-
-
-                    <el-row :gutter="20">
-
-                        <el-col>
-
-                            <el-form-item prop="inspiration">
-                                <span slot="label">Inspiration</span>
-                                <el-input type="textarea" v-model="user.inspiration"></el-input>
-                            </el-form-item>
-
-                        </el-col>
-
-                        <el-col>
-                            <el-form-item label="Exhibitions" prop="exhibition">
-                                <span slot="label">Exhibitions</span>
-                                <el-input type="textarea" v-model="user.exhibition"></el-input>
-                            </el-form-item>
-                        </el-col>
-
-                    </el-row>
-                </div>
-
 
             </el-form>
 
@@ -453,8 +451,35 @@
                     last_name: [
                         {required: true, message: 'Please enter last name', trigger: 'blur'}
                     ],
+                    company_name: [
+                        {required: true, message: 'Please enter the name of your business', trigger: 'blur'}
+                    ],
+                    gender: [
+                        {required: true, message: 'Please specify your sex', trigger: 'blur'}
+                    ],
+                    nationality_id: [
+                        {required: true, message: 'Please enter your nationality', trigger: 'blur'}
+                    ],
+                    profession: [
+                        {required: true, message: 'Please select your profession', trigger: 'blur'}
+                    ],
                     country_id: [
                         {required: true, message: 'Please specify your country', trigger: 'blur'}
+                    ],
+                    city: [
+                        {required: true, message: 'Please specify your city', trigger: 'blur'}
+                    ],
+                    region: [
+                        {required: true, message: 'Please specify your region', trigger: 'blur'}
+                    ],
+                    postcode: [
+                        {required: true, message: 'Please specify your postcode', trigger: 'blur'}
+                    ],
+                    address: [
+                        {required: true, message: 'Please enter your address', trigger: 'blur'}
+                    ],
+                    dob: [
+                        {required: true, message: 'Please specify your date of birth', trigger: 'blur'}
                     ]
                 },
                 userRules: {

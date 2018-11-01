@@ -47,9 +47,9 @@
                 <div class="app--fixed-bottom">
                     <div class="app--wrapper">
 
-                        <a href="/sell/profile" class="el-button el-button--default">Back to edit profile</a>
+                        <a href="/sell/profile" class="el-button el-button--default">Edit profile</a>
 
-                        <a href="/sell/complete" class="el-button el-button--primary">Save and Continue</a>
+                        <a href="/sell/apply" class="el-button el-button--primary">Apply</a>
 
 
                     </div>

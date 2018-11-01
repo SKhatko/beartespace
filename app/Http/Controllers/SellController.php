@@ -16,17 +16,12 @@ class SellController extends Controller {
 
 	public function profileName( $usertype = null ) {
 
-//		return auth()->user()->user_type;
-//		if ( $usertype === 'artist' || $usertype === 'gallery' ) {
 		$user = [
 			'user_name' => auth()->user()->user_name,
 			'user_type' => $usertype ?? auth()->user()->user_type
 		];
 
 		return view( 'sell.profile-name', compact( 'user' ) );
-//		} else {
-//			return redirect( '/sell' );
-//		}
 	}
 
 	public function postProfileName( Request $request ) {
@@ -73,7 +68,7 @@ class SellController extends Controller {
 		return view( 'sell.artwork', compact( 'artwork' ) );
 	}
 
-	public function complete( Request $request ) {
+	public function apply( Request $request ) {
 
 		$user = auth()->user();
 
