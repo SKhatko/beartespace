@@ -203,8 +203,9 @@
 
                     <el-col :sm="8">
                         <el-form-item label="Phone" prop="phone">
+                            <el-input v-model="user.phone" style="display:none"></el-input>
                             <vue-tel-input v-model="user.phone" @onInput="setPhoneNumber"
-                                           :preferredCountries="['us', 'gb', 'ua']"></vue-tel-input>
+                                           :preferredCountries="['dk', 'gb', 'ua']"></vue-tel-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
@@ -409,7 +410,7 @@
                 </el-row>
 
                 <el-row>
-                    <el-col :sm="18">
+                    <el-col :sm="16">
                         <el-form-item>
                             <span slot="label">About</span>
                             <el-input type="textarea" v-model="user.about"
@@ -480,6 +481,9 @@
                     ],
                     dob: [
                         {required: true, message: 'Please specify your date of birth', trigger: 'blur'}
+                    ],
+                    phone: [
+                        {required: true, message: 'Please enter valid phone number', trigger: 'blur'}
                     ]
                 },
                 userRules: {

@@ -22,7 +22,7 @@ class HomeController extends Controller {
 
 		$artworks = Artwork::auction(false)->notSold()->available()->quantity()->with('image', 'user')->inRandomOrder()->take(4)->get();
 
-		$selectedArtworks = Artwork::whereIn('id', Setting::first()->artworks_of_the_week)->auction(false)->notSold()->available()->quantity()->with('image', 'user')->inRandomOrder()->take(4)->get();
+		$selectedArtworks = Artwork::whereIn('id', option('artworks_of_the_week'))->auction(false)->notSold()->available()->quantity()->with('image', 'user')->inRandomOrder()->take(4)->get();
 
 		$auctions = Artwork::auction()->notSold()->available()->quantity()->with('image', 'user')->inRandomOrder()->take( 4 )->get();
 
@@ -31,7 +31,7 @@ class HomeController extends Controller {
 
 	public function selectedArtists() {
 
-		$artists = User::whereIn( 'id', Setting::first()->artists_of_the_week )->paginate( 15 );
+		$artists = User::whereIn( 'id', option('artists_of_the_week') )->paginate( 15 );
 
 		return view( 'artist.index', compact( 'artists' ) );
 	}

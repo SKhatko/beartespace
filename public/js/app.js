@@ -32015,20 +32015,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
     props: {
         artists_: {},
-        settings_: {},
+        options_: {},
         artworks_: {}
     },
 
     data: function data() {
         return {
             artists: {},
-            settings: {},
+            options: {},
             artworks: {}
         };
     },
@@ -32037,15 +32045,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         if (this.artists_) {
             this.artists = JSON.parse(this.artists_);
         }
-        if (this.settings_) {
-            this.settings = JSON.parse(this.settings_);
+        if (this.options_) {
+            this.options = JSON.parse(this.options_);
         }
 
         if (this.artworks_) {
             this.artworks = JSON.parse(this.artworks_);
         }
 
-        console.log(this.settings);
+        console.log(this.options);
     },
 
 
@@ -32053,8 +32061,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         save: function save() {
             var _this = this;
 
-            axios.post('/api/settings', this.settings).then(function (response) {
+            axios.post('/api/settings', this.options).then(function (response) {
                 if (response.data) {
+                    _this.options = response.data.data;
                     console.log(response.data);
                     _this.$message({
                         showClose: true,
@@ -33450,6 +33459,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -33476,7 +33486,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 region: [{ required: true, message: 'Please specify your region', trigger: 'blur' }],
                 postcode: [{ required: true, message: 'Please specify your postcode', trigger: 'blur' }],
                 address: [{ required: true, message: 'Please enter your address', trigger: 'blur' }],
-                dob: [{ required: true, message: 'Please specify your date of birth', trigger: 'blur' }]
+                dob: [{ required: true, message: 'Please specify your date of birth', trigger: 'blur' }],
+                phone: [{ required: true, message: 'Please enter valid phone number', trigger: 'blur' }]
             },
             userRules: {
                 first_name: [{ required: true, message: 'Please enter first name', trigger: 'blur' }],
@@ -34535,7 +34546,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.userProfileLink = '';
             } else {
                 console.log(value);
-                axios.post('/api/user/check-username', { 'username': value }).then(function (response) {
+                axios.post('/api/user/check-username', { 'profile_name': value }).then(function (response) {
                     if (!response.data) {
                         callback(new Error('This username is already taken'));
                     } else {
@@ -34584,7 +34595,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         submitForm: function submitForm() {
             var _this2 = this;
 
-            this.$refs['username'].validate(function (valid) {
+            this.$refs['profilename'].validate(function (valid) {
                 if (valid) {
                     _this2.loading = true;
                     _this2.$refs['profilename'].$el.submit();
@@ -97507,7 +97518,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return (_vm.user) ? _c('el-card', {
     staticClass: "app-sell-profile-name-form"
   }, [_c('el-form', {
-    ref: "username",
+    ref: "profilename",
     attrs: {
       "label-position": "top",
       "model": _vm.user,
@@ -100727,61 +100738,63 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('el-card', [_c('div', {
     staticClass: "h2"
-  }, [_vm._v("Main Settings")]), _vm._v(" "), _c('el-form', [_c('el-form-item', {
-    attrs: {
-      "label": "Artists of the week"
-    }
-  }, [_c('el-select', {
-    attrs: {
-      "filterable": "",
-      "multiple": "",
-      "placeholder": "Select Artists"
-    },
-    model: {
-      value: (_vm.settings.artists_of_the_week),
-      callback: function($$v) {
-        _vm.$set(_vm.settings, "artists_of_the_week", $$v)
-      },
-      expression: "settings.artists_of_the_week"
-    }
-  }, _vm._l((_vm.artists), function(artist) {
-    return _c('el-option', {
-      key: artist.id,
+  }, [_vm._v("Main Settings")]), _vm._v(" "), _c('el-form', [_vm._l((_vm.options), function(option) {
+    return [(option.name === 'artists_of_the_week') ? _c('el-form-item', {
       attrs: {
-        "label": artist.name,
-        "value": artist.id
+        "label": "Artists of the week"
       }
-    })
-  }))], 1), _vm._v(" "), _c('el-form-item', {
-    attrs: {
-      "label": "Artworks of the week"
-    }
-  }, [_c('el-select', {
-    attrs: {
-      "filterable": "",
-      "multiple": "",
-      "placeholder": "Select Artists"
-    },
-    model: {
-      value: (_vm.settings.artworks_of_the_week),
-      callback: function($$v) {
-        _vm.$set(_vm.settings, "artworks_of_the_week", $$v)
-      },
-      expression: "settings.artworks_of_the_week"
-    }
-  }, _vm._l((_vm.artworks), function(artwork) {
-    return _c('el-option', {
-      key: artwork.id,
+    }, [_c('el-select', {
       attrs: {
-        "label": artwork.name,
-        "value": artwork.id
+        "filterable": "",
+        "multiple": "",
+        "placeholder": "Select Artists"
+      },
+      model: {
+        value: (option.json_value),
+        callback: function($$v) {
+          _vm.$set(option, "json_value", $$v)
+        },
+        expression: "option.json_value"
       }
-    })
-  }))], 1), _vm._v(" "), _c('el-button', {
+    }, _vm._l((_vm.artists), function(artist) {
+      return _c('el-option', {
+        key: artist.id,
+        attrs: {
+          "label": artist.name,
+          "value": artist.id
+        }
+      })
+    }))], 1) : _vm._e(), _vm._v(" "), (option.name === 'artworks_of_the_week') ? _c('el-form-item', {
+      attrs: {
+        "label": "Artworks of the week"
+      }
+    }, [_c('el-select', {
+      attrs: {
+        "filterable": "",
+        "multiple": "",
+        "placeholder": "Select Artists"
+      },
+      model: {
+        value: (option.json_value),
+        callback: function($$v) {
+          _vm.$set(option, "json_value", $$v)
+        },
+        expression: "option.json_value"
+      }
+    }, _vm._l((_vm.artworks), function(artwork) {
+      return _c('el-option', {
+        key: artwork.id,
+        attrs: {
+          "label": artwork.name,
+          "value": artwork.id
+        }
+      })
+    }))], 1) : _vm._e()]
+  }), _vm._v(" "), _c('el-button', {
     on: {
       "click": _vm.save
     }
-  }, [_vm._v("Save Settings")])], 1)], 1)
+  }, [_vm._v("Save Settings")])], 2)], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -101606,9 +101619,20 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "label": "Phone",
       "prop": "phone"
     }
-  }, [_c('vue-tel-input', {
+  }, [_c('el-input', {
+    staticStyle: {
+      "display": "none"
+    },
+    model: {
+      value: (_vm.user.phone),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "phone", $$v)
+      },
+      expression: "user.phone"
+    }
+  }), _vm._v(" "), _c('vue-tel-input', {
     attrs: {
-      "preferredCountries": ['us', 'gb', 'ua']
+      "preferredCountries": ['dk', 'gb', 'ua']
     },
     on: {
       "onInput": _vm.setPhoneNumber
@@ -102032,7 +102056,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1)], 1)], 1), _vm._v(" "), _c('el-row', [_c('el-col', {
     attrs: {
-      "sm": 18
+      "sm": 16
     }
   }, [_c('el-form-item', [_c('span', {
     attrs: {

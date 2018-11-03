@@ -95,7 +95,7 @@ class ArtworkController extends Controller {
 		}
 
 		if ( $request->input( 'selected' ) ) {
-			$artworks = $artworks->where( 'id', Setting::first()->artworks_of_the_week );
+			$artworks = $artworks->where( 'id', option('artworks_of_the_week') );
 		}
 
 		$items = 15;

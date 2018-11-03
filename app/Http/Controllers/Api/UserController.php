@@ -15,10 +15,10 @@ class UserController extends Controller {
 
 	public function checkUsername( Request $request ) {
 
-		$requestUsername = str_slug( $request->input( 'username' ) );
+		$requestProfileName = str_slug( $request->input( 'profile_name' ) );
 		$user            = auth()->user();
 
-		if ( in_array( $requestUsername, [
+		if ( in_array( $requestProfileName, [
 			'confirm-email',
 			'subscription',
 			'search',
@@ -44,13 +44,13 @@ class UserController extends Controller {
 			return '';
 		}
 
-		$users = User::where( 'id', '!=', $user->id )->whereUserName( $requestUsername )->get();
+		$users = User::where( 'id', '!=', $user->id )->whereProfileName( $requestProfileName )->get();
 
 		if ( $users->count() ) {
 			return '';
 		}
 
-		return $requestUsername;
+		return $requestProfileName;
 	}
 
 	public function update( Request $request ) {

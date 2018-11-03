@@ -8,7 +8,8 @@ if ( ! function_exists( 'trans_input' ) ) {
 		if ( $key === $translation ) {
 			$data      = $key;
 			$whatIWant = str_after( $data, '.' );
-			return title_case(str_slug($whatIWant, ' '));
+
+			return title_case( str_slug( $whatIWant, ' ' ) );
 		}
 
 		return trans( $key );
@@ -32,7 +33,7 @@ if ( ! function_exists( 'getAllTranslations' ) ) {
 if ( ! function_exists( 'showPageContent' ) ) {
 	function showPageContent( $id ) {
 
-		$page = App\Page::find($id);
+		$page = App\Page::find( $id );
 
 		if ( $page ) {
 			return $page->content;
@@ -58,6 +59,18 @@ if ( ! function_exists( 'getLanguages' ) ) {
 		$languages = \App\Language::active()->get();
 
 		return $languages;
+	}
+}
+
+
+if ( ! function_exists( 'option' ) ) {
+	function option( $name = '' ) {
+		$option = \App\Option::where( 'name', $name )->first();
+		if ( $option ) {
+			return $option->json_value ?? $option->text_value;
+		}
+
+		return $name;
 	}
 }
 

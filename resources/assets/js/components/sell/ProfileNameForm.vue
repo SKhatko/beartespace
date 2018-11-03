@@ -3,7 +3,7 @@
     <el-card class="app-sell-profile-name-form" v-if="user">
 
 
-        <el-form label-position="top" :model="user" status-icon :rules="rules" ref="username" action="/sell/profile-name"
+        <el-form label-position="top" :model="user" status-icon :rules="rules" ref="profilename" action="/sell/profile-name"
                  method="POST" @submit.native.prevent="submitForm">
 
             <input type="hidden" name="seller_type" :value="user.seller_type">
@@ -57,7 +57,7 @@
                     this.userProfileLink = '';
                 } else {
                     console.log(value);
-                    axios.post('/api/user/check-username', {'username': value})
+                    axios.post('/api/user/check-username', {'profile_name': value})
                         .then(response => {
                             if (!response.data) {
                                 callback(new Error('This username is already taken'));
@@ -108,7 +108,7 @@
             },
 
             submitForm() {
-                this.$refs['username'].validate((valid) => {
+                this.$refs['profilename'].validate((valid) => {
                     if (valid) {
                         this.loading = true;
                         this.$refs['profilename'].$el.submit();

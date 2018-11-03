@@ -101,7 +101,7 @@ class UserController extends Controller {
 		}
 
 		if ( $request->input( 'selected' ) ) {
-			$artists = $artists->whereIn( 'id', Setting::first()->artists_of_the_week );
+			$artists = $artists->whereIn( 'id', option('artists_of_the_week') );
 		}
 
 		$items = 15;

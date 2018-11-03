@@ -12,7 +12,7 @@
             <el-breadcrumb-item>Settings</el-breadcrumb-item>
         </el-breadcrumb>
 
-        <settings-form artists_="{{ $artists }}" settings_="{{ $settings }}" artworks_="{{ $artworks }}"></settings-form>
+        <settings-form artists_="{{ $artists }}" options_="{{ $options }}" artworks_="{{ $artworks }}"></settings-form>
 
     </div>
 
