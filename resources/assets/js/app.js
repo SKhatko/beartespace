@@ -67,7 +67,7 @@ Vue.component('modal-auth-form', require('./components/auth/ModalAuthForm.vue'))
 
 // Seller (Sell)
 Vue.component('profile-name-form', require('./components/sell/ProfileNameForm.vue'));
-Vue.component('sell-payment-form', require('./components/sell/PaymentForm.vue'));
+Vue.component('sell-profile-form', require('./components/sell/SellProfileForm.vue'));
 
 // Admin
 Vue.component('settings-form', require('./components/dashboard/admin/SettingsForm.vue'));

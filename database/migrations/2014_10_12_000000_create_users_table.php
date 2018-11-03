@@ -42,6 +42,7 @@ class CreateUsersTable extends Migration {
 			$table->string( 'education' )->nullable();
 			$table->string( 'education_title' )->nullable();
 			$table->boolean( 'education_born' )->nullable();
+			$table->string( 'website' )->nullable();
 			$table->text( 'about' )->nullable();
 			$table->text( 'inspiration' )->nullable();
 			$table->text( 'exhibition' )->nullable();

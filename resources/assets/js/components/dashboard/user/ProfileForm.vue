@@ -1,22 +1,22 @@
 <template>
 
-    <el-card class="app-profile-form">
+    <div class="app-profile-form">
 
         <!-- Seller -->
-        <template v-if="user.seller_type === 'artist' || user.seller_type === 'gallery'">
-            <div slot="header">
-                <div class="app-profile-form-header">
-                    <span v-if="sellRequest_">Please fill in Profile information</span>
-                    <span v-else>Your Profile</span>
-                    <a v-if="!sellRequest_" :href="'/' + user.profile_name" target="_blank"
-                       class="el-button el-button--default el-button--mini">View profile</a>
-                </div>
-            </div>
+        <template v-if="request_seller_type_ || user.seller_type === 'artist' || user.seller_type === 'gallery'">
+            <!--<div slot="header">-->
+            <!--<div class="app-profile-form-header">-->
+            <!--<span v-if="request_seller_type_">Please fill in Profile information</span>-->
+            <!--<span v-else>Your Profile</span>-->
+            <!--<a v-if="!request_seller_type_" :href="'/' + user.profile_name" target="_blank"-->
+            <!--class="el-button el-button&#45;&#45;default el-button&#45;&#45;mini">View profile</a>-->
+            <!--</div>-->
+            <!--</div>-->
 
             <el-form label-position="top" :model="user" status-icon :rules="sellerRules" ref="profile">
 
-                <el-row :gutter="20">
-
+                <el-row :gutter="20" v-if="!request_seller_type_">
+f
                     <el-col :sm="12">
                         <el-form-item prop="image" required>
                         <span slot="label">
@@ -93,29 +93,38 @@
 
                 </el-row>
 
-                <el-row :gutter="20" v-if="user.seller_type === 'gallery'">
-                    <el-col :sm="8">
-                        <el-form-item label="Business name / Gallery name">
+                <el-row :gutter="20" v-if="user.seller_type === 'gallery' || request_seller_type_ === 'gallery'">
+                    <el-col :sm="12" v-if="!user.email">
+                        <el-form-item label="Email" prop="email">
+                            <el-input v-model="user.email"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :sm="12">
+                        <el-form-item label="Business name / Gallery name" prop="company_name">
                             <el-input v-model="user.company_name"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :sm="12">
+                        <el-form-item label="Website / Portfolio" prop="website">
+                            <el-input v-model="user.website"></el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
 
                 <el-row :gutter="20">
-                    <el-col :sm="8">
+                    <el-col :sm="12">
                         <el-form-item label="First name" prop="first_name" required>
                             <el-input v-model="user.first_name"></el-input>
                         </el-form-item>
                     </el-col>
-                    <el-col :sm="8">
+                    <el-col :sm="12">
                         <el-form-item label="Last name" prop="last_name" required>
                             <el-input v-model="user.last_name"></el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
 
-
-                <el-row v-if="user.seller_type === 'artist'">
+                <el-row v-if="user.seller_type === 'artist' || request_seller_type_ === 'artist'">
                     <el-form-item label="Gender" prop="gender">
                         <el-radio-group v-model="user.gender">
                             <el-radio v-for="gender in options('gender')" :key="gender.value" :label="gender.value">{{
@@ -125,8 +134,8 @@
                     </el-form-item>
                 </el-row>
 
-                <el-row :gutter="20" v-if="user.seller_type === 'artist'">
-                    <el-col :sm="8">
+                <el-row :gutter="20" v-if="user.seller_type === 'artist' || request_seller_type_ === 'artist'">
+                    <el-col :sm="12">
                         <el-form-item label="Nationality" prop="nationality_id">
                             <el-select filterable value="user.nationality_id" v-model="user.nationality_id"
                                        placeholder="Select your nationality">
@@ -140,7 +149,7 @@
                         </el-form-item>
                     </el-col>
 
-                    <el-col :sm="8">
+                    <el-col :sm="12">
                         <el-form-item label="Profession" prop="profession">
                             <el-select value="" v-model="user.profession" multiple filterable allow-create
                                        default-first-option collapse-tags
@@ -154,7 +163,7 @@
                 </el-row>
 
                 <el-row :gutter="20">
-                    <el-col :sm="8">
+                    <el-col :sm="12">
                         <el-form-item label="Country" prop="country_id" required>
                             <el-select filterable value="user.country_id" v-model="user.country_id"
                                        placeholder="Select country">
@@ -168,7 +177,7 @@
                         </el-form-item>
                     </el-col>
 
-                    <el-col :sm="8">
+                    <el-col :sm="12">
                         <el-form-item label="City" prop="city">
                             <el-input v-model="user.city" placeholder="City"></el-input>
                         </el-form-item>
@@ -178,13 +187,13 @@
 
                 <el-row :gutter="20">
 
-                    <el-col :sm="8">
+                    <el-col :sm="12">
                         <el-form-item label="Region" prop="region">
                             <el-input v-model="user.region"></el-input>
                         </el-form-item>
                     </el-col>
 
-                    <el-col :sm="8">
+                    <el-col :sm="12">
                         <el-form-item label="Postcode" prop="postcode">
                             <el-input v-model="user.postcode"></el-input>
                         </el-form-item>
@@ -194,14 +203,14 @@
 
                 <el-row :gutter="20">
 
-                    <el-col :sm="8">
+                    <el-col :sm="12">
                         <el-form-item label="Address" prop="address">
                             <el-input placeholder="Address" v-model="user.address">
                             </el-input>
                         </el-form-item>
                     </el-col>
 
-                    <el-col :sm="8">
+                    <el-col :sm="12">
                         <el-form-item label="Phone" prop="phone">
                             <el-input v-model="user.phone" style="display:none"></el-input>
                             <vue-tel-input v-model="user.phone" @onInput="setPhoneNumber"
@@ -210,8 +219,8 @@
                     </el-col>
                 </el-row>
 
-                <el-row :gutter="20" v-if="user.seller_type === 'artist'">
-                    <el-col :sm="8">
+                <el-row :gutter="20" v-if="user.seller_type === 'artist' || request_seller_type_ === 'artist'">
+                    <el-col :sm="12">
                         <el-form-item label="Birthday" prop="dob">
                             <el-date-picker
                                     v-model="user.dob"
@@ -221,8 +230,10 @@
                             </el-date-picker>
                         </el-form-item>
                     </el-col>
+                </el-row>
 
-                    <el-col :sm="8">
+                <el-row :gutter="20" v-if="user.seller_type === 'artist' || request_seller_type_ === 'artist'">
+                    <el-col :sm="12">
                         <el-form-item label="Skill origin" prop="education_born">
                             <el-switch
                                     v-model="user.education_born"
@@ -231,16 +242,22 @@
                             </el-switch>
                         </el-form-item>
                     </el-col>
+
+                    <el-col :sm="12">
+                        <el-form-item label="Website / Portfolio" prop="website">
+                            <el-input v-model="user.website"></el-input>
+                        </el-form-item>
+                    </el-col>
                 </el-row>
 
-                <el-row :gutter="20" v-if="user.seller_type === 'artist'">
-                    <el-col :sm="8">
+                <el-row :gutter="20" v-if="user.seller_type === 'artist' || request_seller_type_ === 'artist'">
+                    <el-col :sm="12">
                         <el-form-item label="Name of the last finished school" prop="education">
                             <el-input v-model="user.education"></el-input>
                         </el-form-item>
                     </el-col>
 
-                    <el-col :sm="8">
+                    <el-col :sm="12">
                         <el-form-item label="University educational title" prop="education_title">
                             <el-select value="" v-model="user.education_title" filterable allow-create>
                                 <el-option v-for="title in options('education')" :key="title.value"
@@ -251,8 +268,8 @@
                     </el-col>
                 </el-row>
 
-                <el-row :gutter="20" v-if="user.seller_type === 'artist'">
-                    <el-col :sm="16">
+                <el-row :gutter="20" v-if="user.seller_type === 'artist' || request_seller_type_ === 'artist'">
+                    <el-col>
                         <el-form-item>
                             <span slot="label">About</span>
                             <el-input type="textarea" v-model="user.about"
@@ -261,8 +278,8 @@
                     </el-col>
                 </el-row>
 
-                <el-row :gutter="20" v-if="user.seller_type === 'artist'">
-                    <el-col :sm="16">
+                <el-row :gutter="20" v-if="user.seller_type === 'artist' || request_seller_type_ === 'artist'">
+                    <el-col>
                         <el-form-item prop="inspiration">
                             <span slot="label">Inspiration</span>
                             <el-input type="textarea" v-model="user.inspiration"></el-input>
@@ -270,8 +287,8 @@
                     </el-col>
                 </el-row>
 
-                <el-row v-if="user.seller_type === 'artist'">
-                    <el-col :sm="16">
+                <el-row v-if="user.seller_type === 'artist' || request_seller_type_ === 'artist'">
+                    <el-col>
                         <el-form-item label="Exhibitions" prop="exhibition">
                             <span slot="label">Exhibitions</span>
                             <el-input type="textarea" v-model="user.exhibition"></el-input>
@@ -281,14 +298,12 @@
 
 
                 <div style="margin-top: 20px;text-align: right;">
-                    <el-button v-if="!sellRequest_">
+                    <el-button v-if="!request_seller_type_">
                         <a :href="'/' + user.profile_name" target="_blank">Preview</a>
                     </el-button>
 
-                    <a v-if="sellRequest_" href="/sell/profile-name" class="el-button el-button--default">Edit name</a>
-
                     <el-button type="primary" @click="save()" :loading="loading">
-                        Save and Continue
+                        {{ request_seller_type_ ? 'Apply' : 'Save'}}
                     </el-button>
                 </div>
 
@@ -299,13 +314,8 @@
         <!-- User -->
         <template v-else>
 
-            <div slot="header">
-                <div class="app-profile-form-header">
-                    <span>Your Public Profile</span>
-                </div>
-            </div>
+            <el-form label-position="top" :model="user" status-icon :rules="userRules" ref="profile">
 
-            <el-form label-position="top">
                 <el-row :gutter="20">
                     <el-col :sm="12">
                         <el-form-item>
@@ -346,17 +356,14 @@
                         </el-form-item>
                     </el-col>
                 </el-row>
-            </el-form>
-
-            <el-form label-position="top" :model="user" status-icon :rules="userRules" ref="profile">
 
                 <el-row :gutter="20">
-                    <el-col :sm="8">
+                    <el-col :sm="12">
                         <el-form-item label="First name" prop="first_name">
                             <el-input v-model="user.first_name"></el-input>
                         </el-form-item>
                     </el-col>
-                    <el-col :sm="8">
+                    <el-col :sm="12">
                         <el-form-item label="Last name" prop="last_name">
                             <el-input v-model="user.last_name"></el-input>
                         </el-form-item>
@@ -374,7 +381,7 @@
                 </el-row>
 
                 <el-row :gutter="20">
-                    <el-col :sm="8">
+                    <el-col :sm="12">
                         <el-form-item label="Country" prop="country_id">
                             <el-select filterable value="user.country_id" v-model="user.country_id"
                                        placeholder="Select country">
@@ -388,7 +395,7 @@
                         </el-form-item>
                     </el-col>
 
-                    <el-col :sm="8">
+                    <el-col :sm="12">
                         <el-form-item label="City" prop="city">
                             <el-input v-model="user.city" placeholder="City"></el-input>
                         </el-form-item>
@@ -397,7 +404,7 @@
                 </el-row>
 
                 <el-row>
-                    <el-col :sm="8">
+                    <el-col :sm="12">
                         <el-form-item label="Birthday" prop="dob">
                             <el-date-picker
                                     v-model="user.dob"
@@ -410,7 +417,7 @@
                 </el-row>
 
                 <el-row>
-                    <el-col :sm="16">
+                    <el-col>
                         <el-form-item>
                             <span slot="label">About</span>
                             <el-input type="textarea" v-model="user.about"
@@ -427,7 +434,7 @@
             </el-form>
 
         </template>
-    </el-card>
+    </div>
 
 </template>
 
@@ -437,7 +444,7 @@
 
         props: {
             user_: {},
-            sellRequest_: null,
+            request_seller_type_: null,
         },
 
         data() {
@@ -502,9 +509,18 @@
         mounted() {
             this.csrf = window.csrf;
 
-            if (this.user_) {
-                this.user = JSON.parse(this.user_);
-            }
+            axios.get('/api/profile').then(response => {
+                    console.log(response);
+                    this.user = response.data;
+                }
+            ).catch(error => {
+                    console.log(error.response);
+                }
+            );
+
+            // if (this.user_) {
+            //     this.user = JSON.parse(this.user_);
+            // }
 
             console.log(this.user);
 
@@ -568,8 +584,8 @@
                             .then((response) => {
                                 console.log(response.data);
 
-                                if (this.sellRequest_) {
-                                    window.location = '/sell/artwork';
+                                if (this.request_seller_type_) {
+                                    // window.location = '/sell/artwork';
                                 } else {
                                     window.location = '/dashboard';
                                 }

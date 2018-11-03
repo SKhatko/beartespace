@@ -27757,7 +27757,7 @@ Vue.component('modal-auth-form', __webpack_require__(241));
 
 // Seller (Sell)
 Vue.component('profile-name-form', __webpack_require__(267));
-Vue.component('sell-payment-form', __webpack_require__(266));
+Vue.component('sell-profile-form', __webpack_require__(325));
 
 // Admin
 Vue.component('settings-form', __webpack_require__(252));
@@ -33460,13 +33460,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
     props: {
         user_: {},
-        sellRequest_: null
+        request_seller_type_: null
     },
 
     data: function data() {
@@ -33502,9 +33509,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         this.csrf = window.csrf;
 
-        if (this.user_) {
-            this.user = JSON.parse(this.user_);
-        }
+        axios.get('/api/profile').then(function (response) {
+            console.log(response);
+            _this.user = response.data;
+        }).catch(function (error) {
+            console.log(error.response);
+        });
+
+        // if (this.user_) {
+        //     this.user = JSON.parse(this.user_);
+        // }
 
         console.log(this.user);
 
@@ -33568,8 +33582,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     axios.post('/api/profile/', _this2.user).then(function (response) {
                         console.log(response.data);
 
-                        if (_this2.sellRequest_) {
-                            window.location = '/sell/artwork';
+                        if (_this2.request_seller_type_) {
+                            // window.location = '/sell/artwork';
                         } else {
                             window.location = '/dashboard';
                         }
@@ -34379,108 +34393,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 154 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    props: {
-        authorization_: ''
-    },
-    data: function data() {
-        return {
-            loading: false,
-            errorMessage: '',
-            csrf: ''
-        };
-    },
-    mounted: function mounted() {
-        this.csrf = window.csrf;
-
-        var form = document.querySelector('#payment-form');
-        var vm = this;
-
-        braintree.create({
-            authorization: this.authorization_,
-            selector: '#bt-dropin',
-            vaultManager: true,
-            card: {
-                cardholderName: true
-            },
-            paypal: {
-                flow: 'vault',
-                buttonStyle: {
-                    label: 'paypal',
-                    shape: 'rect',
-                    size: 'medium'
-                }
-
-            }
-        }, function (createErr, instance) {
-            if (createErr) {
-                console.log('Create Error', createErr);
-                return;
-            }
-            form.addEventListener('submit', function (event) {
-                event.preventDefault();
-                vm.loading = true;
-                instance.requestPaymentMethod(function (err, payload) {
-                    if (err) {
-                        vm.loading = false;
-                        vm.errorMessage = err.message;
-                        console.log('Request Payment Method Error', err);
-                        return;
-                    }
-
-                    // console.log(payload, 'payload');
-                    // Add the nonce to the form and submit
-                    document.querySelector('#payment').value = payload.nonce;
-                    form.submit();
-                });
-            });
-        });
-    },
-
-    methods: {}
-});
-
-/***/ }),
+/* 154 */,
 /* 155 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -96869,40 +96782,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 266 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Component = __webpack_require__(0)(
-  /* script */
-  __webpack_require__(154),
-  /* template */
-  __webpack_require__(294),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "/Users/skhatko/code/larabid/resources/assets/js/components/sell/PaymentForm.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] PaymentForm.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-7377b32e", Component.options)
-  } else {
-    hotAPI.reload("data-v-7377b32e", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
+/* 266 */,
 /* 267 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -100918,71 +100798,7 @@ if (false) {
 }
 
 /***/ }),
-/* 294 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('el-card', {
-    staticClass: "box-card"
-  }, [_c('div', {
-    staticClass: "h4",
-    attrs: {
-      "slot": "header"
-    },
-    slot: "header"
-  }, [_c('div', {
-    staticStyle: {
-      "margin-bottom": "10px"
-    }
-  }, [_vm._v("How you'll get paid")]), _vm._v(" "), _c('div', {
-    staticClass: "small"
-  }, [_vm._v("Choose how you want to receive payments for your sales.")])]), _vm._v(" "), _vm._t("default"), _vm._v(" "), _c('el-form', {
-    attrs: {
-      "id": "payment-form",
-      "method": "POST",
-      "action": "/sell/payments"
-    }
-  }, [_c('input', {
-    attrs: {
-      "type": "hidden",
-      "name": "_token"
-    },
-    domProps: {
-      "value": _vm.csrf
-    }
-  }), _vm._v(" "), _c('input', {
-    attrs: {
-      "type": "hidden",
-      "id": "payment",
-      "name": "payment"
-    }
-  }), _vm._v(" "), _c('el-form-item', [_c('div', {
-    attrs: {
-      "id": "bt-dropin"
-    }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "el-form-item__error"
-  }, [_vm._v(_vm._s(_vm.errorMessage))])]), _vm._v(" "), _c('div', {
-    staticClass: "app--fixed-bottom"
-  }, [_c('div', {
-    staticClass: "app--wrapper"
-  }, [_c('el-button', {
-    attrs: {
-      "type": "primary",
-      "native-type": "submit",
-      "loading": _vm.loading
-    }
-  }, [_vm._v("\n                    Save and Continue\n                ")])], 1)])], 1)], 2)
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-7377b32e", module.exports)
-  }
-}
-
-/***/ }),
+/* 294 */,
 /* 295 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -101206,22 +101022,9 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('el-card', {
+  return _c('div', {
     staticClass: "app-profile-form"
-  }, [(_vm.user.seller_type === 'artist' || _vm.user.seller_type === 'gallery') ? [_c('div', {
-    attrs: {
-      "slot": "header"
-    },
-    slot: "header"
-  }, [_c('div', {
-    staticClass: "app-profile-form-header"
-  }, [(_vm.sellRequest_) ? _c('span', [_vm._v("Please fill in Profile information")]) : _c('span', [_vm._v("Your Profile")]), _vm._v(" "), (!_vm.sellRequest_) ? _c('a', {
-    staticClass: "el-button el-button--default el-button--mini",
-    attrs: {
-      "href": '/' + _vm.user.profile_name,
-      "target": "_blank"
-    }
-  }, [_vm._v("View profile")]) : _vm._e()])]), _vm._v(" "), _c('el-form', {
+  }, [(_vm.request_seller_type_ || _vm.user.seller_type === 'artist' || _vm.user.seller_type === 'gallery') ? [_c('el-form', {
     ref: "profile",
     attrs: {
       "label-position": "top",
@@ -101229,11 +101032,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "status-icon": "",
       "rules": _vm.sellerRules
     }
-  }, [_c('el-row', {
+  }, [(!_vm.request_seller_type_) ? _c('el-row', {
     attrs: {
       "gutter": 20
     }
-  }, [_c('el-col', {
+  }, [_vm._v("\nf\n                    "), _c('el-col', {
     attrs: {
       "sm": 12
     }
@@ -101247,12 +101050,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "slot": "label"
     },
     slot: "label"
-  }, [_c('span', [_vm._v("\n                            Profile Picture\n                        ")]), _vm._v(" "), _c('el-popover', {
+  }, [_c('span', [_vm._v("\n                                Profile Picture\n                            ")]), _vm._v(" "), _c('el-popover', {
     attrs: {
       "width": "200",
       "trigger": "hover"
     }
-  }, [_c('span', [_vm._v("\n                                        This image represents you here on website.\n                                        Make sure your image is in good quality and has a nice smile :)\n                                    ")]), _vm._v(" "), _c('i', {
+  }, [_c('span', [_vm._v("\n                                            This image represents you here on website.\n                                            Make sure your image is in good quality and has a nice smile :)\n                                        ")]), _vm._v(" "), _c('i', {
     staticClass: "el-icon-info",
     attrs: {
       "slot": "reference"
@@ -101285,7 +101088,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "slot": "tip"
     },
     slot: "tip"
-  }, [_vm._v("*Must be a .jpg, .gif or .png file smaller than\n                                10MB\n                                and at least 400px by 400px.\n                            ")]), _vm._v(" "), (_vm.user.avatar_url) ? _c('img', {
+  }, [_vm._v("*Must be a .jpg, .gif or .png file smaller than\n                                    10MB\n                                    and at least 400px by 400px.\n                                ")]), _vm._v(" "), (_vm.user.avatar_url) ? _c('img', {
     staticClass: "avatar",
     attrs: {
       "src": '/imagecache/fit-290' + _vm.user.avatar_url
@@ -101302,12 +101105,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "slot": "label"
     },
     slot: "label"
-  }, [_vm._v("\n                        Profile background image\n                                "), _c('el-popover', {
+  }, [_vm._v("\n                            Profile background image\n                                    "), _c('el-popover', {
     attrs: {
       "width": "200",
       "trigger": "hover"
     }
-  }, [_c('span', [_vm._v("\n                                        Make your profile more professional,\n                                       put on background extra picture of your studio or yourself during\n                                       working or even your favourite art.\n                                    ")]), _vm._v(" "), _c('i', {
+  }, [_c('span', [_vm._v("\n                                            Make your profile more professional,\n                                           put on background extra picture of your studio or yourself during\n                                           working or even your favourite art.\n                                        ")]), _vm._v(" "), _c('i', {
     staticClass: "el-icon-info",
     attrs: {
       "slot": "reference"
@@ -101340,22 +101143,40 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "slot": "tip"
     },
     slot: "tip"
-  }, [_vm._v("*Must be a .jpg file smaller than 10MB and at\n                                least\n                                980px width.\n                            ")]), _vm._v(" "), _c('img', {
+  }, [_vm._v("*Must be a .jpg file smaller than 10MB and at\n                                    least\n                                    980px width.\n                                ")]), _vm._v(" "), _c('img', {
     staticClass: "image",
     attrs: {
       "src": '/imagecache/height-200' + _vm.user.image_url
     }
-  })], 1)], 1)], 1)], 1), _vm._v(" "), (_vm.user.seller_type === 'gallery') ? _c('el-row', {
+  })], 1)], 1)], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.seller_type === 'gallery' || _vm.request_seller_type_ === 'gallery') ? _c('el-row', {
     attrs: {
       "gutter": 20
     }
-  }, [_c('el-col', {
+  }, [(!_vm.user.email) ? _c('el-col', {
     attrs: {
-      "sm": 8
+      "sm": 12
     }
   }, [_c('el-form-item', {
     attrs: {
-      "label": "Business name / Gallery name"
+      "label": "Email",
+      "prop": "email"
+    }
+  }, [_c('el-input', {
+    model: {
+      value: (_vm.user.email),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "email", $$v)
+      },
+      expression: "user.email"
+    }
+  })], 1)], 1) : _vm._e(), _vm._v(" "), _c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Business name / Gallery name",
+      "prop": "company_name"
     }
   }, [_c('el-input', {
     model: {
@@ -101365,13 +101186,30 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.company_name"
     }
+  })], 1)], 1), _vm._v(" "), _c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Website / Portfolio",
+      "prop": "website"
+    }
+  }, [_c('el-input', {
+    model: {
+      value: (_vm.user.website),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "website", $$v)
+      },
+      expression: "user.website"
+    }
   })], 1)], 1)], 1) : _vm._e(), _vm._v(" "), _c('el-row', {
     attrs: {
       "gutter": 20
     }
   }, [_c('el-col', {
     attrs: {
-      "sm": 8
+      "sm": 12
     }
   }, [_c('el-form-item', {
     attrs: {
@@ -101389,7 +101227,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1)], 1), _vm._v(" "), _c('el-col', {
     attrs: {
-      "sm": 8
+      "sm": 12
     }
   }, [_c('el-form-item', {
     attrs: {
@@ -101405,7 +101243,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.last_name"
     }
-  })], 1)], 1)], 1), _vm._v(" "), (_vm.user.seller_type === 'artist') ? _c('el-row', [_c('el-form-item', {
+  })], 1)], 1)], 1), _vm._v(" "), (_vm.user.seller_type === 'artist' || _vm.request_seller_type_ === 'artist') ? _c('el-row', [_c('el-form-item', {
     attrs: {
       "label": "Gender",
       "prop": "gender"
@@ -101424,14 +101262,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "label": gender.value
       }
-    }, [_vm._v(_vm._s(gender.label) + "\n                        ")])
-  }))], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.seller_type === 'artist') ? _c('el-row', {
+    }, [_vm._v(_vm._s(gender.label) + "\n                            ")])
+  }))], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.seller_type === 'artist' || _vm.request_seller_type_ === 'artist') ? _c('el-row', {
     attrs: {
       "gutter": 20
     }
   }, [_c('el-col', {
     attrs: {
-      "sm": 8
+      "sm": 12
     }
   }, [_c('el-form-item', {
     attrs: {
@@ -101461,7 +101299,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     })
   }))], 1)], 1), _vm._v(" "), _c('el-col', {
     attrs: {
-      "sm": 8
+      "sm": 12
     }
   }, [_c('el-form-item', {
     attrs: {
@@ -101499,7 +101337,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('el-col', {
     attrs: {
-      "sm": 8
+      "sm": 12
     }
   }, [_c('el-form-item', {
     attrs: {
@@ -101530,7 +101368,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     })
   }))], 1)], 1), _vm._v(" "), _c('el-col', {
     attrs: {
-      "sm": 8
+      "sm": 12
     }
   }, [_c('el-form-item', {
     attrs: {
@@ -101554,7 +101392,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('el-col', {
     attrs: {
-      "sm": 8
+      "sm": 12
     }
   }, [_c('el-form-item', {
     attrs: {
@@ -101571,7 +101409,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1)], 1), _vm._v(" "), _c('el-col', {
     attrs: {
-      "sm": 8
+      "sm": 12
     }
   }, [_c('el-form-item', {
     attrs: {
@@ -101592,7 +101430,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('el-col', {
     attrs: {
-      "sm": 8
+      "sm": 12
     }
   }, [_c('el-form-item', {
     attrs: {
@@ -101612,7 +101450,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1)], 1), _vm._v(" "), _c('el-col', {
     attrs: {
-      "sm": 8
+      "sm": 12
     }
   }, [_c('el-form-item', {
     attrs: {
@@ -101644,13 +101482,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.phone"
     }
-  })], 1)], 1)], 1), _vm._v(" "), (_vm.user.seller_type === 'artist') ? _c('el-row', {
+  })], 1)], 1)], 1), _vm._v(" "), (_vm.user.seller_type === 'artist' || _vm.request_seller_type_ === 'artist') ? _c('el-row', {
     attrs: {
       "gutter": 20
     }
   }, [_c('el-col', {
     attrs: {
-      "sm": 8
+      "sm": 12
     }
   }, [_c('el-form-item', {
     attrs: {
@@ -101670,9 +101508,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.dob"
     }
-  })], 1)], 1), _vm._v(" "), _c('el-col', {
+  })], 1)], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.seller_type === 'artist' || _vm.request_seller_type_ === 'artist') ? _c('el-row', {
     attrs: {
-      "sm": 8
+      "gutter": 20
+    }
+  }, [_c('el-col', {
+    attrs: {
+      "sm": 12
     }
   }, [_c('el-form-item', {
     attrs: {
@@ -101691,13 +101533,30 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.education_born"
     }
-  })], 1)], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.seller_type === 'artist') ? _c('el-row', {
+  })], 1)], 1), _vm._v(" "), _c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Website / Portfolio",
+      "prop": "website"
+    }
+  }, [_c('el-input', {
+    model: {
+      value: (_vm.user.website),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "website", $$v)
+      },
+      expression: "user.website"
+    }
+  })], 1)], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.seller_type === 'artist' || _vm.request_seller_type_ === 'artist') ? _c('el-row', {
     attrs: {
       "gutter": 20
     }
   }, [_c('el-col', {
     attrs: {
-      "sm": 8
+      "sm": 12
     }
   }, [_c('el-form-item', {
     attrs: {
@@ -101714,7 +101573,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1)], 1), _vm._v(" "), _c('el-col', {
     attrs: {
-      "sm": 8
+      "sm": 12
     }
   }, [_c('el-form-item', {
     attrs: {
@@ -101742,15 +101601,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "value": title.value
       }
     })
-  }))], 1)], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.seller_type === 'artist') ? _c('el-row', {
+  }))], 1)], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.seller_type === 'artist' || _vm.request_seller_type_ === 'artist') ? _c('el-row', {
     attrs: {
       "gutter": 20
     }
-  }, [_c('el-col', {
-    attrs: {
-      "sm": 16
-    }
-  }, [_c('el-form-item', [_c('span', {
+  }, [_c('el-col', [_c('el-form-item', [_c('span', {
     attrs: {
       "slot": "label"
     },
@@ -101767,15 +101622,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.about"
     }
-  })], 1)], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.seller_type === 'artist') ? _c('el-row', {
+  })], 1)], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.seller_type === 'artist' || _vm.request_seller_type_ === 'artist') ? _c('el-row', {
     attrs: {
       "gutter": 20
     }
-  }, [_c('el-col', {
-    attrs: {
-      "sm": 16
-    }
-  }, [_c('el-form-item', {
+  }, [_c('el-col', [_c('el-form-item', {
     attrs: {
       "prop": "inspiration"
     }
@@ -101795,11 +101646,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.inspiration"
     }
-  })], 1)], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.seller_type === 'artist') ? _c('el-row', [_c('el-col', {
-    attrs: {
-      "sm": 16
-    }
-  }, [_c('el-form-item', {
+  })], 1)], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.seller_type === 'artist' || _vm.request_seller_type_ === 'artist') ? _c('el-row', [_c('el-col', [_c('el-form-item', {
     attrs: {
       "label": "Exhibitions",
       "prop": "exhibition"
@@ -101825,17 +101672,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "margin-top": "20px",
       "text-align": "right"
     }
-  }, [(!_vm.sellRequest_) ? _c('el-button', [_c('a', {
+  }, [(!_vm.request_seller_type_) ? _c('el-button', [_c('a', {
     attrs: {
       "href": '/' + _vm.user.profile_name,
       "target": "_blank"
     }
-  }, [_vm._v("Preview")])]) : _vm._e(), _vm._v(" "), (_vm.sellRequest_) ? _c('a', {
-    staticClass: "el-button el-button--default",
-    attrs: {
-      "href": "/sell/profile-name"
-    }
-  }, [_vm._v("Edit name")]) : _vm._e(), _vm._v(" "), _c('el-button', {
+  }, [_vm._v("Preview")])]) : _vm._e(), _vm._v(" "), _c('el-button', {
     attrs: {
       "type": "primary",
       "loading": _vm.loading
@@ -101845,16 +101687,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.save()
       }
     }
-  }, [_vm._v("\n                    Save and Continue\n                ")])], 1)], 1)] : [_c('div', {
+  }, [_vm._v("\n                        " + _vm._s(_vm.request_seller_type_ ? 'Apply' : 'Save') + "\n                    ")])], 1)], 1)] : [_c('el-form', {
+    ref: "profile",
     attrs: {
-      "slot": "header"
-    },
-    slot: "header"
-  }, [_c('div', {
-    staticClass: "app-profile-form-header"
-  }, [_c('span', [_vm._v("Your Public Profile")])])]), _vm._v(" "), _c('el-form', {
-    attrs: {
-      "label-position": "top"
+      "label-position": "top",
+      "model": _vm.user,
+      "status-icon": "",
+      "rules": _vm.userRules
     }
   }, [_c('el-row', {
     attrs: {
@@ -101869,12 +101708,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "slot": "label"
     },
     slot: "label"
-  }, [_c('span', [_vm._v("\n                            Profile Picture\n                        ")]), _vm._v(" "), _c('el-popover', {
+  }, [_c('span', [_vm._v("\n                                Profile Picture\n                            ")]), _vm._v(" "), _c('el-popover', {
     attrs: {
       "width": "200",
       "trigger": "hover"
     }
-  }, [_c('span', [_vm._v("\n                                        This image represents you here on website.\n                                        Make sure your image is in good quality and has a nice smile :)\n                                    ")]), _vm._v(" "), _c('i', {
+  }, [_c('span', [_vm._v("\n                                            This image represents you here on website.\n                                            Make sure your image is in good quality and has a nice smile :)\n                                        ")]), _vm._v(" "), _c('i', {
     staticClass: "el-icon-info",
     attrs: {
       "slot": "reference"
@@ -101907,26 +101746,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "slot": "tip"
     },
     slot: "tip"
-  }, [_vm._v("*Must be a .jpg, .gif or .png file smaller than\n                                10MB\n                                and at least 400px by 400px.\n                            ")]), _vm._v(" "), (_vm.user.avatar_url) ? _c('img', {
+  }, [_vm._v("*Must be a .jpg, .gif or .png file smaller than\n                                    10MB\n                                    and at least 400px by 400px.\n                                ")]), _vm._v(" "), (_vm.user.avatar_url) ? _c('img', {
     staticClass: "avatar",
     attrs: {
       "src": '/imagecache/fit-290' + _vm.user.avatar_url
     }
-  }) : _vm._e()], 1)], 1)], 1)], 1)], 1), _vm._v(" "), _c('el-form', {
-    ref: "profile",
-    attrs: {
-      "label-position": "top",
-      "model": _vm.user,
-      "status-icon": "",
-      "rules": _vm.userRules
-    }
-  }, [_c('el-row', {
+  }) : _vm._e()], 1)], 1)], 1)], 1), _vm._v(" "), _c('el-row', {
     attrs: {
       "gutter": 20
     }
   }, [_c('el-col', {
     attrs: {
-      "sm": 8
+      "sm": 12
     }
   }, [_c('el-form-item', {
     attrs: {
@@ -101943,7 +101774,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1)], 1), _vm._v(" "), _c('el-col', {
     attrs: {
-      "sm": 8
+      "sm": 12
     }
   }, [_c('el-form-item', {
     attrs: {
@@ -101977,14 +101808,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "label": gender.value
       }
-    }, [_vm._v(_vm._s(gender.label) + "\n                        ")])
+    }, [_vm._v(_vm._s(gender.label) + "\n                            ")])
   }))], 1)], 1), _vm._v(" "), _c('el-row', {
     attrs: {
       "gutter": 20
     }
   }, [_c('el-col', {
     attrs: {
-      "sm": 8
+      "sm": 12
     }
   }, [_c('el-form-item', {
     attrs: {
@@ -102014,7 +101845,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     })
   }))], 1)], 1), _vm._v(" "), _c('el-col', {
     attrs: {
-      "sm": 8
+      "sm": 12
     }
   }, [_c('el-form-item', {
     attrs: {
@@ -102034,7 +101865,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1)], 1)], 1), _vm._v(" "), _c('el-row', [_c('el-col', {
     attrs: {
-      "sm": 8
+      "sm": 12
     }
   }, [_c('el-form-item', {
     attrs: {
@@ -102054,11 +101885,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.dob"
     }
-  })], 1)], 1)], 1), _vm._v(" "), _c('el-row', [_c('el-col', {
-    attrs: {
-      "sm": 16
-    }
-  }, [_c('el-form-item', [_c('span', {
+  })], 1)], 1)], 1), _vm._v(" "), _c('el-row', [_c('el-col', [_c('el-form-item', [_c('span', {
     attrs: {
       "slot": "label"
     },
@@ -103750,6 +103577,136 @@ var index_esm = {
 __webpack_require__(81);
 module.exports = __webpack_require__(82);
 
+
+/***/ }),
+/* 316 */,
+/* 317 */,
+/* 318 */,
+/* 319 */,
+/* 320 */,
+/* 321 */,
+/* 322 */,
+/* 323 */,
+/* 324 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: {
+        authorization_: ''
+    },
+    data: function data() {
+        return {
+            dialogVisible: false,
+            requestSellerType: ''
+        };
+    },
+    mounted: function mounted() {},
+
+    methods: {
+        showArtistForm: function showArtistForm() {
+            this.requestSellerType = 'artist';
+            this.dialogVisible = true;
+        },
+        showGalleryForm: function showGalleryForm() {
+            this.requestSellerType = 'gallery';
+            this.dialogVisible = true;
+        }
+    }
+});
+
+/***/ }),
+/* 325 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(324),
+  /* template */
+  __webpack_require__(326),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/skhatko/code/larabid/resources/assets/js/components/sell/SellProfileForm.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] SellProfileForm.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-21211c1f", Component.options)
+  } else {
+    hotAPI.reload("data-v-21211c1f", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 326 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('span', {
+    on: {
+      "click": _vm.showArtistForm
+    }
+  }, [_vm._t("artist")], 2), _vm._v(" "), _c('span', {
+    on: {
+      "click": _vm.showGalleryForm
+    }
+  }, [_vm._t("gallery")], 2), _vm._v(" "), _c('el-dialog', {
+    attrs: {
+      "visible": _vm.dialogVisible,
+      "width": "600px"
+    },
+    on: {
+      "update:visible": function($event) {
+        _vm.dialogVisible = $event
+      }
+    }
+  }, [_c('profile-form', {
+    attrs: {
+      "request_seller_type_": _vm.requestSellerType
+    }
+  })], 1)], 1)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-21211c1f", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

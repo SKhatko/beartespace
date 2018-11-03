@@ -9,9 +9,11 @@
 
             <div class="h2">Thousand of art lovers can’t wait to see your art</div>
 
-            <a href="/sell/profile-name/artist" class="el-button el-button--default is-plain" style="margin-top: 20px;">I'm an Artist, I want to sell my Artworks</a>
+            <sell-profile-form style="margin-top: 20px;">
+                <el-button type="primary" slot="artist">Apply as an artist</el-button>
+                <el-button type="primary" slot="gallery">Apply as an gallery</el-button>
+            </sell-profile-form>
 
-            <a href="/sell/profile-name/gallery" class="el-button el-button--default is-plain" style="margin-top: 20px;">I'm a collector/gallery, I want to sell my art</a>
 
             <div class="h3" style="margin-top: 30px;">Need to make texts for this page</div>
             <p>Here we say about 2(3) subscription plans. 1 is free. 2 is 100eur/month and include publishing artworks

@@ -41,9 +41,9 @@ class SellController extends Controller {
 		return redirect( '/sell/profile' );
 	}
 
-	public function profile() {
+	public function profile($sellerType) {
 
-		return view( 'sell.profile' );
+		return view( 'sell.profile', compact('sellerType'));
 	}
 
 	public function artworks() {
