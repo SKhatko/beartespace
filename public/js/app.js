@@ -27766,6 +27766,8 @@ Vue.component('languages-form', __webpack_require__(249));
 Vue.component('pages', __webpack_require__(251));
 Vue.component('page-form', __webpack_require__(250));
 Vue.component('users-form', __webpack_require__(254));
+Vue.component('users-row', __webpack_require__(331));
+Vue.component('user-form', __webpack_require__(334));
 Vue.component('dashboard-articles', __webpack_require__(248));
 Vue.component('article-form', __webpack_require__(247));
 
@@ -32278,107 +32280,55 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-
     props: {
         users_: {}
     },
-
     data: function data() {
         return {
+            loaded: false,
+            filter: '',
             users: {}
         };
     },
     mounted: function mounted() {
-
         if (this.users_) {
             this.users = JSON.parse(this.users_);
         }
+        this.loaded = true;
 
         console.log(this.users);
     },
 
-
     methods: {
-        deleteUser: function deleteUser(index, rows) {
+        filterUsers: function filterUsers() {
             var _this = this;
 
-            this.$confirm('This will permanently delete user. Continue?', 'Warning', {
-                confirmButtonText: 'OK',
-                cancelButtonText: 'Cancel',
-                type: 'warning'
-            }).then(function () {
-                var user = rows[index];
-
-                axios.post('/api/user', user).then(function (response) {
-                    _this.$message({
-                        type: response.data.type,
-                        message: response.data.message
-                    });
-
-                    rows.splice(index, 1);
-                });
+            this.users = JSON.parse(this.users_).filter(function (user) {
+                return user.name.toLowerCase().indexOf(_this.filter.toLowerCase()) >= 0;
+            });
+        }
+    },
+    computed: {
+        artists: function artists() {
+            return this.users.filter(function (user) {
+                return user.seller_type === 'artist';
             });
         },
-        filterTag: function filterTag(value, row, column) {
-            console.log(value);
-            console.log(row);
-            var property = column['property'];
-            return row[property] === value;
+        galleries: function galleries() {
+            return this.users.filter(function (user) {
+                return user.seller_type === 'gallery';
+            });
         },
-        save: function save() {
-
-            axios.post('/api/users/', this.users).then(function (response) {
-                if (response.data) {
-                    console.log(response.data);
-                    window.location.reload();
-                } else {
-                    console.log(response.data);
-                }
+        admins: function admins() {
+            return this.users.filter(function (user) {
+                return user.role === 'admin';
+            });
+        },
+        newSellers: function newSellers() {
+            return this.users.filter(function (user) {
+                return user.seller_status === 'pending';
             });
         }
     }
@@ -33460,13 +33410,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -33482,19 +33425,45 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             loading: false,
             user: {},
             sellerRules: {
-                first_name: [{ required: true, message: 'Please enter first name', trigger: 'blur' }],
-                last_name: [{ required: true, message: 'Please enter last name', trigger: 'blur' }],
-                company_name: [{ required: true, message: 'Please enter the name of your business', trigger: 'blur' }],
-                gender: [{ required: true, message: 'Please specify your sex', trigger: 'blur' }],
-                nationality_id: [{ required: true, message: 'Please enter your nationality', trigger: 'blur' }],
-                profession: [{ required: true, message: 'Please select your profession', trigger: 'blur' }],
-                country_id: [{ required: true, message: 'Please specify your country', trigger: 'blur' }],
-                city: [{ required: true, message: 'Please specify your city', trigger: 'blur' }],
-                region: [{ required: true, message: 'Please specify your region', trigger: 'blur' }],
-                postcode: [{ required: true, message: 'Please specify your postcode', trigger: 'blur' }],
-                address: [{ required: true, message: 'Please enter your address', trigger: 'blur' }],
-                dob: [{ required: true, message: 'Please specify your date of birth', trigger: 'blur' }],
-                phone: [{ required: true, message: 'Please enter valid phone number', trigger: 'blur' }]
+                // first_name: [
+                //     {required: true, message: 'Please enter first name', trigger: 'blur'}
+                // ],
+                // last_name: [
+                //     {required: true, message: 'Please enter last name', trigger: 'blur'}
+                // ],
+                // company_name: [
+                //     {required: true, message: 'Please enter the name of your business', trigger: 'blur'}
+                // ],
+                // gender: [
+                //     {required: true, message: 'Please specify your sex', trigger: 'blur'}
+                // ],
+                // nationality_id: [
+                //     {required: true, message: 'Please enter your nationality', trigger: 'blur'}
+                // ],
+                // profession: [
+                //     {required: true, message: 'Please select your profession', trigger: 'blur'}
+                // ],
+                // country_id: [
+                //     {required: true, message: 'Please specify your country', trigger: 'blur'}
+                // ],
+                // city: [
+                //     {required: true, message: 'Please specify your city', trigger: 'blur'}
+                // ],
+                // region: [
+                //     {required: true, message: 'Please specify your region', trigger: 'blur'}
+                // ],
+                // postcode: [
+                //     {required: true, message: 'Please specify your postcode', trigger: 'blur'}
+                // ],
+                // address: [
+                //     {required: true, message: 'Please enter your address', trigger: 'blur'}
+                // ],
+                // dob: [
+                //     {required: true, message: 'Please specify your date of birth', trigger: 'blur'}
+                // ],
+                // phone: [
+                //     {required: true, message: 'Please enter valid phone number', trigger: 'blur'}
+                // ]
             },
             userRules: {
                 first_name: [{ required: true, message: 'Please enter first name', trigger: 'blur' }],
@@ -33516,9 +33485,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             console.log(error.response);
         });
 
-        // if (this.user_) {
-        //     this.user = JSON.parse(this.user_);
-        // }
+        if (this.request_seller_type_) {
+            this.user.seller_type = this.request_seller_type_;
+        }
 
         console.log(this.user);
 
@@ -33579,18 +33548,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 if (valid) {
                     _this2.loading = true;
                     console.log(_this2.user);
-                    axios.post('/api/profile/', _this2.user).then(function (response) {
-                        console.log(response.data);
 
-                        if (_this2.request_seller_type_) {
-                            // window.location = '/sell/artwork';
-                        } else {
+                    if (_this2.request_seller_type_) {
+                        _this2.user.seller_type = _this2.request_seller_type_;
+                        _this2.user.seller_status = 'pending';
+                        axios.post('/api/sell/apply', _this2.user).then(function (response) {
+                            console.log(response.data);
+
+                            _this2.$alert('Your profile will be reviewed and you' + 'll get a response from us in a few working days', 'Thank you for contacting us.', {
+                                confirmButtonText: 'OK',
+                                callback: function callback(action) {
+                                    console.log(action);
+                                    window.location = '/';
+                                }
+                            });
+                        }).catch(function (error) {
+                            _this2.loading = false;
+                            _this2.$store.commit('setErrors', error.response.data.errors);
+                            console.log(error.response);
+                        });
+                    } else {
+                        axios.post('/api/profile/', _this2.user).then(function (response) {
                             window.location = '/dashboard';
-                        }
-                    }).catch(function (error) {
-                        _this2.loading = false;
-                        console.log(error.response);
-                    });
+                        }).catch(function (error) {
+                            _this2.loading = false;
+                            console.log(error.response);
+                        });
+                    }
                 }
             });
         }
@@ -96361,13 +96345,17 @@ module.exports = Component.exports
 /* 254 */
 /***/ (function(module, exports, __webpack_require__) {
 
+
+/* styles */
+__webpack_require__(328)
+
 var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(141),
   /* template */
   __webpack_require__(278),
   /* scopeId */
-  null,
+  "data-v-38d70040",
   /* cssModules */
   null
 )
@@ -98953,115 +98941,76 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('el-card', [(_vm.users) ? [(_vm.users.length) ? _c('el-table', {
+  return (_vm.loaded) ? _c('div', {
+    staticClass: "app-dashboard-users"
+  }, [_c('el-card', [_c('el-input', {
     staticStyle: {
-      "width": "100%"
+      "max-width": "290px",
+      "margin-bottom": "20px"
     },
     attrs: {
-      "data": _vm.users
+      "placeholder": "Filter"
+    },
+    on: {
+      "input": _vm.filterUsers
+    },
+    model: {
+      value: (_vm.filter),
+      callback: function($$v) {
+        _vm.filter = $$v
+      },
+      expression: "filter"
     }
-  }, [_c('el-table-column', {
+  }), _vm._v(" "), _c('el-tabs', {
     attrs: {
-      "type": "expand"
-    },
-    scopedSlots: _vm._u([{
-      key: "default",
-      fn: function(props) {
-        return [_vm._v("\n                    " + _vm._s(props.row) + "\n                ")]
-      }
-    }])
-  }), _vm._v(" "), _c('el-table-column', {
+      "value": "all"
+    }
+  }, [_c('el-tab-pane', {
     attrs: {
-      "sortable": "",
-      "label": "id"
-    },
-    scopedSlots: _vm._u([{
-      key: "default",
-      fn: function(scope) {
-        return [_vm._v("\n                    " + _vm._s(scope.row.id) + "\n                ")]
-      }
-    }])
-  }), _vm._v(" "), _c('el-table-column', {
+      "label": 'All users (' + _vm.users.length + ')',
+      "name": "all"
+    }
+  }, [_c('users-row', {
     attrs: {
-      "sortable": "",
-      "label": "Name",
-      "width": "180"
-    },
-    scopedSlots: _vm._u([{
-      key: "default",
-      fn: function(scope) {
-        return [_vm._v("\n                    " + _vm._s(scope.row.name) + "\n                ")]
-      }
-    }])
-  }), _vm._v(" "), _c('el-table-column', {
+      "users": _vm.users
+    }
+  })], 1), _vm._v(" "), _c('el-tab-pane', {
     attrs: {
-      "sortable": "",
-      "label": "Email",
-      "width": "180"
-    },
-    scopedSlots: _vm._u([{
-      key: "default",
-      fn: function(scope) {
-        return [_vm._v("\n                    " + _vm._s(scope.row.email) + "\n                ")]
-      }
-    }])
-  }), _vm._v(" "), _c('el-table-column', {
+      "label": 'Admins  (' + _vm.admins.length + ')',
+      "name": "admins"
+    }
+  }, [_c('users-row', {
     attrs: {
-      "filters": [{
-        text: 'Author',
-        value: 'author'
-      }, {
-        text: 'User',
-        value: 'user'
-      }, {
-        text: 'Gallery',
-        value: 'gallery'
-      }, {
-        text: 'Admin',
-        value: 'admin'
-      }],
-      "filter-method": _vm.filterTag,
-      "label": "Type"
-    },
-    scopedSlots: _vm._u([{
-      key: "default",
-      fn: function(scope) {
-        return [_vm._v("\n                    " + _vm._s(scope.row.roles) + "\n                    ")]
-      }
-    }])
-  }), _vm._v(" "), _c('el-table-column', {
+      "users": _vm.admins
+    }
+  })], 1), _vm._v(" "), _c('el-tab-pane', {
     attrs: {
-      "label": "Active"
-    },
-    scopedSlots: _vm._u([{
-      key: "default",
-      fn: function(scope) {
-        return [_vm._v("\n                    " + _vm._s(scope.row.active_status) + "\n                    ")]
-      }
-    }])
-  }), _vm._v(" "), _c('el-table-column', {
+      "label": 'Artists (' + _vm.artists.length + ')',
+      "name": "artists"
+    }
+  }, [_c('users-row', {
     attrs: {
-      "label": ""
-    },
-    scopedSlots: _vm._u([{
-      key: "default",
-      fn: function(scope) {
-        return [(scope.row.role !== 'admin') ? _c('el-button', {
-          attrs: {
-            "type": "danger",
-            "icon": "el-icon-delete",
-            "circle": ""
-          },
-          nativeOn: {
-            "click": function($event) {
-              $event.preventDefault();
-              _vm.deleteUser(scope.$index, _vm.users)
-            }
-          }
-        }) : _vm._e()]
-      }
-    }])
-  })], 1) : _vm._e()] : _vm._e()], 2)
+      "users": _vm.artists
+    }
+  })], 1), _vm._v(" "), _c('el-tab-pane', {
+    attrs: {
+      "label": 'Galleries (' + _vm.galleries.length + ')',
+      "name": "galleries"
+    }
+  }, [_c('users-row', {
+    attrs: {
+      "users": _vm.galleries
+    }
+  })], 1), _vm._v(" "), _c('el-tab-pane', {
+    attrs: {
+      "label": 'New sellers  (' + _vm.newSellers.length + ')',
+      "name": "new"
+    }
+  }, [_c('users-row', {
+    attrs: {
+      "users": _vm.newSellers
+    }
+  })], 1)], 1)], 1)], 1) : _vm._e()
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -101024,7 +100973,7 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "app-profile-form"
-  }, [(_vm.request_seller_type_ || _vm.user.seller_type === 'artist' || _vm.user.seller_type === 'gallery') ? [_c('el-form', {
+  }, [_c('errors'), _vm._v(" "), (_vm.request_seller_type_ || _vm.user.seller_type === 'artist' || _vm.user.seller_type === 'gallery') ? [_c('el-form', {
     ref: "profile",
     attrs: {
       "label-position": "top",
@@ -101036,7 +100985,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "gutter": 20
     }
-  }, [_vm._v("\nf\n                    "), _c('el-col', {
+  }, [_c('el-col', {
     attrs: {
       "sm": 12
     }
@@ -101050,12 +100999,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "slot": "label"
     },
     slot: "label"
-  }, [_c('span', [_vm._v("\n                                Profile Picture\n                            ")]), _vm._v(" "), _c('el-popover', {
+  }, [_c('span', [_vm._v("\n                            Profile Picture\n                        ")]), _vm._v(" "), _c('el-popover', {
     attrs: {
       "width": "200",
       "trigger": "hover"
     }
-  }, [_c('span', [_vm._v("\n                                            This image represents you here on website.\n                                            Make sure your image is in good quality and has a nice smile :)\n                                        ")]), _vm._v(" "), _c('i', {
+  }, [_c('span', [_vm._v("\n                                        This image represents you here on website.\n                                        Make sure your image is in good quality and has a nice smile :)\n                                    ")]), _vm._v(" "), _c('i', {
     staticClass: "el-icon-info",
     attrs: {
       "slot": "reference"
@@ -101088,7 +101037,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "slot": "tip"
     },
     slot: "tip"
-  }, [_vm._v("*Must be a .jpg, .gif or .png file smaller than\n                                    10MB\n                                    and at least 400px by 400px.\n                                ")]), _vm._v(" "), (_vm.user.avatar_url) ? _c('img', {
+  }, [_vm._v("*Must be a .jpg, .gif or .png file smaller than\n                                10MB\n                                and at least 400px by 400px.\n                            ")]), _vm._v(" "), (_vm.user.avatar_url) ? _c('img', {
     staticClass: "avatar",
     attrs: {
       "src": '/imagecache/fit-290' + _vm.user.avatar_url
@@ -101105,12 +101054,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "slot": "label"
     },
     slot: "label"
-  }, [_vm._v("\n                            Profile background image\n                                    "), _c('el-popover', {
+  }, [_vm._v("\n                        Profile background image\n                                "), _c('el-popover', {
     attrs: {
       "width": "200",
       "trigger": "hover"
     }
-  }, [_c('span', [_vm._v("\n                                            Make your profile more professional,\n                                           put on background extra picture of your studio or yourself during\n                                           working or even your favourite art.\n                                        ")]), _vm._v(" "), _c('i', {
+  }, [_c('span', [_vm._v("\n                                        Make your profile more professional,\n                                       put on background extra picture of your studio or yourself during\n                                       working or even your favourite art.\n                                    ")]), _vm._v(" "), _c('i', {
     staticClass: "el-icon-info",
     attrs: {
       "slot": "reference"
@@ -101143,33 +101092,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "slot": "tip"
     },
     slot: "tip"
-  }, [_vm._v("*Must be a .jpg file smaller than 10MB and at\n                                    least\n                                    980px width.\n                                ")]), _vm._v(" "), _c('img', {
+  }, [_vm._v("*Must be a .jpg file smaller than 10MB and at\n                                least\n                                980px width.\n                            ")]), _vm._v(" "), _c('img', {
     staticClass: "image",
     attrs: {
       "src": '/imagecache/height-200' + _vm.user.image_url
     }
-  })], 1)], 1)], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.seller_type === 'gallery' || _vm.request_seller_type_ === 'gallery') ? _c('el-row', {
+  })], 1)], 1)], 1)], 1) : _vm._e(), _vm._v(" "), _c('el-row', {
     attrs: {
       "gutter": 20
     }
-  }, [(!_vm.user.email) ? _c('el-col', {
-    attrs: {
-      "sm": 12
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Email",
-      "prop": "email"
-    }
-  }, [_c('el-input', {
-    model: {
-      value: (_vm.user.email),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "email", $$v)
-      },
-      expression: "user.email"
-    }
-  })], 1)], 1) : _vm._e(), _vm._v(" "), _c('el-col', {
+  }, [(_vm.user.seller_type === 'gallery' || _vm.request_seller_type_ === 'gallery') ? _c('el-col', {
     attrs: {
       "sm": 12
     }
@@ -101186,24 +101118,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.company_name"
     }
-  })], 1)], 1), _vm._v(" "), _c('el-col', {
-    attrs: {
-      "sm": 12
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Website / Portfolio",
-      "prop": "website"
-    }
-  }, [_c('el-input', {
-    model: {
-      value: (_vm.user.website),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "website", $$v)
-      },
-      expression: "user.website"
-    }
-  })], 1)], 1)], 1) : _vm._e(), _vm._v(" "), _c('el-row', {
+  })], 1)], 1) : _vm._e()], 1), _vm._v(" "), _c('el-row', {
     attrs: {
       "gutter": 20
     }
@@ -101243,7 +101158,28 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.last_name"
     }
-  })], 1)], 1)], 1), _vm._v(" "), (_vm.user.seller_type === 'artist' || _vm.request_seller_type_ === 'artist') ? _c('el-row', [_c('el-form-item', {
+  })], 1)], 1)], 1), _vm._v(" "), _c('el-row', {
+    attrs: {
+      "gutter": 20
+    }
+  }, [_c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Website / Portfolio",
+      "prop": "website"
+    }
+  }, [_c('el-input', {
+    model: {
+      value: (_vm.user.website),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "website", $$v)
+      },
+      expression: "user.website"
+    }
+  })], 1)], 1)], 1), _vm._v(" "), (_vm.request_seller_type_ === 'artist' || _vm.user.seller_type === 'artist') ? _c('el-row', [_c('el-form-item', {
     attrs: {
       "label": "Gender",
       "prop": "gender"
@@ -101262,7 +101198,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "label": gender.value
       }
-    }, [_vm._v(_vm._s(gender.label) + "\n                            ")])
+    }, [_vm._v(_vm._s(gender.label) + "\n                        ")])
   }))], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.seller_type === 'artist' || _vm.request_seller_type_ === 'artist') ? _c('el-row', {
     attrs: {
       "gutter": 20
@@ -101342,8 +101278,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('el-form-item', {
     attrs: {
       "label": "Country",
-      "prop": "country_id",
-      "required": ""
+      "prop": "country_id"
     }
   }, [_c('el-select', {
     attrs: {
@@ -101533,23 +101468,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.education_born"
     }
-  })], 1)], 1), _vm._v(" "), _c('el-col', {
-    attrs: {
-      "sm": 12
-    }
-  }, [_c('el-form-item', {
-    attrs: {
-      "label": "Website / Portfolio",
-      "prop": "website"
-    }
-  }, [_c('el-input', {
-    model: {
-      value: (_vm.user.website),
-      callback: function($$v) {
-        _vm.$set(_vm.user, "website", $$v)
-      },
-      expression: "user.website"
-    }
   })], 1)], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.seller_type === 'artist' || _vm.request_seller_type_ === 'artist') ? _c('el-row', {
     attrs: {
       "gutter": 20
@@ -101672,12 +101590,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "margin-top": "20px",
       "text-align": "right"
     }
-  }, [(!_vm.request_seller_type_) ? _c('el-button', [_c('a', {
-    attrs: {
-      "href": '/' + _vm.user.profile_name,
-      "target": "_blank"
-    }
-  }, [_vm._v("Preview")])]) : _vm._e(), _vm._v(" "), _c('el-button', {
+  }, [_c('el-button', {
     attrs: {
       "type": "primary",
       "loading": _vm.loading
@@ -101687,7 +101600,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.save()
       }
     }
-  }, [_vm._v("\n                        " + _vm._s(_vm.request_seller_type_ ? 'Apply' : 'Save') + "\n                    ")])], 1)], 1)] : [_c('el-form', {
+  }, [_vm._v("\n                    " + _vm._s(_vm.request_seller_type_ ? 'Apply' : 'Save') + "\n                ")])], 1)], 1)] : [_c('el-form', {
     ref: "profile",
     attrs: {
       "label-position": "top",
@@ -101708,12 +101621,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "slot": "label"
     },
     slot: "label"
-  }, [_c('span', [_vm._v("\n                                Profile Picture\n                            ")]), _vm._v(" "), _c('el-popover', {
+  }, [_c('span', [_vm._v("\n                            Profile Picture\n                        ")]), _vm._v(" "), _c('el-popover', {
     attrs: {
       "width": "200",
       "trigger": "hover"
     }
-  }, [_c('span', [_vm._v("\n                                            This image represents you here on website.\n                                            Make sure your image is in good quality and has a nice smile :)\n                                        ")]), _vm._v(" "), _c('i', {
+  }, [_c('span', [_vm._v("\n                                        This image represents you here on website.\n                                        Make sure your image is in good quality and has a nice smile :)\n                                    ")]), _vm._v(" "), _c('i', {
     staticClass: "el-icon-info",
     attrs: {
       "slot": "reference"
@@ -101746,7 +101659,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "slot": "tip"
     },
     slot: "tip"
-  }, [_vm._v("*Must be a .jpg, .gif or .png file smaller than\n                                    10MB\n                                    and at least 400px by 400px.\n                                ")]), _vm._v(" "), (_vm.user.avatar_url) ? _c('img', {
+  }, [_vm._v("*Must be a .jpg, .gif or .png file smaller than\n                                10MB\n                                and at least 400px by 400px.\n                            ")]), _vm._v(" "), (_vm.user.avatar_url) ? _c('img', {
     staticClass: "avatar",
     attrs: {
       "src": '/imagecache/fit-290' + _vm.user.avatar_url
@@ -101808,7 +101721,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "label": gender.value
       }
-    }, [_vm._v(_vm._s(gender.label) + "\n                            ")])
+    }, [_vm._v(_vm._s(gender.label) + "\n                        ")])
   }))], 1)], 1), _vm._v(" "), _c('el-row', {
     attrs: {
       "gutter": 20
@@ -103706,6 +103619,1681 @@ if (false) {
   if (module.hot.data) {
      require("vue-hot-reload-api").rerender("data-v-21211c1f", module.exports)
   }
+}
+
+/***/ }),
+/* 327 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(5)();
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+/***/ }),
+/* 328 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(327);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(6)("004c4f0d", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-38d70040\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./UsersForm.vue", function() {
+     var newContent = require("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-38d70040\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./UsersForm.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 329 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: {
+        users: {}
+    }
+});
+
+/***/ }),
+/* 330 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(5)();
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+/***/ }),
+/* 331 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+/* styles */
+__webpack_require__(333)
+
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(329),
+  /* template */
+  __webpack_require__(332),
+  /* scopeId */
+  "data-v-50bc7fe4",
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/skhatko/code/larabid/resources/assets/js/components/dashboard/admin/UsersRow.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] UsersRow.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-50bc7fe4", Component.options)
+  } else {
+    hotAPI.reload("data-v-50bc7fe4", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 332 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('el-row', {
+    staticClass: "app-dashboard-users__row",
+    attrs: {
+      "gutter": 20
+    }
+  }, _vm._l((_vm.users), function(user) {
+    return _c('el-col', {
+      key: user.id,
+      staticClass: "app-dashboard-users__col",
+      attrs: {
+        "xs": 12,
+        "sm": 8
+      }
+    }, [_c('div', {
+      staticClass: "app-dashboard-users__image"
+    }, [_c('img', {
+      attrs: {
+        "src": '/imagecache/fit-75' + user.avatar_url,
+        "alt": ""
+      }
+    })]), _vm._v(" "), _c('div', {
+      staticClass: "app-dashboard-users__info"
+    }, [_c('a', {
+      staticClass: "app-dashboard-users__name",
+      attrs: {
+        "href": '/user/' + user.id,
+        "target": "_blank"
+      }
+    }, [_vm._v("\n                " + _vm._s(user.name) + "\n            ")]), _vm._v(" "), _c('div', {
+      staticClass: "app-dashboard-users__role"
+    }, [_vm._v("\n                " + _vm._s(user.role) + "\n            ")]), _vm._v(" "), _c('div', {
+      staticClass: "app-dashboard-users__seller"
+    }, [_vm._v("\n                " + _vm._s(user.seller_type) + "\n            ")]), _vm._v(" "), _c('a', {
+      staticClass: "el-button el-button--default el-button--mini app-dashboard-users__edit",
+      attrs: {
+        "href": '/dashboard/user/' + user.id + '/edit'
+      }
+    }, [_vm._v("\n                edit\n            ")])])])
+  }))
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-50bc7fe4", module.exports)
+  }
+}
+
+/***/ }),
+/* 333 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(330);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(6)("1b4a39af", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-50bc7fe4\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./UsersRow.vue", function() {
+     var newContent = require("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-50bc7fe4\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./UsersRow.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 334 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+/* styles */
+__webpack_require__(338)
+
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(335),
+  /* template */
+  __webpack_require__(337),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/skhatko/code/larabid/resources/assets/js/components/dashboard/admin/UserForm.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] UserForm.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-d0999bea", Component.options)
+  } else {
+    hotAPI.reload("data-v-d0999bea", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 335 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+
+    props: {
+        user_: {},
+        request_seller_type_: null
+    },
+
+    data: function data() {
+
+        return {
+            loading: false,
+            user: {},
+            sellerRules: {
+                // first_name: [
+                //     {required: true, message: 'Please enter first name', trigger: 'blur'}
+                // ],
+                // last_name: [
+                //     {required: true, message: 'Please enter last name', trigger: 'blur'}
+                // ],
+                // company_name: [
+                //     {required: true, message: 'Please enter the name of your business', trigger: 'blur'}
+                // ],
+                // gender: [
+                //     {required: true, message: 'Please specify your sex', trigger: 'blur'}
+                // ],
+                // nationality_id: [
+                //     {required: true, message: 'Please enter your nationality', trigger: 'blur'}
+                // ],
+                // profession: [
+                //     {required: true, message: 'Please select your profession', trigger: 'blur'}
+                // ],
+                // country_id: [
+                //     {required: true, message: 'Please specify your country', trigger: 'blur'}
+                // ],
+                // city: [
+                //     {required: true, message: 'Please specify your city', trigger: 'blur'}
+                // ],
+                // region: [
+                //     {required: true, message: 'Please specify your region', trigger: 'blur'}
+                // ],
+                // postcode: [
+                //     {required: true, message: 'Please specify your postcode', trigger: 'blur'}
+                // ],
+                // address: [
+                //     {required: true, message: 'Please enter your address', trigger: 'blur'}
+                // ],
+                // dob: [
+                //     {required: true, message: 'Please specify your date of birth', trigger: 'blur'}
+                // ],
+                // phone: [
+                //     {required: true, message: 'Please enter valid phone number', trigger: 'blur'}
+                // ]
+            },
+            userRules: {
+                first_name: [{ required: true, message: 'Please enter first name', trigger: 'blur' }],
+                last_name: [{ required: true, message: 'Please enter last name', trigger: 'blur' }]
+            },
+            csrf: '',
+            countries: []
+        };
+    },
+    mounted: function mounted() {
+        var _this = this;
+
+        this.csrf = window.csrf;
+
+        axios.get('/api/profile').then(function (response) {
+            console.log(response);
+            _this.user = response.data;
+        }).catch(function (error) {
+            console.log(error.response);
+        });
+
+        if (this.request_seller_type_) {
+            this.user.seller_type = this.request_seller_type_;
+        }
+
+        console.log(this.user);
+
+        axios.get('/api/countries').then(function (response) {
+            _this.countries = response.data;
+        });
+    },
+
+
+    methods: {
+        setPhoneNumber: function setPhoneNumber(_ref) {
+            var number = _ref.number,
+                isValid = _ref.isValid,
+                country = _ref.country;
+
+            console.log(number, isValid, country);
+        },
+        handleAvatarSuccess: function handleAvatarSuccess(response, file) {
+            console.log(response);
+            this.user.avatar_url = response.data.url;
+            this.user.avatar_id = response.data.id;
+        },
+        handleImageSuccess: function handleImageSuccess(response, file) {
+            console.log(response);
+            this.user.image_url = response.data.url;
+            this.user.image_id = response.data.id;
+        },
+        beforeAvatarUpload: function beforeAvatarUpload(file) {
+            console.log(file);
+            var isJPG = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/jpg';
+            var isLt2M = file.size / 1024 / 1024 < 2;
+
+            if (!isJPG) {
+                this.$message.error('Avatar picture must be JPG, JPEG, or PNG format!');
+            }
+            if (!isLt2M) {
+                this.$message.error('Avatar picture size can not exceed 2MB!');
+            }
+            return isJPG && isLt2M;
+        },
+        beforeImageUpload: function beforeImageUpload(file) {
+            console.log(file);
+            var isJPG = file.type === 'image/jpeg' || file.type === 'image/jpg';
+            var isLt2M = file.size / 1024 / 1024 < 10;
+
+            if (!isJPG) {
+                this.$message.error('Image picture must be JPG or JPEG format!');
+            }
+            if (!isLt2M) {
+                this.$message.error('Image picture size can not exceed 10MB!');
+            }
+            return isJPG && isLt2M;
+        },
+        save: function save() {
+            var _this2 = this;
+
+            this.$refs['profile'].validate(function (valid) {
+                if (valid) {
+                    _this2.loading = true;
+                    console.log(_this2.user);
+
+                    if (_this2.request_seller_type_) {
+                        _this2.user.seller_type = _this2.request_seller_type_;
+                        _this2.user.seller_status = 'pending';
+                        axios.post('/api/sell/apply', _this2.user).then(function (response) {
+                            console.log(response.data);
+
+                            _this2.$alert('Your profile will be reviewed and you' + 'll get a response from us in a few working days', 'Thank you for contacting us.', {
+                                confirmButtonText: 'OK',
+                                callback: function callback(action) {
+                                    console.log(action);
+                                    window.location = '/';
+                                }
+                            });
+                        }).catch(function (error) {
+                            _this2.loading = false;
+                            _this2.$store.commit('setErrors', error.response.data.errors);
+                            console.log(error.response);
+                        });
+                    } else {
+                        axios.post('/api/profile/', _this2.user).then(function (response) {
+                            window.location = '/dashboard';
+                        }).catch(function (error) {
+                            _this2.loading = false;
+                            console.log(error.response);
+                        });
+                    }
+                }
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 336 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(5)();
+exports.push([module.i, "", ""]);
+
+/***/ }),
+/* 337 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "app-profile-form"
+  }, [_c('errors'), _vm._v(" "), (_vm.user.seller_type === 'artist' || _vm.user.seller_type === 'gallery') ? [_c('el-form', {
+    ref: "profile",
+    attrs: {
+      "label-position": "top",
+      "model": _vm.user
+    }
+  }, [_vm._v("\n\n            " + _vm._s(_vm.user.seller_type) + "\n\n            "), _c('el-row', {
+    attrs: {
+      "gutter": 20
+    }
+  }, [_c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', [_c('el-select', {
+    attrs: {
+      "value": "",
+      "placeholder": "Seller status"
+    },
+    model: {
+      value: (_vm.user.seller_status),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "seller_status", $$v)
+      },
+      expression: "user.seller_status"
+    }
+  }, _vm._l((_vm.options('seller-status')), function(status) {
+    return _c('el-option', {
+      key: status.value,
+      attrs: {
+        "label": status.label,
+        "value": status.value
+      }
+    })
+  }))], 1)], 1), _vm._v(" "), _c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item')], 1)], 1), _vm._v(" "), (!_vm.request_seller_type_) ? _c('el-row', {
+    attrs: {
+      "gutter": 20
+    }
+  }, [_c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "prop": "image",
+      "required": ""
+    }
+  }, [(_vm.user.avatar_url) ? _c('img', {
+    staticClass: "avatar",
+    attrs: {
+      "src": '/imagecache/fit-290' + _vm.user.avatar_url
+    }
+  }) : _vm._e()])], 1), _vm._v(" "), _c('el-col', {
+    staticStyle: {
+      "display": "none"
+    },
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', [_c('img', {
+    staticClass: "image",
+    attrs: {
+      "src": '/imagecache/height-200' + _vm.user.image_url
+    }
+  })])], 1)], 1) : _vm._e(), _vm._v(" "), _c('el-row', {
+    attrs: {
+      "gutter": 20
+    }
+  }, [(_vm.user.seller_type === 'gallery' || _vm.request_seller_type_ === 'gallery') ? _c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Business name / Gallery name",
+      "prop": "company_name"
+    }
+  }, [_c('el-input', {
+    model: {
+      value: (_vm.user.company_name),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "company_name", $$v)
+      },
+      expression: "user.company_name"
+    }
+  })], 1)], 1) : _vm._e()], 1), _vm._v(" "), _c('el-row', {
+    attrs: {
+      "gutter": 20
+    }
+  }, [_c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "First name",
+      "prop": "first_name",
+      "required": ""
+    }
+  }, [_c('el-input', {
+    model: {
+      value: (_vm.user.first_name),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "first_name", $$v)
+      },
+      expression: "user.first_name"
+    }
+  })], 1)], 1), _vm._v(" "), _c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Last name",
+      "prop": "last_name",
+      "required": ""
+    }
+  }, [_c('el-input', {
+    model: {
+      value: (_vm.user.last_name),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "last_name", $$v)
+      },
+      expression: "user.last_name"
+    }
+  })], 1)], 1)], 1), _vm._v(" "), _c('el-row', {
+    attrs: {
+      "gutter": 20
+    }
+  }, [_c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Website / Portfolio",
+      "prop": "website"
+    }
+  }, [_c('el-input', {
+    model: {
+      value: (_vm.user.website),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "website", $$v)
+      },
+      expression: "user.website"
+    }
+  })], 1)], 1)], 1), _vm._v(" "), (_vm.request_seller_type_ === 'artist' || _vm.user.seller_type === 'artist') ? _c('el-row', [_c('el-form-item', {
+    attrs: {
+      "label": "Gender",
+      "prop": "gender"
+    }
+  }, [_c('el-radio-group', {
+    model: {
+      value: (_vm.user.gender),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "gender", $$v)
+      },
+      expression: "user.gender"
+    }
+  }, _vm._l((_vm.options('gender')), function(gender) {
+    return _c('el-radio', {
+      key: gender.value,
+      attrs: {
+        "label": gender.value
+      }
+    }, [_vm._v(_vm._s(gender.label) + "\n                        ")])
+  }))], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.seller_type === 'artist' || _vm.request_seller_type_ === 'artist') ? _c('el-row', {
+    attrs: {
+      "gutter": 20
+    }
+  }, [_c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Nationality",
+      "prop": "nationality_id"
+    }
+  }, [_c('el-select', {
+    attrs: {
+      "filterable": "",
+      "value": "user.nationality_id",
+      "placeholder": "Select your nationality"
+    },
+    model: {
+      value: (_vm.user.nationality_id),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "nationality_id", $$v)
+      },
+      expression: "user.nationality_id"
+    }
+  }, _vm._l((_vm.countries), function(country) {
+    return _c('el-option', {
+      key: country.id,
+      attrs: {
+        "label": country.citizenship,
+        "value": country.id
+      }
+    })
+  }))], 1)], 1), _vm._v(" "), _c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Profession",
+      "prop": "profession"
+    }
+  }, [_c('el-select', {
+    attrs: {
+      "value": "",
+      "multiple": "",
+      "filterable": "",
+      "allow-create": "",
+      "default-first-option": "",
+      "collapse-tags": "",
+      "placeholder": "What is your profession?"
+    },
+    model: {
+      value: (_vm.user.profession),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "profession", $$v)
+      },
+      expression: "user.profession"
+    }
+  }, _vm._l((_vm.options('profession')), function(profession) {
+    return _c('el-option', {
+      key: profession.value,
+      attrs: {
+        "label": profession.label,
+        "value": profession.value
+      }
+    })
+  }))], 1)], 1)], 1) : _vm._e(), _vm._v(" "), _c('el-row', {
+    attrs: {
+      "gutter": 20
+    }
+  }, [_c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Country",
+      "prop": "country_id"
+    }
+  }, [_c('el-select', {
+    attrs: {
+      "filterable": "",
+      "value": "user.country_id",
+      "placeholder": "Select country"
+    },
+    model: {
+      value: (_vm.user.country_id),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "country_id", $$v)
+      },
+      expression: "user.country_id"
+    }
+  }, _vm._l((_vm.countries), function(country) {
+    return _c('el-option', {
+      key: country.id,
+      attrs: {
+        "label": country.country_name,
+        "value": country.id
+      }
+    })
+  }))], 1)], 1), _vm._v(" "), _c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "City",
+      "prop": "city"
+    }
+  }, [_c('el-input', {
+    attrs: {
+      "placeholder": "City"
+    },
+    model: {
+      value: (_vm.user.city),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "city", $$v)
+      },
+      expression: "user.city"
+    }
+  })], 1)], 1)], 1), _vm._v(" "), _c('el-row', {
+    attrs: {
+      "gutter": 20
+    }
+  }, [_c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Region",
+      "prop": "region"
+    }
+  }, [_c('el-input', {
+    model: {
+      value: (_vm.user.region),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "region", $$v)
+      },
+      expression: "user.region"
+    }
+  })], 1)], 1), _vm._v(" "), _c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Postcode",
+      "prop": "postcode"
+    }
+  }, [_c('el-input', {
+    model: {
+      value: (_vm.user.postcode),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "postcode", $$v)
+      },
+      expression: "user.postcode"
+    }
+  })], 1)], 1)], 1), _vm._v(" "), _c('el-row', {
+    attrs: {
+      "gutter": 20
+    }
+  }, [_c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Address",
+      "prop": "address"
+    }
+  }, [_c('el-input', {
+    attrs: {
+      "placeholder": "Address"
+    },
+    model: {
+      value: (_vm.user.address),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "address", $$v)
+      },
+      expression: "user.address"
+    }
+  })], 1)], 1), _vm._v(" "), _c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Phone",
+      "prop": "phone"
+    }
+  }, [_c('el-input', {
+    staticStyle: {
+      "display": "none"
+    },
+    model: {
+      value: (_vm.user.phone),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "phone", $$v)
+      },
+      expression: "user.phone"
+    }
+  }), _vm._v(" "), _c('vue-tel-input', {
+    attrs: {
+      "preferredCountries": ['dk', 'gb', 'ua']
+    },
+    on: {
+      "onInput": _vm.setPhoneNumber
+    },
+    model: {
+      value: (_vm.user.phone),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "phone", $$v)
+      },
+      expression: "user.phone"
+    }
+  })], 1)], 1)], 1), _vm._v(" "), (_vm.user.seller_type === 'artist' || _vm.request_seller_type_ === 'artist') ? _c('el-row', {
+    attrs: {
+      "gutter": 20
+    }
+  }, [_c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Birthday",
+      "prop": "dob"
+    }
+  }, [_c('el-date-picker', {
+    attrs: {
+      "type": "date",
+      "value-format": "yyyy-MM-dd",
+      "placeholder": "yyyy-mm-dd"
+    },
+    model: {
+      value: (_vm.user.dob),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "dob", $$v)
+      },
+      expression: "user.dob"
+    }
+  })], 1)], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.seller_type === 'artist' || _vm.request_seller_type_ === 'artist') ? _c('el-row', {
+    attrs: {
+      "gutter": 20
+    }
+  }, [_c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Skill origin",
+      "prop": "education_born"
+    }
+  }, [_c('el-switch', {
+    attrs: {
+      "active-text": "Natural Born Artist",
+      "inactive-text": "Educated Artist"
+    },
+    model: {
+      value: (_vm.user.education_born),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "education_born", $$v)
+      },
+      expression: "user.education_born"
+    }
+  })], 1)], 1), _vm._v(" "), _c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Website / Portfolio",
+      "prop": "website"
+    }
+  }, [_c('el-input', {
+    model: {
+      value: (_vm.user.website),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "website", $$v)
+      },
+      expression: "user.website"
+    }
+  })], 1)], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.seller_type === 'artist' || _vm.request_seller_type_ === 'artist') ? _c('el-row', {
+    attrs: {
+      "gutter": 20
+    }
+  }, [_c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Name of the last finished school",
+      "prop": "education"
+    }
+  }, [_c('el-input', {
+    model: {
+      value: (_vm.user.education),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "education", $$v)
+      },
+      expression: "user.education"
+    }
+  })], 1)], 1), _vm._v(" "), _c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "University educational title",
+      "prop": "education_title"
+    }
+  }, [_c('el-select', {
+    attrs: {
+      "value": "",
+      "filterable": "",
+      "allow-create": ""
+    },
+    model: {
+      value: (_vm.user.education_title),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "education_title", $$v)
+      },
+      expression: "user.education_title"
+    }
+  }, _vm._l((_vm.options('education')), function(title) {
+    return _c('el-option', {
+      key: title.value,
+      attrs: {
+        "label": title.label,
+        "value": title.value
+      }
+    })
+  }))], 1)], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.seller_type === 'artist' || _vm.request_seller_type_ === 'artist') ? _c('el-row', {
+    attrs: {
+      "gutter": 20
+    }
+  }, [_c('el-col', [_c('el-form-item', [_c('span', {
+    attrs: {
+      "slot": "label"
+    },
+    slot: "label"
+  }, [_vm._v("About")]), _vm._v(" "), _c('el-input', {
+    attrs: {
+      "type": "textarea",
+      "placeholder": "Let people know something about you"
+    },
+    model: {
+      value: (_vm.user.about),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "about", $$v)
+      },
+      expression: "user.about"
+    }
+  })], 1)], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.seller_type === 'artist' || _vm.request_seller_type_ === 'artist') ? _c('el-row', {
+    attrs: {
+      "gutter": 20
+    }
+  }, [_c('el-col', [_c('el-form-item', {
+    attrs: {
+      "prop": "inspiration"
+    }
+  }, [_c('span', {
+    attrs: {
+      "slot": "label"
+    },
+    slot: "label"
+  }, [_vm._v("Inspiration")]), _vm._v(" "), _c('el-input', {
+    attrs: {
+      "type": "textarea"
+    },
+    model: {
+      value: (_vm.user.inspiration),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "inspiration", $$v)
+      },
+      expression: "user.inspiration"
+    }
+  })], 1)], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.seller_type === 'artist' || _vm.request_seller_type_ === 'artist') ? _c('el-row', [_c('el-col', [_c('el-form-item', {
+    attrs: {
+      "label": "Exhibitions",
+      "prop": "exhibition"
+    }
+  }, [_c('span', {
+    attrs: {
+      "slot": "label"
+    },
+    slot: "label"
+  }, [_vm._v("Exhibitions")]), _vm._v(" "), _c('el-input', {
+    attrs: {
+      "type": "textarea"
+    },
+    model: {
+      value: (_vm.user.exhibition),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "exhibition", $$v)
+      },
+      expression: "user.exhibition"
+    }
+  })], 1)], 1)], 1) : _vm._e(), _vm._v(" "), _c('div', {
+    staticStyle: {
+      "margin-top": "20px",
+      "text-align": "right"
+    }
+  }, [(!_vm.request_seller_type_) ? _c('el-button', [_c('a', {
+    attrs: {
+      "href": '/' + _vm.user.profile_name,
+      "target": "_blank"
+    }
+  }, [_vm._v("Preview")])]) : _vm._e(), _vm._v(" "), _c('el-button', {
+    attrs: {
+      "type": "primary",
+      "loading": _vm.loading
+    },
+    on: {
+      "click": function($event) {
+        _vm.save()
+      }
+    }
+  }, [_vm._v("\n                    " + _vm._s(_vm.request_seller_type_ ? 'Apply' : 'Save') + "\n                ")])], 1)], 1)] : [_c('el-form', {
+    ref: "profile",
+    attrs: {
+      "label-position": "top",
+      "model": _vm.user,
+      "status-icon": "",
+      "rules": _vm.userRules
+    }
+  }, [_c('el-row', {
+    attrs: {
+      "gutter": 20
+    }
+  }, [_c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', [_c('span', {
+    attrs: {
+      "slot": "label"
+    },
+    slot: "label"
+  }, [_c('span', [_vm._v("\n                            Profile Picture\n                        ")]), _vm._v(" "), _c('el-popover', {
+    attrs: {
+      "width": "200",
+      "trigger": "hover"
+    }
+  }, [_c('span', [_vm._v("\n                                        This image represents you here on website.\n                                        Make sure your image is in good quality and has a nice smile :)\n                                    ")]), _vm._v(" "), _c('i', {
+    staticClass: "el-icon-info",
+    attrs: {
+      "slot": "reference"
+    },
+    slot: "reference"
+  })])], 1), _vm._v(" "), _c('el-upload', {
+    staticClass: "app-profile-form-avatar",
+    attrs: {
+      "action": "/api/user/upload-user-avatar",
+      "headers": {
+        'X-Requested-With': 'XMLHttpRequest',
+        'X-CSRF-TOKEN': _vm.csrf
+      },
+      "show-file-list": false,
+      "accept": "image/*",
+      "on-success": _vm.handleAvatarSuccess,
+      "before-upload": _vm.beforeAvatarUpload
+    }
+  }, [_c('el-button', {
+    staticClass: "app-profile-form-avatar-button",
+    attrs: {
+      "slot": "trigger",
+      "icon": "el-icon-picture",
+      "circle": ""
+    },
+    slot: "trigger"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "el-upload__tip",
+    attrs: {
+      "slot": "tip"
+    },
+    slot: "tip"
+  }, [_vm._v("*Must be a .jpg, .gif or .png file smaller than\n                                10MB\n                                and at least 400px by 400px.\n                            ")]), _vm._v(" "), (_vm.user.avatar_url) ? _c('img', {
+    staticClass: "avatar",
+    attrs: {
+      "src": '/imagecache/fit-290' + _vm.user.avatar_url
+    }
+  }) : _vm._e()], 1)], 1)], 1)], 1), _vm._v(" "), _c('el-row', {
+    attrs: {
+      "gutter": 20
+    }
+  }, [_c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "First name",
+      "prop": "first_name"
+    }
+  }, [_c('el-input', {
+    model: {
+      value: (_vm.user.first_name),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "first_name", $$v)
+      },
+      expression: "user.first_name"
+    }
+  })], 1)], 1), _vm._v(" "), _c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Last name",
+      "prop": "last_name"
+    }
+  }, [_c('el-input', {
+    model: {
+      value: (_vm.user.last_name),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "last_name", $$v)
+      },
+      expression: "user.last_name"
+    }
+  })], 1)], 1)], 1), _vm._v(" "), _c('el-row', [_c('el-form-item', {
+    attrs: {
+      "label": "Gender",
+      "prop": "gender"
+    }
+  }, [_c('el-radio-group', {
+    model: {
+      value: (_vm.user.gender),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "gender", $$v)
+      },
+      expression: "user.gender"
+    }
+  }, _vm._l((_vm.options('gender')), function(gender) {
+    return _c('el-radio', {
+      key: gender.value,
+      attrs: {
+        "label": gender.value
+      }
+    }, [_vm._v(_vm._s(gender.label) + "\n                        ")])
+  }))], 1)], 1), _vm._v(" "), _c('el-row', {
+    attrs: {
+      "gutter": 20
+    }
+  }, [_c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Country",
+      "prop": "country_id"
+    }
+  }, [_c('el-select', {
+    attrs: {
+      "filterable": "",
+      "value": "user.country_id",
+      "placeholder": "Select country"
+    },
+    model: {
+      value: (_vm.user.country_id),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "country_id", $$v)
+      },
+      expression: "user.country_id"
+    }
+  }, _vm._l((_vm.countries), function(country) {
+    return _c('el-option', {
+      key: country.id,
+      attrs: {
+        "label": country.country_name,
+        "value": country.id
+      }
+    })
+  }))], 1)], 1), _vm._v(" "), _c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "City",
+      "prop": "city"
+    }
+  }, [_c('el-input', {
+    attrs: {
+      "placeholder": "City"
+    },
+    model: {
+      value: (_vm.user.city),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "city", $$v)
+      },
+      expression: "user.city"
+    }
+  })], 1)], 1)], 1), _vm._v(" "), _c('el-row', [_c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Birthday",
+      "prop": "dob"
+    }
+  }, [_c('el-date-picker', {
+    attrs: {
+      "type": "date",
+      "value-format": "yyyy-MM-dd",
+      "placeholder": "yyyy-mm-dd"
+    },
+    model: {
+      value: (_vm.user.dob),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "dob", $$v)
+      },
+      expression: "user.dob"
+    }
+  })], 1)], 1)], 1), _vm._v(" "), _c('el-row', [_c('el-col', [_c('el-form-item', [_c('span', {
+    attrs: {
+      "slot": "label"
+    },
+    slot: "label"
+  }, [_vm._v("About")]), _vm._v(" "), _c('el-input', {
+    attrs: {
+      "type": "textarea",
+      "placeholder": "Let people know something about you"
+    },
+    model: {
+      value: (_vm.user.about),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "about", $$v)
+      },
+      expression: "user.about"
+    }
+  })], 1)], 1)], 1), _vm._v(" "), _c('div', {
+    staticStyle: {
+      "text-align": "right",
+      "margin-top": "20px"
+    }
+  }, [_c('el-button', {
+    attrs: {
+      "type": "primary",
+      "loading": _vm.loading
+    },
+    on: {
+      "click": function($event) {
+        _vm.save()
+      }
+    }
+  }, [_vm._v("Save")])], 1)], 1)]], 2)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-d0999bea", module.exports)
+  }
+}
+
+/***/ }),
+/* 338 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(336);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(6)("56902a35", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-d0999bea\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../node_modules/sass-loader/lib/loader.js!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./UserForm.vue", function() {
+     var newContent = require("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-d0999bea\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../../node_modules/sass-loader/lib/loader.js!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./UserForm.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
 }
 
 /***/ })

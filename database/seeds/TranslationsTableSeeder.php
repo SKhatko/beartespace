@@ -139,6 +139,12 @@ class TranslationsTableSeeder extends Seeder {
 				[ 'Glass Art', '' ],
 				[ 'Ceramic', '' ],
 			],
+			'seller-status' => [
+				['Pending', ''],
+				['Active', ''],
+				['Blocked', ''],
+				['Rejected', ''],
+			]
 		];
 
 		foreach ( $translations as $group => $trans ) {

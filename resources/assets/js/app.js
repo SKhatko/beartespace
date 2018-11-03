@@ -76,6 +76,8 @@ Vue.component('languages-form', require('./components/dashboard/admin/LanguagesF
 Vue.component('pages', require('./components/dashboard/admin/Pages.vue'));
 Vue.component('page-form', require('./components/dashboard/admin/PageForm.vue'));
 Vue.component('users-form', require('./components/dashboard/admin/UsersForm.vue'));
+Vue.component('users-row', require('./components/dashboard/admin/UsersRow.vue'));
+Vue.component('user-form', require('./components/dashboard/admin/UserForm.vue'));
 Vue.component('dashboard-articles', require('./components/dashboard/admin/DashboardArticles.vue'));
 Vue.component('article-form', require('./components/dashboard/admin/ArticleForm.vue'));
 

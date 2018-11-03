@@ -35,7 +35,7 @@ class SellController extends Controller {
 
 		$user->profile_name = $request->profile_name;
 		$user->seller_type = $request->seller_type;
-		$user->seller_status = 0;
+		$user->seller_status = 'pending';
 		$user->save();
 
 		return redirect( '/sell/profile' );

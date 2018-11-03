@@ -2,6 +2,8 @@
 
     <div class="app-profile-form">
 
+        <errors></errors>
+
         <!-- Seller -->
         <template v-if="request_seller_type_ || user.seller_type === 'artist' || user.seller_type === 'gallery'">
             <!--<div slot="header">-->
@@ -16,7 +18,6 @@
             <el-form label-position="top" :model="user" status-icon :rules="sellerRules" ref="profile">
 
                 <el-row :gutter="20" v-if="!request_seller_type_">
-f
                     <el-col :sm="12">
                         <el-form-item prop="image" required>
                         <span slot="label">
@@ -93,20 +94,10 @@ f
 
                 </el-row>
 
-                <el-row :gutter="20" v-if="user.seller_type === 'gallery' || request_seller_type_ === 'gallery'">
-                    <el-col :sm="12" v-if="!user.email">
-                        <el-form-item label="Email" prop="email">
-                            <el-input v-model="user.email"></el-input>
-                        </el-form-item>
-                    </el-col>
-                    <el-col :sm="12">
+                <el-row :gutter="20">
+                    <el-col :sm="12" v-if="user.seller_type === 'gallery' || request_seller_type_ === 'gallery'">
                         <el-form-item label="Business name / Gallery name" prop="company_name">
                             <el-input v-model="user.company_name"></el-input>
-                        </el-form-item>
-                    </el-col>
-                    <el-col :sm="12">
-                        <el-form-item label="Website / Portfolio" prop="website">
-                            <el-input v-model="user.website"></el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
@@ -124,7 +115,15 @@ f
                     </el-col>
                 </el-row>
 
-                <el-row v-if="user.seller_type === 'artist' || request_seller_type_ === 'artist'">
+                <el-row :gutter="20">
+                    <el-col :sm="12">
+                        <el-form-item label="Website / Portfolio" prop="website">
+                            <el-input v-model="user.website"></el-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+
+                <el-row v-if="request_seller_type_ === 'artist' || user.seller_type === 'artist'">
                     <el-form-item label="Gender" prop="gender">
                         <el-radio-group v-model="user.gender">
                             <el-radio v-for="gender in options('gender')" :key="gender.value" :label="gender.value">{{
@@ -164,7 +163,7 @@ f
 
                 <el-row :gutter="20">
                     <el-col :sm="12">
-                        <el-form-item label="Country" prop="country_id" required>
+                        <el-form-item label="Country" prop="country_id">
                             <el-select filterable value="user.country_id" v-model="user.country_id"
                                        placeholder="Select country">
                                 <el-option
@@ -242,12 +241,6 @@ f
                             </el-switch>
                         </el-form-item>
                     </el-col>
-
-                    <el-col :sm="12">
-                        <el-form-item label="Website / Portfolio" prop="website">
-                            <el-input v-model="user.website"></el-input>
-                        </el-form-item>
-                    </el-col>
                 </el-row>
 
                 <el-row :gutter="20" v-if="user.seller_type === 'artist' || request_seller_type_ === 'artist'">
@@ -298,9 +291,9 @@ f
 
 
                 <div style="margin-top: 20px;text-align: right;">
-                    <el-button v-if="!request_seller_type_">
-                        <a :href="'/' + user.profile_name" target="_blank">Preview</a>
-                    </el-button>
+                    <!--<el-button v-if="!request_seller_type_">-->
+                        <!--<a :href="'/' + user.profile_name" target="_blank">Preview</a>-->
+                    <!--</el-button>-->
 
                     <el-button type="primary" @click="save()" :loading="loading">
                         {{ request_seller_type_ ? 'Apply' : 'Save'}}
@@ -453,45 +446,45 @@ f
                 loading: false,
                 user: {},
                 sellerRules: {
-                    first_name: [
-                        {required: true, message: 'Please enter first name', trigger: 'blur'}
-                    ],
-                    last_name: [
-                        {required: true, message: 'Please enter last name', trigger: 'blur'}
-                    ],
-                    company_name: [
-                        {required: true, message: 'Please enter the name of your business', trigger: 'blur'}
-                    ],
-                    gender: [
-                        {required: true, message: 'Please specify your sex', trigger: 'blur'}
-                    ],
-                    nationality_id: [
-                        {required: true, message: 'Please enter your nationality', trigger: 'blur'}
-                    ],
-                    profession: [
-                        {required: true, message: 'Please select your profession', trigger: 'blur'}
-                    ],
-                    country_id: [
-                        {required: true, message: 'Please specify your country', trigger: 'blur'}
-                    ],
-                    city: [
-                        {required: true, message: 'Please specify your city', trigger: 'blur'}
-                    ],
-                    region: [
-                        {required: true, message: 'Please specify your region', trigger: 'blur'}
-                    ],
-                    postcode: [
-                        {required: true, message: 'Please specify your postcode', trigger: 'blur'}
-                    ],
-                    address: [
-                        {required: true, message: 'Please enter your address', trigger: 'blur'}
-                    ],
-                    dob: [
-                        {required: true, message: 'Please specify your date of birth', trigger: 'blur'}
-                    ],
-                    phone: [
-                        {required: true, message: 'Please enter valid phone number', trigger: 'blur'}
-                    ]
+                    // first_name: [
+                    //     {required: true, message: 'Please enter first name', trigger: 'blur'}
+                    // ],
+                    // last_name: [
+                    //     {required: true, message: 'Please enter last name', trigger: 'blur'}
+                    // ],
+                    // company_name: [
+                    //     {required: true, message: 'Please enter the name of your business', trigger: 'blur'}
+                    // ],
+                    // gender: [
+                    //     {required: true, message: 'Please specify your sex', trigger: 'blur'}
+                    // ],
+                    // nationality_id: [
+                    //     {required: true, message: 'Please enter your nationality', trigger: 'blur'}
+                    // ],
+                    // profession: [
+                    //     {required: true, message: 'Please select your profession', trigger: 'blur'}
+                    // ],
+                    // country_id: [
+                    //     {required: true, message: 'Please specify your country', trigger: 'blur'}
+                    // ],
+                    // city: [
+                    //     {required: true, message: 'Please specify your city', trigger: 'blur'}
+                    // ],
+                    // region: [
+                    //     {required: true, message: 'Please specify your region', trigger: 'blur'}
+                    // ],
+                    // postcode: [
+                    //     {required: true, message: 'Please specify your postcode', trigger: 'blur'}
+                    // ],
+                    // address: [
+                    //     {required: true, message: 'Please enter your address', trigger: 'blur'}
+                    // ],
+                    // dob: [
+                    //     {required: true, message: 'Please specify your date of birth', trigger: 'blur'}
+                    // ],
+                    // phone: [
+                    //     {required: true, message: 'Please enter valid phone number', trigger: 'blur'}
+                    // ]
                 },
                 userRules: {
                     first_name: [
@@ -518,9 +511,9 @@ f
                 }
             );
 
-            // if (this.user_) {
-            //     this.user = JSON.parse(this.user_);
-            // }
+            if(this.request_seller_type_) {
+                this.user.seller_type = this.request_seller_type_;
+            }
 
             console.log(this.user);
 
@@ -580,19 +573,37 @@ f
                     if (valid) {
                         this.loading = true;
                         console.log(this.user);
-                        axios.post('/api/profile/', this.user)
-                            .then((response) => {
-                                console.log(response.data);
 
-                                if (this.request_seller_type_) {
-                                    // window.location = '/sell/artwork';
-                                } else {
+                        if (this.request_seller_type_) {
+                            this.user.seller_type = this.request_seller_type_;
+                            this.user.seller_status = 'pending';
+                            axios.post('/api/sell/apply', this.user)
+                                .then((response) => {
+                                    console.log(response.data);
+
+                                    this.$alert('Your profile will be reviewed and you' +
+                                        'll get a response from us in a few working days', 'Thank you for contacting us.', {
+                                        confirmButtonText: 'OK',
+                                        callback: action => {
+                                            console.log(action);
+                                            window.location = '/';
+                                        }
+                                    });
+                                }).catch(error => {
+                                this.loading = false;
+                                this.$store.commit('setErrors', error.response.data.errors);
+                                console.log(error.response);
+                            });
+                        } else {
+                            axios.post('/api/profile/', this.user)
+                                .then((response) => {
                                     window.location = '/dashboard';
-                                }
-                            }).catch(error => {
-                            this.loading = false;
-                            console.log(error.response);
-                        });
+                                }).catch(error => {
+                                this.loading = false;
+                                console.log(error.response);
+                            });
+                        }
+
                     }
                 });
             },

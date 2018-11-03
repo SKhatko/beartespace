@@ -16,11 +16,14 @@ use Illuminate\Http\Request;
 Route::group( [ 'middleware' => 'auth:api' ], function () {
 	Route::get( 'profile', 'Api\UserController@show' );
 
+	Route::post( 'sell/apply', 'Api\SellController@apply' );
+
 	Route::post( 'settings', 'Api\SettingController@update' );
 	Route::post( 'translations', 'Api\TranslationController@update' );
 	Route::post( 'languages', 'Api\LanguageController@store' );
 	Route::post( 'profile', 'Api\UserController@update' );
 	Route::post( 'pages', 'Api\PageController@store' );
+
 
 	// Article
 	Route::post( 'article', 'Api\ArticleController@store' );
@@ -62,3 +65,4 @@ Route::group( [ 'middleware' => 'auth:api' ], function () {
 
 Route::get( 'countries', 'Api\DataController@countries' );
 Route::get( 'languages', 'Api\DataController@languages' );
+

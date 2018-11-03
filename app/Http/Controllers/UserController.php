@@ -21,18 +21,14 @@ use PragmaRX\Countries\Package\Countries;
 
 
 class UserController extends Controller {
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
+
 	public function index() {
 
 		$title = trans( 'portal.users' );
 
 		$users = User::all();
 
-		return view( 'dashboard.admin.users', compact( 'title', 'users' ) );
+		return view( 'dashboard.user.index', compact( 'title', 'users' ) );
 	}
 
 	public function user( $profilename ) {
@@ -54,7 +50,6 @@ class UserController extends Controller {
 	public function accountSettings() {
 		return view( 'dashboard.user.account' );
 	}
-
 
 	public function people( Request $request ) {
 
@@ -173,7 +168,9 @@ class UserController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function edit( $id ) {
-		//
+		$user = User::findOrFail($id);
+
+		return view('dashboard.user.edit', compact('user'));
 	}
 
 	/**

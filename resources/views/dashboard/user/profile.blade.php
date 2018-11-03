@@ -5,8 +5,11 @@
 @section('dashboard-content')
 
 
+    <el-card>
         <profile-form user_="{{ $user }}"></profile-form>
 
-        {{--        @include('dashboard.partials.profile')--}}
+    </el-card>
+
+    {{--        @include('dashboard.partials.profile')--}}
 
 @endsection

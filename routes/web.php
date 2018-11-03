@@ -169,7 +169,9 @@ Route::group( [ 'middleware' => 'web' ], function () {
 		// Admin only
 		Route::group( [ 'middleware' => ['auth', 'admin'] ], function () {
 			Route::get( 'payments', 'PaymentController@index' )->name( 'admin.payments' );
-			Route::get( 'users', 'UserController@index' )->name( 'admin.users' );
+
+			Route::get( 'user', 'UserController@index' )->name( 'admin.users' );
+			Route::get( 'user/{id}/edit', 'UserController@edit' )->name( 'admin.user' );
 			Route::get( 'translations', 'TranslationController@index' )->name( 'admin.translations' );
 			Route::get( 'languages', 'LanguageController@index' )->name( 'admin.languages' );
 

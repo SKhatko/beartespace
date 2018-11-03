@@ -48,8 +48,7 @@ class CreateUsersTable extends Migration {
 			$table->text( 'exhibition' )->nullable();
 
 			$table->enum( 'seller_type', ['artist', 'gallery'] )->nullable();
-			// seller_status 0:pending, 1:active, 2:block, 3:reject;
-			$table->enum( 'seller_status', [ 0, 1, 2, 3 ] )->nullable;
+			$table->enum( 'seller_status', [ 'pending', 'active', 'blocked', 'rejected' ] )->nullable();
 
 //			$table->enum( 'user_type', [ 'user', 'admin', 'artist', 'gallery' ] )->nullable();
 			$table->enum( 'role', [ 'user', 'admin', 'superadmin', 'writer', 'advertiser' ] )->nullable();

@@ -19,10 +19,9 @@ class UsersTableSeeder extends Seeder {
 				'password'         => bcrypt( '123456' ),
 				'activation_token' => str_random( 60 ),
 				'seller_type'      => null,
-				'role'             => 'admin',
+				'role'             => null,
 				'email_verified'   => true,
 				'created_at'       => now(),
-				'profile_name'     => 'skhatko'
 			],
 			[
 				'first_name'       => 'Support',
@@ -34,7 +33,6 @@ class UsersTableSeeder extends Seeder {
 				'role'             => 'admin',
 				'email_verified'   => true,
 				'created_at'       => now(),
-				'profile_name'     => 'support-team'
 			],
 			[
 				'first_name'       => 'Oleksandra',
@@ -46,7 +44,6 @@ class UsersTableSeeder extends Seeder {
 				'role'             => 'admin',
 				'email_verified'   => true,
 				'created_at'       => now(),
-				'profile_name'     => 'alex'
 			],
 			[
 				'first_name'       => 'Customer',
@@ -58,7 +55,6 @@ class UsersTableSeeder extends Seeder {
 				'role'             => 'admin',
 				'email_verified'   => true,
 				'created_at'       => now(),
-				'profile_name'     => ''
 			],
 			// Artists
 			[
@@ -71,7 +67,6 @@ class UsersTableSeeder extends Seeder {
 				'role'             => 'admin',
 				'email_verified'   => true,
 				'created_at'       => now(),
-				'profile_name'     => 'artist-family'
 			],
 			[
 				'first_name'       => 'Jon',
@@ -80,10 +75,9 @@ class UsersTableSeeder extends Seeder {
 				'password'         => bcrypt( '123456' ),
 				'activation_token' => str_random( 60 ),
 				'seller_type'      => 'artist',
-				'role'             => 'admin',
+				'role'             => null,
 				'email_verified'   => true,
 				'created_at'       => now(),
-				'profiel_name'     => 'jon'
 			],
 			[
 				'first_name'       => 'Namee',
@@ -92,10 +86,9 @@ class UsersTableSeeder extends Seeder {
 				'password'         => bcrypt( '123456' ),
 				'activation_token' => str_random( 60 ),
 				'seller_type'      => 'artist',
-				'role'             => 'admin',
+				'role'             => null,
 				'email_verified'   => true,
 				'created_at'       => now(),
-				'profiel_name'     => 'namee'
 			],
 			[
 				'first_name'       => 'Weil',
@@ -104,10 +97,9 @@ class UsersTableSeeder extends Seeder {
 				'password'         => bcrypt( '123456' ),
 				'activation_token' => str_random( 60 ),
 				'seller_type'      => 'artist',
-				'role'             => 'admin',
+				'role'             => null,
 				'email_verified'   => true,
 				'created_at'       => now(),
-				'profile_name'     => 'weil'
 			]
 		] );
 	}
