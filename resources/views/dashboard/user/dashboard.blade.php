@@ -7,7 +7,7 @@
         @include('dashboard.partials.profile')
 
         <artworks-block style="margin-top: 30px;"
-                artworks_="{{ $user->favoriteArtworks->load('user:id,first_name,last_name,user_name,name,url')->take(4) }}">
+                artworks_="{{ $user->favoriteArtworks->load('user:id,first_name,last_name,profile_name,name,url')->take(4) }}">
             <template slot="header">
                 <div class="h2">Favorite Artworks</div>
             </template>

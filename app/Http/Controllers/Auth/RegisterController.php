@@ -48,12 +48,12 @@ class RegisterController extends Controller {
 			'last_name'        => $request->input( 'last_name' ),
 			'email'            => $request->input( 'email' ),
 			'password'         => bcrypt( $request->input( 'password' ) ),
-			'user_type'        => 'user',
+			'role'             => 'user',
 			'activation_token' => str_random( 60 )
 		] );
 
 		// Save shopping cart to db;
-		Cart::instance('shoppingcart')->store($user->id);
+		Cart::instance( 'shoppingcart' )->store( $user->id );
 
 		event( new Registered( $user ) );
 
@@ -61,7 +61,8 @@ class RegisterController extends Controller {
 
 		$user->notify( new SignupActivate( $user ) );
 
-		return redirect($this->redirectTo);
+		return $this->registered($request, $user)
+			?: redirect()->intended($this->redirectPath());
 	}
 
 	/**

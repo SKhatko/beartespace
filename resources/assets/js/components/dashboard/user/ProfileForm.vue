@@ -3,12 +3,12 @@
     <el-card class="app-profile-form">
 
         <!-- Seller -->
-        <template v-if="user.user_type === 'artist' || user.user_type === 'gallery'">
+        <template v-if="user.seller_type === 'artist' || user.seller_type === 'gallery'">
             <div slot="header">
                 <div class="app-profile-form-header">
                     <span v-if="sellRequest_">Please fill in Profile information</span>
                     <span v-else>Your Profile</span>
-                    <a v-if="!sellRequest_" :href="'/' + user.user_name" target="_blank"
+                    <a v-if="!sellRequest_" :href="'/' + user.profile_name" target="_blank"
                        class="el-button el-button--default el-button--mini">View profile</a>
                 </div>
             </div>
@@ -93,7 +93,7 @@
 
                 </el-row>
 
-                <el-row :gutter="20" v-if="user.user_type === 'gallery'">
+                <el-row :gutter="20" v-if="user.seller_type === 'gallery'">
                     <el-col :sm="8">
                         <el-form-item label="Business name / Gallery name">
                             <el-input v-model="user.company_name"></el-input>
@@ -115,7 +115,7 @@
                 </el-row>
 
 
-                <el-row v-if="user.user_type === 'artist'">
+                <el-row v-if="user.seller_type === 'artist'">
                     <el-form-item label="Gender" prop="gender">
                         <el-radio-group v-model="user.gender">
                             <el-radio v-for="gender in options('gender')" :key="gender.value" :label="gender.value">{{
@@ -125,7 +125,7 @@
                     </el-form-item>
                 </el-row>
 
-                <el-row :gutter="20" v-if="user.user_type === 'artist'">
+                <el-row :gutter="20" v-if="user.seller_type === 'artist'">
                     <el-col :sm="8">
                         <el-form-item label="Nationality" prop="nationality_id">
                             <el-select filterable value="user.nationality_id" v-model="user.nationality_id"
@@ -209,7 +209,7 @@
                     </el-col>
                 </el-row>
 
-                <el-row :gutter="20" v-if="user.user_type === 'artist'">
+                <el-row :gutter="20" v-if="user.seller_type === 'artist'">
                     <el-col :sm="8">
                         <el-form-item label="Birthday" prop="dob">
                             <el-date-picker
@@ -232,7 +232,7 @@
                     </el-col>
                 </el-row>
 
-                <el-row :gutter="20" v-if="user.user_type === 'artist'">
+                <el-row :gutter="20" v-if="user.seller_type === 'artist'">
                     <el-col :sm="8">
                         <el-form-item label="Name of the last finished school" prop="education">
                             <el-input v-model="user.education"></el-input>
@@ -250,7 +250,7 @@
                     </el-col>
                 </el-row>
 
-                <el-row :gutter="20" v-if="user.user_type === 'artist'">
+                <el-row :gutter="20" v-if="user.seller_type === 'artist'">
                     <el-col :sm="16">
                         <el-form-item>
                             <span slot="label">About</span>
@@ -260,7 +260,7 @@
                     </el-col>
                 </el-row>
 
-                <el-row :gutter="20" v-if="user.user_type === 'artist'">
+                <el-row :gutter="20" v-if="user.seller_type === 'artist'">
                     <el-col :sm="16">
                         <el-form-item prop="inspiration">
                             <span slot="label">Inspiration</span>
@@ -269,7 +269,7 @@
                     </el-col>
                 </el-row>
 
-                <el-row v-if="user.user_type === 'artist'">
+                <el-row v-if="user.seller_type === 'artist'">
                     <el-col :sm="16">
                         <el-form-item label="Exhibitions" prop="exhibition">
                             <span slot="label">Exhibitions</span>
@@ -281,7 +281,7 @@
 
                 <div style="margin-top: 20px;text-align: right;">
                     <el-button v-if="!sellRequest_">
-                        <a :href="'/' + user.user_name" target="_blank">Preview</a>
+                        <a :href="'/' + user.profile_name" target="_blank">Preview</a>
                     </el-button>
 
                     <a v-if="sellRequest_" href="/sell/profile-name" class="el-button el-button--default">Edit name</a>

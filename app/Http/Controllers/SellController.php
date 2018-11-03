@@ -17,8 +17,8 @@ class SellController extends Controller {
 	public function profileName( $usertype = null ) {
 
 		$user = [
-			'user_name' => auth()->user()->user_name,
-			'user_type' => $usertype ?? auth()->user()->user_type
+			'profile_name' => auth()->user()->profile_name,
+			'seller_type' => $usertype ?? auth()->user()->seller_type
 		];
 
 		return view( 'sell.profile-name', compact( 'user' ) );
@@ -29,12 +29,13 @@ class SellController extends Controller {
 		$user = auth()->user();
 
 		$request->validate( [
-			'user_type' => 'required',
-			'user_name' => [ 'required', 'max:25', Rule::unique( 'users' )->ignore( $user->id ) ]
+			'seller_type' => 'required',
+			'profile_name' => [ 'required', 'max:25', Rule::unique( 'users' )->ignore( $user->id ) ]
 		] );
 
-		$user->user_name = $request->user_name;
-		$user->user_type = $request->user_type;
+		$user->profile_name = $request->profile_name;
+		$user->seller_type = $request->seller_type;
+		$user->seller_status = 0;
 		$user->save();
 
 		return redirect( '/sell/profile' );

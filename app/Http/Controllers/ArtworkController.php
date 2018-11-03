@@ -117,9 +117,9 @@ class ArtworkController extends Controller {
 			return redirect( $artwork->url );
 		}
 
-		$otherArtworks = $artwork->user->artworks()->where( 'id', '!=', $artwork->id )->take( 4 )->with( 'user:id,first_name,last_name,user_name,name,url' )->get();
+		$otherArtworks = $artwork->user->artworks()->where( 'id', '!=', $artwork->id )->take( 4 )->with( 'user:id,first_name,last_name,profile_name,name,url' )->get();
 
-		$similarArtworks = Artwork::whereCategory( $artwork->category )->where( 'id', '!=', $artwork->id )->take( 4 )->with( 'user:id,first_name,last_name,user_name,name,url' )->get();
+		$similarArtworks = Artwork::whereCategory( $artwork->category )->where( 'id', '!=', $artwork->id )->take( 4 )->with( 'user:id,first_name,last_name,profile_name,name,url' )->get();
 
 		return view( 'artwork.show', compact( 'artwork', 'similarArtworks', 'otherArtworks' ) );
 	}

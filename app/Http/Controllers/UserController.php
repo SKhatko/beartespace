@@ -35,11 +35,11 @@ class UserController extends Controller {
 		return view( 'dashboard.admin.users', compact( 'title', 'users' ) );
 	}
 
-	public function user( $username ) {
+	public function user( $profilename ) {
 
-		$artist = User::where( 'user_name', $username )->with( 'image', 'avatar', 'artworks.images' )->firstOrFail();
+		$seller = User::where( 'profile_name', $profilename )->with( 'image', 'avatar', 'artworks.images' )->firstOrFail();
 
-		return view( 'seller.show', compact( 'artist' ) );
+		return view( 'seller.show', compact( 'seller' ) );
 	}
 
 	public function profile() {

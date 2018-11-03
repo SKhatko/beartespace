@@ -1,6 +1,6 @@
 <template>
 
-    <el-form label-position="top" :rules="rules" :model="user" ref="user" method="post" action="/register"
+    <el-form label-position="top" :rules="rules" status-icon :model="user" ref="user" method="post" action="/register"
              @submit.native.prevent="register">
 
         <input type="hidden" name="_token" :value="csrf">
@@ -73,6 +73,7 @@
         props: {
             userType_: '',
             userPlan: '',
+            old_: {},
         },
 
         data() {
@@ -87,16 +88,16 @@
                 loading: false,
                 rules: {
                     first_name: [
-                        {required: true, message: 'Required'},
+                        {required: true, message: 'First name is required', trigger: 'submit'},
                     ],
                     last_name: [
-                        {required: true, message: 'Required'}
+                        {required: true, message: 'Last name is required', trigger: 'submit'}
                     ],
                     email: [
-                        {type: 'email', required: true, message: 'Please enter email'}
+                        {type: 'email', required: true, message: 'Please enter valid email', trigger: 'submit'}
                     ],
                     password: [
-                        {required: true, message: 'Please enter password'}
+                        {required: true, message: 'Please enter password', trigger: 'submit'}
                     ],
                 },
                 csrf: ''
@@ -106,6 +107,14 @@
 
         mounted() {
             this.csrf = window.csrf;
+
+            let old = JSON.parse(this.old_);
+
+            if (old) {
+                this.user.first_name = old.first_name;
+                this.user.last_name = old.last_name;
+                this.user.email = old.email;
+            }
 
         },
 

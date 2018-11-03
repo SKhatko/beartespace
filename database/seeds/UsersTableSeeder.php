@@ -18,10 +18,10 @@ class UsersTableSeeder extends Seeder {
 				'email'            => 's.a.hatko@gmail.com',
 				'password'         => bcrypt( '123456' ),
 				'activation_token' => str_random( 60 ),
-				'user_type'        => 'admin',
+				'seller_type'        => 'admin',
 				'email_verified'   => true,
 				'created_at'       => now(),
-				'user_name'        => 'skhatko'
+				'profile_name'        => 'skhatko'
 			],
 			[
 				'first_name'       => 'Support',
@@ -29,10 +29,10 @@ class UsersTableSeeder extends Seeder {
 				'email'            => 'support@beartespace.com',
 				'password'         => bcrypt( '123456' ),
 				'activation_token' => str_random( 60 ),
-				'user_type'        => 'admin',
+				'seller_type'        => 'admin',
 				'email_verified'   => true,
 				'created_at'       => now(),
-				'user_name'        => 'support-team'
+				'profile_name'        => 'support-team'
 			],
 			[
 				'first_name'       => 'Oleksandra',
@@ -40,10 +40,10 @@ class UsersTableSeeder extends Seeder {
 				'email'            => 'aleksandralihosvaj@gmail.com',
 				'password'         => bcrypt( '123456' ),
 				'activation_token' => str_random( 60 ),
-				'user_type'        => 'admin',
+				'seller_type'        => 'admin',
 				'email_verified'   => true,
 				'created_at'       => now(),
-				'user_name'        => 'alex'
+				'profile_name'        => 'alex'
 			],
 			[
 				'first_name'       => 'Customer',
@@ -51,10 +51,10 @@ class UsersTableSeeder extends Seeder {
 				'email'            => 'customer@gmail.com',
 				'password'         => bcrypt( '123456' ),
 				'activation_token' => str_random( 60 ),
-				'user_type'        => 'user',
+				'seller_type'        => 'user',
 				'email_verified'   => true,
 				'created_at'       => now(),
-				'user_name'        => ''
+				'profile_name'        => ''
 			],
 			// Artists
 			[
@@ -63,10 +63,10 @@ class UsersTableSeeder extends Seeder {
 				'email'            => 'artist@gmail.com',
 				'password'         => bcrypt( '123456' ),
 				'activation_token' => str_random( 60 ),
-				'user_type'        => 'artist',
+				'seller_type'        => 'artist',
 				'email_verified'   => true,
 				'created_at'       => now(),
-				'user_name'        => 'artist-family'
+				'profile_name'        => 'artist-family'
 			],
 			[
 				'first_name'       => 'Jon',
@@ -74,10 +74,10 @@ class UsersTableSeeder extends Seeder {
 				'email'            => 'atist@gmail.com',
 				'password'         => bcrypt( '123456' ),
 				'activation_token' => str_random( 60 ),
-				'user_type'        => 'artist',
+				'seller_type'        => 'artist',
 				'email_verified'   => true,
 				'created_at'       => now(),
-				'user_name'        => 'jon'
+				'profiel_name'        => 'jon'
 			],
 			[
 				'first_name'       => 'Namee',
@@ -85,10 +85,10 @@ class UsersTableSeeder extends Seeder {
 				'email'            => 'arist@gmail.com',
 				'password'         => bcrypt( '123456' ),
 				'activation_token' => str_random( 60 ),
-				'user_type'        => 'artist',
+				'seller_type'        => 'artist',
 				'email_verified'   => true,
 				'created_at'       => now(),
-				'user_name'        => 'namee'
+				'profiel_name'        => 'namee'
 			],
 			[
 				'first_name'       => 'Weil',
@@ -96,10 +96,10 @@ class UsersTableSeeder extends Seeder {
 				'email'            => 'artst@gmail.com',
 				'password'         => bcrypt( '123456' ),
 				'activation_token' => str_random( 60 ),
-				'user_type'        => 'artist',
+				'seller_type'        => 'artist',
 				'email_verified'   => true,
 				'created_at'       => now(),
-				'user_name'        => 'weil'
+				'profile_name'        => 'weil'
 			]
 		] );
 	}

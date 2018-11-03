@@ -15,7 +15,7 @@ class HasProfileName
      */
     public function handle($request, Closure $next)
     {
-    	if(auth()->user() && auth()->user()->user_name) {
+    	if(auth()->user() && auth()->user()->profile_name) {
 		    return $next($request);
 	    } else {
     		return redirect(route('sell.profile-name'));

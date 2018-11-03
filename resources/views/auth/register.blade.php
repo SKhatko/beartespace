@@ -9,7 +9,7 @@
 
             @include('partials.errors')
 
-            <register-form user-type_="{{ $userType ?? 'user' }}"></register-form>
+            <register-form old_="{{ json_encode(old()) }}"></register-form>
 
         </el-card>
 

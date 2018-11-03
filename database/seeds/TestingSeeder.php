@@ -27,7 +27,7 @@ class TestingSeeder extends Seeder {
 		if ( App::environment() === 'production' ) {
 			foreach ( $users as $user ) {
 
-				if ( $user->user_type == 'artist' ) {
+				if ( $user->seller_type == 'artist' ) {
 					$user->artworks()->saveMany( factory( App\Artwork::class, 30 )->make() );
 				}
 			}
@@ -36,7 +36,7 @@ class TestingSeeder extends Seeder {
 
 		foreach ( $users as $user ) {
 
-			if ( $user->user_type == 'artist' ) {
+			if ( $user->seller_type == 'artist' ) {
 				$user->artworks()->saveMany( factory( App\Artwork::class, 10 )->make() );
 
 //				$user->avatar()->associate( factory( App\Media::class )->create( [
@@ -48,7 +48,7 @@ class TestingSeeder extends Seeder {
 //				$user->save();
 			}
 
-			if($user->user_type == 'admin') {
+			if($user->role == 'admin') {
 				$user->articles()->saveMany( factory( App\Article::class, 5 )->make() );
 			}
 		}

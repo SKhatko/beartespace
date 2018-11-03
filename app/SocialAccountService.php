@@ -28,7 +28,7 @@ class SocialAccountService {
 					'email'          => $providerUser->getEmail(),
 					'name'           => $providerUser->getName(),
 					'email_verified' => true,
-					'user_type'      => 'user',
+					'role'      => 'user',
 				] );
 			}
 			$account->user()->associate( $user );
@@ -60,7 +60,7 @@ class SocialAccountService {
 					'email'          => $providerUser->getEmail(),
 					'name'           => $providerUser->getName(),
 					'email_verified' => true,
-					'user_type'      => 'user',
+					'role'      => 'user',
 				] );
 			}
 
@@ -93,7 +93,7 @@ class SocialAccountService {
 					'email'          => $providerUser->getEmail(),
 					'name'           => $providerUser->getName(),
 					'email_verified' => true,
-					'user_type'      => 'user',
+					'role'      => 'user',
 				] );
 			}
 

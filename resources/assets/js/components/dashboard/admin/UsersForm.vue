@@ -40,7 +40,7 @@
                         :filter-method="filterTag"
                         label="Type">
                     <template slot-scope="scope">
-                        {{ scope.row.user_type }}
+                        {{ scope.row.roles }}
                         <!--<el-checkbox  v-model="languages[scope.$index].is_rtl"></el-checkbox>-->
                     </template>
                 </el-table-column>
@@ -55,7 +55,7 @@
                         label="">
                     <template slot-scope="scope">
                         <el-button
-                                v-if="scope.row.user_type !== 'admin'"
+                                v-if="scope.row.role !== 'admin'"
                                 type="danger"
                                 icon="el-icon-delete"
                                 circle

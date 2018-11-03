@@ -6,14 +6,14 @@
         <el-form label-position="top" :model="user" status-icon :rules="rules" ref="username" action="/sell/profile-name"
                  method="POST" @submit.native.prevent="submitForm">
 
-            <input type="hidden" name="user_type" :value="user.user_type">
+            <input type="hidden" name="seller_type" :value="user.seller_type">
 
             <slot></slot>
 
             <div class="h3">Personal profile url link</div>
 
-            <el-form-item label="Enter your public profile name" prop="user_name">
-                <el-input v-model="user.user_name" name="user_name">
+            <el-form-item label="Enter your public profile name" prop="profile_name">
+                <el-input v-model="user.profile_name" name="profile_name">
                     <el-button slot="append" @click="checkUserName" :loading="usernameLoading">Check</el-button>
                 </el-input>
             </el-form-item>
@@ -62,7 +62,7 @@
                             if (!response.data) {
                                 callback(new Error('This username is already taken'));
                             } else {
-                                this.user.user_name = response.data;
+                                this.user.profile_name = response.data;
                                 this.setUserProfileLink();
                                 callback();
                             }
@@ -82,7 +82,7 @@
                 sellerType: '',
                 user: {},
                 rules: {
-                    user_name: [
+                    profile_name: [
                         {validator: userNameValidator, trigger: 'submit'}
                     ],
                 },
@@ -99,26 +99,26 @@
         },
         computed: {
             userName() {
-                return window.location.origin + '/' + this.user.user_name;
+                return window.location.origin + '/' + this.user.profile_name;
             },
         },
         methods: {
             setUserProfileLink() {
-                this.userProfileLink = '<b>Your public url will be:</b> ' + window.location.origin + '/' + this.user.user_name;
+                this.userProfileLink = '<b>Your public url will be:</b> ' + window.location.origin + '/' + this.user.profile_name;
             },
 
             submitForm() {
                 this.$refs['username'].validate((valid) => {
                     if (valid) {
                         this.loading = true;
-                        this.$refs['username'].$el.submit();
+                        this.$refs['profilename'].$el.submit();
                     }
                 });
             },
 
             checkUserName() {
                 this.usernameLoading = true;
-                this.$refs['username'].validate((valid) => {
+                this.$refs['profilename'].validate((valid) => {
                     this.usernameLoading = false;
                 });
             }

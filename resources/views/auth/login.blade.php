@@ -9,7 +9,7 @@
 
             @include('partials.errors')
 
-            <login-form></login-form>
+            <login-form old_="{{ json_encode(old()) }}"></login-form>
 
         </el-card>
 

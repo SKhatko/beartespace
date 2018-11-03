@@ -82,7 +82,7 @@
 
                     <div class="artist-artworks">
 
-                        <artworks-block artworks_="{{ $artist->artworks->load('user:id,first_name,last_name,user_name,name,url') }}">
+                        <artworks-block artworks_="{{ $artist->artworks->load('user:id,first_name,last_name,profile_name,name,url') }}">
                             <template slot="header">
                                 <div class="h2">Artworks</div>
                             </template>

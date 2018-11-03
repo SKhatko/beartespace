@@ -18,7 +18,7 @@ class CreateUsersTable extends Migration {
 			$table->string( 'first_name' )->nullable();
 			$table->string( 'last_name' )->nullable();
 			$table->string( 'url' )->nullable();
-			$table->string( 'user_name' )->nullable();
+			$table->string( 'profile_name' )->nullable();
 			$table->string( 'company_name' )->nullable();
 			$table->string( 'email' )->unique()->nullable();
 			$table->string( 'password' )->nullable();
@@ -45,9 +45,13 @@ class CreateUsersTable extends Migration {
 			$table->text( 'about' )->nullable();
 			$table->text( 'inspiration' )->nullable();
 			$table->text( 'exhibition' )->nullable();
-			$table->boolean( 'seller' )->nullable();
+
 			$table->enum( 'seller_type', ['artist', 'gallery'] )->nullable();
-			$table->enum( 'user_type', [ 'user', 'admin', 'artist', 'gallery' ] )->nullable();
+			// seller_status 0:pending, 1:active, 2:block, 3:reject;
+			$table->enum( 'seller_status', [ 0, 1, 2, 3 ] )->nullable;
+
+//			$table->enum( 'user_type', [ 'user', 'admin', 'artist', 'gallery' ] )->nullable();
+			$table->enum( 'role', [ 'user', 'admin', 'superadmin', 'writer', 'advertiser' ] )->nullable();
 			$table->string( 'activation_token' )->nullable();
 			// active_status 0:pending, 1:active, 2:block;
 			$table->enum( 'active', [ 0, 1, 2 ] )->default( 0 )->nullable;

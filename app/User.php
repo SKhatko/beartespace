@@ -100,7 +100,7 @@ class User extends Authenticatable {
 	}
 
 	public function isAdmin() {
-		return $this->user_type == 'admin';
+		return $this->role == 'admin';
 	}
 
 	public function isUser() {
@@ -108,26 +108,26 @@ class User extends Authenticatable {
 	}
 
 	public function isGallery() {
-		return $this->user_type == 'gallery';
+		return $this->seller_type == 'gallery';
 	}
 
 	public function isArtist() {
-		return $this->user_type == 'artist';
+		return $this->seller_type == 'artist';
 	}
 
 	public function scopeSeller( $query ) {
-		return $query->whereNotNull( 'seller' );
+		return $query->whereNotNull( 'seller_type' );
 	}
 
 	public function scopeArtist( $query ) {
-		return $query->where( 'user_type', 'artist' );
+		return $query->where( 'seller_type', 'artist' );
 	}
 
 	public function getNameAttribute( $value ) {
 		return $value ?? trim( $this->first_name ) . ' ' . trim( $this->last_name );
 	}
 
-	public function getUserNameAttribute( $value ) {
+	public function getProfileNameAttribute( $value ) {
 		return $value ?? str_slug( $this->name );
 	}
 
@@ -163,7 +163,7 @@ class User extends Authenticatable {
 	}
 
 	public function getUrlAttribute() {
-		return action( 'UserController@user', $this->user_name );
+		return action( 'UserController@user', $this->profile_name );
 	}
 
 	public function getMediumAttribute() {

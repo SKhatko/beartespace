@@ -51,14 +51,14 @@ class ConfirmEmailController extends Controller {
 
 		auth()->login( $user );
 
-		if ( $user->user_type == 'artist' ) {
+		if ( $user->seller_type == 'artist' ) {
 			return redirect()->route( 'dashboard' );
 		}
 
-		try{
-			Cart::instance('shoppingcart')->restore($user->id);
-		} catch (\Exception $err) {
-			dump($err->getMessage());
+		try {
+			Cart::instance( 'shoppingcart' )->restore( $user->id );
+		} catch ( \Exception $err ) {
+			dump( $err->getMessage() );
 		}
 
 		return redirect()->route( 'dashboard' );
@@ -71,6 +71,5 @@ class ConfirmEmailController extends Controller {
 		$user->notify( new SignupActivate( $user ) );
 
 		return redirect()->route( 'confirm-email.verify' );
-
 	}
 }

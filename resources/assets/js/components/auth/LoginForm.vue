@@ -60,7 +60,9 @@
 
     export default {
 
-        props: {},
+        props: {
+            old_: {}
+        },
 
         data() {
             return {
@@ -85,6 +87,11 @@
         },
         mounted() {
             this.csrf = window.csrf;
+
+            let old = JSON.parse(this.old_)
+            if (old) {
+                this.user.email = old.email;
+            }
         },
 
         methods: {

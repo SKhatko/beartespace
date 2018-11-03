@@ -30547,7 +30547,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
-    props: {},
+    props: {
+        old_: {}
+    },
 
     data: function data() {
         return {
@@ -30568,6 +30570,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     mounted: function mounted() {
         this.csrf = window.csrf;
+
+        var old = JSON.parse(this.old_);
+        if (old) {
+            this.user.email = old.email;
+        }
     },
 
 
@@ -30881,7 +30888,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     props: {
         userType_: '',
-        userPlan: ''
+        userPlan: '',
+        old_: {}
     },
 
     data: function data() {
@@ -30895,10 +30903,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             passwordType: 'password',
             loading: false,
             rules: {
-                first_name: [{ required: true, message: 'Required' }],
-                last_name: [{ required: true, message: 'Required' }],
-                email: [{ type: 'email', required: true, message: 'Please enter email' }],
-                password: [{ required: true, message: 'Please enter password' }]
+                first_name: [{ required: true, message: 'First name is required', trigger: 'submit' }],
+                last_name: [{ required: true, message: 'Last name is required', trigger: 'submit' }],
+                email: [{ type: 'email', required: true, message: 'Please enter valid email', trigger: 'submit' }],
+                password: [{ required: true, message: 'Please enter password', trigger: 'submit' }]
             },
             csrf: ''
 
@@ -30906,6 +30914,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     mounted: function mounted() {
         this.csrf = window.csrf;
+
+        var old = JSON.parse(this.old_);
+
+        if (old) {
+            this.user.first_name = old.first_name;
+            this.user.last_name = old.last_name;
+            this.user.email = old.email;
+        }
     },
 
 
@@ -34523,7 +34539,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     if (!response.data) {
                         callback(new Error('This username is already taken'));
                     } else {
-                        _this.user.user_name = response.data;
+                        _this.user.profile_name = response.data;
                         _this.setUserProfileLink();
                         callback();
                     }
@@ -34542,7 +34558,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             sellerType: '',
             user: {},
             rules: {
-                user_name: [{ validator: userNameValidator, trigger: 'submit' }]
+                profile_name: [{ validator: userNameValidator, trigger: 'submit' }]
             }
         };
     },
@@ -34558,12 +34574,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     computed: {
         userName: function userName() {
-            return window.location.origin + '/' + this.user.user_name;
+            return window.location.origin + '/' + this.user.profile_name;
         }
     },
     methods: {
         setUserProfileLink: function setUserProfileLink() {
-            this.userProfileLink = '<b>Your public url will be:</b> ' + window.location.origin + '/' + this.user.user_name;
+            this.userProfileLink = '<b>Your public url will be:</b> ' + window.location.origin + '/' + this.user.profile_name;
         },
         submitForm: function submitForm() {
             var _this2 = this;
@@ -34571,7 +34587,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$refs['username'].validate(function (valid) {
                 if (valid) {
                     _this2.loading = true;
-                    _this2.$refs['username'].$el.submit();
+                    _this2.$refs['profilename'].$el.submit();
                 }
             });
         },
@@ -34579,7 +34595,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this3 = this;
 
             this.usernameLoading = true;
-            this.$refs['username'].validate(function (valid) {
+            this.$refs['profilename'].validate(function (valid) {
                 _this3.usernameLoading = false;
             });
         }
@@ -97509,28 +97525,28 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('input', {
     attrs: {
       "type": "hidden",
-      "name": "user_type"
+      "name": "seller_type"
     },
     domProps: {
-      "value": _vm.user.user_type
+      "value": _vm.user.seller_type
     }
   }), _vm._v(" "), _vm._t("default"), _vm._v(" "), _c('div', {
     staticClass: "h3"
   }, [_vm._v("Personal profile url link")]), _vm._v(" "), _c('el-form-item', {
     attrs: {
       "label": "Enter your public profile name",
-      "prop": "user_name"
+      "prop": "profile_name"
     }
   }, [_c('el-input', {
     attrs: {
-      "name": "user_name"
+      "name": "profile_name"
     },
     model: {
-      value: (_vm.user.user_name),
+      value: (_vm.user.profile_name),
       callback: function($$v) {
-        _vm.$set(_vm.user, "user_name", $$v)
+        _vm.$set(_vm.user, "profile_name", $$v)
       },
-      expression: "user.user_name"
+      expression: "user.profile_name"
     }
   }, [_c('el-button', {
     attrs: {
@@ -99119,7 +99135,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     scopedSlots: _vm._u([{
       key: "default",
       fn: function(scope) {
-        return [_vm._v("\n                    " + _vm._s(scope.row.user_type) + "\n                    ")]
+        return [_vm._v("\n                    " + _vm._s(scope.row.roles) + "\n                    ")]
       }
     }])
   }), _vm._v(" "), _c('el-table-column', {
@@ -99139,7 +99155,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     scopedSlots: _vm._u([{
       key: "default",
       fn: function(scope) {
-        return [(scope.row.user_type !== 'admin') ? _c('el-button', {
+        return [(scope.row.role !== 'admin') ? _c('el-button', {
           attrs: {
             "type": "danger",
             "icon": "el-icon-delete",
@@ -100129,6 +100145,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "label-position": "top",
       "rules": _vm.rules,
+      "status-icon": "",
       "model": _vm.user,
       "method": "post",
       "action": "/register"
@@ -101178,7 +101195,7 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('el-card', {
     staticClass: "app-profile-form"
-  }, [(_vm.user.user_type === 'artist' || _vm.user.user_type === 'gallery') ? [_c('div', {
+  }, [(_vm.user.seller_type === 'artist' || _vm.user.seller_type === 'gallery') ? [_c('div', {
     attrs: {
       "slot": "header"
     },
@@ -101188,7 +101205,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [(_vm.sellRequest_) ? _c('span', [_vm._v("Please fill in Profile information")]) : _c('span', [_vm._v("Your Profile")]), _vm._v(" "), (!_vm.sellRequest_) ? _c('a', {
     staticClass: "el-button el-button--default el-button--mini",
     attrs: {
-      "href": '/' + _vm.user.user_name,
+      "href": '/' + _vm.user.profile_name,
       "target": "_blank"
     }
   }, [_vm._v("View profile")]) : _vm._e()])]), _vm._v(" "), _c('el-form', {
@@ -101315,7 +101332,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "src": '/imagecache/height-200' + _vm.user.image_url
     }
-  })], 1)], 1)], 1)], 1), _vm._v(" "), (_vm.user.user_type === 'gallery') ? _c('el-row', {
+  })], 1)], 1)], 1)], 1), _vm._v(" "), (_vm.user.seller_type === 'gallery') ? _c('el-row', {
     attrs: {
       "gutter": 20
     }
@@ -101375,7 +101392,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.last_name"
     }
-  })], 1)], 1)], 1), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-row', [_c('el-form-item', {
+  })], 1)], 1)], 1), _vm._v(" "), (_vm.user.seller_type === 'artist') ? _c('el-row', [_c('el-form-item', {
     attrs: {
       "label": "Gender",
       "prop": "gender"
@@ -101395,7 +101412,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "label": gender.value
       }
     }, [_vm._v(_vm._s(gender.label) + "\n                        ")])
-  }))], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-row', {
+  }))], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.seller_type === 'artist') ? _c('el-row', {
     attrs: {
       "gutter": 20
     }
@@ -101603,7 +101620,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.phone"
     }
-  })], 1)], 1)], 1), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-row', {
+  })], 1)], 1)], 1), _vm._v(" "), (_vm.user.seller_type === 'artist') ? _c('el-row', {
     attrs: {
       "gutter": 20
     }
@@ -101650,7 +101667,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.education_born"
     }
-  })], 1)], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-row', {
+  })], 1)], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.seller_type === 'artist') ? _c('el-row', {
     attrs: {
       "gutter": 20
     }
@@ -101701,7 +101718,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "value": title.value
       }
     })
-  }))], 1)], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-row', {
+  }))], 1)], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.seller_type === 'artist') ? _c('el-row', {
     attrs: {
       "gutter": 20
     }
@@ -101726,7 +101743,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.about"
     }
-  })], 1)], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-row', {
+  })], 1)], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.seller_type === 'artist') ? _c('el-row', {
     attrs: {
       "gutter": 20
     }
@@ -101754,7 +101771,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.inspiration"
     }
-  })], 1)], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.user_type === 'artist') ? _c('el-row', [_c('el-col', {
+  })], 1)], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.seller_type === 'artist') ? _c('el-row', [_c('el-col', {
     attrs: {
       "sm": 16
     }
@@ -101786,7 +101803,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [(!_vm.sellRequest_) ? _c('el-button', [_c('a', {
     attrs: {
-      "href": '/' + _vm.user.user_name,
+      "href": '/' + _vm.user.profile_name,
       "target": "_blank"
     }
   }, [_vm._v("Preview")])]) : _vm._e(), _vm._v(" "), (_vm.sellRequest_) ? _c('a', {
