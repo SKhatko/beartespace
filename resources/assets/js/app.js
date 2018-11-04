@@ -158,13 +158,14 @@ const app = new Vue({
 
 
 
-        // axios.get('/api/profile')
-        //     .then(response => {
-        //         // console.log('profile', response.data);
-        //     })
-        //     .catch(error => {
-        //         console.log(error.response);
-        //     })
+        axios.get('/api/profile')
+            .then(response => {
+                console.log('yea!!!');
+                // console.log('profile', response.data);
+            })
+            .catch(error => {
+                console.log(error.response);
+            })
     },
     methods: {}
 });
