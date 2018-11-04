@@ -71,7 +71,7 @@ class Artwork extends Model implements Buyable {
 	}
 
 	public function scopeAvailable( $query ) {
-		return $query->where( 'available', true );
+		return $query->whereStatus( 'available' );
 	}
 
 	public function scopeQuantity( $query, $value = 1 ) {

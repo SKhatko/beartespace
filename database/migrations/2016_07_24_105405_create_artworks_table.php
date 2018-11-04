@@ -44,7 +44,7 @@ class CreateArtworksTable extends Migration {
 			$table->integer( 'quantity' )->default( 1 );
 
 			$table->enum( 'status', [ 'pending', 'reserved', 'available', 'unavailable', 'sold' ] )->nullable();
-			$table->enum( 'auction_status', [] )->nullable();
+			$table->enum( 'auction_status', ['todo'] )->nullable();
 			$table->decimal( 'auction_price', 12, 2 )->nullable();
 			$table->timestamp( 'auction_start' )->nullable();
 			$table->timestamp( 'auction_end' )->nullable();
