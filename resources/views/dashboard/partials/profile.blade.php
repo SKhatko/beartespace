@@ -46,8 +46,8 @@
 
                 @if(auth()->user()->seller_status === 'active')
                     <div>
-                        <a href="/dashboard/artworks/create" class="el-button el-button--default">Upload Artwork</a>
-                        <a href="/dashboard/artworks" class="el-button el-button--default">My Artworks</a>
+                        <a href="/dashboard/artworks/create" class="el-button el-button--default" style="min-width: 200px">Upload Artwork</a>
+                        <a href="/dashboard/artworks" class="el-button el-button--default" style="min-width: 200px">My Artworks</a>
                     </div>
                 @endif
 
