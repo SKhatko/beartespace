@@ -32804,7 +32804,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                             if (_this2.page_) {
                                 window.location.pathname = '/sell/artwork';
                             } else {
-                                window.location.pathname = '/dashboard/artwork';
+                                window.location.pathname = '/dashboard/artworks';
                             }
                         } else {
                             console.log(response.data);
@@ -98175,12 +98175,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "artwork.price"
     }
-  }), _vm._v(" "), _c('span', {
-    staticClass: "h5",
-    staticStyle: {
-      "padding-left": "10px"
-    }
-  }, [_vm._v(_vm._s(_vm.nettoIncome))])], 1)], 1)], 1), _vm._v(" "), _c('el-row', {
+  })], 1)], 1)], 1), _vm._v(" "), _c('el-row', {
     attrs: {
       "gutter": 20
     }
@@ -99399,7 +99394,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('a', {
     staticClass: "el-button el-button--default",
     attrs: {
-      "href": "/dashboard/artwork/create"
+      "href": "/dashboard/artworks/create"
     }
   }, [_vm._v("Upload\n                Artwork")])]), _vm._v(" "), _vm._l((_vm.artworks), function(artwork) {
     return _c('el-col', {
@@ -103774,7 +103769,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "app-dashboard-users__role"
     }, [_vm._v("\n                " + _vm._s(user.role) + "\n            ")]), _vm._v(" "), _c('div', {
       staticClass: "app-dashboard-users__seller"
-    }, [_vm._v("\n                " + _vm._s(user.seller_type) + "\n            ")]), _vm._v(" "), _c('a', {
+    }, [_vm._v("\n                " + _vm._s(user.seller_type) + " "), _c('el-badge', {
+      attrs: {
+        "type": "primary ",
+        "value": user.seller_status
+      }
+    })], 1), _vm._v(" "), _c('a', {
       staticClass: "el-button el-button--default el-button--mini app-dashboard-users__edit",
       attrs: {
         "href": '/dashboard/users/' + user.id + '/edit'

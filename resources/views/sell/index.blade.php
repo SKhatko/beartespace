@@ -16,7 +16,7 @@
                         <el-button type="primary" slot="gallery">Apply as an gallery</el-button>
                     </sell-profile-form>
                 @else
-                    <el-button>My artworks</el-button>
+                    <a href="/dashboard/artworks" class="el-button el-button--default el-button--primary" style="margin-top: 20px;">My artworks</a>
                 @endif
             @else
                 <a href="/register" class="el-button el-button--default" style="margin-top: 20px;">

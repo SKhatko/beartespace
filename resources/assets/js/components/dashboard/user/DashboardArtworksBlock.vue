@@ -5,7 +5,7 @@
         <el-row :gutter="20">
 
             <el-col :xs="12" :sm="8" :md="6" class="block-artwork-new">
-                <a href="/dashboard/artwork/create" class="el-button el-button--default">Upload
+                <a href="/dashboard/artworks/create" class="el-button el-button--default">Upload
                     Artwork</a>
             </el-col>
 

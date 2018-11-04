@@ -119,6 +119,10 @@ class User extends Authenticatable {
 		return $query->whereNotNull( 'seller_type' );
 	}
 
+	public function scopeSellerStatus( $query, $value ) {
+		return $query->where( 'seller_status', $value );
+	}
+
 	public function scopeArtist( $query ) {
 		return $query->where( 'seller_type', 'artist' );
 	}

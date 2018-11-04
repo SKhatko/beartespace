@@ -251,7 +251,7 @@
                             <el-input-number value="2" v-model="artwork.price" :min="1" :max="50000"
                                              @blur="countPrice"></el-input-number>
 
-                            <span class="h5" style="padding-left: 10px;">{{ nettoIncome }}</span>
+                            <!--<span class="h5" style="padding-left: 10px;">{{ nettoIncome }}</span>-->
                             <!--<el-select value="" v-model="artwork.currency" placeholder="Select currency"-->
                             <!--style="max-width: 200px;margin-left: 20px;">-->
                             <!--<el-option v-for="(label, value) in currencies" :key="value" :value="value"-->
@@ -485,7 +485,7 @@
                                     if (this.page_) {
                                         window.location.pathname = '/sell/artwork';
                                     } else {
-                                        window.location.pathname = '/dashboard/artwork';
+                                        window.location.pathname = '/dashboard/artworks';
                                     }
                                 } else {
                                     console.log(response.data);

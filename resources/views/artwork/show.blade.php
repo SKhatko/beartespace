@@ -10,9 +10,9 @@
 
             @if(auth()->user() && auth()->user()->id === $artwork->user->id)
                 <div class="app-artwork-artist-panel" style="text-align: center;">
-                    <a href="/dashboard/artwork/{{ $artwork->id }}/edit"
+                    <a href="/dashboard/artworks/{{ $artwork->id }}/edit"
                        class="el-button el-button--default el-button--mini">Edit</a>
-                    {{--<a href="/dashboard/artwork{{ $artwork->id }}/deactivate" class="el-button el-button--default el-button--mini">Deactivate</a>--}}
+                    {{--<a href="/dashboard/artworks/{{ $artwork->id }}/deactivate" class="el-button el-button--default el-button--mini">Deactivate</a>--}}
                 </div>
 
             @else

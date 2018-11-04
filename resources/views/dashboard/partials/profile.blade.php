@@ -1,6 +1,6 @@
 @if(auth()->user())
     <div class="app-dashboard-partials-profile">
-        <el-card>
+        <el-card :body-style="{ padding: '0px' }">
             <div class="app-dashboard-partials-profile__avatar">
                 <img src="/imagecache/fit-150{{ auth()->user()->avatar_url }}" alt="">
             </div>
@@ -19,7 +19,7 @@
                     <a href="/dashboard/favorites/artists"
                        style="margin-right: 10px;"><b>{{ auth()->user()->followedBy->count() }}</b>
                         Following</a>
-                    {{--                        @if(auth()->user()->seller)--}}
+                    {{--                        @if(auth()->user()->seller_status === 'active')--}}
                     {{--<a href="/dashboard/favorites"><b>{{ auth()->user()->followedUsers->count() }}</b> Followers</a>--}}
                     {{--@endif--}}
 
@@ -33,9 +33,9 @@
 
                 <hr>
 
-                @if(auth()->user()->seller)
+                @if(auth()->user()->seller_status === 'active')
                     <div class="h6" style="margin-bottom: 10px;">
-                        <a href="/dashboard/artwork"><b>{{ auth()->user()->artworks->count() }}</b> Artworks</a>
+                        <a href="/dashboard/artworks"><b>{{ auth()->user()->artworks->count() }}</b> Artworks</a>
                     </div>
 
                     <div class="h6" style="margin-bottom: 10px;">
@@ -43,19 +43,22 @@
                     </div>
                 @endif
 
-                <a href="/dashboard/profile" class="el-button el-button--text" style="margin-bottom: 20px;"><i
+                <a href="/dashboard/profile" class="el-button el-button--text" style="margin: 0 20px 0px 0"><i
                             class="el-icon-edit"></i><span>Edit profile</span></a>
 
-                <a href="/dashboard/account" class="el-button el-button--text" style="margin-bottom: 20px;"><i
+                <a href="/dashboard/account" class="el-button el-button--text" style="margin-bottom: 20px; margin-left: 0;"><i
                             class="el-icon-setting"></i><span>Account Settings</span></a>
 
-
-                @if(auth()->user()->seller)
-                    <a href="/dashboard/artwork/create" class="el-button el-button--default"
-                       style="margin-left: 0;">Upload Artwork</a>
-                    <a href="/dashboard/artwork" class="el-button el-button--default"
-                       style="margin-left: 0;">Artworks</a>
+                @if(auth()->user()->seller_status === 'active')
+                    <div>
+                        <a href="/dashboard/artworks/create" class="el-button el-button--default"
+                           style="margin-bottom: 20px;">Upload Artwork</a>
+                        <a href="/dashboard/artworks" class="el-button el-button--default"
+                           style="margin-left: 0;">My Artworks</a>
+                    </div>
                 @endif
+
+
             </div>
         </el-card>
     </div>

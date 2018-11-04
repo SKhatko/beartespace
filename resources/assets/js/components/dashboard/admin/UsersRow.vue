@@ -12,7 +12,7 @@
                     {{ user.role }}
                 </div>
                 <div class="app-dashboard-users__seller">
-                    {{ user.seller_type }}
+                    {{ user.seller_type }} <el-badge type="primary " :value="user.seller_status" />
                 </div>
                 <a :href="'/dashboard/users/' + user.id + '/edit'"
                    class="el-button el-button--default el-button--mini app-dashboard-users__edit">

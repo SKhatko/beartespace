@@ -71,8 +71,8 @@
 
         <div class="app-header-auth">
 
-            @if(auth()->user() && auth()->user()->seller)
-                <a href="/dashboard/artwork" class="app-header-sell">My Artworks</a>
+            @if(auth()->user() && auth()->user()->seller_status === 'active')
+                <a href="/dashboard/artworks" class="app-header-sell">My Artworks</a>
             @else
                 <a href="/sell" class="app-header-sell">Sell <span class="hidden-xs-only">on BearteSpace</span></a>
             @endif
@@ -107,15 +107,14 @@
                         </el-dropdown-item>
                     @endif
 
-                    @if(auth()->user()->seller)
+                    @if(auth()->user()->seller_status === 'active')
 
                         <el-dropdown-item>
                             <a href="{{route('dashboard.artworks')}}" class="el-dropdown-link">Artworks</a>
                         </el-dropdown-item>
 
                         <el-dropdown-item>
-                            <a href="{{route('dashboard.artwork.create')}}" class="el-dropdown-link">Upload
-                                Artwork</a>
+                            <a href="{{route('dashboard.artworks.create')}}" class="el-dropdown-link">Upload Artwork</a>
                         </el-dropdown-item>
 
                     @endif
@@ -132,7 +131,7 @@
                         </el-dropdown-item>
 
                         <el-dropdown-item>
-                            <a href="{{ route('admin.users') }}"><i class="icon-user-outline"></i> Users</a>
+                                <a href="{{ route('admin.users') }}" class="clearfix"><i class="icon-user-outline"></i> Users <el-badge class="mark" value="{{ \App\User::seller()->sellerStatus('pending')->count() }}" /></a>
                         </el-dropdown-item>
 
                         <el-dropdown-item>

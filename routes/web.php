@@ -81,14 +81,14 @@ Route::group( [ 'middleware' => 'web' ], function () {
 	Route::get( '/auction', 'AuctionController@index' )->name( 'auctions' );
 	Route::get( '/auction/{id}', 'AuctionController@show' )->name( 'auction' );
 
-	Route::get( '/artwork', 'ArtworkController@artworks' )->name( 'artworks' );
-	Route::get( '/artwork/{id}/{slug?}', 'ArtworkController@artwork' )->name( 'artwork' );
+	Route::get( '/artworks', 'ArtworkController@artworks' )->name( 'artworks' );
+	Route::get( '/artworks/{id}/{slug?}', 'ArtworkController@artwork' )->name( 'artwork' );
 
 	Route::get( '/people', 'UserController@people' )->name( 'people' );
 	Route::get( '/people/{id}/{slug?}', 'UserController@user' )->name( 'user' );
 
-	Route::get( '/article', 'ArticleController@articles' )->name( 'articles' );
-	Route::get( '/article/{id}/{slug?}', 'ArticleController@article' )->name( 'article' );
+	Route::get( '/articles', 'ArticleController@articles' )->name( 'articles' );
+	Route::get( '/articles/{id}/{slug?}', 'ArticleController@article' )->name( 'article' );
 
 	Route::get( '/selection/artist', 'HomeController@selectedArtists' )->name( 'selected-artists' );
 	Route::get( '/selection/artwork', 'HomeController@selectedArtworks' )->name( 'selected-artworks' );
@@ -102,7 +102,7 @@ Route::group( [ 'middleware' => 'web' ], function () {
 
 	// Page
 //	Route::get( 'page/{slug}', 'PageController@show' )->name( 'page' );
-	Route::get( 'page/{id}/{slug?}', 'PageController@page' )->name( 'page' );
+	Route::get( 'pages/{id}/{slug?}', 'PageController@page' )->name( 'page' );
 
 	Route::get( 'language/{lang}', 'LanguageController@switchLang' )->name( 'switch-language' );
 	Route::get( 'currency/{code}', 'CurrencyController@switchCurrency' )->name( 'switch-currency' );
@@ -130,26 +130,14 @@ Route::group( [ 'middleware' => 'web' ], function () {
 	Route::get('cart/checkout/success', 'CartCheckoutController@checkoutSuccess')->name('cart.checkout.success')->middleware('auth');
 	Route::get('cart/checkout/failure', 'CartCheckoutController@checkoutSuccess')->name('cart.checkout.failure')->middleware('auth');
 
-	// Pages
-	Route::get( 'about', 'HomeController@about' )->name( 'about' );
-	Route::get( 'rules', 'HomeController@rules' )->name( 'rules' );
-	Route::get( 'shipping', 'HomeController@shipping' )->name( 'shipping' );
-
 	//Dashboard Route
-	Route::group( [
-		'prefix'     => 'dashboard',
-		'middleware' => [
-			'auth',
-//			'confirmed-email',
-		]
-	], function () {
-
+	Route::group( [ 'prefix'     => 'dashboard', 'middleware' => [ 'auth', ] ], function () {
 		// Not user (admin, sellers)
-		Route::group( [ 'middleware' => ['has-profile-name','has-completed-profile'] ], function () {
+		Route::group( [ 'middleware' => ['seller'] ], function () {
 			// Artworks
-			Route::get( 'artwork', 'ArtworkController@index' )->name( 'dashboard.artworks' );
-			Route::get( 'artwork/create', 'ArtworkController@create' )->name( 'dashboard.artwork.create' );
-			Route::get( 'artwork/{id}/edit', 'ArtworkController@edit' )->name( 'dashboard.artwork.edit' );
+			Route::get( 'artworks', 'ArtworkController@index' )->name( 'dashboard.artworks' );
+			Route::get( 'artworks/create', 'ArtworkController@create' )->name( 'dashboard.artworks.create' );
+			Route::get( 'artworks/{id}/edit', 'ArtworkController@edit' )->name( 'dashboard.artworks.edit' );
 
 			// Sales
 			Route::get( 'sale/', 'SaleController@index' )->name( 'dashboard.sale' );
@@ -159,32 +147,30 @@ Route::group( [ 'middleware' => 'web' ], function () {
 		Route::get( '/', 'DashboardController@dashboard' )->name( 'dashboard' );
 		Route::get( 'profile', 'UserController@profile' )->name( 'dashboard.profile' );
 		Route::post( 'change-password', 'UserController@changePasswordPost' )->name( 'dashboard.change-password' );
-
 		Route::get( 'account', 'UserController@accountSettings')->name('dashboard.account');
-		Route::get( 'order', 'UserController@orders' )->name( 'dashboard.orders' );
-
+		Route::get( 'orders', 'UserController@orders' )->name( 'dashboard.orders' );
 		Route::get( 'favorites/{category?}', 'UserController@favoriteArtworks' )->name( 'dashboard.favorites' );
-
 
 		// Admin only
 		Route::group( [ 'middleware' => ['auth', 'admin'] ], function () {
 			Route::get( 'payments', 'PaymentController@index' )->name( 'admin.payments' );
 
 			Route::get( 'users', 'UserController@index' )->name( 'admin.users' );
-			Route::get( 'users/{id}/edit', 'UserController@edit' )->name( 'admin.user' );
+			Route::get( 'users/{id}', 'UserController@show' )->name( 'admin.users.show' );
+			Route::get( 'users/{id}/edit', 'UserController@edit' )->name( 'admin.users.edit' );
 			Route::get( 'translations', 'TranslationController@index' )->name( 'admin.translations' );
 			Route::get( 'languages', 'LanguageController@index' )->name( 'admin.languages' );
 
-			Route::get( 'page', 'PageController@index' )->name( 'admin.pages' );
-			Route::get( 'page/create', 'PageController@create' )->name( 'admin.pages.create' );
-			Route::get( 'page/{id}/edit', 'PageController@edit' )->name( 'admin.pages.edit' );
+			Route::get( 'pages', 'PageController@index' )->name( 'admin.pages' );
+			Route::get( 'pages/create', 'PageController@create' )->name( 'admin.pages.create' );
+			Route::get( 'pages/{id}/edit', 'PageController@edit' )->name( 'admin.pages.edit' );
 
 			Route::get( 'messages', 'MessageController@index' )->name( 'admin.messages' );
 			Route::get( 'settings', 'SettingController@index' )->name( 'admin.settings' );
 
-			Route::get( 'article', 'ArticleController@index' )->name( 'admin.articles' );
-			Route::get( 'article/create', 'ArticleController@create' )->name( 'admin.articles.create' );
-			Route::get( 'article/{id}/edit', 'ArticleController@edit' )->name( 'admin.articles.edit' );
+			Route::get( 'articles', 'ArticleController@index' )->name( 'admin.articles' );
+			Route::get( 'articles/create', 'ArticleController@create' )->name( 'admin.articles.create' );
+			Route::get( 'articles/{id}/edit', 'ArticleController@edit' )->name( 'admin.articles.edit' );
 		} );
 
 		Route::group( [ 'prefix' => 'u' ], function () {
@@ -204,8 +190,8 @@ Route::group( [ 'middleware' => 'web' ], function () {
 
 	// Global user profile search
 	Route::get( '{user}', 'UserController@user' )->name( 'user' );
-	Route::get( '{user}/artwork', 'ArtworkController@userArtworks' )->name( 'user.artworks' );
-	Route::get( '{user}/artwork/{id}/{slug?}', 'ArtworkController@userArtwork' )->name( 'user.artwork' );
+	Route::get( '{user}/artworks', 'ArtworkController@userArtworks' )->name( 'user.artworks' );
+	Route::get( '{user}/artworks/{id}/{slug?}', 'ArtworkController@userArtwork' )->name( 'user.artworks' );
 
 
 } );
