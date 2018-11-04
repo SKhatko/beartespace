@@ -156,14 +156,13 @@ const app = new Vue({
             this.$store.commit('setInitialShoppingCart', window.bus.shoppingCart);
         }
 
-
-
         axios.get('/api/profile')
             .then(response => {
-                console.log('yea!!!');
+                console.log('auth');
                 // console.log('profile', response.data);
             })
             .catch(error => {
+                console.log('not auth');
                 console.log(error.response);
             })
     },
