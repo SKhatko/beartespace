@@ -127,6 +127,12 @@ class User extends Authenticatable {
 		return $query->where( 'seller_type', 'artist' );
 	}
 
+	public function scopeProfileName( $query, $profileName) {
+		return $query->where( 'profile_name', $profileName );
+	}
+
+
+
 	public function getNameAttribute( $value ) {
 		return $value ?? trim( $this->first_name ) . ' ' . trim( $this->last_name );
 	}
