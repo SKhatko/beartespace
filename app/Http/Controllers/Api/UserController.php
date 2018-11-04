@@ -53,7 +53,7 @@ class UserController extends Controller {
 		return $requestProfileName;
 	}
 
-	public function update( Request $request ) {
+	public function postProfile( Request $request ) {
 
 		$user = auth()->user();
 
@@ -113,9 +113,23 @@ class UserController extends Controller {
 		}
 	}
 
-	public function destroy( Request $request ) {
+	public function update(Request $request, $id) {
 
-		$user     = User::findOrFail( $request->id );
+		$user = User::findOrFail($id);
+
+		$user->update( $request->except( [
+			'avatar',
+			'image',
+			'avatar_url',
+			'image_url',
+		] ) );
+
+		return [ 'status' => 'success', 'message' => 'Saved', 'data' => $user ];
+	}
+
+	public function destroy( Request $request, $id) {
+
+		$user     = User::findOrFail( $id );
 		$userName = $user->name;
 		$user->forceDelete();
 

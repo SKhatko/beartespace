@@ -6,10 +6,9 @@
 
 
     <el-card>
-        <profile-form user_="{{ $user }}"></profile-form>
-
+        <profile-form user_="{{ $user }}">
+            {{ method_field('PUT') }}
+        </profile-form>
     </el-card>
-
-    {{--        @include('dashboard.partials.profile')--}}
 
 @endsection

@@ -6,7 +6,6 @@ namespace App\Http\Controllers;
 use App\Artwork;
 use App\Favorite;
 use App\Media;
-use App\Setting;
 use App\User;
 use App\Country;
 

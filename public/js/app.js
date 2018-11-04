@@ -103777,7 +103777,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v("\n                " + _vm._s(user.seller_type) + "\n            ")]), _vm._v(" "), _c('a', {
       staticClass: "el-button el-button--default el-button--mini app-dashboard-users__edit",
       attrs: {
-        "href": '/dashboard/user/' + user.id + '/edit'
+        "href": '/dashboard/users/' + user.id + '/edit'
       }
     }, [_vm._v("\n                edit\n            ")])])])
   }))
@@ -104231,27 +104231,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -104320,15 +104299,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         this.csrf = window.csrf;
 
-        axios.get('/api/profile').then(function (response) {
-            console.log(response);
-            _this.user = response.data;
-        }).catch(function (error) {
-            console.log(error.response);
-        });
-
-        if (this.request_seller_type_) {
-            this.user.seller_type = this.request_seller_type_;
+        if (this.user_) {
+            this.user = JSON.parse(this.user_);
         }
 
         console.log(this.user);
@@ -104340,6 +104312,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
     methods: {
+        deleteUser: function deleteUser() {
+            var _this2 = this;
+
+            this.$confirm('This will permanently delete' + this.user.name + '. Continue?', 'Danger', {
+                confirmButtonText: 'OK',
+                cancelButtonText: 'Cancel',
+                type: 'warning'
+            }).then(function () {
+
+                axios.post('/api/users/' + _this2.user.id, _this2.user).then(function (response) {
+                    // this.$message({
+                    //     type: response.data.type,
+                    //     message: response.data.message
+                    // });
+                    window.location = '/dashboard/users';
+                    console.log(response.data);
+                });
+            });
+        },
         setPhoneNumber: function setPhoneNumber(_ref) {
             var number = _ref.number,
                 isValid = _ref.isValid,
@@ -104347,76 +104338,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             console.log(number, isValid, country);
         },
-        handleAvatarSuccess: function handleAvatarSuccess(response, file) {
-            console.log(response);
-            this.user.avatar_url = response.data.url;
-            this.user.avatar_id = response.data.id;
-        },
-        handleImageSuccess: function handleImageSuccess(response, file) {
-            console.log(response);
-            this.user.image_url = response.data.url;
-            this.user.image_id = response.data.id;
-        },
-        beforeAvatarUpload: function beforeAvatarUpload(file) {
-            console.log(file);
-            var isJPG = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/jpg';
-            var isLt2M = file.size / 1024 / 1024 < 2;
-
-            if (!isJPG) {
-                this.$message.error('Avatar picture must be JPG, JPEG, or PNG format!');
-            }
-            if (!isLt2M) {
-                this.$message.error('Avatar picture size can not exceed 2MB!');
-            }
-            return isJPG && isLt2M;
-        },
-        beforeImageUpload: function beforeImageUpload(file) {
-            console.log(file);
-            var isJPG = file.type === 'image/jpeg' || file.type === 'image/jpg';
-            var isLt2M = file.size / 1024 / 1024 < 10;
-
-            if (!isJPG) {
-                this.$message.error('Image picture must be JPG or JPEG format!');
-            }
-            if (!isLt2M) {
-                this.$message.error('Image picture size can not exceed 10MB!');
-            }
-            return isJPG && isLt2M;
-        },
         save: function save() {
-            var _this2 = this;
+            var _this3 = this;
 
             this.$refs['profile'].validate(function (valid) {
                 if (valid) {
-                    _this2.loading = true;
-                    console.log(_this2.user);
+                    _this3.loading = true;
 
-                    if (_this2.request_seller_type_) {
-                        _this2.user.seller_type = _this2.request_seller_type_;
-                        _this2.user.seller_status = 'pending';
-                        axios.post('/api/sell/apply', _this2.user).then(function (response) {
-                            console.log(response.data);
-
-                            _this2.$alert('Your profile will be reviewed and you' + 'll get a response from us in a few working days', 'Thank you for contacting us.', {
-                                confirmButtonText: 'OK',
-                                callback: function callback(action) {
-                                    console.log(action);
-                                    window.location = '/';
-                                }
-                            });
-                        }).catch(function (error) {
-                            _this2.loading = false;
-                            _this2.$store.commit('setErrors', error.response.data.errors);
-                            console.log(error.response);
-                        });
-                    } else {
-                        axios.post('/api/profile/', _this2.user).then(function (response) {
-                            window.location = '/dashboard';
-                        }).catch(function (error) {
-                            _this2.loading = false;
-                            console.log(error.response);
-                        });
-                    }
+                    axios.put('/api/users/' + _this3.user.id, _this3.user).then(function (response) {
+                        console.log(response.data);
+                        window.location = '/dashboard/users';
+                    }).catch(function (error) {
+                        _this3.loading = false;
+                        console.log(error.response);
+                        _this3.$store.commit('setErrors', error.response.data.errors);
+                    });
                 }
             });
         }
@@ -104436,14 +104372,14 @@ exports.push([module.i, "", ""]);
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "app-profile-form"
+    staticClass: "app-dashboard-user-form"
   }, [_c('errors'), _vm._v(" "), (_vm.user.seller_type === 'artist' || _vm.user.seller_type === 'gallery') ? [_c('el-form', {
     ref: "profile",
     attrs: {
       "label-position": "top",
       "model": _vm.user
     }
-  }, [_vm._v("\n\n            " + _vm._s(_vm.user.seller_type) + "\n\n            "), _c('el-row', {
+  }, [_c('el-row', {
     attrs: {
       "gutter": 20
     }
@@ -104451,7 +104387,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "sm": 12
     }
-  }, [_c('el-form-item', [_c('el-select', {
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "Seller status"
+    }
+  }, [_c('el-select', {
     attrs: {
       "value": "",
       "placeholder": "Seller status"
@@ -104485,13 +104425,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('el-form-item', {
     attrs: {
-      "prop": "image",
-      "required": ""
+      "prop": "image"
     }
   }, [(_vm.user.avatar_url) ? _c('img', {
     staticClass: "avatar",
     attrs: {
-      "src": '/imagecache/fit-290' + _vm.user.avatar_url
+      "src": '/imagecache/fit-75' + _vm.user.avatar_url
     }
   }) : _vm._e()])], 1), _vm._v(" "), _c('el-col', {
     staticStyle: {
@@ -105015,12 +104954,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "margin-top": "20px",
       "text-align": "right"
     }
-  }, [(!_vm.request_seller_type_) ? _c('el-button', [_c('a', {
+  }, [(_vm.user.seller_status === 'active') ? _c('el-button', [_c('a', {
     attrs: {
       "href": '/' + _vm.user.profile_name,
       "target": "_blank"
     }
   }, [_vm._v("Preview")])]) : _vm._e(), _vm._v(" "), _c('el-button', {
+    attrs: {
+      "type": "danger"
+    },
+    on: {
+      "click": _vm.deleteUser
+    }
+  }, [_vm._v("Delete User")]), _vm._v(" "), _c('el-button', {
     attrs: {
       "type": "primary",
       "loading": _vm.loading
@@ -105030,7 +104976,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.save()
       }
     }
-  }, [_vm._v("\n                    " + _vm._s(_vm.request_seller_type_ ? 'Apply' : 'Save') + "\n                ")])], 1)], 1)] : [_c('el-form', {
+  }, [_vm._v("\n                    Save\n                ")])], 1)], 1)] : [_c('el-form', {
     ref: "profile",
     attrs: {
       "label-position": "top",
@@ -105038,7 +104984,35 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "status-icon": "",
       "rules": _vm.userRules
     }
-  }, [_c('el-row', {
+  }, [_c('el-col', {
+    attrs: {
+      "sm": 12
+    }
+  }, [_c('el-form-item', {
+    attrs: {
+      "label": "User status"
+    }
+  }, [_c('el-select', {
+    attrs: {
+      "value": "",
+      "placeholder": "Seller status"
+    },
+    model: {
+      value: (_vm.user.seller_status),
+      callback: function($$v) {
+        _vm.$set(_vm.user, "seller_status", $$v)
+      },
+      expression: "user.seller_status"
+    }
+  }, _vm._l((_vm.options('seller-status')), function(status) {
+    return _c('el-option', {
+      key: status.value,
+      attrs: {
+        "label": status.label,
+        "value": status.value
+      }
+    })
+  }))], 1)], 1), _vm._v(" "), _c('el-row', {
     attrs: {
       "gutter": 20
     }
@@ -105046,55 +105020,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "sm": 12
     }
-  }, [_c('el-form-item', [_c('span', {
+  }, [_c('el-form-item', {
     attrs: {
-      "slot": "label"
-    },
-    slot: "label"
-  }, [_c('span', [_vm._v("\n                            Profile Picture\n                        ")]), _vm._v(" "), _c('el-popover', {
-    attrs: {
-      "width": "200",
-      "trigger": "hover"
+      "label": "Profile picture"
     }
-  }, [_c('span', [_vm._v("\n                                        This image represents you here on website.\n                                        Make sure your image is in good quality and has a nice smile :)\n                                    ")]), _vm._v(" "), _c('i', {
-    staticClass: "el-icon-info",
+  }, [(_vm.user.avatar_url) ? _c('img', {
     attrs: {
-      "slot": "reference"
-    },
-    slot: "reference"
-  })])], 1), _vm._v(" "), _c('el-upload', {
-    staticClass: "app-profile-form-avatar",
-    attrs: {
-      "action": "/api/user/upload-user-avatar",
-      "headers": {
-        'X-Requested-With': 'XMLHttpRequest',
-        'X-CSRF-TOKEN': _vm.csrf
-      },
-      "show-file-list": false,
-      "accept": "image/*",
-      "on-success": _vm.handleAvatarSuccess,
-      "before-upload": _vm.beforeAvatarUpload
+      "src": '/imagecache/fit-75' + _vm.user.avatar_url
     }
-  }, [_c('el-button', {
-    staticClass: "app-profile-form-avatar-button",
-    attrs: {
-      "slot": "trigger",
-      "icon": "el-icon-picture",
-      "circle": ""
-    },
-    slot: "trigger"
-  }), _vm._v(" "), _c('div', {
-    staticClass: "el-upload__tip",
-    attrs: {
-      "slot": "tip"
-    },
-    slot: "tip"
-  }, [_vm._v("*Must be a .jpg, .gif or .png file smaller than\n                                10MB\n                                and at least 400px by 400px.\n                            ")]), _vm._v(" "), (_vm.user.avatar_url) ? _c('img', {
-    staticClass: "avatar",
-    attrs: {
-      "src": '/imagecache/fit-290' + _vm.user.avatar_url
-    }
-  }) : _vm._e()], 1)], 1)], 1)], 1), _vm._v(" "), _c('el-row', {
+  }) : _vm._e()])], 1)], 1), _vm._v(" "), _c('el-row', {
     attrs: {
       "gutter": 20
     }

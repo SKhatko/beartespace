@@ -1,6 +1,6 @@
 <template>
 
-    <div class="app-profile-form">
+    <div class="app-dashboard-user-form">
 
         <errors></errors>
 
@@ -9,11 +9,9 @@
 
             <el-form label-position="top" :model="user" ref="profile">
 
-                {{ user.seller_type }}
-
                 <el-row :gutter="20">
                     <el-col :sm="12">
-                        <el-form-item>
+                        <el-form-item label="Seller status">
                             <el-select value="" v-model="user.seller_status"
                                        placeholder="Seller status">
                                 <el-option v-for="status in options('seller-status')" :key="status.value"
@@ -33,8 +31,8 @@
 
                 <el-row :gutter="20" v-if="!request_seller_type_">
                     <el-col :sm="12">
-                        <el-form-item prop="image" required>
-                            <img v-if="user.avatar_url" :src="'/imagecache/fit-290' + user.avatar_url"
+                        <el-form-item prop="image">
+                            <img v-if="user.avatar_url" :src="'/imagecache/fit-75' + user.avatar_url"
                                  class="avatar">
                         </el-form-item>
                     </el-col>
@@ -250,12 +248,14 @@
 
 
                 <div style="margin-top: 20px;text-align: right;">
-                    <el-button v-if="!request_seller_type_">
+                    <el-button v-if="user.seller_status === 'active'">
                         <a :href="'/' + user.profile_name" target="_blank">Preview</a>
                     </el-button>
 
+                    <el-button type="danger" @click="deleteUser">Delete User</el-button>
+
                     <el-button type="primary" @click="save()" :loading="loading">
-                        {{ request_seller_type_ ? 'Apply' : 'Save'}}
+                        Save
                     </el-button>
                 </div>
 
@@ -268,43 +268,21 @@
 
             <el-form label-position="top" :model="user" status-icon :rules="userRules" ref="profile">
 
+                <el-col :sm="12">
+                    <el-form-item label="User status">
+                        <el-select value="" v-model="user.seller_status"
+                                   placeholder="Seller status">
+                            <el-option v-for="status in options('seller-status')" :key="status.value"
+                                       :label="status.label"
+                                       :value="status.value"></el-option>
+                        </el-select>
+                    </el-form-item>
+                </el-col>
+
                 <el-row :gutter="20">
                     <el-col :sm="12">
-                        <el-form-item>
-                        <span slot="label">
-                            <span>
-                                Profile Picture
-                            </span>
-                              <el-popover
-                                      width="200"
-                                      trigger="hover">
-                                        <span>
-                                            This image represents you here on website.
-                                            Make sure your image is in good quality and has a nice smile :)
-                                        </span>
-                                       <i slot="reference" class="el-icon-info"></i>
-                               </el-popover>
-                        </span>
-
-                            <el-upload
-                                    class="app-profile-form-avatar"
-                                    action="/api/user/upload-user-avatar"
-                                    :headers="{'X-Requested-With': 'XMLHttpRequest', 'X-CSRF-TOKEN' : csrf}"
-                                    :show-file-list="false"
-                                    accept="image/*"
-                                    :on-success="handleAvatarSuccess"
-                                    :before-upload="beforeAvatarUpload">
-                                <el-button slot="trigger" icon="el-icon-picture" class="app-profile-form-avatar-button"
-                                           circle></el-button>
-                                <div slot="tip" class="el-upload__tip">*Must be a .jpg, .gif or .png file smaller than
-                                    10MB
-                                    and at least 400px by 400px.
-                                </div>
-
-                                <img v-if="user.avatar_url" :src="'/imagecache/fit-290' + user.avatar_url"
-                                     class="avatar">
-                            </el-upload>
-
+                        <el-form-item label="Profile picture">
+                            <img v-if="user.avatar_url" :src="'/imagecache/fit-75' + user.avatar_url">
                         </el-form-item>
                     </el-col>
                 </el-row>
@@ -386,6 +364,7 @@
             </el-form>
 
         </template>
+
     </div>
 
 </template>
@@ -461,17 +440,8 @@
         mounted() {
             this.csrf = window.csrf;
 
-            axios.get('/api/profile').then(response => {
-                    console.log(response);
-                    this.user = response.data;
-                }
-            ).catch(error => {
-                    console.log(error.response);
-                }
-            );
-
-            if (this.request_seller_type_) {
-                this.user.seller_type = this.request_seller_type_;
+            if (this.user_) {
+                this.user = JSON.parse(this.user_);
             }
 
             console.log(this.user);
@@ -483,85 +453,43 @@
 
         methods: {
 
+            deleteUser() {
+                this.$confirm('This will permanently delete' + this.user.name + '. Continue?', 'Danger', {
+                    confirmButtonText: 'OK',
+                    cancelButtonText: 'Cancel',
+                    type: 'warning'
+                }).then(() => {
+
+                    axios.post('/api/users/' + this.user.id, this.user).then(response => {
+                        // this.$message({
+                        //     type: response.data.type,
+                        //     message: response.data.message
+                        // });
+                        window.location = '/dashboard/users';
+                        console.log(response.data);
+                    });
+                });
+            },
+
             setPhoneNumber({number, isValid, country}) {
                 console.log(number, isValid, country);
-            },
-
-            handleAvatarSuccess(response, file) {
-                console.log(response);
-                this.user.avatar_url = response.data.url;
-                this.user.avatar_id = response.data.id;
-            },
-
-            handleImageSuccess(response, file) {
-                console.log(response);
-                this.user.image_url = response.data.url;
-                this.user.image_id = response.data.id;
-            },
-
-            beforeAvatarUpload(file) {
-                console.log(file);
-                const isJPG = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/jpg';
-                const isLt2M = file.size / 1024 / 1024 < 2;
-
-                if (!isJPG) {
-                    this.$message.error('Avatar picture must be JPG, JPEG, or PNG format!');
-                }
-                if (!isLt2M) {
-                    this.$message.error('Avatar picture size can not exceed 2MB!');
-                }
-                return isJPG && isLt2M;
-            },
-
-            beforeImageUpload(file) {
-                console.log(file);
-                const isJPG = file.type === 'image/jpeg' || file.type === 'image/jpg';
-                const isLt2M = file.size / 1024 / 1024 < 10;
-
-                if (!isJPG) {
-                    this.$message.error('Image picture must be JPG or JPEG format!');
-                }
-                if (!isLt2M) {
-                    this.$message.error('Image picture size can not exceed 10MB!');
-                }
-                return isJPG && isLt2M;
             },
 
             save() {
                 this.$refs['profile'].validate((valid) => {
                     if (valid) {
                         this.loading = true;
-                        console.log(this.user);
 
-                        if (this.request_seller_type_) {
-                            this.user.seller_type = this.request_seller_type_;
-                            this.user.seller_status = 'pending';
-                            axios.post('/api/sell/apply', this.user)
-                                .then((response) => {
-                                    console.log(response.data);
+                        axios.put('/api/users/' + this.user.id, this.user)
+                            .then((response) => {
+                                console.log(response.data);
+                                window.location = '/dashboard/users';
+                            }).catch(error => {
+                            this.loading = false;
+                            console.log(error.response);
+                            this.$store.commit('setErrors', error.response.data.errors);
 
-                                    this.$alert('Your profile will be reviewed and you' +
-                                        'll get a response from us in a few working days', 'Thank you for contacting us.', {
-                                        confirmButtonText: 'OK',
-                                        callback: action => {
-                                            console.log(action);
-                                            window.location = '/';
-                                        }
-                                    });
-                                }).catch(error => {
-                                this.loading = false;
-                                this.$store.commit('setErrors', error.response.data.errors);
-                                console.log(error.response);
-                            });
-                        } else {
-                            axios.post('/api/profile/', this.user)
-                                .then((response) => {
-                                    window.location = '/dashboard';
-                                }).catch(error => {
-                                this.loading = false;
-                                console.log(error.response);
-                            });
-                        }
+                        });
 
                     }
                 });

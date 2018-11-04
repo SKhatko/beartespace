@@ -21,7 +21,7 @@ Route::group( [ 'middleware' => 'auth:api' ], function () {
 	Route::post( 'settings', 'Api\SettingController@update' );
 	Route::post( 'translations', 'Api\TranslationController@update' );
 	Route::post( 'languages', 'Api\LanguageController@store' );
-	Route::post( 'profile', 'Api\UserController@update' );
+	Route::post( 'profile', 'Api\UserController@postProfile' );
 	Route::post( 'pages', 'Api\PageController@store' );
 
 
@@ -39,7 +39,8 @@ Route::group( [ 'middleware' => 'auth:api' ], function () {
 	Route::put( 'user/followed/{id}/toggle', 'Api\UserController@toggleFollowedUser' );
 
 	Route::post( 'user/check-username', 'Api\UserController@checkUsername' );
-	Route::post( 'user', 'Api\UserController@destroy' )->middleware( 'admin' );
+	Route::post( 'users/{id}', 'Api\UserController@destroy' )->middleware( 'admin' );
+	Route::put( 'users/{id}', 'Api\UserController@update' )->middleware( 'admin' );
 
 
 	// Upload files

@@ -198,7 +198,7 @@
 <!--type: response.data.type,-->
 <!--message: response.data.message-->
 <!--});-->
-
+<!--&lt;!&ndash;&ndash;&gt;-->
 <!--rows.splice(index, 1);-->
 <!--});-->
 <!--})-->

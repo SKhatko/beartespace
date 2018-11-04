@@ -14,7 +14,7 @@
                 <div class="app-dashboard-users__seller">
                     {{ user.seller_type }}
                 </div>
-                <a :href="'/dashboard/user/' + user.id + '/edit'"
+                <a :href="'/dashboard/users/' + user.id + '/edit'"
                    class="el-button el-button--default el-button--mini app-dashboard-users__edit">
                     edit
                 </a>
