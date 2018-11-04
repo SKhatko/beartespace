@@ -27942,10 +27942,10 @@ var app = new Vue({
         }
 
         axios.get('/api/profile').then(function (response) {
-            console.log('yea!!!');
+            console.log('auth');
             // console.log('profile', response.data);
         }).catch(function (error) {
-            console.log(error);
+            console.log('not auth');
             console.log(error.response);
         });
     },
@@ -33352,12 +33352,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
     props: {
-        page_: '',
         artwork_: {},
         currencies_: {}
     },
@@ -33378,20 +33386,40 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 image: []
             },
             rules: {
-                image: [{
-                    required: true,
-                    message: 'Please upload at least one photo of your artwork',
-                    trigger: ['blur', 'change']
-                }],
-                name: [{ required: true, message: 'Please enter the name of artwork', trigger: ['blur', 'change'] }],
-                made_by: [{ required: true, message: 'This field is required', trigger: ['blur', 'change'] }],
-                date_of_completion: [{ required: true, message: 'This field is required', trigger: ['blur', 'change'] }],
-                category: [{ required: true, message: 'Please select category', trigger: ['blur', 'change'] }],
-                description: [{ required: true, message: 'This field is required', trigger: ['blur', 'change'] }],
-                price: [{ required: true, message: 'Artwork price is required', trigger: ['blur', 'change'] }],
-                quantity: [{ required: true, message: 'Artwork quantity is required', trigger: ['blur', 'change'] }],
-                country_id: [{ required: true, message: 'Select shipping country', trigger: ['blur', 'change'] }],
-                processing_time: [{ required: true, message: 'Select your processing time', trigger: ['blur', 'change'] }]
+                // image: [
+                //     {
+                //         required: true,
+                //         message: 'Please upload at least one photo of your artwork',
+                //         trigger: ['blur', 'change']
+                //     },
+                // ],
+                // name: [
+                //     {required: true, message: 'Please enter the name of artwork', trigger: ['blur', 'change']},
+                // ],
+                // made_by: [
+                //     {required: true, message: 'This field is required', trigger: ['blur', 'change']},
+                // ],
+                // date_of_completion: [
+                //     {required: true, message: 'This field is required', trigger: ['blur', 'change']},
+                // ],
+                // category: [
+                //     {required: true, message: 'Please select category', trigger: ['blur', 'change']}
+                // ],
+                // description: [
+                //     {required: true, message: 'This field is required', trigger: ['blur', 'change']},
+                // ],
+                // price: [
+                //     {required: true, message: 'Artwork price is required', trigger: ['blur', 'change']}
+                // ],
+                // // quantity: [
+                // //     {required: true, message: 'Artwork quantity is required', trigger: ['blur', 'change']}
+                // // ],
+                // country_id: [
+                //     {required: true, message: 'Select shipping country', trigger: ['blur', 'change']}
+                // ],
+                // processing_time: [
+                //     {required: true, message: 'Select your processing time', trigger: ['blur', 'change']}
+                // ]
             },
 
             artworkSaved: false,
@@ -33399,7 +33427,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             nettoIncome: 0,
             totalPrice: 0,
             dialogImageUrl: '',
-            dialogVisible: false
+            dialogVisible: false,
+            errorString: '',
+            images: []
         };
     },
     mounted: function mounted() {
@@ -33425,7 +33455,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             _this.countries = response.data;
         });
 
-        this.countPrice();
+        // this.countPrice();
     },
 
 
@@ -33436,6 +33466,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         saveArtwork: function saveArtwork() {
             var _this2 = this;
 
+            console.log(this.images);
+            this.artwork.images = this.images.filter(function (image) {
+                return image.response.data;
+            });
+
+            console.log(this.artwork.images);
             this.$refs['artwork'].validate(function (valid) {
                 if (valid) {
                     _this2.loading = true;
@@ -33444,11 +33480,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         if (response.data.data) {
                             console.log(response.data);
 
-                            if (_this2.page_) {
-                                window.location.pathname = '/sell/artwork';
-                            } else {
-                                window.location.pathname = '/dashboard/artworks';
-                            }
+                            window.location.pathname = '/dashboard/artworks';
                         } else {
                             console.log(response.data);
                         }
@@ -33456,13 +33488,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         console.log(error.response);
                         _this2.loading = false;
                     });
+                } else {
+                    _this2.errorString = 'Some fields are still required';
                 }
             });
         },
         handleRemoveImages: function handleRemoveImages(file, fileList) {
-            this.artwork.images = this.artwork.images.filter(function (image) {
-                return image.id !== file.id;
-            });
+            this.images = fileList;
         },
         handleRemoveImage: function handleRemoveImage(file, fileList) {
             this.artwork.image = [];
@@ -33473,8 +33505,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.dialogVisible = true;
         },
         handleImagesSuccess: function handleImagesSuccess(response, file, fileList) {
-            console.log(response, file, fileList);
-            this.artwork.images.push(response.data);
+            console.log('resp', response, 'file', file, 'list', fileList);
+
+            // this.artwork.images = fileList.map(file => {
+            //     return file.response.data;
+            // });
+
+            this.images = fileList;
+            // this.artwork.images.push(response.data)
         },
         handleImageSuccess: function handleImageSuccess(response, file) {
             console.log(response.data);
@@ -98235,7 +98273,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "slot": "header"
     },
     slot: "header"
-  }, [_c('span', [_vm._v("Photos")]), _vm._v(" "), (_vm.artwork_ && !_vm.page_) ? _c('a', {
+  }, [_c('span', [_vm._v("Photos")]), _vm._v(" "), (_vm.artwork_) ? _c('a', {
     staticClass: "el-button el-button--default el-button--mini",
     attrs: {
       "href": '/artwork/' + _vm.artwork.id,
@@ -98282,13 +98320,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "src": _vm.dialogImageUrl,
       "alt": ""
     }
-  })])], 1), _vm._v(" "), _c('el-form-item', {
+  })])], 1), _vm._v("\n\n            " + _vm._s(_vm.artwork.images) + "\n            "), _c('el-form-item', {
     attrs: {
       "label": "Add as many images as you can so buyers can see every detail."
     }
   }, [_c('el-upload', {
     staticClass: "artwork-image",
     attrs: {
+      "multiple": "",
       "action": "/api/artwork/upload-artwork-images/",
       "file-list": _vm.artwork.images,
       "headers": {
@@ -98912,36 +98951,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('el-form-item', {
     attrs: {
-      "label": "How many Quantity?",
-      "prop": "quantity",
-      "required": ""
-    }
-  }, [_c('el-input-number', {
-    attrs: {
-      "value": "1",
-      "min": 1,
-      "precision": 0
-    },
-    model: {
-      value: (_vm.artwork.quantity),
-      callback: function($$v) {
-        _vm.$set(_vm.artwork, "quantity", $$v)
-      },
-      expression: "artwork.quantity"
-    }
-  })], 1)], 1)], 1), _vm._v(" "), _c('el-row', {
-    staticStyle: {
-      "display": "none"
-    },
-    attrs: {
-      "gutter": 20
-    }
-  }, [_c('el-col', {
-    attrs: {
-      "sm": 8
-    }
-  }, [_c('el-form-item', {
-    attrs: {
       "label": "Mark artwork as sold"
     }
   }, [_c('el-checkbox', {
@@ -99135,10 +99144,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     })
   }))], 1)], 1)], 1)], 1), _vm._v(" "), _c('div', {
-    staticClass: "app--fixed-bottom"
-  }, [_c('div', {
-    staticClass: "app--wrapper"
-  }, [(_vm.artwork_ && !_vm.page_) ? _c('el-button', {
+    staticClass: "bottom",
+    staticStyle: {
+      "text-align": "right"
+    }
+  }, [_c('span', {
+    staticStyle: {
+      "margin-right": "20px"
+    }
+  }, [_vm._v("\n                " + _vm._s(_vm.errorString) + "\n            ")]), _vm._v(" "), (_vm.artwork_) ? _c('el-button', {
     attrs: {
       "type": "success"
     }
@@ -99155,7 +99169,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.saveArtwork
     }
-  }, [_vm._v("Save and Continue")])], 1)])], 1) : _vm._e()], 1)
+  }, [_vm._v("Save and Continue")])], 1)], 1) : _vm._e()], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

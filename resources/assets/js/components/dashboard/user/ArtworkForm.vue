@@ -5,7 +5,7 @@
             <el-card style="margin-bottom: 20px;">
                 <div slot="header" class="artwork-header">
                     <span>Photos</span>
-                    <a v-if="artwork_ && !page_" :href="'/artwork/' + artwork.id" target="_blank"
+                    <a v-if="artwork_" :href="'/artwork/' + artwork.id" target="_blank"
                        class="el-button el-button--default el-button--mini">Preview</a>
                 </div>
 
@@ -35,9 +35,11 @@
 
                 </el-form-item>
 
+                {{ artwork.images }}
                 <el-form-item label="Add as many images as you can so buyers can see every detail.">
 
                     <el-upload
+                            multiple
                             class="artwork-image"
                             action="/api/artwork/upload-artwork-images/"
                             :file-list="artwork.images"
@@ -257,15 +259,15 @@
                     </el-col>
                 </el-row>
 
-                <el-row :gutter="20" style="display: none;">
-                    <el-col :sm="8">
-                        <el-form-item label="How many Quantity?" prop="quantity" required>
-                            <el-input-number value="1" :min="1" :precision="0"
-                                             v-model="artwork.quantity"></el-input-number>
-                        </el-form-item>
-                    </el-col>
+                <!--<el-row :gutter="20">-->
+                <!--<el-col :sm="8">-->
+                <!--<el-form-item label="How many Quantity?" prop="quantity">-->
+                <!--<el-input-number :value="artwork.quantity ? artwork.quantity : 1" :min="1" :precision="0"-->
+                <!--v-model="artwork.quantity"></el-input-number>-->
+                <!--</el-form-item>-->
+                <!--</el-col>-->
 
-                </el-row>
+                <!--</el-row>-->
 
                 <el-row :gutter="20" style="display: none;">
 
@@ -353,17 +355,24 @@
 
             </el-card>
 
-            <div class="app--fixed-bottom">
-                <div class="app--wrapper">
+            <!--<div class="app&#45;&#45;fixed-bottom">-->
+            <!--<div class="app&#45;&#45;wrapper">-->
 
-                    <el-button type="success" v-if="artwork_ && !page_">
-                        <a :href="artwork.url" target="_blank">Preview</a>
-                    </el-button>
+            <div class="bottom" style="text-align: right;">
+                <span style="margin-right: 20px;">
+                    {{ errorString }}
+                </span>
 
-                    <el-button type="primary" @click="saveArtwork" :loading="loading">Save and Continue</el-button>
+                <el-button type="success" v-if="artwork_">
+                    <a :href="artwork.url" target="_blank">Preview</a>
+                </el-button>
 
-                </div>
+                <el-button type="primary" @click="saveArtwork" :loading="loading">Save and Continue</el-button>
+
             </div>
+
+            <!--</div>-->
+            <!--</div>-->
 
 
         </el-form>
@@ -376,7 +385,6 @@
     export default {
 
         props: {
-            page_: '',
             artwork_: {},
             currencies_: {},
         },
@@ -397,40 +405,40 @@
                     image: [],
                 },
                 rules: {
-                    image: [
-                        {
-                            required: true,
-                            message: 'Please upload at least one photo of your artwork',
-                            trigger: ['blur', 'change']
-                        },
-                    ],
-                    name: [
-                        {required: true, message: 'Please enter the name of artwork', trigger: ['blur', 'change']},
-                    ],
-                    made_by: [
-                        {required: true, message: 'This field is required', trigger: ['blur', 'change']},
-                    ],
-                    date_of_completion: [
-                        {required: true, message: 'This field is required', trigger: ['blur', 'change']},
-                    ],
-                    category: [
-                        {required: true, message: 'Please select category', trigger: ['blur', 'change']}
-                    ],
-                    description: [
-                        {required: true, message: 'This field is required', trigger: ['blur', 'change']},
-                    ],
-                    price: [
-                        {required: true, message: 'Artwork price is required', trigger: ['blur', 'change']}
-                    ],
-                    quantity: [
-                        {required: true, message: 'Artwork quantity is required', trigger: ['blur', 'change']}
-                    ],
-                    country_id: [
-                        {required: true, message: 'Select shipping country', trigger: ['blur', 'change']}
-                    ],
-                    processing_time: [
-                        {required: true, message: 'Select your processing time', trigger: ['blur', 'change']}
-                    ]
+                    // image: [
+                    //     {
+                    //         required: true,
+                    //         message: 'Please upload at least one photo of your artwork',
+                    //         trigger: ['blur', 'change']
+                    //     },
+                    // ],
+                    // name: [
+                    //     {required: true, message: 'Please enter the name of artwork', trigger: ['blur', 'change']},
+                    // ],
+                    // made_by: [
+                    //     {required: true, message: 'This field is required', trigger: ['blur', 'change']},
+                    // ],
+                    // date_of_completion: [
+                    //     {required: true, message: 'This field is required', trigger: ['blur', 'change']},
+                    // ],
+                    // category: [
+                    //     {required: true, message: 'Please select category', trigger: ['blur', 'change']}
+                    // ],
+                    // description: [
+                    //     {required: true, message: 'This field is required', trigger: ['blur', 'change']},
+                    // ],
+                    // price: [
+                    //     {required: true, message: 'Artwork price is required', trigger: ['blur', 'change']}
+                    // ],
+                    // // quantity: [
+                    // //     {required: true, message: 'Artwork quantity is required', trigger: ['blur', 'change']}
+                    // // ],
+                    // country_id: [
+                    //     {required: true, message: 'Select shipping country', trigger: ['blur', 'change']}
+                    // ],
+                    // processing_time: [
+                    //     {required: true, message: 'Select your processing time', trigger: ['blur', 'change']}
+                    // ]
                 },
 
                 artworkSaved: false,
@@ -438,7 +446,9 @@
                 nettoIncome: 0,
                 totalPrice: 0,
                 dialogImageUrl: '',
-                dialogVisible: false
+                dialogVisible: false,
+                errorString: '',
+                images: [],
             }
         },
 
@@ -467,7 +477,7 @@
                 this.countries = response.data;
             });
 
-            this.countPrice();
+            // this.countPrice();
 
         },
 
@@ -478,6 +488,13 @@
             },
 
             saveArtwork() {
+
+                console.log(this.images);
+                this.artwork.images = this.images.filter(image => {
+                    return image.response.data;
+                });
+
+                console.log(this.artwork.images);
                 this.$refs['artwork'].validate((valid) => {
                     if (valid) {
                         this.loading = true;
@@ -487,11 +504,7 @@
                                 if (response.data.data) {
                                     console.log(response.data);
 
-                                    if (this.page_) {
-                                        window.location.pathname = '/sell/artwork';
-                                    } else {
-                                        window.location.pathname = '/dashboard/artworks';
-                                    }
+                                    window.location.pathname = '/dashboard/artworks';
                                 } else {
                                     console.log(response.data);
                                 }
@@ -499,12 +512,14 @@
                             console.log(error.response);
                             this.loading = false;
                         });
+                    } else {
+                        this.errorString = 'Some fields are still required'
                     }
                 });
 
             },
             handleRemoveImages(file, fileList) {
-                this.artwork.images = this.artwork.images.filter(image => image.id !== file.id);
+                this.images = fileList;
             },
             handleRemoveImage(file, fileList) {
                 this.artwork.image = [];
@@ -517,8 +532,14 @@
             },
 
             handleImagesSuccess(response, file, fileList) {
-                console.log(response, file, fileList);
-                this.artwork.images.push(response.data)
+                console.log('resp', response, 'file', file, 'list', fileList);
+
+                // this.artwork.images = fileList.map(file => {
+                //     return file.response.data;
+                // });
+
+                this.images = fileList;
+                // this.artwork.images.push(response.data)
             },
 
             handleImageSuccess(response, file) {
