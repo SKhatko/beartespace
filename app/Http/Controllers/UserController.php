@@ -32,6 +32,9 @@ class UserController extends Controller {
 
 	public function seller( $profilename ) {
 
+//		return $profilename;
+		return User::where( 'profile_name', 'artist-family' )->get();
+
 		$seller = User::where( 'profile_name', $profilename )->with( 'image', 'avatar', 'artworks.images' )->firstOrFail();
 
 		return view( 'seller.show', compact( 'seller' ) );

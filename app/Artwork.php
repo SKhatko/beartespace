@@ -70,23 +70,6 @@ class Artwork extends Model implements Buyable {
 		return $this->hasMany( Add::class );
 	}
 
-	public function statusString( $quantity = 1 ) {
-
-		if ( $this->sold_at ) {
-			return 'sold';
-		}
-
-		if ( ! $this->available ) {
-			return 'temporarily-unavailable';
-		}
-
-		if ( $this->quantity >= $quantity ) {
-			return 'available';
-		}
-
-		return 'unavailable';
-	}
-
 	public function scopeAvailable( $query ) {
 		return $query->where( 'available', true );
 	}

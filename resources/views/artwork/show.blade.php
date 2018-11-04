@@ -97,13 +97,13 @@
                         <el-form action="{{ route('cart.item.add', $artwork->id) }}" method="POST">
                             {{ csrf_field() }}
 
-                            @if($artwork->statusString() !== 'available')
+                            @if($artwork->status !== 'available')
                                 <div class="artwork-status">
-                                    {{ trans('stock-status.' . $artwork->statusString()) }}
+                                    {{ trans('artwork-status.' . $artwork->status) }}
                                 </div>
                             @else
                                 <div class="artwork-status available">
-                                    {{ trans('stock-status.' . $artwork->statusString()) }}
+                                    {{ trans('artwork-status.' . $artwork->status) }}
                                 </div>
 
                                 @if($artwork->quantity >= 1)
@@ -118,7 +118,7 @@
 
                             @endif
 
-                            @if($artwork->statusString() === 'available')
+                            @if($artwork->status === 'available')
 
                                 {{--<buy-now-form artwork_="{{ $artwork }}"></buy-now-form>--}}
 
@@ -154,11 +154,11 @@
                         <div class="artwork-overviews">
 
                             @if($artwork->height)
-                                <div>Height: {{ $artwork->height }} cm</div>
+                                <div><b>Height:</b> {{ $artwork->height }} cm</div>
                             @endif
 
                             @if($artwork->width)
-                                <div>Width: {{ $artwork->width }} cm</div>
+                                <div><b>Width:</b> {{ $artwork->width }} cm</div>
                             @endif
 
                             @if($artwork->depth)
@@ -166,39 +166,45 @@
                             @endif
 
                             @if($artwork->weight)
-                                <div>Weight: {{ $artwork->weight }} g</div>
+                                <div><b>Weight:</b> {{ $artwork->weight }} g</div>
                             @endif
 
                         <!-- Optional -->
+                            @if($artwork->optional_size)
+                                <div class="h5"> With frame/ Base</div>
+                            @endif
+
                             @if($artwork->b_height)
-                                <div>Total Height: {{ $artwork->b_height }} cm</div>
+                                <div><b>Total Height:</b> {{ $artwork->b_height }} cm</div>
                             @endif
 
                             @if($artwork->b_width)
-                                <div>Total Width: {{ $artwork->b_width }} cm</div>
+                                <div><b>Total Width:</b> {{ $artwork->b_width }} cm</div>
                             @endif
 
                             @if($artwork->b_depth)
-                                <div>Total Depth: {{ $artwork->b_depth }} cm</div>
+                                <div><b>Total Depth:</b> {{ $artwork->b_depth }} cm</div>
                             @endif
 
                             @if($artwork->b_weight)
-                                <div>Total Weight: {{ $artwork->b_weight }} cm</div>
+                                <div><b>Total Weight:</b> {{ $artwork->b_weight }} cm</div>
                             @endif
 
                             @if($artwork->date_of_completion)
-                                <div>Completion date: {{ $artwork->date_of_completion->year }}</div>
+                                <div><b>Completion year:</b> {{ $artwork->date_of_completion->year }}</div>
                             @endif
 
                             <div class="artwork-category">
-                                Category: {{ trans('category.' . $artwork->category) }}
+                                <b>Category:</b> {{ trans_input('artwork-category.' . $artwork->category) }}
                             </div>
 
-                            <div class="artwork-medium">
-                                Materials: @foreach($artwork->medium as $medium)
-                                    {{ trans_input('medium.' . $medium ) }},
-                                @endforeach
-                            </div>
+                            @if(count($artwork->medium))
+                                <div class="artwork-medium">
+                                    <b>Materials:</b> @foreach($artwork->medium as $medium)
+                                        {{ trans_input('medium.' . $medium ) }},
+                                    @endforeach
+                                </div>
+                            @endif
 
                             @if(count($artwork->theme))
                                 <div class="artwork-direction">
@@ -225,26 +231,27 @@
                     </el-card>
 
                     <el-card>
-                        <div slot="header">Shipping & returns</div>
+                        <div slot="header">Shipping & returns:</div>
 
-                        @if($artwork->processing_time)
-                            <div>Ready to ship in {{ $artwork->processing_time }}</div>
-                        @endif
+                        <div class="artwork-overviews">
+                            @if($artwork->processing_time)
+                                <div>Ready to ship in <b>{{ $artwork->processing_time }}</b></div>
+                            @endif
 
-                        @if($artwork->country)
+                            @if($artwork->country)
+                                <div class="artwork-country">
+                                    Shipping from <b>{{ $artwork->country['country_name'] }}</b>
+                                </div>
+                            @endif
+
                             <div class="artwork-country">
-                                Shipping from <b>{{ $artwork->country['country_name'] }}</b>
+                                Free shipping to <b>{{ geoip(request()->ip())->country }}</b>
                             </div>
-                        @endif
 
-                        <div class="artwork-country">
-                            Free shipping to <b>{{ geoip(request()->ip())->country }}</b>
-                        </div>
-
-                        <div class="p">
-                            See
-                            <a href="{{ route('page', 'freight')}}">Shipping</a> and
-                            <a href="{{ route('page', 'right-of-cancellation')}}">Rights to Cancellation</a>
+                            <div>
+                                <a href="{{ route('page', 3)}}" class="el-button--text">Shipping</a> |
+                                <a href="{{ route('page', 4)}}" class="el-button--text">Rights to Cancellation</a>
+                            </div>
                         </div>
 
                     </el-card>

@@ -30,7 +30,7 @@
                     Qty: {{ $item->qty }}
                 </div>
 
-                @if($item->model->statusString($item->qty) === 'available')
+                @if($item->model->status === 'available')
 
                     <div class="item-price">
                         {{ $item->model->formatted_price }}
@@ -38,7 +38,7 @@
 
                 @else
                     <div class="item-status">
-                        @lang('stock-status.' . $item->model->statusString($item->qty))
+                        @lang('artwork-status.' . $item->model->status)
                     </div>
                 @endif
             </div>

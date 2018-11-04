@@ -20,7 +20,7 @@ class CreateSalesTable extends Migration
             $table->integer('artwork_id');
             $table->integer('qty');
             $table->decimal('price');
-            $table->enum('status', ['initial','payed', 'shipped', 'delivered', 'dispute'])->default('initial');
+            $table->enum('status', ['initial','payed', 'confirmed','shipped', 'delivered', 'disputed'])->default('initial')->nullable();
             $table->timestamps();
         });
     }

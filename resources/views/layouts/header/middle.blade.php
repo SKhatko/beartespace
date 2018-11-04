@@ -119,7 +119,9 @@
 
                         <el-dropdown-item>
                             <a href="{{route('dashboard.artworks')}}" class="el-dropdown-link">My Artworks
-                                <el-badge class="mark" value="{{ auth()->user()->sales->count() }}"/>
+                                @if(auth()->user()->sales()->status('initial')->count() > 0)
+                                    <el-badge class="mark" value="{{ auth()->user()->sales()->status('initial')->count() }}"/>
+                                @endif
                             </a>
                         </el-dropdown-item>
 

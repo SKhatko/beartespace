@@ -120,31 +120,45 @@ class TranslationsTableSeeder extends Seeder {
 				[ 'Third', '' ],
 				[ 'None', '' ]
 			],
-			'stock-status' => [
+			'artwork-status' => [
+				[ 'Pending', '' ],
 				[ 'Available', '' ],
-				[ 'Temporarily unavailable', '' ],
 				[ 'Unavailable', '' ],
 				[ 'Sold', '' ],
 			],
 			'processing-time' => [
+				['1 business days', ''],
+				['2 business days', ''],
 				['7 business days', ''],
 				['2 weeks', ''],
 				['1 month', ''],
+				['3 month', ''],
+				['6 month', ''],
+				['1 year', ''],
 				['Unknown', ''],
 			],
 			'article-category'     => [
-				[ 'Painting', 'Maleri' ],
-				[ 'Sculpture', 'Skulptur' ],
-				[ 'Drawing', '' ],
-				[ 'Glass Art', '' ],
-				[ 'Ceramic', '' ],
+				[ 'Exhibitions', '' ],
+				[ 'Art events', '' ],
+				[ 'Art news', '' ],
+				[ 'Artists', '' ],
+				[ 'Other', '' ],
 			],
 			'seller-status' => [
 				['Pending', ''],
 				['Active', ''],
 				['Blocked', ''],
 				['Rejected', ''],
-			]
+			],
+			'sale-status' => [
+				['Initial', ''],
+				['Payed', ''],
+				['Confirmed', ''],
+				['Shipped',''],
+				['Delivered', ''],
+				['Disputed', ''],
+			],
+
 		];
 
 		foreach ( $translations as $group => $trans ) {

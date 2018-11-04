@@ -29,6 +29,25 @@ class PagesTableSeeder extends Seeder {
 					"da" => "Cookies and Privacy DK"
 				] )
 			],
+			// 3
+				[
+				"name"   => "Shipping",
+				"slug"    => "shipping",
+				"content" => json_encode( [
+					"en" => "Shipping",
+					"da" => "Shipping DK"
+				] )
+			],
+
+			// 4
+			[
+				"name"   => "Rights to cancellation",
+				"slug"    => "rights-to-cancellation",
+				"content" => json_encode( [
+					"en" => "Rights to cancellation",
+					"da" => "Rights to cancellation DK"
+				] )
+			],
 
 			[
 				"name"   => "Contacts block in footer",

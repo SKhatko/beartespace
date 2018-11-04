@@ -79,7 +79,7 @@ class CartController extends Controller {
 		$artwork = Artwork::findOrFail( $id );
 
 //		foreach ( Cart::content() as $item ) {
-//			if ( $item->model->statusString( $item->qty ) !== 'available' ) {
+//			if ( $item->model->status !== 'available' ) {
 //
 //			}
 //		}

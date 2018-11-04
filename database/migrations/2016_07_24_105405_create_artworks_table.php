@@ -40,13 +40,11 @@ class CreateArtworksTable extends Migration {
 			$table->json( 'theme' )->nullable();
 			$table->json( 'color' )->nullable();
 			$table->string( 'shape' )->nullable();
-			$table->boolean( 'available' )->nullable()->default( 1 );
 			$table->integer( 'image_id' );
 			$table->integer( 'quantity' )->default( 1 );
 
-			//0 =pending for review, 1= available, 2=unavailable, 3=sold,
-			$table->enum( 'status', [ 0, 1, 2, 3 ] )->nullable();
-			$table->boolean( 'auction_status' )->nullable();
+			$table->enum( 'status', [ 'pending', 'reserved', 'available', 'unavailable', 'sold' ] )->nullable();
+			$table->enum( 'auction_status', [] )->nullable();
 			$table->decimal( 'auction_price', 12, 2 )->nullable();
 			$table->timestamp( 'auction_start' )->nullable();
 			$table->timestamp( 'auction_end' )->nullable();

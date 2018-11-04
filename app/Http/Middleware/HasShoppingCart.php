@@ -20,7 +20,7 @@ class HasShoppingCart {
 		if ( Cart::count() > 0 ) {
 
 			foreach ( Cart::content() as $item ) {
-				if ( $item->model->statusString( $item->qty ) !== 'available' ) {
+				if ( $item->model->status !== 'available' ) {
 					return redirect( route( 'cart' ) )->with( 'inline-warning', 'Not all items from your shopping cart are available. Remove them from your cart to continue' );
 				}
 			}

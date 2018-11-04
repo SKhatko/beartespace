@@ -8,7 +8,15 @@
             <div class="app-dashboard-partials-profile__info">
                 <div class="h2" style="margin-bottom: 10px;">{{ auth()->user()->name }}</div>
 
-                @if(!auth()->user()->email_verified)
+                <a href="/dashboard/profile" class="el-button el-button--text" style="margin: 0 10px"><i
+                            class="el-icon-edit"></i><span>Edit profile</span></a>
+
+                <a href="/dashboard/account" class="el-button el-button--text" style="margin: 0 10px;"><i
+                            class="el-icon-setting"></i><span>Account Settings</span></a>
+
+                <hr>
+
+            @if(!auth()->user()->email_verified)
                     <el-tag type="danger" size="mini" style="margin-bottom: 10px;">Email not confirmed.
                     </el-tag> <a href="{{ route('confirm-email.resend') }}" class="el-button el-button--text">
                         Send
@@ -28,8 +36,6 @@
 
                 </div>
 
-                <hr>
-
                 @if(auth()->user()->seller_status === 'active')
                     <div class="h5">
                         <a href="/dashboard/artworks"><b>{{ auth()->user()->artworks->count() }}</b> Artworks</a>
@@ -37,12 +43,6 @@
                         <a href="/dashboard/sale"><b>{{ auth()->user()->sales->count() }}</b> Sales</a>
                     </div>
                 @endif
-
-                <a href="/dashboard/profile" class="el-button el-button--text"><i
-                            class="el-icon-edit"></i><span>Edit profile</span></a>
-
-                <a href="/dashboard/account" class="el-button el-button--text"><i
-                            class="el-icon-setting"></i><span>Account Settings</span></a>
 
                 @if(auth()->user()->seller_status === 'active')
                     <div>

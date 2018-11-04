@@ -25,6 +25,10 @@ class Sale extends Model {
 		return $this->belongsTo( Artwork::class );
 	}
 
+	public function scopeStatus($query, $status = null) {
+		return $query->whereStatus($status);
+	}
+
 	public function total() {
 		return $this->attributes['price'] * $this->attributes['qty'];
 	}
