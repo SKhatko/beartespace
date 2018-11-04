@@ -33360,7 +33360,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -33448,24 +33447,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         saveArtwork: function saveArtwork() {
             var _this2 = this;
 
-            console.log(this.images);
-            this.artwork.images = this.images.filter(function (image) {
-                return image.response.data;
-            });
+            // this.artwork.images =
 
+            console.log(this.images);
             console.log(this.artwork.images);
+
             this.$refs['artwork'].validate(function (valid) {
                 if (valid) {
-                    _this2.loading = true;
+                    // this.loading = true;
 
                     axios.post('/api/artwork/', _this2.artwork).then(function (response) {
-                        if (response.data.data) {
-                            console.log(response.data);
-
-                            window.location.pathname = '/dashboard/artworks';
-                        } else {
-                            console.log(response.data);
-                        }
+                        console.log(response.data);
+                        // window.location.pathname = '/dashboard/artworks';
                     }).catch(function (error) {
                         console.log(error.response);
                         _this2.loading = false;
@@ -33475,8 +33468,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
             });
         },
+        storeImageList: function storeImageList(filelist) {
+            this.artwork.images = filelist.map(function (image) {
+                if (image.response) {
+                    return image.response.data;
+                } else {
+                    return image;
+                }
+            });
+        },
         handleRemoveImages: function handleRemoveImages(file, fileList) {
-            this.images = fileList;
+            this.storeImageList(fileList);
         },
         handleRemoveImage: function handleRemoveImage(file, fileList) {
             this.artwork.image = [];
@@ -33487,14 +33489,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.dialogVisible = true;
         },
         handleImagesSuccess: function handleImagesSuccess(response, file, fileList) {
-            console.log('resp', response, 'file', file, 'list', fileList);
-
-            // this.artwork.images = fileList.map(file => {
-            //     return file.response.data;
-            // });
-
-            this.images = fileList;
-            // this.artwork.images.push(response.data)
+            this.storeImageList(fileList);
         },
         handleImageSuccess: function handleImageSuccess(response, file) {
             console.log(response.data);
@@ -98302,7 +98297,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "src": _vm.dialogImageUrl,
       "alt": ""
     }
-  })])], 1), _vm._v("\n\n            " + _vm._s(_vm.artwork.images) + "\n            "), _c('el-form-item', {
+  })])], 1), _vm._v(" "), _c('el-form-item', {
     attrs: {
       "label": "Add as many images as you can so buyers can see every detail."
     }

@@ -984,6 +984,7 @@ body, html {
     &-image {
       margin-right: 10px;
       display: flex;
+      flex-wrap: wrap;
 
       .el-upload--picture-card {
         line-height: initial;

@@ -64,13 +64,17 @@
                     <artwork-show-carousel artwork_="{{ $artwork }}"></artwork-show-carousel>
 
                     <el-collapse v-model="activeCollapseArtworkShow">
-                        <el-collapse-item title="Description" name="description">
-                            {{ $artwork->description }}
-                        </el-collapse-item>
-                        <el-collapse-item title="Inspiration" name="inspiration">
+                        @if($artwork->description)
+                            <el-collapse-item title="Description" name="description">
+                                {{ $artwork->description }}
+                            </el-collapse-item>
+                        @endif
+                        @if($artwork->inspiration)
+                            <el-collapse-item title="Inspiration" name="inspiration">
 
-                            {{ $artwork->inspiration }}
-                        </el-collapse-item>
+                                {{ $artwork->inspiration }}
+                            </el-collapse-item>
+                        @endif
                     </el-collapse>
 
                 </div>
@@ -78,9 +82,8 @@
                 <div class="artwork--right">
                     <el-card class="artwork-description">
 
-                        <div class="artwork-name">{{ $artwork->name }} by
-                            <b>{{ $artwork->made_by ?? $artwork->user->name }}</b>
-                        </div>
+                        <div class="artwork-name">{{ $artwork->name }}</div>
+                        <div class="artwork-artist"><b>{{ $artwork->made_by ?? $artwork->user->name }}</b></div>
 
                         <div class="artwork-price">
                             {{ $artwork->formatted_price }}
@@ -124,8 +127,8 @@
 
                                 <el-button type="primary" native-type="submit" style="margin-bottom: 20px;"
                                            class="artwork-add"
-{{--                                           disabled="{{ auth()->user() && auth()->user()->id !== $artwork->user->id ? 'disabled' : '' }}">--}}
-                                    >
+                                        {{--                                           disabled="{{ auth()->user() && auth()->user()->id !== $artwork->user->id ? 'disabled' : '' }}">--}}
+                                >
                                     Add to cart
                                 </el-button>
 
@@ -159,7 +162,7 @@
                             @endif
 
                             @if($artwork->depth)
-                                <div>Depth: {{ $artwork->depth }} cm</div>
+                                <div><b>Depth:</b> {{ $artwork->depth }} cm</div>
                             @endif
 
                             @if($artwork->weight)
@@ -197,17 +200,21 @@
                                 @endforeach
                             </div>
 
-                            <div class="artwork-direction">
-                                Art Direction: @foreach($artwork->direction as $direction)
-                                    {{ trans_input('direction.' . $direction ) }},
-                                @endforeach
-                            </div>
+                            @if(count($artwork->theme))
+                                <div class="artwork-direction">
+                                    Art Direction: @foreach($artwork->direction as $direction)
+                                        {{ trans_input('direction.' . $direction ) }},
+                                    @endforeach
+                                </div>
+                            @endif
 
-                            <div class="artwork-theme">
-                                Theme: @foreach($artwork->theme as $theme)
-                                    {{ trans_input('theme.' . $theme ) }},
-                                @endforeach
-                            </div>
+                            @if(count($artwork->theme))
+                                <div class="artwork-theme">
+                                    Theme: @foreach($artwork->theme as $theme)
+                                        {{ trans_input('theme.' . $theme ) }},
+                                    @endforeach
+                                </div>
+                            @endif
 
                             {{--                                    {{ $artwork->color }}--}}
                             {{--                                    {{ $artwork->shape }}--}}

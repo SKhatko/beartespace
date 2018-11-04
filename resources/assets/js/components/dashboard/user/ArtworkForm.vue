@@ -35,7 +35,6 @@
 
                 </el-form-item>
 
-                {{ artwork.images }}
                 <el-form-item label="Add as many images as you can so buyers can see every detail.">
 
                     <el-upload
@@ -489,25 +488,19 @@
 
             saveArtwork() {
 
-                console.log(this.images);
-                this.artwork.images = this.images.filter(image => {
-                    return image.response.data;
-                });
+                // this.artwork.images =
 
+                console.log(this.images);
                 console.log(this.artwork.images);
+
                 this.$refs['artwork'].validate((valid) => {
                     if (valid) {
-                        this.loading = true;
+                        // this.loading = true;
 
                         axios.post('/api/artwork/', this.artwork)
                             .then((response) => {
-                                if (response.data.data) {
-                                    console.log(response.data);
-
-                                    window.location.pathname = '/dashboard/artworks';
-                                } else {
-                                    console.log(response.data);
-                                }
+                                console.log(response.data);
+                                // window.location.pathname = '/dashboard/artworks';
                             }).catch(error => {
                             console.log(error.response);
                             this.loading = false;
@@ -518,8 +511,17 @@
                 });
 
             },
+            storeImageList(filelist) {
+                this.artwork.images = filelist.map(image => {
+                    if(image.response) {
+                        return image.response.data;
+                    } else {
+                        return image;
+                    }
+                });
+            },
             handleRemoveImages(file, fileList) {
-                this.images = fileList;
+               this.storeImageList(fileList);
             },
             handleRemoveImage(file, fileList) {
                 this.artwork.image = [];
@@ -532,14 +534,7 @@
             },
 
             handleImagesSuccess(response, file, fileList) {
-                console.log('resp', response, 'file', file, 'list', fileList);
-
-                // this.artwork.images = fileList.map(file => {
-                //     return file.response.data;
-                // });
-
-                this.images = fileList;
-                // this.artwork.images.push(response.data)
+                this.storeImageList(fileList);
             },
 
             handleImageSuccess(response, file) {

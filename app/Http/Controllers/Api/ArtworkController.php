@@ -23,14 +23,11 @@ class ArtworkController extends Controller {
 			'formatted_price',
 		] ), [ 'user_id' => $user->id ] ) );
 
-//		if ( $request->input( 'images' ) ) {
-
 		$ids = array_pluck( $request->input( 'images' ), 'id' );
 
 		$images = Media::findMany( $ids );
 
 		$artwork->images()->sync( $images );
-//		}
 
 		$artwork = $artwork->whereId( $artwork->id )->with( 'images', 'image' )->first();
 
