@@ -33386,40 +33386,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 image: []
             },
             rules: {
-                // image: [
-                //     {
-                //         required: true,
-                //         message: 'Please upload at least one photo of your artwork',
-                //         trigger: ['blur', 'change']
-                //     },
+                image: [{
+                    required: true,
+                    message: 'Please upload at least one photo of your artwork',
+                    trigger: ['blur', 'change']
+                }],
+                name: [{ required: true, message: 'Please enter the name of artwork', trigger: ['submit'] }],
+                made_by: [{ required: true, message: 'This field is required', trigger: ['submit'] }],
+                date_of_completion: [{ required: true, message: 'This field is required', trigger: ['submit'] }],
+                category: [{ required: true, message: 'Please select category', trigger: ['submit'] }],
+                description: [{ required: true, message: 'This field is required', trigger: ['submit'] }],
+                price: [{ required: true, message: 'Artwork price is required', trigger: ['submit'] }],
+                // quantity: [
+                //     {required: true, message: 'Artwork quantity is required', trigger: ['submit']}
                 // ],
-                // name: [
-                //     {required: true, message: 'Please enter the name of artwork', trigger: ['blur', 'change']},
-                // ],
-                // made_by: [
-                //     {required: true, message: 'This field is required', trigger: ['blur', 'change']},
-                // ],
-                // date_of_completion: [
-                //     {required: true, message: 'This field is required', trigger: ['blur', 'change']},
-                // ],
-                // category: [
-                //     {required: true, message: 'Please select category', trigger: ['blur', 'change']}
-                // ],
-                // description: [
-                //     {required: true, message: 'This field is required', trigger: ['blur', 'change']},
-                // ],
-                // price: [
-                //     {required: true, message: 'Artwork price is required', trigger: ['blur', 'change']}
-                // ],
-                // // quantity: [
-                // //     {required: true, message: 'Artwork quantity is required', trigger: ['blur', 'change']}
-                // // ],
-                // country_id: [
-                //     {required: true, message: 'Select shipping country', trigger: ['blur', 'change']}
-                // ],
-                // processing_time: [
-                //     {required: true, message: 'Select your processing time', trigger: ['blur', 'change']}
-                // ]
+                country_id: [{ required: true, message: 'Select shipping country', trigger: ['submit'] }],
+                processing_time: [{ required: true, message: 'Select your processing time', trigger: ['submit'] }]
             },
 
             artworkSaved: false,
