@@ -73,12 +73,6 @@
       "src": "entypo"
     },
     {
-      "uid": "a58fe946fe31826f0b19cb4dfaaf13d2",
-      "css": "googleplus",
-      "code": 59399,
-      "src": "elusive"
-    },
-    {
       "uid": "26969cfbd811730075e4c657cc9fda2a",
       "css": "twitter",
       "code": 59400,
@@ -101,6 +95,12 @@
       "css": "linkedin",
       "code": 59403,
       "src": "elusive"
+    },
+    {
+      "uid": "f06fe7ff18d1c591bc1183cb3ab105e9",
+      "css": "google",
+      "code": 61856,
+      "src": "fontawesome"
     }
   ]
 }

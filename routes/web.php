@@ -85,6 +85,7 @@ Route::group( [ 'middleware' => 'web' ], function () {
 	Route::get( '/artworks/{id}/{slug?}', 'ArtworkController@artwork' )->name( 'artwork' );
 
 	Route::get( '/people', 'UserController@people' )->name( 'people' );
+	Route::get( '/people/{id}', 'UserController@person' )->name( 'person' );
 	Route::get( '/people/{id}/{slug?}', 'UserController@user' )->name( 'user' );
 
 	Route::get( '/articles', 'ArticleController@articles' )->name( 'articles' );
@@ -189,7 +190,7 @@ Route::group( [ 'middleware' => 'web' ], function () {
 	Route::get('/test/auth/view', 'TestController@testAuthView');
 
 	// Global user profile search
-	Route::get( '{user}', 'UserController@user' )->name( 'user' );
+	Route::get( '{user}', 'UserController@seller' )->name( 'seller' );
 	Route::get( '{user}/artworks', 'ArtworkController@userArtworks' )->name( 'user.artworks' );
 	Route::get( '{user}/artworks/{id}/{slug?}', 'ArtworkController@userArtwork' )->name( 'user.artworks' );
 

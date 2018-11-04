@@ -14,7 +14,7 @@
 
             <network network="googleplus"
                      class="google">
-                <i class="icon-googleplus"></i>
+                <i class="icon-google"></i>
             </network>
 
             <network network="twitter" class="twitter">

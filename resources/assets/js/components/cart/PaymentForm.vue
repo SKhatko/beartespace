@@ -17,13 +17,13 @@
                 <div class="el-form-item__error">{{ errorMessage }}</div>
             </el-form-item>
 
-            <div class="app--fixed-bottom">
-                <div class="app--wrapper">
+            <!--<div class="app&#45;&#45;fixed-bottom">-->
+                <!--<div class="app&#45;&#45;wrapper">-->
                     <el-button type="primary" native-type="submit" :loading="loading">
                         Review your order
                     </el-button>
-                </div>
-            </div>
+                <!--</div>-->
+            <!--</div>-->
 
         </el-form>
 

@@ -106,7 +106,7 @@
 
                     <a href="#"><i class="icon-facebook"></i> Facebook</a>
                     <a href="#"><i class="icon-twitter"></i> Twitter</a>
-                    <a href="#"><i class="icon-googleplus"></i> Google+</a>
+                    <a href="#"><i class="icon-google"></i> Google+</a>
                     <a href="#"><i class="icon-instagram"></i> Instagram</a>
 
                 </div>

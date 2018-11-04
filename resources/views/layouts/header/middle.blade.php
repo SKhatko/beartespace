@@ -72,7 +72,15 @@
         <div class="app-header-auth">
 
             @if(auth()->user() && auth()->user()->seller_status === 'active')
-                <a href="/dashboard/artworks" class="app-header-sell">My Artworks</a>
+                <a href="/dashboard/artworks" class="app-header-artworks">
+                    <div class="app-header-artworks-icon">
+                        <i class="el-icon-edit-outline"></i>
+                        <template v-if="$store.state.shoppingCartCount">
+                            <sup>@{{ $store.state.shoppingCartCount }}</sup>
+                        </template>
+                    </div>
+                    <div class="app-header-artworks-title hidden-xs-only">My Artworks</div>
+                </a>
             @else
                 <a href="/sell" class="app-header-sell">Sell <span class="hidden-xs-only">on BearteSpace</span></a>
             @endif
@@ -110,7 +118,9 @@
                     @if(auth()->user()->seller_status === 'active')
 
                         <el-dropdown-item>
-                            <a href="{{route('dashboard.artworks')}}" class="el-dropdown-link">Artworks</a>
+                            <a href="{{route('dashboard.artworks')}}" class="el-dropdown-link">My Artworks
+                                <el-badge class="mark" value="{{ auth()->user()->sales->count() }}"/>
+                            </a>
                         </el-dropdown-item>
 
                         <el-dropdown-item>
@@ -131,7 +141,11 @@
                         </el-dropdown-item>
 
                         <el-dropdown-item>
-                                <a href="{{ route('admin.users') }}" class="clearfix"><i class="icon-user-outline"></i> Users <el-badge class="mark" value="{{ \App\User::seller()->sellerStatus('pending')->count() }}" /></a>
+                            <a href="{{ route('admin.users') }}" class="clearfix"><i class="icon-user-outline"></i>
+                                Users
+                                <el-badge class="mark"
+                                          value="{{ \App\User::seller()->sellerStatus('pending')->count() }}"/>
+                            </a>
                         </el-dropdown-item>
 
                         <el-dropdown-item>
@@ -180,9 +194,9 @@
                     </el-dropdown-item>
 
                     <div slot="reference">
-                              <span class="app-header-auth-avatar">
-                                  <img src="/imagecache/fit-25/{{ auth()->user()->avatar_url}}"/>
-                              </span>
+                        <div class="app-header-auth-avatar">
+                            <img src="/imagecache/fit-25/{{ auth()->user()->avatar_url}}"/>
+                        </div>
                         <div class="app-header-auth-name hidden-xs-only">
                             You
 
@@ -196,24 +210,24 @@
 
         @if(auth()->user())
             <a href="{{ route('dashboard.favorites') }}" class="app-header-favorites">
-        <span class="app-header-favorites-icon">
-               <i class="el-icon-star-off"></i>
-        <template v-if="$store.state.favoriteArtworksCount">
-            <sup>@{{ $store.state.favoriteArtworksCount }}</sup>
-        </template>
-        </span>
-                <span class="app-header-favorites-title hidden-xs-only">Favorites</span>
+                <div class="app-header-favorites-icon">
+                    <i class="el-icon-star-off"></i>
+                    <template v-if="$store.state.favoriteArtworksCount">
+                        <sup>@{{ $store.state.favoriteArtworksCount }}</sup>
+                    </template>
+                </div>
+                <div class="app-header-favorites-title hidden-xs-only">Favorites</div>
             </a>
         @endif
 
         <a href="{{ route('cart') }}" class="app-header-cart">
-            <span class="app-header-cart-icon">
-                   <i class="el-icon-goods"></i>
-            <template v-if="$store.state.shoppingCartCount">
-                <sup>@{{ $store.state.shoppingCartCount }}</sup>
-            </template>
-            </span>
-            <span class="app-header-cart-title hidden-xs-only">Cart</span>
+            <div class="app-header-cart-icon">
+                <i class="el-icon-goods"></i>
+                <template v-if="$store.state.shoppingCartCount">
+                    <sup>@{{ $store.state.shoppingCartCount }}</sup>
+                </template>
+            </div>
+            <div class="app-header-cart-title hidden-xs-only">Cart</div>
         </a>
 
     </div>

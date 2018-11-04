@@ -66,22 +66,17 @@
 
                 <el-row :gutter="20">
 
-                    <el-col :sm="8">
+                    <el-col :sm="8" v-if="user.seller_type === 'gallery'">
                         <el-form-item label="Who made it?" prop="made_by" required>
-                            <el-select value="" v-model="artwork.made_by"
-                                       placeholder="Enter the name"
-                                       filterable
-                                       allow-create
-                                       default-first-option>
-                                <el-option value="me" label="I did"></el-option>
-                            </el-select>
+                            <el-input v-model="artwork.made_by"></el-input>
                         </el-form-item>
                     </el-col>
 
                     <el-col :sm="8">
                         <el-form-item label="What is it?" prop="category" required>
                             <el-select value="" v-model="artwork.category" placeholder="Select Category">
-                                <el-option v-for="(label, value) in trans('artwork-category')" :key="value" :value="value"
+                                <el-option v-for="(label, value) in trans('artwork-category')" :key="value"
+                                           :value="value"
                                            :label="label"></el-option>
                             </el-select>
                         </el-form-item>
@@ -262,10 +257,11 @@
                     </el-col>
                 </el-row>
 
-                <el-row :gutter="20">
+                <el-row :gutter="20" style="display: none;">
                     <el-col :sm="8">
-                        <el-form-item label="Quantity?" prop="quantity" required>
-                            <el-input-number :min="1" :precision="0" v-model="artwork.quantity"></el-input-number>
+                        <el-form-item label="How many Quantity?" prop="quantity" required>
+                            <el-input-number value="1" :min="1" :precision="0"
+                                             v-model="artwork.quantity"></el-input-number>
                         </el-form-item>
                     </el-col>
 
@@ -360,12 +356,11 @@
             <div class="app--fixed-bottom">
                 <div class="app--wrapper">
 
-                    <el-button type="primary" @click="saveArtwork" :loading="loading">Save and Continue
+                    <el-button type="success" v-if="artwork_ && !page_">
+                        <a :href="artwork.url" target="_blank">Preview</a>
                     </el-button>
 
-                    <el-button type="success" v-if="artwork_ && !page_">
-                        <a :href="'/artwork/' + artwork.id" target="_blank">Preview</a>
-                    </el-button>
+                    <el-button type="primary" @click="saveArtwork" :loading="loading">Save and Continue</el-button>
 
                 </div>
             </div>
@@ -388,6 +383,7 @@
 
         data() {
             return {
+                user: {},
                 countries: [],
                 csrf: window.csrf,
                 currencies: [],
@@ -448,6 +444,15 @@
 
 
         mounted() {
+
+            axios.get('/api/profile').then(response => {
+                    console.log(response);
+                    this.user = response.data;
+                }
+            ).catch(error => {
+                    console.log(error.response);
+                }
+            );
 
             if (this.artwork_) {
                 this.artwork = JSON.parse(this.artwork_);

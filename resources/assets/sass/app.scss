@@ -180,8 +180,36 @@ body, html {
   }
 
   &-sell {
-    margin-right: 2%;
+    margin-right: 20px;
     white-space: nowrap;
+  }
+
+  &-artworks {
+    text-align: center;
+    margin-left: 4%;
+
+    &:hover {
+      color: $--color-primary;
+    }
+
+    &-icon {
+      font-size: 25px;
+      position: relative;
+    }
+
+    &-title {
+      display: block;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    sup {
+      font-size: 12px;
+      position: absolute;
+      right: 5px;
+      top: 5px;
+    }
+
   }
 
   &-auth {
@@ -240,8 +268,8 @@ body, html {
     sup {
       font-size: 12px;
       position: absolute;
-      right: -4px;
-      top: 2px;
+      right: 5px;
+      top: 5px;
     }
 
   }
@@ -267,8 +295,8 @@ body, html {
     sup {
       font-size: 12px;
       position: absolute;
-      right: -4px;
-      top: 2px;
+      right: 5px;
+      top: 5px;
     }
 
   }
@@ -1111,9 +1139,7 @@ body, html {
     text-align: right;
   }
 
-  &__row {
-    //margin-bottom: 20px;
-  }
+  &__row {}
 
   &__col {
     margin-bottom: 20px;
@@ -1135,11 +1161,12 @@ body, html {
 
     &-info {
       text-align: left;
+      padding: 5px 15px;
     }
 
     &-name {
       font-size: 18px;
-      margin: 10px 0;
+      margin: 5px 0;
       width: 300px;
       max-width: 100%;
       display: inline-block;
@@ -1715,6 +1742,17 @@ body, html {
   }
 
   &-partials-profile {
+    text-align: center;
+
+    a {
+      display: inline-block;
+      margin: 10px;
+
+      &:hover {
+        text-decoration: underline;
+      }
+
+    }
 
     &__avatar {
       display: flex;
@@ -1756,34 +1794,34 @@ body, html {
 .app-dashboard-artworks-block {
   flex: 1;
 
-  .block-artwork {
+  &__header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
 
-    &-new {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 180px;
+  &__artwork {
+
+  }
+
+  &__image {
+    position: relative;
+
+    img {
+      width: 100%;
     }
+  }
 
-    &-image {
-      position: relative;
+  &__edit {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+  }
 
-      img {
-        width: 100%;
-      }
-    }
-
-    &-edit {
-      position: absolute;
-      right: 20px;
-      top: 20px;
-    }
-
-    &-name {
-      font-size: 18px;
-      margin: 5px 0;
-      @extend %text-truncate;
-    }
+  &__name {
+    font-size: 18px;
+    margin: 5px 0;
+    @extend %text-truncate;
   }
 
 }

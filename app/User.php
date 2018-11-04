@@ -167,7 +167,11 @@ class User extends Authenticatable {
 	}
 
 	public function getUrlAttribute() {
-		return action( 'UserController@user', $this->profile_name );
+		if($this->seller_type) {
+			return action( 'UserController@seller', $this->profile_name );
+		} else {
+			return action( 'UserController@person', $this->id );
+		}
 	}
 
 	public function getMediumAttribute() {

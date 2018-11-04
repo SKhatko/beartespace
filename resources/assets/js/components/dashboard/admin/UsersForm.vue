@@ -3,7 +3,7 @@
     <div class="app-dashboard-users" v-if="loaded">
         <el-card>
 
-            <el-input v-model="filter" placeholder="Filter" @input="filterUsers"
+            <el-input v-model="filter" clearable placeholder="Filter" @input="filterUsers"
                       style="max-width: 290px; margin-bottom: 20px;"></el-input>
 
             <el-tabs value="all">

@@ -1,15 +1,15 @@
-@extends('layouts.app')
+@extends('layouts.simple')
 
 @section('title') @if( ! empty($title)) {{ $title }} | @endif @parent @endsection
 
 @section('content')
 
-    @if($artist)
+    @if($seller)
 
         <div class="app--wrapper">
 
             <div class="app-artist"
-                 @if($artist->image) style="background-image: url('/imagecache/original{{ $artist->image_url }}')" @endif>
+                 @if($seller->image) style="background-image: url('/imagecache/original{{ $seller->image_url }}')" @endif>
 
                 <div class="artist">
 
@@ -20,7 +20,7 @@
                             <div class="artist--left">
 
                                 <div class="artist-avatar">
-                                    <img src="/imagecache/fit-290{{ $artist->avatar_url }}"
+                                    <img src="/imagecache/fit-290{{ $seller->avatar_url }}"
                                          alt="">
                                 </div>
 
@@ -28,10 +28,10 @@
 
                             <div class="artist--right">
 
-                                <div class="h1">{{ $artist->name }} </div>
+                                <div class="h1">{{ $seller->name }} </div>
 
                                 <div class="h5" style="margin-bottom: 20px;">
-                                    @foreach($artist->profession as $profession)
+                                    @foreach($seller->profession as $profession)
                                         @if($loop->index > 0)
                                             |
                                         @endif
@@ -39,39 +39,45 @@
                                     @endforeach
                                 </div>
                                 <div class="h4" style="margin-bottom: 30px;">
-                                    {{ $artist->country['country_name'] }}
+                                    {{ $seller->country['country_name'] }}
                                 </div>
 
                                 @if(auth()->user())
                                     <follow-button
-                                            follow_="{{ auth()->user()->followedUsers->contains($artist->id) }}"
-                                            user-id_="{{ $artist->id }}">
+                                            follow_="{{ auth()->user()->followedUsers->contains($seller->id) }}"
+                                            user-id_="{{ $seller->id }}" style="margin-bottom: 20px;">
                                     </follow-button>
                                 @endif
 
-                                @if($artist->created_at)
+                                @if($seller->created_at)
                                     <div>
-                                        Joined BearteSpace {{ $artist->created_at->diffForHumans() }}
+                                        Joined BearteSpace {{ $seller->created_at->diffForHumans() }}
                                     </div>
                                 @endif
 
-                                @if($artist->followedBy)
-                                    Followed by {{ $artist->followedBy->count() }} people
+                                @if($seller->followedBy)
+                                    <div>
+                                        Followed by {{ $seller->followedBy->count() }} people
+                                    </div>
                                 @endif
 
-                                @if($artist->inspiration)
-                                    Inspiration: {{ $artist->inspiration }}
+                                @if($seller->inspiration)
+                                    <div>
+                                        <b>Inspiration:</b> {{ $seller->inspiration }}
+                                    </div>
                                 @endif
 
-                                @if($artist->exhibition)
-                                    Exhibition: {{ $artist->exhibition }}
+                                @if($seller->exhibition)
+                                    <div>
+                                        <b>Exhibition:</b> {{ $seller->exhibition }}
+                                    </div>
                                 @endif
 
-                                <div class="artist-gender">{{ $artist->gender }}</div>
+                                <div class="artist-gender">{{ $seller->gender }}</div>
 
-                                <div class="artist-education">Education: {{ $artist->education }}</div>
-                                <div class="artist-education-title">Education
-                                    title: {{ $artist->education_title }}</div>
+                                <div class="artist-education"><b>Education:</b> {{ $seller->education }}</div>
+                                <div class="artist-education-title"><b>Education
+                                        title:</b> {{ $seller->education_title }}</div>
 
                             </div>
 
@@ -82,7 +88,8 @@
 
                     <div class="artist-artworks">
 
-                        <artworks-block artworks_="{{ $artist->artworks->load('user:id,first_name,last_name,profile_name,name,url') }}">
+                        <artworks-block
+                                artworks_="{{ $seller->artworks->load('user:id,first_name,last_name,profile_name,name,url') }}">
                             <template slot="header">
                                 <div class="h2">Artworks</div>
                             </template>

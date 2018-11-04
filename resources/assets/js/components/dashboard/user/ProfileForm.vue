@@ -6,14 +6,15 @@
 
         <!-- Seller -->
         <template v-if="request_seller_type_ || user.seller_type === 'artist' || user.seller_type === 'gallery'">
-            <!--<div slot="header">-->
-            <!--<div class="app-profile-form-header">-->
-            <!--<span v-if="request_seller_type_">Please fill in Profile information</span>-->
-            <!--<span v-else>Your Profile</span>-->
-            <!--<a v-if="!request_seller_type_" :href="'/' + user.profile_name" target="_blank"-->
-            <!--class="el-button el-button&#45;&#45;default el-button&#45;&#45;mini">View profile</a>-->
-            <!--</div>-->
-            <!--</div>-->
+
+            <div slot="header" v-if="user.seller_status === 'active'">
+                <div class="app-profile-form-header">
+                    <span v-if="request_seller_type_">Profile information</span>
+                    <span v-else>Your Profile</span>
+                    <a :href="'/' + user.profile_name" target="_blank"
+                       class="el-button el-button--default el-button--mini">View profile</a>
+                </div>
+            </div>
 
             <el-form label-position="top" :model="user" status-icon :rules="sellerRules" ref="profile">
 
@@ -261,12 +262,12 @@
                     </el-col>
                 </el-row>
 
-                <el-row :gutter="20" v-if="user.seller_type === 'artist' || request_seller_type_ === 'artist'">
+                <el-row :gutter="20">
                     <el-col>
                         <el-form-item>
                             <span slot="label">About</span>
                             <el-input type="textarea" v-model="user.about"
-                                      placeholder="Let people know something about you"></el-input>
+                                      placeholder="Let us and people know something about you"></el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
@@ -291,9 +292,9 @@
 
 
                 <div style="margin-top: 20px;text-align: right;">
-                    <!--<el-button v-if="!request_seller_type_">-->
-                        <!--<a :href="'/' + user.profile_name" target="_blank">Preview</a>-->
-                    <!--</el-button>-->
+                    <el-button v-if="user.seller_status === 'active'">
+                        <a :href="'/' + user.profile_name" target="_blank">Preview</a>
+                    </el-button>
 
                     <el-button type="primary" @click="save()" :loading="loading">
                         {{ request_seller_type_ ? 'Apply' : 'Save'}}

@@ -5,7 +5,7 @@
                 <img :src="'/imagecache/fit-75' + user.avatar_url" alt="">
             </div>
             <div class="app-dashboard-users__info">
-                <a :href="'/user/' + user.id" target="_blank" class="app-dashboard-users__name">
+                <a :href="user.url" target="_blank" class="app-dashboard-users__name">
                     {{ user.name }}
                 </a>
                 <div class="app-dashboard-users__role">

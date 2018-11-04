@@ -8,10 +8,10 @@
 
         <el-row :gutter="20" class="app-artworks-block__row">
             <el-col :xs="12" :sm="6" :md="6" v-for="artwork in artworks" :key="artwork.id" class="app-artworks-block__col">
-                <el-card shadow="hover">
+                <el-card shadow="hover" :body-style="{padding: 0}">
                     <div class="app-artworks-block__artwork">
                         <div class="app-artworks-block__artwork-top">
-                            <a :href="'/artwork/' + artwork.id" class="app-artworks-block__artwork-image">
+                            <a :href="'/artworks/' + artwork.id" class="app-artworks-block__artwork-image">
                                 <img :src="'/imagecache/fit-290' + artwork.image_url">
                             </a>
 

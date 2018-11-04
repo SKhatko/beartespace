@@ -12,7 +12,8 @@ class ArtworkController extends Controller {
 
 	public function artworks( Request $request ) {
 
-		$artworks = Artwork::query()->auction( false )->notSold()->available()->quantity()->with( 'image' );
+//		$artworks = Artwork::query()->auction( false )->notSold()->available()->quantity()->with( 'image' );
+		$artworks = Artwork::query()->notSold()->available()->quantity()->with( 'image' );
 
 		if ( $request->input( 'artist' ) ) {
 			$artist = $request->input( 'artist' );

@@ -30,11 +30,20 @@ class UserController extends Controller {
 		return view( 'dashboard.user.index', compact( 'title', 'users' ) );
 	}
 
-	public function user( $profilename ) {
+	public function seller( $profilename ) {
 
 		$seller = User::where( 'profile_name', $profilename )->with( 'image', 'avatar', 'artworks.images' )->firstOrFail();
 
 		return view( 'seller.show', compact( 'seller' ) );
+	}
+
+	public function person( $id ) {
+
+		$person = User::find($id)->with( 'image', 'avatar', 'artworks.images' )->firstOrFail();
+
+		return $person;
+
+		return view( 'seller.show', compact( 'person' ) );
 	}
 
 	public function profile() {
@@ -156,7 +165,9 @@ class UserController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function show( $id ) {
-		//
+		$user = User::findOrFail($id);
+
+		return $user;
 	}
 
 	/**

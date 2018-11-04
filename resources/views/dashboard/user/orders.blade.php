@@ -28,7 +28,7 @@
 
                                 <div class="artwork-info">
 
-                                    <a href="{{ route('artist', $sale->artwork->user->id) }}" class="artwork-artist">
+                                    <a href="{{ $sale->artwork->user->url }}" class="artwork-artist">
                                         <img src="/imagecache/fit-25{{ $sale->artwork->user->avatar_url }}" alt="">
 
                                         {{ $sale->artwork->user->name }}

@@ -124,7 +124,8 @@
 
                                 <el-button type="primary" native-type="submit" style="margin-bottom: 20px;"
                                            class="artwork-add"
-                                           disabled="{{ auth()->user() && auth()->user()->id !== $artwork->user->id ? 'disabled' : '' }}">
+{{--                                           disabled="{{ auth()->user() && auth()->user()->id !== $artwork->user->id ? 'disabled' : '' }}">--}}
+                                    >
                                     Add to cart
                                 </el-button>
 

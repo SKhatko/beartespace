@@ -8,7 +8,10 @@
 
         @include('dashboard.partials.profile')
 
-        <dashboard-artworks-block artworks_="{{ $artworks }}"></dashboard-artworks-block>
+        <div>
+            <dashboard-artworks-block artworks_="{{ $artworks }}"></dashboard-artworks-block>
+
+        </div>
 
     </div>
 

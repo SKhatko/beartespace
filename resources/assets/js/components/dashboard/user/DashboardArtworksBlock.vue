@@ -2,27 +2,28 @@
 
     <el-card class="app-dashboard-artworks-block">
 
+        <div slot="header" class="app-dashboard-artworks-block__header">
+            <el-input v-model="filter" clearable @input="filterArtworks" style="max-width: 290px;margin-bottom: 10px;" placeholder="Filter"></el-input>
+                <a href="/dashboard/artworks/create" class="el-button el-button--default el-button--success" style="margin-bottom: 10px;">Upload
+                    Artwork</a>
+        </div>
+
         <el-row :gutter="20">
 
-            <el-col :xs="12" :sm="8" :md="6" class="block-artwork-new">
-                <a href="/dashboard/artworks/create" class="el-button el-button--default">Upload
-                    Artwork</a>
-            </el-col>
+            <el-col :xs="12" :sm="8" :md="6" class="app-dashboard-artworks-block__artwork" v-for="artwork in artworks" :key="artwork.id" style="margin-bottom: 20px;">
 
-            <el-col :xs="12" :sm="8" :md="6" class="block-artwork" v-for="artwork in artworks" :key="artwork.id" style="margin-bottom: 20px;">
-
-                <a :href="artwork.url" class="block-artwork-image">
+                <a :href="artwork.url" class="app-dashboard-artworks-block__image">
                     <img :src="'/imagecache/fit-290' + artwork.image_url" alt="">
                 </a>
 
-                <div class="block-artwork-manage">
+                <div class="app-dashboard-artworks-block__manage">
 
-                    <div class="block-artwork-name">{{ artwork.name }}</div>
+                    <div class="app-dashboard-artworks-block__name">{{ artwork.name }}</div>
 
                     <!--<div class="block-artwork-price">{{ artwork.formatted_price }}</div>-->
 
-                    <!--<a :href="'/dashboard/artwork/' + artwork.id + '/edit'"-->
-                       <!--class="el-button el-button&#45;&#45;default el-button&#45;&#45;mini" style="margin-right: 10px;">Edit</a>-->
+                    <a :href="'/dashboard/artworks/' + artwork.id + '/edit'"
+                       class="el-button el-button--default el-button--mini" style="margin-right: 10px;">Edit</a>
 
                     <!--<el-checkbox :disabled="artwork.sold_at ? true : false" value="artwork.sold_at"-->
                                  <!--style="margin-right: 10px;"-->
@@ -58,6 +59,7 @@
         data() {
             return {
                 artworks: {},
+                filter: '',
             }
 
         },
@@ -70,6 +72,11 @@
             console.log(this.artworks);
         },
         methods: {
+            filterArtworks() {
+                this.artworks = JSON.parse(this.artworks_).filter(artwork => {
+                    return artwork.name.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0;
+                })
+            },
             markArtworkAsSold(artwork) {
 
                 this.$prompt('Where did you sell your artwork ', 'Mark as sold', {

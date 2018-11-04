@@ -32712,11 +32712,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -32729,6 +32724,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     data: function data() {
         return {
+            user: {},
             countries: [],
             csrf: window.csrf,
             currencies: [],
@@ -32768,6 +32764,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     mounted: function mounted() {
         var _this = this;
+
+        axios.get('/api/profile').then(function (response) {
+            console.log(response);
+            _this.user = response.data;
+        }).catch(function (error) {
+            console.log(error.response);
+        });
 
         if (this.artwork_) {
             this.artwork = JSON.parse(this.artwork_);
@@ -32916,6 +32919,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -32924,7 +32928,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     data: function data() {
         return {
-            artworks: {}
+            artworks: {},
+            filter: ''
         };
     },
     mounted: function mounted() {
@@ -32936,8 +32941,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     methods: {
-        markArtworkAsSold: function markArtworkAsSold(artwork) {
+        filterArtworks: function filterArtworks() {
             var _this = this;
+
+            this.artworks = JSON.parse(this.artworks_).filter(function (artwork) {
+                return artwork.name.toLowerCase().indexOf(_this.filter.toLowerCase()) >= 0;
+            });
+        },
+        markArtworkAsSold: function markArtworkAsSold(artwork) {
+            var _this2 = this;
 
             this.$prompt('Where did you sell your artwork ', 'Mark as sold', {
                 confirmButtonText: 'Confirm',
@@ -32953,7 +32965,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 axios.post('/api/artwork/', artwork).then(function (response) {
                     console.log(response.data);
 
-                    _this.artworks = _this.artworks.map(function (item) {
+                    _this2.artworks = _this2.artworks.map(function (item) {
                         if (item.id === response.data.data.id) {
                             return response.data.data;
                         } else {
@@ -32977,6 +32989,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
 //
 //
 //
@@ -50767,7 +50780,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(5)();
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 /***/ }),
 /* 197 */
@@ -97197,7 +97210,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "href": "/login/google"
     }
   }, [_c('i', {
-    staticClass: "icon-googleplus"
+    staticClass: "icon-google"
   }), _vm._v(" Google\n    ")]), _vm._v(" "), _c('p', {
     staticClass: "small"
   }, [_vm._v("\n        By Signing up, you agree that you've read and accepted our "), _c('a', {
@@ -97598,7 +97611,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "gutter": 20
     }
-  }, [_c('el-col', {
+  }, [(_vm.user.seller_type === 'gallery') ? _c('el-col', {
     attrs: {
       "sm": 8
     }
@@ -97608,14 +97621,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "prop": "made_by",
       "required": ""
     }
-  }, [_c('el-select', {
-    attrs: {
-      "value": "",
-      "placeholder": "Enter the name",
-      "filterable": "",
-      "allow-create": "",
-      "default-first-option": ""
-    },
+  }, [_c('el-input', {
     model: {
       value: (_vm.artwork.made_by),
       callback: function($$v) {
@@ -97623,12 +97629,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "artwork.made_by"
     }
-  }, [_c('el-option', {
-    attrs: {
-      "value": "me",
-      "label": "I did"
-    }
-  })], 1)], 1)], 1), _vm._v(" "), _c('el-col', {
+  })], 1)], 1) : _vm._e(), _vm._v(" "), _c('el-col', {
     attrs: {
       "sm": 8
     }
@@ -98176,6 +98177,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       expression: "artwork.price"
     }
   })], 1)], 1)], 1), _vm._v(" "), _c('el-row', {
+    staticStyle: {
+      "display": "none"
+    },
     attrs: {
       "gutter": 20
     }
@@ -98185,12 +98189,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('el-form-item', {
     attrs: {
-      "label": "Quantity?",
+      "label": "How many Quantity?",
       "prop": "quantity",
       "required": ""
     }
   }, [_c('el-input-number', {
     attrs: {
+      "value": "1",
       "min": 1,
       "precision": 0
     },
@@ -98410,7 +98415,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "app--fixed-bottom"
   }, [_c('div', {
     staticClass: "app--wrapper"
-  }, [_c('el-button', {
+  }, [(_vm.artwork_ && !_vm.page_) ? _c('el-button', {
+    attrs: {
+      "type": "success"
+    }
+  }, [_c('a', {
+    attrs: {
+      "href": _vm.artwork.url,
+      "target": "_blank"
+    }
+  }, [_vm._v("Preview")])]) : _vm._e(), _vm._v(" "), _c('el-button', {
     attrs: {
       "type": "primary",
       "loading": _vm.loading
@@ -98418,16 +98432,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.saveArtwork
     }
-  }, [_vm._v("Save and Continue\n                ")]), _vm._v(" "), (_vm.artwork_ && !_vm.page_) ? _c('el-button', {
-    attrs: {
-      "type": "success"
-    }
-  }, [_c('a', {
-    attrs: {
-      "href": '/artwork/' + _vm.artwork.id,
-      "target": "_blank"
-    }
-  }, [_vm._v("Preview")])]) : _vm._e()], 1)])], 1) : _vm._e()], 1)
+  }, [_vm._v("Save and Continue")])], 1)])], 1) : _vm._e()], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -98944,6 +98949,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "margin-bottom": "20px"
     },
     attrs: {
+      "clearable": "",
       "placeholder": "Filter"
     },
     on: {
@@ -99135,17 +99141,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }), _vm._v(" "), _c('div', {
     staticClass: "el-form-item__error"
-  }, [_vm._v(_vm._s(_vm.errorMessage))])]), _vm._v(" "), _c('div', {
-    staticClass: "app--fixed-bottom"
-  }, [_c('div', {
-    staticClass: "app--wrapper"
-  }, [_c('el-button', {
+  }, [_vm._v(_vm._s(_vm.errorMessage))])]), _vm._v(" "), _c('el-button', {
     attrs: {
       "type": "primary",
       "native-type": "submit",
       "loading": _vm.loading
     }
-  }, [_vm._v("\n                    Review your order\n                ")])], 1)])], 1)], 2)
+  }, [_vm._v("\n                    Review your order\n                ")])], 1)], 2)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -99380,26 +99382,47 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('el-card', {
     staticClass: "app-dashboard-artworks-block"
-  }, [_c('el-row', {
+  }, [_c('div', {
+    staticClass: "app-dashboard-artworks-block__header",
     attrs: {
-      "gutter": 20
-    }
-  }, [_c('el-col', {
-    staticClass: "block-artwork-new",
+      "slot": "header"
+    },
+    slot: "header"
+  }, [_c('el-input', {
+    staticStyle: {
+      "max-width": "290px",
+      "margin-bottom": "10px"
+    },
     attrs: {
-      "xs": 12,
-      "sm": 8,
-      "md": 6
+      "clearable": "",
+      "placeholder": "Filter"
+    },
+    on: {
+      "input": _vm.filterArtworks
+    },
+    model: {
+      value: (_vm.filter),
+      callback: function($$v) {
+        _vm.filter = $$v
+      },
+      expression: "filter"
     }
-  }, [_c('a', {
-    staticClass: "el-button el-button--default",
+  }), _vm._v(" "), _c('a', {
+    staticClass: "el-button el-button--default el-button--success",
+    staticStyle: {
+      "margin-bottom": "10px"
+    },
     attrs: {
       "href": "/dashboard/artworks/create"
     }
-  }, [_vm._v("Upload\n                Artwork")])]), _vm._v(" "), _vm._l((_vm.artworks), function(artwork) {
+  }, [_vm._v("Upload\n                Artwork")])], 1), _vm._v(" "), _c('el-row', {
+    attrs: {
+      "gutter": 20
+    }
+  }, _vm._l((_vm.artworks), function(artwork) {
     return _c('el-col', {
       key: artwork.id,
-      staticClass: "block-artwork",
+      staticClass: "app-dashboard-artworks-block__artwork",
       staticStyle: {
         "margin-bottom": "20px"
       },
@@ -99409,7 +99432,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "md": 6
       }
     }, [_c('a', {
-      staticClass: "block-artwork-image",
+      staticClass: "app-dashboard-artworks-block__image",
       attrs: {
         "href": artwork.url
       }
@@ -99419,11 +99442,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "alt": ""
       }
     })]), _vm._v(" "), _c('div', {
-      staticClass: "block-artwork-manage"
+      staticClass: "app-dashboard-artworks-block__manage"
     }, [_c('div', {
-      staticClass: "block-artwork-name"
-    }, [_vm._v(_vm._s(artwork.name))])])])
-  })], 2)], 1)
+      staticClass: "app-dashboard-artworks-block__name"
+    }, [_vm._v(_vm._s(artwork.name))]), _vm._v(" "), _c('a', {
+      staticClass: "el-button el-button--default el-button--mini",
+      staticStyle: {
+        "margin-right": "10px"
+      },
+      attrs: {
+        "href": '/dashboard/artworks/' + artwork.id + '/edit'
+      }
+    }, [_vm._v("Edit")])])])
+  }))], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -99613,7 +99644,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('el-card', {
       attrs: {
-        "shadow": "hover"
+        "shadow": "hover",
+        "body-style": {
+          padding: 0
+        }
       }
     }, [_c('div', {
       staticClass: "app-artworks-block__artwork"
@@ -99622,7 +99656,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('a', {
       staticClass: "app-artworks-block__artwork-image",
       attrs: {
-        "href": '/artwork/' + artwork.id
+        "href": '/artworks/' + artwork.id
       }
     }, [_c('img', {
       attrs: {
@@ -100125,7 +100159,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "href": "/login/google"
     }
   }, [_c('i', {
-    staticClass: "icon-googleplus"
+    staticClass: "icon-google"
   }), _vm._v(" Google\n    ")]), _vm._v(" "), _c('p', {
     staticClass: "small"
   }, [_vm._v("\n        By Registering, you agree that you've read and accepted our "), _c('a', {
@@ -100968,7 +101002,20 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "app-profile-form"
-  }, [_c('errors'), _vm._v(" "), (_vm.request_seller_type_ || _vm.user.seller_type === 'artist' || _vm.user.seller_type === 'gallery') ? [_c('el-form', {
+  }, [_c('errors'), _vm._v(" "), (_vm.request_seller_type_ || _vm.user.seller_type === 'artist' || _vm.user.seller_type === 'gallery') ? [(_vm.user.seller_status === 'active') ? _c('div', {
+    attrs: {
+      "slot": "header"
+    },
+    slot: "header"
+  }, [_c('div', {
+    staticClass: "app-profile-form-header"
+  }, [(_vm.request_seller_type_) ? _c('span', [_vm._v("Profile information")]) : _c('span', [_vm._v("Your Profile")]), _vm._v(" "), _c('a', {
+    staticClass: "el-button el-button--default el-button--mini",
+    attrs: {
+      "href": '/' + _vm.user.profile_name,
+      "target": "_blank"
+    }
+  }, [_vm._v("View profile")])])]) : _vm._e(), _vm._v(" "), _c('el-form', {
     ref: "profile",
     attrs: {
       "label-position": "top",
@@ -101514,7 +101561,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "value": title.value
       }
     })
-  }))], 1)], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.seller_type === 'artist' || _vm.request_seller_type_ === 'artist') ? _c('el-row', {
+  }))], 1)], 1)], 1) : _vm._e(), _vm._v(" "), _c('el-row', {
     attrs: {
       "gutter": 20
     }
@@ -101526,7 +101573,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("About")]), _vm._v(" "), _c('el-input', {
     attrs: {
       "type": "textarea",
-      "placeholder": "Let people know something about you"
+      "placeholder": "Let us and people know something about you"
     },
     model: {
       value: (_vm.user.about),
@@ -101535,7 +101582,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "user.about"
     }
-  })], 1)], 1)], 1) : _vm._e(), _vm._v(" "), (_vm.user.seller_type === 'artist' || _vm.request_seller_type_ === 'artist') ? _c('el-row', {
+  })], 1)], 1)], 1), _vm._v(" "), (_vm.user.seller_type === 'artist' || _vm.request_seller_type_ === 'artist') ? _c('el-row', {
     attrs: {
       "gutter": 20
     }
@@ -101585,7 +101632,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "margin-top": "20px",
       "text-align": "right"
     }
-  }, [_c('el-button', {
+  }, [(_vm.user.seller_status === 'active') ? _c('el-button', [_c('a', {
+    attrs: {
+      "href": '/' + _vm.user.profile_name,
+      "target": "_blank"
+    }
+  }, [_vm._v("Preview")])]) : _vm._e(), _vm._v(" "), _c('el-button', {
     attrs: {
       "type": "primary",
       "loading": _vm.loading
@@ -103762,7 +103814,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('a', {
       staticClass: "app-dashboard-users__name",
       attrs: {
-        "href": '/user/' + user.id,
+        "href": user.url,
         "target": "_blank"
       }
     }, [_vm._v("\n                " + _vm._s(user.name) + "\n            ")]), _vm._v(" "), _c('div', {

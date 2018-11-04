@@ -35,7 +35,7 @@
 
         <a href="/login/google" class="el-button el-button--default is-plain"
            style="display: block;margin: 15px 0;">
-            <i class="icon-googleplus"></i> Google
+            <i class="icon-google"></i> Google
         </a>
 
         <!--<a href="/login/twitter" class="el-button el-button&#45;&#45;default is-plain" style="display: block;margin: 0;">-->
