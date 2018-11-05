@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Option;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Setting;
 
 class SettingController extends Controller {
 

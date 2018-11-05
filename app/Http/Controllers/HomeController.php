@@ -9,7 +9,6 @@ use App\Country;
 use App\Order;
 use App\User;
 use Illuminate\Http\Request;
-use App\Setting;
 use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller {
