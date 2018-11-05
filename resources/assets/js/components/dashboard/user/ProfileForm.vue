@@ -11,7 +11,7 @@
                 <div class="app-profile-form-header">
                     <span v-if="request_seller_type_">Profile information</span>
                     <span v-else>Your Profile</span>
-                    <a :href="'/' + user.profile_name" target="_blank"
+                    <a :href="user.url" target="_blank"
                        class="el-button el-button--default el-button--mini">View profile</a>
                 </div>
             </div>

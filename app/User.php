@@ -128,6 +128,7 @@ class User extends Authenticatable {
 	}
 
 	public function scopeProfileName( $query, $profileName) {
+		dump($this->profile_name);
 		return $query->where( 'profile_name', $profileName );
 	}
 
@@ -174,7 +175,7 @@ class User extends Authenticatable {
 
 	public function getUrlAttribute() {
 		if($this->seller_type) {
-			return action( 'UserController@seller', $this->profile_name );
+			return action( 'UserController@seller', [$this->id, $this->profile_name] );
 		} else {
 			return action( 'UserController@person', $this->id );
 		}

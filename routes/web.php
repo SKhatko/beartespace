@@ -190,7 +190,7 @@ Route::group( [ 'middleware' => 'web' ], function () {
 	Route::get('/test/auth/view', 'TestController@testAuthView');
 
 	// Global user profile search
-	Route::get( '{user}', 'UserController@seller' )->name( 'seller' );
+	Route::get( '{id}/{profilename?}', 'UserController@seller' )->name( 'seller' );
 	Route::get( '{user}/artworks', 'ArtworkController@userArtworks' )->name( 'user.artworks' );
 	Route::get( '{user}/artworks/{id}/{slug?}', 'ArtworkController@userArtwork' )->name( 'user.artworks' );
 

@@ -102658,7 +102658,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [(_vm.request_seller_type_) ? _c('span', [_vm._v("Profile information")]) : _c('span', [_vm._v("Your Profile")]), _vm._v(" "), _c('a', {
     staticClass: "el-button el-button--default el-button--mini",
     attrs: {
-      "href": '/' + _vm.user.profile_name,
+      "href": _vm.user.url,
       "target": "_blank"
     }
   }, [_vm._v("View profile")])])]) : _vm._e(), _vm._v(" "), _c('el-form', {

@@ -30,13 +30,14 @@ class UserController extends Controller {
 		return view( 'dashboard.user.index', compact( 'title', 'users' ) );
 	}
 
-	public function seller( $profilename ) {
+	public function seller( $id, $profilename = null ) {
 
 //		return $profilename;
 //		return User::find(5)->profile_name;
 //		return User::seller()->profileName( 'artist-family' )->get();
+//		return User::findOrFail($id);
 
-		$seller = User::where( 'profile_name', $profilename )->with( 'image', 'avatar', 'artworks.images' )->firstOrFail();
+		$seller = User::findOrFail( $id )->with( 'image', 'avatar', 'artworks.images' )->firstOrFail();
 
 		return view( 'seller.show', compact( 'seller' ) );
 	}
