@@ -20,7 +20,7 @@ $factory->define( App\Artwork::class, function ( Faker $faker ) {
 		'theme'              => $faker->words( random_int( 0, 20 ) ),
 		'color'              => $faker->words( random_int( 0, 20 ) ),
 		'status'             => $faker->randomElement( [ 0, 1, 2, 3 ] ),
-		'available'          => $faker->boolean,
+//		'available'          => $faker->boolean,
 //		'quantity'           => $faker->randomNumber(),
 		'quantity'           => $faker->randomElement( [ 0, 1, 2, 3 ] ),
 		'auction_status'     => $faker->boolean,
