@@ -2,5 +2,7 @@
 
 ## About Beartespace
 
-Build on Laravel and Vuejs, ElementUI. E-commerce app.
+Multivendor eCommerce solution for artists and galleries.
+
+Built on Laravel and Vuejs, ElementUI. E-commerce app.
 
