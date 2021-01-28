@@ -32,12 +32,13 @@ return [
 	'channels' => [
 		'stack' => [
 			'driver' => 'stack',
-			'channels' => ['single', 'slack'],
+//			'channels' => ['single', 'slack'],
+			'channels' => ['single'],
 		],
 
 		'slack' => [
 			'driver' => 'slack',
-			'url' => env('LOG_SLACK_WEB_HOOK_URL'),
+			'url' => env('LOG_SLACK_WEB_HOOK_URL', ''),
 			'username' => env('LOG_SLACK_USER','Server Portal'),
 			'emoji' => ':boom:',
 			'level' => env('APP_LOG_LEVEL', 'critical')
