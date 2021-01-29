@@ -2,12 +2,38 @@
 
 ## About Beartespace
 
-Multivendor eCommerce solution for artists and galleries.
+Beartespace is unfinished multivendor eCommerce solution for artists and galleries.
 
-Built on Laravel and Vuejs, ElementUI. E-commerce app.
+Built on Laravel and Vue.js, ElementUI.
 
-laravel/cashier-braintree
-laravel/socialite
-laravel/horizon
-laravel/tinker
-"laravel/passport": "^9.3.2",
+Implemented:
+* the product catalog with filters 
+* vendors catalog
+* blog and articles
+* registration and artist apply form
+* vendor dashboard
+* admin dashboard
+
+## Installation
+
+`git clone {repo}`
+
+`composer install`
+
+`npm install`
+
+`npm run prod` - to build project
+
+
+
+
+
+##### TODO things
+
+Update Laravel version with a bunch of other dependencies.
+
+laravel/cashier-braintree,
+laravel/socialite,
+laravel/horizon,
+laravel/tinker,
+laravel/passport
